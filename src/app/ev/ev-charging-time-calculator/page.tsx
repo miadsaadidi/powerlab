@@ -1,0 +1,20 @@
+import type { Metadata } from "next";
+import Link from "next/link";
+import { EvChargingTimeCalculator } from "@/components/calculator/ev-charging-time-calculator";
+import { siteConfig } from "@/lib/site-config";
+import { isCalculatorPublished } from "@/lib/calculator-registry";
+
+const isPublished = isCalculatorPublished("ev-charging-time");
+
+export const metadata: Metadata = {
+  title: "EV Charging Time Calculator — AC & DC Charge Time",
+  description: "Estimate EV charging time from battery capacity, start and target charge, charger power and vehicle limits with clear AC and DC assumptions.",
+  alternates: { canonical: "/ev/ev-charging-time-calculator" },
+  robots: { index: isPublished, follow: true },
+  openGraph: { title: "EV Charging Time Calculator — AC & DC Charge Time", description: "Estimate EV charging time from battery capacity, SOC, charger power and vehicle limits." },
+};
+
+export default function EvChargingTimeCalculatorPage() {
+  const structuredData = { "@context": "https://schema.org", "@type": "BreadcrumbList", itemListElement: [{ "@type": "ListItem", position: 1, name: "Home", item: new URL("/", siteConfig.url).toString() }, { "@type": "ListItem", position: 2, name: "EV", item: new URL("/ev", siteConfig.url).toString() }, { "@type": "ListItem", position: 3, name: "EV Charging Time Calculator", item: new URL("/ev/ev-charging-time-calculator", siteConfig.url).toString() }] };
+  return <article className="page calculator-page"><script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }} /><nav className="breadcrumb" aria-label="Breadcrumb"><Link href="/">Home</Link><span aria-hidden="true">/</span><Link href="/ev">EV</Link><span aria-hidden="true">/</span><span>EV Charging Time Calculator</span></nav><p className="eyebrow">EV planning</p><h1>EV Charging Time Calculator</h1><p className="intro">Estimate how long an electric vehicle may take to charge from one state of charge to another. Compare common AC and DC charger speeds while keeping efficiency, vehicle limits and DC taper assumptions visible.</p><EvChargingTimeCalculator /><section><h2>How long does an EV take to charge?</h2><p>Charging time depends on the energy added, charger power, vehicle acceptance limit and charging losses. Enter the battery capacity and SOC range to get a planning estimate without selecting a vehicle model.</p></section><section><h2>EV charging time formula</h2><p>Battery energy added is battery capacity multiplied by the target SOC minus the starting SOC. AC charging uses charger input power multiplied by AC efficiency. DC charging uses the advertised battery-side power for time and applies DC efficiency separately to source energy.</p></section><section><h2>AC vs DC charging time</h2><p>Level 1 and Level 2 AC estimates use a constant-power model. DC fast charging can use a generic taper curve that reduces power at higher SOC. That curve is a planning heuristic, not a vehicle-specific charging profile.</p></section><section><h2>Why vehicle maximum charging power matters</h2><p>A vehicle may accept less power than the charger advertises. When a vehicle limit is entered, the calculator caps the effective rate. If it is unknown, the estimate assumes the vehicle can accept the selected charger power and does not claim a confirmed limiting factor.</p></section><section><h2>Why DC charging slows at high SOC</h2><p>The generic DC taper option represents slower charging across higher SOC ranges. Temperature, battery conditioning and battery-management behavior can change the actual curve.</p></section><section><h2>Charging from 20% to 80%</h2><p>For a 60 kWh battery, charging from 20% to 80% adds 36 kWh. At 7.2 kW AC and 90% efficiency, the estimate is about 5 hours 33 minutes and 40 kWh of source energy.</p></section><section><h2>Limitations and methodology</h2><p>This is a deterministic planning estimate, not a vehicle-specific charging promise. Review the <Link href="/methodology">methodology</Link> and <Link href="/sources">sources</Link> for assumptions and reference guidance.</p></section></article>;
+}

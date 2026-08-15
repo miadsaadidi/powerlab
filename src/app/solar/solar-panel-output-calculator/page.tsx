@@ -1,0 +1,24 @@
+import type { Metadata } from "next";
+import Link from "next/link";
+import { SolarPanelOutputCalculator } from "@/components/calculator/solar-panel-output-calculator";
+import { isCalculatorPublished } from "@/lib/calculator-registry";
+import { siteConfig } from "@/lib/site-config";
+
+const isPublished = isCalculatorPublished("solar-panel-output");
+
+export const metadata: Metadata = {
+  title: "Solar Panel Output Calculator — Estimate kWh Production",
+  description: "Estimate monthly and annual solar panel output from system size, location, tilt, azimuth and losses using a location-aware PVWatts model.",
+  alternates: { canonical: "/solar/solar-panel-output-calculator" },
+  robots: { index: isPublished, follow: true },
+  openGraph: { title: "Solar Panel Output Calculator — Estimate kWh Production", description: "Estimate monthly and annual solar panel output using system size, location and editable PVWatts assumptions." },
+};
+
+export default function SolarPanelOutputCalculatorPage() {
+  const structuredData = { "@context": "https://schema.org", "@type": "BreadcrumbList", itemListElement: [
+    { "@type": "ListItem", position: 1, name: "Home", item: new URL("/", siteConfig.url).toString() },
+    { "@type": "ListItem", position: 2, name: "Solar", item: new URL("/solar", siteConfig.url).toString() },
+    { "@type": "ListItem", position: 3, name: "Solar Panel Output Calculator", item: new URL("/solar/solar-panel-output-calculator", siteConfig.url).toString() },
+  ] };
+  return <article className="page calculator-page"><script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }} /><nav className="breadcrumb" aria-label="Breadcrumb"><Link href="/">Home</Link><span aria-hidden="true">/</span><Link href="/solar">Solar</Link><span aria-hidden="true">/</span><span>Solar Panel Output Calculator</span></nav><p className="eyebrow">Solar planning</p><h1>Solar Panel Output Calculator</h1><p className="intro">Estimate monthly and annual solar panel output for your location using system size, panel details, orientation and a location-aware PVWatts model. Add your coordinates before calculating; no generic production value is substituted.</p><SolarPanelOutputCalculator /><section><h2>How much electricity do solar panels produce?</h2><p>Solar production depends on system size, location, tilt, azimuth, weather and system losses. This calculator sends your validated assumptions to PVWatts V8 and reports the provider&apos;s modeled AC output by month and year.</p></section><section><h2>How to use this solar production calculator</h2><p>Enter latitude and longitude manually or use your location, choose a system size or calculate one from panels and watts, review the orientation and then select Calculate Solar Output. Advanced PVWatts assumptions remain editable when you know more about the system.</p></section><section><h2>Solar production by month</h2><p>Monthly output is taken directly from the PVWatts response rather than spreading annual production evenly across the year. The result identifies the highest and lowest modeled months so seasonal variation is visible.</p></section><section><h2>kW versus kWh</h2><p>System size is measured in kilowatts (kW), while solar energy produced is measured in kilowatt-hours (kWh). A 10-panel system with 400 W panels has a calculated capacity of 4.00 kW before modeling.</p></section><section><h2>How tilt, azimuth and losses affect output</h2><p>Tilt is the panel angle and azimuth is its compass direction. Losses include system effects represented in the PVWatts inputs. These assumptions are editable and should be replaced with known project values when available.</p></section><section><h2>How the PVWatts estimate works</h2><p>PVWatts V8 models location-based solar production from system capacity, coordinates, array and module assumptions, tilt, azimuth and losses. Its annual and monthly AC outputs remain the authoritative modeled values; actual production can differ because of weather, shading, equipment and site conditions.</p></section><section><h2>Worked calculation example</h2><p>If PVWatts returns 7,500 kWh/year for a modeled 5 kW system, the average annual-production day is 7,500 ÷ 365 ≈ 20.55 kWh/day and the specific yield is 7,500 ÷ 5 = 1,500 kWh/kW-year. This is an illustrative provider-output fixture, not a prediction for every 5 kW system.</p></section><section><h2>Limitations and methodology</h2><p>The result is a modeled historical-weather estimate, not a production guarantee or financial forecast. Read the <Link href="/methodology">methodology</Link> and <Link href="/sources">sources</Link> for model context and assumptions.</p></section><section><h2>Related solar calculator</h2><p>Use the <Link href="/solar/solar-panel-tilt-calculator">Solar Panel Tilt Calculator</Link> to explore a latitude-based starting angle and compare roof orientation.</p></section></article>;
+}

@@ -1,0 +1,272 @@
+"use client";
+
+import { useEffect, useMemo, useState } from "react";
+import { APPLIANCES, type AppliancePreset } from "@/data/appliances";
+import { BATTERY_CHEMISTRIES, BATTERY_RUNTIME_DEFAULTS, BATTERY_VOLTAGE_PRESETS } from "@/data/battery-defaults";
+import { track } from "@/lib/analytics/analytics";
+import { calculateBatteryRuntime, type BatteryRuntimeInput, type LoadType, type RuntimeApplianceInput } from "@/lib/calculators/battery-runtime/engine";
+import { createEnergyProfileStore } from "@/lib/energy-profile/store";
+
+type CapacityUnit = "wh" | "kwh" | "ah";
+type LoadMode = "total" | "appliances";
+type LoadUnit = "w" | "kw";
+
+type ApplianceRow = RuntimeApplianceInput & { id: string; typicalRange: string };
+
+const COMMON_APPLIANCE_IDS = ["wifi-router", "laptop", "led-tv", "led-bulb", "refrigerator", "ceiling-fan", "desktop", "phone-charger", "game-console", "microwave", "coffee-maker", "air-fryer", "electric-kettle", "space-heater", "window-ac", "custom"];
+
+const asNumber = (value: string) => Number(value);
+const asPercent = (value: string) => Number(value) / 100;
+const percent = (value: number) => Math.round(value * 100);
+const watts = (value: number) => Math.round(value).toLocaleString();
+
+function formatRuntime(hours: number) {
+  const totalMinutes = Math.max(0, Math.round(hours * 60));
+  const days = Math.floor(totalMinutes / 1_440);
+  const remainingHours = Math.floor((totalMinutes % 1_440) / 60);
+  const minutes = totalMinutes % 60;
+  if (days > 0) return `${days} day${days === 1 ? "" : "s"} ${remainingHours} h`;
+  if (remainingHours === 0) return `${minutes} min`;
+  if (minutes === 0) return `${remainingHours} h`;
+  return `${remainingHours} h ${minutes} min`;
+}
+
+function roundComparisonLoad(currentLoad: number, multiplier: number) {
+  const raw = currentLoad * multiplier;
+  return currentLoad <= 100 ? Math.round(raw) : Math.round(raw / 10) * 10;
+}
+
+export function BatteryRuntimeCalculator() {
+  const [capacityUnit, setCapacityUnit] = useState<CapacityUnit>("wh");
+  const [capacityValue, setCapacityValue] = useState<number>(BATTERY_RUNTIME_DEFAULTS.capacityWh);
+  const [voltage, setVoltage] = useState<number>(BATTERY_RUNTIME_DEFAULTS.batteryVoltage);
+  const [voltagePreset, setVoltagePreset] = useState<string>("12");
+  const [chemistry, setChemistry] = useState("lifepo4");
+  const [loadMode, setLoadMode] = useState<LoadMode>("total");
+  const [loadValue, setLoadValue] = useState<number>(BATTERY_RUNTIME_DEFAULTS.loadWatts);
+  const [loadUnit, setLoadUnit] = useState<LoadUnit>("w");
+  const [loadType, setLoadType] = useState<LoadType>("ac");
+  const [appliances, setAppliances] = useState<ApplianceRow[]>([]);
+  const [applianceSearch, setApplianceSearch] = useState("");
+  const [startingSoc, setStartingSoc] = useState<number>(BATTERY_RUNTIME_DEFAULTS.startingSoc);
+  const [reserveSoc, setReserveSoc] = useState<number>(BATTERY_RUNTIME_DEFAULTS.reserveSoc);
+  const [batteryHealth, setBatteryHealth] = useState<number>(BATTERY_RUNTIME_DEFAULTS.batteryHealth);
+  const [acInverterEfficiency, setAcInverterEfficiency] = useState<number>(BATTERY_RUNTIME_DEFAULTS.acInverterEfficiency);
+  const [dcConversionEfficiency, setDcConversionEfficiency] = useState<number>(BATTERY_RUNTIME_DEFAULTS.dcConversionEfficiency);
+  const [dutyCycle, setDutyCycle] = useState<number>(BATTERY_RUNTIME_DEFAULTS.dutyCycle);
+  const [peukertEnabled, setPeukertEnabled] = useState<boolean>(BATTERY_RUNTIME_DEFAULTS.peukertEnabled);
+  const [advancedOpen, setAdvancedOpen] = useState(false);
+  const [submitted, setSubmitted] = useState(true);
+  const [reserveCustomized, setReserveCustomized] = useState(false);
+  const [announcement, setAnnouncement] = useState("");
+
+  const chemistryPreset = BATTERY_CHEMISTRIES.find((item) => item.id === chemistry) ?? BATTERY_CHEMISTRIES[0];
+  const normalizedLoadWatts = loadUnit === "kw" ? loadValue * 1_000 : loadValue;
+  const normalizedCapacityWh = capacityUnit === "wh" ? capacityValue : capacityUnit === "kwh" ? capacityValue * 1_000 : capacityValue * voltage;
+
+  useEffect(() => {
+    const profile = createEnergyProfileStore(window.localStorage).read();
+    const savedChemistry = BATTERY_CHEMISTRIES.find((item) => item.id === profile.battery.chemistry) ?? BATTERY_CHEMISTRIES[0];
+    if (profile.battery.capacityWh) {
+      setCapacityValue(profile.battery.capacityWh);
+      setCapacityUnit("wh");
+    }
+    if (profile.battery.chemistry) setChemistry(savedChemistry.id);
+    if (profile.battery.reserveSoc !== null) {
+      setReserveSoc(profile.battery.reserveSoc);
+      setReserveCustomized(profile.battery.reserveSoc !== savedChemistry.reserveSoc);
+    }
+    track("calculator_view", { calculator_id: "battery-runtime", category: "battery", phase: 1 });
+  }, []);
+
+  const calculationInput = useMemo<BatteryRuntimeInput>(() => ({
+    capacityWh: capacityUnit === "wh" ? capacityValue : undefined,
+    capacityKwh: capacityUnit === "kwh" ? capacityValue : undefined,
+    capacityAh: capacityUnit === "ah" ? capacityValue : undefined,
+    voltage: capacityUnit === "ah" ? voltage : undefined,
+    loadWatts: normalizedLoadWatts,
+    loadType,
+    appliances: loadMode === "appliances" ? appliances : undefined,
+    startingSoc,
+    reserveSoc,
+    batteryHealth,
+    acInverterEfficiency,
+    dcConversionEfficiency,
+    dutyCycle,
+    batteryChemistry: chemistryPreset.label,
+    peukertEnabled,
+  }), [acInverterEfficiency, appliances, batteryHealth, capacityUnit, capacityValue, chemistryPreset.label, dcConversionEfficiency, dutyCycle, loadMode, loadType, normalizedLoadWatts, peukertEnabled, reserveSoc, startingSoc, voltage]);
+
+  const result = useMemo(() => {
+    if (loadMode === "appliances" && appliances.length === 0) return new Error("Add at least one appliance, or switch back to total load.");
+    try {
+      return calculateBatteryRuntime(calculationInput);
+    } catch (calculationError) {
+      return calculationError instanceof Error ? calculationError : new Error("Unable to calculate runtime.");
+    }
+  }, [appliances.length, calculationInput, loadMode]);
+
+  const comparison = useMemo(() => {
+    if (result instanceof Error) return [];
+    const currentLoad = result.result.averageLoadWatts;
+    return [0.75, 1, 1.25].map((multiplier) => {
+      const load = roundComparisonLoad(currentLoad, multiplier);
+      return { load, isCurrent: multiplier === 1, runtimeHours: result.result.runtimeHours * (currentLoad / load) };
+    });
+  }, [result]);
+
+  const applianceTotals = useMemo(() => appliances.reduce((total, appliance) => ({
+    connectedWatts: total.connectedWatts + appliance.watts * appliance.quantity,
+    averageWatts: total.averageWatts + appliance.watts * appliance.quantity * appliance.dutyCycle,
+  }), { connectedWatts: 0, averageWatts: 0 }), [appliances]);
+
+  const updateAppliance = (id: string, update: Partial<ApplianceRow>) => {
+    setAppliances((current) => current.map((appliance) => appliance.id === id ? { ...appliance, ...update } : appliance));
+  };
+
+  const addAppliance = (preset: AppliancePreset) => {
+    setAppliances((current) => [...current, {
+      id: `${preset.id}-${Date.now()}-${current.length}`,
+      label: preset.label,
+      watts: preset.watts,
+      quantity: 1,
+      loadType: preset.loadType,
+      dutyCycle: preset.defaultDutyCycle,
+      typicalRange: preset.typicalRange,
+    }]);
+    setApplianceSearch("");
+    track("calculator_appliance_add", { calculator_id: "battery-runtime", preset: preset.id });
+  };
+
+  const selectChemistry = (id: string) => {
+    const preset = BATTERY_CHEMISTRIES.find((item) => item.id === id);
+    setChemistry(id);
+    if (preset && !reserveCustomized) setReserveSoc(preset.reserveSoc);
+  };
+
+  const calculate = () => {
+    if (result instanceof Error) {
+      setSubmitted(true);
+      return;
+    }
+    createEnergyProfileStore(window.localStorage).patchBattery({
+      capacityWh: normalizedCapacityWh,
+      reserveSoc,
+      chemistry: chemistryPreset.id,
+      nominalVoltage: capacityUnit === "ah" ? voltage : null,
+      capacityAh: capacityUnit === "ah" ? capacityValue : null,
+      batteryHealth,
+    });
+    track("calculator_calculate", { calculator_id: "battery-runtime", used_advanced: advancedOpen, mode: loadMode });
+    setAnnouncement(`Estimated runtime: ${formatRuntime(result.result.runtimeHours)}.`);
+    setSubmitted(true);
+  };
+
+  const filteredAppliances = (applianceSearch.trim()
+    ? APPLIANCES.filter((item) => item.label.toLowerCase().includes(applianceSearch.trim().toLowerCase()))
+    : COMMON_APPLIANCE_IDS.map((id) => APPLIANCES.find((item) => item.id === id)).filter((item): item is AppliancePreset => Boolean(item))).slice(0, 10);
+  const visibleResult = submitted && !(result instanceof Error) ? result : null;
+
+  return <section className="calculator" aria-labelledby="calculator-heading">
+    <div className="calculator-grid">
+      <div className="calculator-inputs">
+        <h2 id="calculator-heading">Calculate estimated runtime</h2>
+        <form onSubmit={(event) => { event.preventDefault(); calculate(); }} noValidate>
+          <fieldset className="input-group">
+            <legend>Battery</legend>
+            <div className="field-pair">
+              <label htmlFor="battery-capacity">Capacity
+                <span className="input-with-unit"><input id="battery-capacity" type="number" min="0.1" step="any" inputMode="decimal" value={capacityValue} onChange={(event) => setCapacityValue(asNumber(event.target.value))} /><select aria-label="Capacity unit" value={capacityUnit} onChange={(event) => setCapacityUnit(event.target.value as CapacityUnit)}><option value="wh">Wh</option><option value="kwh">kWh</option><option value="ah">Ah</option></select></span>
+              </label>
+              <label htmlFor="battery-chemistry">Battery type
+                <select id="battery-chemistry" value={chemistry} onChange={(event) => selectChemistry(event.target.value)}>{BATTERY_CHEMISTRIES.map((item) => <option key={item.id} value={item.id}>{item.label}</option>)}</select>
+              </label>
+            </div>
+            {capacityUnit === "ah" && <label htmlFor="battery-voltage">Battery voltage
+              <span className="input-with-unit"><select id="battery-voltage" value={voltagePreset} onChange={(event) => { setVoltagePreset(event.target.value); if (event.target.value !== "custom") setVoltage(asNumber(event.target.value)); }}><option value="6">6 V</option>{BATTERY_VOLTAGE_PRESETS.filter((item) => item !== 6).map((item) => <option key={item} value={item}>{item} V</option>)}<option value="custom">Custom</option></select>{voltagePreset === "custom" && <input aria-label="Custom battery voltage" type="number" min="1" step="0.1" inputMode="decimal" value={voltage} onChange={(event) => setVoltage(asNumber(event.target.value))} />}</span>
+            </label>}
+            <p className="form-hint">Common starting values — adjust if you know your battery specification.</p>
+          </fieldset>
+
+          <fieldset className="input-group">
+            <legend>Load</legend>
+            <span className="field-label">How do you want to enter your load?</span>
+            <div className="mode-choice" role="radiogroup" aria-label="Load entry mode">
+              <label><input type="radio" name="load-mode" checked={loadMode === "total"} onChange={() => { setLoadMode("total"); track("calculator_mode_change", { calculator_id: "battery-runtime", mode: "total" }); }} /> Total load</label>
+              <label><input type="radio" name="load-mode" checked={loadMode === "appliances"} onChange={() => { setLoadMode("appliances"); track("calculator_mode_change", { calculator_id: "battery-runtime", mode: "appliances" }); }} /> Add appliances</label>
+            </div>
+            {loadMode === "total" ? <div className="field-pair">
+              <label htmlFor="total-load">Total load
+                <span className="input-with-unit"><input id="total-load" type="number" min="0.1" step="any" inputMode="decimal" value={loadValue} onChange={(event) => setLoadValue(asNumber(event.target.value))} /><select aria-label="Load unit" value={loadUnit} onChange={(event) => setLoadUnit(event.target.value as LoadUnit)}><option value="w">W</option><option value="kw">kW</option></select></span>
+              </label>
+              <label htmlFor="total-load-type">Load type<select id="total-load-type" value={loadType} onChange={(event) => setLoadType(event.target.value as LoadType)}><option value="ac">AC appliance</option><option value="dc">DC direct</option></select></label>
+            </div> : <div className="appliance-builder">
+              <label htmlFor="appliance-search">Add an appliance</label>
+              <input id="appliance-search" type="search" placeholder="Search appliances..." value={applianceSearch} onChange={(event) => setApplianceSearch(event.target.value)} />
+              <div className="appliance-options" aria-label="Appliance choices">{filteredAppliances.map((preset) => <button key={preset.id} type="button" onClick={() => addAppliance(preset)}><span>{preset.label}</span><small>{preset.watts} W · {preset.category}</small></button>)}</div>
+              {appliances.map((appliance) => <fieldset className="appliance-row" key={appliance.id}>
+                <legend>{appliance.label}</legend>
+                <div className="appliance-fields">
+                  <label>Watts<input type="number" min="0.1" step="any" inputMode="decimal" value={appliance.watts} onChange={(event) => updateAppliance(appliance.id, { watts: asNumber(event.target.value) })} /></label>
+                  <label>Quantity<input type="number" min="1" step="1" inputMode="numeric" value={appliance.quantity} onChange={(event) => updateAppliance(appliance.id, { quantity: asNumber(event.target.value) })} /></label>
+                  <label>Type<select value={appliance.loadType} onChange={(event) => updateAppliance(appliance.id, { loadType: event.target.value as LoadType })}><option value="ac">AC</option><option value="dc">DC</option></select></label>
+                </div>
+                <p className="form-hint">Typical estimate ({appliance.typicalRange}) — use your device&apos;s rating if known.</p>
+                <details><summary>Usage pattern</summary><label>Duty cycle (%)<input type="number" min="1" max="100" step="1" inputMode="numeric" value={percent(appliance.dutyCycle)} onChange={(event) => updateAppliance(appliance.id, { dutyCycle: asPercent(event.target.value) })} /></label></details>
+                <button className="remove-button" type="button" onClick={() => setAppliances((current) => current.filter((item) => item.id !== appliance.id))}>Remove {appliance.label}</button>
+              </fieldset>)}
+              {appliances.length > 0 && <p className="appliance-summary"><strong>Total connected load:</strong> {watts(applianceTotals.connectedWatts)} W <span aria-hidden="true">·</span> <strong>Average load:</strong> {watts(applianceTotals.averageWatts)} W</p>}
+            </div>}
+          </fieldset>
+
+          <button className="text-button" type="button" aria-expanded={advancedOpen} onClick={() => { const willOpen = !advancedOpen; setAdvancedOpen(willOpen); if (willOpen) track("calculator_advanced_open", { calculator_id: "battery-runtime" }); }}>{advancedOpen ? "Hide" : "Show"} advanced assumptions</button>
+          {advancedOpen && <fieldset className="input-group advanced-settings"><legend>Advanced assumptions</legend>
+            <div className="field-pair">
+              <label>Starting charge (%)<input type="number" min="0" max="100" step="1" inputMode="numeric" value={percent(startingSoc)} onChange={(event) => setStartingSoc(asPercent(event.target.value))} /></label>
+              <label>Minimum remaining charge (%)<input type="number" min="0" max="99" step="1" inputMode="numeric" value={percent(reserveSoc)} onChange={(event) => { setReserveSoc(asPercent(event.target.value)); setReserveCustomized(true); }} /></label>
+              <label>Battery health (%)<input type="number" min="1" max="100" step="1" inputMode="numeric" value={percent(batteryHealth)} onChange={(event) => setBatteryHealth(asPercent(event.target.value))} /></label>
+              <label>AC inverter efficiency (%)<input type="number" min="1" max="100" step="1" inputMode="numeric" value={percent(acInverterEfficiency)} onChange={(event) => setAcInverterEfficiency(asPercent(event.target.value))} /></label>
+              <label>DC conversion efficiency (%)<input type="number" min="1" max="100" step="1" inputMode="numeric" value={percent(dcConversionEfficiency)} onChange={(event) => setDcConversionEfficiency(asPercent(event.target.value))} /></label>
+              <label>Load duty cycle (%)<input type="number" min="1" max="100" step="1" inputMode="numeric" value={percent(dutyCycle)} onChange={(event) => setDutyCycle(asPercent(event.target.value))} /></label>
+            </div>
+            {reserveCustomized && <p className="form-hint">Your reserve is a custom value and will not be replaced when you change battery type.</p>}
+            <label className="switch-row"><input type="checkbox" checked={peukertEnabled} onChange={(event) => setPeukertEnabled(event.target.checked)} /> Peukert correction <span>Off by default</span></label>
+            {peukertEnabled && <p className="form-hint">Suggested planning exponent: {chemistryPreset.peukertExponent}. A precise Peukert correction needs the battery&apos;s rated discharge current or time, so it is not applied to this quick estimate.</p>}
+          </fieldset>}
+          {result instanceof Error && <p className="error" role="alert">{result.message}</p>}
+          <button className="button calculator-submit" type="submit">Calculate Runtime</button>
+        </form>
+      </div>
+
+      <aside className="result-panel">
+        <p className="eyebrow">Estimated runtime</p>
+        {visibleResult ? <>
+          <p className="result-value">{formatRuntime(visibleResult.result.runtimeHours)}</p>
+          <p className="result-decimal">≈ {visibleResult.result.runtimeHours.toFixed(1)} hours</p>
+          <p className="result-lede">A planning estimate based on your battery energy and average device load.</p>
+          <dl className="result-breakdown">
+            <div><dt>Battery capacity</dt><dd>{watts(visibleResult.result.nominalEnergyWh)} Wh</dd></div>
+            <div><dt>Usable battery energy</dt><dd>{watts(visibleResult.result.usableBatteryWh)} Wh</dd></div>
+            <div><dt>Device load</dt><dd>{watts(visibleResult.result.averageLoadWatts)} W average</dd></div>
+            <div><dt>Battery-side load</dt><dd>{watts(visibleResult.result.batterySideLoadWatts)} W</dd></div>
+            {loadMode === "appliances" && <div><dt>Peak connected load</dt><dd>{watts(visibleResult.result.peakConnectedLoadWatts)} W</dd></div>}
+          </dl>
+          <div className="energy-flow" aria-label="Energy flow explanation">
+            <div><strong>{watts(visibleResult.result.nominalEnergyWh)} Wh</strong><span>Nominal battery</span></div><span aria-hidden="true">↓</span>
+            <div><strong>{watts(visibleResult.result.usableBatteryWh)} Wh</strong><span>Usable after reserve</span></div><span aria-hidden="true">↓</span>
+            <div><strong>{watts(visibleResult.result.averageLoadWatts)} W {loadMode === "total" && loadType === "ac" ? "AC" : ""}</strong><span>Device load</span></div><span aria-hidden="true">↓</span>
+            <div><strong>{watts(visibleResult.result.batterySideLoadWatts)} W</strong><span>Battery-side load</span></div><span aria-hidden="true">↓</span>
+            <div><strong>{formatRuntime(visibleResult.result.runtimeHours)}</strong><span>Estimated runtime</span></div>
+          </div>
+          <p className="form-hint energy-flow-note">Usable battery energy is before inverter or conversion losses; those are reflected in the battery-side load.</p>
+          <section className="comparison" aria-labelledby="runtime-comparison-heading"><h3 id="runtime-comparison-heading">Runtime at different loads</h3><dl>{comparison.map((item) => <div key={item.load} className={item.isCurrent ? "current-comparison" : ""}><dt>{watts(item.load)} W {item.isCurrent && <span>Your load</span>}</dt><dd>{formatRuntime(item.runtimeHours)}</dd></div>)}</dl></section>
+          <section className="assumption-summary" aria-labelledby="assumptions-heading"><h3 id="assumptions-heading">Assumptions used</h3><dl><div><dt>Battery type</dt><dd>{chemistryPreset.label}</dd></div><div><dt>Starting charge</dt><dd>{percent(startingSoc)}%</dd></div><div><dt>Reserve</dt><dd>{percent(reserveSoc)}%</dd></div><div><dt>Battery health</dt><dd>{percent(batteryHealth)}%</dd></div><div><dt>AC inverter efficiency</dt><dd>{percent(acInverterEfficiency)}%</dd></div></dl><button className="text-button" type="button" onClick={() => setAdvancedOpen(true)}>Edit assumptions</button></section>
+          {visibleResult.warnings.map((warning) => <p className={warning.severity === "caution" ? "warning" : "form-hint"} key={warning.code}>{warning.message}</p>)}
+          <p className="sensitivity-note">If your actual load is 10% higher, runtime is about 9% shorter.</p>
+          <section className="accuracy-tip"><h3>Want a more accurate result?</h3><p>Use your battery&apos;s actual Wh/Ah rating, your appliance&apos;s measured or nameplate watts, inverter efficiency if known, current charge, and battery health.</p></section>
+        </> : <p>Enter valid values to see the estimate.</p>}
+      </aside>
+    </div>
+    <p className="sr-only" role="status" aria-live="polite" aria-atomic="true">{announcement}</p>
+  </section>;
+}
