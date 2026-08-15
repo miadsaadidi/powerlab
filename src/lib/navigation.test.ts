@@ -6,7 +6,7 @@ describe("publication-aware navigation", () => {
   it("exposes every category with a published calculator", () => {
     expect(getPrimaryNavigation().map((item) => item.label)).toEqual(["Home", "Battery", "Solar", "Home Energy", "EV", "Methodology", "Sources"]);
     expect(getPublishedCategories()).toEqual(["battery", "solar", "home-energy", "ev"]);
-    expect(getPublishedCalculatorsForCategory("battery").map((calculator) => calculator.id)).toEqual(["battery-runtime", "battery-size", "ups-runtime"]);
+    expect(getPublishedCalculatorsForCategory("battery").map((calculator) => calculator.id)).toEqual(["battery-runtime", "battery-size", "ups-runtime", "battery-capacity"]);
     expect(getPublishedCalculatorsForCategory("solar").map((calculator) => calculator.id)).toEqual(["solar-panel-tilt", "solar-panel-output"]);
     expect(getPublishedCalculatorsForCategory("home-energy").map((calculator) => calculator.id)).toEqual(["electricity-usage"]);
   });

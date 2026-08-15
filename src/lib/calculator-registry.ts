@@ -104,7 +104,7 @@ export const calculatorRegistry: CalculatorRegistryItem[] = [
     category: "battery",
     route: "/battery/battery-capacity-calculator",
     phase: 2,
-    status: "building",
+    status: "published",
     primaryKeyword: "battery capacity calculator",
     seoTitle: "Battery Capacity Calculator — Convert Ah, Wh & kWh",
     metaDescription: "Convert battery capacity between amp-hours, watt-hours and kWh using voltage, and estimate usable energy from state of charge, reserve and battery health.",

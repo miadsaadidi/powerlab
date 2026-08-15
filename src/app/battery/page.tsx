@@ -7,6 +7,7 @@ import { getPublishedCalculatorsForCategory, isCategoryPublished } from "@/lib/n
 const batteryToolContent: Record<string, string> = {
   "battery-runtime": "Estimate how long your battery can power a load, with editable reserve, battery health and efficiency assumptions.",
   "battery-size": "Estimate the battery capacity needed for a load and backup time, with clear planning assumptions.",
+  "battery-capacity": "Convert Ah, mAh, Wh and kWh using voltage, then estimate usable battery energy.",
   "ups-runtime": "Estimate how long a UPS can support your equipment from usable battery energy and load watts.",
 };
 

@@ -9,6 +9,7 @@ const calculatorCardContent: Record<string, { description: string; action: strin
   "solar-panel-output": { description: "Estimate monthly and annual solar production for your location using system size and PVWatts assumptions.", action: "Calculate Solar Panel Output" },
   "electricity-usage": { description: "Estimate daily, monthly and annual electricity use from appliance power, schedules or energy-label values.", action: "Calculate Electricity Usage" },
   "battery-size": { description: "Estimate the battery capacity needed for a load and backup time, with reserve, efficiency and planning assumptions.", action: "Calculate Battery Size" },
+  "battery-capacity": { description: "Convert Ah, mAh, Wh and kWh using voltage, then estimate usable battery energy.", action: "Calculate Battery Capacity" },
   "ups-runtime": { description: "Estimate how long a UPS can support your equipment from battery energy and load watts.", action: "Calculate UPS Runtime" },
   "ev-charging-time": { description: "Estimate EV charging time from battery capacity, charge level and charger power.", action: "Calculate EV Charging Time" },
 };
