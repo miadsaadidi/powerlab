@@ -12,6 +12,16 @@ export const BATTERY_RUNTIME_DEFAULTS = {
   peukertEnabled: false,
 } as const;
 
+export const BATTERY_CAPACITY_DEFAULTS = {
+  mode: "charge-to-energy",
+  capacityAh: 100,
+  voltage: 12,
+  batteryChemistry: "lifepo4",
+  startingSoc: 1,
+  reserveSoc: 0.2,
+  batteryHealth: 1,
+} as const;
+
 export const BATTERY_SIZE_DEFAULTS = {
   loadWatts: 500,
   runtimeHours: 4,

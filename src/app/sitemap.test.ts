@@ -16,5 +16,6 @@ describe("publication-aware sitemap", () => {
     expect(paths).toContain("/ev/ev-charging-time-calculator");
     expect(paths).toContain("/solar/solar-panel-output-calculator");
     expect(paths).toContain("/battery/ups-runtime-calculator");
+    expect(paths).not.toContain("/battery/battery-capacity-calculator");
   });
 });

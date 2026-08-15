@@ -98,6 +98,18 @@ export const calculatorRegistry: CalculatorRegistryItem[] = [
     metaDescription: "Estimate UPS backup runtime from battery energy, load watts, usable energy, battery health and UPS efficiency.",
     relatedCalculatorIds: [],
   },
+  {
+    id: "battery-capacity",
+    name: "Battery Capacity Calculator",
+    category: "battery",
+    route: "/battery/battery-capacity-calculator",
+    phase: 2,
+    status: "building",
+    primaryKeyword: "battery capacity calculator",
+    seoTitle: "Battery Capacity Calculator — Convert Ah, Wh & kWh",
+    metaDescription: "Convert battery capacity between amp-hours, watt-hours and kWh using voltage, and estimate usable energy from state of charge, reserve and battery health.",
+    relatedCalculatorIds: ["battery-runtime"],
+  },
 ];
 
 export const publishedCalculators = () =>
