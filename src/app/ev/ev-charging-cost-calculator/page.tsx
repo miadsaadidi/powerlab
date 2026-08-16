@@ -1,0 +1,20 @@
+import type { Metadata } from "next";
+import Link from "next/link";
+import { EvChargingCostCalculator } from "@/components/calculator/ev-charging-cost-calculator";
+import { isCalculatorPublished } from "@/lib/calculator-registry";
+import { siteConfig } from "@/lib/site-config";
+
+const isPublished = isCalculatorPublished("ev-charging-cost");
+
+export const metadata: Metadata = {
+  title: "EV Charging Cost Calculator — Cost per Charge",
+  description: "Estimate EV charging cost from battery size, start and target charge, charging efficiency and your electricity price per kWh.",
+  alternates: { canonical: "/ev/ev-charging-cost-calculator" },
+  robots: { index: isPublished, follow: true },
+  openGraph: { title: "EV Charging Cost Calculator — Cost per Charge", description: "Estimate EV charging cost from battery size, battery-side consumption, charging efficiency and your electricity price." },
+};
+
+export default function EvChargingCostCalculatorPage() {
+  const structuredData = { "@context": "https://schema.org", "@type": "BreadcrumbList", itemListElement: [{ "@type": "ListItem", position: 1, name: "Home", item: new URL("/", siteConfig.url).toString() }, { "@type": "ListItem", position: 2, name: "EV", item: new URL("/ev", siteConfig.url).toString() }, { "@type": "ListItem", position: 3, name: "EV Charging Cost Calculator", item: new URL("/ev/ev-charging-cost-calculator", siteConfig.url).toString() }] };
+  return <article className="page calculator-page"><script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }} /><nav className="breadcrumb" aria-label="Breadcrumb"><Link href="/">Home</Link><span aria-hidden="true">/</span><Link href="/ev">EV</Link><span aria-hidden="true">/</span><span>EV Charging Cost Calculator</span></nav><p className="eyebrow">EV planning</p><h1>EV Charging Cost Calculator</h1><p className="intro">Estimate how much an EV charging session or a distance of driving may cost from battery-side energy use, charging losses and your own electricity price per kWh.</p><EvChargingCostCalculator /><section><h2>How much does it cost to charge an EV?</h2><p>Multiply the energy stored in the battery by the charging range, then divide by source-to-battery efficiency to estimate billed electricity. The calculator applies your electricity price to that source energy.</p></section><section><h2>EV charging cost formula</h2><p>For a session, battery energy added equals usable battery capacity multiplied by the target SOC minus the starting SOC. Source energy equals battery energy divided by source-to-battery efficiency, and cost equals source energy multiplied by price per kWh.</p></section><section><h2>Battery-side driving consumption</h2><p>Driving mode uses battery-side consumption such as kWh/100 km or kWh/100 mi. Charging losses are added separately through the source-to-battery efficiency assumption, so a consumption figure that already represents wall energy can be paired with 100% efficiency.</p></section><section><h2>Home versus public electricity prices</h2><p>Enter a simple price per kWh for home charging or basic public charging comparisons. Actual public charging bills may also include session fees, time charges, parking or idle fees and membership pricing; those are not modeled here.</p></section><section><h2>Charging losses</h2><p>The default 90% source-to-battery efficiency is a planning assumption, not a vehicle-specific charging-loss database or a charging curve. Replace it when better data is known.</p></section><section><h2>EV charging cost examples</h2><p>A 60 kWh usable battery charged from 20% to 80% stores 36 kWh. At 90% source-to-battery efficiency, the estimated billed energy is 40 kWh. At 0.20 per kWh, the estimated session cost is 8.00.</p></section><section><h2>Related EV calculators</h2><p>Use the <Link href="/ev/ev-charging-time-calculator">EV Charging Time Calculator</Link> to estimate how long the same session may take. This calculator does not model vehicle catalogs, public charger fee systems or fuel costs.</p></section></article>;
+}

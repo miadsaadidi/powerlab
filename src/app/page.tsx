@@ -6,12 +6,30 @@ import { publishedCalculators } from "@/lib/calculator-registry";
 const calculatorCardContent: Record<string, { description: string; action: string }> = {
   "battery-runtime": { description: "Estimate how long a battery can power a device or group of appliances.", action: "Calculate Battery Runtime" },
   "solar-panel-tilt": { description: "Find a practical starting panel angle from your latitude, with optional roof-orientation comparison.", action: "Calculate Solar Panel Tilt" },
-  "solar-panel-output": { description: "Estimate monthly and annual solar production for your location using system size and PVWatts assumptions.", action: "Calculate Solar Panel Output" },
+  "solar-panel-output": { description: "Estimate monthly and annual solar production for your location using system size and PVWatts assumptions.", action: "Calculate Solar Output" },
   "electricity-usage": { description: "Estimate daily, monthly and annual electricity use from appliance power, schedules or energy-label values.", action: "Calculate Electricity Usage" },
+  "energy-bill": { description: "Estimate an electricity bill from your usage, electricity price and optional fixed or standing charges.", action: "Calculate Energy Bill" },
   "battery-size": { description: "Estimate the battery capacity needed for a load and backup time, with reserve, efficiency and planning assumptions.", action: "Calculate Battery Size" },
   "battery-capacity": { description: "Convert Ah, mAh, Wh and kWh using voltage, then estimate usable battery energy.", action: "Calculate Battery Capacity" },
   "ups-runtime": { description: "Estimate how long a UPS can support your equipment from battery energy and load watts.", action: "Calculate UPS Runtime" },
+  "battery-charging-time": { description: "Estimate charging time from battery capacity, state of charge and charger output.", action: "Calculate Charging Time" },
   "ev-charging-time": { description: "Estimate EV charging time from battery capacity, charge level and charger power.", action: "Calculate EV Charging Time" },
+  "ev-charging-cost": { description: "Estimate EV charging cost from usable battery energy, driving consumption and your electricity price.", action: "Calculate EV Charging Cost" },
+};
+
+const categoryLabels: Record<string, string> = {
+  battery: "Battery",
+  solar: "Solar",
+  "home-energy": "Home Energy",
+  ev: "EV",
+};
+
+const categoryOrder = ["battery", "solar", "home-energy", "ev"];
+const categoryRoutes: Record<string, string> = {
+  battery: "/battery",
+  solar: "/solar",
+  "home-energy": "/home-energy",
+  ev: "/ev",
 };
 
 export const metadata: Metadata = {
@@ -26,6 +44,10 @@ export const metadata: Metadata = {
 
 export default function HomePage() {
   const availableCalculators = publishedCalculators().filter((calculator) => calculatorCardContent[calculator.id]);
+  const calculatorsByCategory = availableCalculators.reduce<Record<string, typeof availableCalculators>>((groups, calculator) => {
+    (groups[calculator.category] ??= []).push(calculator);
+    return groups;
+  }, {});
   const structuredData = {
     "@context": "https://schema.org",
     "@type": "WebSite",
@@ -42,17 +64,19 @@ export default function HomePage() {
       <p>Free practical calculators with transparent assumptions and no account required.</p>
     </section>
     <section className="section available-tool" aria-label="Available calculators">
-      <p className="eyebrow">Available calculators</p>
-      <div className="available-tool-cards">
-        {availableCalculators.map((calculator) => {
-          const content = calculatorCardContent[calculator.id];
-          return <article className="card" key={calculator.id}>
-            <h3>{calculator.name}</h3>
-            <p>{content.description}</p>
-            <Link className="button" href={calculator.route}>{content.action}</Link>
-          </article>;
-        })}
-      </div>
+      {categoryOrder.filter((category) => calculatorsByCategory[category]).map((category) => <section className="available-tool-category" aria-labelledby={`home-${category}-heading`} key={category}>
+        <h2 className="eyebrow" id={`home-${category}-heading`}><Link href={categoryRoutes[category]}>{categoryLabels[category] ?? category}</Link></h2>
+        <div className="available-tool-cards home-tool-cards">
+          {calculatorsByCategory[category].map((calculator) => {
+            const content = calculatorCardContent[calculator.id];
+            return <article className="card" key={calculator.id}>
+              <h3>{calculator.name}</h3>
+              <p>{content.description}</p>
+              <Link className="button" href={calculator.route}>{content.action}</Link>
+            </article>;
+          })}
+        </div>
+      </section>)}
     </section>
     <section className="section trust" aria-labelledby="why-use-heading">
       <h2 id="why-use-heading">Useful estimates you can inspect</h2>

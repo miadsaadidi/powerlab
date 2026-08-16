@@ -38,4 +38,11 @@ describe("Energy Profile store", () => {
     expect(store.read().electricityPricePerKwh).toBe(0.2);
     expect(store.read().usageRows[0].presetId).toBe("led-tv");
   });
+
+  it("persists an optional electricity display currency", () => {
+    const store = createEnergyProfileStore(new MemoryStorage());
+    store.patchElectricityCurrency("EUR");
+
+    expect(store.read().electricityCurrency).toBe("EUR");
+  });
 });

@@ -4,11 +4,12 @@ import type { CalculatorRegistryItem } from "./calculator-registry";
 
 describe("publication-aware navigation", () => {
   it("exposes every category with a published calculator", () => {
-    expect(getPrimaryNavigation().map((item) => item.label)).toEqual(["Home", "Battery", "Solar", "Home Energy", "EV", "Methodology", "Sources"]);
+    expect(getPrimaryNavigation().map((item) => item.label)).toEqual(["Home", "Battery", "Solar", "Home Energy", "EV"]);
     expect(getPublishedCategories()).toEqual(["battery", "solar", "home-energy", "ev"]);
-    expect(getPublishedCalculatorsForCategory("battery").map((calculator) => calculator.id)).toEqual(["battery-runtime", "battery-size", "ups-runtime", "battery-capacity"]);
+    expect(getPublishedCalculatorsForCategory("battery").map((calculator) => calculator.id)).toEqual(["battery-runtime", "battery-size", "ups-runtime", "battery-capacity", "battery-charging-time"]);
     expect(getPublishedCalculatorsForCategory("solar").map((calculator) => calculator.id)).toEqual(["solar-panel-tilt", "solar-panel-output"]);
-    expect(getPublishedCalculatorsForCategory("home-energy").map((calculator) => calculator.id)).toEqual(["electricity-usage"]);
+    expect(getPublishedCalculatorsForCategory("home-energy").map((calculator) => calculator.id)).toEqual(["electricity-usage", "energy-bill"]);
+    expect(getPublishedCalculatorsForCategory("ev").map((calculator) => calculator.id)).toEqual(["ev-charging-time", "ev-charging-cost"]);
   });
 
   it("activates EV surfaces when its registry status becomes published", () => {

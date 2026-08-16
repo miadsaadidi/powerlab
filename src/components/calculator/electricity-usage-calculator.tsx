@@ -31,7 +31,9 @@ export function ElectricityUsageCalculator() {
   const [advanced, setAdvanced] = useState(false);
   useEffect(() => {
     const savedPrice = createEnergyProfileStore(window.localStorage).read().electricityPricePerKwh;
-    if (savedPrice !== null) setPrice(savedPrice);
+    const handoffPrice = Number(new URLSearchParams(window.location.search).get("price"));
+    if (Number.isFinite(handoffPrice) && handoffPrice >= 0) setPrice(handoffPrice);
+    else if (savedPrice !== null) setPrice(savedPrice);
   }, []);
   const row = rows[0];
   const visibleAppliances = useMemo(() => APPLIANCES.filter((item) => item.label.toLowerCase().includes(search.toLowerCase())).slice(0, 8), [search]);

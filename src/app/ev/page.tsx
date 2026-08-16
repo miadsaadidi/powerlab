@@ -22,6 +22,6 @@ export default function EvHub() {
     <nav className="breadcrumb" aria-label="Breadcrumb"><Link href="/">Home</Link><span aria-hidden="true">/</span><span>EV</span></nav>
     <p className="eyebrow">EV planning</p><h1>EV Calculators</h1>
     <p className="intro">Estimate practical EV charging requirements with clear, editable assumptions.</p>
-    <section aria-labelledby="ev-tools-heading"><h2 id="ev-tools-heading">Available tools</h2><div className="available-tool-cards">{tools.map((tool) => <article className="card" key={tool.id}><h3>{tool.name}</h3><p>Estimate charging time from battery capacity, charge levels and charger power.</p><Link className="button" href={tool.route}>Open {tool.name}</Link></article>)}</div></section>
+    <section aria-labelledby="ev-tools-heading"><h2 id="ev-tools-heading">Available tools</h2><div className="available-tool-cards">{tools.map((tool) => <article className="card" key={tool.id}><h3>{tool.name}</h3><p>{tool.id === "ev-charging-cost" ? "Estimate charging cost from battery energy, driving consumption and your electricity price." : "Estimate charging time from battery capacity, charge levels and charger power."}</p><Link className="button" href={tool.route}>Open {tool.name}</Link></article>)}</div></section>
   </section>;
 }

@@ -13,6 +13,7 @@ export const metadata: Metadata = {
 
 const toolDescriptions: Record<string, string> = {
   "electricity-usage": "Estimate daily, monthly and annual electricity use from appliance power, schedules, cycles or energy-label values.",
+  "energy-bill": "Estimate an electricity bill from your usage, electricity price and optional fixed or standing charges.",
 };
 
 export default function HomeEnergyHub() {

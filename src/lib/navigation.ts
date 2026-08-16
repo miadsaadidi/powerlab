@@ -28,8 +28,6 @@ export function getPrimaryNavigation(): NavigationItem[] {
   return [
     { label: "Home", href: "/" },
     ...getPublishedCategories().map((category) => categoryNavigation[category]),
-    { label: "Methodology", href: "/methodology" },
-    { label: "Sources", href: "/sources" },
   ];
 }
 
@@ -38,5 +36,5 @@ export function isCategoryPublished(category: PublishedCategory) {
 }
 
 export function getFooterNavigation(): NavigationItem[] {
-  return [...getPrimaryNavigation(), { label: "Privacy", href: "/privacy" }];
+  return [...getPrimaryNavigation(), { label: "Methodology", href: "/methodology" }, { label: "Sources", href: "/sources" }, { label: "Privacy", href: "/privacy" }];
 }

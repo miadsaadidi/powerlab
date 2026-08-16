@@ -10,6 +10,7 @@ export interface EnergyProfileV1 {
     batteryHealth: number;
     reserveSoc: number | null;
   };
+  batteryCharging: BatteryChargingProfile | null;
   runtimeHandoff: {
     loadWatts: number | null;
     loadType: "ac" | "dc" | "mixed" | null;
@@ -40,6 +41,7 @@ export interface EnergyProfileV1 {
     origin: "preset" | "user-edited" | "label-value";
   }>;
   electricityPricePerKwh: number | null;
+  electricityCurrency: string | null;
   evCharging: {
     batteryCapacityKWh: number | null;
     startSoc: number | null;
@@ -54,6 +56,23 @@ export interface EnergyProfileV1 {
   };
 }
 
+export interface BatteryChargingProfile {
+  mode: "ah-amps" | "energy-power";
+  capacityAh: number | null;
+  capacityWh: number | null;
+  voltage: number | null;
+  startSoc: number | null;
+  targetSoc: number | null;
+  chargerCurrentA: number | null;
+  chargerOutputPowerW: number | null;
+  batteryMaxChargeCurrentA: number | null;
+  batteryMaxChargePowerW: number | null;
+  chemistry: string | null;
+  batteryChargeEfficiency: number | null;
+  planningOverheadEnabled: boolean | null;
+  planningOverheadFactor: number | null;
+}
+
 type StorageLike = Pick<Storage, "getItem" | "setItem" | "removeItem">;
 
 const defaultProfile = (): EnergyProfileV1 => ({
@@ -66,10 +85,12 @@ const defaultProfile = (): EnergyProfileV1 => ({
     batteryHealth: 1,
     reserveSoc: null,
   },
+  batteryCharging: null,
   runtimeHandoff: { loadWatts: null, loadType: null, appliances: [] },
   solar: { latitude: null, longitude: null, systemCapacityKw: null, panelPowerW: null, tiltDeg: null, azimuthDeg: null },
   usageRows: [],
   electricityPricePerKwh: null,
+  electricityCurrency: null,
   evCharging: { batteryCapacityKWh: null, startSoc: null, targetSoc: null, chargerPowerKw: null, chargingType: null, vehicleMaxAcPowerKw: null, vehicleMaxDcPowerKw: null, acEfficiency: null, dcEfficiency: null, dcTaperMode: null },
 });
 
@@ -83,10 +104,12 @@ export function createEnergyProfileStore(storage: StorageLike) {
           ...defaultProfile(),
           ...profile,
           battery: { ...defaultProfile().battery, ...profile.battery },
+          batteryCharging: profile.batteryCharging ? { ...defaultBatteryChargingProfile(), ...profile.batteryCharging } : null,
           runtimeHandoff: { ...defaultProfile().runtimeHandoff, ...profile.runtimeHandoff },
           solar: { ...defaultProfile().solar, ...profile.solar },
           usageRows: Array.isArray(profile.usageRows) ? profile.usageRows : [],
           electricityPricePerKwh: typeof profile.electricityPricePerKwh === "number" ? profile.electricityPricePerKwh : null,
+          electricityCurrency: typeof profile.electricityCurrency === "string" ? profile.electricityCurrency : null,
           evCharging: { ...defaultProfile().evCharging, ...profile.evCharging },
         };
       }
@@ -101,6 +124,10 @@ export function createEnergyProfileStore(storage: StorageLike) {
     patchBattery(update: Partial<EnergyProfileV1["battery"]>) {
       const profile = read();
       write({ ...profile, battery: { ...profile.battery, ...update } });
+    },
+    patchBatteryCharging(update: Partial<BatteryChargingProfile>) {
+      const profile = read();
+      write({ ...profile, batteryCharging: { ...defaultBatteryChargingProfile(), ...(profile.batteryCharging ?? {}), ...update } });
     },
     patchRuntimeHandoff(update: Partial<EnergyProfileV1["runtimeHandoff"]>) {
       const profile = read();
@@ -118,10 +145,33 @@ export function createEnergyProfileStore(storage: StorageLike) {
       const profile = read();
       write({ ...profile, electricityPricePerKwh: value });
     },
+    patchElectricityCurrency(value: string | null) {
+      const profile = read();
+      write({ ...profile, electricityCurrency: value });
+    },
     patchEvCharging(update: Partial<EnergyProfileV1["evCharging"]>) {
       const profile = read();
       write({ ...profile, evCharging: { ...profile.evCharging, ...update } });
     },
     reset() { try { storage.removeItem(ENERGY_PROFILE_STORAGE_KEY); } catch { /* non-fatal */ } },
+  };
+}
+
+function defaultBatteryChargingProfile(): BatteryChargingProfile {
+  return {
+    mode: "ah-amps",
+    capacityAh: null,
+    capacityWh: null,
+    voltage: null,
+    startSoc: null,
+    targetSoc: null,
+    chargerCurrentA: null,
+    chargerOutputPowerW: null,
+    batteryMaxChargeCurrentA: null,
+    batteryMaxChargePowerW: null,
+    chemistry: null,
+    batteryChargeEfficiency: null,
+    planningOverheadEnabled: null,
+    planningOverheadFactor: null,
   };
 }

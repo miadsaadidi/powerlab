@@ -1,13 +1,11 @@
 import { expect, test } from "@playwright/test";
 
-test("calculates runtime with keyboard-accessible inputs", async ({ page }) => {
+test("shows runtime immediately with keyboard-accessible inputs", async ({ page }) => {
   await page.goto("/battery/battery-runtime-calculator");
 
   await expect(page.getByRole("heading", { level: 1, name: "Battery Runtime Calculator" })).toBeVisible();
   await page.locator("#battery-capacity").fill("1000");
   await page.locator("#total-load").fill("100");
-  await page.getByRole("button", { name: "Calculate Runtime" }).press("Enter");
-
   await expect(page.getByRole("paragraph").filter({ hasText: "7 h 12 min" }).first()).toBeVisible();
   await expect(page.getByText("Assumptions used")).toBeVisible();
   await page.getByRole("button", { name: "Show advanced assumptions" }).press("Enter");

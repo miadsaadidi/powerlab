@@ -252,6 +252,12 @@ The final canonical keyword map is in `docs/05_KEYWORD_AND_SERP_ANALYSIS.md`.
 
 ## Definition of done
 
+## Deployment credentials
+
+- For Vercel deployments, read the local `accesskeys.txt` file for the deployment token when needed.
+- Never print, copy, commit, or expose token values in source code, logs, messages, or deployment output.
+- Keep using the existing Vercel project and team scope; do not create a replacement project.
+
 A page is not done because the formula runs. It is done when:
 
 - engine and tests pass;

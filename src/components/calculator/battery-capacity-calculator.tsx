@@ -201,6 +201,13 @@ export function BatteryCapacityCalculator() {
             <div><dt>Nominal energy</dt><dd>{displayWh(result.nominalWh)} Wh / {displayKwh(result.nominalKWh)} kWh</dd></div>
             <div><dt>Voltage</dt><dd>{displayVoltage(result.voltage)} V</dd></div>
           </dl>
+          <section className="formula-breakdown" aria-labelledby="capacity-formula-heading">
+            <h3 id="capacity-formula-heading">How this was calculated</h3>
+            {mode === "charge-to-energy" && <p className="formula-line"><span>{displayAh(result.capacityAh)} Ah × {displayVoltage(result.voltage)} V</span><strong>= {displayWh(result.nominalWh)} Wh</strong></p>}
+            {mode === "energy-to-charge" && <p className="formula-line"><span>{displayWh(result.nominalWh)} Wh ÷ {displayVoltage(result.voltage)} V</span><strong>= {displayAh(result.capacityAh)} Ah</strong></p>}
+            {mode === "find-voltage" && <p className="formula-line"><span>{displayWh(result.nominalWh)} Wh ÷ {displayAh(result.capacityAh)} Ah</span><strong>= {displayVoltage(result.voltage)} V</strong></p>}
+            <p className="formula-line"><span>{displayWh(result.nominalWh)} Wh × {percent(result.usableSocWindow)}% SOC window × {percent(batteryHealth)}% battery health</span><strong>= {displayWh(result.usableWh)} Wh usable</strong></p>
+          </section>
           {mode === "find-voltage" && <p className="form-hint">Compare the calculated value with your battery&apos;s actual nominal specification.</p>}
           {mode === "energy-to-charge" && <section className="comparison"><h3>Equivalent charge capacity by voltage</h3><p className="form-hint">The same energy capacity requires fewer amp-hours at higher voltage.</p><dl>{result.equivalentAh.map((item) => <div key={item.voltage} className={item.voltage === result.voltage ? "current-comparison" : ""}><dt>{item.voltage} V {item.voltage === result.voltage && <span>Selected</span>}</dt><dd>{displayAh(item.capacityAh)} Ah equivalent</dd></div>)}</dl></section>}
           <section className="comparison"><h3>Usable energy</h3><p className="result-value">{displayWh(result.usableWh)} Wh</p><p className="result-lede">{displayKwh(result.usableKWh)} kWh after the SOC window and battery health assumptions.</p><dl><div><dt>SOC window</dt><dd>{percent(result.usableSocWindow)}%</dd></div><div><dt>Starting charge</dt><dd>{percent(startingSoc)}%</dd></div><div><dt>Minimum charge</dt><dd>{percent(minimumSoc)}%</dd></div><div><dt>Battery health</dt><dd>{percent(batteryHealth)}%</dd></div></dl></section>

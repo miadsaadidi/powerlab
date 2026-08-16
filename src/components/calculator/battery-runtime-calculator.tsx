@@ -144,9 +144,8 @@ export function BatteryRuntimeCalculator() {
     if (preset && !reserveCustomized) setReserveSoc(preset.reserveSoc);
   };
 
-  const calculate = () => {
+  const saveProfile = () => {
     if (result instanceof Error) {
-      setSubmitted(true);
       return;
     }
     createEnergyProfileStore(window.localStorage).patchBattery({
@@ -158,8 +157,7 @@ export function BatteryRuntimeCalculator() {
       batteryHealth,
     });
     track("calculator_calculate", { calculator_id: "battery-runtime", used_advanced: advancedOpen, mode: loadMode });
-    setAnnouncement(`Estimated runtime: ${formatRuntime(result.result.runtimeHours)}.`);
-    setSubmitted(true);
+    setAnnouncement("Battery values saved to this browser's Energy Profile.");
   };
 
   const filteredAppliances = (applianceSearch.trim()
@@ -171,7 +169,7 @@ export function BatteryRuntimeCalculator() {
     <div className="calculator-grid">
       <div className="calculator-inputs">
         <h2 id="calculator-heading">Calculate estimated runtime</h2>
-        <form onSubmit={(event) => { event.preventDefault(); calculate(); }} noValidate>
+        <form onSubmit={(event) => event.preventDefault()} noValidate>
           <fieldset className="input-group">
             <legend>Battery</legend>
             <div className="field-pair">
@@ -234,7 +232,7 @@ export function BatteryRuntimeCalculator() {
             {peukertEnabled && <p className="form-hint">Suggested planning exponent: {chemistryPreset.peukertExponent}. A precise Peukert correction needs the battery&apos;s rated discharge current or time, so it is not applied to this quick estimate.</p>}
           </fieldset>}
           {result instanceof Error && <p className="error" role="alert">{result.message}</p>}
-          <button className="button calculator-submit" type="submit">Calculate Runtime</button>
+          {visibleResult && <button className="button secondary-button" type="button" onClick={saveProfile}>Save to Energy Profile</button>}
         </form>
       </div>
 
