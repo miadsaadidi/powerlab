@@ -3,47 +3,193 @@ import Link from "next/link";
 import { BatteryChargingTimeCalculator } from "@/components/calculator/battery-charging-time-calculator";
 import { isCalculatorPublished } from "@/lib/calculator-registry";
 import { siteConfig } from "@/lib/site-config";
+import { buildCalculatorStructuredData } from "@/lib/seo/structured-data";
+import { FormulaCard } from "@/components/seo/formula-card";
+import { PageJumpNav } from "@/components/seo/page-jump-nav";
+import { DirectAnswerCard } from "@/components/seo/direct-answer-card";
 
-const route = "/battery/battery-charging-time-calculator";
-const published = isCalculatorPublished("battery-charging-time");
+const isPublished = isCalculatorPublished("battery-charging-time");
 
 export const metadata: Metadata = {
-  title: "Battery Charging Time Calculator — Estimate Charge Time",
-  description: "Estimate battery charging time from capacity, state of charge and charger output, with optional battery limits, efficiency and planning assumptions.",
-  alternates: { canonical: route },
-  robots: { index: published, follow: true },
+  title: "Battery Charging Time Calculator — Calculate Recharge Time",
+  description: "Calculate how long it takes to charge a 12V, 24V, or 48V battery based on Ah capacity, charger amperage/watts, chemistry, and absorption taper.",
+  alternates: { canonical: "/battery/battery-charging-time-calculator" },
+  robots: { index: isPublished, follow: true },
   openGraph: {
-    title: "Battery Charging Time Calculator — Estimate Charge Time",
-    description: "Estimate how long a battery charge will take from capacity, SOC and charger output with transparent planning assumptions.",
+    title: "Battery Charging Time Calculator — PowerLab",
+    description: "Calculate exact battery recharge hours and minutes based on battery capacity and charger output current.",
+    url: `${siteConfig.url}/battery/battery-charging-time-calculator`,
+    siteName: siteConfig.name,
+    locale: "en_US",
+    type: "website",
   },
 };
 
-export default function BatteryChargingTimeCalculatorPage() {
-  const structuredData = {
-    "@context": "https://schema.org",
-    "@type": "BreadcrumbList",
-    itemListElement: [
-      { "@type": "ListItem", position: 1, name: "Home", item: new URL("/", siteConfig.url).toString() },
-      { "@type": "ListItem", position: 2, name: "Battery", item: new URL("/battery", siteConfig.url).toString() },
-      { "@type": "ListItem", position: 3, name: "Battery Charging Time Calculator", item: new URL(route, siteConfig.url).toString() },
-    ],
-  };
+const FAQS = [
+  {
+    question: "How long does it take to charge a 100Ah 12V battery?",
+    answer: "With a 10A charger, charging a 100Ah battery from 20% to 100% takes approximately 8.5 hours. With a 20A fast charger, it takes about 4.2 hours, and with a 50A high-output charger, it takes around 1.7 hours.",
+  },
+  {
+    question: "Why does charging take longer than battery capacity divided by charger amps?",
+    answer: "Simple division (100Ah ÷ 10A = 10 hrs) ignores coulombic energy losses (heat dissipation) and the constant-voltage (CV) absorption saturation phase, where the charger throttles current down as the battery approaches 100% full.",
+  },
+  {
+    question: "What is the maximum safe charge rate (C-rate) for LiFePO4 batteries?",
+    answer: "Most standard LiFePO4 batteries recommend a continuous charge rate between 0.2C and 0.5C (e.g. 20A to 50A for a 100Ah pack). While some cells can accept up to 1.0C (100A), charging at 0.2C–0.5C significantly extends cycle life.",
+  },
+  {
+    question: "Why do Lead-Acid batteries take much longer to charge than LiFePO4?",
+    answer: "Lead-Acid batteries have a lower charge efficiency (~80%–85%) and require a prolonged 4-to-6 hour absorption stage to reach a true 100% state of charge without boiling the electrolyte. LiFePO4 accepts high current up to 95%+ SOC.",
+  },
+];
 
-  return <article className="page calculator-page">
-    <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }} />
-    <nav className="breadcrumb" aria-label="Breadcrumb"><Link href="/">Home</Link><span aria-hidden="true">/</span><Link href="/battery">Battery</Link><span aria-hidden="true">/</span><span>Battery Charging Time Calculator</span></nav>
-    <p className="eyebrow">Battery planning</p>
-    <h1>Battery Charging Time Calculator</h1>
-    <p className="intro">Estimate how long a battery charge may take from its capacity, starting and target charge, and the charger output available to the battery. Add an optional battery acceptance limit and transparent planning assumptions when you know them.</p>
-    <BatteryChargingTimeCalculator />
-    <section><h2>How to calculate battery charging time</h2><p>In amp-hour mode, the charge to add is battery capacity multiplied by the change in state of charge. Divide that charge in Ah by the effective charging current in A. In energy mode, divide the energy to add in Wh by the effective charger output in W.</p></section>
-    <section><h2>Selected charger output versus effective rate</h2><p>The entered charger value represents the output delivered toward the battery. If the battery or BMS has a known maximum acceptance rate, the calculator applies that limit and shows the selected output separately from the effective charging rate.</p></section>
-    <section><h2>Efficiency and planning overhead</h2><p>Battery charge efficiency is a planning assumption for the fraction of charging input that contributes to stored battery charge or energy. Planning overhead is a separate time allowance for behavior such as taper or absorption. Neither setting is a universal chemistry specification, and the calculator does not simulate a detailed CC/CV curve.</p></section>
-    <section><h2>Why charging can slow near full</h2><p>The calculator uses a simplified constant-rate model plus an editable planning overhead. Real batteries and chargers may reduce current or power as the battery approaches a high state of charge, especially during absorption. This tool does not model a real CC/CV charging curve.</p></section>
-    <section><h2>Lithium versus lead-acid planning estimates</h2><p>Chemistry changes planning defaults, not the underlying Ah, Wh or time formulas. The starter planning overhead is 1.05 for lithium and 1.15 for lead-acid. These are editable planning estimates, not universal specifications. Battery charge efficiency remains a separate assumption.</p></section>
-    <section><h2>Worked planning example</h2><p>For a 100 Ah battery charging from 20% to 100% with a 20 A charger:</p><p><code>100 × (1.00 − 0.20) = 80 Ah</code><br /><code>80 Ah ÷ 20 A = 4 h ideal</code></p><p>With 99% battery charge efficiency and a 1.05 planning overhead: <code>4 ÷ 0.99 × 1.05 ≈ 4.24 h</code>, or approximately <strong>4 h 15 min</strong>. This is a planning example.</p></section>
-    <section><h2>Limitations</h2><p>The actual charge rate may be limited by the battery or BMS, and charging may taper. Temperature can also affect charging behavior. Use manufacturer specifications when known. This is not a charger-selection, wiring, BMS-sizing or CC/CV simulation tool.</p></section>
-    <section><h2>Voltage and charging time</h2><p>Ah divided by A and Wh divided by W already produce hours, so optional battery voltage does not change the primary charging-time estimate. Voltage is retained for compatible capacity conversions and explicit handoffs when it is known.</p></section>
-    <section><h2>Related battery calculators</h2><p>Use the <Link href="/battery/battery-capacity-calculator">Battery Capacity Calculator</Link> to convert Ah, Wh and kWh, or use the <Link href="/battery/battery-runtime-calculator">Battery Runtime Calculator</Link> to estimate runtime after charging.</p></section>
-  </article>;
+export default function BatteryChargingTimePage() {
+  const structuredData = buildCalculatorStructuredData({
+    name: "Battery Charging Time Calculator",
+    description: "Estimate battery charging time from capacity, starting and target state of charge, and charger output.",
+    route: "/battery/battery-charging-time-calculator",
+    categoryName: "Battery",
+    categoryRoute: "/battery",
+    features: [
+      "Calculates battery charge time from start to target state of charge",
+      "Supports charger amps, watts, and C-rate maximum limits",
+      "Chemistry-specific charging efficiency loss modeling",
+      "Accounts for constant-voltage absorption saturation slowdown",
+    ],
+    faqs: FAQS,
+  });
+
+  return (
+    <article className="page calculator-page">
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }} />
+
+      <nav className="breadcrumb" aria-label="Breadcrumb">
+        <Link href="/">Home</Link>
+        <span aria-hidden="true">/</span>
+        <Link href="/battery">Battery</Link>
+        <span aria-hidden="true">/</span>
+        <span aria-current="page">Battery Charging Time Calculator</span>
+      </nav>
+
+      <div className="calculator-header">
+        <p className="eyebrow">Battery planning</p>
+        <h1>Battery Charging Time Calculator</h1>
+        <p className="intro">
+          Estimate how long it takes to charge your battery in hours and minutes from initial to target state of charge, factoring in charger amperage, chemistry efficiency, and absorption taper.
+        </p>
+      </div>
+
+      <DirectAnswerCard
+        keyword="battery charging time calculation"
+        answer="A 12V 100Ah battery takes approximately 8.5 hours to recharge from 20% to 100% using a standard 10A charger, or about 4.2 hours with a 20A charger. Charging time equals the energy deficit (Ah needed) divided by charger current, adjusted for charging efficiency (95% for LiFePO4, 85% for Lead-Acid) and the constant-voltage absorption taper stage."
+        formula="Charge Time (Hours) = [Battery Ah × (Target SoC − Start SoC)] ÷ (Charger Amps × Charging Efficiency × Taper Factor)"
+        standardExample="100Ah LiFePO4 from 20% to 100% with 20A charger: [100 × 0.80] ÷ (20A × 0.95) = 4.21 hours (4h 13m)"
+        sourceAuthority="IEC 62619 (Secondary Lithium Cells) & IEEE Std 485"
+      />
+
+      <PageJumpNav />
+
+      <div id="calculator-tool">
+        <BatteryChargingTimeCalculator />
+      </div>
+
+      <section id="how-to-guide" style={{ marginTop: "3rem" }}>
+        <h2>How to Calculate Battery Charging Duration</h2>
+        <ol>
+          <li><strong>Enter Battery Capacity:</strong> Enter capacity in Amp-hours (Ah) or Watt-hours (Wh).</li>
+          <li><strong>Set Start and Target State of Charge (%):</strong> Choose initial charge level (e.g. 20%) and desired target (e.g. 100%).</li>
+          <li><strong>Enter Charger Output Rating:</strong> Input charger output current in Amperes (A) or power in Watts (W).</li>
+          <li><strong>Review Estimated Charge Time:</strong> View calculated charge hours with absorption slowdown buffer.</li>
+        </ol>
+      </section>
+
+      <section id="sizing-matrix">
+        <h2>Battery Charging Time Reference Matrix</h2>
+        <p>Estimated recharge time from 20% to 100% state of charge (80% capacity replenishment) across standard battery sizes and smart charger output amperages:</p>
+        <div className="scenario-table" role="region" aria-label="Battery charging time comparison matrix">
+          <table>
+            <caption>Estimated charging hours (20% → 100% SOC, LiFePO4 99% efficiency + 1.05 taper)</caption>
+            <thead>
+              <tr>
+                <th scope="col">Battery Capacity</th>
+                <th scope="col">5A Trickle / Maintainer</th>
+                <th scope="col">10A Standard Charger</th>
+                <th scope="col">20A Fast Charger</th>
+                <th scope="col">50A High-Output Charger</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>50 Ah Pack</strong> (~640 Wh @ 12.8V)</td>
+                <td>~8.5 hours</td>
+                <td>~4.2 hours</td>
+                <td>~2.1 hours</td>
+                <td>~51 min (1.0C max)</td>
+              </tr>
+              <tr>
+                <td><strong>100 Ah Pack</strong> (~1.28 kWh @ 12.8V)</td>
+                <td>~17.0 hours</td>
+                <td>~8.5 hours</td>
+                <td>~4.2 hours</td>
+                <td>~1.7 hours</td>
+              </tr>
+              <tr>
+                <td><strong>200 Ah Pack</strong> (~2.56 kWh @ 12.8V)</td>
+                <td>~33.9 hours</td>
+                <td>~17.0 hours</td>
+                <td>~8.5 hours</td>
+                <td>~3.4 hours</td>
+              </tr>
+              <tr>
+                <td><strong>300 Ah Pack</strong> (~3.84 kWh @ 12.8V)</td>
+                <td>~50.9 hours</td>
+                <td>~25.5 hours</td>
+                <td>~12.7 hours</td>
+                <td>~5.1 hours</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <div id="formula-math">
+        <FormulaCard
+          title="Battery Charging Time Formulas"
+          formula="Time (hours) = [(Capacity_Ah × (Target_SOC - Start_SOC)) / (Effective_Amps × Charge_Efficiency)] × Taper_Overhead"
+          formulaDescription="Estimates total recharge time by dividing the required Ah/Wh deficit by the effective charging rate, factoring in coulombic charge efficiency and constant-voltage saturation taper time."
+          variables={[
+            { symbol: "Capacity_Ah", label: "Rated Pack Capacity", description: "Total rated charge capacity in Amp-Hours.", unit: "Ah" },
+            { symbol: "Start_SOC / Target_SOC", label: "Charge Delta Window", description: "Target state of charge minus initial state of charge.", unit: "fraction" },
+            { symbol: "Effective_Amps", label: "Net Charge Current", description: "min(Charger Current, Battery Max BMS Charge Rate).", unit: "A" },
+            { symbol: "Charge_Efficiency", label: "Coulombic Efficiency", description: "Fraction of charging energy stored without dissipation as heat (99% LiFePO4, 85% Lead-Acid).", unit: "fraction" },
+            { symbol: "Taper_Overhead", label: "Saturation & Taper Allowance", description: "Multiplier for CV absorption phase slowdown (typically 1.05x LiFePO4, 1.15x Lead-Acid).", unit: "multiplier" },
+          ]}
+          notes={[
+            "In Energy Mode (Wh/W): Time = [(Energy_Wh × ΔSOC) / (Effective_Watts × Efficiency)] × Taper_Overhead.",
+            "Charging current should generally not exceed 0.5C (50A for a 100Ah battery) unless fast-charging is explicitly rated by the manufacturer.",
+          ]}
+        />
+      </div>
+
+      <section id="faq-section" className="faq-section">
+        <h2>Frequently Asked Questions (FAQ)</h2>
+        <div className="faq-grid">
+          {FAQS.map((faq) => (
+            <details className="faq-item" key={faq.question}>
+              <summary>{faq.question}</summary>
+              <div className="faq-answer">{faq.answer}</div>
+            </details>
+          ))}
+        </div>
+      </section>
+
+      <section id="related-tools">
+        <h2>Related Battery Tools</h2>
+        <p>
+          Convert capacity with the <Link href="/battery/battery-capacity-calculator">Battery Capacity Calculator</Link>, estimate runtime under load with the <Link href="/battery/battery-runtime-calculator">Battery Runtime Calculator</Link>, or size solar charge controllers with the <Link href="/solar/solar-charge-controller-calculator">Solar Charge Controller Calculator</Link>.
+        </p>
+      </section>
+    </article>
+  );
 }

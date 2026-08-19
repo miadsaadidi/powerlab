@@ -212,7 +212,16 @@ export function BatteryCapacityCalculator() {
           {mode === "energy-to-charge" && <section className="comparison"><h3>Equivalent charge capacity by voltage</h3><p className="form-hint">The same energy capacity requires fewer amp-hours at higher voltage.</p><dl>{result.equivalentAh.map((item) => <div key={item.voltage} className={item.voltage === result.voltage ? "current-comparison" : ""}><dt>{item.voltage} V {item.voltage === result.voltage && <span>Selected</span>}</dt><dd>{displayAh(item.capacityAh)} Ah equivalent</dd></div>)}</dl></section>}
           <section className="comparison"><h3>Usable energy</h3><p className="result-value">{displayWh(result.usableWh)} Wh</p><p className="result-lede">{displayKwh(result.usableKWh)} kWh after the SOC window and battery health assumptions.</p><dl><div><dt>SOC window</dt><dd>{percent(result.usableSocWindow)}%</dd></div><div><dt>Starting charge</dt><dd>{percent(startingSoc)}%</dd></div><div><dt>Minimum charge</dt><dd>{percent(minimumSoc)}%</dd></div><div><dt>Battery health</dt><dd>{percent(batteryHealth)}%</dd></div></dl></section>
           <section className="assumption-summary"><h3>Assumptions used</h3><dl><div><dt>Battery chemistry</dt><dd>{chemistryPreset.label}</dd></div><div><dt>Voltage</dt><dd>{displayVoltage(result.voltage)} V</dd></div></dl><button className="text-button" type="button" onClick={() => setAdvancedOpen(true)}>Edit assumptions</button></section>
-          {runtimePublished && <section className="handoff"><h3>Next step</h3><p>See how this battery capacity may perform against a load.</p><button className="button secondary-button" type="button" onClick={useInRuntime}>Use in Battery Runtime</button></section>}
+          {runtimePublished && (
+            <section className="handoff">
+              <h3>Next step</h3>
+              <p>See how this battery capacity may perform against a load.</p>
+              <button className="button secondary-button handoff-link" type="button" onClick={useInRuntime}>
+                <span>Use in Battery Runtime</span>
+                <span aria-hidden="true">→</span>
+              </button>
+            </section>
+          )}
         </>}
       </aside>
     </div>

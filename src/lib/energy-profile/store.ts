@@ -117,11 +117,18 @@ export function createEnergyProfileStore(storage: StorageLike) {
     return defaultProfile();
   };
   const write = (profile: EnergyProfileV1) => {
-    try { storage.setItem(ENERGY_PROFILE_STORAGE_KEY, JSON.stringify(profile)); } catch { /* storage failures are non-fatal */ }
+    try {
+      storage.setItem(ENERGY_PROFILE_STORAGE_KEY, JSON.stringify(profile));
+      if (typeof window !== "undefined") {
+        window.dispatchEvent(new CustomEvent("energy-profile-updated", { detail: profile }));
+      }
+    } catch { /* storage failures are non-fatal */ }
   };
   return {
     read,
+    write,
     patchBattery(update: Partial<EnergyProfileV1["battery"]>) {
+
       const profile = read();
       write({ ...profile, battery: { ...profile.battery, ...update } });
     },
@@ -153,7 +160,14 @@ export function createEnergyProfileStore(storage: StorageLike) {
       const profile = read();
       write({ ...profile, evCharging: { ...profile.evCharging, ...update } });
     },
-    reset() { try { storage.removeItem(ENERGY_PROFILE_STORAGE_KEY); } catch { /* non-fatal */ } },
+    reset() {
+      try {
+        storage.removeItem(ENERGY_PROFILE_STORAGE_KEY);
+        if (typeof window !== "undefined") {
+          window.dispatchEvent(new CustomEvent("energy-profile-updated", { detail: defaultProfile() }));
+        }
+      } catch { /* non-fatal */ }
+    },
   };
 }
 

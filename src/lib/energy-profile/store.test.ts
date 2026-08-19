@@ -45,4 +45,16 @@ describe("Energy Profile store", () => {
 
     expect(store.read().electricityCurrency).toBe("EUR");
   });
+
+  it("resets profile to default state cleanly", () => {
+    const store = createEnergyProfileStore(new MemoryStorage());
+    store.patchBattery({ capacityWh: 2000, chemistry: "lifepo4" });
+    store.patchElectricityPricePerKwh(0.25);
+    expect(store.read().battery.capacityWh).toBe(2000);
+
+    store.reset();
+    expect(store.read().battery.capacityWh).toBeNull();
+    expect(store.read().electricityPricePerKwh).toBeNull();
+  });
 });
+

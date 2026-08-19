@@ -1,6 +1,8 @@
 import { NextResponse } from "next/server";
 import { normalizeSolarRequest, requestPvWatts, type SolarProductionRequest } from "@/lib/providers/pvwatts";
 
+export const dynamic = "force-dynamic";
+
 export async function POST(request: Request) {
   try {
     const body = await request.json() as Partial<SolarProductionRequest>;

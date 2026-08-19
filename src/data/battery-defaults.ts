@@ -51,6 +51,30 @@ export const UPS_RUNTIME_DEFAULTS = {
   assumedUpsOutputPowerFactor: 0.8,
 } as const;
 
+export const UPS_BATTERY_SIZE_DEFAULTS = {
+  loadSource: "watts",
+  loadW: 300,
+  loadVA: 375,
+  powerFactor: 0.8,
+  runtimeHours: 0.5,
+  busVoltage: 24,
+  upsEfficiency: 0.9,
+  usableFraction: 0.5,
+  batteryHealth: 1,
+  designMargin: 0.1,
+  batteryChemistry: "agm",
+} as const;
+
+export const PORTABLE_POWER_STATION_DEFAULTS = {
+  capacityWh: 1024,
+  continuousOutputW: 1800,
+  directLoadW: 100,
+  acEfficiency: 0.9,
+  batteryHealth: 1,
+  reserveFraction: 0.05,
+  desiredRuntimeHours: 8,
+} as const;
+
 export const BATTERY_CHEMISTRIES = [
   { id: "lifepo4", label: "LiFePO4 / LFP", reserveSoc: 0.2, peukertExponent: 1.05 },
   { id: "lithium-ion", label: "Lithium-ion", reserveSoc: 0.2, peukertExponent: 1.05 },

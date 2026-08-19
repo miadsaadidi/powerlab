@@ -153,6 +153,40 @@ Search Console data
 → split intent only when justified
 ```
 
+## Phase 5 — High-Impact Expansion Calculators
+
+Planned expansion tools based on Keyword Planner and SERP research:
+
+### 21. Solar Payback & ROI Calculator
+- Calculate break-even years, 25-year net savings, and cash flow timeline without email/phone lead-walls.
+
+### 22. Generator Size Calculator
+- Calculate running and starting (surge) watts with sequential inductive motor startup logic for home backup.
+
+### 23. Air Conditioner Running Cost Calculator
+- Calculate hourly and monthly cooling costs across window AC, mini-splits, and central systems using SEER2 and compressor duty cycles.
+
+### 24. Heat Pump vs. Gas Cost Calculator
+- Compare operating heating bills between electric heat pumps (SCOP/HSPF) and natural gas/propane/oil furnaces (AFUE).
+
+### 25. Space Heater Running Cost Calculator
+- Calculate hourly, 8-hour overnight, and monthly electricity costs for 500W–1500W heaters with thermostat duty cycling.
+
+### 26. DC & AC Voltage Drop / Wire Size Calculator
+- Size wire gauge (AWG / mm²) for 12V, 24V, 48V, 120V, and 240V circuits to enforce the NEC 3% voltage drop limit.
+
+### 27. Solar Charge Controller / MPPT Sizing Calculator
+- Size MPPT/PWM output current and verify cold-weather open-circuit voltage ($V_{oc}$) array limits.
+
+### 28. Inverter Size Calculator
+- Calculate required continuous and surge wattage inverter class and DC battery cable ampacity.
+
+### 29. Vehicle-to-Load (V2L / V2H) Runtime Calculator
+- Calculate outage duration using EV battery capacity with driving range protection buffers.
+
+### 30. EV Charger Breaker & Wire Sizing Calculator
+- Size breaker amperage (20A–100A) and copper wire gauge under the NEC 125% continuous load rule.
+
 ## Optional AI phase
 
 AI explanations are not on the critical path.

@@ -3,14 +3,25 @@ import Link from "next/link";
 import { BatteryRuntimeCalculator } from "@/components/calculator/battery-runtime-calculator";
 import { calculateBatteryRuntime } from "@/lib/calculators/battery-runtime/engine";
 import { siteConfig } from "@/lib/site-config";
+import { buildCalculatorStructuredData } from "@/lib/seo/structured-data";
+import { FormulaCard } from "@/components/seo/formula-card";
+import { PageJumpNav } from "@/components/seo/page-jump-nav";
+import { SystemFlowDiagram } from "@/components/seo/system-flow-diagram";
+import { DirectAnswerCard } from "@/components/seo/direct-answer-card";
+
 
 export const metadata: Metadata = {
-  title: "Battery Runtime Calculator — Estimate Backup Time",
-  description: "Estimate battery runtime from Wh or Ah, voltage, load, state of charge, reserve and inverter efficiency. See usable energy, assumptions and runtime scenarios.",
+  title: "Battery Runtime Calculator — Calculate Backup Hours",
+  description: "Calculate how long a 12V, 24V, or 48V battery will run your appliances in hours and minutes. Supports LiFePO4, AGM, and Gel chemistries with inverter efficiency.",
   alternates: { canonical: "/battery/battery-runtime-calculator" },
+  robots: { index: true, follow: true },
   openGraph: {
-    title: "Battery Runtime Calculator — Estimate Backup Time",
-    description: "Estimate battery runtime from Wh or Ah, voltage, load, state of charge, reserve and inverter efficiency. See usable energy, assumptions and runtime scenarios.",
+    title: "Battery Runtime Calculator — PowerLab",
+    description: "Calculate how long your battery will power appliances in hours and minutes with depth-of-discharge reserve protection.",
+    url: `${siteConfig.url}/battery/battery-runtime-calculator`,
+    siteName: siteConfig.name,
+    locale: "en_US",
+    type: "website",
   },
 };
 
@@ -39,71 +50,180 @@ const scenarioLoads = [50, 100, 300, 500].map((loadWatts) => ({
   }).result.runtimeHours,
 }));
 
-const formatRuntime = (hours: number) => {
-  const wholeHours = Math.floor(hours);
-  const minutes = Math.round((hours - wholeHours) * 60);
-  return `${wholeHours} h ${minutes} min`;
-};
+const FAQS = [
+  {
+    question: "How long will a 100Ah 12V battery run a refrigerator?",
+    answer: "A standard household refrigerator averaging 150W (cycling with a ~35% compressor duty cycle) will run for approximately 6.3 hours on a 12V 100Ah LiFePO4 battery (assuming 80% usable capacity and 90% inverter efficiency). On a 200Ah battery, it will run for about 12.7 hours.",
+  },
+  {
+    question: "How long will a 100Ah battery run a CPAP machine?",
+    answer: "A CPAP machine consuming 35W without a heated humidifier will run for approximately 24.7 hours on a 12V 100Ah LiFePO4 battery, or around 3 full 8-hour nights of sleep before needing recharge.",
+  },
+  {
+    question: "Why does a 12V 100Ah battery not provide the full 1,200 watt-hours?",
+    answer: "Nominal energy is 12V × 100Ah = 1,200Wh. However, usable capacity is reduced by minimum state-of-charge reserve limits (typically 20% for LiFePO4 or 50% for Lead-Acid) and AC inverter conversion losses (typically 85%–92% efficiency).",
+  },
+  {
+    question: "How do I calculate battery runtime for AC appliances?",
+    answer: "Divide usable battery watt-hours by the battery-side load. For AC equipment: Usable Wh = Rated Wh × Usable Fraction. Battery-Side Load = Appliance Watts ÷ Inverter Efficiency. Runtime Hours = Usable Wh ÷ Battery-Side Load.",
+  },
+];
 
 export default function BatteryRuntimePage() {
-  const structuredData = {
-    "@context": "https://schema.org",
-    "@type": "BreadcrumbList",
-    itemListElement: [
-      { "@type": "ListItem", position: 1, name: "Home", item: new URL("/", siteConfig.url).toString() },
-      { "@type": "ListItem", position: 2, name: "Battery", item: new URL("/battery", siteConfig.url).toString() },
-      { "@type": "ListItem", position: 3, name: "Battery Runtime Calculator", item: new URL("/battery/battery-runtime-calculator", siteConfig.url).toString() },
+  const structuredData = buildCalculatorStructuredData({
+    name: "Battery Runtime Calculator",
+    description: "Estimate battery runtime from Wh or Ah, voltage, load, state of charge, reserve and inverter efficiency.",
+    route: "/battery/battery-runtime-calculator",
+    categoryName: "Battery",
+    categoryRoute: "/battery",
+    features: [
+      "Calculates battery backup runtime in hours and minutes",
+      "Converts Ah to Wh using nominal voltage presets",
+      "Accounts for AC inverter and DC conversion efficiency losses",
+      "Customizable depth-of-discharge reserve and battery health",
+      "Appliance load builder with duty cycles and peak watts",
     ],
-  };
+    faqs: FAQS,
+  });
 
-  return <article className="page calculator-page">
-    <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }} />
-    <nav className="breadcrumb" aria-label="Breadcrumb"><Link href="/">Home</Link><span aria-hidden="true">/</span><Link href="/battery">Battery</Link><span aria-hidden="true">/</span><span>Battery Runtime Calculator</span></nav>
-    <p className="eyebrow">Battery planning</p>
-    <h1>Battery Runtime Calculator</h1>
-    <p className="intro">Estimate how long your battery can power a device or group of appliances. Enter battery capacity and load, then adjust reserve, battery health and conversion losses if needed.</p>
-    <BatteryRuntimeCalculator />
-    <section>
-      <h2>How to use this battery backup time calculator</h2>
-      <ol><li>Enter the battery&apos;s Wh capacity, or choose Ah and enter its nominal voltage.</li><li>Enter the average load in watts—not the appliance&apos;s brief startup surge.</li><li>Keep the editable reserve, health and conversion settings accurate to your setup.</li><li>Use the result as a planning estimate, then compare it with measured device consumption where possible.</li></ol>
-    </section>
-    <section>
-      <h2>Battery runtime formula</h2>
-      <p>The calculator converts battery capacity to usable battery energy, then divides it by the battery-side average load. It calculates at full precision and rounds only for display.</p>
-      <p><code>runtime hours = (battery Wh × usable state of charge × health) ÷ battery-side load W</code></p>
-    </section>
-    <section>
-      <h2>Ah vs Wh: why voltage matters for a 12V battery</h2>
-      <p>Ah alone does not describe battery energy: <code>Wh = volts × Ah</code>. A 12V 100Ah battery is approximately 1,200 Wh before reserve and conversion losses. That is why a 12V battery run time calculator needs both Ah and voltage.</p>
-    </section>
-    <section>
-      <h2>How watts and inverter efficiency change runtime</h2>
-      <p>Watts describe the appliance load. For AC appliances, the inverter draws more from the battery than the device receives, so the estimate uses battery-side watts. A 100W AC device with 90% inverter efficiency draws about 111W from the battery; a direct DC load uses the separate DC efficiency setting instead.</p>
-    </section>
-    <section>
-      <h2>Battery reserve and usable capacity</h2>
-      <p>The estimate uses one charge window: starting charge minus minimum remaining charge, then battery health. It does not apply a second usable-capacity percentage, which avoids counting the same reserve twice. Chemistry presets are editable planning starting points, not device-specific claims.</p>
-    </section>
-    <section>
-      <h2>12V battery run time example</h2>
-      <p>For a 12V 100Ah battery at 100% charge, a 20% reserve and 90% inverter efficiency, the engine calculates {Math.round(example.result.usableBatteryWh)} Wh of usable battery energy. A 100W AC appliance draws about {Math.round(example.result.batterySideLoadWatts)}W from the battery, giving an estimated runtime of <strong>{formatRuntime(example.result.runtimeHours)}</strong>.</p>
-      <div className="scenario-table" role="region" aria-label="Battery runtime by watts example"><table><caption>Battery runtime by watts: 12V 100Ah illustrative scenario</caption><thead><tr><th scope="col">Average load</th><th scope="col">Estimated runtime</th></tr></thead><tbody>{scenarioLoads.map((scenario) => <tr key={scenario.loadWatts}><td>{scenario.loadWatts} W</td><td>{formatRuntime(scenario.runtimeHours)}</td></tr>)}</tbody></table></div>
-    </section>
-    <section>
-      <h2>Assumptions that change battery runtime</h2>
-      <table><caption>Inputs used in the illustrative 12V 100Ah example</caption><thead><tr><th scope="col">Assumption</th><th scope="col">Value</th><th scope="col">Source</th></tr></thead><tbody><tr><td>Battery capacity</td><td>100Ah at 12V</td><td>Illustrative device specification</td></tr><tr><td>Minimum reserve</td><td>20%</td><td>Editable planning assumption</td></tr><tr><td>Conversion efficiency</td><td>90%</td><td>Editable planning assumption</td></tr><tr><td>Average load</td><td>100W</td><td>Illustrative load</td></tr></tbody></table>
-    </section>
-    <section>
-      <h2>Why real battery runtime can differ</h2>
-      <p>Temperature, battery age, BMS limits, cable and inverter losses, and the actual appliance load can change real-world runtime. Generic defaults are useful starting points, but measured or device-label values are better when available.</p>
-    </section>
-    <section>
-      <h2>Related battery planning</h2>
-      <p>Use the <Link href="/battery">Battery Calculators</Link> page to return to the available battery planning tool and review the methodology behind this estimate.</p>
-    </section>
-    <section>
-      <h2>Methodology and sources</h2>
-      <p>Generic battery defaults are editable planning estimates. See the <Link href="/methodology">methodology</Link> and <Link href="/sources">sources</Link> used to maintain them.</p>
-    </section>
-  </article>;
+  return (
+    <article className="page calculator-page">
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }} />
+
+      <nav className="breadcrumb" aria-label="Breadcrumb">
+        <Link href="/">Home</Link>
+        <span aria-hidden="true">/</span>
+        <Link href="/battery">Battery</Link>
+        <span aria-hidden="true">/</span>
+        <span aria-current="page">Battery Runtime Calculator</span>
+      </nav>
+
+      <div className="calculator-header">
+        <p className="eyebrow">Battery planning</p>
+        <h1>Battery Runtime Calculator</h1>
+        <p className="intro">
+          Estimate how long your 12V, 24V, or 48V battery bank will power connected appliances in hours and minutes, factoring in DOD reserves, battery health, and inverter losses.
+        </p>
+      </div>
+
+      <DirectAnswerCard
+        keyword="battery runtime calculator"
+        answer="To calculate battery runtime, multiply your battery's total watt-hours by its usable Depth of Discharge (80% for LiFePO4, 50% for Lead-Acid) and inverter efficiency (~90%), then divide by the total connected load in watts."
+        formula="Runtime (Hours) = (Capacity Wh × Usable DOD % × Inverter Eff %) ÷ Load Watts"
+        standardExample="A 12V 100Ah LiFePO4 battery (1,280 Wh nominal = 921 Wh usable AC) powers a continuous 100W load for ~9.2 hours."
+      />
+
+      <PageJumpNav />
+
+      <div id="calculator-tool">
+        <BatteryRuntimeCalculator />
+      </div>
+
+      <section id="how-to-guide" style={{ marginTop: "3rem" }}>
+        <h2>How to Calculate Battery Backup Runtime</h2>
+        <ol>
+          <li><strong>Enter Battery Capacity (Ah or Wh):</strong> Choose nominal system voltage (12V, 24V, 48V) and Amp-hour capacity.</li>
+          <li><strong>Select or Enter Appliance Load (Watts):</strong> Enter continuous average running watts or use the appliance load builder.</li>
+          <li><strong>Set Depth of Discharge (DOD) Reserve:</strong> Lithium LiFePO4 batteries allow 80% to 90% usable capacity; Lead-Acid/AGM allows 50%.</li>
+          <li><strong>Review Operating Duration:</strong> View exact hours and minutes of backup power available.</li>
+        </ol>
+
+        <SystemFlowDiagram category="battery" title="Battery Discharge & Backup Flow Topology" />
+      </section>
+
+      <section id="sizing-matrix">
+        <h2>Common Battery Runtime Scenarios (100Ah vs 200Ah LiFePO4)</h2>
+        <p>Estimated continuous operating hours for popular appliances powered by a 12V lithium battery (80% usable capacity, 90% inverter efficiency):</p>
+        <div className="scenario-table" role="region" aria-label="Battery runtime scenarios">
+          <table>
+            <caption>Estimated runtime on 12V 100Ah (960Wh usable) vs 12V 200Ah (1,920Wh usable)</caption>
+            <thead>
+              <tr>
+                <th scope="col">Device / Load</th>
+                <th scope="col">Average Power</th>
+                <th scope="col">100Ah 12V Runtime</th>
+                <th scope="col">200Ah 12V Runtime</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Wi-Fi Router + Modem</strong></td>
+                <td>15 W</td>
+                <td>~57.6 hours (2.4 days)</td>
+                <td>~115.2 hours (4.8 days)</td>
+              </tr>
+              <tr>
+                <td><strong>CPAP Machine</strong> (no heated humidifier)</td>
+                <td>35 W</td>
+                <td>~24.7 hours (~3 nights)</td>
+                <td>~49.4 hours (~6 nights)</td>
+              </tr>
+              <tr>
+                <td><strong>Starlink Satellite Terminal</strong></td>
+                <td>50 W</td>
+                <td>~17.3 hours</td>
+                <td>~34.6 hours</td>
+              </tr>
+              <tr>
+                <td><strong>12V Portable Camping Fridge</strong></td>
+                <td>30 W avg (cycling)</td>
+                <td>~28.8 hours (1.2 days)</td>
+                <td>~57.6 hours (2.4 days)</td>
+              </tr>
+              <tr>
+                <td><strong>Desktop PC + Monitor</strong></td>
+                <td>200 W</td>
+                <td>~4.3 hours</td>
+                <td>~8.6 hours</td>
+              </tr>
+              <tr>
+                <td><strong>Full-Size Refrigerator</strong> (cycling)</td>
+                <td>150 W avg</td>
+                <td>~6.3 hours</td>
+                <td>~12.7 hours</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <div id="formula-math">
+        <FormulaCard
+          title="Battery Runtime Calculation Formula"
+          formula="Runtime (hours) = (Capacity_Wh × Usable_SOC × Battery_Health × Efficiency) / Load_Watts"
+          formulaDescription="Calculates exact continuous running duration by determining net usable stored energy after Depth-of-Discharge (DOD) limits, battery health degradation, and inverter conversion losses."
+          variables={[
+            { symbol: "Capacity_Wh", label: "Nominal Battery Energy", description: "Rated battery watt-hours (or Volts × Amp-Hours).", unit: "Wh" },
+            { symbol: "Usable_SOC", label: "Usable State of Charge Window", description: "Fraction of capacity available above minimum reserve (e.g., 80% for LiFePO4, 50% for Lead-Acid).", unit: "fraction" },
+            { symbol: "Battery_Health", label: "State of Health (SOH)", description: "Available capacity relative to original factory rating (default 100%).", unit: "fraction" },
+            { symbol: "Efficiency", label: "Conversion Efficiency (η)", description: "Inverter efficiency for AC loads (85%–93%) or DC-DC step efficiency.", unit: "fraction" },
+            { symbol: "Load_Watts", label: "Continuous Power Demand", description: "Average real-time appliance consumption (Running Watts × Duty Cycle).", unit: "W" },
+          ]}
+          notes={[
+            "For intermittent loads like refrigerators and AC compressors, average load = running watts × duty cycle (typically 30%–45%).",
+            "Lead-acid and AGM batteries experience Peukert capacity loss under heavy discharge rates (>0.2C).",
+          ]}
+        />
+      </div>
+
+      <section id="faq-section" className="faq-section">
+        <h2>Frequently Asked Questions (FAQ)</h2>
+        <div className="faq-grid">
+          {FAQS.map((faq) => (
+            <details className="faq-item" key={faq.question}>
+              <summary>{faq.question}</summary>
+              <div className="faq-answer">{faq.answer}</div>
+            </details>
+          ))}
+        </div>
+      </section>
+
+      <section id="related-tools">
+        <h2>Related Battery Planning Tools</h2>
+        <p>
+          Need to size a battery for a specific target runtime? Use our <Link href="/battery/battery-size-calculator">Battery Size Calculator</Link>, check inverter continuous wattage with the <Link href="/battery/inverter-size-calculator">Inverter Size Calculator</Link>, or size whole-home backup with the <Link href="/home-energy/home-battery-size-calculator">Home Battery Size Calculator</Link>.
+        </p>
+      </section>
+    </article>
+  );
 }

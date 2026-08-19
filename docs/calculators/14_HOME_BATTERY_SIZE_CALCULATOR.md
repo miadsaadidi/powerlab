@@ -2,7 +2,7 @@
 
 ## Route
 
-`/battery/home-battery-size-calculator`
+`/home-energy/home-battery-size-calculator`
 
 ## Release phase
 
@@ -35,7 +35,7 @@ Estimate home backup battery capacity from essential household energy and desire
 - **SEO title:** `Home Battery Size Calculator — Backup kWh Estimate`
 - **Meta description:** `Estimate home battery size from essential household energy, backup hours, reserve, inverter efficiency and planning margin. Get kWh and scenario comparisons.`
 - **H1:** `Home Battery Size Calculator`
-- **Canonical:** self-canonical to `/battery/home-battery-size-calculator`
+- **Canonical:** self-canonical to `/home-energy/home-battery-size-calculator`
 
 ## Page type
 

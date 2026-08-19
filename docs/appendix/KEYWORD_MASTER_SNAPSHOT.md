@@ -19,7 +19,7 @@ This is a Markdown snapshot of the supplied consolidated keyword research so Cod
 | Battery Sizing | backup battery calculator | Secondary | MERGE | `/battery/battery-size-calculator` | 5,000 | 0 | Low–Medium | 1 |
 | Battery Sizing | solar battery calculator | Primary / mixed | REFINE / PLAN | `/solar/solar-battery-bank-size-calculator` | 5,000 | 23 | High / mixed | 3 |
 | Battery Sizing | ups battery size calculator | Primary | KEEP | `/battery/ups-battery-size-calculator` | 500 | 2 | Low–Medium | 2 |
-| Battery Sizing | home battery size calculator | Primary | KEEP | `/battery/home-battery-size-calculator` | 500 | 66 | Medium–High | 3 |
+| Home Energy | home battery size calculator | Primary | KEEP | `/home-energy/home-battery-size-calculator` | 500 | 66 | Medium–High | 3 |
 | Battery Sizing | battery capacity calculation for inverter | Secondary | MERGE | `/battery/battery-size-calculator` | 500 | 0 | Low | 1 |
 | Battery Sizing | lithium battery size calculator | Secondary | MERGE | `/battery/battery-size-calculator` | 50 | 13 | Low–Medium | 1 |
 | Battery Sizing | battery pack size calculator | Reserved | RESERVE | `` | 50 | 0 | Medium / engineering | — |
@@ -54,3 +54,23 @@ This is a Markdown snapshot of the supplied consolidated keyword research so Cod
 | EV Charging | ev range calculator | Primary | KEEP LATER | `/ev/ev-range-calculator` | 500 | 4 | High | 4 |
 | EV Charging | tesla supercharger cost calculator | Reserved / secondary | RESERVE | `/ev/ev-charging-cost-calculator` | 500 | 1 | Medium | 3 |
 | EV Charging | ev savings calculator | Primary | KEEP LATER | `/ev/ev-savings-calculator` | 500 | 6 | High | 4 |
+| Solar Financial | solar payback calculator | Primary | EXPANSION | `/solar/solar-payback-calculator` | 18,100 | 14 | Medium–High | 5 |
+| Solar Financial | solar roi calculator | Secondary | MERGE | `/solar/solar-payback-calculator` | 5,000 | 8 | Medium | 5 |
+| Backup Power | generator size calculator | Primary | EXPANSION | `/home-energy/generator-size-calculator` | 40,500 | 8 | Medium–High | 5 |
+| Backup Power | whole house generator calculator | Secondary | MERGE | `/home-energy/generator-size-calculator` | 9,900 | 12 | Medium | 5 |
+| HVAC Energy | air conditioner electricity cost calculator | Primary | EXPANSION | `/home-energy/air-conditioner-cost-calculator` | 22,200 | 2 | Medium | 5 |
+| HVAC Energy | ac running cost calculator | Secondary | MERGE | `/home-energy/air-conditioner-cost-calculator` | 5,000 | 3 | Medium | 5 |
+| HVAC Energy | heat pump running cost calculator | Primary | EXPANSION | `/home-energy/heat-pump-cost-calculator` | 12,100 | 12 | Medium–High | 5 |
+| HVAC Energy | heat pump vs gas furnace calculator | Secondary | MERGE | `/home-energy/heat-pump-cost-calculator` | 5,000 | 15 | Medium | 5 |
+| HVAC Energy | space heater electricity cost calculator | Primary | EXPANSION | `/home-energy/space-heater-cost-calculator` | 18,100 | 1 | Medium | 5 |
+| HVAC Energy | space heater cost calculator | Secondary | MERGE | `/home-energy/space-heater-cost-calculator` | 9,900 | 2 | Medium | 5 |
+| Electrical Sizing | voltage drop calculator | Primary | EXPANSION | `/battery/voltage-drop-calculator` | 74,000 | 0 | Medium–High | 5 |
+| Electrical Sizing | dc voltage drop calculator | Secondary | MERGE | `/battery/voltage-drop-calculator` | 9,900 | 0 | Low–Medium | 5 |
+| Solar Hardware | solar charge controller calculator | Primary | EXPANSION | `/solar/solar-charge-controller-calculator` | 6,600 | 5 | Low–Medium | 5 |
+| Solar Hardware | mppt calculator | Secondary | MERGE | `/solar/solar-charge-controller-calculator` | 5,000 | 2 | Low–Medium | 5 |
+| Power Inverter | inverter size calculator | Primary | EXPANSION | `/battery/inverter-size-calculator` | 8,100 | 9 | Medium | 5 |
+| Power Inverter | solar inverter size calculator | Secondary | MERGE | `/battery/inverter-size-calculator` | 3,600 | 11 | Medium | 5 |
+| EV Backup | v2l calculator | Primary | EXPANSION | `/ev/v2l-runtime-calculator` | 2,400 | 0 | Low | 5 |
+| EV Backup | vehicle to load calculator | Secondary | MERGE | `/ev/v2l-runtime-calculator` | 1,600 | 0 | Low | 5 |
+| EV Charging | ev charger breaker size calculator | Primary | EXPANSION | `/ev/ev-charger-breaker-size-calculator` | 3,600 | 7 | Low–Medium | 5 |
+| EV Charging | level 2 charger breaker size | Secondary | MERGE | `/ev/ev-charger-breaker-size-calculator` | 2,400 | 5 | Low | 5 |

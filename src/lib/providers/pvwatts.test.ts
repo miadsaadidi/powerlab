@@ -26,6 +26,7 @@ describe("PVWatts normalization", () => {
     expect(params.get("lon")).toBe("-6.84");
     expect(params.get("dataset")).toBe("nsrdb");
     expect(params.get("address")).toBeNull();
+    expect(params.get("system_capacity")).toBe("1");
   });
   it("normalizes annual and monthly AC output", () => {
     const result = normalizePvWattsResponse({ outputs: { ac_annual: 7_500, ac_monthly: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12], capacity_factor: 17.1 } }, request);

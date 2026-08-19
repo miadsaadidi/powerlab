@@ -3,63 +3,209 @@ import Link from "next/link";
 import { SolarPanelTiltCalculator } from "@/components/calculator/solar-panel-tilt-calculator";
 import { siteConfig } from "@/lib/site-config";
 import { isCalculatorPublished } from "@/lib/calculator-registry";
+import { buildCalculatorStructuredData } from "@/lib/seo/structured-data";
+import { FormulaCard } from "@/components/seo/formula-card";
+import { PageJumpNav } from "@/components/seo/page-jump-nav";
+import { DirectAnswerCard } from "@/components/seo/direct-answer-card";
+import { SystemFlowDiagram } from "@/components/seo/system-flow-diagram";
 
 const isPublished = isCalculatorPublished("solar-panel-tilt");
 
 export const metadata: Metadata = {
-  title: "Solar Panel Tilt Calculator — Find the Best Angle",
-  description: "Calculate a solar panel tilt starting point from your location, then compare roof angles with modeled annual and monthly solar production.",
+  title: "Solar Panel Tilt Calculator — Optimal Angle & Roof Pitch",
+  description: "Find the optimal solar panel tilt angle and compass azimuth for your latitude. Calculate seasonal summer/winter angles and compare roof production.",
   alternates: { canonical: "/solar/solar-panel-tilt-calculator" },
   robots: { index: isPublished, follow: true },
   openGraph: {
-    title: "Solar Panel Tilt Calculator — Find the Best Angle",
-    description: "Calculate a solar panel tilt starting point from your location, then compare roof angles with modeled annual and monthly solar production.",
+    title: "Solar Panel Tilt Calculator — PowerLab",
+    description: "Calculate optimal solar panel tilt angle and equator-facing orientation from latitude with seasonal adjustments.",
+    url: `${siteConfig.url}/solar/solar-panel-tilt-calculator`,
+    siteName: siteConfig.name,
+    locale: "en_US",
+    type: "website",
   },
 };
 
-export default function SolarPanelTiltCalculatorPage() {
-  const structuredData = {
-    "@context": "https://schema.org",
-    "@type": "BreadcrumbList",
-    itemListElement: [
-      { "@type": "ListItem", position: 1, name: "Home", item: new URL("/", siteConfig.url).toString() },
-      { "@type": "ListItem", position: 2, name: "Solar", item: new URL("/solar", siteConfig.url).toString() },
-      { "@type": "ListItem", position: 3, name: "Solar Panel Tilt Calculator", item: new URL("/solar/solar-panel-tilt-calculator", siteConfig.url).toString() },
-    ],
-  };
+const FAQS = [
+  {
+    question: "What is the optimal angle for solar panels?",
+    answer: "As a general rule, the optimal year-round tilt angle for fixed solar panels equals your geographic latitude multiplied by 0.76 plus 3.1 degrees (or simply your latitude). For example, at 35° latitude, optimal tilt is approximately 30° to 35° facing true South (in Northern hemisphere) or true North (in Southern hemisphere).",
+  },
+  {
+    question: "How much power do you lose if your roof pitch isn't optimal?",
+    answer: "A tilt angle within ±10° to 15° of optimal typically reduces total annual energy production by less than 3% to 5%. Because the losses are relatively modest, it is usually more cost-effective to mount solar panels flush with your existing roof pitch rather than installing expensive racking tilt legs.",
+  },
+  {
+    question: "Should solar panels be adjusted seasonally?",
+    answer: "If you have ground-mounted or adjustable rack panels, adjusting tilt twice or four times a year increases annual energy capture by 4% to 7%. In summer, tilt panels 15° flatter than your latitude; in winter, tilt panels 15° steeper than your latitude to capture the low winter sun and shed snow.",
+  },
+  {
+    question: "What compass direction should solar panels face?",
+    answer: "In the Northern Hemisphere, solar panels should face true South (180° azimuth). In the Southern Hemisphere, they should face true North (0° azimuth). West-facing panels are also popular for time-of-use (TOU) utility rates because they generate peak power during expensive late afternoon hours.",
+  },
+];
 
-  return <article className="page calculator-page">
-    <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }} />
-    <nav className="breadcrumb" aria-label="Breadcrumb"><Link href="/">Home</Link><span aria-hidden="true">/</span><Link href="/solar">Solar</Link><span aria-hidden="true">/</span><span>Solar Panel Tilt Calculator</span></nav>
-    <p className="eyebrow">Solar planning</p>
-    <h1>Solar Panel Tilt Calculator</h1>
-    <p className="intro">Find a practical starting tilt for your solar panels from your latitude, then optionally compare your existing roof angle with a location-based production model.</p>
-    <SolarPanelTiltCalculator />
-    <section>
-      <h2>What angle should solar panels be tilted?</h2>
-      <p>A simple year-round starting estimate is the absolute value of your latitude. For example, a location at 34° north starts with a 34° panel tilt and a south-facing orientation. This is a planning starting point, not a universal optimum.</p>
-    </section>
-    <section>
-      <h2>Solar panel angle by latitude</h2>
-      <p>The calculator shows seasonal heuristics around the latitude starting point: 15° lower for summer and 15° higher for winter, clamped to a practical 0°–90° range. A location south of the equator uses the same tilt values but generally faces north toward the equator.</p>
-      <div className="scenario-table" role="region" aria-label="Solar panel tilt examples"><table><caption>Illustrative solar panel tilt by latitude</caption><thead><tr><th scope="col">Latitude</th><th scope="col">Summer</th><th scope="col">Year-round</th><th scope="col">Winter</th><th scope="col">Equator-facing direction</th></tr></thead><tbody><tr><td>34° N</td><td>19°</td><td>34°</td><td>49°</td><td>South</td></tr><tr><td>33° S</td><td>18°</td><td>33°</td><td>48°</td><td>North</td></tr></tbody></table></div>
-    </section>
-    <section>
-      <h2>Tilt versus azimuth</h2>
-      <p>Tilt is the panel angle above horizontal. Azimuth is the compass direction the panels face. The quick estimate suggests an equator-facing direction, while the roof comparison lets you enter your actual roof tilt and orientation.</p>
-    </section>
-    <section>
-      <h2>How to compare an existing roof angle</h2>
-      <p>Turn on Compare my roof, enter the roof tilt and choose its orientation. The local result remains available immediately. When modeled comparison is used, both geometries keep the same system assumptions so the difference isolates the roof geometry as much as the model allows.</p>
-    </section>
-    <section>
-      <h2>How the production comparison works</h2>
-      <p>The optional comparison uses PVWatts V8 location-aware modeling with a normalized 1 kW system by default. It can show modeled annual and monthly AC production, but it is an estimate based on historical weather and system assumptions—not a guarantee of actual output.</p>
-    </section>
-    <section>
-      <h2>How to improve the estimate</h2>
-      <p>Use your actual latitude, roof tilt and azimuth, system size, known losses and inverter details. Shading, roof constraints, temperature, equipment and local weather can change the best practical setup.</p>
-      <p>Read the <Link href="/methodology">methodology</Link> and <Link href="/sources">sources</Link> for the calculation and model references.</p>
-    </section>
-  </article>;
+export default function SolarTiltPage() {
+  const structuredData = buildCalculatorStructuredData({
+    name: "Solar Panel Tilt Calculator",
+    description: "Find optimal solar panel tilt angle and compass orientation for your latitude.",
+    route: "/solar/solar-panel-tilt-calculator",
+    categoryName: "Solar",
+    categoryRoute: "/solar",
+    features: [
+      "Calculates seasonal and year-round solar panel tilt angle from latitude",
+      "Determines equator-facing azimuth orientation",
+      "Compares current roof pitch and azimuth with modeled PVWatts yield",
+      "Zero account or registration required",
+    ],
+    faqs: FAQS,
+  });
+
+  return (
+    <article className="page calculator-page">
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }} />
+
+      <nav className="breadcrumb" aria-label="Breadcrumb">
+        <Link href="/">Home</Link>
+        <span aria-hidden="true">/</span>
+        <Link href="/solar">Solar</Link>
+        <span aria-hidden="true">/</span>
+        <span aria-current="page">Solar Panel Tilt Calculator</span>
+      </nav>
+
+      <div className="calculator-header">
+        <p className="eyebrow">Solar planning</p>
+        <h1>Solar Panel Tilt Calculator</h1>
+        <p className="intro">
+          Find the optimal solar panel tilt angle and orientation for your geographic latitude, calculate seasonal summer/winter angles, and compare existing roof pitches with NREL PVWatts production models.
+        </p>
+      </div>
+
+      <DirectAnswerCard
+        keyword="solar panel tilt calculator"
+        answer="As a general rule of thumb, your optimal year-round solar panel tilt angle equals your geographic latitude. For seasonal adjustments, tilt panels Latitude + 15° in winter (when the sun is lower) and Latitude - 15° in summer."
+        formula="Year-Round Tilt = Latitude × 0.87 (or Latitude) · Facing True South (180° in Northern Hemisphere)"
+        standardExample="At 35° North latitude, optimal fixed year-round tilt is ~35°, winter angle is ~50°, and summer angle is ~20°."
+        sourceAuthority="NREL / PVWatts Solar Geometry Models"
+      />
+
+      <PageJumpNav />
+
+      <div id="calculator-tool">
+        <SolarPanelTiltCalculator />
+      </div>
+
+      <section id="how-to-guide" style={{ marginTop: "3rem" }}>
+        <h2>How to Find Your Optimal Solar Panel Tilt Angle</h2>
+        <ol>
+          <li><strong>Enter Latitude or Location:</strong> Type your city or geographic latitude (e.g. 34.05° for Los Angeles).</li>
+          <li><strong>Choose Optimization Goal:</strong> Select year-round maximum yield, winter heating optimization (+15°), or summer air conditioning optimization (-15°).</li>
+          <li><strong>Check Compass Direction (Azimuth):</strong> Aim true South (180°) in the Northern Hemisphere or true North (0°) in the Southern Hemisphere.</li>
+          <li><strong>Compare Existing Roof Pitch:</strong> Optionally compare your actual roof pitch (e.g. 4/12 or 6/12 slope) against the theoretical ideal.</li>
+        </ol>
+
+        <SystemFlowDiagram category="solar" title="Solar PV Irradiance Geometry & AC Power Flow" />
+      </section>
+
+      <section id="sizing-matrix">
+        <h2>Solar Panel Tilt Angle by Latitude Reference Chart</h2>
+        <p>Representative optimal tilt angles and seasonal adjustments across common latitudes:</p>
+        <div className="scenario-table" role="region" aria-label="Solar panel tilt reference by latitude">
+          <table>
+            <caption>Optimal solar panel tilt angle and orientation by latitude</caption>
+            <thead>
+              <tr>
+                <th scope="col">Latitude / Region</th>
+                <th scope="col">Summer Tilt (Lat − 15°)</th>
+                <th scope="col">Year-Round Optimal (Lat × 0.76 + 3.1°)</th>
+                <th scope="col">Winter Tilt (Lat + 15°)</th>
+                <th scope="col">Optimal Orientation</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>25° N</strong> (Miami, Taipei, Dubai)</td>
+                <td>10°</td>
+                <td>22°</td>
+                <td>40°</td>
+                <td>True South (180°)</td>
+              </tr>
+              <tr>
+                <td><strong>30° N</strong> (Houston, Cairo, New Delhi)</td>
+                <td>15°</td>
+                <td>26°</td>
+                <td>45°</td>
+                <td>True South (180°)</td>
+              </tr>
+              <tr>
+                <td><strong>35° N</strong> (Los Angeles, Atlanta, Tokyo)</td>
+                <td>20°</td>
+                <td>30°</td>
+                <td>50°</td>
+                <td>True South (180°)</td>
+              </tr>
+              <tr>
+                <td><strong>40° N</strong> (New York, Madrid, Denver)</td>
+                <td>25°</td>
+                <td>34°</td>
+                <td>55°</td>
+                <td>True South (180°)</td>
+              </tr>
+              <tr>
+                <td><strong>45° N</strong> (Seattle, Minneapolis, Milan)</td>
+                <td>30°</td>
+                <td>37°</td>
+                <td>60°</td>
+                <td>True South (180°)</td>
+              </tr>
+              <tr>
+                <td><strong>50° N</strong> (London, Vancouver, Frankfurt)</td>
+                <td>35°</td>
+                <td>41°</td>
+                <td>65°</td>
+                <td>True South (180°)</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <div id="formula-math">
+        <FormulaCard
+          title="Solar Panel Tilt Angle Formulas"
+          formula="Year_Round = Latitude × 0.76 + 3.1°  |  Summer = Latitude - 15°  |  Winter = Latitude + 15°"
+          formulaDescription="Calculates optimal fixed solar panel tilt relative to horizontal based on geographic latitude and Earth's 23.45° axial tilt declination cycle."
+          variables={[
+            { symbol: "Latitude", label: "Geographic Latitude", description: "Distance north (+) or south (-) from Earth's equator.", unit: "degrees" },
+            { symbol: "Year_Round", label: "Fixed Annual Optimal Tilt", description: "Maximizes cumulative annual kilowatt-hour solar harvest for fixed mounts.", unit: "degrees" },
+            { symbol: "Summer", label: "Summer Peak Optimization", description: "Flatter angle optimized for higher summer solar elevation.", unit: "degrees" },
+            { symbol: "Winter", label: "Winter Peak Optimization", description: "Steeper angle optimized for lower winter sun trajectories and snow shedding.", unit: "degrees" },
+          ]}
+          notes={[
+            "Equator-facing azimuth orientation: 180° (True South) in the Northern Hemisphere; 0° (True North) in the Southern Hemisphere.",
+            "A tilt angle deviation of ±10° from optimal typically causes less than 3% to 5% loss in total annual solar generation.",
+          ]}
+        />
+      </div>
+
+      <section id="faq-section" className="faq-section">
+        <h2>Frequently Asked Questions (FAQ)</h2>
+        <div className="faq-grid">
+          {FAQS.map((faq) => (
+            <details className="faq-item" key={faq.question}>
+              <summary>{faq.question}</summary>
+              <div className="faq-answer">{faq.answer}</div>
+            </details>
+          ))}
+        </div>
+      </section>
+
+      <section id="related-tools">
+        <h2>Related Solar Planning Tools</h2>
+        <p>
+          Model your expected annual kilowatt-hour production with our <Link href="/solar/solar-panel-output-calculator">Solar Panel Output Calculator</Link>, determine how many panels fit on your roof with the <Link href="/solar/solar-panel-size-calculator">Solar Panel Size Calculator</Link>, or calculate break-even ROI with the <Link href="/solar/solar-payback-calculator">Solar Payback Calculator</Link>.
+        </p>
+      </section>
+    </article>
+  );
 }

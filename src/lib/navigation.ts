@@ -36,5 +36,11 @@ export function isCategoryPublished(category: PublishedCategory) {
 }
 
 export function getFooterNavigation(): NavigationItem[] {
-  return [...getPrimaryNavigation(), { label: "Methodology", href: "/methodology" }, { label: "Sources", href: "/sources" }, { label: "Privacy", href: "/privacy" }];
+  return [
+    ...getPrimaryNavigation(),
+    { label: "Embed Widgets", href: "/developers" },
+    { label: "Methodology", href: "/methodology" },
+    { label: "Sources", href: "/sources" },
+    { label: "Privacy", href: "/privacy" },
+  ];
 }

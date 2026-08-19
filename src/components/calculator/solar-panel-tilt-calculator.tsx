@@ -6,6 +6,18 @@ import { calculateSeasonalTilts, getEquatorFacingAzimuth, validateLatitude } fro
 import { createEnergyProfileStore } from "@/lib/energy-profile/store";
 import { track } from "@/lib/analytics/analytics";
 import type { SolarProductionResult } from "@/lib/providers/pvwatts";
+import { SolarTiltVisualizer } from "@/components/calculator/solar-tilt-visualizer";
+import { ShareButton } from "@/components/calculator/share-button";
+import { PrintSpecButton } from "@/components/calculator/print-spec-button";
+
+const QUICK_LOCATIONS = [
+  { label: "🌴 Miami (26° N)", lat: 25.76, lon: -80.19 },
+  { label: "🌵 Phoenix (33° N)", lat: 33.45, lon: -112.07 },
+  { label: "🗽 New York (41° N)", lat: 40.71, lon: -74.01 },
+  { label: "🌧️ London (51.5° N)", lat: 51.51, lon: -0.13 },
+  { label: "🦘 Sydney (34° S)", lat: -33.87, lon: 151.21 },
+];
+
 
 const numberOr = (value: string, fallback: number) => {
   const parsed = Number(value);
@@ -33,13 +45,30 @@ export function SolarPanelTiltCalculator() {
   const [comparisonMessage, setComparisonMessage] = useState("");
 
   useEffect(() => {
+    if (typeof window !== "undefined") {
+      const params = new URLSearchParams(window.location.search);
+      const urlLat = Number(params.get("lat"));
+      const urlLon = Number(params.get("lon"));
+      if (Number.isFinite(urlLat) && urlLat >= -90 && urlLat <= 90) setLatitude(urlLat);
+      if (Number.isFinite(urlLon) && urlLon >= -180 && urlLon <= 180) setLongitude(urlLon);
+    }
+
     const profile = createEnergyProfileStore(window.localStorage).read();
-    if (profile.solar.latitude !== null) setLatitude(profile.solar.latitude);
-    if (profile.solar.longitude !== null) setLongitude(profile.solar.longitude);
+    if (profile.solar.latitude !== null && !new URLSearchParams(window.location.search).get("lat")) setLatitude(profile.solar.latitude);
+    if (profile.solar.longitude !== null && !new URLSearchParams(window.location.search).get("lon")) setLongitude(profile.solar.longitude);
     if (profile.solar.tiltDeg !== null) setRoofTilt(profile.solar.tiltDeg);
     if (profile.solar.azimuthDeg !== null) setAzimuth(profile.solar.azimuthDeg);
     if (profile.solar.systemCapacityKw !== null) setSystemCapacityKw(profile.solar.systemCapacityKw);
   }, []);
+
+  const getShareUrl = () => {
+    if (typeof window === "undefined") return "";
+    const url = new URL(window.location.href);
+    url.searchParams.set("lat", String(latitude));
+    url.searchParams.set("lon", String(longitude));
+    return url.toString();
+  };
+
 
   const latitudeError = validateLatitude(latitude);
   const longitudeError = !Number.isFinite(longitude) ? "Enter a valid longitude." : longitude < -180 || longitude > 180 ? "Longitude must be between -180° and 180°." : null;
@@ -123,6 +152,28 @@ export function SolarPanelTiltCalculator() {
     <div className="calculator-grid">
       <div className="calculator-inputs">
         <h2>Find a starting panel angle</h2>
+
+        <div className="preset-chips-container" role="region" aria-label="Quick Location Presets">
+          <span className="preset-chips-label">⚡ 1-Click Autofill: Top 5 Benchmark Locations</span>
+          <div className="preset-chips-row">
+            {QUICK_LOCATIONS.map((loc) => (
+              <button
+                key={loc.label}
+                type="button"
+                className={`preset-chip-btn ${Math.abs(latitude - loc.lat) < 0.1 ? "active" : ""}`}
+                onClick={() => {
+                  setLatitude(loc.lat);
+                  setLongitude(loc.lon);
+                  saveSolar({ latitude: loc.lat, longitude: loc.lon });
+                  track("calculator_preset_click", { calculator_id: "solar-panel-tilt", preset: loc.label });
+                }}
+              >
+                {loc.label}
+              </button>
+            ))}
+          </div>
+        </div>
+
         <form onSubmit={(event) => event.preventDefault()}>
           <fieldset className="input-group">
             <legend>Location</legend>
@@ -146,7 +197,7 @@ export function SolarPanelTiltCalculator() {
               <label htmlFor="roof-tilt">My roof tilt
                 <div className="input-with-unit"><input id="roof-tilt" type="number" inputMode="decimal" min="0" max="90" step="1" value={roofTilt} onChange={(event) => { const value = numberOr(event.target.value, roofTilt); setRoofTilt(value); saveSolar({ tiltDeg: value }); }} /><span aria-hidden="true">°</span></div>
               </label>
-              <div><span className="field-label">Orientation</span><div className="mode-choice" role="group" aria-label="Roof orientation">{AZIMUTH_PRESETS.map((preset) => <button type="button" className={azimuth === preset.value ? "button" : "text-button"} key={preset.value} onClick={() => { setAzimuth(preset.value); saveSolar({ azimuthDeg: preset.value }); }}>{preset.label}</button>)}</div></div>
+              <div><span className="field-label">Orientation</span><div className="chip-row" role="group" aria-label="Roof orientation">{AZIMUTH_PRESETS.map((preset) => <button type="button" className={azimuth === preset.value ? "chip active" : "chip"} key={preset.value} onClick={() => { setAzimuth(preset.value); saveSolar({ azimuthDeg: preset.value }); }}>{preset.label}</button>)}</div></div>
               <p className="form-hint">Production comparison will use the roof angle and orientation you enter.</p>
             </>}
           </fieldset>
@@ -172,9 +223,18 @@ export function SolarPanelTiltCalculator() {
         {tilts && orientation ? <>
           <p className="result-value">{tilts.yearRound}°</p>
           <p className="result-lede">For latitude {latitude > 0 ? `${latitude}° N` : latitude < 0 ? `${Math.abs(latitude)}° S` : "0° at the equator"}</p>
+
+          <SolarTiltVisualizer tiltAngle={tilts.yearRound} latitude={latitude} />
+
           <div className="comparison tilt-season-grid"><dl><div><dt>Summer</dt><dd>{tilts.summer}°</dd></div><div className="current-comparison"><dt>Year-round</dt><dd>{tilts.yearRound}°</dd></div><div><dt>Winter</dt><dd>{tilts.winter}°</dd></div></dl></div>
           <dl className="result-breakdown"><div><dt>Face toward</dt><dd>{orientation.label}{orientation.degrees === null ? "" : ` / ${orientation.degrees}°`}</dd></div><div><dt>Method</dt><dd>Latitude starting estimate</dd></div></dl>
           <p className="energy-flow-note form-hint">This is a practical starting estimate, not a universal optimum. Roof shape, shading and local conditions can change the best practical angle.</p>
+
+          <div className="button-row" style={{ marginTop: "1rem", display: "flex", gap: "0.5rem", flexWrap: "wrap" }}>
+            <ShareButton getShareUrl={getShareUrl} />
+            <PrintSpecButton />
+          </div>
+
           {compareRoof && <div className="comparison">
             <h3>Modeled roof comparison</h3>
             <p className="form-hint">Compare your roof with the recommended angle using a normalized {systemCapacityKw} kW system.</p>
@@ -192,3 +252,4 @@ export function SolarPanelTiltCalculator() {
     </div>
   </div>;
 }
+

@@ -6,10 +6,10 @@ describe("publication-aware navigation", () => {
   it("exposes every category with a published calculator", () => {
     expect(getPrimaryNavigation().map((item) => item.label)).toEqual(["Home", "Battery", "Solar", "Home Energy", "EV"]);
     expect(getPublishedCategories()).toEqual(["battery", "solar", "home-energy", "ev"]);
-    expect(getPublishedCalculatorsForCategory("battery").map((calculator) => calculator.id)).toEqual(["battery-runtime", "battery-size", "ups-runtime", "battery-capacity", "battery-charging-time"]);
-    expect(getPublishedCalculatorsForCategory("solar").map((calculator) => calculator.id)).toEqual(["solar-panel-tilt", "solar-panel-output"]);
-    expect(getPublishedCalculatorsForCategory("home-energy").map((calculator) => calculator.id)).toEqual(["electricity-usage", "energy-bill"]);
-    expect(getPublishedCalculatorsForCategory("ev").map((calculator) => calculator.id)).toEqual(["ev-charging-time", "ev-charging-cost"]);
+    expect(getPublishedCalculatorsForCategory("battery").map((calculator) => calculator.id)).toEqual(["battery-runtime", "battery-size", "ups-runtime", "ups-battery-size", "battery-capacity", "battery-charging-time", "portable-power-station", "voltage-drop", "inverter-size"]);
+    expect(getPublishedCalculatorsForCategory("solar").map((calculator) => calculator.id)).toEqual(["solar-panel-tilt", "solar-panel-output", "solar-battery-bank-size", "solar-load", "solar-panel-size", "solar-payback", "solar-charge-controller"]);
+    expect(getPublishedCalculatorsForCategory("home-energy").map((calculator) => calculator.id)).toEqual(["electricity-usage", "energy-bill", "home-battery-size", "appliance-wattage", "generator-size", "ac-cost", "space-heater-cost", "heat-pump-cost"]);
+    expect(getPublishedCalculatorsForCategory("ev").map((calculator) => calculator.id)).toEqual(["ev-charging-time", "ev-charging-cost", "ev-range", "ev-savings", "v2l-runtime", "ev-breaker-size"]);
   });
 
   it("activates EV surfaces when its registry status becomes published", () => {

@@ -1,0 +1,44 @@
+import { describe, expect, it } from "vitest";
+import { getSitemapPaths } from "@/app/sitemap";
+
+describe("publication-aware sitemap", () => {
+  it("includes only published category and calculator routes", () => {
+    const paths = getSitemapPaths();
+    expect(paths).toContain("/");
+    expect(paths).toContain("/battery");
+    expect(paths).toContain("/battery/battery-runtime-calculator");
+    expect(paths).toContain("/battery/battery-size-calculator");
+    expect(paths).not.toContain("/battery/home-battery-size-calculator");
+    expect(paths).toContain("/home-energy/home-battery-size-calculator");
+    expect(paths).toContain("/solar");
+    expect(paths).toContain("/solar/solar-panel-tilt-calculator");
+    expect(paths).toContain("/home-energy");
+    expect(paths).toContain("/home-energy/electricity-usage-calculator");
+    expect(paths).toContain("/home-energy/energy-bill-calculator");
+    expect(paths).toContain("/home-energy/appliance-wattage-calculator");
+    expect(paths).toContain("/ev");
+    expect(paths).toContain("/ev/ev-charging-time-calculator");
+    expect(paths).toContain("/solar/solar-panel-output-calculator");
+    expect(paths).toContain("/solar/solar-battery-bank-size-calculator");
+    expect(paths).toContain("/solar/solar-panel-size-calculator");
+    expect(paths).toContain("/solar/solar-load-calculator");
+    expect(paths).toContain("/battery/ups-runtime-calculator");
+    expect(paths).toContain("/battery/ups-battery-size-calculator");
+    expect(paths).toContain("/battery/battery-capacity-calculator");
+    expect(paths).toContain("/battery/battery-charging-time-calculator");
+    expect(paths).toContain("/battery/portable-power-station-calculator");
+    expect(paths).toContain("/ev/ev-charging-cost-calculator");
+    expect(paths).toContain("/ev/ev-range-calculator");
+    expect(paths).toContain("/ev/ev-savings-calculator");
+    expect(paths).toContain("/battery/voltage-drop-calculator");
+    expect(paths).toContain("/home-energy/generator-size-calculator");
+    expect(paths).toContain("/solar/solar-payback-calculator");
+    expect(paths).toContain("/home-energy/air-conditioner-cost-calculator");
+    expect(paths).toContain("/home-energy/space-heater-cost-calculator");
+    expect(paths).toContain("/home-energy/heat-pump-cost-calculator");
+    expect(paths).toContain("/solar/solar-charge-controller-calculator");
+    expect(paths).toContain("/battery/inverter-size-calculator");
+    expect(paths).toContain("/ev/v2l-runtime-calculator");
+    expect(paths).toContain("/ev/ev-charger-breaker-size-calculator");
+  });
+});

@@ -4,7 +4,9 @@ export type AnalyticsEvent =
   | "calculator_advanced_open"
   | "calculator_mode_change"
   | "calculator_appliance_add"
+  | "calculator_preset_click"
   | "calculator_handoff";
+
 
 export function track(event: AnalyticsEvent, properties: Record<string, string | boolean | number> = {}) {
   if (typeof window === "undefined") return;

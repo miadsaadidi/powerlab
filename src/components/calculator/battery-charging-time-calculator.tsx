@@ -9,8 +9,18 @@ import { createBatteryChargingRuntimeHandoff } from "@/lib/calculators/battery-c
 import { resolveBatteryChargingInitialization } from "@/lib/calculators/battery-charging-time/initialization";
 import { createEnergyProfileStore, type BatteryChargingProfile } from "@/lib/energy-profile/store";
 import { isCalculatorPublished } from "@/lib/calculator-registry";
+import { ShareButton } from "@/components/calculator/share-button";
+import { PrintSpecButton } from "@/components/calculator/print-spec-button";
+
+const QUICK_CHARGING_PRESETS = [
+  { label: "🔋 100Ah LiFePO4 (20A)", mode: "ah-amps" as const, capacity: 100, current: 20, chem: "lifepo4" },
+  { label: "⚡ 100Ah AGM (10A)", mode: "ah-amps" as const, capacity: 100, current: 10, chem: "agm" },
+  { label: "🏡 48V 100Ah Bank (50A)", mode: "ah-amps" as const, capacity: 100, current: 50, chem: "lifepo4" },
+  { label: "🏕️ 1,000Wh Station (200W)", mode: "energy-power" as const, capacity: 1000, power: 200, chem: "lifepo4" },
+];
 
 type ChargingMode = BatteryChargingTimeInput["mode"];
+
 
 const numberValue = (value: string) => Number(value);
 const fraction = (value: string) => Number(value) / 100;
@@ -218,6 +228,37 @@ export function BatteryChargingTimeCalculator() {
     <div className="calculator-grid">
       <div className="calculator-inputs">
         <h2 id="battery-charging-time-heading">Calculate charging time</h2>
+
+        <div className="preset-chips-container" role="region" aria-label="Quick Battery & Charger Presets">
+          <span className="preset-chips-label">Quick Presets:</span>
+          <div className="preset-chips-row">
+            {QUICK_CHARGING_PRESETS.map((sc) => (
+              <button
+                key={sc.label}
+                type="button"
+                className={`preset-chip-btn ${mode === sc.mode && (sc.mode === "ah-amps" ? ahCapacity === sc.capacity && ahChargerCurrent === sc.current : powerCapacity === sc.capacity && powerOutput === sc.power) ? "active" : ""}`}
+                onClick={() => {
+                  setMode(sc.mode);
+                  setChemistry(sc.chem);
+                  if (sc.mode === "ah-amps") {
+                    setAhCapacity(sc.capacity);
+                    setAhChargerCurrent(sc.current);
+                  } else {
+                    setPowerCapacity(sc.capacity);
+                    setPowerCapacityUnit("wh");
+                    setPowerOutput(sc.power);
+                    setPowerOutputUnit("w");
+                  }
+                  if (calculated) setStale(true);
+                  track("calculator_preset_click", { calculator_id: "battery-charging-time", preset: sc.label });
+                }}
+              >
+                {sc.label}
+              </button>
+            ))}
+          </div>
+        </div>
+
         <form onSubmit={(event) => { event.preventDefault(); calculate(); }} noValidate>
           <fieldset className="input-group"><legend>What do you know?</legend><div className="mode-choice" role="radiogroup" aria-label="Charging calculation mode"><label><input type="radio" name="charging-mode" checked={mode === "ah-amps"} onChange={() => changeMode("ah-amps")} /> Ah + charger amps</label><label><input type="radio" name="charging-mode" checked={mode === "energy-power"} onChange={() => changeMode("energy-power")} /> Wh/kWh + charger watts</label></div></fieldset>
           {mode === "ah-amps" ? <fieldset className="input-group"><legend>Battery and charger</legend><label htmlFor="charging-capacity-ah">Battery capacity (Ah)<input id="charging-capacity-ah" type="number" min="0" step="any" inputMode="decimal" value={ahCapacity} onChange={(event) => markActive(setAhCapacity, numberValue(event.target.value))} /></label><label htmlFor="charging-current">Charger current delivered to battery (A)<input id="charging-current" type="number" min="0" step="any" inputMode="decimal" value={ahChargerCurrent} onChange={(event) => markActive(setAhChargerCurrent, numberValue(event.target.value))} /></label><div className="mode-choice" aria-label="Target charge shortcuts"><span className="field-label">Target charge</span>{[0.8, 0.9, 1].map((value) => <button className={ahTargetSoc === value ? "secondary-button" : "text-button"} type="button" key={value} onClick={() => markActive(setAhTargetSoc, value)}>{percent(value)}%</button>)}</div><label htmlFor="charging-start-ah">Starting charge (%)<input id="charging-start-ah" type="number" min="0" max="100" step="1" inputMode="numeric" value={percent(ahStartSoc)} onChange={(event) => markActive(setAhStartSoc, fraction(event.target.value))} /></label><label htmlFor="charging-target-ah">Target charge (%)<input id="charging-target-ah" type="number" min="0" max="100" step="1" inputMode="numeric" value={percent(ahTargetSoc)} onChange={(event) => markActive(setAhTargetSoc, fraction(event.target.value))} /></label></fieldset> : <fieldset className="input-group"><legend>Battery and charger</legend><label htmlFor="charging-capacity-energy">Battery energy<span className="input-with-unit"><input id="charging-capacity-energy" type="number" min="0" step="any" inputMode="decimal" value={powerCapacity} onChange={(event) => markActive(setPowerCapacity, numberValue(event.target.value))} /><select aria-label="Battery energy unit" value={powerCapacityUnit} onChange={(event) => markActive(setPowerCapacityUnit, event.target.value as "wh" | "kwh")}><option value="wh">Wh</option><option value="kwh">kWh</option></select></span></label><label htmlFor="charging-power">Charger output power<span className="input-with-unit"><input id="charging-power" type="number" min="0" step="any" inputMode="decimal" value={powerOutput} onChange={(event) => markActive(setPowerOutput, numberValue(event.target.value))} /><select aria-label="Charger output power unit" value={powerOutputUnit} onChange={(event) => markActive(setPowerOutputUnit, event.target.value as "w" | "kw")}><option value="w">W</option><option value="kw">kW</option></select></span></label><div className="mode-choice" aria-label="Target charge shortcuts"><span className="field-label">Target charge</span>{[0.8, 0.9, 1].map((value) => <button className={powerTargetSoc === value ? "secondary-button" : "text-button"} type="button" key={value} onClick={() => markActive(setPowerTargetSoc, value)}>{percent(value)}%</button>)}</div><label htmlFor="charging-start-power">Starting charge (%)<input id="charging-start-power" type="number" min="0" max="100" step="1" inputMode="numeric" value={percent(powerStartSoc)} onChange={(event) => markActive(setPowerStartSoc, fraction(event.target.value))} /></label><label htmlFor="charging-target-power">Target charge (%)<input id="charging-target-power" type="number" min="0" max="100" step="1" inputMode="numeric" value={percent(powerTargetSoc)} onChange={(event) => markActive(setPowerTargetSoc, fraction(event.target.value))} /></label></fieldset>}
@@ -227,7 +268,36 @@ export function BatteryChargingTimeCalculator() {
           <button className="button calculator-submit" type="submit">{calculated ? "Recalculate" : "Calculate Charging Time"}</button>
         </form>
       </div>
-      <aside className="result-panel" aria-live="polite"><p className="eyebrow">Battery charging estimate</p>{!calculated ? <p>Complete the inputs and calculate to see an estimate.</p> : <><p className="result-lede">Estimated charging time</p><p className="result-value">{formatTime(calculated.result.adjustedHours)}</p>{stale && <p className="warning" role="status">Inputs changed — recalculate to update the estimate.</p>}<dl className="result-breakdown"><div><dt>Ideal constant-rate time</dt><dd>{formatTime(calculated.result.idealHours)}</dd></div><div><dt>{calculated.result.rateUnit === "A" ? "Charge to add" : "Energy to add"}</dt><dd>{calculated.result.rateUnit === "A" ? `${formatNumber(calculated.result.chargeAh ?? 0)} Ah` : `${formatNumber(calculated.result.energyToAddWh ?? 0)} Wh`}</dd></div><div><dt>Selected charger output</dt><dd>{formatNumber(calculated.result.selectedChargerRate)} {calculated.result.rateUnit}</dd></div><div><dt>Effective charging rate</dt><dd>{formatNumber(calculated.result.effectiveChargerRate)} {calculated.result.rateUnit}</dd></div><div><dt>Limiting factor</dt><dd>{calculated.result.limitingFactor === "battery-charge-limit" ? "Battery charge limit" : "Charger output"}</dd></div></dl>{calculated.result.limitingFactor === "charger-output" && <p className="form-hint">Battery maximum charge rate is unknown — confirm the manufacturer&apos;s charging specification.</p>}{calculated.result.limitingFactor === "battery-charge-limit" && <p className="warning">The battery acceptance limit caps the effective charging rate below the selected charger output.</p>}<section className="comparison"><h3>What if the charger output changes?</h3><dl>{comparison.map((item) => <div key={item.label} className={item.selected ? "current-comparison" : ""}><dt>{item.label} {item.selected && <span>Selected</span>}</dt><dd>{formatTime(item.result.result.adjustedHours)}<small> · {formatNumber(item.result.result.effectiveChargerRate)} {item.result.result.rateUnit} effective</small></dd></div>)}</dl></section><section className="assumption-summary"><h3>Assumptions used</h3><dl><div><dt>Battery charge efficiency</dt><dd>{percent(calculated.result.batteryChargeEfficiency)}%</dd></div><div><dt>Planning overhead</dt><dd>{formatNumber(calculated.result.planningOverheadFactor)}× planning estimate</dd></div><div><dt>Start → target charge</dt><dd>{percent(currentStartSoc)}% → {percent(currentTargetSoc)}%</dd></div><div><dt>Battery chemistry</dt><dd>{chemistryPreset.label}</dd></div></dl><button className="text-button" type="button" onClick={() => setAdvancedOpen(true)}>Edit assumptions</button></section><div className="handoff"><h3>Save or continue</h3><p>Calculation experiments stay in this form until you choose an action.</p><button className="secondary-button" type="button" onClick={saveProfile}>Save to Energy Profile</button>{capacityPublished && <button className="text-button" type="button" onClick={capacityHandoff}>Convert/check this battery capacity</button>}{runtimePublished && <button className="text-button" type="button" onClick={runtimeHandoff}>Estimate runtime after charging</button>}</div></>}</aside>
+      <aside className="result-panel" aria-live="polite"><p className="eyebrow">Battery charging estimate</p>{!calculated ? <p>Complete the inputs and calculate to see an estimate.</p> : <><p className="result-lede">Estimated charging time</p><p className="result-value">{formatTime(calculated.result.adjustedHours)}</p>{stale && <p className="warning" role="status">Inputs changed — recalculate to update the estimate.</p>}<dl className="result-breakdown"><div><dt>Ideal constant-rate time</dt><dd>{formatTime(calculated.result.idealHours)}</dd></div><div><dt>{calculated.result.rateUnit === "A" ? "Charge to add" : "Energy to add"}</dt><dd>{calculated.result.rateUnit === "A" ? `${formatNumber(calculated.result.chargeAh ?? 0)} Ah` : `${formatNumber(calculated.result.energyToAddWh ?? 0)} Wh`}</dd></div><div><dt>Selected charger output</dt><dd>{formatNumber(calculated.result.selectedChargerRate)} {calculated.result.rateUnit}</dd></div><div><dt>Effective charging rate</dt><dd>{formatNumber(calculated.result.effectiveChargerRate)} {calculated.result.rateUnit}</dd></div><div><dt>Limiting factor</dt><dd>{calculated.result.limitingFactor === "battery-charge-limit" ? "Battery charge limit" : "Charger output"}</dd></div></dl>{calculated.result.limitingFactor === "charger-output" && <p className="form-hint">Battery maximum charge rate is unknown — confirm the manufacturer&apos;s charging specification.</p>}{calculated.result.limitingFactor === "battery-charge-limit" && <p className="warning">The battery acceptance limit caps the effective charging rate below the selected charger output.</p>}<section className="comparison"><h3>What if the charger output changes?</h3><dl>{comparison.map((item) => <div key={item.label} className={item.selected ? "current-comparison" : ""}><dt>{item.label} {item.selected && <span>Selected</span>}</dt><dd>{formatTime(item.result.result.adjustedHours)}<small> · {formatNumber(item.result.result.effectiveChargerRate)} {item.result.result.rateUnit} effective</small></dd></div>)}</dl></section><section className="assumption-summary"><h3>Assumptions used</h3><dl><div><dt>Battery charge efficiency</dt><dd>{percent(calculated.result.batteryChargeEfficiency)}%</dd></div><div><dt>Planning overhead</dt><dd>{formatNumber(calculated.result.planningOverheadFactor)}× planning estimate</dd></div><div><dt>Start → target charge</dt><dd>{percent(currentStartSoc)}% → {percent(currentTargetSoc)}%</dd></div><div><dt>Battery chemistry</dt><dd>{chemistryPreset.label}</dd></div></dl><button className="text-button" type="button" onClick={() => setAdvancedOpen(true)}>Edit assumptions</button></section>
+      <div className="button-row" style={{ marginTop: "1rem", display: "flex", gap: "0.5rem", flexWrap: "wrap" }}>
+        <ShareButton title="Battery Charging Time Calculation" />
+        <PrintSpecButton />
+      </div>
+      <div className="handoff">
+        <h3>Save or continue</h3>
+        <p>Calculation experiments stay in this form until you choose an action.</p>
+        <div className="handoff-button-group" style={{ display: "flex", flexDirection: "column", gap: "0.45rem" }}>
+          <button className="button secondary-button handoff-link" type="button" onClick={saveProfile}>
+            <span>Save to Energy Profile</span>
+            <span aria-hidden="true">💾</span>
+          </button>
+          {capacityPublished && (
+            <button className="button secondary-button handoff-link" type="button" onClick={capacityHandoff}>
+              <span>Convert/check this battery capacity</span>
+              <span aria-hidden="true">→</span>
+            </button>
+          )}
+          {runtimePublished && (
+            <button className="button secondary-button handoff-link" type="button" onClick={runtimeHandoff}>
+              <span>Estimate runtime after charging</span>
+              <span aria-hidden="true">→</span>
+            </button>
+          )}
+        </div>
+      </div>
+    </>}</aside>
     </div><p className="sr-only" role="status" aria-live="polite" aria-atomic="true">{announcement}</p>
   </section>;
 }
+
+

@@ -11,11 +11,9 @@ export function resolveSiteUrl({ configuredUrl, projectProductionUrl, deployment
 }
 
 export const siteConfig = {
-  name: "Energy Planning Tools",
-  description: "Transparent energy calculators for batteries, solar, home energy and EVs.",
-  url: resolveSiteUrl({
-    configuredUrl: process.env.NEXT_PUBLIC_SITE_URL,
-    projectProductionUrl: process.env.VERCEL_PROJECT_PRODUCTION_URL,
-    deploymentUrl: process.env.VERCEL_ENV === "production" ? process.env.VERCEL_URL : undefined,
-  }),
+  name: "PowerLab",
+  description: "Transparent engineering calculators for batteries, solar PV, home energy and EVs.",
+  url: "https://www.powelab.org",
 } as const;
+
+

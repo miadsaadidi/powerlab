@@ -5,6 +5,8 @@ export interface AppliancePreset {
   label: string;
   watts: number;
   typicalRange: string;
+  typicalMinW?: number;
+  typicalMaxW?: number;
   category: ApplianceCategory;
   defaultDutyCycle: number;
   loadType: "ac" | "dc";
@@ -16,7 +18,7 @@ export const APPLIANCES: AppliancePreset[] = [
   { id: "internet-modem", label: "Internet Modem / ONT", watts: 10, typicalRange: "4–20 W", category: "Common", defaultDutyCycle: 1, loadType: "ac" },
   { id: "laptop", label: "Laptop", watts: 65, typicalRange: "20–150 W", category: "Electronics", defaultDutyCycle: 1, loadType: "ac" },
   { id: "desktop", label: "Desktop Computer", watts: 200, typicalRange: "80–500 W", category: "Electronics", defaultDutyCycle: 1, loadType: "ac" },
-  { id: "led-tv", label: "LED TV", watts: 100, typicalRange: "30–200 W", category: "Electronics", defaultDutyCycle: 1, loadType: "ac" },
+  { id: "led-tv", label: "LED TV", watts: 100, typicalRange: "30–200 W", typicalMinW: 30, typicalMaxW: 200, category: "Electronics", defaultDutyCycle: 1, loadType: "ac" },
   { id: "large-tv", label: "Large TV", watts: 150, typicalRange: "80–300 W", category: "Electronics", defaultDutyCycle: 1, loadType: "ac" },
   { id: "led-bulb", label: "LED Light Bulb", watts: 10, typicalRange: "5–20 W", category: "Lighting", defaultDutyCycle: 1, loadType: "ac" },
   { id: "ceiling-fan", label: "Ceiling Fan", watts: 50, typicalRange: "20–100 W", category: "Common", defaultDutyCycle: 1, loadType: "ac" },

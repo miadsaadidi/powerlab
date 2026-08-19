@@ -17,7 +17,7 @@
 │   ├── /battery/battery-charging-time-calculator
 │   ├── /battery/ups-runtime-calculator
 │   ├── /battery/ups-battery-size-calculator
-│   ├── /battery/home-battery-size-calculator
+│   ├── /home-energy/home-battery-size-calculator
 │   └── /battery/portable-power-station-calculator
 ├── /home-energy/
 │   ├── /home-energy/electricity-usage-calculator

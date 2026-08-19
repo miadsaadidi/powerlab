@@ -6,6 +6,16 @@ import { BATTERY_CHEMISTRIES, BATTERY_RUNTIME_DEFAULTS, BATTERY_VOLTAGE_PRESETS 
 import { track } from "@/lib/analytics/analytics";
 import { calculateBatteryRuntime, type BatteryRuntimeInput, type LoadType, type RuntimeApplianceInput } from "@/lib/calculators/battery-runtime/engine";
 import { createEnergyProfileStore } from "@/lib/energy-profile/store";
+import { LossWaterfall } from "@/components/calculator/loss-waterfall";
+import { MobileResultBar } from "@/components/calculator/mobile-result-bar";
+import { BatterySocGauge } from "@/components/calculator/battery-soc-gauge";
+import { ShareButton } from "@/components/calculator/share-button";
+import { PrintSpecButton } from "@/components/calculator/print-spec-button";
+import { EmbedModal } from "@/components/calculator/embed-modal";
+import { OutageTimelineVisualizer } from "@/components/calculator/outage-timeline-visualizer";
+import { BatteryDischargeCurveChart } from "@/components/charts/battery-discharge-curve";
+
+
 
 type CapacityUnit = "wh" | "kwh" | "ah";
 type LoadMode = "total" | "appliances";
@@ -14,6 +24,15 @@ type LoadUnit = "w" | "kw";
 type ApplianceRow = RuntimeApplianceInput & { id: string; typicalRange: string };
 
 const COMMON_APPLIANCE_IDS = ["wifi-router", "laptop", "led-tv", "led-bulb", "refrigerator", "ceiling-fan", "desktop", "phone-charger", "game-console", "microwave", "coffee-maker", "air-fryer", "electric-kettle", "space-heater", "window-ac", "custom"];
+
+const QUICK_SCENARIOS = [
+  { label: "🏕️ 12V Vanlife Fridge", capacity: 1200, unit: "wh" as const, chem: "lifepo4", watts: 45, duty: 0.35, desc: "12V 100Ah LiFePO4 + 45W fridge (35% cycling)" },
+  { label: "💻 Workstation & Starlink", capacity: 1000, unit: "wh" as const, chem: "lifepo4", watts: 150, duty: 1.0, desc: "1,000Wh station + 150W laptop, monitor & Starlink" },
+  { label: "🏠 Home Outage Essentials", capacity: 13500, unit: "wh" as const, chem: "lifepo4", watts: 285, duty: 1.0, desc: "13.5kWh Home Battery + Fridge, Wi-Fi & LED lights" },
+  { label: "🏥 Medical CPAP (Overnight)", capacity: 500, unit: "wh" as const, chem: "lifepo4", watts: 45, duty: 1.0, desc: "500Wh battery + 45W CPAP with humidifier" },
+  { label: "🚨 Sump Pump Storm Backup", capacity: 1200, unit: "wh" as const, chem: "agm", watts: 800, duty: 0.1, desc: "12V 100Ah AGM + 800W pump (10% storm duty)" },
+];
+
 
 const asNumber = (value: string) => Number(value);
 const asPercent = (value: string) => Number(value) / 100;
@@ -65,19 +84,47 @@ export function BatteryRuntimeCalculator() {
   const normalizedCapacityWh = capacityUnit === "wh" ? capacityValue : capacityUnit === "kwh" ? capacityValue * 1_000 : capacityValue * voltage;
 
   useEffect(() => {
+    // 1. Check URL parameters
+    if (typeof window !== "undefined") {
+      const params = new URLSearchParams(window.location.search);
+      const urlLoad = Number(params.get("load"));
+      const urlCap = Number(params.get("capacity"));
+      const urlUnit = params.get("unit") as CapacityUnit | null;
+      const urlVolt = Number(params.get("voltage"));
+      const urlChem = params.get("chemistry");
+
+      if (Number.isFinite(urlLoad) && urlLoad > 0) setLoadValue(urlLoad);
+      if (Number.isFinite(urlCap) && urlCap > 0) setCapacityValue(urlCap);
+      if (urlUnit && ["wh", "kwh", "ah"].includes(urlUnit)) setCapacityUnit(urlUnit);
+      if (Number.isFinite(urlVolt) && urlVolt > 0) setVoltage(urlVolt);
+      if (urlChem && BATTERY_CHEMISTRIES.some((c) => c.id === urlChem)) setChemistry(urlChem);
+    }
+
     const profile = createEnergyProfileStore(window.localStorage).read();
     const savedChemistry = BATTERY_CHEMISTRIES.find((item) => item.id === profile.battery.chemistry) ?? BATTERY_CHEMISTRIES[0];
-    if (profile.battery.capacityWh) {
+    if (profile.battery.capacityWh && !new URLSearchParams(window.location.search).get("capacity")) {
       setCapacityValue(profile.battery.capacityWh);
       setCapacityUnit("wh");
     }
-    if (profile.battery.chemistry) setChemistry(savedChemistry.id);
+    if (profile.battery.chemistry && !new URLSearchParams(window.location.search).get("chemistry")) setChemistry(savedChemistry.id);
     if (profile.battery.reserveSoc !== null) {
       setReserveSoc(profile.battery.reserveSoc);
       setReserveCustomized(profile.battery.reserveSoc !== savedChemistry.reserveSoc);
     }
     track("calculator_view", { calculator_id: "battery-runtime", category: "battery", phase: 1 });
   }, []);
+
+  const getShareUrl = () => {
+    if (typeof window === "undefined") return "";
+    const url = new URL(window.location.href);
+    url.searchParams.set("load", String(loadValue));
+    url.searchParams.set("capacity", String(capacityValue));
+    url.searchParams.set("unit", capacityUnit);
+    url.searchParams.set("voltage", String(voltage));
+    url.searchParams.set("chemistry", chemistry);
+    return url.toString();
+  };
+
 
   const calculationInput = useMemo<BatteryRuntimeInput>(() => ({
     capacityWh: capacityUnit === "wh" ? capacityValue : undefined,
@@ -169,6 +216,33 @@ export function BatteryRuntimeCalculator() {
     <div className="calculator-grid">
       <div className="calculator-inputs">
         <h2 id="calculator-heading">Calculate estimated runtime</h2>
+
+        <div className="preset-chips-container" role="region" aria-label="Quick Scenario Presets">
+          <span className="preset-chips-label">⚡ 1-Click Autofill: Top 5 Battery Setups</span>
+          <div className="preset-chips-row">
+            {QUICK_SCENARIOS.map((sc) => (
+              <button
+                key={sc.label}
+                type="button"
+                className={`preset-chip-btn ${loadMode === "total" && loadValue === sc.watts && capacityValue === sc.capacity ? "active" : ""}`}
+                onClick={() => {
+                  setCapacityValue(sc.capacity);
+                  setCapacityUnit(sc.unit);
+                  selectChemistry(sc.chem);
+                  setLoadMode("total");
+                  setLoadUnit("w");
+                  setLoadValue(sc.watts);
+                  setDutyCycle(sc.duty);
+                  track("calculator_preset_click", { calculator_id: "battery-runtime", preset: sc.label });
+                }}
+                title={sc.desc}
+              >
+                {sc.label}
+              </button>
+            ))}
+          </div>
+        </div>
+
         <form onSubmit={(event) => event.preventDefault()} noValidate>
           <fieldset className="input-group">
             <legend>Battery</legend>
@@ -232,16 +306,41 @@ export function BatteryRuntimeCalculator() {
             {peukertEnabled && <p className="form-hint">Suggested planning exponent: {chemistryPreset.peukertExponent}. A precise Peukert correction needs the battery&apos;s rated discharge current or time, so it is not applied to this quick estimate.</p>}
           </fieldset>}
           {result instanceof Error && <p className="error" role="alert">{result.message}</p>}
-          {visibleResult && <button className="button secondary-button" type="button" onClick={saveProfile}>Save to Energy Profile</button>}
         </form>
       </div>
 
-      <aside className="result-panel">
+      <aside className="result-panel" id="calculator-result">
         <p className="eyebrow">Estimated runtime</p>
         {visibleResult ? <>
           <p className="result-value">{formatRuntime(visibleResult.result.runtimeHours)}</p>
           <p className="result-decimal">≈ {visibleResult.result.runtimeHours.toFixed(1)} hours</p>
           <p className="result-lede">A planning estimate based on your battery energy and average device load.</p>
+
+          <BatterySocGauge
+            startingSoc={startingSoc}
+            reserveSoc={reserveSoc}
+            batteryHealth={batteryHealth}
+            usableKwh={visibleResult.result.usableBatteryWh / 1000}
+            totalKwh={visibleResult.result.nominalEnergyWh / 1000}
+          />
+
+          <OutageTimelineVisualizer
+            runtimeHours={visibleResult.result.runtimeHours}
+            loadWatts={visibleResult.result.averageLoadWatts}
+            capacityWh={visibleResult.result.nominalEnergyWh}
+            reserveSoc={reserveSoc}
+          />
+
+          <BatteryDischargeCurveChart
+            nominalVoltage={voltage}
+            capacityAh={capacityUnit === "ah" ? capacityValue : (visibleResult.result.nominalEnergyWh / voltage)}
+            dod={1 - reserveSoc}
+            inverterEfficiency={loadType === "ac" ? acInverterEfficiency : dcConversionEfficiency}
+            currentLoadWatts={visibleResult.result.averageLoadWatts}
+          />
+
+
+
           <dl className="result-breakdown">
             <div><dt>Battery capacity</dt><dd>{watts(visibleResult.result.nominalEnergyWh)} Wh</dd></div>
             <div><dt>Usable battery energy</dt><dd>{watts(visibleResult.result.usableBatteryWh)} Wh</dd></div>
@@ -249,22 +348,38 @@ export function BatteryRuntimeCalculator() {
             <div><dt>Battery-side load</dt><dd>{watts(visibleResult.result.batterySideLoadWatts)} W</dd></div>
             {loadMode === "appliances" && <div><dt>Peak connected load</dt><dd>{watts(visibleResult.result.peakConnectedLoadWatts)} W</dd></div>}
           </dl>
-          <div className="energy-flow" aria-label="Energy flow explanation">
-            <div><strong>{watts(visibleResult.result.nominalEnergyWh)} Wh</strong><span>Nominal battery</span></div><span aria-hidden="true">↓</span>
-            <div><strong>{watts(visibleResult.result.usableBatteryWh)} Wh</strong><span>Usable after reserve</span></div><span aria-hidden="true">↓</span>
-            <div><strong>{watts(visibleResult.result.averageLoadWatts)} W {loadMode === "total" && loadType === "ac" ? "AC" : ""}</strong><span>Device load</span></div><span aria-hidden="true">↓</span>
-            <div><strong>{watts(visibleResult.result.batterySideLoadWatts)} W</strong><span>Battery-side load</span></div><span aria-hidden="true">↓</span>
-            <div><strong>{formatRuntime(visibleResult.result.runtimeHours)}</strong><span>Estimated runtime</span></div>
-          </div>
-          <p className="form-hint energy-flow-note">Usable battery energy is before inverter or conversion losses; those are reflected in the battery-side load.</p>
+          <LossWaterfall
+            title="Energy Conversion Flow"
+            steps={[
+              { label: "Nominal Capacity", value: visibleResult.result.nominalEnergyWh, unit: "Wh", subtext: "Rated pack capacity" },
+              { label: "Usable After Reserve", value: visibleResult.result.usableBatteryWh, unit: "Wh", subtext: `${percent(1 - reserveSoc)}% usable DOD window` },
+              { label: "Effective Delivered Energy", value: visibleResult.result.usableBatteryWh * (loadType === "ac" ? acInverterEfficiency : dcConversionEfficiency), unit: "Wh", subtext: `After ${percent(loadType === "ac" ? acInverterEfficiency : dcConversionEfficiency)}% efficiency`, isFinal: true },
+            ]}
+          />
           <section className="comparison" aria-labelledby="runtime-comparison-heading"><h3 id="runtime-comparison-heading">Runtime at different loads</h3><dl>{comparison.map((item) => <div key={item.load} className={item.isCurrent ? "current-comparison" : ""}><dt>{watts(item.load)} W {item.isCurrent && <span>Your load</span>}</dt><dd>{formatRuntime(item.runtimeHours)}</dd></div>)}</dl></section>
           <section className="assumption-summary" aria-labelledby="assumptions-heading"><h3 id="assumptions-heading">Assumptions used</h3><dl><div><dt>Battery type</dt><dd>{chemistryPreset.label}</dd></div><div><dt>Starting charge</dt><dd>{percent(startingSoc)}%</dd></div><div><dt>Reserve</dt><dd>{percent(reserveSoc)}%</dd></div><div><dt>Battery health</dt><dd>{percent(batteryHealth)}%</dd></div><div><dt>AC inverter efficiency</dt><dd>{percent(acInverterEfficiency)}%</dd></div></dl><button className="text-button" type="button" onClick={() => setAdvancedOpen(true)}>Edit assumptions</button></section>
           {visibleResult.warnings.map((warning) => <p className={warning.severity === "caution" ? "warning" : "form-hint"} key={warning.code}>{warning.message}</p>)}
           <p className="sensitivity-note">If your actual load is 10% higher, runtime is about 9% shorter.</p>
+
+          <div className="button-row" style={{ marginTop: "1rem", display: "flex", gap: "0.5rem", flexWrap: "wrap" }}>
+            <button className="button secondary-button" type="button" onClick={saveProfile}>Save to Profile</button>
+            <ShareButton getShareUrl={getShareUrl} />
+            <PrintSpecButton />
+          </div>
+
           <section className="accuracy-tip"><h3>Want a more accurate result?</h3><p>Use your battery&apos;s actual Wh/Ah rating, your appliance&apos;s measured or nameplate watts, inverter efficiency if known, current charge, and battery health.</p></section>
         </> : <p>Enter valid values to see the estimate.</p>}
       </aside>
     </div>
+    {visibleResult && (
+      <MobileResultBar
+        label="Estimated Runtime"
+        value={formatRuntime(visibleResult.result.runtimeHours)}
+        targetId="calculator-result"
+        subtext={`@ ${watts(visibleResult.result.averageLoadWatts)} W load`}
+      />
+    )}
     <p className="sr-only" role="status" aria-live="polite" aria-atomic="true">{announcement}</p>
   </section>;
 }
+

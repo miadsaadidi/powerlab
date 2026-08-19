@@ -7,8 +7,25 @@ import { createEnergyProfileStore } from "@/lib/energy-profile/store";
 import { track } from "@/lib/analytics/analytics";
 import { calculateSeasonalTilts, getEquatorFacingAzimuth } from "@/lib/calculators/solar-tilt/engine";
 import { calculateUsageProfile } from "@/lib/calculators/electricity-usage/engine";
+import { ShareButton } from "@/components/calculator/share-button";
+import { PrintSpecButton } from "@/components/calculator/print-spec-button";
+import { EmbedModal } from "@/components/calculator/embed-modal";
+import { SolarRoofVisualizer } from "@/components/calculator/solar-roof-visualizer";
+import { SolarMonthlyYieldChart } from "@/components/charts/solar-monthly-yield";
+
+
+
+const QUICK_SYSTEM_PRESETS = [
+  { label: "🚐 Camper Van / RV (600W)", kw: 0.6 },
+  { label: "🏕️ Off-Grid Cabin (3 kW)", kw: 3.0 },
+  { label: "🏠 Townhouse (4.8 kW)", kw: 4.8 },
+  { label: "🏡 Suburban Home (8 kW)", kw: 8.0 },
+  { label: "🏢 Large All-Electric (12 kW)", kw: 12.0 },
+];
+
 
 type InputMode = "system" | "panels";
+
 type OrientationMode = "preset" | "custom";
 type CalculationState = { summary: SolarOutputSummary; provider: NormalizedSolarOutput; capacityKw: number };
 const numberOr = (value: string, fallback: number) => { const parsed = Number(value); return Number.isFinite(parsed) ? parsed : fallback; };
@@ -104,6 +121,28 @@ export function SolarPanelOutputCalculator() {
 
   return <section className="calculator solar-output-calculator" aria-labelledby="solar-output-heading">
     <div className="calculator-grid"><div className="calculator-inputs"><h2 id="solar-output-heading">Estimate solar production</h2>
+
+      <div className="preset-chips-container" role="region" aria-label="Quick System Sizes">
+        <span className="preset-chips-label">⚡ 1-Click Autofill: Top 5 Solar Setups</span>
+        <div className="preset-chips-row">
+          {QUICK_SYSTEM_PRESETS.map((sc) => (
+            <button
+              key={sc.label}
+              type="button"
+              className={`preset-chip-btn ${inputMode === "system" && systemSize === sc.kw ? "active" : ""}`}
+              onClick={() => {
+                setInputMode("system");
+                setSystemSize(sc.kw);
+                markStale();
+                track("calculator_preset_click", { calculator_id: "solar-panel-output", preset: sc.label });
+              }}
+            >
+              {sc.label}
+            </button>
+          ))}
+        </div>
+      </div>
+
       <form onSubmit={(event) => { event.preventDefault(); void calculate(); }}>
         <fieldset className="input-group"><legend>Location</legend>
           <div className="field-pair"><label>Latitude (°)<input type="number" inputMode="decimal" step="any" value={latitude ?? ""} onChange={(event) => { const value = numberOr(event.target.value, Number.NaN); updateLocation(value); }} /></label><label>Longitude (°)<input type="number" inputMode="decimal" step="any" value={longitude ?? ""} onChange={(event) => { const value = numberOr(event.target.value, Number.NaN); setLongitude(value); saveSolar({ longitude: value }); markStale(); }} /></label></div>
@@ -124,6 +163,24 @@ export function SolarPanelOutputCalculator() {
         <button className="button calculator-submit" type="submit" disabled={requestState === "loading"}>{requestState === "loading" ? "Calculating…" : calculation ? "Recalculate" : "Calculate Solar Output"}</button>
       </form>
     </div>
-    <aside className="result-panel" aria-live="polite"><p className="eyebrow">PVWatts V8 estimate</p>{!calculation ? <p>Enter a valid location and calculate to see modeled solar production.</p> : <><p className="result-lede">Estimated annual solar production</p><p className="result-value">{formatNumber(calculation.summary.annualAcKWh)} kWh/year</p>{stale && <p className="warning" role="status">Previous result — inputs have changed.</p>}<dl className="result-breakdown"><div><dt>Average daily production</dt><dd>{formatNumber(calculation.summary.averageDailyKWh, 2)} kWh/day</dd></div><div><dt>Best month</dt><dd>{calculation.summary.bestMonth.label} · {formatNumber(calculation.summary.bestMonth.kWh)} kWh</dd></div><div><dt>Lowest month</dt><dd>{calculation.summary.lowestMonth.label} · {formatNumber(calculation.summary.lowestMonth.kWh)} kWh</dd></div><div><dt>Specific yield</dt><dd>{formatNumber(calculation.summary.specificYieldKWhPerKwYear)} kWh/kW-year</dd></div>{calculation.summary.capacityFactorPercent !== undefined && <div><dt>Capacity factor</dt><dd>{formatNumber(calculation.summary.capacityFactorPercent)}%</dd></div>}<div><dt>Modeled system size</dt><dd>{calculation.capacityKw.toFixed(2)} kW</dd></div></dl>{calculation.summary.coveragePercent !== null && <p className="form-hint">Modeled annual solar production compared with saved annual electricity use: {formatNumber(calculation.summary.coveragePercent)}%.</p>}<section className="scenario-table" aria-label="Monthly solar production"><h3>Production by month</h3><table><caption>PVWatts modeled monthly AC production</caption><thead><tr><th scope="col">Month</th><th scope="col">AC production</th></tr></thead><tbody>{calculation.provider.monthlyAcKWh.map((value, index) => <tr key={monthLabels[index]}><th scope="row">{monthLabels[index]}</th><td>{formatNumber(value)} kWh</td></tr>)}</tbody></table></section><section className="assumption-summary"><h3>Assumptions used</h3><dl><div><dt>Location</dt><dd>{latitude?.toFixed(2)}°, {longitude?.toFixed(2)}°</dd></div><div><dt>Tilt</dt><dd>{tilt.toFixed(1)}°</dd></div><div><dt>Orientation</dt><dd>{orientationLabel} / {orientation.toFixed(1)}°</dd></div><div><dt>System losses</dt><dd>{lossesPercent}%</dd></div><div><dt>Module / array</dt><dd>{PVWATTS_MODULE_TYPES.find((item) => item.value === moduleType)?.label} / {PVWATTS_ARRAY_TYPES.find((item) => item.value === arrayType)?.label}</dd></div><div><dt>Model</dt><dd>PVWatts V8</dd></div></dl></section><p className="warning">This is a modeled historical-weather estimate, not a guarantee of actual production. Shading, weather, equipment and site conditions can change the result.</p></>}</aside><p className="sr-only" role="status" aria-live="polite" aria-atomic="true">{announcement || message}</p></div>
+    <aside className="result-panel" aria-live="polite"><p className="eyebrow">PVWatts V8 estimate</p>{!calculation ? <p>Enter a valid location and calculate to see modeled solar production.</p> : <><p className="result-lede">Estimated annual solar production</p><p className="result-value">{formatNumber(calculation.summary.annualAcKWh)} kWh/year</p>{stale && <p className="warning" role="status">Previous result — inputs have changed.</p>}
+      <SolarRoofVisualizer
+        systemKw={calculation.capacityKw}
+        panelWatts={panelWatts}
+        annualKwh={calculation.summary.annualAcKWh}
+      />
+      <SolarMonthlyYieldChart
+        monthlyKwh={calculation.provider.monthlyAcKWh}
+        annualKwh={calculation.summary.annualAcKWh}
+      />
+      <dl className="result-breakdown">
+<div><dt>Average daily production</dt><dd>{formatNumber(calculation.summary.averageDailyKWh, 2)} kWh/day</dd></div><div><dt>Best month</dt><dd>{calculation.summary.bestMonth.label} · {formatNumber(calculation.summary.bestMonth.kWh)} kWh</dd></div><div><dt>Lowest month</dt><dd>{calculation.summary.lowestMonth.label} · {formatNumber(calculation.summary.lowestMonth.kWh)} kWh</dd></div><div><dt>Specific yield</dt><dd>{formatNumber(calculation.summary.specificYieldKWhPerKwYear)} kWh/kW-year</dd></div>{calculation.summary.capacityFactorPercent !== undefined && <div><dt>Capacity factor</dt><dd>{formatNumber(calculation.summary.capacityFactorPercent)}%</dd></div>}<div><dt>Modeled system size</dt><dd>{calculation.capacityKw.toFixed(2)} kW</dd></div></dl>{calculation.summary.coveragePercent !== null && <p className="form-hint">Modeled annual solar production compared with saved annual electricity use: {formatNumber(calculation.summary.coveragePercent)}%.</p>}<section className="scenario-table" aria-label="Monthly solar production"><h3>Production by month</h3><table><caption>PVWatts modeled monthly AC production</caption><thead><tr><th scope="col">Month</th><th scope="col">AC production</th></tr></thead><tbody>{calculation.provider.monthlyAcKWh.map((value, index) => <tr key={monthLabels[index]}><th scope="row">{monthLabels[index]}</th><td>{formatNumber(value)} kWh</td></tr>)}</tbody></table></section><section className="assumption-summary"><h3>Assumptions used</h3><dl><div><dt>Location</dt><dd>{latitude?.toFixed(2)}°, {longitude?.toFixed(2)}°</dd></div><div><dt>Tilt</dt><dd>{tilt.toFixed(1)}°</dd></div><div><dt>Orientation</dt><dd>{orientationLabel} / {orientation.toFixed(1)}°</dd></div><div><dt>System losses</dt><dd>{lossesPercent}%</dd></div><div><dt>Module / array</dt><dd>{PVWATTS_MODULE_TYPES.find((item) => item.value === moduleType)?.label} / {PVWATTS_ARRAY_TYPES.find((item) => item.value === arrayType)?.label}</dd></div><div><dt>Model</dt><dd>PVWatts V8</dd></div></dl></section><p className="warning">This is a modeled historical-weather estimate, not a guarantee of actual production. Shading, weather, equipment and site conditions can change the result.</p>
+      <div className="button-row" style={{ marginTop: "1rem", display: "flex", gap: "0.5rem", flexWrap: "wrap" }}>
+        <ShareButton title="Solar Panel Output Calculation" />
+        <PrintSpecButton />
+      </div>
+      </>}</aside>
+<p className="sr-only" role="status" aria-live="polite" aria-atomic="true">{announcement || message}</p></div>
   </section>;
+
 }

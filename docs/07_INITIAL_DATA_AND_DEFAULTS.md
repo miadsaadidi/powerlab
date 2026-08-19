@@ -1295,7 +1295,7 @@ export const DISPLAY_PRECISION = {
 | Battery Charging Time | battery + charge defaults | No | No |
 | UPS Runtime | battery + UPS | No | No |
 | UPS Battery Size | battery + UPS | No | No |
-| Home Battery Size | battery + Energy Profile | No | No |
+| Home Battery Size | home energy + Energy Profile | No | No |
 | Portable Power Station | capacity/output + appliances | No | No |
 | Electricity Usage | appliances + units | No | Optional |
 | Energy Bill | units + currencies | No | **Yes** |

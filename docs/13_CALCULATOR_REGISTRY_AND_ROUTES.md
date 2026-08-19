@@ -21,13 +21,23 @@ Codex should maintain a typed registry and use it for navigation, category cards
 | 11 | 2 | Battery | UPS Battery Size Calculator | `/battery/ups-battery-size-calculator` | ups battery size calculator | 500 | No | No |
 | 12 | 3 | Home Energy | Energy Bill Calculator | `/home-energy/energy-bill-calculator` | energy bill calculator | 50,000 | No | Required |
 | 13 | 3 | EV | EV Charging Cost Calculator | `/ev/ev-charging-cost-calculator` | ev charging cost calculator | 5,000 | No | Required |
-| 14 | 3 | Battery | Home Battery Size Calculator | `/battery/home-battery-size-calculator` | home battery size calculator | 500 | No | No |
+| 14 | 3 | Home Energy | Home Battery Size Calculator | `/home-energy/home-battery-size-calculator` | home battery size calculator | 500 | No | No |
 | 15 | 3 | Solar | Solar Battery Bank Size Calculator | `/solar/solar-battery-bank-size-calculator` | solar battery calculator | 5,000 | Optional handoff | No |
 | 16 | 3 | Solar | Solar Load Calculator | `/solar/solar-load-calculator` | solar load calculator | 5,000 | No | No |
 | 17 | 4 | Battery | Portable Power Station Calculator | `/battery/portable-power-station-calculator` | portable power station calculator | 500 | No | No |
 | 18 | 4 | EV | EV Range Calculator | `/ev/ev-range-calculator` | ev range calculator | 500 | No | No |
 | 19 | 4 | EV | EV Savings Calculator | `/ev/ev-savings-calculator` | ev savings calculator | 500 | No | Required |
 | 20 | 4 | Home Energy | Appliance Wattage Calculator | `/home-energy/appliance-wattage-calculator` | appliance wattage calculator | 500 | No | No |
+| 21 | 5 | Solar | Solar Payback Calculator | `/solar/solar-payback-calculator` | solar payback calculator | 18,100 | No | Required |
+| 22 | 5 | Home Energy | Generator Size Calculator | `/home-energy/generator-size-calculator` | generator size calculator | 40,500 | No | No |
+| 23 | 5 | Home Energy | Air Conditioner Cost Calculator | `/home-energy/air-conditioner-cost-calculator` | air conditioner electricity cost calculator | 22,200 | No | Required |
+| 24 | 5 | Home Energy | Heat Pump Cost Calculator | `/home-energy/heat-pump-cost-calculator` | heat pump running cost calculator | 12,100 | No | Required |
+| 25 | 5 | Home Energy | Space Heater Cost Calculator | `/home-energy/space-heater-cost-calculator` | space heater electricity cost calculator | 18,100 | No | Required |
+| 26 | 5 | Battery | Voltage Drop Calculator | `/battery/voltage-drop-calculator` | voltage drop calculator | 74,000 | No | No |
+| 27 | 5 | Solar | Solar Charge Controller Calculator | `/solar/solar-charge-controller-calculator` | solar charge controller calculator | 6,600 | No | No |
+| 28 | 5 | Battery | Inverter Size Calculator | `/battery/inverter-size-calculator` | inverter size calculator | 8,100 | No | No |
+| 29 | 5 | EV | Vehicle-to-Load Runtime Calculator | `/ev/v2l-runtime-calculator` | v2l calculator | 2,400 | No | No |
+| 30 | 5 | EV | EV Charger Breaker Size Calculator | `/ev/ev-charger-breaker-size-calculator` | ev charger breaker size calculator | 3,600 | No | No |
 
 ## Suggested TypeScript shape
 
@@ -39,7 +49,7 @@ export interface CalculatorRegistryItem {
   name: string;
   category: "solar" | "battery" | "home-energy" | "ev";
   route: string;
-  phase: 1 | 2 | 3 | 4;
+  phase: 1 | 2 | 3 | 4 | 5;
   status: CalculatorStatus;
   primaryKeyword: string;
   seoTitle: string;

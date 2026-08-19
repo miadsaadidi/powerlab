@@ -25,13 +25,23 @@
 | 2 | Battery | `/battery/ups-battery-size-calculator` | **ups battery size calculator** | 500 | Low / 2 | Low–Medium |
 | 3 | Home Energy | `/home-energy/energy-bill-calculator` | **energy bill calculator** | 50,000 | Low / 1 | High |
 | 3 | EV | `/ev/ev-charging-cost-calculator` | **ev charging cost calculator** | 5,000 | Low / 11 | High |
-| 3 | Battery | `/battery/home-battery-size-calculator` | **home battery size calculator** | 500 | Medium / 66 | Medium–High |
+| 3 | Home Energy | `/home-energy/home-battery-size-calculator` | **home battery size calculator** | 500 | Medium / 66 | Medium–High |
 | 3 | Solar | `/solar/solar-battery-bank-size-calculator` | **solar battery calculator** | 5,000 | Low / 23 | High / mixed |
 | 3 | Solar | `/solar/solar-load-calculator` | **solar load calculator** | 5,000 | Low / 3 | Medium |
 | 4 | Battery | `/battery/portable-power-station-calculator` | **portable power station calculator** | 500 | Low / 18 | Medium |
 | 4 | EV | `/ev/ev-range-calculator` | **ev range calculator** | 500 | Low / 4 | High |
 | 4 | EV | `/ev/ev-savings-calculator` | **ev savings calculator** | 500 | Low / 6 | High |
 | 4 | Home Energy | `/home-energy/appliance-wattage-calculator` | **appliance wattage calculator** | 500 | Low / 2 | Medium–High / mixed |
+| 5 | Solar | `/solar/solar-payback-calculator` | **solar payback calculator** | 18,100 | Low / 14 | Medium–High |
+| 5 | Home Energy | `/home-energy/generator-size-calculator` | **generator size calculator** | 40,500 | Low / 8 | Medium–High |
+| 5 | Home Energy | `/home-energy/air-conditioner-cost-calculator` | **air conditioner electricity cost calculator** | 22,200 | Low / 2 | Medium |
+| 5 | Home Energy | `/home-energy/heat-pump-cost-calculator` | **heat pump running cost calculator** | 12,100 | Low / 12 | Medium–High |
+| 5 | Home Energy | `/home-energy/space-heater-cost-calculator` | **space heater electricity cost calculator** | 18,100 | Low / 1 | Medium |
+| 5 | Battery | `/battery/voltage-drop-calculator` | **voltage drop calculator** | 74,000 | Low / 0 | Medium–High |
+| 5 | Solar | `/solar/solar-charge-controller-calculator` | **solar charge controller calculator** | 6,600 | Low / 5 | Low–Medium |
+| 5 | Battery | `/battery/inverter-size-calculator` | **inverter size calculator** | 8,100 | Low / 9 | Medium |
+| 5 | EV | `/ev/v2l-runtime-calculator` | **v2l calculator** | 2,400 | Low / 0 | Low |
+| 5 | EV | `/ev/ev-charger-breaker-size-calculator` | **ev charger breaker size calculator** | 3,600 | Low / 7 | Low–Medium |
 
 ## Per-route keyword mapping
 
@@ -373,7 +383,7 @@ Planner ads competition: **Low**, index **11**. Organic assessment: **High**.
 
 ### 14. Home Battery Size Calculator
 
-**Canonical:** `/battery/home-battery-size-calculator`
+**Canonical:** `/home-energy/home-battery-size-calculator`
 
 **Primary:** `home battery size calculator` — ~500/month
 
@@ -535,6 +545,196 @@ Planner ads competition: **Low**, index **2**. Organic assessment: **Medium–Hi
 **SEO title:** `Appliance Wattage Calculator — Estimate Watts & kWh`
 
 **Meta:** Estimate appliance running watts from editable presets or your device label, then calculate energy use for a selected runtime. Use the result in battery or solar tools.
+
+### 21. Solar Payback & ROI Calculator
+
+**Canonical:** `/solar/solar-payback-calculator`
+
+**Primary:** `solar payback calculator` — ~18,100/month
+
+Planner ads competition: **Low**, index **14**. Organic assessment: **Medium–High**.
+
+**Validated secondary / merged Planner keywords:**
+- `solar roi calculator` — ~5,000/month — MERGE
+- `solar panel payback period calculator` — ~1,000/month — MERGE
+- `solar break even calculator` — ~500/month — MERGE
+
+**Intent:** Calculate break-even timeline in years and 25-year ROI from system cost and annual solar output.
+
+**SEO title:** `Solar Payback Calculator — Break-Even Period & ROI`
+
+**Meta:** Calculate your solar payback period in years, return on investment (ROI), and 25-year lifetime savings based on system cost, annual production, and utility rates.
+
+### 22. Generator Size Calculator
+
+**Canonical:** `/home-energy/generator-size-calculator`
+
+**Primary:** `generator size calculator` — ~40,500/month
+
+Planner ads competition: **Low**, index **8**. Organic assessment: **Medium–High**.
+
+**Validated secondary / merged Planner keywords:**
+- `whole house generator calculator` — ~9,900/month — MERGE
+- `what size generator do i need calculator` — ~5,000/month — MERGE
+- `generator wattage calculator` — ~5,000/month — MERGE
+
+**Intent:** Determine running and starting surge watts needed to power selected appliances during a blackout.
+
+**SEO title:** `Generator Size Calculator — Running & Starting Watts`
+
+**Meta:** Calculate the exact generator size (running and starting watts) needed for your home, RV, or jobsite appliances. Find the right portable or standby generator capacity.
+
+### 23. Air Conditioner Running Cost Calculator
+
+**Canonical:** `/home-energy/air-conditioner-cost-calculator`
+
+**Primary:** `air conditioner electricity cost calculator` — ~22,200/month
+
+Planner ads competition: **Low**, index **2**. Organic assessment: **Medium**.
+
+**Validated secondary / merged Planner keywords:**
+- `ac electricity cost calculator` — ~5,000/month — MERGE
+- `ac running cost calculator` — ~5,000/month — MERGE
+- `how much does it cost to run an air conditioner calculator` — ~2,400/month — MERGE
+
+**Intent:** Calculate hourly and monthly electricity costs to run central AC, mini-splits, and window units.
+
+**SEO title:** `Air Conditioner Electricity Cost Calculator — Hourly & Monthly AC Cost`
+
+**Meta:** Calculate how much your air conditioner costs to run per hour, day, and month. Estimate electricity costs for window units, mini-splits, and central AC by SEER2 rating.
+
+### 24. Heat Pump Cost Calculator
+
+**Canonical:** `/home-energy/heat-pump-cost-calculator`
+
+**Primary:** `heat pump running cost calculator` — ~12,100/month
+
+Planner ads competition: **Low**, index **12**. Organic assessment: **Medium–High**.
+
+**Validated secondary / merged Planner keywords:**
+- `heat pump vs gas furnace calculator` — ~5,000/month — MERGE
+- `heat pump savings calculator` — ~3,600/month — MERGE
+- `heat pump operating cost calculator` — ~2,400/month — MERGE
+
+**Intent:** Compare operating heating costs between an electric heat pump and a gas/propane furnace.
+
+**SEO title:** `Heat Pump Running Cost Calculator — Heat Pump vs Gas Comparison`
+
+**Meta:** Compare heat pump operating costs vs natural gas, propane, or oil furnaces. Calculate annual heating bill savings based on COP/HSPF2, AFUE, and local fuel prices.
+
+### 25. Space Heater Cost Calculator
+
+**Canonical:** `/home-energy/space-heater-cost-calculator`
+
+**Primary:** `space heater electricity cost calculator` — ~18,100/month
+
+Planner ads competition: **Low**, index **1**. Organic assessment: **Medium**.
+
+**Validated secondary / merged Planner keywords:**
+- `space heater cost calculator` — ~9,900/month — MERGE
+- `how much does a space heater cost to run` — ~8,100/month — MERGE
+- `1500 watt space heater cost calculator` — ~5,000/month — MERGE
+
+**Intent:** Determine the exact hourly and nightly cost to run an electric space heater with thermostat duty cycling.
+
+**SEO title:** `Space Heater Electricity Cost Calculator — Hourly & Nightly Running Cost`
+
+**Meta:** Calculate how much your electric space heater costs to run per hour, 8-hour night, and month. See exact electricity costs for 500W, 1000W, and 1500W heaters.
+
+### 26. Voltage Drop & Wire Size Calculator
+
+**Canonical:** `/battery/voltage-drop-calculator`
+
+**Primary:** `voltage drop calculator` — ~74,000/month
+
+Planner ads competition: **Low**, index **0**. Organic assessment: **Medium–High**.
+
+**Validated secondary / merged Planner keywords:**
+- `dc voltage drop calculator` — ~9,900/month — MERGE
+- `12v wire size calculator` — ~6,600/month — MERGE
+- `solar wire size calculator` — ~5,000/month — MERGE
+
+**Intent:** Size wire gauge (AWG) to maintain voltage drop below NEC 3% across DC and AC circuits.
+
+**SEO title:** `Voltage Drop Calculator — DC & AC Wire Size Sizing`
+
+**Meta:** Calculate DC & AC voltage drop percentage, power loss in watts, and recommended wire gauge (AWG / mm²) for 12V, 24V, 48V, 120V, and 240V circuits to meet NEC 3% limits.
+
+### 27. Solar Charge Controller Calculator
+
+**Canonical:** `/solar/solar-charge-controller-calculator`
+
+**Primary:** `solar charge controller calculator` — ~6,600/month
+
+Planner ads competition: **Low**, index **5**. Organic assessment: **Low–Medium**.
+
+**Validated secondary / merged Planner keywords:**
+- `mppt calculator` — ~5,000/month — MERGE
+- `mppt charge controller sizing calculator` — ~1,000/month — MERGE
+- `what size solar charge controller do i need` — ~1,000/month — MERGE
+
+**Intent:** Size MPPT and PWM charge controllers with cold-weather open-circuit voltage safeguards.
+
+**SEO title:** `Solar Charge Controller Calculator — MPPT & PWM Sizing`
+
+**Meta:** Size the right MPPT or PWM solar charge controller for your panels and battery bank. Calculate required output current (Amps) and cold-weather array voltage (Voc).
+
+### 28. Inverter Size Calculator
+
+**Canonical:** `/battery/inverter-size-calculator`
+
+**Primary:** `inverter size calculator` — ~8,100/month
+
+Planner ads competition: **Low**, index **9**. Organic assessment: **Medium**.
+
+**Validated secondary / merged Planner keywords:**
+- `solar inverter size calculator` — ~3,600/month — MERGE
+- `what size inverter do i need calculator` — ~2,400/month — MERGE
+- `power inverter calculator` — ~1,600/month — MERGE
+
+**Intent:** Determine required continuous and surge wattage inverter rating from connected AC loads.
+
+**SEO title:** `Inverter Size Calculator — Continuous & Surge Watts Sizing`
+
+**Meta:** Calculate the exact inverter size in continuous and surge watts needed to run your appliances from a battery. Find the right 12V, 24V, or 48V inverter capacity.
+
+### 29. Vehicle-to-Load (V2L) Runtime Calculator
+
+**Canonical:** `/ev/v2l-runtime-calculator`
+
+**Primary:** `v2l calculator` — ~2,400/month
+
+Planner ads competition: **Low**, index **0**. Organic assessment: **Low (First Mover)**.
+
+**Validated secondary / merged Planner keywords:**
+- `vehicle to load calculator` — ~1,600/month — MERGE
+- `vehicle to load runtime calculator` — ~1,000/month — MERGE
+- `ev backup power calculator` — ~1,000/month — MERGE
+
+**Intent:** Calculate how many hours or days an EV battery can power essential appliances during a blackout.
+
+**SEO title:** `Vehicle-to-Load (V2L) Runtime Calculator — EV Emergency Power Duration`
+
+**Meta:** Calculate how many days your EV battery can power your home and appliances using Vehicle-to-Load (V2L) or V2H. Includes driving range reserve and continuous AC power limits.
+
+### 30. EV Charger Breaker & Wire Size Calculator
+
+**Canonical:** `/ev/ev-charger-breaker-size-calculator`
+
+**Primary:** `ev charger breaker size calculator` — ~3,600/month
+
+Planner ads competition: **Low**, index **7**. Organic assessment: **Low–Medium**.
+
+**Validated secondary / merged Planner keywords:**
+- `level 2 charger breaker size` — ~2,400/month — MERGE
+- `ev charger wire size calculator` — ~1,600/month — MERGE
+- `what size breaker for ev charger` — ~1,600/month — MERGE
+
+**Intent:** Size circuit breaker and wire gauge for home Level 2 EV charging following the NEC 125% continuous rule.
+
+**SEO title:** `EV Charger Breaker & Wire Size Calculator — Level 2 Sizing`
+
+**Meta:** Find the exact circuit breaker size, wire gauge (AWG), and charging speed (kW) for your home Level 2 EV charger following the NEC 125% continuous load rule.
 
 ## Hub keyword decisions
 
