@@ -2,7 +2,17 @@ import type { MetadataRoute } from "next";
 import { publishedCalculators } from "../lib/calculator-registry";
 import { siteConfig } from "../lib/site-config";
 
-const staticPaths = ["/", "/developers", "/methodology", "/sources", "/about", "/privacy", "/terms"];
+const staticPaths = [
+  "/",
+  "/guides",
+  "/guides/how-many-kwh-does-a-house-use-per-day",
+  "/developers",
+  "/methodology",
+  "/sources",
+  "/about",
+  "/privacy",
+  "/terms",
+];
 
 export function getSitemapPaths() {
   const published = publishedCalculators();

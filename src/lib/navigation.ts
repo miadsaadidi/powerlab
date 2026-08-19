@@ -38,6 +38,7 @@ export function isCategoryPublished(category: PublishedCategory) {
 export function getFooterNavigation(): NavigationItem[] {
   return [
     ...getPrimaryNavigation(),
+    { label: "Educational Guides", href: "/guides" },
     { label: "Embed Widgets", href: "/developers" },
     { label: "Methodology", href: "/methodology" },
     { label: "Sources", href: "/sources" },

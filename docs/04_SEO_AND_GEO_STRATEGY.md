@@ -280,3 +280,18 @@ Before splitting a secondary keyword into a new page:
 ## Official guidance references
 
 See `12_SOURCES_AND_METHODOLOGY.md` for the Google Search Central and Web Vitals references that ground these rules.
+
+## Authority & High-Value Backlink Channels
+
+To build authentic domain authority, citation signals, and referral traffic without paid links or spam, use the following approved distribution channels:
+
+1. **Academia.edu (`academia.edu`) — Academic & Open Educational Resource (OER)**
+   - **Domain Authority:** 90+ (.edu ecosystem)
+   - **Role:** Publish open-access technical working papers, mathematical modeling guides, and educational courseware summaries covering IEEE, NEC, and SAE standards.
+   - **Asset Format:** Working paper / Technical Report / Open Educational Resource (OER) with accompanying schematic diagrams and direct methodology links.
+
+2. **Reddit Community Discussions (`reddit.com`)**
+   - **Key Subreddits:** `r/solardiy`, `r/diysolar`, `r/evcharging`, `r/electricvehicles`, `r/homestead`, `r/solar`.
+   - **Role:** Technical problem solving, worked mathematical examples, code verification (NEC 625/220 continuous loads, MPPT cold-temperature Voc, LiFePO4 DoD).
+   - **Format:** Value-first educational posts and helpful replies to specific sizing questions with transparent formulas.
+

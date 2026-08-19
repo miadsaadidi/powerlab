@@ -12,6 +12,7 @@ export interface CalculatorStructuredDataProps {
   categoryName: string;
   categoryRoute: string;
   features?: string[];
+  standards?: string[];
   faqs?: CalculatorFaq[];
 }
 
@@ -22,6 +23,7 @@ export function buildCalculatorStructuredData({
   categoryName,
   categoryRoute,
   features,
+  standards,
   faqs,
 }: CalculatorStructuredDataProps) {
   const pageUrl = new URL(route, siteConfig.url).toString();
@@ -29,6 +31,7 @@ export function buildCalculatorStructuredData({
 
   const organization = {
     "@type": "Organization",
+    "@id": `${siteConfig.url}/#organization`,
     name: "PowerLab Engineering & Energy Modeling Team",
     url: siteConfig.url,
     logo: {
@@ -41,6 +44,7 @@ export function buildCalculatorStructuredData({
     {
       "@context": "https://schema.org",
       "@type": "BreadcrumbList",
+      "@id": `${pageUrl}#breadcrumb`,
       itemListElement: [
         { "@type": "ListItem", position: 1, name: "Home", item: new URL("/", siteConfig.url).toString() },
         { "@type": "ListItem", position: 2, name: categoryName, item: categoryUrl },
@@ -49,10 +53,34 @@ export function buildCalculatorStructuredData({
     },
     {
       "@context": "https://schema.org",
+      "@type": "WebPage",
+      "@id": `${pageUrl}#webpage`,
+      url: pageUrl,
+      name,
+      description,
+      inLanguage: "en-US",
+      isPartOf: {
+        "@type": "WebSite",
+        "@id": `${siteConfig.url}/#website`,
+      },
+      breadcrumb: {
+        "@id": `${pageUrl}#breadcrumb`,
+      },
+      mainEntity: {
+        "@id": `${pageUrl}#webapp`,
+      },
+      publisher: {
+        "@id": `${siteConfig.url}/#organization`,
+      },
+    },
+    {
+      "@context": "https://schema.org",
       "@type": ["WebApplication", "SoftwareApplication"],
+      "@id": `${pageUrl}#webapp`,
       name,
       description,
       url: pageUrl,
+      inLanguage: "en-US",
       applicationCategory: "UtilitiesApplication",
       applicationSubCategory: "Energy & Electrical Planning",
       operatingSystem: "All",
@@ -67,6 +95,7 @@ export function buildCalculatorStructuredData({
         priceCurrency: "USD",
       },
       ...(features && features.length > 0 ? { featureList: features } : {}),
+      ...(standards && standards.length > 0 ? { isBasedOn: standards, citation: standards } : {}),
     },
   ];
 
@@ -74,12 +103,13 @@ export function buildCalculatorStructuredData({
     data.push({
       "@context": "https://schema.org",
       "@type": "FAQPage",
+      "@id": `${pageUrl}#faq`,
       mainEntity: faqs.map((faq) => ({
         "@type": "Question",
-        name: faq.question,
+        name: faq.question.trim(),
         acceptedAnswer: {
           "@type": "Answer",
-          text: faq.answer,
+          text: faq.answer.trim(),
         },
       })),
     });
@@ -105,7 +135,8 @@ export function buildCategoryHubStructuredData({
 
   const organization = {
     "@type": "Organization",
-    name: "PowerLab Engineering Team",
+    "@id": `${siteConfig.url}/#organization`,
+    name: "PowerLab Engineering & Energy Modeling Team",
     url: siteConfig.url,
     logo: {
       "@type": "ImageObject",
@@ -117,6 +148,7 @@ export function buildCategoryHubStructuredData({
     {
       "@context": "https://schema.org",
       "@type": "BreadcrumbList",
+      "@id": `${categoryUrl}#breadcrumb`,
       itemListElement: [
         { "@type": "ListItem", position: 1, name: "Home", item: new URL("/", siteConfig.url).toString() },
         { "@type": "ListItem", position: 2, name: categoryName, item: categoryUrl },
@@ -125,9 +157,15 @@ export function buildCategoryHubStructuredData({
     {
       "@context": "https://schema.org",
       "@type": "CollectionPage",
+      "@id": `${categoryUrl}#collection`,
       name: `${categoryName} Planning Calculators`,
       description,
       url: categoryUrl,
+      inLanguage: "en-US",
+      isPartOf: {
+        "@type": "WebSite",
+        "@id": `${siteConfig.url}/#website`,
+      },
       publisher: organization,
       mainEntity: {
         "@type": "ItemList",
@@ -145,5 +183,113 @@ export function buildCategoryHubStructuredData({
   ];
 }
 
+export function buildWebSiteStructuredData() {
+  return {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "@id": `${siteConfig.url}/#website`,
+    name: siteConfig.name,
+    url: siteConfig.url,
+    description: siteConfig.description,
+    inLanguage: "en-US",
+    publisher: {
+      "@type": "Organization",
+      "@id": `${siteConfig.url}/#organization`,
+      name: "PowerLab Engineering & Energy Modeling Team",
+      url: siteConfig.url,
+      logo: {
+        "@type": "ImageObject",
+        url: new URL("/icon.svg", siteConfig.url).toString(),
+      },
+    },
+  };
+}
 
+export interface GuideStructuredDataProps {
+  title: string;
+  description: string;
+  route: string;
+  datePublished: string;
+  dateModified: string;
+  categoryName?: string;
+  categoryRoute?: string;
+  standards?: string[];
+  faqs?: CalculatorFaq[];
+}
+
+export function buildGuideStructuredData({
+  title,
+  description,
+  route,
+  datePublished,
+  dateModified,
+  categoryName = "Educational Guides",
+  categoryRoute = "/guides",
+  standards,
+  faqs,
+}: GuideStructuredDataProps) {
+  const pageUrl = new URL(route, siteConfig.url).toString();
+  const categoryUrl = new URL(categoryRoute, siteConfig.url).toString();
+
+  const organization = {
+    "@type": "Organization",
+    "@id": `${siteConfig.url}/#organization`,
+    name: "PowerLab Engineering & Energy Modeling Team",
+    url: siteConfig.url,
+    logo: {
+      "@type": "ImageObject",
+      url: new URL("/icon.svg", siteConfig.url).toString(),
+    },
+  };
+
+  const data: Array<Record<string, unknown>> = [
+    {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "@id": `${pageUrl}#breadcrumb`,
+      itemListElement: [
+        { "@type": "ListItem", position: 1, name: "Home", item: new URL("/", siteConfig.url).toString() },
+        { "@type": "ListItem", position: 2, name: categoryName, item: categoryUrl },
+        { "@type": "ListItem", position: 3, name: title, item: pageUrl },
+      ],
+    },
+    {
+      "@context": "https://schema.org",
+      "@type": ["TechArticle", "Article"],
+      "@id": `${pageUrl}#article`,
+      headline: title,
+      description,
+      url: pageUrl,
+      mainEntityOfPage: pageUrl,
+      inLanguage: "en-US",
+      datePublished,
+      dateModified,
+      author: organization,
+      publisher: organization,
+      isPartOf: {
+        "@type": "WebSite",
+        "@id": `${siteConfig.url}/#website`,
+      },
+      ...(standards && standards.length > 0 ? { isBasedOn: standards, citation: standards } : {}),
+    },
+  ];
+
+  if (faqs && faqs.length > 0) {
+    data.push({
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "@id": `${pageUrl}#faq`,
+      mainEntity: faqs.map((faq) => ({
+        "@type": "Question",
+        name: faq.question.trim(),
+        acceptedAnswer: {
+          "@type": "Answer",
+          text: faq.answer.trim(),
+        },
+      })),
+    });
+  }
+
+  return data;
+}
 
