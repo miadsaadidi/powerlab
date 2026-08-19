@@ -128,19 +128,27 @@ export default function GuidesHubPage() {
         </div>
       </header>
 
-      {/* Guide Cards Grid */}
-      <section className="guide-hub-grid" style={{ display: "grid", gap: "1.5rem", marginTop: "1rem" }}>
+      {/* Guide Cards 2-Column Grid */}
+      <section
+        className="guide-hub-grid"
+        style={{
+          display: "grid",
+          gridTemplateColumns: "repeat(auto-fit, minmax(min(100%, 440px), 1fr))",
+          gap: "1.5rem",
+          marginTop: "1.25rem",
+        }}
+      >
         {FEATURED_GUIDES.map((guide) => (
           <article
             key={guide.route}
             style={{
-              padding: "1.75rem 2rem",
+              padding: "1.65rem 1.75rem",
               borderRadius: "1rem",
               border: "1px solid var(--line)",
               background: "var(--surface)",
               display: "flex",
               flexDirection: "column",
-              gap: "1rem",
+              gap: "0.9rem",
               boxShadow: "0 4px 16px rgba(0, 0, 0, 0.04)",
               position: "relative",
               transition: "transform 160ms ease, box-shadow 160ms ease, border-color 160ms ease",
@@ -182,13 +190,13 @@ export default function GuidesHubPage() {
                 </span>
               </div>
 
-              <span style={{ fontSize: "0.82rem", color: "var(--muted)" }}>
+              <span style={{ fontSize: "0.80rem", color: "var(--muted)" }}>
                 {guide.readTime} • {guide.updatedDate}
               </span>
             </div>
 
             {/* Title */}
-            <h2 style={{ margin: "0.15rem 0", fontSize: "1.45rem", lineHeight: 1.3 }}>
+            <h2 style={{ margin: "0.15rem 0", fontSize: "1.35rem", lineHeight: 1.3 }}>
               <Link
                 href={guide.route}
                 style={{
@@ -202,19 +210,19 @@ export default function GuidesHubPage() {
             </h2>
 
             {/* Description */}
-            <p style={{ margin: 0, color: "var(--ink)", lineHeight: 1.6, fontSize: "0.95rem" }}>
+            <p style={{ margin: 0, color: "var(--ink)", lineHeight: 1.55, fontSize: "0.92rem", flexGrow: 1 }}>
               {guide.description}
             </p>
 
             {/* Standards Badges */}
-            <div style={{ display: "flex", flexWrap: "wrap", alignItems: "center", gap: "0.45rem", marginTop: "0.15rem" }}>
-              <span style={{ fontSize: "0.75rem", color: "var(--muted)", fontWeight: 600 }}>Citations:</span>
+            <div style={{ display: "flex", flexWrap: "wrap", alignItems: "center", gap: "0.4rem", marginTop: "0.15rem" }}>
+              <span style={{ fontSize: "0.74rem", color: "var(--muted)", fontWeight: 600 }}>Citations:</span>
               {guide.standards.map((std) => (
                 <span
                   key={std}
                   style={{
-                    fontSize: "0.72rem",
-                    padding: "0.15rem 0.5rem",
+                    fontSize: "0.70rem",
+                    padding: "0.15rem 0.45rem",
                     borderRadius: "0.3rem",
                     background: "#eee5d7",
                     color: "var(--brand-strong)",
@@ -227,27 +235,32 @@ export default function GuidesHubPage() {
               ))}
             </div>
 
-            {/* Bottom Actions */}
-            <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginTop: "0.5rem", paddingTop: "0.85rem", borderTop: "1px solid var(--line)" }}>
+            {/* Bottom Actions with Green Button */}
+            <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", flexWrap: "wrap", gap: "0.75rem", marginTop: "0.5rem", paddingTop: "0.85rem", borderTop: "1px solid var(--line)" }}>
               <Link
                 href={guide.route}
-                className="button primary"
                 style={{
                   display: "inline-flex",
                   alignItems: "center",
-                  gap: "0.4rem",
+                  gap: "0.45rem",
                   padding: "0.55rem 1.25rem",
+                  borderRadius: "0.55rem",
                   textDecoration: "none",
-                  fontWeight: 600,
-                  fontSize: "0.9rem",
+                  fontWeight: 700,
+                  fontSize: "0.88rem",
+                  background: "linear-gradient(135deg, #16a34a 0%, #15803d 100%)",
+                  color: "#ffffff",
+                  boxShadow: "0 2px 8px rgba(22, 163, 74, 0.28)",
+                  border: "1px solid #15803d",
+                  transition: "all 140ms ease",
                 }}
               >
                 <span>Read Complete Guide &amp; Calculate</span>
                 <span>→</span>
               </Link>
 
-              <span style={{ fontSize: "0.78rem", color: "var(--muted)" }}>
-                Includes interactive tool &amp; formula card
+              <span style={{ fontSize: "0.76rem", color: "var(--muted)" }}>
+                🧮 Interactive tool included
               </span>
             </div>
           </article>
