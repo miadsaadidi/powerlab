@@ -6,6 +6,7 @@ const staticPaths = [
   "/",
   "/guides",
   "/guides/how-many-kwh-does-a-house-use-per-day",
+  "/guides/mppt-solar-charge-controller-sizing-guide",
   "/developers",
   "/methodology",
   "/sources",

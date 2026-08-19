@@ -28,6 +28,16 @@ const FEATURED_GUIDES = [
     updatedDate: "Updated August 2026",
     standards: ["EIA Residential Survey", "NEC 220 Load Calculations"],
   },
+  {
+    name: "MPPT vs PWM Solar Charge Controller Sizing Guide & Formula",
+    route: "/guides/mppt-solar-charge-controller-sizing-guide",
+    category: "Solar Photovoltaics",
+    badge: "5,000+ Readers / Month",
+    description: "Engineering guide to sizing solar charge controllers. Calculates continuous charging amperage, winter sub-zero Voc voltage expansion limits, and MPPT conversion efficiency gains.",
+    readTime: "7 min read",
+    updatedDate: "Updated August 2026",
+    standards: ["NEC Article 690.8", "IEC 62548 Photovoltaic Design", "IEEE 1547"],
+  },
 ];
 
 export default function GuidesHubPage() {
