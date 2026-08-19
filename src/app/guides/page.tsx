@@ -14,6 +14,20 @@ export const metadata: Metadata = {
     siteName: siteConfig.name,
     locale: "en_US",
     type: "website",
+    images: [
+      {
+        url: `${siteConfig.url}/clean_energy_educational_model.jpg`,
+        width: 1200,
+        height: 630,
+        alt: "PowerLab Educational Energy Modeling & Engineering Reference",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Educational Energy Guides & Engineering Reference — PowerLab",
+    description: "Formula-backed technical guides and Open Educational Resources for solar PV, battery storage, and residential energy planning.",
+    images: [`${siteConfig.url}/clean_energy_educational_model.jpg`],
   },
 };
 
@@ -67,6 +81,7 @@ export default function GuidesHubPage() {
   const structuredData = buildCategoryHubStructuredData({
     categoryName: "Educational Guides",
     categoryRoute: "/guides",
+    title: "Educational Energy Guides & Engineering Reference",
     description: "Comprehensive engineering guides and Open Educational Resources (OER) for solar PV, battery storage, and residential energy planning.",
     tools: FEATURED_GUIDES.map((g) => ({
       name: g.name,

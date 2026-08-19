@@ -122,6 +122,7 @@ export interface CategoryHubStructuredDataProps {
   categoryName: string;
   categoryRoute: string;
   description: string;
+  title?: string;
   tools: Array<{ name: string; route: string; description?: string }>;
 }
 
@@ -129,6 +130,7 @@ export function buildCategoryHubStructuredData({
   categoryName,
   categoryRoute,
   description,
+  title,
   tools,
 }: CategoryHubStructuredDataProps) {
   const categoryUrl = new URL(categoryRoute, siteConfig.url).toString();
@@ -144,6 +146,8 @@ export function buildCategoryHubStructuredData({
     },
   };
 
+  const collectionTitle = title || `${categoryName} Planning Calculators`;
+
   return [
     {
       "@context": "https://schema.org",
@@ -158,7 +162,7 @@ export function buildCategoryHubStructuredData({
       "@context": "https://schema.org",
       "@type": "CollectionPage",
       "@id": `${categoryUrl}#collection`,
-      name: `${categoryName} Planning Calculators`,
+      name: collectionTitle,
       description,
       url: categoryUrl,
       inLanguage: "en-US",
@@ -169,7 +173,7 @@ export function buildCategoryHubStructuredData({
       publisher: organization,
       mainEntity: {
         "@type": "ItemList",
-        name: `${categoryName} Planning Calculators`,
+        name: collectionTitle,
         numberOfItems: tools.length,
         itemListElement: tools.map((tool, index) => ({
           "@type": "ListItem",
