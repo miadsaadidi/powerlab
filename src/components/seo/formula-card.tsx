@@ -111,10 +111,10 @@ export function FormulaCard({
         {/* Terminal Code Body */}
         <div
           style={{
-            padding: "1.1rem 1.25rem",
+            padding: "0.85rem 1.1rem",
             display: "flex",
             alignItems: "flex-start",
-            gap: "1rem",
+            gap: "0.85rem",
             overflowX: "auto",
           }}
         >
@@ -123,8 +123,8 @@ export function FormulaCard({
               userSelect: "none",
               color: "#475569",
               fontFamily: "ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace",
-              fontSize: "0.85rem",
-              lineHeight: 1.6,
+              fontSize: "0.78rem",
+              lineHeight: 1.5,
               textAlign: "right",
             }}
           >
@@ -134,8 +134,8 @@ export function FormulaCard({
           <code
             style={{
               fontFamily: "ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', monospace",
-              fontSize: "1.05rem",
-              lineHeight: 1.6,
+              fontSize: "0.90rem",
+              lineHeight: 1.5,
               color: "#38bdf8",
               fontWeight: 600,
               wordBreak: "break-word",

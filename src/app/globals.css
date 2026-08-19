@@ -451,7 +451,7 @@ main { max-width:1280px; }
 .formula-intro { font-size:.92rem; color:var(--ink); line-height:1.6; margin-bottom:1rem; }
 .formula-box { padding:1.1rem 1.4rem; background:#0f172a; border:1px solid #334155; border-left:4px solid #38bdf8; border-radius:.65rem; margin-bottom:1.5rem; display:flex; flex-direction:column; gap:.4rem; box-shadow:0 4px 14px rgba(0, 0, 0, 0.2); }
 .formula-label { font-size:.72rem; font-weight:700; text-transform:uppercase; letter-spacing:.06em; color:#94a3b8; }
-.formula-expression { font-size:1.15rem; font-weight:700; font-family:ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace; color:#38bdf8; word-break:break-word; }
+.formula-expression { font-size:0.92rem; font-weight:700; font-family:ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace; color:#38bdf8; word-break:break-word; }
 .formula-glossary-section h3 { font-size:1rem; margin-bottom:.75rem; color:var(--ink); }
 .formula-glossary { display:grid; gap:.6rem; }
 .glossary-item { padding:.5rem 0; border-bottom:1px solid #f1eae0; display:grid; grid-template-columns:minmax(180px, 240px) 1fr; gap:.8rem; align-items:baseline; font-size:.9rem; }
