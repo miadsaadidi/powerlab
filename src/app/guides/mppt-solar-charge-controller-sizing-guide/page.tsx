@@ -156,17 +156,17 @@ export default function MpptChargeControllerGuidePage() {
 
       {/* Section 2: Cold Weather Voc Expansion */}
       <section id="cold-weather-voc" style={{ marginTop: "2.5rem" }}>
-        <h2>The Cold-Weather $V_{oc}$ Trap: Why Solar Controllers Fry in Winter</h2>
+        <h2>The Cold-Weather Voc Trap: Why Solar Controllers Fry in Winter</h2>
         <p>
-          Solar panels are tested at <strong>Standard Test Conditions (STC: 25°C / 77°F)</strong>. However, silicon semiconductor physics dictates that <strong>as ambient temperature drops, open-circuit voltage ($V_{oc}$) increases</strong>.
+          Solar panels are tested at <strong>Standard Test Conditions (STC: 25°C / 77°F)</strong>. However, silicon semiconductor physics dictates that <strong>as ambient temperature drops, open-circuit voltage (Voc) increases</strong>.
         </p>
         <div style={{ padding: "1.25rem", borderRadius: "0.85rem", background: "rgba(198, 93, 36, 0.06)", border: "1px solid rgba(198, 93, 36, 0.2)", margin: "1.25rem 0" }}>
           <h3 style={{ marginTop: 0, color: "var(--brand-strong)", fontSize: "1.1rem" }}>⚠️ The Common Beginner Mistake:</h3>
           <p style={{ margin: "0 0 0.5rem", fontSize: "0.95rem", lineHeight: 1.6 }}>
-            A user pairs 3 panels in series with a rated $V_{oc}$ of 40V each ($3 \times 40\text{V} = 120\text{V}$) on a 150V MPPT charge controller, assuming they have 30V of headroom.
+            A user pairs 3 panels in series with a rated Voc of 40V each (3 × 40V = 120V) on a 150V MPPT charge controller, assuming they have 30V of headroom.
           </p>
           <p style={{ margin: 0, fontSize: "0.95rem", lineHeight: 1.6 }}>
-            On a freezing winter morning at <strong>-20°C (-4°F)</strong>, the $V_{oc}$ expansion coefficient (+0.30%/°C over 45°C temperature differential) pushes string voltage to <strong>136.2V nominal</strong>, with crisp cloud-edge irradiance spikes hitting <strong>152V+</strong>. This instantly destroys the controller&apos;s internal power MOSFETs.
+            On a freezing winter morning at <strong>-20°C (-4°F)</strong>, the Voc expansion coefficient (+0.30%/°C over 45°C temperature differential) pushes string voltage to <strong>136.2V nominal</strong>, with crisp cloud-edge irradiance spikes hitting <strong>152V+</strong>. This instantly destroys the controller&apos;s internal power MOSFETs.
           </p>
         </div>
       </section>
