@@ -169,6 +169,79 @@ export default function HomePage() {
         cardContent={calculatorCardContent}
       />
 
+      {/* Featured Educational Guides & Research */}
+      <section style={{ margin: "3.5rem 0 2rem", padding: "2rem 1.5rem", borderRadius: "1rem", background: "var(--surface)", border: "1px solid var(--line)", boxShadow: "0 4px 16px rgba(0,0,0,0.03)" }}>
+        <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", flexWrap: "wrap", gap: "1rem", marginBottom: "1.5rem" }}>
+          <div>
+            <p className="eyebrow" style={{ margin: "0 0 0.25rem" }}>Open Educational Resources &amp; Research</p>
+            <h2 style={{ fontSize: "1.6rem", fontWeight: 700, margin: 0, color: "var(--brand-strong)" }}>
+              Featured Engineering Guides
+            </h2>
+          </div>
+          <Link
+            href="/guides"
+            style={{
+              display: "inline-flex",
+              alignItems: "center",
+              gap: "0.35rem",
+              padding: "0.45rem 1rem",
+              borderRadius: "0.5rem",
+              fontSize: "0.88rem",
+              fontWeight: 600,
+              color: "var(--brand-strong)",
+              background: "rgba(198, 93, 36, 0.08)",
+              border: "1px solid rgba(198, 93, 36, 0.2)",
+              textDecoration: "none",
+            }}
+          >
+            <span>Explore All Guides</span>
+            <span>→</span>
+          </Link>
+        </div>
+
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(min(100%, 360px), 1fr))", gap: "1.25rem" }}>
+          <article style={{ padding: "1.35rem", borderRadius: "0.75rem", border: "1px solid var(--line)", background: "var(--surface)", display: "flex", flexDirection: "column", gap: "0.6rem" }}>
+            <div style={{ display: "flex", alignItems: "center", gap: "0.4rem" }}>
+              <span style={{ fontSize: "0.74rem", fontWeight: 700, color: "#0284c7", background: "rgba(2, 132, 199, 0.1)", padding: "0.15rem 0.5rem", borderRadius: "0.3rem" }}>
+                ⚡ Home Energy
+              </span>
+              <span style={{ fontSize: "0.74rem", color: "var(--muted)" }}>8 min read</span>
+            </div>
+            <h3 style={{ margin: "0.2rem 0", fontSize: "1.15rem", lineHeight: 1.3 }}>
+              <Link href="/guides/how-many-kwh-does-a-house-use-per-day" style={{ color: "var(--brand-strong)", textDecoration: "none" }}>
+                How Many kWh Does an Average House Use Per Day?
+              </Link>
+            </h3>
+            <p style={{ margin: 0, fontSize: "0.88rem", color: "var(--ink)", lineHeight: 1.5, flexGrow: 1 }}>
+              Empirical residential electricity analysis based on EIA benchmarks. Square-footage tiers, appliance duty cycles, and daily kWh formula modeling.
+            </p>
+            <Link href="/guides/how-many-kwh-does-a-house-use-per-day" style={{ fontSize: "0.85rem", fontWeight: 600, color: "#16a34a", textDecoration: "none" }}>
+              Read Guide &amp; Calculate →
+            </Link>
+          </article>
+
+          <article style={{ padding: "1.35rem", borderRadius: "0.75rem", border: "1px solid var(--line)", background: "var(--surface)", display: "flex", flexDirection: "column", gap: "0.6rem" }}>
+            <div style={{ display: "flex", alignItems: "center", gap: "0.4rem" }}>
+              <span style={{ fontSize: "0.74rem", fontWeight: 700, color: "#f59e0b", background: "rgba(245, 158, 11, 0.1)", padding: "0.15rem 0.5rem", borderRadius: "0.3rem" }}>
+                ☀️ Solar PV
+              </span>
+              <span style={{ fontSize: "0.74rem", color: "var(--muted)" }}>7 min read</span>
+            </div>
+            <h3 style={{ margin: "0.2rem 0", fontSize: "1.15rem", lineHeight: 1.3 }}>
+              <Link href="/guides/mppt-solar-charge-controller-sizing-guide" style={{ color: "var(--brand-strong)", textDecoration: "none" }}>
+                MPPT vs PWM Solar Charge Controller Sizing Guide &amp; Formula
+              </Link>
+            </h3>
+            <p style={{ margin: 0, fontSize: "0.88rem", color: "var(--ink)", lineHeight: 1.5, flexGrow: 1 }}>
+              Engineering guide to sizing solar charge controllers. Continuous charging amperage, sub-zero Voc voltage expansion, and MPPT efficiency gains.
+            </p>
+            <Link href="/guides/mppt-solar-charge-controller-sizing-guide" style={{ fontSize: "0.85rem", fontWeight: 600, color: "#16a34a", textDecoration: "none" }}>
+              Read Guide &amp; Calculate →
+            </Link>
+          </article>
+        </div>
+      </section>
+
       {/* Trust & Engineering Transparency */}
       <TrustBadges />
 

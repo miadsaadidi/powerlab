@@ -4,7 +4,7 @@ import type { CalculatorRegistryItem } from "./calculator-registry";
 
 describe("publication-aware navigation", () => {
   it("exposes every category with a published calculator", () => {
-    expect(getPrimaryNavigation().map((item) => item.label)).toEqual(["Home", "Battery", "Solar", "Home Energy", "EV"]);
+    expect(getPrimaryNavigation().map((item) => item.label)).toEqual(["Home", "Battery", "Solar", "Home Energy", "EV", "Guides"]);
     expect(getPublishedCategories()).toEqual(["battery", "solar", "home-energy", "ev"]);
     expect(getPublishedCalculatorsForCategory("battery").map((calculator) => calculator.id)).toEqual(["battery-runtime", "battery-size", "ups-runtime", "ups-battery-size", "battery-capacity", "battery-charging-time", "portable-power-station", "voltage-drop", "inverter-size"]);
     expect(getPublishedCalculatorsForCategory("solar").map((calculator) => calculator.id)).toEqual(["solar-panel-tilt", "solar-panel-output", "solar-battery-bank-size", "solar-load", "solar-panel-size", "solar-payback", "solar-charge-controller"]);
