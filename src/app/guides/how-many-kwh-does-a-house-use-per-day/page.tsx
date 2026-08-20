@@ -242,6 +242,10 @@ export default function HowManyKwhDoesAHouseUsePerDayPage() {
           ]}
         />
 
+        <p style={{ marginTop: "1rem" }}>
+          For an editable appliance-by-appliance estimate using this model, continue with the <Link href="/home-energy/electricity-usage-calculator">Electricity Usage Calculator</Link>.
+        </p>
+
         <div style={{ padding: "1.25rem", borderRadius: "0.85rem", background: "rgba(198, 93, 36, 0.06)", border: "1px solid rgba(198, 93, 36, 0.2)", marginTop: "1.25rem" }}>
           <h3 style={{ marginTop: 0, color: "var(--brand-strong)", fontSize: "1.05rem" }}>Worked Example: 24-Hour Home Energy Audit</h3>
           <ul style={{ margin: "0.5rem 0 0", paddingLeft: "1.25rem", lineHeight: 1.7, fontSize: "0.95rem" }}>

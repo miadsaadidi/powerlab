@@ -214,6 +214,10 @@ export default function MpptChargeControllerGuidePage() {
             <Link href="/battery/voltage-drop-calculator" style={{ fontSize: "0.85rem", fontWeight: 600, color: "var(--accent)" }}>
               Calculate DC Wire Gauge →
             </Link>
+            <br />
+            <Link href="/solar/solar-charge-controller-calculator" style={{ fontSize: "0.85rem", fontWeight: 600, color: "var(--accent)" }}>
+              Size a Solar Charge Controller →
+            </Link>
           </div>
 
           <div style={{ padding: "1.25rem", borderRadius: "0.85rem", border: "1px solid var(--line)", background: "var(--surface)" }}>

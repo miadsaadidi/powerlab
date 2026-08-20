@@ -282,6 +282,22 @@ export default function GuidesHubPage() {
         ))}
       </section>
 
+      {/* Connected Planning Paths */}
+      <section style={{ marginTop: "3rem", padding: "1.5rem", borderRadius: "0.9rem", background: "var(--surface)", border: "1px solid var(--line)" }}>
+        <h2 style={{ marginTop: 0, fontSize: "1.3rem", color: "var(--brand-strong)" }}>Continue from a Guide to a Planning Tool</h2>
+        <p style={{ marginBottom: "1rem", lineHeight: 1.55, color: "var(--muted)" }}>
+          Turn the concepts from these guides into a practical estimate with the connected PowerLab calculator system.
+        </p>
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))", gap: "0.75rem" }}>
+          <Link href="/home-energy" className="button secondary-button">Home energy tools</Link>
+          <Link href="/solar" className="button secondary-button">Solar planning tools</Link>
+          <Link href="/battery" className="button secondary-button">Battery planning tools</Link>
+          <Link href="/ev" className="button secondary-button">EV planning tools</Link>
+          <Link href="/home-energy/electricity-usage-calculator" className="button secondary-button">Electricity Usage Calculator</Link>
+          <Link href="/solar/solar-charge-controller-calculator" className="button secondary-button">Solar Charge Controller Calculator</Link>
+        </div>
+      </section>
+
       {/* 3-Column Educational Trust Banner */}
       <section style={{ marginTop: "3rem" }}>
         <h2 style={{ fontSize: "1.3rem", marginBottom: "1rem", color: "var(--brand-strong)" }}>

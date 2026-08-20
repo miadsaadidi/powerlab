@@ -25,8 +25,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const published = publishedCalculators();
   const publishedRoutes = new Set(published.map((c) => c.route));
   const categoryRoutes = new Set([...new Set(published.map((c) => `/${c.category}`))]);
-  const now = new Date();
-
   return getSitemapPaths().map((path) => {
     let priority = 0.5;
     let changeFrequency: MetadataRoute.Sitemap[number]["changeFrequency"] = "monthly";
@@ -47,10 +45,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
     return {
       url: new URL(path, siteConfig.url).toString(),
-      lastModified: now,
       changeFrequency,
       priority,
     };
   });
 }
-
