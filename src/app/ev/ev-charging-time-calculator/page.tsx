@@ -58,6 +58,12 @@ export default function EvChargingTimePage() {
       "Models DC fast charge saturation curve and taper behavior",
       "Separates battery energy added from grid source energy",
     ],
+    standards: [
+      "SAE J1772 / SAE J3400 (North American Charging Standard)",
+      "NFPA 70 / NEC Article 625 (Electric Vehicle Power Transfer System)",
+      "IEC 61851 (Electric Vehicle Conductive Charging System)",
+      "IEEE 2030.1.1 (Standard for EV Infrastructure Interfaces)",
+    ],
     faqs: FAQS,
   });
 
@@ -194,9 +200,12 @@ export default function EvChargingTimePage() {
       </section>
 
       <section id="related-tools">
-        <h2>Related EV Planning Tools</h2>
+        <h2>Related EV Planning Tools &amp; In-Depth Guides</h2>
         <p>
           Calculate charging costs with the <Link href="/ev/ev-charging-cost-calculator">EV Charging Cost Calculator</Link>, size electrical wiring with the <Link href="/ev/ev-charger-breaker-size-calculator">EV Charger Breaker Size Calculator</Link>, or compare gas savings with the <Link href="/ev/ev-savings-calculator">EV Savings Calculator</Link>.
+        </p>
+        <p style={{ marginTop: "0.75rem" }}>
+          📖 <strong>In-Depth Technical Guide:</strong> Read our comprehensive <Link href="/guides/level-2-ev-charging-speed-and-breaker-sizing-guide" style={{ fontWeight: 600, color: "var(--accent)" }}>Level 2 EV Charging Speed, Amperage &amp; Breaker Sizing Guide</Link> for detailed continuous load calculations, NEC 80% rule charts, and hardwired vs. plug-in comparisons.
         </p>
       </section>
     </article>

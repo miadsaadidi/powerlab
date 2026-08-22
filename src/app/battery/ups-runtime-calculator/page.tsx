@@ -51,6 +51,11 @@ export default function UpsRuntimePage() {
       "Customizable internal battery capacity presets (12V 7Ah, 12V 9Ah)",
       "Accounts for inverter efficiency and lead-acid degradation",
     ],
+    standards: [
+      "IEEE Std 1184 (Guide for Sizing Batteries for UPS Systems)",
+      "IEC 62040-3 (Uninterruptible Power Systems Method of Specifying Performance)",
+      "UL 1778 (Uninterruptible Power Supply Equipment)",
+    ],
     faqs: FAQS,
   });
 

@@ -51,6 +51,11 @@ export default function PortablePowerStationPage() {
       "Checks continuous inverter and surge wattage limits",
       "Appliance builder with duty cycles and power checks",
     ],
+    standards: [
+      "UL 2743 (Standard for Portable Power Packs)",
+      "IEC 62133 (Secondary Cells and Batteries Containing Alkaline or Other Non-Acid Electrolytes)",
+      "UN 38.3 (Transport of Lithium Metal and Lithium Ion Batteries)",
+    ],
     faqs: FAQS,
   });
 

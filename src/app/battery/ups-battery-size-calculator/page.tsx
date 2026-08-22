@@ -57,6 +57,11 @@ export default function UpsBatterySizePage() {
       "Supports VA and Watt power conversion with power factor",
       "Estimates standard 12V 7Ah and 12V 9Ah replacement cell counts",
     ],
+    standards: [
+      "IEEE Std 1184 (Guide for Sizing Batteries for UPS Systems)",
+      "IEC 62040-3 (Uninterruptible Power Systems Method of Specifying Performance)",
+      "UL 1778 (Uninterruptible Power Supply Equipment)",
+    ],
     faqs: FAQS,
   });
 

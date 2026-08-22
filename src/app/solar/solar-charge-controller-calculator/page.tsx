@@ -58,6 +58,11 @@ export default function SolarChargeControllerPage() {
       "NEC 125% continuous output current ampacity calculations",
       "Model matching against standard commercial ratings (15A, 30A, 50A, 70A, 100A / 100V, 150V, 250V)",
     ],
+    standards: [
+      "NFPA 70 / NEC Article 690.8(A)(1) (Solar Photovoltaic Circuit Sizing)",
+      "IEC 62548 (Design Requirements for Photovoltaic Arrays)",
+      "IEEE 1547 Distributed Energy Standards",
+    ],
     faqs: FAQS,
   });
 

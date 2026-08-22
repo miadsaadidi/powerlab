@@ -58,6 +58,11 @@ export default function HeatPumpCostPage() {
       "Dynamic break-even electricity price ($/kWh) threshold solver",
       "Building thermal demand modeling by climate zone and square footage",
     ],
+    standards: [
+      "AHRI Standard 210/240 (Unitary Heat Pump Equipment Rating)",
+      "DOE 10 CFR Part 430 Appendix M1 (HSPF2 Rating Procedures)",
+      "ASHRAE Handbook of HVAC Systems and Equipment",
+    ],
     faqs: FAQS,
   });
 

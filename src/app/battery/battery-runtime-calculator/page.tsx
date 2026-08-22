@@ -83,6 +83,12 @@ export default function BatteryRuntimePage() {
       "Customizable depth-of-discharge reserve and battery health",
       "Appliance load builder with duty cycles and peak watts",
     ],
+    standards: [
+      "IEEE Std 485 (Recommended Practice for Sizing Lead-Acid Batteries)",
+      "IEC 62619 (Secondary Lithium Cells and Batteries for Industrial Applications)",
+      "UL 1973 (Batteries for Use in Stationary and Motive Applications)",
+      "NFPA 70 / NEC Article 706 (Energy Storage Systems)",
+    ],
     faqs: FAQS,
   });
 
@@ -219,9 +225,12 @@ export default function BatteryRuntimePage() {
       </section>
 
       <section id="related-tools">
-        <h2>Related Battery Planning Tools</h2>
+        <h2>Related Battery Planning Tools &amp; In-Depth Guides</h2>
         <p>
           Need to size a battery for a specific target runtime? Use our <Link href="/battery/battery-size-calculator">Battery Size Calculator</Link>, check inverter continuous wattage with the <Link href="/battery/inverter-size-calculator">Inverter Size Calculator</Link>, or size whole-home backup with the <Link href="/home-energy/home-battery-size-calculator">Home Battery Size Calculator</Link>.
+        </p>
+        <p style={{ marginTop: "0.75rem" }}>
+          📖 <strong>In-Depth Technical Guide:</strong> Read our comprehensive <Link href="/guides/battery-backup-runtime-calculation-guide" style={{ fontWeight: 600, color: "var(--accent)" }}>Battery Backup Runtime Formula &amp; Inverter Loss Guide</Link> for detailed chemistry comparisons, Peukert derating curves, and worked step-by-step sizing examples.
         </p>
       </section>
     </article>

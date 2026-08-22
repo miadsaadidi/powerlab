@@ -57,6 +57,11 @@ export default function EvRangePage() {
       "Configurable arrival reserve buffer and battery state of health (SOH)",
       "Instant scenario analysis for highway, city, and winter conditions",
     ],
+    standards: [
+      "EPA Light-Duty Automotive Technology, Carbon Dioxide Emissions, and Fuel Economy Trends",
+      "SAE J1634 (Electric Vehicle Energy Consumption and Range Test Procedure)",
+      "WLTP (Worldwide Harmonised Light Vehicles Test Procedure)",
+    ],
     faqs: FAQS,
   });
 

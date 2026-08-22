@@ -57,6 +57,11 @@ export default function SolarLoadPage() {
       "Built-in appliance catalog with realistic duty-cycle estimates",
       "One-click handoff to solar panel sizing and battery bank sizing",
     ],
+    standards: [
+      "NFPA 70 / NEC Article 220 (Branch-Circuit, Feeder, and Service Load Calculations)",
+      "IEEE Std 1013 (Sizing Stand-Alone Photovoltaic Systems)",
+      "IEC 62548 (Design Requirements for Photovoltaic Arrays)",
+    ],
     faqs: FAQS,
   });
 

@@ -51,6 +51,12 @@ export default function HomeBatterySizePage() {
       "Outage duration modeling from 4 hours to multi-day blackouts",
       "Transparent conversion loss, depth-of-discharge, and design margin modeling",
     ],
+    standards: [
+      "NFPA 70 / NEC Article 706 (Energy Storage Systems)",
+      "UL 9540 (Standard for Energy Storage Systems and Equipment)",
+      "IEEE 1547 (Interconnection and Interoperability of Distributed Energy Resources)",
+      "IEC 62619 Secondary Lithium Cells",
+    ],
     faqs: FAQS,
   });
 

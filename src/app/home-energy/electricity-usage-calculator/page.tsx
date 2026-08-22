@@ -58,6 +58,11 @@ export default function ElectricityUsagePage() {
       "Comprehensive appliance library with realistic duty cycles",
       "Supports direct energy label and cycle-based input modes",
     ],
+    standards: [
+      "U.S. Energy Information Administration (EIA) Residential Energy Consumption Survey (RECS)",
+      "DOE 10 CFR Part 430 Energy Conservation Standards for Consumer Products",
+      "NFPA 70 / NEC Article 220 (Branch-Circuit, Feeder, and Service Load Calculations)",
+    ],
     faqs: FAQS,
   });
 

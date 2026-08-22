@@ -58,6 +58,12 @@ export default function SolarOutputPage() {
       "Monthly and annual solar generation breakdowns with seasonal variation",
       "Customizable system losses, module type, and DC-to-AC ratio",
     ],
+    standards: [
+      "NREL PVWatts V8 Photovoltaic Performance Model",
+      "IEC 61724 (Photovoltaic System Performance Monitoring)",
+      "IEEE 1547 (Interconnection and Interoperability of Distributed Energy Resources)",
+      "NFPA 70 / NEC Article 690 (Solar Photovoltaic Systems)",
+    ],
     faqs: FAQS,
   });
 

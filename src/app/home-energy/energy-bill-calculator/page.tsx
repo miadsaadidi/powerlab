@@ -57,6 +57,11 @@ export default function EnergyBillCalculatorPage() {
       "Configurable fixed customer fees, daily standing charges, and local taxes",
       "Interactive what-if scenario comparison tools",
     ],
+    standards: [
+      "U.S. Energy Information Administration (EIA) Electric Power Monthly Rates",
+      "Federal Energy Regulatory Commission (FERC) Tariff Accounting Guidelines",
+      "National Association of Regulatory Utility Commissioners (NARUC)",
+    ],
     faqs: FAQS,
   });
 

@@ -49,6 +49,11 @@ export default function ApplianceWattagePage() {
       "Appliance library with realistic startup surge wattage estimates",
       "Daily and monthly kWh consumption modeling with duty cycles",
     ],
+    standards: [
+      "DOE 10 CFR Part 430 Energy Conservation Standards",
+      "IEC 60034 (Rotating Electrical Machines - Rating and Performance)",
+      "ANSI C84.1 (Electric Power Systems and Equipment - Voltage Ratings)",
+    ],
     faqs: FAQS,
   });
 

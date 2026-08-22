@@ -58,6 +58,11 @@ export default function SpaceHeaterCostPage() {
       "Thermostatic active cycling model (50% to 100% element duty)",
       "Multi-horizon cost modeling: hourly, overnight, 30-day month, and full winter season",
     ],
+    standards: [
+      "UL 1278 (Standard for Movable and Wall- or Ceiling-Hung Electric Room Heaters)",
+      "DOE 10 CFR Part 430 Energy Standards for Electric Heating",
+      "NFPA 70 / NEC Article 424 (Fixed Electric Space-Heating Equipment)",
+    ],
     faqs: FAQS,
   });
 

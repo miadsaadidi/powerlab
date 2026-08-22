@@ -58,6 +58,12 @@ export default function EvBreakerSizePage() {
       "Standard commercial charger amperage matching (16A, 24A, 32A, 40A, 48A, 80A)",
       "Charging speed kW delivery and approximate miles of range gained per hour",
     ],
+    standards: [
+      "NFPA 70 / NEC Article 625 (Electric Vehicle Power Transfer System)",
+      "NEC Table 310.16 (Allowable Ampacities of Insulated Conductors)",
+      "UL 2594 (Standard for Electric Vehicle Supply Equipment)",
+      "SAE J1772 Standards",
+    ],
     faqs: FAQS,
   });
 
@@ -209,6 +215,9 @@ export default function EvBreakerSizePage() {
         <h2>Related EV Charging &amp; Electrical Planning</h2>
         <p>
           Calculate full battery charge durations with our <Link href="/ev/ev-charging-time-calculator">EV Charging Time Calculator</Link>, check feeder run length and cable loss with the <Link href="/battery/voltage-drop-calculator">Voltage Drop Calculator</Link>, or project home charging electricity expenses with the <Link href="/ev/ev-charging-cost-calculator">EV Charging Cost Calculator</Link>.
+        </p>
+        <p style={{ marginTop: "0.75rem" }}>
+          📖 <strong>In-Depth Technical Guide:</strong> Read our comprehensive <Link href="/guides/level-2-ev-charging-speed-and-breaker-sizing-guide" style={{ fontWeight: 600, color: "var(--accent)" }}>Level 2 EV Charging Speed, Amperage &amp; Breaker Sizing Guide</Link> for detailed continuous load calculations, NEC 80% rule charts, and hardwired vs. plug-in comparisons.
         </p>
       </section>
 

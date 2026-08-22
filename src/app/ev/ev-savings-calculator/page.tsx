@@ -51,6 +51,11 @@ export default function EvSavingsPage() {
       "Supports MPG, L/100km, km/L, mi/kWh, and kWh/100km units",
       "Optional maintenance and repair cost comparison inputs",
     ],
+    standards: [
+      "U.S. Department of Energy (DOE) Alternative Fuels Data Center Fuel Cost Comparisons",
+      "EPA Fuel Economy Guide & Automotive Trends",
+      "AAA Driving Costs Annual Benchmarks",
+    ],
     faqs: FAQS,
   });
 

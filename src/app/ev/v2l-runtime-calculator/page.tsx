@@ -58,6 +58,11 @@ export default function V2lRuntimePage() {
       "Essential appliance load presets (refrigeration, medical, communications)",
       "Maximum continuous V2L power output limits (1.8 kW to 9.6 kW)",
     ],
+    standards: [
+      "ISO 15118-20 (Road vehicles - Vehicle to grid communication interface)",
+      "NFPA 70 / NEC Article 705 & 706 (Interconnected Power Production & Energy Storage)",
+      "UL 9741 (Standard for Bidirectional Electric Vehicle Charging System Equipment)",
+    ],
     faqs: FAQS,
   });
 

@@ -58,6 +58,11 @@ export default function AcCostPage() {
       "Calculations for window units, portable ACs, ductless mini-splits, and central air",
       "Annual upgrade savings comparison against older 10-SEER legacy equipment",
     ],
+    standards: [
+      "AHRI Standard 210/240 (Performance Rating of Unitary Air-Conditioning Equipment)",
+      "DOE 10 CFR Part 430 Appendix M1 (SEER2 / EER2 Testing Procedures)",
+      "ASHRAE Standard 90.1 (Energy Standard for Buildings)",
+    ],
     faqs: FAQS,
   });
 

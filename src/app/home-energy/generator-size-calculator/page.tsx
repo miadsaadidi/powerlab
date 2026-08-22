@@ -58,6 +58,12 @@ export default function GeneratorSizePage() {
       "NEMA plug specification matching (NEMA 5-20, L14-30, 14-50)",
       "Multi-fuel consumption estimations for gasoline, propane, and natural gas",
     ],
+    standards: [
+      "NFPA 70 / NEC Article 702 (Optional Standby Systems)",
+      "NFPA 110 (Standard for Emergency and Standby Power Systems)",
+      "IEEE Std 446 (Recommended Practice for Emergency and Standby Power Systems)",
+      "NEMA MG-1 (Motors and Generators)",
+    ],
     faqs: FAQS,
   });
 

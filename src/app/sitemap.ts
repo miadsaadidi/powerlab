@@ -5,8 +5,11 @@ import { siteConfig } from "../lib/site-config";
 const staticPaths = [
   "/",
   "/guides",
+  "/guides/battery-backup-runtime-calculation-guide",
   "/guides/how-many-kwh-does-a-house-use-per-day",
+  "/guides/level-2-ev-charging-speed-and-breaker-sizing-guide",
   "/guides/mppt-solar-charge-controller-sizing-guide",
+  "/guides/solar-panel-tilt-angle-by-latitude-and-season-guide",
   "/developers",
   "/methodology",
   "/sources",

@@ -58,6 +58,12 @@ export default function SolarTiltPage() {
       "Compares current roof pitch and azimuth with modeled PVWatts yield",
       "Zero account or registration required",
     ],
+    standards: [
+      "NREL PVWatts V8 Photovoltaic Performance Model",
+      "NREL Solar Position Algorithm (SPA)",
+      "IEC 61724 (Photovoltaic System Performance Monitoring)",
+      "ASHRAE Handbook of Solar Irradiance Fundamentals",
+    ],
     faqs: FAQS,
   });
 
@@ -201,9 +207,12 @@ export default function SolarTiltPage() {
       </section>
 
       <section id="related-tools">
-        <h2>Related Solar Planning Tools</h2>
+        <h2>Related Solar Planning Tools &amp; In-Depth Guides</h2>
         <p>
           Model your expected annual kilowatt-hour production with our <Link href="/solar/solar-panel-output-calculator">Solar Panel Output Calculator</Link>, determine how many panels fit on your roof with the <Link href="/solar/solar-panel-size-calculator">Solar Panel Size Calculator</Link>, or calculate break-even ROI with the <Link href="/solar/solar-payback-calculator">Solar Payback Calculator</Link>.
+        </p>
+        <p style={{ marginTop: "0.75rem" }}>
+          📖 <strong>In-Depth Technical Guide:</strong> Read our comprehensive <Link href="/guides/solar-panel-tilt-angle-by-latitude-and-season-guide" style={{ fontWeight: 600, color: "var(--accent)" }}>Solar Panel Tilt Angle by Latitude &amp; Season Guide</Link> for complete mathematical models, global latitude matrices, and cosine irradiance calculations.
         </p>
       </section>
     </article>

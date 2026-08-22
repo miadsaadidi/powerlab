@@ -51,6 +51,11 @@ export default function EvChargingCostPage() {
       "Configurable source-to-battery charging efficiency losses",
       "Supports multiple display currencies (USD, EUR, GBP, CAD, AUD)",
     ],
+    standards: [
+      "U.S. Department of Energy (DOE) Alternative Fuels Data Center",
+      "EPA Fuel Economy and Environment Standards (MPGe / kWh per 100 miles)",
+      "SAE J1772 Standards for EV Charging",
+    ],
     faqs: FAQS,
   });
 

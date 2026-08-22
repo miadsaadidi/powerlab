@@ -57,6 +57,12 @@ export default function SolarPanelSizePage() {
       "Configurable panel wattages (350W to 500W)",
       "Estimates total roof surface area footprint in square feet and meters",
     ],
+    standards: [
+      "NREL PVWatts V8 Photovoltaic Performance Model",
+      "IEC 62548 (Design Requirements for Photovoltaic Arrays)",
+      "NFPA 70 / NEC Article 690 (Solar Photovoltaic Systems)",
+      "IEEE 1547 Distributed Energy Standards",
+    ],
     faqs: FAQS,
   });
 

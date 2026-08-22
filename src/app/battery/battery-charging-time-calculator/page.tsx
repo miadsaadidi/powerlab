@@ -57,6 +57,12 @@ export default function BatteryChargingTimePage() {
       "Chemistry-specific charging efficiency loss modeling",
       "Accounts for constant-voltage absorption saturation slowdown",
     ],
+    standards: [
+      "IEEE Std 485 (Recommended Practice for Battery Sizing)",
+      "IEC 62619 (Secondary Lithium Cells and Batteries)",
+      "UL 1973 (Batteries for Use in Stationary Applications)",
+      "NFPA 70 / NEC Article 706",
+    ],
     faqs: FAQS,
   });
 

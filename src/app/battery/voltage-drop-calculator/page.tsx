@@ -58,6 +58,12 @@ export default function VoltageDropPage() {
       "Models copper vs aluminum conductor resistivity at 75°C",
       "Calculates continuous resistance power loss in watts and kilowatt-hours",
     ],
+    standards: [
+      "NFPA 70 / NEC Article 210.19(A) & 215.2(A)(1) (Voltage Drop Recommendations)",
+      "NEC Chapter 9 Table 8 (Conductor Properties)",
+      "NEC Chapter 9 Table 9 (AC Resistance and Reactance)",
+      "IEEE Std 141 (Electric Power Distribution for Industrial Plants)",
+    ],
     faqs: FAQS,
   });
 

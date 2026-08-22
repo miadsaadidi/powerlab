@@ -95,6 +95,7 @@ Target communities where users actively seek transparent, ad-free energy calcula
 ### Week 4 (Days 22–30): High-Authority Outreach & Digital PR
 
 * **Day 22–24 — Educational & Resource Page Link Building**:
+  * Submit working papers and OER modules to **Academia.edu**, **ResearchGate**, **Zenodo**, **OER Commons**, and **MERLOT**.
   * Reach out to university energy clubs, vocational technical schools, and renewable energy educational portals.
   * Pitch: *"We built an ad-free, mathematically transparent energy calculator suite used by students and installers to visualize conversion losses without commercial bias."*
 * **Day 25–27 — Energy Blogger & Clean Tech Outreach**:
@@ -102,12 +103,43 @@ Target communities where users actively seek transparent, ad-free energy calcula
 * **Day 28–29 — Industry Association Resource Submissions**:
   * Submit site as an open reference tool to clean energy non-profits, off-grid community resource libraries, and EV owner associations.
 * **Day 30 — Month 1 Review & Month 2 Keyword Target Setting**:
-  * Review rankings across all 20 primary keywords.
+  * Review rankings across all 30 primary keywords.
   * Set Phase 2 expansion targets for competitive Tier-2 head terms (`energy bill calculator`, `electricity usage calculator`).
 
 ---
 
-## 3. Backlink Pitch Template (High-Conversion Outreach)
+## 3. Verified High-DA Academic & Research Platforms (Zero-Headache Core Trio)
+
+To build unbreakable domain authority, authoritative academic citation signals, and Google Scholar / AI overview references, syndicate technical papers and calculation models across these **3 verified instant-publishing platforms (no approval delays, no institutional email gates)**:
+
+| Priority | Platform | Domain Authority (DA) | Best Use & Content Format | Verification / Speed |
+| :---: | :--- | :---: | :--- | :--- |
+| **🥇 Core 1** | **Academia.edu** (`academia.edu`) | **93** | Upload Working Papers, Technical Reports, and post 2×/week technical discussion updates | Free account, **instant live profile & backlink** |
+| **🥈 Core 2** | **Figshare** (`figshare.com`) | **90** | Upload Preprints, working papers; issues official citable DOI | Free account, **instant DOI generation & publication** |
+| **🥉 Core 3** | **Internet Archive** (`archive.org`) | **99** | Permanent open-access PDF & whitepaper archive with live source links | Free account, **instant worldwide publication** |
+| *Secondary* | **OSF / ECSarXiv** (`osf.io`) | **88** | Open Science Framework preprint server | Free, subject to 24–48h community moderation queue |
+| *Secondary* | **SSRN / Zenodo / ResearchGate** | **91–93** | Institutional preprints & CERN Open Science | Subject to network/institutional email requirements |
+
+---
+
+## 4. Academic Tri-Publishing Cadence Strategy
+
+```text
+┌────────────────────────────────────────────────────────────────────────┐
+│ WEEKLY CADENCE (Core 3 Platforms: Academia.edu + Figshare + Archive):  │
+│ • 1× Formal Working Paper / Technical Report syndicated to all 3       │
+│ • 2× Short Technical Discussion Updates per week on Academia.edu feed  │
+└────────────────────────────────────────────────────────────────────────┘
+```
+
+* **Paper 1 (Published Today):** *Deterministic Mathematical Modeling and Sizing Framework for Distributed Clean Energy (Solar, BESS, EVSE)* — [Live on Academia.edu, Figshare (DOI), and Archive.org]
+* **Paper 2 (Week 2):** *Electrochemical Capacity Derating & Peukert Kinetics in Stationary LiFePO4 vs Lead-Acid Battery Systems*
+* **Paper 3 (Week 3):** *Thermal Voltage Expansion and String Inverter Oversizing Limits in Photovoltaic Systems under NEC 690*
+* **Paper 4 (Week 4):** *Continuous-Duty Thermal Sizing and Branch Circuit Ampacity Requirements for Level 2 EVSE (NEC 625 & SAE J1772)*
+
+---
+
+## 5. Backlink Pitch Template (High-Conversion Outreach)
 
 ```text
 Subject: Ad-free, transparent energy calculators for your [Topic / Article Title] readers
@@ -118,28 +150,27 @@ I came across your guide on [Article / Topic, e.g. sizing backup batteries / sol
 
 Many online calculators are either ad-cluttered or sponsored by vendors who hide assumptions to oversell equipment.
 
-We built PowerLab (https://powerlab.energy) — a 100% free, ad-free suite of deterministic calculators for:
-• Solar Panel Tilt & Output (powered by NREL PVWatts)
+We built PowerLab (https://www.powelab.org) — a 100% free, ad-free suite of deterministic calculators for:
+• Solar Panel Tilt & Output (powered by NREL PVWatts V8)
 • Battery Backup Runtime & Sizing (with transparent depth-of-discharge & inverter losses)
 • EV Charging Speed & Cost Comparisons
 
 No accounts or email signups are required, and all formulas are open and mathematically transparent.
 
 If you think this would be a helpful calculation resource for your readers, feel free to link to it:
-https://powerlab.energy/[relevant-calculator-route]
+https://www.powelab.org/[relevant-calculator-route]
 
 Best regards,
-[Your Name]
-PowerLab Team
+PowerLab Engineering Team
 ```
 
 ---
 
-## 4. Key Performance Indicators (KPI Tracker)
+## 6. Key Performance Indicators (KPI Tracker)
 
 | KPI Metric | Baseline (Day 1) | Target (Day 15) | Target (Day 30) |
 | :--- | :---: | :---: | :---: |
-| **Indexed Pages** | ~0 | 30+ | 38 (100%) |
+| **Indexed Pages** | ~0 | 35+ | 47 (100%) |
 | **GSC Average Position (Tier 1)** | — | <25 | Top 10 |
 | **Daily Organic Impressions** | 0 | 500+ | 1,500+ |
 | **Referring Domains (Ahrefs)** | 0 | 5+ | 15–25 |

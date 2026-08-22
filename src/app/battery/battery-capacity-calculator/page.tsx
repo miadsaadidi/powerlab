@@ -57,6 +57,12 @@ export default function BatteryCapacityPage() {
       "Usable energy calculations factoring in starting and minimum reserve SOC",
       "Accounts for battery State of Health (SOH) degradation",
     ],
+    standards: [
+      "IEEE Std 485 (Recommended Practice for Sizing Lead-Acid Batteries)",
+      "IEC 62619 (Secondary Lithium Cells and Batteries)",
+      "UL 1973 (Batteries for Use in Stationary Applications)",
+      "NFPA 70 / NEC Article 706",
+    ],
     faqs: FAQS,
   });
 

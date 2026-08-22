@@ -48,6 +48,20 @@ interface GuideItem {
 
 const FEATURED_GUIDES: GuideItem[] = [
   {
+    name: "Battery Backup Runtime Formula & Calculation Guide (Ah, Wh & Inverter Losses)",
+    route: "/guides/battery-backup-runtime-calculation-guide",
+    category: "Battery Storage",
+    categoryIcon: "🔋",
+    categoryColor: "#16a34a",
+    categoryBg: "rgba(22, 163, 74, 0.1)",
+    badge: "⚡ 12,000+ Readers / Month",
+    badgeType: "trending",
+    description: "Master the battery runtime formula for LiFePO4, AGM, and Lead-Acid. Calculate Amp-hours to Watt-hours, inverter conversion losses, idle tare draw, and Peukert high-rate discharge capacity derating.",
+    readTime: "9 min read",
+    updatedDate: "Updated August 2026",
+    standards: ["IEEE Std 485 Sizing", "IEC 62619 Lithium Cells", "NEC Article 706"],
+  },
+  {
     name: "How Many kWh Does an Average House Use Per Day?",
     route: "/guides/how-many-kwh-does-a-house-use-per-day",
     category: "Home Energy",
@@ -74,6 +88,34 @@ const FEATURED_GUIDES: GuideItem[] = [
     readTime: "7 min read",
     updatedDate: "Updated August 2026",
     standards: ["NEC Article 690.8", "IEC 62548 Array Design", "IEEE 1547"],
+  },
+  {
+    name: "Level 2 EV Charging Speed, Amperage & Breaker Sizing Guide",
+    route: "/guides/level-2-ev-charging-speed-and-breaker-sizing-guide",
+    category: "Electric Vehicles",
+    categoryIcon: "🚗",
+    categoryColor: "#8b5cf6",
+    categoryBg: "rgba(139, 92, 246, 0.1)",
+    badge: "⚡ 8,500+ Readers / Month",
+    badgeType: "new",
+    description: "Definitive electrical engineering guide to Level 2 EV charging speeds, breaker sizing, wire gauges, and the NEC 80% continuous load rule for 16A through 48A home chargers.",
+    readTime: "8 min read",
+    updatedDate: "Updated August 2026",
+    standards: ["NEC Article 625", "SAE J1772 / NACS", "UL 2594 EVSE"],
+  },
+  {
+    name: "Solar Panel Tilt Angle by Latitude & Season Guide",
+    route: "/guides/solar-panel-tilt-angle-by-latitude-and-season-guide",
+    category: "Solar Photovoltaics",
+    categoryIcon: "☀️",
+    categoryColor: "#f59e0b",
+    categoryBg: "rgba(245, 158, 11, 0.1)",
+    badge: "⚡ 10,000+ Readers / Month",
+    badgeType: "trending",
+    description: "Master the mathematics of solar panel tilt angles, seasonal summer vs. winter adjustments, azimuth orientation, and cosine irradiance capture by latitude.",
+    readTime: "8 min read",
+    updatedDate: "Updated August 2026",
+    standards: ["NREL PVWatts V8", "IEC 61724 Monitoring", "ASHRAE Solar Tables"],
   },
 ];
 
@@ -293,6 +335,9 @@ export default function GuidesHubPage() {
           <Link href="/solar" className="button secondary-button">Solar planning tools</Link>
           <Link href="/battery" className="button secondary-button">Battery planning tools</Link>
           <Link href="/ev" className="button secondary-button">EV planning tools</Link>
+          <Link href="/battery/battery-runtime-calculator" className="button secondary-button">Battery Runtime Calculator</Link>
+          <Link href="/solar/solar-panel-tilt-calculator" className="button secondary-button">Solar Panel Tilt Calculator</Link>
+          <Link href="/ev/ev-charger-breaker-size-calculator" className="button secondary-button">EV Charger Breaker Sizing</Link>
           <Link href="/home-energy/electricity-usage-calculator" className="button secondary-button">Electricity Usage Calculator</Link>
           <Link href="/solar/solar-charge-controller-calculator" className="button secondary-button">Solar Charge Controller Calculator</Link>
         </div>

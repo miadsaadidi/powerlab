@@ -58,6 +58,11 @@ export default function InverterSizePage() {
       "Class-T / ANL fuse recommendation with 125% continuous duty safety",
       "Pure Sine Wave recommendation matching for sensitive electronics",
     ],
+    standards: [
+      "UL 1741 (Inverters, Converters, Controllers and Interconnection System Equipment)",
+      "NFPA 70 / NEC Article 705 & 706 (Interconnected Power Production & Energy Storage)",
+      "IEEE 1547 (Interconnection and Interoperability of Distributed Energy Resources)",
+    ],
     faqs: FAQS,
   });
 

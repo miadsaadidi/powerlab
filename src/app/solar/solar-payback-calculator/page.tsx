@@ -58,6 +58,11 @@ export default function SolarPaybackPage() {
       "Compound annual electricity tariff inflation (3.5% historical baseline)",
       "Tier-1 monocrystalline annual panel degradation (0.5%/yr) and inverter replacement",
     ],
+    standards: [
+      "NREL System Advisor Model (SAM) Financial & LCOE Methodology",
+      "U.S. Internal Revenue Code Section 25D (Residential Clean Energy Credit)",
+      "IEC 61215 / IEC 61730 (Terrestrial Photovoltaic Reliability)",
+    ],
     faqs: FAQS,
   });
 

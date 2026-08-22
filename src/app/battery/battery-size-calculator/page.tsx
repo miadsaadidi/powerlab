@@ -54,6 +54,12 @@ export default function BatterySizePage() {
       "AC inverter conversion efficiency and DC-DC step loss compensation",
       "Built-in appliance catalog with power presets and runtime duration sliders",
     ],
+    standards: [
+      "IEEE Std 485 (Recommended Practice for Sizing Lead-Acid Batteries)",
+      "IEC 62619 (Secondary Lithium Cells and Batteries for Industrial Applications)",
+      "UL 1973 (Batteries for Use in Stationary and Motive Applications)",
+      "NFPA 70 / NEC Article 706 (Energy Storage Systems)",
+    ],
     faqs: FAQS,
   });
 

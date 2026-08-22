@@ -51,6 +51,12 @@ export default function SolarBatteryBankSizePage() {
       "Chemistry-aware usable depth of discharge (LiFePO4, Lead-Acid, LTO)",
       "Accounts for depth-of-discharge reserve, inverter loss, and battery degradation",
     ],
+    standards: [
+      "IEEE Std 485 (Recommended Practice for Sizing Lead-Acid Batteries)",
+      "IEEE Std 1013 (Recommended Practice for Sizing Lead-Acid Batteries for Stand-Alone Photovoltaic Systems)",
+      "IEC 62619 (Secondary Lithium Cells and Batteries)",
+      "NFPA 70 / NEC Article 706 (Energy Storage Systems)",
+    ],
     faqs: FAQS,
   });
 

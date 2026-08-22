@@ -1,8 +1,8 @@
 # SEO Execution & Progress Tracker - PowerLab
 
 **Domain:** `https://www.powelab.org`  
-**Last Updated:** August 20, 2026
-**Status:** Technical SEO baseline complete; production measurement and iterative optimization in progress
+**Last Updated:** August 22, 2026
+**Status:** Technical SEO baseline complete; 5 flagship educational link magnets published; 47 canonical sitemap URLs active
 
 ---
 
@@ -12,31 +12,35 @@
 | :--- | :--- | :--- | :--- |
 | **GSC & Webmaster** | Google Search Console verification | Completed | Domain property and URL prefix verified |
 | **GSC & Webmaster** | Bing Webmaster Tools setup | Completed | Search console imported/verified |
-| **Sitemap Submission** | `sitemap.xml` submitted to GSC and Bing | Completed | Dynamic route `/sitemap.xml`; current route inventory exposes 44 canonical URLs: 30 calculators, 4 category hubs, 3 guide routes and 7 root/utility/legal pages |
+| **Sitemap Submission** | `sitemap.xml` updated | Completed | Dynamic route `/sitemap.xml`; route inventory exposes **47 canonical URLs**: 30 calculators, 4 category hubs, 5 comprehensive technical guides and 8 root/utility/legal pages |
+| **Flagship Educational Guides** | In-depth technical guides & link magnets | Completed | Published: (1) Battery Backup Runtime Formula Guide, (2) Level 2 EV Charging Speed & Breaker Guide, (3) Solar Panel Tilt by Latitude Guide, (4) MPPT vs PWM Sizing Guide, (5) Daily Household kWh Usage Guide |
 | **URL Inspection** | Priority URL Indexing Requests | Completed | Top 5 flagship tools requested for immediate crawl |
 | **Community Seeding** | Day 1 Community Value Drops | Completed | Shared in target Reddit (r/Solar, r/EVcharging, r/VanLife) and tech communities |
 | **Directory Submissions** | Free tool aggregators and Show HN | Completed | Submitted to directory catalogs and tech showcases |
-| **FAQ Schema Markup** | `FAQPage` JSON-LD on all 30 calculator routes | Completed | Current calculator pages pass `faqs: FAQS` into the shared structured-data builder |
-| **WebApplication Schema** | `WebApplication` and `BreadcrumbList` | Completed | Validated in Google Rich Results Test |
+| **FAQ Schema Markup** | `FAQPage` JSON-LD on all 30 calculators & 5 guides | Completed | Pass verified `faqs: FAQS` into `buildCalculatorStructuredData` and `buildGuideStructuredData` |
+| **WebApplication & Article Schema** | `WebApplication`, `TechArticle`, `BreadcrumbList` | Completed | Validated in Google Rich Results Test; all 30 calculators pass verified engineering standards citations (`isBasedOn` & `citation`) for IEEE, NEC, UL, IEC, and NREL |
 | **Root OpenGraph Card** | Root `opengraph-image.tsx` | Completed | 1200x630 dynamic Next.js OG preview |
 | **Category OG Cards** | Category-specific `opengraph-image.tsx` | Completed | Dedicated cards created for `/solar`, `/battery`, `/home-energy`, and `/ev` |
-| **Internal Linking** | Guides-to-tools workflow links | Completed | Guides hub now links to all four category hubs and two relevant calculators; each guide links to its primary next-step calculator |
+| **Internal Linking Graph** | Guides-to-tools & tools-to-guides reciprocal workflow links | Completed | Bidirectional links between guides and corresponding calculators (`battery-runtime`, `ev-charging-time`, `solar-panel-tilt`, `solar-charge-controller`, etc.) |
 | **Phase 5 SERP and Keyword Research** | Keyword Planner and SERP Analysis | Completed | 10 high-impact expansion specs and canonical maps added |
+| **Community & Academic Outreach Kit** | Technical distribution templates (`docs/outreach/`) | Completed | Turnkey worked examples for Reddit (`r/Solar`, `r/evcharging`, `r/VanLife`), DIY Solar Forum, Tesla Motors Club, and university/vocational OER syllabus pitches |
+| **High-DA Academic Paper Syndication** | Working Paper 1 published across Core 3 platforms | Completed | Published on **Academia.edu** (DA 93), **Figshare** (DA 90, DOI assigned), and **Internet Archive** (DA 99); pending moderation on OSF/ECSarXiv |
 
 ---
 
 ## 2. Technical SEO Baseline Status
 
 * **Robots.txt**: Cleanly permits all canonical pages and references `https://www.powelab.org/sitemap.xml`.
-* **Canonical URLs**: Calculator and utility pages define explicit canonical URLs; the `/developers` canonical was added during the August 20 baseline audit.
-* **Sitemap inventory**: 44 canonical URLs are currently exposed: 30 calculators, 4 category hubs, 3 guide routes, the homepage and 6 utility/legal pages.
-* **Sitemap freshness**: Generated timestamps were removed from the sitemap so unchanged URLs are not presented as freshly modified on every request.
-* **Semantic hierarchy**: Calculator and content pages use a single `<h1>` with semantic `<article>`, `<section>` and breadcrumb navigation where applicable.
+* **Canonical URLs**: All 47 pages define explicit canonical URLs.
+* **Sitemap inventory**: 47 canonical URLs: 30 calculators, 4 category hubs, 5 guide routes, the homepage and 7 utility/legal pages.
+* **Sitemap freshness**: Timestamps omitted to preserve honest indexing crawl frequency.
+* **Semantic hierarchy**: Calculator and content pages use a single `<h1>` with semantic `<article>`, `<section>` and breadcrumb navigation.
 * **Structured data graph**:
   * Root: `Organization` and `WebSite` with `SearchAction`.
   * Category hubs: `CollectionPage`, `ItemList` and `BreadcrumbList`.
-  * Calculators: `WebApplication` (free/0 USD), `BreadcrumbList` and visible-content `FAQPage` data across all 30 calculator routes.
-* **Internal linking**: Guides, category hubs and calculator pages now expose contextual next-step links across the home-energy, solar, battery and EV planning paths.
+  * Calculators: `WebApplication` (free/0 USD), `BreadcrumbList` and visible-content `FAQPage` across all 30 routes.
+  * Guides: `TechArticle`, `BreadcrumbList`, standard citations (`IEEE`, `NEC`, `IEC`, `SAE`, `NREL`) and `FAQPage` across all 5 guides.
+* **Internal linking**: Guides, category hubs, and calculators expose bidirectional next-step links across Home Energy, Solar, Battery, and EV planning paths.
 
 ---
 
