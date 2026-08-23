@@ -11,12 +11,12 @@ import { DirectAnswerCard } from "@/components/seo/direct-answer-card";
 const isPublished = isCalculatorPublished("energy-bill");
 
 export const metadata: Metadata = {
-  title: "Energy Bill Calculator — Estimate Electric Utility Costs",
-  description: "Calculate your monthly and annual electric utility bill from kWh consumption or meter readings, tariff rates, fixed fees, and standing charges.",
+  title: "Electricity Bill & Energy Cost Calculator — Monthly Bill Estimate",
+  description: "Calculate your monthly and annual electricity bill from kWh consumption or meter readings, electric utility rates, fixed fees, and standing charges.",
   alternates: { canonical: "/home-energy/energy-bill-calculator" },
   robots: { index: isPublished, follow: true },
   openGraph: {
-    title: "Energy Bill Calculator — PowerLab",
+    title: "Electricity Bill & Energy Cost Calculator — PowerLab",
     description: "Calculate electric utility bills from kWh usage or meter readings with fixed charges and taxes.",
     url: `${siteConfig.url}/home-energy/energy-bill-calculator`,
     siteName: siteConfig.name,

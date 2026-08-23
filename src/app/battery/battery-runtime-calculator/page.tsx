@@ -11,13 +11,13 @@ import { DirectAnswerCard } from "@/components/seo/direct-answer-card";
 
 
 export const metadata: Metadata = {
-  title: "Battery Runtime Calculator — Calculate Backup Hours",
-  description: "Calculate how long a 12V, 24V, or 48V battery will run your appliances in hours and minutes. Supports LiFePO4, AGM, and Gel chemistries with inverter efficiency.",
+  title: "Battery Runtime & Backup Calculator — Calculate Backup Hours",
+  description: "Calculate how long a 12V, 24V, or 48V battery backup will run your appliances in hours and minutes. Supports LiFePO4, AGM, and Gel chemistries with inverter efficiency.",
   alternates: { canonical: "/battery/battery-runtime-calculator" },
   robots: { index: true, follow: true },
   openGraph: {
-    title: "Battery Runtime Calculator — PowerLab",
-    description: "Calculate how long your battery will power appliances in hours and minutes with depth-of-discharge reserve protection.",
+    title: "Battery Runtime & Backup Calculator — PowerLab",
+    description: "Calculate how long your battery backup will power appliances in hours and minutes with depth-of-discharge reserve protection.",
     url: `${siteConfig.url}/battery/battery-runtime-calculator`,
     siteName: siteConfig.name,
     locale: "en_US",

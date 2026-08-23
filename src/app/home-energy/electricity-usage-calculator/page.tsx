@@ -12,8 +12,8 @@ import { DirectAnswerCard } from "@/components/seo/direct-answer-card";
 const isPublished = isCalculatorPublished("electricity-usage");
 
 export const metadata: Metadata = {
-  title: "Electricity Usage Calculator — Calculate kWh & Power Costs",
-  description: "Calculate how much electricity (kWh) your appliances consume per day, month, and year. Built-in appliance wattage catalog and electricity bill cost modeling.",
+  title: "Electricity Usage Calculator — Daily & Monthly kWh & Power Costs",
+  description: "Calculate how much electricity (kWh) your appliances consume per day, month, and year. Features built-in appliance wattage catalog and power bill cost modeling.",
   alternates: { canonical: "/home-energy/electricity-usage-calculator" },
   robots: { index: isPublished, follow: true },
   openGraph: {

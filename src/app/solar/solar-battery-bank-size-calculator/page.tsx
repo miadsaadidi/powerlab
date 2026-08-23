@@ -12,11 +12,18 @@ import { DirectAnswerCard } from "@/components/seo/direct-answer-card";
 const isPublished = isCalculatorPublished("solar-battery-bank-size");
 
 export const metadata: Metadata = {
-  title: "Solar Battery Calculator — Size a Battery Bank",
-  description: "Estimate solar battery bank size from daily load energy, autonomy, battery chemistry, SOC, inverter efficiency and planning margin. Get kWh and Ah capacity equivalents.",
+  title: "Solar Power Battery Calculator — Solar Battery Bank Size",
+  description: "Calculate solar power battery bank size (kWh & Ah) from daily energy load, autonomy days, battery chemistry, and inverter efficiency.",
   alternates: { canonical: "/solar/solar-battery-bank-size-calculator" },
   robots: { index: isPublished, follow: true },
-  openGraph: { title: "Solar Battery Calculator — Size a Battery Bank", description: "Estimate stored-energy capacity for a solar battery bank with transparent, editable planning assumptions." },
+  openGraph: {
+    title: "Solar Power Battery Calculator — Solar Battery Bank Size",
+    description: "Calculate solar battery bank capacity in kWh and Ah with transparent DoD, autonomy, and inverter efficiency modeling.",
+    url: `${siteConfig.url}/solar/solar-battery-bank-size-calculator`,
+    siteName: siteConfig.name,
+    locale: "en_US",
+    type: "website",
+  },
 };
 
 const FAQS = [

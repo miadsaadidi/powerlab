@@ -12,13 +12,13 @@ import { SystemFlowDiagram } from "@/components/seo/system-flow-diagram";
 const isPublished = isCalculatorPublished("solar-panel-tilt");
 
 export const metadata: Metadata = {
-  title: "Solar Panel Tilt Calculator — Optimal Angle & Roof Pitch",
-  description: "Find the optimal solar panel tilt angle and compass azimuth for your latitude. Calculate seasonal summer/winter angles and compare roof production.",
+  title: "Solar Panel Angle & Tilt Calculator — Optimal Angle & Pitch",
+  description: "Calculate optimal solar panel tilt angle and azimuth for your latitude. Features seasonal summer/winter angle adjustments and roof pitch comparison.",
   alternates: { canonical: "/solar/solar-panel-tilt-calculator" },
   robots: { index: isPublished, follow: true },
   openGraph: {
-    title: "Solar Panel Tilt Calculator — PowerLab",
-    description: "Calculate optimal solar panel tilt angle and equator-facing orientation from latitude with seasonal adjustments.",
+    title: "Solar Panel Angle & Tilt Calculator — PowerLab",
+    description: "Calculate optimal solar panel angle and equator-facing orientation from latitude with seasonal tilt adjustments.",
     url: `${siteConfig.url}/solar/solar-panel-tilt-calculator`,
     siteName: siteConfig.name,
     locale: "en_US",

@@ -12,13 +12,13 @@ import { DirectAnswerCard } from "@/components/seo/direct-answer-card";
 const isPublished = isCalculatorPublished("ac-cost");
 
 export const metadata: Metadata = {
-  title: "Air Conditioner Electricity Cost Calculator — Hourly & Monthly AC Cost",
-  description: "Calculate how much your air conditioner costs to run per hour, day, and month. Estimate electricity costs for window units, mini-splits, and central AC by SEER2 rating.",
+  title: "Air Conditioner & Central AC Cost Calculator — Running Cost & kWh",
+  description: "Calculate central AC energy cost and room air conditioner running costs per hour, day, and month. Supports central AC, mini-splits, and window units by SEER2 rating.",
   alternates: { canonical: "/home-energy/air-conditioner-cost-calculator" },
   robots: { index: isPublished, follow: true },
   openGraph: {
-    title: "Air Conditioner Electricity Cost Calculator — PowerLab",
-    description: "Calculate hourly and monthly electricity costs to run central AC, mini-splits, and window units.",
+    title: "Air Conditioner & Central AC Cost Calculator — PowerLab",
+    description: "Calculate hourly and monthly electricity costs to run central AC, mini-splits, and window units with SEER2 efficiency.",
     url: `${siteConfig.url}/home-energy/air-conditioner-cost-calculator`,
     siteName: siteConfig.name,
     locale: "en_US",

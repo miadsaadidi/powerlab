@@ -11,12 +11,12 @@ import { DirectAnswerCard } from "@/components/seo/direct-answer-card";
 const isPublished = isCalculatorPublished("solar-panel-size");
 
 export const metadata: Metadata = {
-  title: "Solar Panel Size Calculator — Calculate How Many Panels You Need",
-  description: "Calculate how many solar panels and what system size (kW) you need to power your home. Uses location-based PVWatts V8 specific solar yield modeling.",
+  title: "Solar Panel Size Calculator — How Many Solar Panels Do You Need?",
+  description: "Calculate how many solar panels and what system size (kW) you need to power your home. Features monthly kWh target and local solar yield modeling.",
   alternates: { canonical: "/solar/solar-panel-size-calculator" },
   robots: { index: isPublished, follow: true },
   openGraph: {
-    title: "Solar Panel Size Calculator — PowerLab",
+    title: "Solar Panel Size Calculator — How Many Solar Panels Do You Need?",
     description: "Calculate how many solar panels you need based on monthly electricity usage and local solar yield.",
     url: `${siteConfig.url}/solar/solar-panel-size-calculator`,
     siteName: siteConfig.name,

@@ -11,11 +11,18 @@ import { SystemFlowDiagram } from "@/components/seo/system-flow-diagram";
 
 
 export const metadata: Metadata = {
-  title: "Battery Size Calculator — kWh & Ah for Backup Power",
-  description: "Calculate the battery size needed for a load and backup time. Estimate minimum and recommended kWh and Ah with reserve, efficiency and battery-health assumptions.",
+  title: "Battery Size Calculator — Size Battery Bank in kWh & Ah",
+  description: "Calculate the battery size needed for any load and backup runtime. Accurately determines required kWh and Ah capacity with DOD, inverter efficiency, and safety margin.",
   alternates: { canonical: "/battery/battery-size-calculator" },
   robots: { index: isCalculatorPublished("battery-size"), follow: true },
-  openGraph: { title: "Battery Size Calculator — kWh & Ah for Backup Power", description: "Calculate the battery size needed for a load and backup time with transparent reserve, efficiency and health assumptions." },
+  openGraph: {
+    title: "Battery Size Calculator — Size Battery Bank in kWh & Ah",
+    description: "Calculate the battery size needed for a load and backup time with transparent reserve, efficiency and health assumptions.",
+    url: `${siteConfig.url}/battery/battery-size-calculator`,
+    siteName: siteConfig.name,
+    locale: "en_US",
+    type: "website",
+  },
 };
 
 const FAQS = [
