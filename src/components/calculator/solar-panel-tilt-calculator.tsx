@@ -2,7 +2,7 @@
 
 import { useEffect, useMemo, useState } from "react";
 import { AZIMUTH_PRESETS, PVWATTS_ARRAY_TYPES, PVWATTS_MODULE_TYPES, SOLAR_DEFAULTS } from "@/data/solar-defaults";
-import { calculateSeasonalTilts, getEquatorFacingAzimuth, validateLatitude } from "@/lib/calculators/solar-tilt/engine";
+import { calculateGroundAlbedoGain, calculateSeasonalTilts, getEquatorFacingAzimuth, validateLatitude } from "@/lib/calculators/solar-tilt/engine";
 import { createEnergyProfileStore } from "@/lib/energy-profile/store";
 import { track } from "@/lib/analytics/analytics";
 import type { SolarProductionResult } from "@/lib/providers/pvwatts";
@@ -74,6 +74,7 @@ export function SolarPanelTiltCalculator() {
   const longitudeError = !Number.isFinite(longitude) ? "Enter a valid longitude." : longitude < -180 || longitude > 180 ? "Longitude must be between -180° and 180°." : null;
   const tilts = useMemo(() => latitudeError ? null : calculateSeasonalTilts(latitude), [latitude, latitudeError]);
   const orientation = useMemo(() => latitudeError ? null : getEquatorFacingAzimuth(latitude), [latitude, latitudeError]);
+  const winterAlbedoGain = useMemo(() => tilts ? calculateGroundAlbedoGain(tilts.winter, "snow") : null, [tilts]);
 
   const saveSolar = (update: Parameters<ReturnType<typeof createEnergyProfileStore>["patchSolar"]>[0]) => {
     createEnergyProfileStore(window.localStorage).patchSolar(update);
@@ -228,6 +229,29 @@ export function SolarPanelTiltCalculator() {
 
           <div className="comparison tilt-season-grid"><dl><div><dt>Summer</dt><dd>{tilts.summer}°</dd></div><div className="current-comparison"><dt>Year-round</dt><dd>{tilts.yearRound}°</dd></div><div><dt>Winter</dt><dd>{tilts.winter}°</dd></div></dl></div>
           <dl className="result-breakdown"><div><dt>Face toward</dt><dd>{orientation.label}{orientation.degrees === null ? "" : ` / ${orientation.degrees}°`}</dd></div><div><dt>Method</dt><dd>Latitude starting estimate</dd></div></dl>
+
+          {winterAlbedoGain && (
+            <div className="albedo-analysis-card" style={{ marginTop: "1rem", padding: "0.85rem", background: "var(--surface-subtle, rgba(255,255,255,0.04))", borderRadius: "8px", border: "1px solid var(--border-subtle, rgba(255,255,255,0.1))" }}>
+              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "0.4rem" }}>
+                <strong style={{ fontSize: "0.85rem", color: "var(--foreground, #fff)" }}>❄️ Ground Albedo &amp; Snow Backscatter</strong>
+                <span style={{ fontSize: "0.7rem", padding: "2px 6px", background: "rgba(16, 185, 129, 0.15)", color: "#10b981", borderRadius: "4px", fontWeight: 600 }}>Perez Model</span>
+              </div>
+              <p className="form-hint" style={{ fontSize: "0.78rem", margin: "0 0 0.5rem 0" }}>
+                Steep winter tilt ({tilts.winter}°) expands ground view factor ({winterAlbedoGain.groundViewFactor}) to capture ground snow reflection:
+              </p>
+              <dl style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "0.5rem", fontSize: "0.8rem", margin: 0 }}>
+                <div style={{ background: "rgba(0,0,0,0.15)", padding: "6px 8px", borderRadius: "4px" }}>
+                  <dt style={{ color: "var(--muted, #888)", fontSize: "0.72rem" }}>Snow Reflected Gain</dt>
+                  <dd style={{ fontWeight: 700, margin: 0, color: "#10b981" }}>+{winterAlbedoGain.reflectedIrradianceGainPct}% Irradiance</dd>
+                </div>
+                <div style={{ background: "rgba(0,0,0,0.15)", padding: "6px 8px", borderRadius: "4px" }}>
+                  <dt style={{ color: "var(--muted, #888)", fontSize: "0.72rem" }}>Snow Shedding</dt>
+                  <dd style={{ fontWeight: 700, margin: 0 }}>{winterAlbedoGain.snowSheddingEffectiveness.split(" ")[0]}</dd>
+                </div>
+              </dl>
+            </div>
+          )}
+
           <p className="energy-flow-note form-hint">This is a practical starting estimate, not a universal optimum. Roof shape, shading and local conditions can change the best practical angle.</p>
 
           <div className="button-row" style={{ marginTop: "1rem", display: "flex", gap: "0.5rem", flexWrap: "wrap" }}>

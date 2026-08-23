@@ -24,7 +24,10 @@
 | **Internal Linking Graph** | Guides-to-tools & tools-to-guides reciprocal workflow links | Completed | Bidirectional links between guides and corresponding calculators (`battery-runtime`, `ev-charging-time`, `solar-panel-tilt`, `solar-charge-controller`, etc.) |
 | **Phase 5 SERP and Keyword Research** | Keyword Planner and SERP Analysis | Completed | 10 high-impact expansion specs and canonical maps added |
 | **Community & Academic Outreach Kit** | Technical distribution templates (`docs/outreach/`) | Completed | Turnkey worked examples for Reddit (`r/Solar`, `r/evcharging`, `r/VanLife`), DIY Solar Forum, Tesla Motors Club, and university/vocational OER syllabus pitches |
-| **High-DA Academic Paper Syndication** | Working Paper 1 published across Core 3 platforms | Completed | Published on **Academia.edu** (DA 93), **Figshare** (DA 90, DOI assigned), and **Internet Archive** (DA 99); pending moderation on OSF/ECSarXiv |
+| **High-DA Academic Paper Syndication** | Working Paper 1 (Live) & Paper 2 (Ready) | Completed / Ready | Paper 1 published on Academia.edu, Figshare (DOI), and Archive.org. **Paper 2 PDF Formatted & Ready**: *Continuous-Duty Thermal Sizing for Level 2 EVSE (NEC 625/310)* |
+| **Forum & Community Q&A Seeding** | DIY Solar Power Forum & EV Community Drops | August 23, 2026 | Technical solutions for Inverter DC wire sizing, NEC 80% continuous breaker sizing, and Hacker News Show HN |
+| **Daily 5 High-Impact Outreach Sprint** | 30 Turnkey Email Pitches (`docs/outreach/04_*`) | In Progress (Day 1 Complete) | **Day 1 Sent (5/5)**: Dr. Ram Rajagopal (Stanford), Dr. Christiana Honsberg (ASU QESST), Dr. Stephen Zubrick (Appalachian State), Dr. Chien-Fei Chen (NSF CURENT / UTK), Dr. Joshua Pearce (Western Univ / FAST) |
+| **Ground Albedo & Snow Shedding Model** | Added to Solar Tilt Calculator & Formula Card | August 23, 2026 | Implemented Perez ground view factor and snow backscatter reflectance gain in engine, UI card, and tests |
 
 ---
 
@@ -46,10 +49,15 @@
 
 ## 3. Next Steps (Upcoming Roadmap)
 
-1. **Immediate production verification:**
-   * Deploy the current sitemap, canonical and breadcrumb fixes.
-   * Recheck `robots.txt`, `sitemap.xml`, canonical tags, indexability, H1 count, breadcrumbs and JSON-LD across all 44 sitemap URLs.
-   * Confirm the submitted sitemap still matches the current 44-URL inventory.
+1. **Daily 5 Outreach Execution (Days 1–6):**
+   * Execute 5 daily pitches every morning using the pre-compiled templates in [`docs/outreach/04_DAILY_5_OUTREACH_TARGETS_AND_PITCHES.md`](file:///d:/powerlab/docs/outreach/04_DAILY_5_OUTREACH_TARGETS_AND_PITCHES.md).
+   * Day 1: University Engineering Faculty (.edu)
+   * Day 2: Electrical Apprentice & IBEW/NECA Training Directors
+   * Day 3: Clean Energy Trade Media Editorial Directors
+   * Day 4: State Clean Energy Centers & University Extensions
+   * Day 5: Clean Energy Advocacy Non-Profits & EV Coalitions
+   * Day 6: Open Educational Resources (OER) & Digital STEM Libraries
+   * Log positive responses and links in referring domains tracker.
 
 2. **Search performance loop:**
    * Monitor GSC Coverage for indexed URL count.

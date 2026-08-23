@@ -16,13 +16,13 @@
 
 ```text
 ┌────────────────────────────────────────────────────────────────────────┐
-│ WEEK 1 (Days 1–7)   : Technical Launch & Indexation Acceleration       │
+│ WEEK 1 (Days 1–7)   : Technical Launch, Indexing & Seed Academic Core  │
 ├────────────────────────────────────────────────────────────────────────┤
-│ WEEK 2 (Days 8–14)  : Enthusiast Community Seeding & Digital Discovery │
+│ WEEK 2 (Days 8–14)  : Daily 5 Outreach Batch 1 (Academia & Trade Media)│
 ├────────────────────────────────────────────────────────────────────────┤
-│ WEEK 3 (Days 15–21) : GSC Query Mining & CTR Snippet Optimization      │
+│ WEEK 3 (Days 15–21) : Daily 5 Outreach Batch 2 (Vocational & Non-Profit│
 ├────────────────────────────────────────────────────────────────────────┤
-│ WEEK 4 (Days 22–30) : High-Authority Educational Outreach & PR Linkage │
+│ WEEK 4 (Days 22–30) : Daily 5 Follow-ups, OER Indexing & PR Citations  │
 └────────────────────────────────────────────────────────────────────────┘
 ```
 
@@ -44,64 +44,66 @@
 * [x] **Day 3 — Core Web Vitals & Mobile Usability Verification**:
   * Run Google PageSpeed Insights on mobile and desktop. Verify LCP ≤ 2.5s, INP ≤ 200ms, CLS ≤ 0.05.
 * [x] **Day 4 — Schema Rich Results Test & FAQ Markup**:
-  * Test calculator URLs in Google's **Rich Results Test** tool to confirm valid `BreadcrumbList`, `WebApplication`, and `FAQPage` markup on all 20 calculator pages.
+  * Test calculator URLs in Google's **Rich Results Test** tool to confirm valid `BreadcrumbList`, `WebApplication`, and `FAQPage` markup on all 30 calculator pages and 5 guides.
 * [x] **Day 5–7 — Social & Entity Foundation & Dynamic Category OG Cards**:
   * Category-specific OpenGraph social cards for `/solar`, `/battery`, `/home-energy`, and `/ev`.
   * Set up clean brand profiles on GitHub, X (Twitter), LinkedIn, and Reddit to establish consistent entity authorship.
 
 ---
 
-### Week 2 (Days 8–14): Niche Community Distribution & Seed Backlinks
+### Week 2 (Days 8–14): Daily 5 Outreach Sprints & Community Discovery
 
-Target communities where users actively seek transparent, ad-free energy calculations:
+Target communities and authoritative institutions where educators, editors, and engineers actively seek transparent, ad-free calculations:
 
 * [x] **Day 8 — Reddit Community Value Drops (Non-Promotional)**:
   * Post in `r/Solar` and `r/OffGrid`: *"Built an ad-free, open-access solar tilt & battery runtime calculator with transparent loss formulas (no email signup / no ads)."*
-  * Highlight the **Energy Loss Waterfall** (`Nominal Wh → Usable DOD → Inverter Loss → Delivered Energy`).
 * [x] **Day 9 — EV Communities (`r/ElectricVehicles`, `r/TeslaLounge`)**:
   * Share the **EV Charging Time & Cost Calculator** focusing on realistic DC fast-charge taper curves vs Level 2 AC home charging.
 * [x] **Day 10 — Home & DIY Communities (`r/DIY`, `r/homestead`, `r/VanLife`)**:
   * Share the **Portable Power Station & Battery Sizing Calculator** tailored for camper vans, portable power stations, and outage backup.
-* [x] **Day 11 — Product Directory Submissions**:
-  * Submit to curated software directories:
-    * **AlternativeTo** (List as an ad-free alternative to Omni Calculator and commercial vendor tools).
-    * **Product Hunt** (Schedule launch).
-    * **Hacker News (Show HN)**: Focus on the zero-database, privacy-first TypeScript engine architecture.
-* [ ] **Day 12–14 — Solar & EV Forum Engagement**:
-  * Participate in high-authority forum discussions (DIY Solar Power Forum by Will Prowse, Tesla Motors Club, Speak EV, SolarPanelTalk) answering specific calculation questions with direct links to formula explanations.
+* [x] **Day 11 — Product Directory Submissions & Show HN**:
+  * Submit to curated software directories: AlternativeTo, Product Hunt, and Hacker News Show HN.
+* [ ] **Day 12 — Daily 5 Outreach (Batch 1: University Engineering Faculty .edu)**:
+  * Send 5 personalized technical pitches to top academic energy programs (Stanford S3L, NREL PV reliability, Appalachian State, UT Knoxville CURENT, NC State NCCETC).
+  * See ready-to-send templates: `docs/outreach/04_DAILY_5_OUTREACH_TARGETS_AND_PITCHES.md` (#1 to #5).
+* [ ] **Day 13 — Daily 5 Outreach (Batch 2: Electrical Apprentice Training Directors)**:
+  * Send 5 technical pitches to national apprenticeship leadership (Electrical Training ALLIANCE / NJATC, IBEW Local 134, NECA NorCal, NABCEP, Lincoln Tech).
+  * See ready-to-send templates: `docs/outreach/04_DAILY_5_OUTREACH_TARGETS_AND_PITCHES.md` (#6 to #10).
+* [ ] **Day 14 — Daily 5 Outreach (Batch 3: Clean Energy Trade Media Editorial Directors)**:
+  * Send 5 technical pitches to editors covering solar, EVSE, and storage (Solar Power World, InsideEVs, EC&M Magazine, Canary Media, PV Magazine).
+  * See ready-to-send templates: `docs/outreach/04_DAILY_5_OUTREACH_TARGETS_AND_PITCHES.md` (#11 to #15).
 
 ---
 
-### Week 3 (Days 15–21): Search Console Query Mining & CTR Tuning
+### Week 3 (Days 15–21): Daily 5 Outreach (Batch 4–5) & Search Console Query Mining
 
-* **Day 15 — Search Impression Audit**:
-  * In GSC, filter by `Pages` and sort by `Impressions`. Identify queries ranking in positions **4–15** with low CTR.
-* **Day 16 — Title Tag & Snippet Refinement**:
-  * For pages with high impressions but <3% CTR, test high-intent power phrases:
-    * *Before*: `Battery Runtime Calculator — Estimate Backup Time`
-    * *After*: `Battery Runtime Calculator (Wh & Ah) — Accurate Backup Hours`
-* **Day 17 — Secondary Keyword Integration**:
-  * Find unexpected search phrases appearing in GSC (e.g. `how long will a 100ah battery run an appliance`) and ensure they are covered as a natural H2 or FAQ definition block in the supporting article.
-* **Day 18–19 — Generative Engine (GEO) Audit**:
-  * Query ChatGPT Search, Perplexity AI, and Google AI Overviews for primary calculator intents:
-    * *"What is the formula for battery runtime with an inverter?"*
-    * *"Best solar panel angle for latitude 34"*
-  * Ensure our page's direct answer block matches the extractable format preferred by LLMs.
-* **Day 20–21 — Internal Link Graph Strengthening**:
-  * Review user navigation paths. Add direct contextual link chips between calculators with high handoff affinity (e.g. `Electricity Usage → Home Battery Size`).
+* **Day 15 — Daily 5 Outreach (Batch 4: State Clean Energy Centers & Extension Offices)**:
+  * Send 5 pitches to university energy extension offices (FSEC UCF, UT Austin Energy Institute, CU Boulder / HOMER, NCCETC Policy, UC Davis EEI).
+  * See templates: `docs/outreach/04_DAILY_5_OUTREACH_TARGETS_AND_PITCHES.md` (#16 to #20).
+* **Day 16 — Daily 5 Outreach (Batch 5: Clean Energy Advocacy & Consumer Coalitions)**:
+  * Send 5 pitches to non-profits and industry associations (Plug In America, SEIA, Energy Innovation, Electrek, ILSR).
+  * See templates: `docs/outreach/04_DAILY_5_OUTREACH_TARGETS_AND_PITCHES.md` (#21 to #25).
+* **Day 17 — Daily 5 Outreach (Batch 6: Open Educational Resources & STEM Libraries)**:
+  * Send 5 pitches to digital OER repositories (LibreTexts Engineering, MIT OpenCourseWare, OER Commons, MERLOT Engineering, Creative Commons).
+  * See templates: `docs/outreach/04_DAILY_5_OUTREACH_TARGETS_AND_PITCHES.md` (#26 to #30).
+* **Day 18 — 72-Hour Polite Follow-Up Cadence**:
+  * Execute standard 2-sentence follow-up on Batches 1–3 threads that haven't replied.
+* **Day 19 — GSC Search Impression & Snippet CTR Audit**:
+  * In GSC, filter by `Pages` and sort by `Impressions`. Identify queries ranking in positions **4–15** with low CTR and refine title/snippet tags.
+* **Day 20–21 — Generative Engine (GEO) Audit & Internal Link Strengthening**:
+  * Query ChatGPT Search, Perplexity AI, and Google AI Overviews for primary calculator intents. Ensure direct answer blocks match extractable LLM formatting.
 
 ---
 
-### Week 4 (Days 22–30): High-Authority Outreach & Digital PR
+### Week 4 (Days 22–30): High-DA PR Linkage & Institutional Syllabus Inclusion
 
-* **Day 22–24 — Educational & Resource Page Link Building**:
-  * Submit working papers and OER modules to **Academia.edu**, **ResearchGate**, **Zenodo**, **OER Commons**, and **MERLOT**.
-  * Reach out to university energy clubs, vocational technical schools, and renewable energy educational portals.
-  * Pitch: *"We built an ad-free, mathematically transparent energy calculator suite used by students and installers to visualize conversion losses without commercial bias."*
-* **Day 25–27 — Energy Blogger & Clean Tech Outreach**:
-  * Contact clean energy bloggers (CleanTechnica, Electrek contributors, Solar Reviewers). Offer custom embed snippets or interactive worked examples for their battery/solar buying guides.
-* **Day 28–29 — Industry Association Resource Submissions**:
-  * Submit site as an open reference tool to clean energy non-profits, off-grid community resource libraries, and EV owner associations.
+* **Day 22–24 — Educational Courseware & Syllabus Follow-up**:
+  * Confirm links and syllabus citations from vocational and university outreach.
+  * Offer customized embed codes or markdown equation snippets for course portals.
+* **Day 25–27 — Energy Blogger & Clean Tech Guest Contribution**:
+  * Contact clean energy bloggers (CleanTechnica, Electrek contributors, Solar Reviewers). Offer custom worked examples for their battery/solar buying guides.
+* **Day 28–29 — Working Paper Syndication Update**:
+  * Post discussion updates on Academia.edu and Figshare linking to the latest interactive guides.
 * **Day 30 — Month 1 Review & Month 2 Keyword Target Setting**:
   * Review rankings across all 30 primary keywords.
   * Set Phase 2 expansion targets for competitive Tier-2 head terms (`energy bill calculator`, `electricity usage calculator`).
@@ -120,57 +122,34 @@ To build unbreakable domain authority, authoritative academic citation signals, 
 | *Secondary* | **OSF / ECSarXiv** (`osf.io`) | **88** | Open Science Framework preprint server | Free, subject to 24–48h community moderation queue |
 | *Secondary* | **SSRN / Zenodo / ResearchGate** | **91–93** | Institutional preprints & CERN Open Science | Subject to network/institutional email requirements |
 
----
-
-## 4. Academic Tri-Publishing Cadence Strategy
-
-```text
-┌────────────────────────────────────────────────────────────────────────┐
-│ WEEKLY CADENCE (Core 3 Platforms: Academia.edu + Figshare + Archive):  │
-│ • 1× Formal Working Paper / Technical Report syndicated to all 3       │
-│ • 2× Short Technical Discussion Updates per week on Academia.edu feed  │
-└────────────────────────────────────────────────────────────────────────┘
-```
-
-* **Paper 1 (Published Today):** *Deterministic Mathematical Modeling and Sizing Framework for Distributed Clean Energy (Solar, BESS, EVSE)* — [Live on Academia.edu, Figshare (DOI), and Archive.org]
-* **Paper 2 (Week 2):** *Electrochemical Capacity Derating & Peukert Kinetics in Stationary LiFePO4 vs Lead-Acid Battery Systems*
-* **Paper 3 (Week 3):** *Thermal Voltage Expansion and String Inverter Oversizing Limits in Photovoltaic Systems under NEC 690*
-* **Paper 4 (Week 4):** *Continuous-Duty Thermal Sizing and Branch Circuit Ampacity Requirements for Level 2 EVSE (NEC 625 & SAE J1772)*
+### Working Paper Publication Roster:
+- **Paper 1 (Live):** *Deterministic Mathematical Modeling and Sizing Framework for Distributed Clean Energy (Solar, BESS, EVSE)* — [Academia.edu / Figshare / Archive.org]
+- **Paper 2 (Ready / PDF Formatted):** *Continuous-Duty Thermal Sizing, Conductor Terminal Limits, and Branch Circuit Ampacity Requirements for Residential Level 2 EVSE (NEC 625, 310 & 110.14(C))* — [`docs/papers/PowerLab_EVSE_Thermal_Sizing_Technical_Paper.pdf`](file:///d:/powerlab/docs/papers/PowerLab_EVSE_Thermal_Sizing_Technical_Paper.pdf)
+- **Paper 3 (Scheduled Week 3):** *Thermal Voltage Expansion, Ground Albedo Transposition, and String Inverter Oversizing Limits in Photovoltaic Systems under NEC 690 & Perez Anisotropic Models*
+- **Paper 4 (Scheduled Week 4):** *Electrochemical Capacity Derating & Non-Linear Inverter Tare Loss Kinetics in Stationary BESS (IEEE 485 vs Field Realities)*
 
 ---
 
-## 5. Backlink Pitch Template (High-Conversion Outreach)
+## 4. Daily 5 Institutional Outreach Execution System
 
-```text
-Subject: Ad-free, transparent energy calculators for your [Topic / Article Title] readers
+To guarantee high conversion and prevent spam flags, every outreach email MUST follow these 4 non-negotiable rules:
 
-Hi [Name],
+1. **Hyper-Personalized Engineering Context:** Open with direct reference to the target's recent paper, course syllabus, editorial focus, or code cycle challenge (e.g. NEC 625 continuous load, Peukert derating, cold $V_{oc}$ expansion).
+2. **Deterministic Value-First Offer:** Never ask for a link directly in the first line. Offer the open mathematical dataset, step-by-step formula breakdown, or interactive visual tool for their course/editorial.
+3. **No Commercial Trap:** Explicitly state that PowerLab is 100% free, ad-free, and requires zero student/user registration.
+4. **Follow-Up Discipline:** Exactly one polite 2-sentence follow-up after 72 business hours. Never send a third unprompted message.
 
-I came across your guide on [Article / Topic, e.g. sizing backup batteries / solar panel installation].
-
-Many online calculators are either ad-cluttered or sponsored by vendors who hide assumptions to oversell equipment.
-
-We built PowerLab (https://www.powelab.org) — a 100% free, ad-free suite of deterministic calculators for:
-• Solar Panel Tilt & Output (powered by NREL PVWatts V8)
-• Battery Backup Runtime & Sizing (with transparent depth-of-discharge & inverter losses)
-• EV Charging Speed & Cost Comparisons
-
-No accounts or email signups are required, and all formulas are open and mathematically transparent.
-
-If you think this would be a helpful calculation resource for your readers, feel free to link to it:
-https://www.powelab.org/[relevant-calculator-route]
-
-Best regards,
-PowerLab Engineering Team
-```
+Full roster of 30 ready-to-send daily email templates: [`docs/outreach/04_DAILY_5_OUTREACH_TARGETS_AND_PITCHES.md`](file:///d:/powerlab/docs/outreach/04_DAILY_5_OUTREACH_TARGETS_AND_PITCHES.md)
 
 ---
 
-## 6. Key Performance Indicators (KPI Tracker)
+## 5. Key Performance Indicators (KPI Tracker)
 
 | KPI Metric | Baseline (Day 1) | Target (Day 15) | Target (Day 30) |
 | :--- | :---: | :---: | :---: |
 | **Indexed Pages** | ~0 | 35+ | 47 (100%) |
+| **Outreach Emails Sent** | 0 | 40 | 150 (5/day) |
+| **Outreach Positive Response Rate** | — | >15% | >20% |
 | **GSC Average Position (Tier 1)** | — | <25 | Top 10 |
 | **Daily Organic Impressions** | 0 | 500+ | 1,500+ |
 | **Referring Domains (Ahrefs)** | 0 | 5+ | 15–25 |

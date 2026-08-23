@@ -1,5 +1,6 @@
 import { describe, expect, it } from "vitest";
 import {
+  calculateGroundAlbedoGain,
   calculateSeasonalTilts,
   getEquatorFacingAzimuth,
   validateLatitude,
@@ -20,6 +21,18 @@ describe("solar tilt engine", () => {
     expect(calculateSeasonalTilts(0)).toEqual({ summer: 0, yearRound: 0, winter: 15 });
     expect(calculateSeasonalTilts(90)).toEqual({ summer: 75, yearRound: 90, winter: 90 });
     expect(getEquatorFacingAzimuth(0)).toEqual({ label: "Equator", degrees: null });
+  });
+
+  it("calculates ground albedo view factor and snow reflection gain", () => {
+    const flatStandard = calculateGroundAlbedoGain(0, "standard");
+    expect(flatStandard.groundViewFactor).toBe(0);
+    expect(flatStandard.reflectedIrradianceGainPct).toBe(0);
+    expect(flatStandard.snowSheddingEffectiveness).toBe("Low (Risk of Snow Accumulation)");
+
+    const steepWinterSnow = calculateGroundAlbedoGain(50, "snow");
+    expect(steepWinterSnow.groundViewFactor).toBeCloseTo(0.1786, 2);
+    expect(steepWinterSnow.reflectedIrradianceGainPct).toBeGreaterThan(10);
+    expect(steepWinterSnow.snowSheddingEffectiveness).toBe("Optimal (Natural Snow Shedding)");
   });
 
   it("rejects invalid latitude values", () => {

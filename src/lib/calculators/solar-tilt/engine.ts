@@ -9,6 +9,12 @@ export interface OrientationSuggestion {
   degrees: 0 | 180 | null;
 }
 
+export interface GroundAlbedoResult {
+  groundViewFactor: number;
+  reflectedIrradianceGainPct: number;
+  snowSheddingEffectiveness: "Low (Risk of Snow Accumulation)" | "Moderate" | "Optimal (Natural Snow Shedding)";
+}
+
 export const clampTilt = (value: number) => Math.min(90, Math.max(0, value));
 
 export function validateLatitude(value: number): string | null {
@@ -27,6 +33,25 @@ export function calculateSeasonalTilts(latitude: number): SeasonalTilts {
     summer: clampTilt(annual - 15),
     yearRound: annual,
     winter: clampTilt(annual + 15),
+  };
+}
+
+export function calculateGroundAlbedoGain(tiltDeg: number, albedoType: "standard" | "snow" | "concrete" = "standard"): GroundAlbedoResult {
+  const tilt = clampTilt(tiltDeg);
+  const rad = (tilt * Math.PI) / 180;
+  const groundViewFactor = (1 - Math.cos(rad)) / 2;
+  const rho = albedoType === "snow" ? 0.70 : albedoType === "concrete" ? 0.35 : 0.20;
+  const reflectedIrradianceGainPct = Number((groundViewFactor * rho * 100).toFixed(2));
+
+  const snowSheddingEffectiveness =
+    tilt >= 45 ? "Optimal (Natural Snow Shedding)" :
+    tilt >= 25 ? "Moderate" :
+    "Low (Risk of Snow Accumulation)";
+
+  return {
+    groundViewFactor: Number(groundViewFactor.toFixed(4)),
+    reflectedIrradianceGainPct,
+    snowSheddingEffectiveness,
   };
 }
 

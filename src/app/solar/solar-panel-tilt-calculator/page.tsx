@@ -178,17 +178,20 @@ export default function SolarTiltPage() {
 
       <div id="formula-math">
         <FormulaCard
-          title="Solar Panel Tilt Angle Formulas"
-          formula="Year_Round = Latitude × 0.76 + 3.1°  |  Summer = Latitude - 15°  |  Winter = Latitude + 15°"
-          formulaDescription="Calculates optimal fixed solar panel tilt relative to horizontal based on geographic latitude and Earth's 23.45° axial tilt declination cycle."
+          title="Solar Panel Tilt Angle & Ground Albedo Formulas"
+          formula="Year_Round = Latitude × 0.76 + 3.1°  |  Winter = Latitude + 15°  |  G_ground = G_horiz × ρ × (1 - cos β) / 2"
+          formulaDescription="Calculates optimal fixed solar panel tilt relative to horizontal based on geographic latitude, 23.45° axial declination, and Perez ground-reflected albedo backscatter."
           variables={[
             { symbol: "Latitude", label: "Geographic Latitude", description: "Distance north (+) or south (-) from Earth's equator.", unit: "degrees" },
             { symbol: "Year_Round", label: "Fixed Annual Optimal Tilt", description: "Maximizes cumulative annual kilowatt-hour solar harvest for fixed mounts.", unit: "degrees" },
-            { symbol: "Summer", label: "Summer Peak Optimization", description: "Flatter angle optimized for higher summer solar elevation.", unit: "degrees" },
             { symbol: "Winter", label: "Winter Peak Optimization", description: "Steeper angle optimized for lower winter sun trajectories and snow shedding.", unit: "degrees" },
+            { symbol: "G_ground", label: "Ground-Reflected Irradiance", description: "Plane-of-array diffuse irradiance captured from ground reflection (Perez transposition model).", unit: "W/m²" },
+            { symbol: "ρ (rho)", label: "Ground Albedo Coefficient", description: "Surface reflectance: 0.20 for dark ground/grass; 0.70 for fresh snow pack.", unit: "fraction" },
+            { symbol: "β (beta)", label: "Panel Tilt Angle", description: "Array inclination angle relative to horizontal.", unit: "degrees" },
           ]}
           notes={[
             "Equator-facing azimuth orientation: 180° (True South) in the Northern Hemisphere; 0° (True North) in the Southern Hemisphere.",
+            "Steep winter tilts (e.g. 50°–60°) increase the ground view factor (1 - cos β)/2 to ~0.20, capturing up to +15% additional diffuse plane-of-array irradiance when ground snow albedo (ρ ≈ 0.70) is present.",
             "A tilt angle deviation of ±10° from optimal typically causes less than 3% to 5% loss in total annual solar generation.",
           ]}
         />
