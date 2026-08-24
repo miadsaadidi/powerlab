@@ -55,17 +55,17 @@
 
 Target communities and authoritative institutions where educators, editors, and engineers actively seek transparent, ad-free calculations:
 
-* [x] **Day 8 — Reddit Community Value Drops (Non-Promotional)**:
-  * Post in `r/Solar` and `r/OffGrid`: *"Built an ad-free, open-access solar tilt & battery runtime calculator with transparent loss formulas (no email signup / no ads)."*
-* [x] **Day 9 — EV Communities (`r/ElectricVehicles`, `r/TeslaLounge`)**:
-  * Share the **EV Charging Time & Cost Calculator** focusing on realistic DC fast-charge taper curves vs Level 2 AC home charging.
-* [x] **Day 10 — Home & DIY Communities (`r/DIY`, `r/homestead`, `r/VanLife`)**:
-  * Share the **Portable Power Station & Battery Sizing Calculator** tailored for camper vans, portable power stations, and outage backup.
+* [x] **Day 8 — AlternativeTo Submission & Indexing (DA 84)**:
+  * Submit PowerLab to **AlternativeTo.net** as an open-access, ad-free alternative to *PVWatts*, *Victron MPPT Calculator*, *HOMER Energy*, and *SolarEdge Designer*.
+* [x] **Day 9 — Hacker News Launch (Show HN - DA 91)**:
+  * Post to Hacker News: *"Show HN: PowerLab – Open-access, deterministic energy planning calculators for solar, battery & EV"*.
+* [x] **Day 10 — High-Authority Engineering Forums (DIY Solar Forum & Tesla Motors Club)**:
+  * Share the battery runtime and EV breaker calculators in dedicated software/tools sub-forums (*DIY Solar Power Forum by Will Prowse*, *Tesla Motors Club Energy*).
 * [x] **Day 11 — Product Directory Submissions & Show HN**:
   * Submit to curated software directories: AlternativeTo, Product Hunt, and Hacker News Show HN.
-* [ ] **Day 12 — Daily 5 Outreach (Batch 1: University Engineering Faculty .edu)**:
-  * Send 5 personalized technical pitches to top academic energy programs (Stanford S3L, NREL PV reliability, Appalachian State, UT Knoxville CURENT, NC State NCCETC).
-  * See ready-to-send templates: `docs/outreach/04_DAILY_5_OUTREACH_TARGETS_AND_PITCHES.md` (#1 to #5).
+* [x] **Day 12 — Daily 5 Outreach (Batch 1: University Engineering Faculty .edu)**:
+  * Sent 5 personalized technical pitches to top academic energy programs (Stanford S3L, NREL PV reliability, Appalachian State, UT Knoxville CURENT, NC State NCCETC).
+  * **Working Paper #2 Live on Figshare with DOI:** `10.6084/m9.figshare.33321774`.
 * [ ] **Day 13 — Daily 5 Outreach (Batch 2: Electrical Apprentice Training Directors)**:
   * Send 5 technical pitches to national apprenticeship leadership (Electrical Training ALLIANCE / NJATC, IBEW Local 134, NECA NorCal, NABCEP, Lincoln Tech).
   * See ready-to-send templates: `docs/outreach/04_DAILY_5_OUTREACH_TARGETS_AND_PITCHES.md` (#6 to #10).

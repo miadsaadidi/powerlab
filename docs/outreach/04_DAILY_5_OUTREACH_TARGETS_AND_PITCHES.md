@@ -33,7 +33,7 @@ This document contains 30 curated, highly targeted email pitches organized in ba
 
 **Recipient:**
 ```text
-ramr@stanford.edu
+ram.rajagopal@stanford.edu
 ```
 
 **Subject:**
@@ -67,8 +67,9 @@ https://www.powelab.org
 
 **Recipient:**
 ```text
-dirk.jordan@nrel.gov
+pvwatts@nrel.gov
 ```
+*(Direct CC / Alternative: `dirk.jordan@nrel.gov`)*
 
 **Subject:**
 ```text
@@ -181,8 +182,9 @@ https://www.powelab.org
 
 **Recipient:**
 ```text
-nccetc@ncsu.edu
+nccleantech@ncsu.edu
 ```
+*(Training Dept Alternative: `cleanenergy@ncsu.edu`)*
 
 **Subject:**
 ```text

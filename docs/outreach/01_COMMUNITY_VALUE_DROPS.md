@@ -1,6 +1,16 @@
-# 01 — Reddit & Enthusiast Community Value Drops
+# 01 — Community Distribution & Anti-Moderation Engagement Framework
 
-This document contains high-conversion, value-first posts and comment templates for targeted enthusiast subreddits. **Crucial Rule:** Never post generic promotional spam. Always provide the full mathematical solution or code directly in the post, citing PowerLab as the interactive calculation resource.
+## ⚠️ NON-NEGOTIABLE REDDIT & FORUM RULES (Zero Self-Promotion Removal)
+
+Following real-world community telemetry (2,126+ views on `r/SolarDIY` vs AutoMod removals on `r/evcharging` and `r/electricvehicles`), all community actions MUST follow these 4 strict rules:
+
+1. **NEVER POST STANDALONE "PSA" THREADS:** Do not create new top-level posts containing links. Automods and moderators flag them instantly as self-promotion or AI-generated.
+2. **100% IN-COMMENT "SEARCH & ASSIST" REPLIES:** Search active threads on Reddit/forums where users are asking a specific calculation question right now (e.g. *"Can I plug a 48A charger into a 50A outlet?"* or *"How long will a 100Ah battery run my CPAP?"*).
+3. **ZERO AI-FORMATTING MARKERS:** 
+   - No generic intros (`"Hey EV owners..."`, `"A common misconception is..."`, `"The short answer is..."`).
+   - No marketing claims (`"100% free"`, `"no ads"`, `"no signups"`, `"we built a tool"`).
+   - Write like a real field electrician / engineer on a keyboard answering a peer directly.
+4. **COMPLETE RESOLUTION IN THE COMMENT FIRST:** Always solve the math 100% inside the comment. Place the tool link casually at the end as a supplementary verification source (`"If you want to plug in different wire run lengths / temps, here is an open calculator: [link]"`).
 
 ---
 

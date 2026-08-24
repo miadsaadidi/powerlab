@@ -300,4 +300,4 @@ The engine algorithmically resolves:
 3. **Underwriters Laboratories (UL).** *UL 2594: Standard for Electric Vehicle Supply Equipment*. UL Standards & Engagement, 2022.
 4. **Society of Automotive Engineers (SAE).** *SAE J1772: Electric Vehicle and Plug in Hybrid Electric Vehicle Conductive Charge Coupler*. SAE International, 2017.
 5. **National Electrical Manufacturers Association (NEMA).** *NEMA WD 6: Wiring Devices — Dimensional Specifications*. NEMA, 2021.
-6. **PowerLab Engineering Group.** *Deterministic Sizing Framework for Distributed Clean Energy Systems*. Academia.edu & Figshare, 2026. DOI: `10.6084/m9.figshare.powerlab.evse2026`.
+6. **PowerLab Engineering Group.** *Continuous-Duty Thermal Sizing, Conductor Terminal Limits, and Branch Circuit Ampacity Requirements for Residential Level 2 EVSE*. Figshare, August 2026. DOI: `10.6084/m9.figshare.33321774`. [Online: https://doi.org/10.6084/m9.figshare.33321774]
