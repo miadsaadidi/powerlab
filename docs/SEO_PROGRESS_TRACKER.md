@@ -25,8 +25,9 @@
 | **Phase 5 SERP and Keyword Research** | Keyword Planner and SERP Analysis | Completed | 10 high-impact expansion specs and canonical maps added |
 | **Community & Academic Outreach Kit** | Technical distribution templates (`docs/outreach/`) | Completed | Turnkey worked examples for Reddit (`r/Solar`, `r/evcharging`, `r/VanLife`), DIY Solar Forum, Tesla Motors Club, and university/vocational OER syllabus pitches |
 | **High-DA Academic Paper Syndication** | Working Paper 1 (Live) & Paper 2 (Live on Figshare) | Completed (August 24, 2026) | Paper 1 published on Academia.edu and Figshare. **Paper 2 Published on Figshare with live citable DOI**: `10.6084/m9.figshare.33321774` (*Continuous-Duty Thermal Sizing for Level 2 EVSE under NEC 625/310*) |
+| **AlternativeTo Directory Submission** | Listing submitted with PVWatts & HOMER alternatives | Completed (August 24, 2026) | PoweLab profile submitted to AlternativeTo.net (DA 84) linked to PVWatts, HOMER Pro, and PVsyst |
 | **Forum & Community Q&A Seeding** | DIY Solar Power Forum & EV Community Drops | August 23, 2026 | Technical solutions for Inverter DC wire sizing, NEC 80% continuous breaker sizing, and Hacker News Show HN |
-| **Daily 5 High-Impact Outreach Sprint** | 30 Turnkey Email Pitches (`docs/outreach/04_*`) | In Progress (Day 1 Complete) | **Day 1 Sent (5/5)**: Dr. Ram Rajagopal (Stanford), Dr. Christiana Honsberg (ASU QESST), Dr. Stephen Zubrick (Appalachian State), Dr. Chien-Fei Chen (NSF CURENT / UTK), Dr. Joshua Pearce (Western Univ / FAST) |
+| **Daily 5 High-Impact Outreach Sprint** | 30 Turnkey Email Pitches (`docs/outreach/04_*`) | In Progress (Batch 1 Complete) | **Batch 1 Sent (5/5)**: Dr. Ram Rajagopal (Stanford), NREL PVWatts Team (`pvwatts@nrel.gov`), Dr. Andrew Windham (Appalachian State), Dr. Chien-Fei Chen (NSF CURENT / UTK), NC Clean Energy Tech Center (`nccleantech@ncsu.edu`) |
 | **Ground Albedo & Snow Shedding Model** | Added to Solar Tilt Calculator & Formula Card | August 23, 2026 | Implemented Perez ground view factor and snow backscatter reflectance gain in engine, UI card, and tests |
 
 ---
