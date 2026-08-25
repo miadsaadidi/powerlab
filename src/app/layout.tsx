@@ -6,6 +6,7 @@ import { EmbedDetector } from "@/components/embed-detector";
 import { siteConfig } from "@/lib/site-config";
 import "./globals.css";
 
+const GA_MEASUREMENT_ID = process.env.NEXT_PUBLIC_GA_ID || "G-H7T6ZEHVEP";
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteConfig.url),
@@ -69,15 +70,27 @@ const rootStructuredData = {
   ],
 };
 
-
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
-
   return (
     <html lang="en">
       <head>
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(rootStructuredData) }}
+        />
+        <script
+          async
+          src={`https://www.googletagmanager.com/gtag/js?id=${GA_MEASUREMENT_ID}`}
+        />
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              window.dataLayer = window.dataLayer || [];
+              function gtag(){dataLayer.push(arguments);}
+              gtag('js', new Date());
+              gtag('config', '${GA_MEASUREMENT_ID}');
+            `,
+          }}
         />
       </head>
       <body>
