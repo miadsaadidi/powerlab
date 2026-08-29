@@ -1,16 +1,11 @@
-import type { Metadata } from "next";
 import type { ReactNode } from "react";
+import { buildPageMetadata } from "@/lib/seo/metadata-helper";
 
-export const metadata: Metadata = {
-  title: "Embeddable Energy Calculators | PowerLab",
-  description: "Embed PowerLab's deterministic energy calculators in websites, blogs, client portals, and contractor proposals.",
-  alternates: { canonical: "/developers" },
-  openGraph: {
-    title: "Embeddable Energy Calculators | PowerLab",
-    description: "Embed PowerLab's deterministic energy calculators in websites, blogs, client portals, and contractor proposals.",
-    url: "https://www.powelab.org/developers",
-  },
-};
+export const metadata = buildPageMetadata({
+  title: "Embeddable Energy Calculators",
+  description: "Embed PowerLab's responsive, deterministic energy calculators for solar, battery, and home energy directly in websites, portals, and proposals.",
+  canonicalPath: "/developers",
+});
 
 export default function DevelopersLayout({ children }: { children: ReactNode }) {
   return children;

@@ -9,6 +9,8 @@ import type { SolarProductionResult } from "@/lib/providers/pvwatts";
 import { SolarTiltVisualizer } from "@/components/calculator/solar-tilt-visualizer";
 import { ShareButton } from "@/components/calculator/share-button";
 import { PrintSpecButton } from "@/components/calculator/print-spec-button";
+import { GooglePreferredBanner } from "@/components/calculator/google-preferred-banner";
+import { CalculatorTrustPill } from "@/components/calculator/calculator-trust-pill";
 
 const QUICK_LOCATIONS = [
   { label: "🌴 Miami (26° N)", lat: 25.76, lon: -80.19 },
@@ -153,6 +155,7 @@ export function SolarPanelTiltCalculator() {
     <div className="calculator-grid">
       <div className="calculator-inputs">
         <h2>Find a starting panel angle</h2>
+        <CalculatorTrustPill />
 
         <div className="preset-chips-container" role="region" aria-label="Quick Location Presets">
           <span className="preset-chips-label">⚡ 1-Click Autofill: Top 5 Benchmark Locations</span>
@@ -254,7 +257,9 @@ export function SolarPanelTiltCalculator() {
 
           <p className="energy-flow-note form-hint">This is a practical starting estimate, not a universal optimum. Roof shape, shading and local conditions can change the best practical angle.</p>
 
-          <div className="button-row" style={{ marginTop: "1rem", display: "flex", gap: "0.5rem", flexWrap: "wrap" }}>
+          <GooglePreferredBanner />
+
+          <div className="button-row" style={{ marginTop: "0.85rem", display: "flex", gap: "0.5rem", flexWrap: "wrap" }}>
             <ShareButton getShareUrl={getShareUrl} />
             <PrintSpecButton />
           </div>

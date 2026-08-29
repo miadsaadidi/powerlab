@@ -9,24 +9,14 @@ import { StandardsBadge } from "@/components/seo/standards-badge";
 import { SystemFlowDiagram } from "@/components/seo/system-flow-diagram";
 
 
-export const metadata: Metadata = {
+import { buildPageMetadata } from "@/lib/seo/metadata-helper";
+
+export const metadata: Metadata = buildPageMetadata({
   title: "Home Energy Calculators",
   description: "Free deterministic home energy calculators to estimate appliance electricity usage, calculate utility power bills, and size whole-home battery backup.",
-  alternates: { canonical: "/home-energy" },
-  openGraph: {
-    title: "Home Energy Calculators — Usage, Bills & Appliance Wattage",
-    description: "Free deterministic home energy calculators to estimate appliance electricity usage, calculate utility power bills, and size whole-home battery backup.",
-    url: `${siteConfig.url}/home-energy`,
-    siteName: siteConfig.name,
-    locale: "en_US",
-    type: "website",
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: "Home Energy Calculators",
-    description: "Free deterministic home energy calculators for appliance usage, power bills, and home battery backup.",
-  },
-};
+  canonicalPath: "/home-energy",
+  category: "home-energy",
+});
 
 const toolDescriptions: Record<string, string> = {
   "electricity-usage": "Estimate daily, monthly and annual electricity use from appliance power, schedules, cycles or energy-label values.",
@@ -238,6 +228,15 @@ export default function HomeEnergyHub() {
           <h3>To analyze winter space heaters vs heat pumps:</h3>
           <p>Use the <Link href="/home-energy/space-heater-cost-calculator">Space Heater Cost Calculator</Link> to compute electric heater running costs, or the <Link href="/home-energy/heat-pump-cost-calculator">Heat Pump Cost Calculator</Link> to compare heat pump operating savings against gas, propane, and fuel oil.</p>
         </article>
+      </div>
+    </section>
+    <section className="hub-support" aria-labelledby="home-energy-guides-heading">
+      <h2 id="home-energy-guides-heading">Featured Home Energy Guides</h2>
+      <p>Explore our empirical reference guides for residential electricity audits and emergency power planning:</p>
+      <div className="supporting-links" style={{ display: "flex", flexWrap: "wrap", gap: "0.85rem", marginTop: "0.75rem" }}>
+        <Link href="/guides/how-many-kwh-does-a-house-use-per-day" className="footer-link">📊 How Many kWh Does a House Use Per Day Guide</Link>
+        <Link href="/guides/emergency-generator-sizing-and-inrush-load-guide" className="footer-link">⚡ Emergency Generator Sizing &amp; Motor Inrush Guide</Link>
+        <Link href="/guides" className="footer-link">📚 All Engineering Guides</Link>
       </div>
     </section>
     <section className="hub-support" aria-labelledby="home-energy-method-heading">

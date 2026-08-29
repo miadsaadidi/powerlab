@@ -1,20 +1,11 @@
-import type { Metadata } from "next";
 import Link from "next/link";
-import { siteConfig } from "@/lib/site-config";
+import { buildPageMetadata } from "@/lib/seo/metadata-helper";
 
-export const metadata: Metadata = {
-  title: "Laboratory Sources & Engineering Standards — PowerLab",
+export const metadata = buildPageMetadata({
+  title: "Laboratory Sources & Standards",
   description: "Scientific and industry standards informing PowerLab calculators: NREL PVWatts V8, NEC 2023, Victron Energy, US DOE, EPA, and IEEE standards.",
-  alternates: { canonical: "/sources" },
-  openGraph: {
-    title: "Laboratory Sources & Standards — PowerLab",
-    description: "Scientific and industry references informing PowerLab deterministic calculators.",
-    url: `${siteConfig.url}/sources`,
-    siteName: siteConfig.name,
-    locale: "en_US",
-    type: "website",
-  },
-};
+  canonicalPath: "/sources",
+});
 
 const reviewDate = "August 17, 2026";
 

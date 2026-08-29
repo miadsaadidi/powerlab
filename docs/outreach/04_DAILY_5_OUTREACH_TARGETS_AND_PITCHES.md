@@ -489,12 +489,12 @@ https://www.powelab.org
 
 ---
 
-### Email #13: John DeDad (Editorial Director at EC&M Magazine)
+### Email #13: Ellen Parson (Editor-in-Chief at EC&M Magazine)
 **Target Profile:** *EC&M* (Electrical Construction & Maintenance) provides technical electrical code and design articles for 130,000+ electrical engineers, contractors, and inspectors.
 
 **Recipient:**
 ```text
-jdedad@endeavorb2b.com
+eparson@endeavorb2b.com
 ```
 
 **Subject:**
@@ -504,9 +504,9 @@ The 125% continuous duty trap on EV branch circuits: code compliance and wire si
 
 **Email Body:**
 ```text
-Hi John,
+Hi Ellen,
 
-I have been a dedicated reader of *EC&M’s* NEC Code Changes and Practical Engineering articles for years.
+I have been a dedicated reader of EC&M’s NEC Code Changes and Practical Engineering articles for years.
 
 With residential EVSE installations accelerating, one of the most common field inspection failures is improper breaker and conductor sizing for continuous loads under NEC 625.41. Because EVSE operates at full nameplate current for over 3 hours, branch circuit conductors and overcurrent devices must be sized at 125% of continuous load, preventing 48A chargers from operating on standard 50A circuits.
 
@@ -516,7 +516,7 @@ To support electrical professionals and inspectors with instant verification, we
 
 All underlying formulas (including temperature derating and conduit fill adjustments) are completely open and mathematically transparent.
 
-If this would provide a useful interactive computational reference for an upcoming *EC&M* column on EV infrastructure design, please feel free to use or reference it.
+If this would provide a useful interactive computational reference for an upcoming EC&M column on EV infrastructure design, please feel free to use or reference it.
 
 Best regards,
 
@@ -527,12 +527,12 @@ https://www.powelab.org
 
 ---
 
-### Email #14: Christian Roselund (Senior Policy & Technology Contributor at Canary Media / RMI)
-**Target Profile:** *Canary Media* and *Rocky Mountain Institute (RMI)* report extensively on residential electrification, heat pumps, distributed solar, and electrical panel upgrades.
+### Email #14: Editorial Team / Jeff St. John (Editor-in-Chief at Canary Media)
+**Target Profile:** *Canary Media* reports extensively on residential electrification, heat pumps, distributed solar, and electrical panel upgrades.
 
 **Recipient:**
 ```text
-croselund@canarymedia.com
+editors@canarymedia.com
 ```
 
 **Subject:**
@@ -542,14 +542,14 @@ Heat pump COP temperature-derating curves vs resistive backup: identifying the t
 
 **Email Body:**
 ```text
-Hi Christian,
+Hi Canary Media Editorial Team,
 
 I follow your reporting on building decarbonization and the challenges homeowners face when electrifying space heating and transportation on constrained 100A or 200A service panels.
 
 When evaluating cold-climate heat pump performance against supplemental electric resistance strips, determining the thermal balance point where compressor Coefficient of Performance (COP) drops toward 1.0 is essential for avoiding extreme winter peak coincident demand.
 
 To help visualize whole-home energy load profiles and dynamic appliance duty cycles, we engineered a deterministic load breakdown model:
-• Daily Household kWh Usage Guide: https://www.powelab.org/guides/daily-household-electricity-usage-and-kwh-guide
+• Daily Household kWh Usage Guide: https://www.powelab.org/guides/how-many-kwh-does-a-house-use-per-day
 • Electricity Usage & Load Profiler: https://www.powelab.org/home-energy/electricity-usage-calculator
 • Heat Pump Running Cost Calculator: https://www.powelab.org/home-energy/heat-pump-cost-calculator
 

@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { buildPageMetadata } from "@/lib/seo/metadata-helper";
 import Link from "next/link";
 import { siteConfig } from "@/lib/site-config";
 import { isCalculatorPublished } from "@/lib/calculator-registry";
@@ -11,20 +12,12 @@ import { DirectAnswerCard } from "@/components/seo/direct-answer-card";
 
 const isPublished = isCalculatorPublished("generator-size");
 
-export const metadata: Metadata = {
-  title: "Generator Size Calculator — Running & Starting Watts",
-  description: "Calculate the exact generator size (running and starting watts) needed for your home, RV, or jobsite appliances. Find the right portable or standby generator capacity.",
-  alternates: { canonical: "/home-energy/generator-size-calculator" },
-  robots: { index: isPublished, follow: true },
-  openGraph: {
-    title: "Generator Size Calculator — PowerLab",
-    description: "Calculate required generator running and starting surge watts for emergency blackout home backup.",
-    url: `${siteConfig.url}/home-energy/generator-size-calculator`,
-    siteName: siteConfig.name,
-    locale: "en_US",
-    type: "website",
-  },
-};
+export const metadata: Metadata = buildPageMetadata({
+  title: "Generator Size Calculator — Running & Surge Watts",
+  description: "Calculate exact generator size (running and starting watts) needed for home, RV, or jobsite appliances. Find the right portable or standby capacity.",
+  canonicalPath: "/home-energy/generator-size-calculator",
+  category: "home-energy",
+});
 
 const FAQS = [
   {
@@ -212,7 +205,7 @@ export default function GeneratorSizePage() {
       <section id="related-tools">
         <h2>Related Outage Backup &amp; Home Energy Planning</h2>
         <p>
-          Comparing generator backup with whole-home batteries? Use our <Link href="/home-energy/home-battery-size-calculator">Home Battery Size Calculator</Link> to size storage, estimate individual device wattage with the <Link href="/home-energy/appliance-wattage-calculator">Appliance Wattage Calculator</Link>, or calculate monthly household energy with the <Link href="/home-energy/electricity-usage-calculator">Electricity Usage Calculator</Link>.
+          Need a deep technical breakdown of motor inrush physics and fuel derating? Read our full <Link href="/guides/emergency-generator-sizing-and-inrush-load-guide">Emergency Generator Sizing &amp; Motor Inrush Guide</Link>. You can also compare generator backup with whole-home batteries using our <Link href="/home-energy/home-battery-size-calculator">Home Battery Size Calculator</Link>, estimate individual device wattage with the <Link href="/home-energy/appliance-wattage-calculator">Appliance Wattage Calculator</Link>, or calculate monthly household energy with the <Link href="/home-energy/electricity-usage-calculator">Electricity Usage Calculator</Link>.
         </p>
       </section>
 

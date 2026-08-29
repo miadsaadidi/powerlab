@@ -11,6 +11,8 @@ import { LossWaterfall } from "@/components/calculator/loss-waterfall";
 import { EnergyFlowVisualizer } from "@/components/calculator/energy-flow-visualizer";
 import { ShareButton } from "@/components/calculator/share-button";
 import { PrintSpecButton } from "@/components/calculator/print-spec-button";
+import { GooglePreferredBanner } from "@/components/calculator/google-preferred-banner";
+import { CalculatorTrustPill } from "@/components/calculator/calculator-trust-pill";
 
 const QUICK_SOLAR_BATTERY_PRESETS = [
   { label: "🚐 Camper Van (1.5 kWh/day · 1 Day)", load: 1.5, days: 1, voltage: 12, chem: "lifepo4" },
@@ -224,6 +226,8 @@ export function SolarBatteryBankSizeCalculator() {
               ))}
             </div>
           </div>
+
+          <CalculatorTrustPill />
 
           <form
             onSubmit={(event) => {
@@ -496,7 +500,8 @@ export function SolarBatteryBankSizeCalculator() {
                   compatibility.
                 </p>
               </section>
-              <div className="button-row" style={{ display: "flex", gap: "0.5rem", flexWrap: "wrap" }}>
+              <GooglePreferredBanner />
+              <div className="button-row" style={{ marginTop: "0.85rem", display: "flex", gap: "0.5rem", flexWrap: "wrap" }}>
                 <button className="button secondary-button" type="button" onClick={saveProfile}>
                   Save to Energy Profile
                 </button>

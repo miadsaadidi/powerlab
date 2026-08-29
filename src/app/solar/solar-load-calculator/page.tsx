@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { buildPageMetadata } from "@/lib/seo/metadata-helper";
 import Link from "next/link";
 import { SolarLoadCalculator } from "@/components/calculator/solar-load-calculator";
 import { isCalculatorPublished } from "@/lib/calculator-registry";
@@ -10,20 +11,12 @@ import { DirectAnswerCard } from "@/components/seo/direct-answer-card";
 
 const isPublished = isCalculatorPublished("solar-load");
 
-export const metadata: Metadata = {
-  title: "Solar Load Calculator — Daily Watt-Hour & Inverter Sizing",
+export const metadata: Metadata = buildPageMetadata({
+  title: "Solar Load Calculator — Daily Wh & Load Sizing",
   description: "Calculate your total daily electrical load (Wh/day and kWh/day) to accurately size off-grid solar panels, battery banks, and inverter wattage.",
-  alternates: { canonical: "/solar/solar-load-calculator" },
-  robots: { index: isPublished, follow: true },
-  openGraph: {
-    title: "Solar Load Calculator — PowerLab",
-    description: "Calculate daily appliance watt-hours and peak continuous wattage for off-grid solar planning.",
-    url: `${siteConfig.url}/solar/solar-load-calculator`,
-    siteName: siteConfig.name,
-    locale: "en_US",
-    type: "website",
-  },
-};
+  canonicalPath: "/solar/solar-load-calculator",
+  category: "solar",
+});
 
 const FAQS = [
   {

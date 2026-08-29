@@ -42,21 +42,32 @@ const calculatorCardContent: Record<string, { description: string; action: strin
 };
 
 export const metadata: Metadata = {
-  title: "Energy Calculators for Solar, Batteries, Home Energy & EVs",
-  description: "Free, deterministic energy calculators with transparent assumptions. Calculate battery runtime, solar panel output, wire voltage drop, generator sizing, EV charging speeds, and electricity usage.",
+  title: {
+    absolute: "PowerLab — Energy Calculators for Solar, Battery & EV",
+  },
+  description: "Deterministic, open energy planning calculators for solar panel output, battery runtime, wire voltage drop, EV charging speeds, and home electricity usage.",
   alternates: { canonical: "/" },
   openGraph: {
-    title: "PowerLab — Energy Calculators for Solar, Batteries, Home Energy & EVs",
-    description: "Free, deterministic energy calculators with transparent assumptions. Calculate battery runtime, solar panel output, wire voltage drop, generator sizing, EV charging speeds, and electricity usage.",
+    title: "PowerLab — Energy Calculators for Solar, Battery & EV",
+    description: "Deterministic, open energy planning calculators for solar panel output, battery runtime, wire voltage drop, EV charging speeds, and home electricity usage.",
     url: siteConfig.url,
     siteName: siteConfig.name,
     locale: "en_US",
     type: "website",
+    images: [
+      {
+        url: `${siteConfig.url}/opengraph-image`,
+        width: 1200,
+        height: 630,
+        alt: `${siteConfig.name} — Deterministic Energy Planning`,
+      },
+    ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "PowerLab Energy Planning Calculators",
-    description: "30 free, deterministic energy calculators for solar, battery storage, home energy, and EVs.",
+    title: "PowerLab — Energy Calculators for Solar, Battery & EV",
+    description: "Deterministic, open energy planning calculators for solar panel output, battery runtime, wire voltage drop, EV charging speeds, and home electricity usage.",
+    images: [`${siteConfig.url}/opengraph-image`],
   },
 };
 

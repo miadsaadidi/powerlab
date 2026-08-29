@@ -8,6 +8,9 @@ import { track } from "@/lib/analytics/analytics";
 import { MobileResultBar } from "@/components/calculator/mobile-result-bar";
 import { ShareButton } from "@/components/calculator/share-button";
 import { PrintSpecButton } from "@/components/calculator/print-spec-button";
+import { GooglePreferredBanner } from "@/components/calculator/google-preferred-banner";
+import { CalculatorTrustPill } from "@/components/calculator/calculator-trust-pill";
+import { StandardsBadge } from "@/components/calculator/standards-badge";
 
 export function EvBreakerSizeCalculator() {
   const [chargingAmps, setChargingAmps] = useState<number>(EV_BREAKER_DEFAULTS.chargingAmps);
@@ -103,6 +106,8 @@ export function EvBreakerSizeCalculator() {
               ))}
             </div>
           </div>
+
+          <CalculatorTrustPill />
 
           <form
             onSubmit={(e) => {
@@ -207,9 +212,10 @@ export function EvBreakerSizeCalculator() {
               <p className="result-value" style={{ color: "#0284c7", fontSize: "1.7rem" }}>
                 {calculated.result.recommendedBreakerType}
               </p>
-              <p className="result-subtext" style={{ fontWeight: 600, marginTop: "-0.25rem", marginBottom: "1rem" }}>
+              <p className="result-subtext" style={{ fontWeight: 600, marginTop: "-0.25rem", marginBottom: "0.5rem" }}>
                 NEC 125% Continuous Duty Sizing ({calculated.result.chargingAmps}A Continuous Load)
               </p>
+              <StandardsBadge standards={["NEC 2023 Art. 625.42", "NEC 210.19(A)", "SAE J1772"]} />
 
               {stale && <p className="warning">Inputs changed — recalculate to refresh specifications.</p>}
 
@@ -257,7 +263,9 @@ export function EvBreakerSizeCalculator() {
                 </div>
               </dl>
 
-              <div className="button-row" style={{ marginTop: "1rem", display: "flex", gap: "0.5rem", flexWrap: "wrap" }}>
+              <GooglePreferredBanner />
+
+              <div className="button-row" style={{ marginTop: "0.85rem", display: "flex", gap: "0.5rem", flexWrap: "wrap" }}>
                 <ShareButton getShareUrl={getShareUrl} />
                 <PrintSpecButton />
               </div>

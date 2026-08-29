@@ -7,19 +7,15 @@ import { DirectAnswerCard } from "@/components/seo/direct-answer-card";
 import { PageJumpNav } from "@/components/seo/page-jump-nav";
 import { FormulaCard } from "@/components/seo/formula-card";
 
-export const metadata: Metadata = {
-  title: "Solar Panel Tilt Angle by Latitude & Season Guide — PowerLab",
-  description: "Calculate optimal solar panel tilt angles by latitude and season. Learn the mathematical formulas for year-round maximum yield, winter steep tilt, and summer shallow angle.",
-  alternates: { canonical: "/guides/solar-panel-tilt-angle-by-latitude-and-season-guide" },
-  openGraph: {
-    title: "Solar Panel Tilt Angle by Latitude & Season Guide — PowerLab",
-    description: "Complete engineering guide to solar panel tilt angles, seasonal adjustments, azimuth alignment, and cosine irradiance formulas.",
-    url: `${siteConfig.url}/guides/solar-panel-tilt-angle-by-latitude-and-season-guide`,
-    siteName: siteConfig.name,
-    locale: "en_US",
-    type: "article",
-  },
-};
+import { buildPageMetadata } from "@/lib/seo/metadata-helper";
+
+export const metadata: Metadata = buildPageMetadata({
+  title: "Solar Panel Tilt Angle by Latitude Guide",
+  description: "Calculate optimal solar panel tilt angles by latitude and season. Master formulas for maximum annual yield, winter steep tilt, and summer angles.",
+  canonicalPath: "/guides/solar-panel-tilt-angle-by-latitude-and-season-guide",
+  category: "solar",
+  isArticle: true,
+});
 
 const FAQS = [
   {

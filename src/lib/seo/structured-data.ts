@@ -1,4 +1,4 @@
-import { siteConfig } from "@/lib/site-config";
+import { siteConfig } from "../site-config";
 
 export interface CalculatorFaq {
   question: string;
@@ -14,6 +14,7 @@ export interface CalculatorStructuredDataProps {
   features?: string[];
   standards?: string[];
   faqs?: CalculatorFaq[];
+  speakableSelectors?: string[];
 }
 
 export function buildCalculatorStructuredData({
@@ -25,6 +26,7 @@ export function buildCalculatorStructuredData({
   features,
   standards,
   faqs,
+  speakableSelectors,
 }: CalculatorStructuredDataProps) {
   const pageUrl = new URL(route, siteConfig.url).toString();
   const categoryUrl = new URL(categoryRoute, siteConfig.url).toString();
@@ -38,6 +40,10 @@ export function buildCalculatorStructuredData({
       "@type": "ImageObject",
       url: new URL("/icon.svg", siteConfig.url).toString(),
     },
+    sameAs: [
+      "https://www.trustpilot.com/review/powelab.org",
+      "https://doi.org/10.6084/m9.figshare.33321774",
+    ],
   };
 
   const data: Array<Record<string, unknown>> = [
@@ -71,6 +77,12 @@ export function buildCalculatorStructuredData({
       },
       publisher: {
         "@id": `${siteConfig.url}/#organization`,
+      },
+      speakable: {
+        "@type": "SpeakableSpecification",
+        cssSelector: speakableSelectors && speakableSelectors.length > 0
+          ? speakableSelectors
+          : [".direct-answer-card", ".direct-answer-card p", "h1"],
       },
     },
     {
@@ -144,6 +156,10 @@ export function buildCategoryHubStructuredData({
       "@type": "ImageObject",
       url: new URL("/icon.svg", siteConfig.url).toString(),
     },
+    sameAs: [
+      "https://www.trustpilot.com/review/powelab.org",
+      "https://doi.org/10.6084/m9.figshare.33321774",
+    ],
   };
 
   const collectionTitle = title || `${categoryName} Planning Calculators`;
@@ -205,6 +221,10 @@ export function buildWebSiteStructuredData() {
         "@type": "ImageObject",
         url: new URL("/icon.svg", siteConfig.url).toString(),
       },
+      sameAs: [
+        "https://www.trustpilot.com/review/powelab.org",
+        "https://doi.org/10.6084/m9.figshare.33321774",
+      ],
     },
   };
 }
@@ -219,6 +239,7 @@ export interface GuideStructuredDataProps {
   categoryRoute?: string;
   standards?: string[];
   faqs?: CalculatorFaq[];
+  speakableSelectors?: string[];
 }
 
 export function buildGuideStructuredData({
@@ -231,6 +252,7 @@ export function buildGuideStructuredData({
   categoryRoute = "/guides",
   standards,
   faqs,
+  speakableSelectors,
 }: GuideStructuredDataProps) {
   const pageUrl = new URL(route, siteConfig.url).toString();
   const categoryUrl = new URL(categoryRoute, siteConfig.url).toString();
@@ -244,6 +266,10 @@ export function buildGuideStructuredData({
       "@type": "ImageObject",
       url: new URL("/icon.svg", siteConfig.url).toString(),
     },
+    sameAs: [
+      "https://www.trustpilot.com/review/powelab.org",
+      "https://doi.org/10.6084/m9.figshare.33321774",
+    ],
   };
 
   const data: Array<Record<string, unknown>> = [
@@ -270,6 +296,17 @@ export function buildGuideStructuredData({
       dateModified,
       author: organization,
       publisher: organization,
+      proficiencyLevel: "Professional",
+      audience: {
+        "@type": "Audience",
+        audienceType: "Electrical Engineers, Energy Modelers, Contractors, Homeowners",
+      },
+      speakable: {
+        "@type": "SpeakableSpecification",
+        cssSelector: speakableSelectors && speakableSelectors.length > 0
+          ? speakableSelectors
+          : [".direct-answer-card", ".direct-answer-card p", "h1"],
+      },
       isPartOf: {
         "@type": "WebSite",
         "@id": `${siteConfig.url}/#website`,

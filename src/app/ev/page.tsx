@@ -18,24 +18,14 @@ const evToolContent: Record<string, string> = {
   "ev-breaker-size": "Find the exact circuit breaker size, wire gauge (AWG), and charging speed for your Level 2 EV charger.",
 };
 
-export const metadata: Metadata = {
-  title: "EV Calculators — Charging Time, Cost, Range & Savings",
+import { buildPageMetadata } from "@/lib/seo/metadata-helper";
+
+export const metadata: Metadata = buildPageMetadata({
+  title: "EV Calculators — Charging & Savings",
   description: "Free deterministic EV planning tools to calculate charging time, charging cost, real-world driving range, and annual fuel savings vs gas.",
-  alternates: { canonical: "/ev" },
-  openGraph: {
-    title: "EV Calculators — Charging Time, Cost, Range & Savings",
-    description: "Free deterministic EV planning tools to calculate charging time, charging cost, real-world driving range, and annual fuel savings vs gas.",
-    url: `${siteConfig.url}/ev`,
-    siteName: siteConfig.name,
-    locale: "en_US",
-    type: "website",
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: "EV Planning Calculators",
-    description: "Calculate EV charging speed, cost per charge, real-world driving range, and annual fuel savings.",
-  },
-};
+  canonicalPath: "/ev",
+  category: "ev",
+});
 
 export default function EvHub() {
   if (!isCategoryPublished("ev")) notFound();
@@ -228,6 +218,14 @@ export default function EvHub() {
           <h3>For home Level 2 charger circuit sizing:</h3>
           <p>Use the <Link href="/ev/ev-charger-breaker-size-calculator">EV Charger Breaker Size Calculator</Link> to determine double-pole breaker amperage (NEC 125% rule), Romex vs THHN copper wire gauge, and charging speed.</p>
         </article>
+      </div>
+    </section>
+    <section className="hub-support" aria-labelledby="ev-guides-heading">
+      <h2 id="ev-guides-heading">Featured EV Engineering Guides</h2>
+      <p>Explore our peer-reviewed electrical installation and charging speed technical reference:</p>
+      <div className="supporting-links" style={{ display: "flex", flexWrap: "wrap", gap: "0.85rem", marginTop: "0.75rem" }}>
+        <Link href="/guides/level-2-ev-charging-speed-and-breaker-sizing-guide" className="footer-link">🚗 Level 2 EV Charging Speed &amp; Breaker Sizing Guide</Link>
+        <Link href="/guides" className="footer-link">📚 All Engineering Guides</Link>
       </div>
     </section>
     <section className="hub-support" aria-labelledby="ev-method-heading">

@@ -1,0 +1,527 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PowerLab Technical Memorandum — Ground View Factor & Snow Albedo PV Tilt Formulation</title>
+  
+  <!-- KaTeX for crisp math rendering -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"
+    onload="renderMathInElement(document.body, {
+      delimiters: [
+        {left: '$$', right: '$$', display: true},
+        {left: '$', right: '$', display: false}
+      ]
+    });"></script>
+
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,400;0,600;0,700;1,400&family=JetBrains+Mono:wght@400;600&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
+
+    :root {
+      --primary: #0f172a;
+      --accent: #0284c7;
+      --accent-dark: #0369a1;
+      --emerald: #059669;
+      --slate-700: #334155;
+      --slate-600: #475569;
+      --slate-500: #64748b;
+      --slate-200: #e2e8f0;
+      --slate-100: #f1f5f9;
+      --slate-50: #f8fafc;
+      --border: #cbd5e1;
+    }
+
+    * {
+      box-sizing: border-box;
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+    }
+
+    @page {
+      size: A4 portrait;
+      margin: 10mm 12mm 10mm 12mm;
+    }
+
+    body {
+      font-family: 'Crimson Pro', Georgia, serif;
+      font-size: 9.5pt;
+      line-height: 1.38;
+      color: var(--primary);
+      background-color: #fff;
+      margin: 0;
+      padding: 0;
+    }
+
+    .page {
+      width: 100%;
+      max-width: 790px;
+      margin: 0 auto;
+      background: #fff;
+      padding: 0 0.5rem;
+    }
+
+    .page-1 {
+      page-break-after: always;
+      height: 100%;
+    }
+
+    .page-2 {
+      height: 100%;
+    }
+
+    /* Header & Metadata */
+    .memo-header {
+      border-bottom: 2px solid var(--primary);
+      padding-bottom: 0.6rem;
+      margin-bottom: 0.75rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+    }
+
+    .brand-logo {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-weight: 800;
+      font-size: 1.25rem;
+      letter-spacing: -0.03em;
+      color: var(--primary);
+      line-height: 1;
+    }
+    .brand-logo span {
+      color: var(--accent);
+    }
+    .memo-subbrand {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 0.7rem;
+      color: var(--slate-500);
+      font-weight: 600;
+      margin-top: 2px;
+    }
+    .memo-badge {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 0.68rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      padding: 2px 8px;
+      background: var(--slate-100);
+      color: var(--slate-700);
+      border-radius: 3px;
+      border: 1px solid var(--slate-200);
+      display: inline-block;
+    }
+
+    .memo-meta-grid {
+      display: grid;
+      grid-template-columns: 75px 1fr;
+      gap: 0.2rem 0.8rem;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 0.76rem;
+      background: var(--slate-50);
+      border: 1px solid var(--slate-200);
+      border-radius: 4px;
+      padding: 0.5rem 0.75rem;
+      margin-bottom: 0.75rem;
+    }
+    .memo-meta-label {
+      font-weight: 700;
+      color: var(--slate-700);
+    }
+    .memo-meta-value {
+      color: var(--primary);
+    }
+
+    /* Headings */
+    h1 {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 1.22rem;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      line-height: 1.22;
+      color: var(--primary);
+      margin: 0 0 0.55rem 0;
+    }
+
+    h2 {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 0.96rem;
+      font-weight: 700;
+      color: var(--primary);
+      border-bottom: 1px solid var(--slate-200);
+      padding-bottom: 0.2rem;
+      margin-top: 0.75rem;
+      margin-bottom: 0.4rem;
+    }
+
+    p {
+      margin: 0 0 0.45rem 0;
+      text-align: justify;
+    }
+
+    ul, ol {
+      margin: 0 0 0.45rem 0;
+      padding-left: 1.15rem;
+    }
+    li {
+      margin-bottom: 0.2rem;
+    }
+
+    /* Math Displays & Callouts */
+    .math-block {
+      background: var(--slate-50);
+      border: 1px solid var(--slate-200);
+      border-left: 3px solid var(--accent);
+      border-radius: 3px;
+      padding: 0.4rem 0.8rem;
+      margin: 0.45rem 0;
+      font-size: 0.94rem;
+    }
+
+    .key-takeaway {
+      background: #f0fdf4;
+      border: 1px solid #bbf7d0;
+      border-left: 3.5px solid var(--emerald);
+      border-radius: 4px;
+      padding: 0.45rem 0.75rem;
+      margin-bottom: 0.65rem;
+      font-size: 0.82rem;
+      line-height: 1.35;
+    }
+    .key-takeaway strong {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      color: #166534;
+    }
+
+    /* Tables */
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 0.73rem;
+      margin: 0.5rem 0 0.65rem 0;
+    }
+    th, td {
+      border: 1px solid var(--border);
+      padding: 3.5px 6px;
+      text-align: left;
+    }
+    th {
+      background: var(--slate-100);
+      font-weight: 700;
+      color: var(--primary);
+    }
+    tr:nth-child(even) {
+      background: var(--slate-50);
+    }
+    .num {
+      text-align: right;
+      font-family: 'JetBrains Mono', monospace;
+    }
+    .highlight-row {
+      background: #e0f2fe !important;
+      font-weight: 600;
+    }
+
+    /* Diagram */
+    .diagram-container {
+      display: flex;
+      justify-content: center;
+      margin: 0.45rem 0;
+      background: #fafafa;
+      border: 1px solid var(--slate-200);
+      border-radius: 4px;
+      padding: 0.4rem 0.6rem;
+    }
+
+    /* Code block */
+    pre {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.68rem;
+      line-height: 1.25;
+      background: var(--slate-50);
+      border: 1px solid var(--slate-200);
+      padding: 0.45rem 0.65rem;
+      border-radius: 4px;
+      margin: 0.35rem 0 0.55rem 0;
+    }
+
+    /* References */
+    .references {
+      font-size: 0.72rem;
+      line-height: 1.3;
+      padding-left: 1rem;
+      margin: 0.25rem 0 0.5rem 0;
+    }
+    .references li {
+      margin-bottom: 0.18rem;
+    }
+
+    /* Footer */
+    .memo-footer {
+      border-top: 1px solid var(--slate-200);
+      margin-top: 0.6rem;
+      padding-top: 0.35rem;
+      display: flex;
+      justify-content: space-between;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 0.68rem;
+      color: var(--slate-500);
+    }
+  </style>
+</head>
+<body>
+
+<!-- ================= PAGE 1 ================= -->
+<div class="page page-1">
+  
+  <header class="memo-header">
+    <div>
+      <div class="brand-logo">POWER<span>LAB</span></div>
+      <div class="memo-subbrand">Clean Energy Systems Engineering &bull; Computational PV Modeling</div>
+    </div>
+    <div style="text-align: right;">
+      <div class="memo-badge">Technical Whitepaper</div>
+      <div style="font-family: 'Plus Jakarta Sans', sans-serif; font-size: 0.68rem; color: var(--slate-500); margin-top: 2px;">
+        Ref: PL-WP-2026-PV08 &bull; Published: August 2026
+      </div>
+    </div>
+  </header>
+
+  <div class="memo-meta-grid">
+    <div class="memo-meta-label">TOPIC:</div>
+    <div class="memo-meta-value"><strong>Plane-of-Array Ground View Factor &amp; Snow Albedo Amplification on Steep Winter PV Tilts</strong></div>
+    <div class="memo-meta-label">AUTHOR:</div>
+    <div class="memo-meta-value"><strong>Miad S.</strong>, PowerLab Engineering Group (<a href="mailto:miad.inside@gmail.com" style="color: var(--accent); text-decoration: none;">miad.inside@gmail.com</a>)</div>
+    <div class="memo-meta-label">DOMAIN:</div>
+    <div class="memo-meta-value">Photovoltaic Transposition Modeling, Cold-Climate Solar &amp; Snow Shedding Mechanics</div>
+    <div class="memo-meta-label">RESOURCES:</div>
+    <div class="memo-meta-value">
+      <a href="https://www.powelab.org/solar/solar-panel-tilt-calculator" target="_blank" style="color: var(--accent); font-weight: 600; text-decoration: none;">Interactive Sizing Engine (powelab.org)</a> &bull; 
+      <a href="https://www.powelab.org/guides/solar-panel-tilt-angle-by-latitude-and-season-guide" target="_blank" style="color: var(--accent); font-weight: 600; text-decoration: none;">Mathematical Derivation Guide</a>
+    </div>
+  </div>
+
+  <h1>The Ground View Factor Advantage: Quantifying Snow Albedo Backscatter vs. Cosine Losses on Steep Winter PV Tilts</h1>
+
+  <div class="key-takeaway">
+    <strong>Executive Summary:</strong> Conventional photovoltaic design software assumes an isotropic, static ground albedo ($\rho \approx 0.20$) and standard latitude tilt angles ($\beta \approx \text{Latitude} - 5^\circ$). In cold-climate, snow-covered terrains ($\rho \approx 0.70\text{–}0.85$), steep winter tilts ($\beta = \text{Latitude} + 15^\circ$, typically $55^\circ\text{–}65^\circ$) expand the plane-of-array ground view factor ($F_{\text{ground}} = \frac{1 - \cos\beta}{2}$) by <strong>$3.73\times$</strong>. This whitepaper provides the complete analytical formulation, view factor integral derivation, friction shear shedding thresholds, and the deterministic TypeScript simulation engine deployed at PowerLab.
+  </div>
+
+  <h2>1. Plane-of-Array (POA) Vector Transposition Decomposition</h2>
+  <p>
+    The total instantaneous irradiance on an inclined module aperture ($G_{\text{POA}}$) is decomposed into direct beam, diffuse sky, and ground reflection vectors:
+  </p>
+
+  <div class="math-block">
+    $$G_{\text{POA}} = G_{\text{beam, POA}} + G_{\text{sky diffuse, POA}} + G_{\text{ground reflected, POA}}$$
+  </div>
+
+  <ul>
+    <li>
+      <strong>Direct Beam:</strong> $G_{\text{beam, POA}} = G_{\text{DNI}} \cdot \cos\theta_{\text{AOI}}$, where:
+      $$\cos\theta_{\text{AOI}} = \sin\alpha_s \cos\beta + \cos\alpha_s \sin\beta \cos(\gamma_s - \gamma_m)$$
+      <em>($\alpha_s$: solar elevation angle, $\beta$: module tilt from horizontal, $\gamma_s$: solar azimuth, $\gamma_m$: module azimuth)</em>
+    </li>
+    <li>
+      <strong>Ground-Reflected Albedo:</strong> $G_{\text{ground reflected, POA}} = G_{\text{GHI}} \cdot \rho_{\text{ground}} \cdot F_{\text{ground}}(\beta)$
+      <em>($G_{\text{GHI}}$: global horizontal irradiance, $\rho_{\text{ground}}$: ground reflectance coefficient, $F_{\text{ground}}$: configuration view factor)</em>
+    </li>
+  </ul>
+
+  <h2>2. Analytical Derivation of the Surface-to-Ground View Factor</h2>
+  <p>
+    Under the assumption of an isotropic, infinite Lambertian ground plane, the configuration view factor $F_{\text{ground}}$ between the planar module front aperture and the ground is derived by integrating the differential view factor over the hemisphere:
+  </p>
+
+  <div class="math-block">
+    $$F_{\text{ground}}(\beta) = \frac{1}{2\pi} \int_{\phi=0}^{2\pi} \int_{\theta=\frac{\pi}{2}-\beta}^{\frac{\pi}{2}} \sin\theta \cos\theta \, d\theta \, d\phi = \frac{1 - \cos\beta}{2} \equiv \sin^2\left(\frac{\beta}{2}\right)$$
+  </div>
+
+  <p>By radiation conservation in an unobstructed half-space, the sky view factor $F_{\text{sky}}$ complements $F_{\text{ground}}$:</p>
+  <div class="math-block">
+    $$F_{\text{sky}}(\beta) = 1 - F_{\text{ground}}(\beta) = \frac{1 + \cos\beta}{2} \equiv \cos^2\left(\frac{\beta}{2}\right)$$
+  </div>
+
+  <!-- SVG Diagram -->
+  <div class="diagram-container">
+    <svg width="580" height="135" viewBox="0 0 580 135" style="font-family: 'Plus Jakarta Sans', sans-serif;">
+      <!-- Ground line -->
+      <line x1="30" y1="105" x2="550" y2="105" stroke="#64748b" stroke-width="2.5" stroke-dasharray="5,4"/>
+      <rect x="30" y="106" width="520" height="16" fill="#e2e8f0" opacity="0.6"/>
+      <text x="290" y="118" font-size="9.5" fill="#475569" text-anchor="middle" font-weight="600">Snow-Covered Ground Plane (Albedo ρ ≈ 0.70 – 0.85)</text>
+
+      <!-- Panel 30 deg (Shallow) -->
+      <g transform="translate(130, 105)">
+        <line x1="0" y1="0" x2="70" y2="-40" stroke="#0284c7" stroke-width="4.5" stroke-linecap="round"/>
+        <text x="35" y="-48" font-size="9.5" fill="#0284c7" font-weight="700">Standard Tilt (30°)</text>
+        <path d="M 30,0 A 30,30 0 0,0 26,-15" fill="none" stroke="#0284c7" stroke-width="1.2"/>
+        <text x="33" y="-8" font-size="8.5" fill="#0284c7">30°</text>
+        <text x="-25" y="-12" font-size="8.5" fill="#dc2626" font-weight="700">F_grd = 0.067</text>
+      </g>
+
+      <!-- Panel 60 deg (Steep Winter) -->
+      <g transform="translate(390, 105)">
+        <line x1="0" y1="0" x2="40" y2="-70" stroke="#059669" stroke-width="4.5" stroke-linecap="round"/>
+        <text x="20" y="-76" font-size="9.5" fill="#059669" font-weight="700">Winter Tilt (60°)</text>
+        <path d="M 30,0 A 30,30 0 0,0 15,-26" fill="none" stroke="#059669" stroke-width="1.2"/>
+        <text x="24" y="-12" font-size="8.5" fill="#059669">60°</text>
+        <text x="-70" y="-28" font-size="9" fill="#059669" font-weight="700">F_grd = 0.250 (3.73×)</text>
+      </g>
+
+      <!-- Sun rays -->
+      <line x1="70" y1="20" x2="135" y2="75" stroke="#f59e0b" stroke-width="1.5" stroke-dasharray="3,3"/>
+      <line x1="330" y1="20" x2="395" y2="75" stroke="#f59e0b" stroke-width="1.5" stroke-dasharray="3,3"/>
+      <text x="100" y="16" font-size="8.5" fill="#d97706" font-weight="600">Low Winter Sun (α ≈ 18°)</text>
+    </svg>
+  </div>
+
+  <footer class="memo-footer">
+    <div>PowerLab Clean Energy Systems Engineering Group &bull; <a href="https://www.powelab.org" style="color: var(--slate-500); text-decoration: none;">www.powelab.org</a></div>
+    <div>Page 1 of 2 &bull; Open Technical Reference (Ref: PL-WP-2026-PV08)</div>
+  </footer>
+
+</div>
+
+<!-- ================= PAGE 2 ================= -->
+<div class="page page-2">
+
+  <h2>3. Quantitative Parametric Matrix across Tilt Angles</h2>
+  <p>
+    Table 1 contrasts view factor scaling, standard vs. snow albedo contributions, and snow shedding regimes across module tilts from $0^\circ$ to $90^\circ$:
+  </p>
+
+  <table>
+    <caption>Table 1: View Factors, Albedo Gain Contribution, and Snow Shedding Regimes vs. Panel Inclination ($\beta$)</caption>
+    <thead>
+      <tr>
+        <th>Tilt Angle ($\beta$)</th>
+        <th>Sky View ($F_{\text{sky}}$)</th>
+        <th>Ground View ($F_{\text{ground}}$)</th>
+        <th>Std Ground Gain ($\rho=0.20$)</th>
+        <th>Snow Ground Gain ($\rho=0.75$)</th>
+        <th>Relative Gain vs. 30° Tilt</th>
+        <th>Snow Shedding Status</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>$0^\circ$ (Horizontal Flat)</td>
+        <td class="num">1.0000</td>
+        <td class="num">0.0000</td>
+        <td class="num">0.00%</td>
+        <td class="num">0.00%</td>
+        <td class="num">-100.0%</td>
+        <td style="color: #dc2626; font-weight: 600;">Severe Snow Capping</td>
+      </tr>
+      <tr>
+        <td>$15^\circ$ (Low Roof Pitch)</td>
+        <td class="num">0.9829</td>
+        <td class="num">0.0171</td>
+        <td class="num">0.34%</td>
+        <td class="num">1.28%</td>
+        <td class="num">-74.5%</td>
+        <td style="color: #dc2626; font-weight: 600;">High Snow Retention</td>
+      </tr>
+      <tr>
+        <td>$30^\circ$ (Standard Roof)</td>
+        <td class="num">0.9330</td>
+        <td class="num">0.0670</td>
+        <td class="num">1.34%</td>
+        <td class="num">5.02%</td>
+        <td class="num">Baseline</td>
+        <td style="color: #d97706; font-weight: 600;">Slow Slump Shedding</td>
+      </tr>
+      <tr>
+        <td>$45^\circ$ (Equinox Angle)</td>
+        <td class="num">0.8536</td>
+        <td class="num">0.1464</td>
+        <td class="num">2.93%</td>
+        <td class="num">10.98%</td>
+        <td class="num">+118.7%</td>
+        <td style="color: #059669; font-weight: 600;">Rapid Melt Slide</td>
+      </tr>
+      <tr class="highlight-row">
+        <td><strong>$60^\circ$ (Steep Winter Tilt)</strong></td>
+        <td class="num"><strong>0.7500</strong></td>
+        <td class="num"><strong>0.2500</strong></td>
+        <td class="num"><strong>5.00%</strong></td>
+        <td class="num"><strong>18.75%</strong></td>
+        <td class="num"><strong>+273.5%</strong></td>
+        <td style="color: #059669; font-weight: 700;">Optimal Avalanche Shed</td>
+      </tr>
+      <tr>
+        <td>$75^\circ$ (Subarctic Winter)</td>
+        <td class="num">0.6294</td>
+        <td class="num">0.3706</td>
+        <td class="num">7.41%</td>
+        <td class="num">27.79%</td>
+        <td class="num">+453.6%</td>
+        <td style="color: #059669; font-weight: 600;">Instantaneous Shedding</td>
+      </tr>
+      <tr>
+        <td>$90^\circ$ (Vertical Facade / BIPV)</td>
+        <td class="num">0.5000</td>
+        <td class="num">0.5000</td>
+        <td class="num">10.00%</td>
+        <td class="num">37.50%</td>
+        <td class="num">+647.0%</td>
+        <td style="color: #059669; font-weight: 600;">Zero Accumulation</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h2>4. Snow Shedding Threshold &amp; Friction Shear Mechanics</h2>
+  <p>
+    The retention and shedding of snow layers on tempered glass front-sheets are modeled via interfacial shear stress equilibrium:
+  </p>
+
+  <div class="math-block">
+    $$\tau_{\text{gravity}} = \rho_{\text{snow}} \cdot g \cdot h_{\text{snow}} \cdot \sin\beta \quad \text{vs.} \quad \tau_{\text{resist}} = c_{\text{adhesion}}(T) + \mu_{\text{static}} \cdot \rho_{\text{snow}} \cdot g \cdot h_{\text{snow}} \cdot \cos\beta$$
+  </div>
+
+  <p>
+    Where $\rho_{\text{snow}} \approx 100\text{–}350\,\text{kg/m}^3$, $h_{\text{snow}}$ is depth, $c_{\text{adhesion}}$ is ice-glass adhesion strength, and $\mu_{\text{static}} \approx 0.15\text{–}0.30$.
+  </p>
+  <ul>
+    <li><strong>For $\beta < 35^\circ$:</strong> Normal force ($\cos\beta \ge 0.82$) dominates, maintaining static friction lock. Panels remain covered until complete ambient melting, inducing multi-week generation blackouts.</li>
+    <li><strong>For $\beta \ge 50^\circ\text{–}60^\circ$:</strong> Gravitational shear ($\sin\beta \ge 0.87$) exceeds adhesion as soon as minor cell self-heating occurs, initiating avalanche clearing within 15–45 minutes of dawn.</li>
+  </ul>
+
+  <h2>5. Deterministic Engine Implementation in TypeScript</h2>
+  <pre><code>export function calculateGroundAlbedoGain(tiltDeg: number, albedoType: "standard" | "snow" = "snow"): GroundAlbedoResult {
+  const tilt = Math.min(90, Math.max(0, tiltDeg));
+  const rad = (tilt * Math.PI) / 180;
+  const groundViewFactor = (1 - Math.cos(rad)) / 2;
+  const rho = albedoType === "snow" ? 0.75 : 0.20;
+  const reflectedIrradianceGainPct = Number((groundViewFactor * rho * 100).toFixed(2));
+  const snowSheddingEffectiveness = tilt >= 45 ? "Optimal (Natural Snow Shedding)" : tilt >= 25 ? "Moderate" : "Low (Snow Risk)";
+  return { groundViewFactor: Number(groundViewFactor.toFixed(4)), reflectedIrradianceGainPct, snowSheddingEffectiveness };
+}</code></pre>
+
+  <h2>6. Empirical Field Validation &amp; Collaborative Benchmarking Framework</h2>
+  <ol>
+    <li><strong>Pyranometer Transposition vs. Modeled POA:</strong> Cross-evaluating measured POA on steep adjustable test racks ($55^\circ, 65^\circ$) against isotropic transposition and the Perez anisotropic model across high-latitude field monitoring testbeds.</li>
+    <li><strong>Snow Shedding Latency Profiling:</strong> Correlating optical image detection timestamps of snow clearance events against tilt angle and ambient irradiance threshold.</li>
+    <li><strong>Bifacial Rear-Side View Factor Extension:</strong> Incorporating rear-side ground view factors ($F_{\text{rear}} = \frac{1 + \cos\beta}{2}$) for vertical and high-tilt bifacial strings in high-albedo terrain.</li>
+  </ol>
+
+  <h2>References</h2>
+  <ol class="references">
+    <li>Andrews, R. W., Pollard, A., &amp; Pearce, J. M. (2013). <em>The effects of snowfall on solar photovoltaic performance</em>. Solar Energy, 92, 84-97.</li>
+    <li>Pearce, J. M., et al. (2020). <em>Open-source automated mapping and field validation of photovoltaic snow losses</em>. Progress in Photovoltaics: Research and Applications.</li>
+    <li>Perez, R., et al. (1987). <em>A new simplified version of the Perez diffuse irradiance model for tilted surfaces</em>. Solar Energy, 39(3), 221-231.</li>
+    <li>Duffie, J. A., &amp; Beckman, W. A. (2020). <em>Solar Engineering of Thermal Processes, Photovoltaics and Wind</em>. John Wiley &amp; Sons.</li>
+    <li>Marion, B., et al. (2014). <em>PVWatts Version 5 Manual: A Guide to the Performance Model for Grid-Connected PV Systems</em>. NREL/TP-5D00-62641.</li>
+  </ol>
+
+  <footer class="memo-footer">
+    <div>PowerLab Clean Energy Systems Engineering Group &bull; <a href="https://www.powelab.org" style="color: var(--slate-500); text-decoration: none;">www.powelab.org</a></div>
+    <div>Page 2 of 2 &bull; Open Technical Reference (Ref: PL-WP-2026-PV08)</div>
+  </footer>
+
+</div>
+
+</body>
+</html>

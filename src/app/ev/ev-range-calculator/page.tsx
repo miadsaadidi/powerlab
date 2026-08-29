@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { buildPageMetadata } from "@/lib/seo/metadata-helper";
 import Link from "next/link";
 import { EvRangeCalculator } from "@/components/calculator/ev-range-calculator";
 import { isCalculatorPublished } from "@/lib/calculator-registry";
@@ -10,20 +11,12 @@ import { DirectAnswerCard } from "@/components/seo/direct-answer-card";
 
 const isPublished = isCalculatorPublished("ev-range");
 
-export const metadata: Metadata = {
-  title: "EV Range Calculator — Estimate Real-World Driving Range",
-  description: "Calculate real-world electric car driving range in miles and km from battery capacity (kWh), state of charge (%), driving speed, and consumption efficiency.",
-  alternates: { canonical: "/ev/ev-range-calculator" },
-  robots: { index: isPublished, follow: true },
-  openGraph: {
-    title: "EV Range Calculator — PowerLab",
-    description: "Calculate real-world EV driving range in miles and kilometers from battery capacity, current state of charge, and vehicle efficiency.",
-    url: `${siteConfig.url}/ev/ev-range-calculator`,
-    siteName: siteConfig.name,
-    locale: "en_US",
-    type: "website",
-  },
-};
+export const metadata: Metadata = buildPageMetadata({
+  title: "EV Range Calculator — Estimate Real-World Range",
+  description: "Estimate EV range from usable battery capacity, state of charge, reserve, battery health and consumption in kWh/100 km or mi/kWh.",
+  canonicalPath: "/ev/ev-range-calculator",
+  category: "ev",
+});
 
 const FAQS = [
   {

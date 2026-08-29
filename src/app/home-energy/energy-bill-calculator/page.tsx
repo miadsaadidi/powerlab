@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { buildPageMetadata } from "@/lib/seo/metadata-helper";
 import Link from "next/link";
 import { EnergyBillCalculator } from "@/components/calculator/energy-bill-calculator";
 import { isCalculatorPublished } from "@/lib/calculator-registry";
@@ -10,20 +11,12 @@ import { DirectAnswerCard } from "@/components/seo/direct-answer-card";
 
 const isPublished = isCalculatorPublished("energy-bill");
 
-export const metadata: Metadata = {
-  title: "Electricity Bill & Energy Cost Calculator — Monthly Bill Estimate",
+export const metadata: Metadata = buildPageMetadata({
+  title: "Electricity Bill Calculator — Monthly Power Cost",
   description: "Calculate your monthly and annual electricity bill from kWh consumption or meter readings, electric utility rates, fixed fees, and standing charges.",
-  alternates: { canonical: "/home-energy/energy-bill-calculator" },
-  robots: { index: isPublished, follow: true },
-  openGraph: {
-    title: "Electricity Bill & Energy Cost Calculator — PowerLab",
-    description: "Calculate electric utility bills from kWh usage or meter readings with fixed charges and taxes.",
-    url: `${siteConfig.url}/home-energy/energy-bill-calculator`,
-    siteName: siteConfig.name,
-    locale: "en_US",
-    type: "website",
-  },
-};
+  canonicalPath: "/home-energy/energy-bill-calculator",
+  category: "home-energy",
+});
 
 const FAQS = [
   {

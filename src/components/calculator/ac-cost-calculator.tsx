@@ -8,6 +8,8 @@ import { track } from "@/lib/analytics/analytics";
 import { MobileResultBar } from "@/components/calculator/mobile-result-bar";
 import { ShareButton } from "@/components/calculator/share-button";
 import { PrintSpecButton } from "@/components/calculator/print-spec-button";
+import { GooglePreferredBanner } from "@/components/calculator/google-preferred-banner";
+import { CalculatorTrustPill } from "@/components/calculator/calculator-trust-pill";
 
 export function AcCostCalculator() {
   const [inputMode, setInputMode] = useState<"btu_seer" | "watts">(AC_COST_DEFAULTS.inputMode);
@@ -122,6 +124,8 @@ export function AcCostCalculator() {
               ))}
             </div>
           </div>
+
+          <CalculatorTrustPill />
 
           <form
             onSubmit={(e) => {
@@ -360,7 +364,9 @@ export function AcCostCalculator() {
                 </div>
               </dl>
 
-              <div className="button-row" style={{ marginTop: "1rem", display: "flex", gap: "0.5rem", flexWrap: "wrap" }}>
+              <GooglePreferredBanner />
+
+              <div className="button-row" style={{ marginTop: "0.85rem", display: "flex", gap: "0.5rem", flexWrap: "wrap" }}>
                 <ShareButton getShareUrl={getShareUrl} />
                 <PrintSpecButton />
               </div>

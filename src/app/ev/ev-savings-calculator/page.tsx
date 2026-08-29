@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { buildPageMetadata } from "@/lib/seo/metadata-helper";
 import Link from "next/link";
 import { EvSavingsCalculator } from "@/components/calculator/ev-savings-calculator";
 import { isCalculatorPublished } from "@/lib/calculator-registry";
@@ -11,13 +12,12 @@ import { DirectAnswerCard } from "@/components/seo/direct-answer-card";
 
 const isPublished = isCalculatorPublished("ev-savings");
 
-export const metadata: Metadata = {
-  title: "EV Savings Calculator — Compare Electricity vs Fuel Cost",
+export const metadata: Metadata = buildPageMetadata({
+  title: "EV Savings Calculator — Fuel vs Electric Cost",
   description: "Compare EV electricity cost with combustion-vehicle fuel cost using your annual distance, EV consumption, electricity price, fuel economy and fuel price.",
-  alternates: { canonical: "/ev/ev-savings-calculator" },
-  robots: { index: isPublished, follow: true },
-  openGraph: { title: "EV Savings Calculator — Compare Electricity vs Fuel Cost", description: "Compare EV electricity cost with combustion-vehicle fuel cost using your annual distance, EV consumption, electricity price, fuel economy and fuel price." },
-};
+  canonicalPath: "/ev/ev-savings-calculator",
+  category: "ev",
+});
 
 const FAQS = [
   {

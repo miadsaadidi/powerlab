@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { buildPageMetadata } from "@/lib/seo/metadata-helper";
 import Link from "next/link";
 import { EvChargingTimeCalculator } from "@/components/calculator/ev-charging-time-calculator";
 import { siteConfig } from "@/lib/site-config";
@@ -11,20 +12,12 @@ import { DirectAnswerCard } from "@/components/seo/direct-answer-card";
 
 const isPublished = isCalculatorPublished("ev-charging-time");
 
-export const metadata: Metadata = {
-  title: "EV Charging Time Calculator — Level 1, 2 & DC Fast Charge",
-  description: "Calculate how long it takes to charge an electric car across Level 1 (120V), Level 2 (240V), and DC Fast Charging with onboard charger limits and DC taper.",
-  alternates: { canonical: "/ev/ev-charging-time-calculator" },
-  robots: { index: isPublished, follow: true },
-  openGraph: {
-    title: "EV Charging Time Calculator — PowerLab",
-    description: "Calculate electric vehicle charging duration across Level 1, Level 2, and DC Fast Chargers with realistic taper curves.",
-    url: `${siteConfig.url}/ev/ev-charging-time-calculator`,
-    siteName: siteConfig.name,
-    locale: "en_US",
-    type: "website",
-  },
-};
+export const metadata: Metadata = buildPageMetadata({
+  title: "EV Charging Time Calculator — AC & DC Charge Time",
+  description: "Estimate EV charging time from battery capacity, start and target charge, charger power and vehicle limits with clear AC and DC assumptions.",
+  canonicalPath: "/ev/ev-charging-time-calculator",
+  category: "ev",
+});
 
 const FAQS = [
   {

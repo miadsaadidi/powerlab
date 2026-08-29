@@ -3,23 +3,20 @@ import Link from "next/link";
 import { siteConfig } from "@/lib/site-config";
 import { buildGuideStructuredData } from "@/lib/seo/structured-data";
 import { BatteryRuntimeCalculator } from "@/components/calculator/battery-runtime-calculator";
+import { AcademicCitationModal } from "@/components/seo/academic-citation-modal";
 import { DirectAnswerCard } from "@/components/seo/direct-answer-card";
 import { PageJumpNav } from "@/components/seo/page-jump-nav";
 import { FormulaCard } from "@/components/seo/formula-card";
 
-export const metadata: Metadata = {
-  title: "Battery Backup Runtime Formula & Calculation Guide (Ah, Wh & Inverter Losses) — PowerLab",
-  description: "Master the battery runtime formula for LiFePO4, AGM, and Lead-Acid systems. Calculate amp-hours to watt-hours, inverter efficiency losses, and Peukert capacity derating.",
-  alternates: { canonical: "/guides/battery-backup-runtime-calculation-guide" },
-  openGraph: {
-    title: "Battery Backup Runtime Formula & Calculation Guide — PowerLab",
-    description: "Complete engineering guide to calculating battery backup runtime. Includes Amp-Hour to Watt-Hour conversions, inverter efficiency derating, and Peukert's law.",
-    url: `${siteConfig.url}/guides/battery-backup-runtime-calculation-guide`,
-    siteName: siteConfig.name,
-    locale: "en_US",
-    type: "article",
-  },
-};
+import { buildPageMetadata } from "@/lib/seo/metadata-helper";
+
+export const metadata: Metadata = buildPageMetadata({
+  title: "Battery Backup Runtime Formula Guide",
+  description: "Master the battery runtime formula for LiFePO4, AGM, and Lead-Acid. Calculate Ah to Wh, inverter efficiency losses, and discharge duration accurately.",
+  canonicalPath: "/guides/battery-backup-runtime-calculation-guide",
+  category: "battery",
+  isArticle: true,
+});
 
 const FAQS = [
   {
@@ -360,7 +357,11 @@ export default function BatteryRuntimeGuidePage() {
         <p style={{ fontSize: "0.95rem", lineHeight: 1.6, color: "var(--muted)" }}>
           Calculations adhere to <strong>IEEE Std 485</strong> (Recommended Practice for Sizing Lead-Acid Batteries for Stationary Applications), <strong>IEC 62619</strong> (Safety requirements for secondary lithium cells), <strong>UL 1973</strong>, and <strong>NFPA 70 / NEC Article 706</strong> (Energy Storage Systems).
         </p>
-        <div style={{ display: "flex", flexWrap: "wrap", gap: "1rem", marginTop: "1rem" }}>
+        <div style={{ display: "flex", flexWrap: "wrap", gap: "1rem", marginTop: "1rem", alignItems: "center" }}>
+          <AcademicCitationModal
+            title="Battery Backup Runtime Formula & Calculation Guide"
+            urlPath="/guides/battery-backup-runtime-calculation-guide"
+          />
           <Link href="/methodology" style={{ fontSize: "0.9rem", fontWeight: 600, color: "var(--accent)" }}>
             Full PowerLab Calculation Methodology →
           </Link>

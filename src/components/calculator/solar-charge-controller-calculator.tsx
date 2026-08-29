@@ -7,6 +7,9 @@ import { track } from "@/lib/analytics/analytics";
 import { MobileResultBar } from "@/components/calculator/mobile-result-bar";
 import { ShareButton } from "@/components/calculator/share-button";
 import { PrintSpecButton } from "@/components/calculator/print-spec-button";
+import { GooglePreferredBanner } from "@/components/calculator/google-preferred-banner";
+import { CalculatorTrustPill } from "@/components/calculator/calculator-trust-pill";
+import { StandardsBadge } from "@/components/calculator/standards-badge";
 
 export function SolarChargeControllerCalculator() {
   const [tech, setTech] = useState<"mppt" | "pwm">(CHARGE_CONTROLLER_DEFAULTS.technology);
@@ -129,6 +132,8 @@ export function SolarChargeControllerCalculator() {
               ))}
             </div>
           </div>
+
+          <CalculatorTrustPill />
 
           <form
             onSubmit={(e) => {
@@ -321,9 +326,10 @@ export function SolarChargeControllerCalculator() {
               <p className="result-value" style={{ color: "#0284c7", fontSize: "1.6rem" }}>
                 {calculated.result.recommendedModelClass}
               </p>
-              <p className="result-subtext" style={{ fontWeight: 600, marginTop: "-0.25rem", marginBottom: "1rem" }}>
+              <p className="result-subtext" style={{ fontWeight: 600, marginTop: "-0.25rem", marginBottom: "0.5rem" }}>
                 {calculated.result.totalArrayWatts}W Array on {calculated.result.nominalBatteryVoltage}V Battery Bank
               </p>
+              <StandardsBadge standards={["NEC 2023 Article 690.7", "IEC 62109-1", "UL 1741"]} />
 
               {stale && <p className="warning">Inputs changed — recalculate to refresh recommendation.</p>}
 
@@ -362,7 +368,9 @@ export function SolarChargeControllerCalculator() {
                 </div>
               </dl>
 
-              <div className="button-row" style={{ marginTop: "1rem", display: "flex", gap: "0.5rem", flexWrap: "wrap" }}>
+              <GooglePreferredBanner />
+
+              <div className="button-row" style={{ marginTop: "0.85rem", display: "flex", gap: "0.5rem", flexWrap: "wrap" }}>
                 <ShareButton getShareUrl={getShareUrl} />
                 <PrintSpecButton />
               </div>

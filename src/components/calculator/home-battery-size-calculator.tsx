@@ -15,6 +15,9 @@ import { LossWaterfall } from "@/components/calculator/loss-waterfall";
 import { ShareButton } from "@/components/calculator/share-button";
 import { PrintSpecButton } from "@/components/calculator/print-spec-button";
 import { EnergyFlowVisualizer } from "@/components/calculator/energy-flow-visualizer";
+import { GooglePreferredBanner } from "@/components/calculator/google-preferred-banner";
+import { CalculatorTrustPill } from "@/components/calculator/calculator-trust-pill";
+import { StandardsBadge } from "@/components/calculator/standards-badge";
 
 const QUICK_HOME_PRESETS = [
   { label: "⚡ Essential Outage (12h · 25% Load)", energy: 300, scope: "critical" as ScopeMode, duration: "12" as DurationMode },
@@ -303,6 +306,8 @@ export function HomeBatterySizeCalculator() {
             </div>
           </div>
 
+          <CalculatorTrustPill />
+
           <form
             onSubmit={(event) => {
               event.preventDefault();
@@ -532,6 +537,7 @@ export function HomeBatterySizeCalculator() {
             <>
               <p className="result-lede">Recommended home battery capacity</p>
               <p className="result-value">{formatNumber(calculation.result.recommendedKWh)} kWh</p>
+              <StandardsBadge standards={["NFPA 855", "UL 9540", "IEEE 2030.5", "NEC Art. 706"]} />
               <div style={{ background: "var(--surface, rgba(14, 165, 233, 0.04))", border: "1px solid var(--border-color, #cbd5e1)", borderRadius: "0.75rem", padding: "0.875rem 1rem", margin: "0.75rem 0 1rem 0" }}>
                 <span style={{ fontSize: "0.75rem", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.05em", color: "var(--text-muted, #64748b)", display: "block", marginBottom: "0.5rem" }}>
                   📦 Equivalent Physical Hardware Modules
@@ -686,7 +692,10 @@ export function HomeBatterySizeCalculator() {
               <p className="warning">
                 This average-energy estimate does not model hourly load curves, solar recharge, generator recharge, nighttime variation or day-to-day appliance schedules. It does not size inverter power, service panels, transfer equipment, wiring or installation.
               </p>
-              <div className="button-row" style={{ marginTop: "1rem", display: "flex", gap: "0.5rem", flexWrap: "wrap" }}>
+
+              <GooglePreferredBanner />
+
+              <div className="button-row" style={{ marginTop: "0.85rem", display: "flex", gap: "0.5rem", flexWrap: "wrap" }}>
                 <ShareButton title="Home Battery Size Calculation" />
                 <PrintSpecButton />
               </div>

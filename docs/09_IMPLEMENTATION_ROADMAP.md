@@ -187,6 +187,16 @@ Planned expansion tools based on Keyword Planner and SERP research:
 ### 30. EV Charger Breaker & Wire Sizing Calculator
 - Size breaker amperage (20A–100A) and copper wire gauge under the NEC 125% continuous load rule.
 
+## Phase 5.1 — High-Authority Educational Guides & SVG Visualizers (1 Every 2 Days)
+
+Editorial rollout paired with live calculators and interactive SVG circuit diagrams:
+
+- [x] **Day 0 (Aug 25, 2026):** `/guides/voltage-drop-and-wire-size-calculation-guide` (Target: `voltage drop calculation formula` — **74,000/mo**). Includes `<VoltageDropVisualizer />` SVG gradient diagram & NEC Table 8 matrix.
+- [ ] **Day 2 (Aug 27, 2026):** `/guides/generator-sizing-and-starting-watts-guide` (Target: `generator sizing guide` — **40,500/mo**). Includes `<GeneratorInrushVisualizer />` SVG surge curve, working paper release on Academia.edu/Zenodo (Ref: `PL-TR-2026-GEN02`), and Academic Outreach Batch #2 (5 emails).
+- [ ] **Day 4 (Aug 29, 2026):** `/guides/central-ac-and-heat-pump-electricity-cost-guide` (Target: `air conditioner running cost guide` — **34,300/mo**).
+- [ ] **Day 6 (Aug 31, 2026):** `/guides/solar-payback-and-roi-calculation-guide` (Target: `solar payback period formula` — **18,100/mo**).
+- [ ] **Day 8 (Sep 2, 2026):** `/guides/space-heater-electricity-cost-and-wattage-guide` (Target: `space heater electricity cost formula` — **18,100/mo**).
+
 ## Optional AI phase
 
 AI explanations are not on the critical path.

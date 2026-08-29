@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { buildPageMetadata } from "@/lib/seo/metadata-helper";
 import Link from "next/link";
 import { BatteryCapacityCalculator } from "@/components/calculator/battery-capacity-calculator";
 import { isCalculatorPublished } from "@/lib/calculator-registry";
@@ -10,20 +11,12 @@ import { DirectAnswerCard } from "@/components/seo/direct-answer-card";
 
 const isPublished = isCalculatorPublished("battery-capacity");
 
-export const metadata: Metadata = {
-  title: "Battery Capacity Calculator — Ah to Wh & kWh Conversion",
-  description: "Convert battery capacity between Amp-Hours (Ah), Watt-Hours (Wh), and Kilowatt-Hours (kWh) with nominal voltage and usable SOC window math.",
-  alternates: { canonical: "/battery/battery-capacity-calculator" },
-  robots: { index: isPublished, follow: true },
-  openGraph: {
-    title: "Battery Capacity Calculator — PowerLab",
-    description: "Convert Ah to Wh and kWh across 12V, 24V, 36V, and 48V battery systems with usable DOD reserves.",
-    url: `${siteConfig.url}/battery/battery-capacity-calculator`,
-    siteName: siteConfig.name,
-    locale: "en_US",
-    type: "website",
-  },
-};
+export const metadata: Metadata = buildPageMetadata({
+  title: "Battery Capacity Calculator — Ah, Wh & kWh",
+  description: "Convert battery capacity between amp-hours, watt-hours and kWh using voltage, and estimate usable energy from state of charge, reserve and battery health.",
+  canonicalPath: "/battery/battery-capacity-calculator",
+  category: "battery",
+});
 
 const FAQS = [
   {
@@ -198,9 +191,9 @@ export default function BatteryCapacityPage() {
       </section>
 
       <section id="related-tools">
-        <h2>Related Battery Tools</h2>
+        <h2>Related Battery Tools &amp; Technical Guides</h2>
         <p>
-          Calculate appliance runtimes with the <Link href="/battery/battery-runtime-calculator">Battery Runtime Calculator</Link>, calculate required capacity for outages with the <Link href="/battery/battery-size-calculator">Battery Size Calculator</Link>, or check charging speeds with the <Link href="/battery/battery-charging-time-calculator">Battery Charging Time Calculator</Link>.
+          Learn the physics behind Peukert capacity derating and tare losses in our <Link href="/guides/battery-backup-runtime-calculation-guide">Battery Backup Runtime Mathematical Guide</Link>. You can also calculate appliance runtimes with the <Link href="/battery/battery-runtime-calculator">Battery Runtime Calculator</Link>, determine outage capacity with the <Link href="/battery/battery-size-calculator">Battery Size Calculator</Link>, or check recharge speeds with the <Link href="/battery/battery-charging-time-calculator">Battery Charging Time Calculator</Link>.
         </p>
       </section>
     </article>

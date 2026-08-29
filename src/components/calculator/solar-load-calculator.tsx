@@ -9,6 +9,11 @@ import { createEnergyProfileStore } from "@/lib/energy-profile/store";
 import { isCalculatorPublished } from "@/lib/calculator-registry";
 import { track } from "@/lib/analytics/analytics";
 import { buildSolarBatteryHandoffUrl } from "@/lib/calculators/solar-load/handoff";
+import { ShareButton } from "@/components/calculator/share-button";
+import { PrintSpecButton } from "@/components/calculator/print-spec-button";
+import { GooglePreferredBanner } from "@/components/calculator/google-preferred-banner";
+import { CalculatorTrustPill } from "@/components/calculator/calculator-trust-pill";
+import { StandardsBadge } from "@/components/calculator/standards-badge";
 
 type Row = SolarLoadRowInput & { presetId?: string };
 
@@ -83,6 +88,7 @@ export function SolarLoadCalculator() {
       <div className="calculator-inputs">
         <p className="eyebrow">Quick estimate</p>
         <h2 id="solar-load-heading">Build your solar load profile</h2>
+        <CalculatorTrustPill />
         {imported && <p className="form-hint" role="status">Saved appliance rows loaded. Review imported appliances and mark the loads you consider essential.</p>}
         {weeklyImported && <p className="form-hint" role="status">Weekly schedules are averaged across seven days for daily-energy planning.</p>}
         <label htmlFor="solar-load-search">Add an appliance</label>
@@ -112,13 +118,22 @@ export function SolarLoadCalculator() {
         {result ? <>
           <p className="result-lede">Estimated daily load</p>
           <p className="result-value">{formatKWh(result.result.totalDailyKWh)}</p>
+          <StandardsBadge standards={["IEEE 1013", "IEC 61724", "NEC Art. 690"]} />
           <dl className="result-breakdown"><div><dt>Essential load</dt><dd>{formatKWh(result.result.essentialDailyKWh)}</dd></div><div><dt>Other load</dt><dd>{formatKWh(result.result.otherDailyKWh)}</dd></div><div><dt>Listed-load running watts</dt><dd>{formatW(result.result.connectedRunningW)}</dd></div></dl>
           <p className="form-hint">Running watts if all listed loads operate together. This is not a measured peak and does not include startup surge.</p>
           <section className="comparison"><h3>All loads vs Essential only</h3><dl><div><dt>All loads</dt><dd>{formatKWh(result.result.comparison.allLoads.dailyKWh)} · {formatW(result.result.comparison.allLoads.connectedW)}</dd></div><div className="current-comparison"><dt>Essential only</dt><dd>{formatKWh(result.result.comparison.essentialOnly.dailyKWh)} · {formatW(result.result.comparison.essentialOnly.connectedW)}</dd></div></dl></section>
           {result.result.topContributors.length > 0 && <section className="comparison"><h3>Top energy contributors</h3><dl>{result.result.topContributors.slice(0, 5).map((item) => <div key={item.id}><dt>{item.label}</dt><dd>{formatWh(item.dailyKWh * 1_000)} · {item.sharePercent.toLocaleString(undefined, { maximumFractionDigits: 1 })}%</dd></div>)}</dl></section>}
           <section className="assumption-summary"><h3>Important assumptions</h3><p className="form-hint">Non-100% duty cycles remain visible on their rows. Preset duty cycles are editable planning estimates, not universal appliance specifications.</p><p className="form-hint">Weekly schedules are averaged across seven days. Average daily load is not a worst-case daily load.</p></section>
           <section className="warning"><h3>Capacity and surge limitation</h3><p>Peak/surge output is not calculated. This tool does not verify inverter sizing, battery or BMS current limits, circuit loading, wiring or installation compatibility.</p></section>
-          <div className="button-row">{batteryPublished && (batteryHandoffUrl ? <button className="button" type="button" onClick={batteryHandoff}>Size battery storage for this load</button> : <p className="form-hint">Add some daily energy use before sizing battery storage.</p>)}<Link className="button secondary-button" href="/home-energy/electricity-usage-calculator">Review household electricity use</Link></div>
+          
+          <GooglePreferredBanner />
+
+          <div className="button-row" style={{ marginTop: "0.85rem", display: "flex", gap: "0.5rem", flexWrap: "wrap" }}>
+            <ShareButton title="Solar Load Calculation" />
+            <PrintSpecButton />
+            {batteryPublished && (batteryHandoffUrl ? <button className="button" type="button" onClick={batteryHandoff}>Size battery storage for this load</button> : <p className="form-hint">Add some daily energy use before sizing battery storage.</p>)}
+            <Link className="button secondary-button" href="/home-energy/electricity-usage-calculator">Review household electricity use</Link>
+          </div>
         </> : <p className="validation-message">Enter valid appliance values to see an estimate.</p>}
         <p className="sr-only" role="status" aria-live="polite" aria-atomic="true">{announcement}</p>
       </aside>

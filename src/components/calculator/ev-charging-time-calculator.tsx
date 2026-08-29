@@ -8,6 +8,8 @@ import { track } from "@/lib/analytics/analytics";
 import { MobileResultBar } from "@/components/calculator/mobile-result-bar";
 import { ShareButton } from "@/components/calculator/share-button";
 import { PrintSpecButton } from "@/components/calculator/print-spec-button";
+import { GooglePreferredBanner } from "@/components/calculator/google-preferred-banner";
+import { CalculatorTrustPill } from "@/components/calculator/calculator-trust-pill";
 import { EmbedModal } from "@/components/calculator/embed-modal";
 import { EvChargingVisualizer } from "@/components/calculator/ev-charging-visualizer";
 
@@ -148,6 +150,7 @@ export function EvChargingTimeCalculator() {
   const rangeAddedKm = Math.round(rangeAddedMiles * 1.60934);
 
   return <section className="calculator" aria-labelledby="ev-charging-heading"><div className="calculator-grid"><div className="calculator-inputs"><h2 id="ev-charging-heading">Calculate charging time</h2>
+    <CalculatorTrustPill />
 
     <div className="preset-chips-container" role="region" aria-label="Quick EV Scenarios">
       <span className="preset-chips-label">⚡ 1-Click Autofill: Top 5 EV Scenarios</span>
@@ -201,7 +204,8 @@ export function EvChargingTimeCalculator() {
         />
         <dl className="result-breakdown">
 <div><dt>Battery energy added</dt><dd>{calculated.result.batteryEnergyAddedKWh.toFixed(1)} kWh</dd></div><div><dt>Estimated source energy</dt><dd>{calculated.result.gridEnergyKWh.toFixed(1)} kWh</dd></div><div><dt>Selected charger</dt><dd>{selectedLabel}</dd></div>{activeType === "AC" ? <div><dt>Effective battery charging power</dt><dd>{formatPower(calculated.result.averageBatteryChargingPowerKw)}</dd></div> : <><div><dt>Base DC charging power</dt><dd>{formatPower(calculated.result.baseDcBatteryPowerKw ?? 0)} before taper</dd></div>{calculated.result.taperMode === "generic" && <div><dt>Average charging power</dt><dd>{formatPower(calculated.result.averageBatteryChargingPowerKw)}</dd></div>}</>}{calculated.result.limitingFactor !== "vehicle-limit-unknown" && <div><dt>Limiting factor</dt><dd>{calculated.result.limitingFactor === "vehicle-ac-charging-limit" ? "Vehicle AC limit" : "Vehicle DC limit"}</dd></div>}</dl>{calculated.result.limitingFactor === "vehicle-limit-unknown" && <p className="form-hint">Vehicle charging limit unknown — estimate assumes the vehicle can accept the selected charger power.</p>}{activeType === "DC" && calculated.result.taperMode === "generic" && <p className="warning">Generic planning curve — actual charging behavior varies by vehicle, battery temperature and battery management system.</p>}<section className="comparison"><h3>Common AC charging speeds</h3><dl>{acComparisons.map((item) => <div key={item.id} className={item.id === chargerId ? "current-comparison" : ""}><dt>{item.label} <span>{item.detail}</span></dt><dd>{formatTime(item.result.timeHours)}</dd></div>)}</dl><p className="form-hint">AC estimates use constant battery-side power after conversion losses.</p></section><section className="comparison"><h3>DC fast charging estimates</h3><dl>{dcComparisons.map((item) => <div key={item.id} className={item.id === chargerId ? "current-comparison" : ""}><dt>{item.label} <span>{item.detail}</span></dt><dd>{formatTime(item.result.timeHours)}</dd></div>)}</dl><p className="form-hint">DC estimates apply the generic taper curve to the charger/vehicle power limit.</p></section>
-        <div className="button-row" style={{ marginTop: "1rem", display: "flex", gap: "0.5rem", flexWrap: "wrap" }}>
+        <GooglePreferredBanner />
+        <div className="button-row" style={{ marginTop: "0.85rem", display: "flex", gap: "0.5rem", flexWrap: "wrap" }}>
           <ShareButton getShareUrl={getShareUrl} />
           <PrintSpecButton />
         </div>

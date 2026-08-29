@@ -7,6 +7,9 @@ import { track } from "@/lib/analytics/analytics";
 import { MobileResultBar } from "@/components/calculator/mobile-result-bar";
 import { ShareButton } from "@/components/calculator/share-button";
 import { PrintSpecButton } from "@/components/calculator/print-spec-button";
+import { GooglePreferredBanner } from "@/components/calculator/google-preferred-banner";
+import { CalculatorTrustPill } from "@/components/calculator/calculator-trust-pill";
+import { StandardsBadge } from "@/components/calculator/standards-badge";
 
 export function SolarPaybackCalculator() {
   const [grossCost, setGrossCost] = useState<number>(SOLAR_PAYBACK_DEFAULTS.grossCost);
@@ -116,6 +119,8 @@ export function SolarPaybackCalculator() {
               ))}
             </div>
           </div>
+
+          <CalculatorTrustPill />
 
           <form
             onSubmit={(e) => {
@@ -286,9 +291,10 @@ export function SolarPaybackCalculator() {
               <p className="result-value" style={{ color: "#f59e0b" }}>
                 {calculated.result.paybackYears.toFixed(1)} Years
               </p>
-              <p className="result-subtext" style={{ fontWeight: 600, marginTop: "-0.25rem", marginBottom: "1rem" }}>
+              <p className="result-subtext" style={{ fontWeight: 600, marginTop: "-0.25rem", marginBottom: "0.5rem" }}>
                 {Math.floor(calculated.result.paybackYears)} Years, {calculated.result.paybackMonths} Months
               </p>
+              <StandardsBadge standards={["NREL SAM Financial Models", "IRS Section 25D ITC", "DSIRE Policy Metrics"]} />
 
               {stale && <p className="warning">Inputs changed — recalculate to refresh financial metrics.</p>}
 
@@ -363,7 +369,9 @@ export function SolarPaybackCalculator() {
                 </div>
               </section>
 
-              <div className="button-row" style={{ marginTop: "1rem", display: "flex", gap: "0.5rem", flexWrap: "wrap" }}>
+              <GooglePreferredBanner />
+
+              <div className="button-row" style={{ marginTop: "0.85rem", display: "flex", gap: "0.5rem", flexWrap: "wrap" }}>
                 <ShareButton getShareUrl={getShareUrl} />
                 <PrintSpecButton />
               </div>

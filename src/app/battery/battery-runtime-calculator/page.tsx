@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { buildPageMetadata } from "@/lib/seo/metadata-helper";
 import Link from "next/link";
 import { BatteryRuntimeCalculator } from "@/components/calculator/battery-runtime-calculator";
 import { calculateBatteryRuntime } from "@/lib/calculators/battery-runtime/engine";
@@ -10,20 +11,12 @@ import { SystemFlowDiagram } from "@/components/seo/system-flow-diagram";
 import { DirectAnswerCard } from "@/components/seo/direct-answer-card";
 
 
-export const metadata: Metadata = {
-  title: "Battery Runtime & Backup Calculator — Calculate Backup Hours",
-  description: "Calculate how long a 12V, 24V, or 48V battery backup will run your appliances in hours and minutes. Supports LiFePO4, AGM, and Gel chemistries with inverter efficiency.",
-  alternates: { canonical: "/battery/battery-runtime-calculator" },
-  robots: { index: true, follow: true },
-  openGraph: {
-    title: "Battery Runtime & Backup Calculator — PowerLab",
-    description: "Calculate how long your battery backup will power appliances in hours and minutes with depth-of-discharge reserve protection.",
-    url: `${siteConfig.url}/battery/battery-runtime-calculator`,
-    siteName: siteConfig.name,
-    locale: "en_US",
-    type: "website",
-  },
-};
+export const metadata: Metadata = buildPageMetadata({
+  title: "Battery Runtime Calculator — Backup Hours",
+  description: "Calculate how long a 12V, 24V, or 48V battery backup will run your appliances. Supports LiFePO4, AGM, and Gel chemistries with inverter efficiency losses.",
+  canonicalPath: "/battery/battery-runtime-calculator",
+  category: "battery",
+});
 
 const example = calculateBatteryRuntime({
   capacityAh: 100,
@@ -230,7 +223,7 @@ export default function BatteryRuntimePage() {
           Need to size a battery for a specific target runtime? Use our <Link href="/battery/battery-size-calculator">Battery Size Calculator</Link>, check inverter continuous wattage with the <Link href="/battery/inverter-size-calculator">Inverter Size Calculator</Link>, or size whole-home backup with the <Link href="/home-energy/home-battery-size-calculator">Home Battery Size Calculator</Link>.
         </p>
         <p style={{ marginTop: "0.75rem" }}>
-          📖 <strong>In-Depth Technical Guide:</strong> Read our comprehensive <Link href="/guides/battery-backup-runtime-calculation-guide" style={{ fontWeight: 600, color: "var(--accent)" }}>Battery Backup Runtime Formula &amp; Inverter Loss Guide</Link> for detailed chemistry comparisons, Peukert derating curves, and worked step-by-step sizing examples.
+          📖 <strong>In-Depth Technical Guides:</strong> Read our comprehensive <Link href="/guides/battery-backup-runtime-calculation-guide" style={{ fontWeight: 600, color: "var(--accent)" }}>Battery Backup Runtime Formula &amp; Inverter Loss Guide</Link>, or explore motor starting surge and fuel requirements in our <Link href="/guides/emergency-generator-sizing-and-inrush-load-guide" style={{ fontWeight: 600, color: "var(--accent)" }}>Emergency Generator Sizing &amp; Inrush Load Guide</Link>.
         </p>
       </section>
     </article>

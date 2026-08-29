@@ -11,6 +11,9 @@ import { MobileResultBar } from "@/components/calculator/mobile-result-bar";
 import { BatterySocGauge } from "@/components/calculator/battery-soc-gauge";
 import { ShareButton } from "@/components/calculator/share-button";
 import { PrintSpecButton } from "@/components/calculator/print-spec-button";
+import { GooglePreferredBanner } from "@/components/calculator/google-preferred-banner";
+import { CalculatorTrustPill } from "@/components/calculator/calculator-trust-pill";
+import { StandardsBadge } from "@/components/calculator/standards-badge";
 import { EmbedModal } from "@/components/calculator/embed-modal";
 import { OutageTimelineVisualizer } from "@/components/calculator/outage-timeline-visualizer";
 import { BatteryDischargeCurveChart } from "@/components/charts/battery-discharge-curve";
@@ -216,6 +219,7 @@ export function BatteryRuntimeCalculator() {
     <div className="calculator-grid">
       <div className="calculator-inputs">
         <h2 id="calculator-heading">Calculate estimated runtime</h2>
+        <CalculatorTrustPill />
 
         <div className="preset-chips-container" role="region" aria-label="Quick Scenario Presets">
           <span className="preset-chips-label">⚡ 1-Click Autofill: Top 5 Battery Setups</span>
@@ -315,6 +319,7 @@ export function BatteryRuntimeCalculator() {
           <p className="result-value">{formatRuntime(visibleResult.result.runtimeHours)}</p>
           <p className="result-decimal">≈ {visibleResult.result.runtimeHours.toFixed(1)} hours</p>
           <p className="result-lede">A planning estimate based on your battery energy and average device load.</p>
+          <StandardsBadge standards={["IEEE 485", "Peukert Physics", "IEC 60896"]} />
 
           <BatterySocGauge
             startingSoc={startingSoc}
@@ -361,7 +366,9 @@ export function BatteryRuntimeCalculator() {
           {visibleResult.warnings.map((warning) => <p className={warning.severity === "caution" ? "warning" : "form-hint"} key={warning.code}>{warning.message}</p>)}
           <p className="sensitivity-note">If your actual load is 10% higher, runtime is about 9% shorter.</p>
 
-          <div className="button-row" style={{ marginTop: "1rem", display: "flex", gap: "0.5rem", flexWrap: "wrap" }}>
+          <GooglePreferredBanner />
+
+          <div className="button-row" style={{ marginTop: "0.85rem", display: "flex", gap: "0.5rem", flexWrap: "wrap" }}>
             <button className="button secondary-button" type="button" onClick={saveProfile}>Save to Profile</button>
             <ShareButton getShareUrl={getShareUrl} />
             <PrintSpecButton />

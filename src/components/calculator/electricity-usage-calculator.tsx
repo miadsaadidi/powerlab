@@ -8,6 +8,8 @@ import { createEnergyProfileStore } from "@/lib/energy-profile/store";
 import { MobileResultBar } from "@/components/calculator/mobile-result-bar";
 import { ShareButton } from "@/components/calculator/share-button";
 import { PrintSpecButton } from "@/components/calculator/print-spec-button";
+import { GooglePreferredBanner } from "@/components/calculator/google-preferred-banner";
+import { CalculatorTrustPill } from "@/components/calculator/calculator-trust-pill";
 import { EmbedModal } from "@/components/calculator/embed-modal";
 import { track } from "@/lib/analytics/analytics";
 
@@ -101,6 +103,8 @@ export function ElectricityUsageCalculator() {
             {homeMode ? "← Single Appliance" : "🏠 Build Whole Home"}
           </button>
         </div>
+
+        <CalculatorTrustPill />
 
         {/* Room-by-room Quick Bundles */}
         <div className="preset-chips-container" role="region" aria-label="Room Load Presets">
@@ -263,7 +267,9 @@ export function ElectricityUsageCalculator() {
             </p>
           )}
 
-          <div className="button-row" style={{ marginTop: "1rem", display: "flex", gap: "0.5rem", flexWrap: "wrap" }}>
+          <GooglePreferredBanner />
+
+          <div className="button-row" style={{ marginTop: "0.85rem", display: "flex", gap: "0.5rem", flexWrap: "wrap" }}>
             <ShareButton getShareUrl={() => typeof window !== "undefined" ? window.location.href : ""} />
             <PrintSpecButton />
           </div>

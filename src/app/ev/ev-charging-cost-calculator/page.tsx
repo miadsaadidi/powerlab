@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { buildPageMetadata } from "@/lib/seo/metadata-helper";
 import Link from "next/link";
 import { EvChargingCostCalculator } from "@/components/calculator/ev-charging-cost-calculator";
 import { isCalculatorPublished } from "@/lib/calculator-registry";
@@ -11,13 +12,12 @@ import { DirectAnswerCard } from "@/components/seo/direct-answer-card";
 const isPublished = isCalculatorPublished("ev-charging-cost");
 
 
-export const metadata: Metadata = {
+export const metadata: Metadata = buildPageMetadata({
   title: "EV Charging Cost Calculator — Cost per Charge",
-  description: "Estimate EV charging cost from battery size, start and target charge, charging efficiency and your electricity price per kWh.",
-  alternates: { canonical: "/ev/ev-charging-cost-calculator" },
-  robots: { index: isPublished, follow: true },
-  openGraph: { title: "EV Charging Cost Calculator — Cost per Charge", description: "Estimate EV charging cost from battery size, battery-side consumption, charging efficiency and your electricity price." },
-};
+  description: "Estimate EV charging cost from usable battery capacity, battery-side consumption, charging efficiency and your electricity price per kWh.",
+  canonicalPath: "/ev/ev-charging-cost-calculator",
+  category: "ev",
+});
 
 const FAQS = [
   {

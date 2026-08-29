@@ -5,6 +5,10 @@ import { useEffect, useMemo, useState } from "react";
 import { DEFAULT_DISPLAY_CURRENCY, DISPLAY_CURRENCIES, isSupportedCurrency } from "@/data/currencies";
 import { calculateEnergyBill, type EnergyBillInput, type EnergyBillMode, type EnergyBillResult } from "@/lib/calculators/energy-bill/engine";
 import { createEnergyProfileStore } from "@/lib/energy-profile/store";
+import { GooglePreferredBanner } from "@/components/calculator/google-preferred-banner";
+import { CalculatorTrustPill } from "@/components/calculator/calculator-trust-pill";
+import { ShareButton } from "@/components/calculator/share-button";
+import { PrintSpecButton } from "@/components/calculator/print-spec-button";
 
 type UsageDraft = { energyKWh: string; billingDays: string; pricePerKWh: string };
 type MeterDraft = { previousReading: string; currentReading: string; billingDays: string; pricePerKWh: string };
@@ -62,6 +66,7 @@ export function EnergyBillCalculator() {
     <div className="calculator-grid">
       <div className="calculator-card calculator-inputs">
         <div className="calculator-card-header"><div><p className="eyebrow">Quick estimate</p><h2>Bill details</h2></div></div>
+        <CalculatorTrustPill />
         <fieldset className="mode-choice"><legend>What do you know?</legend>
           <label><input type="radio" checked={mode === "usage-for-period"} onChange={() => setMode("usage-for-period")} />Usage for this bill</label>
           <label><input type="radio" checked={mode === "meter-readings"} onChange={() => setMode("meter-readings")} />Meter readings</label>
@@ -102,5 +107,12 @@ function Result({ result, currency, usageLink }: { result: EnergyBillResult; cur
     <div className="scenario"><h3>What-if usage comparison</h3>{result.scenarios.map((scenario) => <div className="contributor-label" key={scenario.label}><span>{scenario.label}</span><strong>{money(scenario.total, currency)}</strong></div>)}</div>
     <p className="helper-text"><strong>Annualized run-rate estimate:</strong> {number(result.annualizedEnergyKWh)} kWh/year · {money(result.annualizedTotal, currency)}/year. This assumes the same daily usage and charges continue; it is not an expected annual bill.</p>
     <Link className="secondary-button" href={usageLink}>Estimate where your electricity use comes from</Link>
+
+    <GooglePreferredBanner />
+
+    <div className="button-row" style={{ marginTop: "0.85rem", display: "flex", gap: "0.5rem", flexWrap: "wrap" }}>
+      <ShareButton title="Energy Bill Calculation" />
+      <PrintSpecButton />
+    </div>
   </>;
 }

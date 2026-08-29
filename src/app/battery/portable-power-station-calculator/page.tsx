@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { buildPageMetadata } from "@/lib/seo/metadata-helper";
 import Link from "next/link";
 import { PortablePowerStationCalculator } from "@/components/calculator/portable-power-station-calculator";
 import { isCalculatorPublished } from "@/lib/calculator-registry";
@@ -11,13 +12,12 @@ import { DirectAnswerCard } from "@/components/seo/direct-answer-card";
 
 const isPublished = isCalculatorPublished("portable-power-station");
 
-export const metadata: Metadata = {
-  title: "Portable Power Station Calculator — Runtime & Capacity",
+export const metadata: Metadata = buildPageMetadata({
+  title: "Portable Power Station Calculator — Runtime & Wh",
   description: "Estimate portable power station runtime from Wh capacity and appliance load, or calculate the capacity needed for a target runtime. Check AC output limits.",
-  alternates: { canonical: "/battery/portable-power-station-calculator" },
-  robots: { index: isPublished, follow: true },
-  openGraph: { title: "Portable Power Station Calculator — Runtime & Capacity", description: "Estimate portable power station runtime or required capacity with transparent energy and output assumptions." },
-};
+  canonicalPath: "/battery/portable-power-station-calculator",
+  category: "battery",
+});
 
 const FAQS = [
   {

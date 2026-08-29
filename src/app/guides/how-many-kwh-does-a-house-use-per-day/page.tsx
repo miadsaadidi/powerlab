@@ -7,19 +7,15 @@ import { DirectAnswerCard } from "@/components/seo/direct-answer-card";
 import { PageJumpNav } from "@/components/seo/page-jump-nav";
 import { FormulaCard } from "@/components/seo/formula-card";
 
-export const metadata: Metadata = {
-  title: "How Many kWh Does a House Use Per Day? (Daily Electricity Calculator & Guide)",
-  description: "Discover how many kWh an average house uses per day (29–30 kWh/day national average). Explore home size benchmark tables, heavy appliance consumption, and calculate your exact daily power usage.",
-  alternates: { canonical: "/guides/how-many-kwh-does-a-house-use-per-day" },
-  openGraph: {
-    title: "How Many kWh Does a House Use Per Day? (Daily Electricity Guide) — PowerLab",
-    description: "Empirical daily kWh consumption benchmarks based on EIA utility data. Calculate your home's daily electricity usage and discover sizing requirements for solar and batteries.",
-    url: `${siteConfig.url}/guides/how-many-kwh-does-a-house-use-per-day`,
-    siteName: siteConfig.name,
-    locale: "en_US",
-    type: "article",
-  },
-};
+import { buildPageMetadata } from "@/lib/seo/metadata-helper";
+
+export const metadata: Metadata = buildPageMetadata({
+  title: "How Many kWh Does a House Use Per Day?",
+  description: "Discover how many kWh an average house uses per day (29–30 kWh/day average). Explore home size benchmarks, heavy appliances, and daily power formulas.",
+  canonicalPath: "/guides/how-many-kwh-does-a-house-use-per-day",
+  category: "home-energy",
+  isArticle: true,
+});
 
 const FAQS = [
   {

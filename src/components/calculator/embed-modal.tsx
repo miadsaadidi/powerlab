@@ -2,6 +2,8 @@
 
 import { useState } from "react";
 
+import { siteConfig } from "@/lib/site-config";
+
 interface EmbedModalProps {
   toolName: string;
   route: string;
@@ -11,12 +13,14 @@ export function EmbedModal({ toolName, route }: EmbedModalProps) {
   const [isOpen, setIsOpen] = useState(false);
   const [copied, setCopied] = useState(false);
 
-  const embedUrl = typeof window !== "undefined" ? `${window.location.origin}${route}` : `https://powerlab.energy${route}`;
+  const cleanOrigin = siteConfig.url.replace(/\/$/, "");
+  const embedUrl = typeof window !== "undefined" ? `${window.location.origin}${route}` : `${cleanOrigin}${route}`;
+  const canonicalUrl = `${cleanOrigin}${route}`;
   
   const embedCode = `<div style="max-width:100%; width:700px; margin:0 auto; border:1px solid #cbd5e1; border-radius:12px; overflow:hidden;">
-  <iframe src="${embedUrl}" width="100%" height="600" style="border:none;" title="${toolName} — PowerLab"></iframe>
+  <iframe src="${embedUrl}" width="100%" height="600" style="border:none;" title="${toolName} — PowerLab Free Energy Calculators"></iframe>
   <div style="padding:8px 16px; background:#f8fafc; font-size:12px; font-family:sans-serif; text-align:right; border-top:1px solid #e2e8f0;">
-    <a href="${embedUrl}" target="_blank" rel="noopener" style="color:#0284c7; text-decoration:none; font-weight:600;">⚡ Powered by PowerLab Energy Calculators</a>
+    <a href="${canonicalUrl}" target="_blank" rel="noopener" style="color:#0284c7; text-decoration:none; font-weight:600;">⚡ Powered by PowerLab Free Energy Calculators</a>
   </div>
 </div>`;
 

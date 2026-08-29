@@ -7,6 +7,9 @@ import { track } from "@/lib/analytics/analytics";
 import { MobileResultBar } from "@/components/calculator/mobile-result-bar";
 import { ShareButton } from "@/components/calculator/share-button";
 import { PrintSpecButton } from "@/components/calculator/print-spec-button";
+import { GooglePreferredBanner } from "@/components/calculator/google-preferred-banner";
+import { CalculatorTrustPill } from "@/components/calculator/calculator-trust-pill";
+import { StandardsBadge } from "@/components/calculator/standards-badge";
 
 export function V2lRuntimeCalculator() {
   const [capacityKwh, setCapacityKwh] = useState<number>(V2L_DEFAULTS.batteryCapacityKwh);
@@ -107,6 +110,8 @@ export function V2lRuntimeCalculator() {
               ))}
             </div>
           </div>
+
+          <CalculatorTrustPill />
 
           <form
             onSubmit={(e) => {
@@ -239,9 +244,10 @@ export function V2lRuntimeCalculator() {
               <p className="result-value" style={{ color: "#10b981", fontSize: "1.8rem" }}>
                 {calculated.result.totalRuntimeDays} Days
               </p>
-              <p className="result-subtext" style={{ fontWeight: 600, marginTop: "-0.25rem", marginBottom: "1rem" }}>
+              <p className="result-subtext" style={{ fontWeight: 600, marginTop: "-0.25rem", marginBottom: "0.5rem" }}>
                 {calculated.result.totalRuntimeHours} Hours Continuous Power at {calculated.result.averageLoadWatts}W
               </p>
+              <StandardsBadge standards={["ISO 15118-20", "SAE J3072", "UL 9741"]} />
 
               {stale && <p className="warning">Inputs changed — recalculate to refresh results.</p>}
 
@@ -309,7 +315,9 @@ export function V2lRuntimeCalculator() {
                 </div>
               </section>
 
-              <div className="button-row" style={{ marginTop: "1rem", display: "flex", gap: "0.5rem", flexWrap: "wrap" }}>
+              <GooglePreferredBanner />
+
+              <div className="button-row" style={{ marginTop: "0.85rem", display: "flex", gap: "0.5rem", flexWrap: "wrap" }}>
                 <ShareButton getShareUrl={getShareUrl} />
                 <PrintSpecButton />
               </div>

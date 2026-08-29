@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { buildPageMetadata } from "@/lib/seo/metadata-helper";
 import Link from "next/link";
 import { UpsBatterySizeCalculator } from "@/components/calculator/ups-battery-size-calculator";
 import { isCalculatorPublished } from "@/lib/calculator-registry";
@@ -10,20 +11,12 @@ import { DirectAnswerCard } from "@/components/seo/direct-answer-card";
 
 const isPublished = isCalculatorPublished("ups-battery-size");
 
-export const metadata: Metadata = {
-  title: "UPS Battery Size Calculator — Sizing in Wh & Ah",
-  description: "Calculate what battery capacity (Wh and Ah) your UPS needs to provide backup runtime for servers, workstations, and network gear.",
-  alternates: { canonical: "/battery/ups-battery-size-calculator" },
-  robots: { index: isPublished, follow: true },
-  openGraph: {
-    title: "UPS Battery Size Calculator — PowerLab",
-    description: "Calculate UPS battery capacity requirements in Wh and Ah for safe server shutdown and blackout buffering.",
-    url: `${siteConfig.url}/battery/ups-battery-size-calculator`,
-    siteName: siteConfig.name,
-    locale: "en_US",
-    type: "website",
-  },
-};
+export const metadata: Metadata = buildPageMetadata({
+  title: "UPS Battery Size Calculator — Wh & Ah Sizing",
+  description: "Calculate UPS battery size from load watts and required backup time, including UPS efficiency, usable battery fraction, health and planning margin.",
+  canonicalPath: "/battery/ups-battery-size-calculator",
+  category: "battery",
+});
 
 const FAQS = [
   {

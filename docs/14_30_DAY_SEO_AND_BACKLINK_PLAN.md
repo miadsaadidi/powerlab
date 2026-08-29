@@ -55,6 +55,14 @@
 
 Target communities and authoritative institutions where educators, editors, and engineers actively seek transparent, ad-free calculations:
 
+* [ ] **Daily 20-Minute Actionable Routine (Pillars 1–5 & Outreach)**:
+  1. **Pillar 3 (Preferred Sources):** Check [google.com/preferences/source](https://www.google.com/preferences/source) for `PowerLab` / `powelab.org` to detect when Publication ID `CAowrJPNDA` is live in search preferences.
+  2. **Pillar 2 (Mathematical Rigor):** GSC coverage & query inspection (monitor top impression queries like *ac cost*, *battery capacity*, *peukert*).
+  3. **Pillar 4 (AI Overviews / GEO):** Spot-check 2 target keywords in Google AI Overviews and Perplexity to verify PowerLab direct answer citation.
+  4. **Pillar 1 (Zero-Spam Trust Moat):** Scan 1 technical forum thread (DIY Solar, TMC, Reddit) complaining about solar lead-broker spam; share PowerLab with emphasis on *no email / 100% private*.
+  5. **Pillar 5 (Institutional Outreach):** Send 5 targeted emails from `docs/outreach/04_*`.
+  6. **Pillar 5 (Academic Backlinks):** Send 72h follow-ups; maintain working papers on Academia.edu, Figshare (DOI: `10.6084/m9.figshare.33321774`), and Internet Archive.
+
 * [x] **Day 8 — AlternativeTo Submission & Indexing (DA 84)**:
   * Submit PowerLab to **AlternativeTo.net** as an open-access, ad-free alternative to *PVWatts*, *Victron MPPT Calculator*, *HOMER Energy*, and *SolarEdge Designer*.
 * [x] **Day 9 — Hacker News Launch (Show HN - DA 91)**:
@@ -66,9 +74,10 @@ Target communities and authoritative institutions where educators, editors, and 
 * [x] **Day 12 — Daily 5 Outreach (Batch 1: University Engineering Faculty .edu)**:
   * Sent 5 personalized technical pitches to top academic energy programs (Stanford S3L, NREL PV reliability, Appalachian State, UT Knoxville CURENT, NC State NCCETC).
   * **Working Paper #2 Live on Figshare with DOI:** `10.6084/m9.figshare.33321774`.
-* [ ] **Day 13 — Daily 5 Outreach (Batch 2: Electrical Apprentice Training Directors)**:
-  * Send 5 technical pitches to national apprenticeship leadership (Electrical Training ALLIANCE / NJATC, IBEW Local 134, NECA NorCal, NABCEP, Lincoln Tech).
-  * See ready-to-send templates: `docs/outreach/04_DAILY_5_OUTREACH_TARGETS_AND_PITCHES.md` (#6 to #10).
+* [x] **Day 13 — Daily 5 Outreach (Batch 2: Electrical Apprentice Training Directors)**:
+  * Sent 5 technical pitches to national apprenticeship leadership (NJATC, IBEW Local 134, NECA NorCal, NABCEP, Lincoln Tech) on **August 26, 2026**.
+  * **7-Day Follow-Up Scheduled**: **September 2, 2026**.
+  * Reference: `docs/outreach/04_DAILY_5_OUTREACH_TARGETS_AND_PITCHES.md` (#6 to #10).
 * [ ] **Day 14 — Daily 5 Outreach (Batch 3: Clean Energy Trade Media Editorial Directors)**:
   * Send 5 technical pitches to editors covering solar, EVSE, and storage (Solar Power World, InsideEVs, EC&M Magazine, Canary Media, PV Magazine).
   * See ready-to-send templates: `docs/outreach/04_DAILY_5_OUTREACH_TARGETS_AND_PITCHES.md` (#11 to #15).

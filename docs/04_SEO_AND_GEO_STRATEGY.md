@@ -281,17 +281,54 @@ Before splitting a secondary keyword into a new page:
 
 See `12_SOURCES_AND_METHODOLOGY.md` for the Google Search Central and Web Vitals references that ground these rules.
 
-## Authority & High-Value Backlink Channels
+## 2-Day Editorial Guide Publishing Schedule & Progress Tracker (Phase 5)
 
-To build authentic domain authority, citation signals, and referral traffic without paid links or spam, use the following approved distribution channels:
+To capture high-volume transactional and informational keywords with deep technical authority, PowerLab publishes 1 comprehensive, citation-backed engineering guide every 2 days starting August 25, 2026:
 
-1. **Academia.edu (`academia.edu`) — Academic & Open Educational Resource (OER)**
-   - **Domain Authority:** 90+ (.edu ecosystem)
-   - **Role:** Publish open-access technical working papers, mathematical modeling guides, and educational courseware summaries covering IEEE, NEC, and SAE standards.
-   - **Asset Format:** Working paper / Technical Report / Open Educational Resource (OER) with accompanying schematic diagrams and direct methodology links.
+| Release Day | Target Date | Canonical Guide Route | Primary Target Keyword | Monthly Search Volume | Status |
+|:---|:---|:---|:---|---:|:---|
+| **Day 0** | **2026-08-25** | `/guides/voltage-drop-and-wire-size-calculation-guide` | `voltage drop calculation formula` / `voltage drop guide` | **74,000/mo** | ✅ **Published & Live** |
+| **Day 2** | **2026-08-27** | `/guides/generator-sizing-and-starting-watts-guide` | `generator sizing guide` / `starting watts formula` | **40,500/mo** | ⏳ Scheduled |
+| **Day 4** | **2026-08-29** | `/guides/central-ac-and-heat-pump-electricity-cost-guide` | `air conditioner running cost guide` / `heat pump cost` | **34,300/mo** | ⏳ Scheduled |
+| **Day 6** | **2026-08-31** | `/guides/solar-payback-and-roi-calculation-guide` | `solar payback period formula` / `solar roi guide` | **18,100/mo** | ⏳ Scheduled |
+| **Day 8** | **2026-09-02** | `/guides/space-heater-electricity-cost-and-wattage-guide` | `space heater electricity cost formula` | **18,100/mo** | ⏳ Scheduled |
 
-2. **Reddit Community Discussions (`reddit.com`)**
-   - **Key Subreddits:** `r/solardiy`, `r/diysolar`, `r/evcharging`, `r/electricvehicles`, `r/homestead`, `r/solar`.
-   - **Role:** Technical problem solving, worked mathematical examples, code verification (NEC 625/220 continuous loads, MPPT cold-temperature Voc, LiFePO4 DoD).
-   - **Format:** Value-first educational posts and helpful replies to specific sizing questions with transparent formulas.
+### Content Standards per Guide:
+1. **Interactive SVG Visualizer:** Custom dynamic SVG diagram showing the physical circuit loop, gradient drop, or surge curve.
+2. **Direct Answer Snippet:** Top `<DirectAnswerCard />` targeting Google Featured Snippets and AI Overviews.
+3. **Engineering Standard Alignment:** Strict citations (NEC 2023/2026 Chapter 9 Table 8, IEEE 141, ASHRAE, DOE).
+4. **Structured Data:** Full `TechArticle`, `BreadcrumbList`, and `FAQPage` JSON-LD schema.
+
+---
+
+## Tomorrow’s Tactical SEO & Academic Distribution Plan (Day 2 / Aug 27, 2026)
+
+### 1. Publish Canonical Guide 2 (40,500/mo Target)
+* **Route:** `/guides/generator-sizing-and-starting-watts-guide`
+* **Target Query Clusters:** `generator sizing guide` (18,100/mo), `starting watts vs running watts` (14,800/mo), `how to calculate generator size for house` (7,600/mo).
+* **Interactive SVG Asset:** `<GeneratorInrushVisualizer />` rendering inductive motor surge step curves (LRA envelope vs. steady-state FLA).
+* **Embedded Tool:** Live `<GeneratorSizeCalculator />` pre-configured with essential emergency loads (refrigerator, well pump, 3-ton heat pump).
+
+### 2. Academic Distribution & High-Authority Backlink Ingestion (.edu / OA Repositories)
+* **Working Paper:** *Deterministic Modeling of Inductive Motor Inrush Currents and Non-Coincident Load Stacking for Residential Backup Power Systems* (Ref: `PL-TR-2026-GEN02`).
+* **Artifacts Deployed:**
+  * PDF: `https://www.powelab.org/whitepapers/deterministic-inrush-load-stacking-generator-sizing.pdf`
+  * Markdown: `papers/deterministic-inrush-load-stacking-generator-sizing.md`
+* **Target Academic Ingestion Channels:**
+  * **Academia.edu:** Upload PDF under *Electrical Power Engineering & Microgrid Resilience*.
+  * **Zenodo (CERN / OpenAIRE):** Mint official citable DOI with backlink to `powelab.org`.
+  * **OSF Preprints / ResearchGate:** Upload preprint referencing interactive computational tool.
+
+### 3. Academic Outreach Batch #2 (5 High-Impact Researchers)
+1. **Prof. Jeff Dahn** (Dalhousie University) — Battery degradation & low-temperature LiFePO4 DoD sizing.
+2. **Prof. Shirley Meng** (University of Chicago / Argonne National Lab) — Energy storage autonomy & sub-zero kinetics.
+3. **Dr. Michael Kintner-Meyer** (PNNL) — EVSE continuous load modeling & residential service sizing.
+4. **Prof. Ian Hiskens** (University of Michigan) — Distributed energy resources & V2G grid dynamics.
+5. **Prof. Ralph Gottschalg** (Fraunhofer CSP) — Photovoltaic reliability & cold-climate solar modeling.
+
+### 4. Technical SEO Verification & Search Console Ping
+* Verify JSON-LD Structured Data (`TechArticle`, `BreadcrumbList`, `FAQPage`) via Rich Results Test.
+* Submit URL to Google Search Console URL Inspection tool and ping XML sitemap.
+
+
 

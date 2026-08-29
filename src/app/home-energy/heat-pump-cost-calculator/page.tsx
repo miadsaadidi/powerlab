@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { buildPageMetadata } from "@/lib/seo/metadata-helper";
 import Link from "next/link";
 import { siteConfig } from "@/lib/site-config";
 import { isCalculatorPublished } from "@/lib/calculator-registry";
@@ -11,20 +12,12 @@ import { DirectAnswerCard } from "@/components/seo/direct-answer-card";
 
 const isPublished = isCalculatorPublished("heat-pump-cost");
 
-export const metadata: Metadata = {
-  title: "Heat Pump Running Cost Calculator — Heat Pump vs Gas Comparison",
-  description: "Compare heat pump operating costs vs natural gas, propane, or oil furnaces. Calculate annual heating bill savings based on COP/HSPF2, AFUE, and local fuel prices.",
-  alternates: { canonical: "/home-energy/heat-pump-cost-calculator" },
-  robots: { index: isPublished, follow: true },
-  openGraph: {
-    title: "Heat Pump Running Cost Calculator — PowerLab",
-    description: "Compare annual running costs of electric heat pumps vs natural gas, propane, and fuel oil furnaces.",
-    url: `${siteConfig.url}/home-energy/heat-pump-cost-calculator`,
-    siteName: siteConfig.name,
-    locale: "en_US",
-    type: "website",
-  },
-};
+export const metadata: Metadata = buildPageMetadata({
+  title: "Heat Pump Cost Calculator — Running Cost vs Gas",
+  description: "Compare heat pump operating costs vs natural gas, propane, or oil furnaces. Calculate annual heating bill savings based on COP/HSPF2 and local fuel prices.",
+  canonicalPath: "/home-energy/heat-pump-cost-calculator",
+  category: "home-energy",
+});
 
 const FAQS = [
   {

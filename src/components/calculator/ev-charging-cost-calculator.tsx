@@ -8,6 +8,9 @@ import { createEnergyProfileStore } from "@/lib/energy-profile/store";
 import { track } from "@/lib/analytics/analytics";
 import { ShareButton } from "@/components/calculator/share-button";
 import { PrintSpecButton } from "@/components/calculator/print-spec-button";
+import { GooglePreferredBanner } from "@/components/calculator/google-preferred-banner";
+import { CalculatorTrustPill } from "@/components/calculator/calculator-trust-pill";
+import { StandardsBadge } from "@/components/calculator/standards-badge";
 
 const QUICK_COST_PRESETS = [
   { label: "🔋 20% → 80% Daily Commute (60 kWh)", capacity: "60", start: "20", target: "80", price: "0.16" },
@@ -164,6 +167,8 @@ export function EvChargingCostCalculator() {
               ))}
             </div>
           </div>
+
+          <CalculatorTrustPill />
 
           <form
             onSubmit={(event) => {
@@ -413,6 +418,7 @@ function CostResult({
         {money(result.selectedPeriodCost, currency)}
         {mode === "driving" && <small>/{result.selectedPeriodLabel}</small>}
       </p>
+      <StandardsBadge standards={["SAE J1772", "EPA EV Efficiency", "ISO 15118"]} />
       {stale && (
         <p className="warning" role="status">
           Inputs changed — recalculate to update the estimate.
@@ -478,7 +484,9 @@ function CostResult({
         ))}
       </section>
 
-      <div className="button-row" style={{ marginTop: "1rem", display: "flex", gap: "0.5rem", flexWrap: "wrap" }}>
+      <GooglePreferredBanner />
+
+      <div className="button-row" style={{ marginTop: "0.85rem", display: "flex", gap: "0.5rem", flexWrap: "wrap" }}>
         <ShareButton title="EV Charging Cost Calculation" />
         <PrintSpecButton />
       </div>

@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { buildPageMetadata } from "@/lib/seo/metadata-helper";
 import Link from "next/link";
 import { siteConfig } from "@/lib/site-config";
 import { isCalculatorPublished } from "@/lib/calculator-registry";
@@ -11,20 +12,12 @@ import { DirectAnswerCard } from "@/components/seo/direct-answer-card";
 
 const isPublished = isCalculatorPublished("solar-charge-controller");
 
-export const metadata: Metadata = {
-  title: "Solar Charge Controller Calculator — MPPT & PWM Sizing",
-  description: "Size the right MPPT or PWM solar charge controller for your panels and battery bank. Calculate required output current (Amps) and cold-weather array voltage (Voc).",
-  alternates: { canonical: "/solar/solar-charge-controller-calculator" },
-  robots: { index: isPublished, follow: true },
-  openGraph: {
-    title: "Solar Charge Controller Calculator — PowerLab",
-    description: "Size MPPT and PWM solar charge controllers by required amperage and cold-weather string voltage.",
-    url: `${siteConfig.url}/solar/solar-charge-controller-calculator`,
-    siteName: siteConfig.name,
-    locale: "en_US",
-    type: "website",
-  },
-};
+export const metadata: Metadata = buildPageMetadata({
+  title: "Solar Charge Controller Calculator — MPPT Sizing",
+  description: "Size the right MPPT or PWM solar charge controller for your panels and battery bank. Calculate output current (Amps) and cold-weather array voltage (Voc).",
+  canonicalPath: "/solar/solar-charge-controller-calculator",
+  category: "solar",
+});
 
 const FAQS = [
   {
@@ -200,7 +193,7 @@ export default function SolarChargeControllerPage() {
       <section id="related-tools">
         <h2>Related Off-Grid Solar &amp; Battery Planning</h2>
         <p>
-          Size your off-grid battery bank capacity with our <Link href="/solar/solar-battery-bank-size-calculator">Solar Battery Bank Size Calculator</Link>, check DC cable gauge and line voltage drop with the <Link href="/battery/voltage-drop-calculator">Voltage Drop Calculator</Link>, or simulate monthly PV energy harvest with the <Link href="/solar/solar-panel-output-calculator">Solar Panel Output Calculator</Link>.
+          Size your off-grid battery bank capacity with our <Link href="/solar/solar-battery-bank-size-calculator">Solar Battery Bank Size Calculator</Link>, check DC cable gauge and line voltage drop with the <Link href="/battery/voltage-drop-calculator">Voltage Drop Calculator</Link>, simulate monthly PV energy harvest with the <Link href="/solar/solar-panel-output-calculator">Solar Panel Output Calculator</Link>, or read our comprehensive <Link href="/guides/mppt-solar-charge-controller-sizing-guide">MPPT vs PWM Solar Charge Controller Sizing Guide</Link>.
         </p>
       </section>
 

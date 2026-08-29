@@ -8,6 +8,8 @@ import { calculateEvRange, formatConsumptionValue, normalizeConsumption, type Ev
 import { track } from "@/lib/analytics/analytics";
 import { ShareButton } from "@/components/calculator/share-button";
 import { PrintSpecButton } from "@/components/calculator/print-spec-button";
+import { GooglePreferredBanner } from "@/components/calculator/google-preferred-banner";
+import { CalculatorTrustPill } from "@/components/calculator/calculator-trust-pill";
 import { EvChargingVisualizer } from "@/components/calculator/ev-charging-visualizer";
 
 
@@ -124,6 +126,8 @@ export function EvRangeCalculator() {
           </div>
         </div>
 
+        <CalculatorTrustPill />
+
         <form onSubmit={(event) => { event.preventDefault(); calculate(); }} noValidate>
           <fieldset className="input-group"><legend>Battery and consumption</legend><label>Usable battery capacity (kWh)<input type="number" min="0.01" step="any" inputMode="decimal" value={capacity} onChange={(event) => { setCapacity(event.target.value); markStale(); }} /><span className="form-hint">Use the vehicle&apos;s usable/net battery capacity when known.</span></label><label>Current SOC (%)<input type="number" min="0" max="100" step="any" value={currentSoc} onChange={(event) => { setCurrentSoc(event.target.value); markStale(); }} /></label><label>Battery consumption<span className="input-with-unit"><input type="number" min="0.0001" step="any" inputMode="decimal" value={consumption} onChange={(event) => updateConsumption(event.target.value)} /><select aria-label="Consumption unit" value={consumptionUnit} onChange={(event) => changeConsumptionUnit(event.target.value as EvRangeConsumptionUnit)}>{Object.entries(unitLabel).map(([value, label]) => <option key={value} value={value}>{label}</option>)}</select></span><span className="form-hint">Battery-side vehicle consumption before charging losses.</span></label></fieldset>
           <fieldset className="input-group"><legend>Result display</legend><label>Primary distance unit<select value={distanceUnit} onChange={(event) => setDistanceUnit(event.target.value as EvRangeDistanceUnit)}><option value="km">Kilometers</option><option value="mi">Miles</option></select></label></fieldset>
@@ -186,7 +190,8 @@ function RangeResult({ result, stale, distanceUnit, consumptionUnit }: { result:
     />
     {result.warnings.map((warning) => <p className={warning.severity === "caution" ? "warning" : "form-hint"} role={warning.severity === "caution" ? "alert" : undefined} key={warning.code}>{warning.message}</p>)}<dl className="result-breakdown"><div><dt>Range in kilometers</dt><dd>{number(data.rangeKm, 1)} km</dd></div><div><dt>Range in miles</dt><dd>{number(data.rangeMiles, 1)} mi</dd></div><div><dt>Energy available above reserve</dt><dd>{number(data.energyAvailableKWh, 2)} kWh</dd></div><div><dt>Normalized consumption</dt><dd>{number(data.consumptionKWhPerKm, 4)} kWh/km</dd></div></dl>
 <section className="comparison"><h3>Standard consumption comparisons</h3>{data.standardScenarios.map((scenario) => <div className="contributor-label" key={scenario.label}><span>{scenario.label}</span><strong>{number(distanceUnit === "km" ? scenario.rangeKm : scenario.rangeMiles, 1)} {distanceUnit}</strong></div>)}</section><section className="comparison"><h3>Consumption scenarios</h3>{data.sensitivityScenarios.map((scenario) => <div className="contributor-label" key={scenario.label}><span>{scenario.label}<small> ({number(formatConsumptionValue(scenario.consumptionKWhPerKm, consumptionUnit), 3)} {unitLabel[consumptionUnit]})</small></span><strong>{number(distanceUnit === "km" ? scenario.rangeKm : scenario.rangeMiles, 1)} {distanceUnit}</strong></div>)}</section><section className="assumption-summary"><h3>Assumptions used</h3><dl><div><dt>Usable battery capacity</dt><dd>{number(data.batteryCapacityKWh)} kWh</dd></div><div><dt>Current SOC</dt><dd>{number(data.currentSoc, 1)}%</dd></div><div><dt>Reserve SOC</dt><dd>{number(data.reserveSoc, 1)}%</dd></div><div><dt>Battery health</dt><dd>{number(data.batteryHealth, 1)}%</dd></div></dl></section>
-  <div className="button-row" style={{ marginTop: "1rem", display: "flex", gap: "0.5rem", flexWrap: "wrap" }}>
+  <GooglePreferredBanner />
+  <div className="button-row" style={{ marginTop: "0.85rem", display: "flex", gap: "0.5rem", flexWrap: "wrap" }}>
     <ShareButton title="EV Range Calculation" />
     <PrintSpecButton />
   </div>

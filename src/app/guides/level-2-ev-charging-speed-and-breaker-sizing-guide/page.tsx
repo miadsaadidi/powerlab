@@ -7,19 +7,15 @@ import { DirectAnswerCard } from "@/components/seo/direct-answer-card";
 import { PageJumpNav } from "@/components/seo/page-jump-nav";
 import { FormulaCard } from "@/components/seo/formula-card";
 
-export const metadata: Metadata = {
-  title: "Level 2 EV Charging Speed, Amperage & Breaker Sizing Guide — PowerLab",
-  description: "Calculate Level 2 EV charging speed, charge times, and electrical breaker sizing. Master the NEC 80% continuous load rule for 16A, 24A, 32A, 40A, and 48A chargers.",
-  alternates: { canonical: "/guides/level-2-ev-charging-speed-and-breaker-sizing-guide" },
-  openGraph: {
-    title: "Level 2 EV Charging Speed & Breaker Sizing Guide — PowerLab",
-    description: "Complete electrical engineering guide to Level 2 EV charging speeds, breaker sizing, wire gauges, and NEC continuous load calculations.",
-    url: `${siteConfig.url}/guides/level-2-ev-charging-speed-and-breaker-sizing-guide`,
-    siteName: siteConfig.name,
-    locale: "en_US",
-    type: "article",
-  },
-};
+import { buildPageMetadata } from "@/lib/seo/metadata-helper";
+
+export const metadata: Metadata = buildPageMetadata({
+  title: "Level 2 EV Charging Speed & Breaker Guide",
+  description: "Calculate Level 2 EV charging speeds and breaker sizing. Master the NEC 80% continuous load rule for 16A, 24A, 32A, 40A, and 48A home chargers.",
+  canonicalPath: "/guides/level-2-ev-charging-speed-and-breaker-sizing-guide",
+  category: "ev",
+  isArticle: true,
+});
 
 const FAQS = [
   {

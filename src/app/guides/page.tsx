@@ -3,33 +3,15 @@ import Link from "next/link";
 import { siteConfig } from "@/lib/site-config";
 import { buildCategoryHubStructuredData } from "@/lib/seo/structured-data";
 
-export const metadata: Metadata = {
-  title: "Educational Energy Guides & Engineering Reference — PowerLab",
+import { buildPageMetadata } from "@/lib/seo/metadata-helper";
+
+export const metadata: Metadata = buildPageMetadata({
+  title: "Energy Guides & Engineering Reference",
   description: "In-depth, formula-backed educational guides for home energy auditing, solar photovoltaic engineering, battery storage sizing, and EV charging infrastructure.",
-  alternates: { canonical: "/guides" },
-  openGraph: {
-    title: "Educational Energy Guides & Engineering Reference — PowerLab",
-    description: "In-depth, formula-backed educational guides for home energy, solar PV, battery systems, and EV infrastructure.",
-    url: `${siteConfig.url}/guides`,
-    siteName: siteConfig.name,
-    locale: "en_US",
-    type: "website",
-    images: [
-      {
-        url: `${siteConfig.url}/clean_energy_educational_model.jpg`,
-        width: 1200,
-        height: 630,
-        alt: "PowerLab Educational Energy Modeling & Engineering Reference",
-      },
-    ],
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: "Educational Energy Guides & Engineering Reference — PowerLab",
-    description: "Formula-backed technical guides and Open Educational Resources for solar PV, battery storage, and residential energy planning.",
-    images: [`${siteConfig.url}/clean_energy_educational_model.jpg`],
-  },
-};
+  canonicalPath: "/guides",
+  ogImageUrlOverride: `${siteConfig.url}/clean_energy_educational_model.jpg`,
+  ogImageAlt: "PowerLab Educational Energy Modeling & Engineering Reference",
+});
 
 interface GuideItem {
   name: string;
@@ -48,6 +30,34 @@ interface GuideItem {
 
 const FEATURED_GUIDES: GuideItem[] = [
   {
+    name: "Emergency Generator Sizing & Motor Inrush Load Guide (LRA & NEC 702)",
+    route: "/guides/emergency-generator-sizing-and-inrush-load-guide",
+    category: "Home Energy",
+    categoryIcon: "⚡",
+    categoryColor: "#ea580c",
+    categoryBg: "rgba(234, 88, 12, 0.1)",
+    badge: "🔥 New Engineering Guide",
+    badgeType: "new",
+    description: "Learn how to size whole-home and portable emergency generators accurately. Master inductive motor starting surge (LRA), sequential load stacking, and fuel derating under NEC 702.",
+    readTime: "10 min read",
+    updatedDate: "Published August 26, 2026",
+    standards: ["NEC Article 702", "IEEE Std 446", "NEMA MG-1", "ISO 8528-5"],
+  },
+  {
+    name: "Voltage Drop & Wire Size Calculation Guide (NEC 3% Rules & Table 8)",
+    route: "/guides/voltage-drop-and-wire-size-calculation-guide",
+    category: "Battery Storage",
+    categoryIcon: "⚡",
+    categoryColor: "#10b981",
+    categoryBg: "rgba(16, 185, 129, 0.1)",
+    badge: "🔥 74,000+ Search Volume Target",
+    badgeType: "trending",
+    description: "Master the mathematical formulas for DC and AC voltage drop. Size copper and aluminum AWG conductors using NEC Chapter 9 Table 8, Ohm's law, and the 3% branch circuit efficiency threshold.",
+    readTime: "9 min read",
+    updatedDate: "Published August 25, 2026",
+    standards: ["NEC 210.19(A)", "NEC 215.2(A)", "NEC Ch 9 Table 8", "IEEE Std 141"],
+  },
+  {
     name: "Battery Backup Runtime Formula & Calculation Guide (Ah, Wh & Inverter Losses)",
     route: "/guides/battery-backup-runtime-calculation-guide",
     category: "Battery Storage",
@@ -55,7 +65,7 @@ const FEATURED_GUIDES: GuideItem[] = [
     categoryColor: "#16a34a",
     categoryBg: "rgba(22, 163, 74, 0.1)",
     badge: "⚡ 12,000+ Readers / Month",
-    badgeType: "trending",
+    badgeType: "popular",
     description: "Master the battery runtime formula for LiFePO4, AGM, and Lead-Acid. Calculate Amp-hours to Watt-hours, inverter conversion losses, idle tare draw, and Peukert high-rate discharge capacity derating.",
     readTime: "9 min read",
     updatedDate: "Updated August 2026",
@@ -340,6 +350,66 @@ export default function GuidesHubPage() {
           <Link href="/ev/ev-charger-breaker-size-calculator" className="button secondary-button">EV Charger Breaker Sizing</Link>
           <Link href="/home-energy/electricity-usage-calculator" className="button secondary-button">Electricity Usage Calculator</Link>
           <Link href="/solar/solar-charge-controller-calculator" className="button secondary-button">Solar Charge Controller Calculator</Link>
+        </div>
+      </section>
+
+      {/* 2-Day Editorial Release Calendar */}
+      <section style={{ marginTop: "3rem", padding: "1.75rem", borderRadius: "0.9rem", background: "var(--surface)", border: "1px solid var(--line)" }}>
+        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: "0.5rem", marginBottom: "0.75rem" }}>
+          <h2 style={{ margin: 0, fontSize: "1.3rem", color: "var(--brand-strong)" }}>📅 2026 Engineering Guide Editorial Roadmap</h2>
+          <span style={{ fontSize: "0.75rem", fontWeight: 700, padding: "3px 10px", borderRadius: "999px", background: "rgba(2, 132, 199, 0.1)", color: "var(--accent)", border: "1px solid rgba(2, 132, 199, 0.25)" }}>
+            1 New Engineering Guide Every 2 Days
+          </span>
+        </div>
+        <p style={{ color: "var(--muted)", fontSize: "0.92rem", marginBottom: "1.25rem" }}>
+          Our engineering research group publishes peer-referenced, formula-complete sizing guides paired with deterministic computation engines:
+        </p>
+
+        <div style={{ display: "grid", gap: "0.75rem" }}>
+          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", padding: "0.85rem 1rem", borderRadius: "0.6rem", background: "rgba(16, 185, 129, 0.08)", border: "1px solid rgba(16, 185, 129, 0.3)" }}>
+            <div>
+              <span style={{ fontSize: "0.75rem", fontWeight: 700, color: "#10b981", textTransform: "uppercase" }}>✅ Day 0 (Today · Aug 25)</span>
+              <div style={{ fontWeight: 700, fontSize: "0.95rem", color: "var(--foreground)" }}>Voltage Drop &amp; Wire Size Calculation Guide (NEC 3% &amp; Table 8)</div>
+              <div style={{ fontSize: "0.8rem", color: "var(--muted)" }}>Target Keyword: Voltage Drop Formula &bull; 74,000/mo &bull; Live Now</div>
+            </div>
+            <Link href="/guides/voltage-drop-and-wire-size-calculation-guide" style={{ fontSize: "0.82rem", fontWeight: 700, color: "#10b981", textDecoration: "none" }}>Read Guide →</Link>
+          </div>
+
+          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", padding: "0.85rem 1rem", borderRadius: "0.6rem", background: "var(--surface-subtle, #f8fafc)", border: "1px solid var(--line)" }}>
+            <div>
+              <span style={{ fontSize: "0.75rem", fontWeight: 700, color: "var(--accent)", textTransform: "uppercase" }}>⏳ Day 2 (Aug 27, 2026)</span>
+              <div style={{ fontWeight: 700, fontSize: "0.95rem", color: "var(--foreground)" }}>Whole-Home Backup Generator Sizing &amp; Motor Inrush Current Guide</div>
+              <div style={{ fontSize: "0.8rem", color: "var(--muted)" }}>Target Keyword: Generator Sizing Guide &bull; 40,500/mo &bull; Running vs Starting Watts (LRA)</div>
+            </div>
+            <span style={{ fontSize: "0.78rem", color: "var(--muted)", fontWeight: 600 }}>Scheduled</span>
+          </div>
+
+          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", padding: "0.85rem 1rem", borderRadius: "0.6rem", background: "var(--surface-subtle, #f8fafc)", border: "1px solid var(--line)" }}>
+            <div>
+              <span style={{ fontSize: "0.75rem", fontWeight: 700, color: "var(--accent)", textTransform: "uppercase" }}>⏳ Day 4 (Aug 29, 2026)</span>
+              <div style={{ fontWeight: 700, fontSize: "0.95rem", color: "var(--foreground)" }}>Central Air Conditioner &amp; Heat Pump Electricity Cost Guide</div>
+              <div style={{ fontSize: "0.8rem", color: "var(--muted)" }}>Target Keyword: AC Running Cost Guide &bull; 34,300/mo &bull; SEER2 &amp; HSPF2 Duty Cycles</div>
+            </div>
+            <span style={{ fontSize: "0.78rem", color: "var(--muted)", fontWeight: 600 }}>Scheduled</span>
+          </div>
+
+          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", padding: "0.85rem 1rem", borderRadius: "0.6rem", background: "var(--surface-subtle, #f8fafc)", border: "1px solid var(--line)" }}>
+            <div>
+              <span style={{ fontSize: "0.75rem", fontWeight: 700, color: "var(--accent)", textTransform: "uppercase" }}>⏳ Day 6 (Aug 31, 2026)</span>
+              <div style={{ fontWeight: 700, fontSize: "0.95rem", color: "var(--foreground)" }}>Solar Payback Period &amp; Net Metering ROI Financial Guide</div>
+              <div style={{ fontSize: "0.8rem", color: "var(--muted)" }}>Target Keyword: Solar Payback Formula &bull; 18,100/mo &bull; Net Billing 3.0 &amp; ITC Tax Credits</div>
+            </div>
+            <span style={{ fontSize: "0.78rem", color: "var(--muted)", fontWeight: 600 }}>Scheduled</span>
+          </div>
+
+          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", padding: "0.85rem 1rem", borderRadius: "0.6rem", background: "var(--surface-subtle, #f8fafc)", border: "1px solid var(--line)" }}>
+            <div>
+              <span style={{ fontSize: "0.75rem", fontWeight: 700, color: "var(--accent)", textTransform: "uppercase" }}>⏳ Day 8 (Sep 2, 2026)</span>
+              <div style={{ fontWeight: 700, fontSize: "0.95rem", color: "var(--foreground)" }}>Space Heater vs Central Heating Electricity Cost Guide</div>
+              <div style={{ fontSize: "0.8rem", color: "var(--muted)" }}>Target Keyword: Space Heater Electricity Cost &bull; 18,100/mo &bull; 1500W Duty Cycles</div>
+            </div>
+            <span style={{ fontSize: "0.78rem", color: "var(--muted)", fontWeight: 600 }}>Scheduled</span>
+          </div>
         </div>
       </section>
 

@@ -7,6 +7,9 @@ import { track } from "@/lib/analytics/analytics";
 import { MobileResultBar } from "@/components/calculator/mobile-result-bar";
 import { ShareButton } from "@/components/calculator/share-button";
 import { PrintSpecButton } from "@/components/calculator/print-spec-button";
+import { GooglePreferredBanner } from "@/components/calculator/google-preferred-banner";
+import { CalculatorTrustPill } from "@/components/calculator/calculator-trust-pill";
+import { StandardsBadge } from "@/components/calculator/standards-badge";
 
 export function SpaceHeaterCostCalculator() {
   const [heaterWatts, setHeaterWatts] = useState<number>(SPACE_HEATER_DEFAULTS.heaterWatts);
@@ -105,6 +108,8 @@ export function SpaceHeaterCostCalculator() {
               ))}
             </div>
           </div>
+
+          <CalculatorTrustPill />
 
           <form
             onSubmit={(e) => {
@@ -237,9 +242,10 @@ export function SpaceHeaterCostCalculator() {
               <p className="result-value" style={{ color: "#f59e0b" }}>
                 ${calculated.result.costPerMonth.toFixed(2)} / mo
               </p>
-              <p className="result-subtext" style={{ fontWeight: 600, marginTop: "-0.25rem", marginBottom: "1rem" }}>
+              <p className="result-subtext" style={{ fontWeight: 600, marginTop: "-0.25rem", marginBottom: "0.5rem" }}>
                 ${calculated.result.costPerHour.toFixed(2)} per hour · ${calculated.result.costPerNight8h.toFixed(2)} per 8-hr night
               </p>
+              <StandardsBadge standards={["UL 1278", "DOE Energy Saver", "IEC 60335-2-30"]} />
 
               {stale && <p className="warning">Inputs changed — recalculate to refresh results.</p>}
 
@@ -280,7 +286,9 @@ export function SpaceHeaterCostCalculator() {
                 </div>
               </dl>
 
-              <div className="button-row" style={{ marginTop: "1rem", display: "flex", gap: "0.5rem", flexWrap: "wrap" }}>
+              <GooglePreferredBanner />
+
+              <div className="button-row" style={{ marginTop: "0.85rem", display: "flex", gap: "0.5rem", flexWrap: "wrap" }}>
                 <ShareButton getShareUrl={getShareUrl} />
                 <PrintSpecButton />
               </div>

@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { buildPageMetadata } from "@/lib/seo/metadata-helper";
 import Link from "next/link";
 import { SolarPanelSizeCalculator } from "@/components/calculator/solar-panel-size-calculator";
 import { isCalculatorPublished } from "@/lib/calculator-registry";
@@ -10,20 +11,12 @@ import { DirectAnswerCard } from "@/components/seo/direct-answer-card";
 
 const isPublished = isCalculatorPublished("solar-panel-size");
 
-export const metadata: Metadata = {
-  title: "Solar Panel Size Calculator — How Many Solar Panels Do You Need?",
+export const metadata: Metadata = buildPageMetadata({
+  title: "Solar Panel Size Calculator — How Many Panels?",
   description: "Calculate how many solar panels and what system size (kW) you need to power your home. Features monthly kWh target and local solar yield modeling.",
-  alternates: { canonical: "/solar/solar-panel-size-calculator" },
-  robots: { index: isPublished, follow: true },
-  openGraph: {
-    title: "Solar Panel Size Calculator — How Many Solar Panels Do You Need?",
-    description: "Calculate how many solar panels you need based on monthly electricity usage and local solar yield.",
-    url: `${siteConfig.url}/solar/solar-panel-size-calculator`,
-    siteName: siteConfig.name,
-    locale: "en_US",
-    type: "website",
-  },
-};
+  canonicalPath: "/solar/solar-panel-size-calculator",
+  category: "solar",
+});
 
 const FAQS = [
   {
@@ -199,7 +192,7 @@ export default function SolarPanelSizePage() {
       <section id="related-tools">
         <h2>Related Solar Planning Tools</h2>
         <p>
-          Model your expected monthly yield with our <Link href="/solar/solar-panel-output-calculator">Solar Panel Output Calculator</Link>, check financial break-even with the <Link href="/solar/solar-payback-calculator">Solar Payback Calculator</Link>, or size battery backup with the <Link href="/solar/solar-battery-bank-size-calculator">Solar Battery Bank Size Calculator</Link>.
+          Model your expected monthly yield with our <Link href="/solar/solar-panel-output-calculator">Solar Panel Output Calculator</Link>, calculate appliance energy requirements with the <Link href="/solar/solar-load-calculator">Solar Load Calculator</Link>, check financial break-even with the <Link href="/solar/solar-payback-calculator">Solar Payback Calculator</Link>, or size battery backup with the <Link href="/solar/solar-battery-bank-size-calculator">Solar Battery Bank Size Calculator</Link>.
         </p>
       </section>
     </article>

@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { buildPageMetadata } from "@/lib/seo/metadata-helper";
 import Link from "next/link";
 import { siteConfig } from "@/lib/site-config";
 import { isCalculatorPublished } from "@/lib/calculator-registry";
@@ -11,20 +12,12 @@ import { DirectAnswerCard } from "@/components/seo/direct-answer-card";
 
 const isPublished = isCalculatorPublished("voltage-drop");
 
-export const metadata: Metadata = {
-  title: "Voltage Drop Calculator — DC & AC Wire Size Sizing",
-  description: "Calculate DC & AC voltage drop percentage, power loss in watts, and recommended wire gauge (AWG / mm²) for 12V, 24V, 48V, 120V, and 240V circuits to meet NEC 3% limits.",
-  alternates: { canonical: "/battery/voltage-drop-calculator" },
-  robots: { index: isPublished, follow: true },
-  openGraph: {
-    title: "Voltage Drop & Wire Size Calculator — PowerLab",
-    description: "Calculate DC & AC voltage drop percentage, power loss in watts, and recommended wire gauge (AWG / mm²) for 12V, 24V, 48V, 120V, and 240V circuits.",
-    url: `${siteConfig.url}/battery/voltage-drop-calculator`,
-    siteName: siteConfig.name,
-    locale: "en_US",
-    type: "website",
-  },
-};
+export const metadata: Metadata = buildPageMetadata({
+  title: "Voltage Drop Calculator — Wire Gauge Sizing",
+  description: "Calculate DC & AC voltage drop percentage, power loss, and wire gauge (AWG/mm²) for 12V, 24V, 48V, 120V, and 240V circuits to meet NEC 3% limits.",
+  canonicalPath: "/battery/voltage-drop-calculator",
+  category: "battery",
+});
 
 const FAQS = [
   {
@@ -252,7 +245,7 @@ export default function VoltageDropPage() {
       <section id="related-tools">
         <h2>Related Electrical &amp; Battery Planning</h2>
         <p>
-          Need to size an inverter or battery bank? Use our <Link href="/battery/inverter-size-calculator">Inverter Size Calculator</Link> to check DC current draw, size your battery storage with the <Link href="/battery/battery-size-calculator">Battery Size Calculator</Link>, or size solar panel wiring with the <Link href="/solar/solar-charge-controller-calculator">Solar Charge Controller Calculator</Link>.
+          Need to size an inverter or battery bank? Use our <Link href="/battery/inverter-size-calculator">Inverter Size Calculator</Link> to check DC current draw, size your battery storage with the <Link href="/battery/battery-size-calculator">Battery Size Calculator</Link>, size solar panel wiring with the <Link href="/solar/solar-charge-controller-calculator">Solar Charge Controller Calculator</Link>, or read our in-depth <Link href="/guides/voltage-drop-and-wire-size-calculation-guide">Voltage Drop &amp; Wire Size Calculation Guide</Link>.
         </p>
       </section>
 

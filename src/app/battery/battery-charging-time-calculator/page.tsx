@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { buildPageMetadata } from "@/lib/seo/metadata-helper";
 import Link from "next/link";
 import { BatteryChargingTimeCalculator } from "@/components/calculator/battery-charging-time-calculator";
 import { isCalculatorPublished } from "@/lib/calculator-registry";
@@ -10,20 +11,12 @@ import { DirectAnswerCard } from "@/components/seo/direct-answer-card";
 
 const isPublished = isCalculatorPublished("battery-charging-time");
 
-export const metadata: Metadata = {
-  title: "Battery Charging Time Calculator — Calculate Recharge Time",
-  description: "Calculate how long it takes to charge a 12V, 24V, or 48V battery based on Ah capacity, charger amperage/watts, chemistry, and absorption taper.",
-  alternates: { canonical: "/battery/battery-charging-time-calculator" },
-  robots: { index: isPublished, follow: true },
-  openGraph: {
-    title: "Battery Charging Time Calculator — PowerLab",
-    description: "Calculate exact battery recharge hours and minutes based on battery capacity and charger output current.",
-    url: `${siteConfig.url}/battery/battery-charging-time-calculator`,
-    siteName: siteConfig.name,
-    locale: "en_US",
-    type: "website",
-  },
-};
+export const metadata: Metadata = buildPageMetadata({
+  title: "Battery Charging Time Calculator — Charge Hours",
+  description: "Estimate battery charging time from capacity, state of charge and charger output, with optional battery limits, efficiency and planning assumptions.",
+  canonicalPath: "/battery/battery-charging-time-calculator",
+  category: "battery",
+});
 
 const FAQS = [
   {

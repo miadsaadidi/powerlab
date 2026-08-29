@@ -8,6 +8,10 @@ import { track } from "@/lib/analytics/analytics";
 import { MobileResultBar } from "@/components/calculator/mobile-result-bar";
 import { ShareButton } from "@/components/calculator/share-button";
 import { PrintSpecButton } from "@/components/calculator/print-spec-button";
+import { GooglePreferredBanner } from "@/components/calculator/google-preferred-banner";
+import { CalculatorTrustPill } from "@/components/calculator/calculator-trust-pill";
+import { StandardsBadge } from "@/components/calculator/standards-badge";
+import { VoltageDropVisualizer } from "@/components/calculator/voltage-drop-visualizer";
 
 export function VoltageDropCalculator() {
   const [circuitType, setCircuitType] = useState<CircuitType>(VOLTAGE_DROP_DEFAULTS.circuitType);
@@ -128,6 +132,8 @@ export function VoltageDropCalculator() {
               ))}
             </div>
           </div>
+
+          <CalculatorTrustPill />
 
           <form
             onSubmit={(e) => {
@@ -299,31 +305,22 @@ export function VoltageDropCalculator() {
               <p className="result-value" style={{ color: getStatusColor(calculated.result.necComplianceStatus) }}>
                 {calculated.result.recommendedGauge.awg}
               </p>
-              <p className="result-subtext" style={{ fontWeight: 600, marginTop: "-0.25rem", marginBottom: "1rem" }}>
+              <p className="result-subtext" style={{ fontWeight: 600, marginTop: "-0.25rem", marginBottom: "0.5rem" }}>
                 {calculated.result.recommendedGauge.metricMm2} mm² Cross-Section · {calculated.result.conductorMaterial === "copper" ? "Copper" : "Aluminum"}
               </p>
+              <StandardsBadge standards={["NEC 2023 Table 8", "IEEE Std 141", "NFPA 70"]} />
 
               {stale && <p className="warning">Inputs changed — recalculate to refresh results.</p>}
 
-              {/* NEC 3% Progress Scale */}
-              <div style={{ margin: "1rem 0", padding: "1rem", borderRadius: "0.5rem", background: "var(--card-bg, #f8fafc)", border: "1px solid var(--border-color, #e2e8f0)" }}>
-                <div style={{ display: "flex", justifyContent: "space-between", marginBottom: "0.35rem", fontSize: "0.85rem", fontWeight: 600 }}>
-                  <span>Voltage Drop: {calculated.result.voltageDropPercent}%</span>
-                  <span style={{ color: getStatusColor(calculated.result.necComplianceStatus) }}>
-                    {calculated.result.necComplianceStatus === "pass" ? "🟢 NEC Compliant (<3%)" : calculated.result.necComplianceStatus === "marginal" ? "🟡 Marginal (3–5%)" : "🔴 Excessive (>5%)"}
-                  </span>
-                </div>
-                <div style={{ width: "100%", height: "12px", background: "#e2e8f0", borderRadius: "6px", overflow: "hidden" }}>
-                  <div
-                    style={{
-                      width: `${Math.min(100, (calculated.result.voltageDropPercent / 6) * 100)}%`,
-                      height: "100%",
-                      backgroundColor: getStatusColor(calculated.result.necComplianceStatus),
-                      transition: "width 0.3s ease",
-                    }}
-                  />
-                </div>
-              </div>
+              <VoltageDropVisualizer
+                systemVoltage={voltage}
+                currentAmps={currentAmps}
+                oneWayDistanceFeet={normalizedDistanceFeet}
+                awgSize={calculated.result.recommendedGauge.awg}
+                voltageDropVolts={calculated.result.voltageDropVolts}
+                voltageDropPercent={calculated.result.voltageDropPercent}
+                powerLossWatts={calculated.result.powerLostWatts}
+              />
 
               <dl className="result-breakdown">
                 <div>
@@ -388,7 +385,9 @@ export function VoltageDropCalculator() {
                 </div>
               </section>
 
-              <div className="button-row" style={{ marginTop: "1rem", display: "flex", gap: "0.5rem", flexWrap: "wrap" }}>
+              <GooglePreferredBanner />
+
+              <div className="button-row" style={{ marginTop: "0.85rem", display: "flex", gap: "0.5rem", flexWrap: "wrap" }}>
                 <ShareButton getShareUrl={getShareUrl} />
                 <PrintSpecButton />
               </div>

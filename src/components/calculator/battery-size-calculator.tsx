@@ -10,6 +10,8 @@ import { MobileResultBar } from "@/components/calculator/mobile-result-bar";
 import { LossWaterfall } from "@/components/calculator/loss-waterfall";
 import { ShareButton } from "@/components/calculator/share-button";
 import { PrintSpecButton } from "@/components/calculator/print-spec-button";
+import { GooglePreferredBanner } from "@/components/calculator/google-preferred-banner";
+import { CalculatorTrustPill } from "@/components/calculator/calculator-trust-pill";
 
 const QUICK_BATTERY_SIZE_PRESETS = [
   { label: "⚡ Wi-Fi & Workstation (100W · 8h · 12V)", watts: 100, hours: 8, voltage: 12, chem: "lifepo4" },
@@ -239,6 +241,8 @@ export function BatterySizeCalculator() {
               ))}
             </div>
           </div>
+
+          <CalculatorTrustPill />
 
           <form
             onSubmit={(event) => {
@@ -539,7 +543,8 @@ export function BatterySizeCalculator() {
                 </dl>
               </section>
               <p className="warning">Capacity is only one part of battery selection. Confirm that the battery, BMS and inverter can support your required continuous and peak power using manufacturer specifications.</p>
-              <div className="button-row" style={{ marginTop: "1rem", display: "flex", gap: "0.5rem", flexWrap: "wrap" }}>
+              <GooglePreferredBanner />
+              <div className="button-row" style={{ marginTop: "0.85rem", display: "flex", gap: "0.5rem", flexWrap: "wrap" }}>
                 <button className="button" type="button" onClick={verifyRuntime}>
                   Verify this battery&apos;s runtime
                 </button>

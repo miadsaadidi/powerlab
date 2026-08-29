@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { buildPageMetadata } from "@/lib/seo/metadata-helper";
 import Link from "next/link";
 import { siteConfig } from "@/lib/site-config";
 import { isCalculatorPublished } from "@/lib/calculator-registry";
@@ -11,20 +12,12 @@ import { DirectAnswerCard } from "@/components/seo/direct-answer-card";
 
 const isPublished = isCalculatorPublished("inverter-size");
 
-export const metadata: Metadata = {
-  title: "Inverter Size Calculator — Continuous & Surge Watts Sizing",
+export const metadata: Metadata = buildPageMetadata({
+  title: "Inverter Size Calculator — Watts & Surge Sizing",
   description: "Calculate the exact inverter size in continuous and surge watts needed to run your appliances from a battery. Find the right 12V, 24V, or 48V inverter capacity.",
-  alternates: { canonical: "/battery/inverter-size-calculator" },
-  robots: { index: isPublished, follow: true },
-  openGraph: {
-    title: "Inverter Size Calculator — PowerLab",
-    description: "Calculate continuous and surge inverter wattage, DC battery current, and fuse sizing.",
-    url: `${siteConfig.url}/battery/inverter-size-calculator`,
-    siteName: siteConfig.name,
-    locale: "en_US",
-    type: "website",
-  },
-};
+  canonicalPath: "/battery/inverter-size-calculator",
+  category: "battery",
+});
 
 const FAQS = [
   {

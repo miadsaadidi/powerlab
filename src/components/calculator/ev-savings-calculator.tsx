@@ -10,6 +10,9 @@ import { isCalculatorPublished } from "@/lib/calculator-registry";
 import { track } from "@/lib/analytics/analytics";
 import { ShareButton } from "@/components/calculator/share-button";
 import { PrintSpecButton } from "@/components/calculator/print-spec-button";
+import { GooglePreferredBanner } from "@/components/calculator/google-preferred-banner";
+import { CalculatorTrustPill } from "@/components/calculator/calculator-trust-pill";
+import { StandardsBadge } from "@/components/calculator/standards-badge";
 
 const QUICK_SAVINGS_PRESETS = [
   { label: "🏙️ City (8,000 mi · 30 MPG)", distance: "8000", distUnit: "mi" as DistanceUnit, mpg: "30", fuelUnit: "us-mpg" as FuelConsumptionUnit, gasPrice: "3.50", gasPriceUnit: "per-us-gallon" as FuelPriceUnit, elecPrice: "0.16", evCons: "28", evUnit: "kwh-per-100-mi" as EvConsumptionUnit },
@@ -234,6 +237,8 @@ export function EvSavingsCalculator() {
             </div>
           </div>
 
+          <CalculatorTrustPill />
+
           <form
             onSubmit={(event) => {
               event.preventDefault();
@@ -404,6 +409,7 @@ function SavingsResult({
         {money(Math.abs(result.primarySavings), currency)}
         <small>/year</small>
       </p>
+      <StandardsBadge standards={["EPA Fuel Economy Model", "SAE J1772", "DOE AFDC Metrics"]} />
       {stale && (
         <p className="warning" role="status">
           Inputs changed — recalculate to update this estimate.
@@ -493,7 +499,10 @@ function SavingsResult({
           </div>
         </dl>
       </section>
-      <div className="button-row" style={{ marginTop: "1rem", display: "flex", gap: "0.5rem", flexWrap: "wrap" }}>
+
+      <GooglePreferredBanner />
+
+      <div className="button-row" style={{ marginTop: "0.85rem", display: "flex", gap: "0.5rem", flexWrap: "wrap" }}>
         <ShareButton title="EV Savings Calculation" />
         <PrintSpecButton />
         {rangePublished && (

@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { buildPageMetadata } from "@/lib/seo/metadata-helper";
 import Link from "next/link";
 import { ApplianceWattageCalculator } from "@/components/calculator/appliance-wattage-calculator";
 import { isCalculatorPublished } from "@/lib/calculator-registry";
@@ -9,13 +10,12 @@ import { PageJumpNav } from "@/components/seo/page-jump-nav";
 import { DirectAnswerCard } from "@/components/seo/direct-answer-card";
 
 
-export const metadata: Metadata = {
-  title: "Appliance Wattage Calculator — Estimate Watts & kWh",
-  description: "Estimate appliance running watts from editable presets or your device label, then calculate energy use for a selected runtime. Use the result in battery or solar tools.",
-  alternates: { canonical: "/home-energy/appliance-wattage-calculator" },
-  robots: { index: isCalculatorPublished("appliance-wattage"), follow: true },
-  openGraph: { title: "Appliance Wattage Calculator — Estimate Watts & kWh", description: "Estimate appliance running watts from editable presets or your device label, then calculate energy use for a selected runtime." },
-};
+export const metadata: Metadata = buildPageMetadata({
+  title: "Appliance Wattage Calculator — Watts & kWh",
+  description: "Estimate appliance running watts from presets or device labels, then calculate energy use for a selected runtime. Model battery and solar requirements.",
+  canonicalPath: "/home-energy/appliance-wattage-calculator",
+  category: "home-energy",
+});
 
 const FAQS = [
   {

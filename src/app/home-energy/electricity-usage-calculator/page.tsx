@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { buildPageMetadata } from "@/lib/seo/metadata-helper";
 import Link from "next/link";
 import { ElectricityUsageCalculator } from "@/components/calculator/electricity-usage-calculator";
 import { siteConfig } from "@/lib/site-config";
@@ -11,20 +12,12 @@ import { DirectAnswerCard } from "@/components/seo/direct-answer-card";
 
 const isPublished = isCalculatorPublished("electricity-usage");
 
-export const metadata: Metadata = {
-  title: "Electricity Usage Calculator — Daily & Monthly kWh & Power Costs",
-  description: "Calculate how much electricity (kWh) your appliances consume per day, month, and year. Features built-in appliance wattage catalog and power bill cost modeling.",
-  alternates: { canonical: "/home-energy/electricity-usage-calculator" },
-  robots: { index: isPublished, follow: true },
-  openGraph: {
-    title: "Electricity Usage Calculator — PowerLab",
-    description: "Calculate daily, monthly, and annual electricity usage (kWh) and power costs across household appliances.",
-    url: `${siteConfig.url}/home-energy/electricity-usage-calculator`,
-    siteName: siteConfig.name,
-    locale: "en_US",
-    type: "website",
-  },
-};
+export const metadata: Metadata = buildPageMetadata({
+  title: "Electricity Usage Calculator — Daily kWh & Cost",
+  description: "Calculate how much electricity (kWh) your appliances consume per day, month, and year. Features built-in appliance wattage catalog and power cost modeling.",
+  canonicalPath: "/home-energy/electricity-usage-calculator",
+  category: "home-energy",
+});
 
 const FAQS = [
   {

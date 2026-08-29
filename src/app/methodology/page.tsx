@@ -1,20 +1,12 @@
-import type { Metadata } from "next";
 import Link from "next/link";
-import { siteConfig } from "@/lib/site-config";
+import { buildPageMetadata } from "@/lib/seo/metadata-helper";
+import { AcademicCitationModal } from "@/components/seo/academic-citation-modal";
 
-export const metadata: Metadata = {
-  title: "Engineering Methodology & Mathematical Models — PowerLab",
+export const metadata = buildPageMetadata({
+  title: "Engineering Methodology & Formulas",
   description: "Explore the first-principles mathematical formulas, visible physical loss models, and deterministic standards powering PowerLab energy planning tools.",
-  alternates: { canonical: "/methodology" },
-  openGraph: {
-    title: "Engineering Methodology & Physics Models — PowerLab",
-    description: "Detailed breakdown of deterministic formulas, Peukert loss models, inverter tare consumption, and solar geometry.",
-    url: `${siteConfig.url}/methodology`,
-    siteName: siteConfig.name,
-    locale: "en_US",
-    type: "website",
-  },
-};
+  canonicalPath: "/methodology",
+});
 
 export default function MethodologyPage() {
   return (
@@ -30,6 +22,23 @@ export default function MethodologyPage() {
       <p className="intro">
         PowerLab uses <strong>deterministic mathematical modeling</strong> rooted in first-principles physics. Every calculator exposes the physical loss factors, component efficiencies, and environmental coefficients that materially affect system performance.
       </p>
+
+      <div style={{ margin: "1rem 0 1.5rem 0", display: "flex", gap: "0.75rem", flexWrap: "wrap", alignItems: "center" }}>
+        <AcademicCitationModal
+          title="PowerLab Engineering Calculation Methodology & Loss Models"
+          urlPath="/methodology"
+          buttonLabel="🎓 Cite Methodology (BibTeX / APA / IEEE)"
+        />
+        <a
+          href="https://doi.org/10.6084/m9.figshare.33321774"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="button secondary-button"
+          style={{ fontSize: "0.84rem", padding: "0.45rem 0.9rem" }}
+        >
+          📄 View Figshare Working Paper (DOI)
+        </a>
+      </div>
 
       {/* Core Principles */}
       <section>

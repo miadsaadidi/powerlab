@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { buildPageMetadata } from "@/lib/seo/metadata-helper";
 import Link from "next/link";
 import { siteConfig } from "@/lib/site-config";
 import { isCalculatorPublished } from "@/lib/calculator-registry";
@@ -11,20 +12,12 @@ import { DirectAnswerCard } from "@/components/seo/direct-answer-card";
 
 const isPublished = isCalculatorPublished("space-heater-cost");
 
-export const metadata: Metadata = {
-  title: "Space Heater Electricity Cost Calculator — Hourly & Nightly Running Cost",
+export const metadata: Metadata = buildPageMetadata({
+  title: "Space Heater Cost Calculator — Running Cost & kWh",
   description: "Calculate how much your electric space heater costs to run per hour, 8-hour night, and month. See exact electricity costs for 500W, 1000W, and 1500W heaters.",
-  alternates: { canonical: "/home-energy/space-heater-cost-calculator" },
-  robots: { index: isPublished, follow: true },
-  openGraph: {
-    title: "Space Heater Electricity Cost Calculator — PowerLab",
-    description: "Calculate how much a 1500W space heater costs to run per hour, overnight, and per month.",
-    url: `${siteConfig.url}/home-energy/space-heater-cost-calculator`,
-    siteName: siteConfig.name,
-    locale: "en_US",
-    type: "website",
-  },
-};
+  canonicalPath: "/home-energy/space-heater-cost-calculator",
+  category: "home-energy",
+});
 
 const FAQS = [
   {

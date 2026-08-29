@@ -7,6 +7,10 @@ import { calculateBatteryCapacity, type BatteryCapacityInput, type BatteryCapaci
 import { resolveBatteryCapacityInitialization } from "@/lib/calculators/battery-capacity/initialization";
 import { createEnergyProfileStore } from "@/lib/energy-profile/store";
 import { isCalculatorPublished } from "@/lib/calculator-registry";
+import { GooglePreferredBanner } from "@/components/calculator/google-preferred-banner";
+import { CalculatorTrustPill } from "@/components/calculator/calculator-trust-pill";
+import { ShareButton } from "@/components/calculator/share-button";
+import { PrintSpecButton } from "@/components/calculator/print-spec-button";
 
 type CapacityMode = BatteryCapacityInput["mode"];
 
@@ -151,6 +155,7 @@ export function BatteryCapacityCalculator() {
     <div className="calculator-grid">
       <div className="calculator-inputs">
         <h2 id="battery-capacity-heading">Convert battery capacity</h2>
+        <CalculatorTrustPill />
         <fieldset className="input-group">
           <legend>What do you know?</legend>
           <div className="mode-choice" role="radiogroup" aria-label="Capacity calculation mode">
@@ -222,6 +227,13 @@ export function BatteryCapacityCalculator() {
               </button>
             </section>
           )}
+
+          <GooglePreferredBanner />
+
+          <div className="button-row" style={{ marginTop: "0.85rem", display: "flex", gap: "0.5rem", flexWrap: "wrap" }}>
+            <ShareButton title="Battery Capacity Calculation" />
+            <PrintSpecButton />
+          </div>
         </>}
       </aside>
     </div>

@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { buildPageMetadata } from "@/lib/seo/metadata-helper";
 import Link from "next/link";
 import { siteConfig } from "@/lib/site-config";
 import { isCalculatorPublished } from "@/lib/calculator-registry";
@@ -11,20 +12,12 @@ import { DirectAnswerCard } from "@/components/seo/direct-answer-card";
 
 const isPublished = isCalculatorPublished("solar-payback");
 
-export const metadata: Metadata = {
-  title: "Solar Payback Calculator — Break-Even Period & ROI",
-  description: "Calculate your solar payback period in years, return on investment (ROI), and 25-year lifetime savings based on system cost, annual production, and utility rates.",
-  alternates: { canonical: "/solar/solar-payback-calculator" },
-  robots: { index: isPublished, follow: true },
-  openGraph: {
-    title: "Solar Payback Calculator — Break-Even Period & ROI",
-    description: "Calculate break-even timeline in years and 25-year financial returns for residential solar with 30% Federal ITC.",
-    url: `${siteConfig.url}/solar/solar-payback-calculator`,
-    siteName: siteConfig.name,
-    locale: "en_US",
-    type: "website",
-  },
-};
+export const metadata: Metadata = buildPageMetadata({
+  title: "Solar Payback Calculator — Break-Even & ROI",
+  description: "Calculate your solar payback period in years, return on investment (ROI), and 25-year lifetime savings from system cost, annual yield, and utility rates.",
+  canonicalPath: "/solar/solar-payback-calculator",
+  category: "solar",
+});
 
 const FAQS = [
   {

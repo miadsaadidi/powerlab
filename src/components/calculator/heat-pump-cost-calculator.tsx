@@ -7,6 +7,9 @@ import { track } from "@/lib/analytics/analytics";
 import { MobileResultBar } from "@/components/calculator/mobile-result-bar";
 import { ShareButton } from "@/components/calculator/share-button";
 import { PrintSpecButton } from "@/components/calculator/print-spec-button";
+import { GooglePreferredBanner } from "@/components/calculator/google-preferred-banner";
+import { CalculatorTrustPill } from "@/components/calculator/calculator-trust-pill";
+import { StandardsBadge } from "@/components/calculator/standards-badge";
 
 export function HeatPumpCostCalculator() {
   const [heatingDemandMmbtu, setHeatingDemandMmbtu] = useState<number>(HEAT_PUMP_DEFAULTS.annualHeatingDemandMmbtu);
@@ -122,6 +125,8 @@ export function HeatPumpCostCalculator() {
               ))}
             </div>
           </div>
+
+          <CalculatorTrustPill />
 
           <form
             onSubmit={(e) => {
@@ -302,9 +307,10 @@ export function HeatPumpCostCalculator() {
               <p className="result-value" style={{ color: calculated.result.isHeatPumpCheaper ? "#10b981" : "#f59e0b" }}>
                 {calculated.result.isHeatPumpCheaper ? `Save $${calculated.result.annualCostDifference.toFixed(0)} / year` : `+$${Math.abs(calculated.result.annualCostDifference).toFixed(0)} / year`}
               </p>
-              <p className="result-subtext" style={{ fontWeight: 600, marginTop: "-0.25rem", marginBottom: "1rem" }}>
+              <p className="result-subtext" style={{ fontWeight: 600, marginTop: "-0.25rem", marginBottom: "0.5rem" }}>
                 {calculated.result.isHeatPumpCheaper ? "🟢 Heat Pump is Cheaper to Run" : "🟡 Near Price Parity with Utility Gas"}
               </p>
+              <StandardsBadge standards={["AHRI 210/240", "DOE 10 CFR 430", "ASHRAE 90.1"]} />
 
               {stale && <p className="warning">Inputs changed — recalculate to refresh cost breakdown.</p>}
 
@@ -343,7 +349,9 @@ export function HeatPumpCostCalculator() {
                 </div>
               </dl>
 
-              <div className="button-row" style={{ marginTop: "1rem", display: "flex", gap: "0.5rem", flexWrap: "wrap" }}>
+              <GooglePreferredBanner />
+
+              <div className="button-row" style={{ marginTop: "0.85rem", display: "flex", gap: "0.5rem", flexWrap: "wrap" }}>
                 <ShareButton getShareUrl={getShareUrl} />
                 <PrintSpecButton />
               </div>

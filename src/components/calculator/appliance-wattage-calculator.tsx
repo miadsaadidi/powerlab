@@ -9,6 +9,9 @@ import { createEnergyProfileStore } from "@/lib/energy-profile/store";
 import { isCalculatorPublished } from "@/lib/calculator-registry";
 import { ShareButton } from "@/components/calculator/share-button";
 import { PrintSpecButton } from "@/components/calculator/print-spec-button";
+import { GooglePreferredBanner } from "@/components/calculator/google-preferred-banner";
+import { CalculatorTrustPill } from "@/components/calculator/calculator-trust-pill";
+import { StandardsBadge } from "@/components/calculator/standards-badge";
 import { track } from "@/lib/analytics/analytics";
 
 type SourceMode = ApplianceSource["sourceMode"];
@@ -165,6 +168,7 @@ export function ApplianceWattageCalculator() {
     <div className="calculator-grid">
       <div className="calculator-card calculator-inputs">
         <div className="calculator-card-header"><div><p className="eyebrow">Quick estimate</p><h2>Appliance details</h2></div></div>
+        <CalculatorTrustPill />
 
         {/* Quick Scenario Chips */}
         <div className="preset-chips-container" role="region" aria-label="Quick Appliance Scenarios">
@@ -240,6 +244,7 @@ function Result({ result, draft, currency, stale, preset, handoffs, sourceLabel 
   return <>
     {stale && <p className="validation-message" role="status">This result is from the previous inputs. Recalculate to update it.</p>}
     <div className="result-primary">{formatNumber(result.totalRunningWatts)} W</div>
+    <StandardsBadge standards={["UL 1026", "IEC 60335", "ANSI C84.1"]} />
     <p className="helper-text">{result.quantity > 1 ? "Total connected running load" : "Estimated running power"} · {formatNumber(result.totalRunningKilowatts, 3)} kW</p>
     {result.quantity > 1 && <dl className="result-breakdown"><div><dt>Running power per appliance</dt><dd>{formatNumber(result.unitRunningWatts)} W</dd></div><div><dt>Quantity</dt><dd>{result.quantity}</dd></div><div><dt>Total connected running load</dt><dd>{formatNumber(result.totalRunningWatts)} W</dd></div></dl>}
     {result.apparentVA !== null && <dl className="result-breakdown"><div><dt>Apparent power</dt><dd>{formatNumber(result.apparentVA)} VA</dd></div><div><dt>Power factor</dt><dd>{result.powerFactor?.toFixed(2)}</dd></div><div><dt>Estimated real power</dt><dd>{formatNumber(result.unitRunningWatts)} W</dd></div></dl>}
@@ -248,7 +253,9 @@ function Result({ result, draft, currency, stale, preset, handoffs, sourceLabel 
     {comparison && <div className="scenario"><h3>Typical wattage range</h3><p className="helper-text">Comparison values are per-appliance planning estimates.</p>{comparison.map(([label, watts]) => <div className="contributor-label" key={label}><span>{label} · {watts} W per appliance</span><strong>{formatNumber(Number(watts) * result.quantity * (result.runtimeHours ?? 0) * result.dutyCycle)} Wh</strong></div>)}</div>}
     <p className="helper-text">Source: {sourceLabel}. Presets and duty cycles are editable estimates; device labels or measured values should replace them when available.</p>
 
-    <div className="button-row" style={{ marginTop: "1rem", display: "flex", gap: "0.5rem", flexWrap: "wrap" }}>
+    <GooglePreferredBanner />
+
+    <div className="button-row" style={{ marginTop: "0.85rem", display: "flex", gap: "0.5rem", flexWrap: "wrap" }}>
       <ShareButton getShareUrl={() => typeof window !== "undefined" ? window.location.href : ""} />
       <PrintSpecButton />
     </div>

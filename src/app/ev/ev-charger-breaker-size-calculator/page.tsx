@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { buildPageMetadata } from "@/lib/seo/metadata-helper";
 import Link from "next/link";
 import { siteConfig } from "@/lib/site-config";
 import { isCalculatorPublished } from "@/lib/calculator-registry";
@@ -11,20 +12,12 @@ import { DirectAnswerCard } from "@/components/seo/direct-answer-card";
 
 const isPublished = isCalculatorPublished("ev-breaker-size");
 
-export const metadata: Metadata = {
-  title: "EV Charger Breaker & Wire Size Calculator — Level 2 Sizing",
+export const metadata: Metadata = buildPageMetadata({
+  title: "EV Charger Breaker Size Calculator — Amps & Wire",
   description: "Find the exact circuit breaker size, wire gauge (AWG), and charging speed (kW) for your home Level 2 EV charger following the NEC 125% continuous load rule.",
-  alternates: { canonical: "/ev/ev-charger-breaker-size-calculator" },
-  robots: { index: isPublished, follow: true },
-  openGraph: {
-    title: "EV Charger Breaker & Wire Size Calculator — PowerLab",
-    description: "Calculate required circuit breaker amperage, minimum copper wire gauge (AWG), and charging power for home Level 2 EV chargers.",
-    url: `${siteConfig.url}/ev/ev-charger-breaker-size-calculator`,
-    siteName: siteConfig.name,
-    locale: "en_US",
-    type: "website",
-  },
-};
+  canonicalPath: "/ev/ev-charger-breaker-size-calculator",
+  category: "ev",
+});
 
 const FAQS = [
   {

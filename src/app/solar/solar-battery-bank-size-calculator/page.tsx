@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { buildPageMetadata } from "@/lib/seo/metadata-helper";
 import Link from "next/link";
 import { SolarBatteryBankSizeCalculator } from "@/components/calculator/solar-battery-bank-size-calculator";
 import { isCalculatorPublished } from "@/lib/calculator-registry";
@@ -11,20 +12,12 @@ import { DirectAnswerCard } from "@/components/seo/direct-answer-card";
 
 const isPublished = isCalculatorPublished("solar-battery-bank-size");
 
-export const metadata: Metadata = {
-  title: "Solar Power Battery Calculator — Solar Battery Bank Size",
+export const metadata: Metadata = buildPageMetadata({
+  title: "Solar Battery Bank Size Calculator — Storage kWh",
   description: "Calculate solar power battery bank size (kWh & Ah) from daily energy load, autonomy days, battery chemistry, and inverter efficiency.",
-  alternates: { canonical: "/solar/solar-battery-bank-size-calculator" },
-  robots: { index: isPublished, follow: true },
-  openGraph: {
-    title: "Solar Power Battery Calculator — Solar Battery Bank Size",
-    description: "Calculate solar battery bank capacity in kWh and Ah with transparent DoD, autonomy, and inverter efficiency modeling.",
-    url: `${siteConfig.url}/solar/solar-battery-bank-size-calculator`,
-    siteName: siteConfig.name,
-    locale: "en_US",
-    type: "website",
-  },
-};
+  canonicalPath: "/solar/solar-battery-bank-size-calculator",
+  category: "solar",
+});
 
 const FAQS = [
   {
@@ -189,7 +182,7 @@ export default function SolarBatteryBankSizePage() {
       <section id="related-tools">
         <h2>Related Solar &amp; Battery Planning Tools</h2>
         <p>
-          Size your solar array with the <Link href="/solar/solar-panel-size-calculator">Solar Panel Size Calculator</Link>, match an MPPT controller with the <Link href="/solar/solar-charge-controller-calculator">Solar Charge Controller Calculator</Link>, or check battery discharge runtime with the <Link href="/battery/battery-runtime-calculator">Battery Runtime Calculator</Link>.
+          Calculate daily appliance watt-hours with our <Link href="/solar/solar-load-calculator">Solar Load Calculator</Link>, size your solar array with the <Link href="/solar/solar-panel-size-calculator">Solar Panel Size Calculator</Link>, match an MPPT controller with the <Link href="/solar/solar-charge-controller-calculator">Solar Charge Controller Calculator</Link>, or check battery discharge runtime with the <Link href="/battery/battery-runtime-calculator">Battery Runtime Calculator</Link>.
         </p>
       </section>
     </article>

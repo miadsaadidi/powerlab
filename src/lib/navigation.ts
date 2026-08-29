@@ -42,6 +42,8 @@ export function getFooterNavigation(): NavigationItem[] {
     { label: "Embed Widgets", href: "/developers" },
     { label: "Methodology", href: "/methodology" },
     { label: "Sources", href: "/sources" },
+    { label: "About", href: "/about" },
     { label: "Privacy", href: "/privacy" },
+    { label: "Terms", href: "/terms" },
   ];
 }

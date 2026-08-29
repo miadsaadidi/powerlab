@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { buildPageMetadata } from "@/lib/seo/metadata-helper";
 import Link from "next/link";
 import { HomeBatterySizeCalculator } from "@/components/calculator/home-battery-size-calculator";
 import { isCalculatorPublished } from "@/lib/calculator-registry";
@@ -11,13 +12,12 @@ import { DirectAnswerCard } from "@/components/seo/direct-answer-card";
 
 const isPublished = isCalculatorPublished("home-battery-size");
 
-export const metadata: Metadata = {
-  title: "Home Battery Size Calculator — Backup kWh Estimate",
+export const metadata: Metadata = buildPageMetadata({
+  title: "Home Battery Size Calculator — Backup kWh Sizing",
   description: "Estimate home battery size from household energy, backup scope, backup hours, reserve, inverter efficiency and planning margin.",
-  alternates: { canonical: "/home-energy/home-battery-size-calculator" },
-  robots: { index: isPublished, follow: true },
-  openGraph: { title: "Home Battery Size Calculator — Backup kWh Estimate", description: "Estimate home backup battery capacity with transparent scope, duration and battery assumptions." },
-};
+  canonicalPath: "/home-energy/home-battery-size-calculator",
+  category: "home-energy",
+});
 
 const FAQS = [
   {

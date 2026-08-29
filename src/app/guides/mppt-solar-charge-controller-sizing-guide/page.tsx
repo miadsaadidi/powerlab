@@ -7,19 +7,15 @@ import { DirectAnswerCard } from "@/components/seo/direct-answer-card";
 import { PageJumpNav } from "@/components/seo/page-jump-nav";
 import { FormulaCard } from "@/components/seo/formula-card";
 
-export const metadata: Metadata = {
-  title: "MPPT vs PWM Solar Charge Controller Sizing Guide & Formula — PowerLab",
-  description: "Learn how to size an MPPT or PWM solar charge controller. Calculate required output amperage, cold-weather Voc voltage expansion limits, and compare efficiency gains.",
-  alternates: { canonical: "/guides/mppt-solar-charge-controller-sizing-guide" },
-  openGraph: {
-    title: "MPPT vs PWM Solar Charge Controller Sizing Guide — PowerLab",
-    description: "Complete engineering guide to sizing solar charge controllers. Calculate cold-temperature Voc expansion, battery charging current, and MPPT efficiency gains.",
-    url: `${siteConfig.url}/guides/mppt-solar-charge-controller-sizing-guide`,
-    siteName: siteConfig.name,
-    locale: "en_US",
-    type: "article",
-  },
-};
+import { buildPageMetadata } from "@/lib/seo/metadata-helper";
+
+export const metadata: Metadata = buildPageMetadata({
+  title: "MPPT Solar Charge Controller Sizing Guide",
+  description: "Learn how to size an MPPT or PWM solar charge controller. Calculate output amperage, cold-weather Voc limits, and compare efficiency gains.",
+  canonicalPath: "/guides/mppt-solar-charge-controller-sizing-guide",
+  category: "solar",
+  isArticle: true,
+});
 
 const FAQS = [
   {

@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { buildPageMetadata } from "@/lib/seo/metadata-helper";
 import Link from "next/link";
 import { siteConfig } from "@/lib/site-config";
 import { isCalculatorPublished } from "@/lib/calculator-registry";
@@ -11,20 +12,12 @@ import { DirectAnswerCard } from "@/components/seo/direct-answer-card";
 
 const isPublished = isCalculatorPublished("ac-cost");
 
-export const metadata: Metadata = {
-  title: "Air Conditioner & Central AC Cost Calculator — Running Cost & kWh",
-  description: "Calculate central AC energy cost and room air conditioner running costs per hour, day, and month. Supports central AC, mini-splits, and window units by SEER2 rating.",
-  alternates: { canonical: "/home-energy/air-conditioner-cost-calculator" },
-  robots: { index: isPublished, follow: true },
-  openGraph: {
-    title: "Air Conditioner & Central AC Cost Calculator — PowerLab",
-    description: "Calculate hourly and monthly electricity costs to run central AC, mini-splits, and window units with SEER2 efficiency.",
-    url: `${siteConfig.url}/home-energy/air-conditioner-cost-calculator`,
-    siteName: siteConfig.name,
-    locale: "en_US",
-    type: "website",
-  },
-};
+export const metadata: Metadata = buildPageMetadata({
+  title: "Air Conditioner Cost Calculator — AC kWh & Cost",
+  description: "Calculate central AC energy cost and room air conditioner running costs per hour, day, and month. Supports central AC, mini-splits, and window units.",
+  canonicalPath: "/home-energy/air-conditioner-cost-calculator",
+  category: "home-energy",
+});
 
 const FAQS = [
   {
@@ -199,7 +192,7 @@ export default function AcCostPage() {
       <section id="related-tools">
         <h2>Related Cooling &amp; Home Energy Planning</h2>
         <p>
-          Looking at winter heating or year-round heat pumps? Use our <Link href="/home-energy/heat-pump-cost-calculator">Heat Pump Cost Calculator</Link> to compare electric vs gas, check winter space heater bills with the <Link href="/home-energy/space-heater-cost-calculator">Space Heater Cost Calculator</Link>, or calculate monthly electricity totals with the <Link href="/home-energy/electricity-usage-calculator">Electricity Usage Calculator</Link>.
+          Need a complete breakdown of total household electrical demand? Read our comprehensive <Link href="/guides/how-many-kwh-does-a-house-use-per-day">Household Daily kWh &amp; HVAC Load Guide</Link>. You can also compare winter heating with the <Link href="/home-energy/heat-pump-cost-calculator">Heat Pump Cost Calculator</Link>, check space heater bills with the <Link href="/home-energy/space-heater-cost-calculator">Space Heater Cost Calculator</Link>, or calculate whole-home consumption with the <Link href="/home-energy/electricity-usage-calculator">Electricity Usage Calculator</Link>.
         </p>
       </section>
 

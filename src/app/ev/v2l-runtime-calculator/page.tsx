@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { buildPageMetadata } from "@/lib/seo/metadata-helper";
 import Link from "next/link";
 import { siteConfig } from "@/lib/site-config";
 import { isCalculatorPublished } from "@/lib/calculator-registry";
@@ -11,20 +12,12 @@ import { DirectAnswerCard } from "@/components/seo/direct-answer-card";
 
 const isPublished = isCalculatorPublished("v2l-runtime");
 
-export const metadata: Metadata = {
-  title: "Vehicle-to-Load (V2L) Runtime Calculator — EV Emergency Power Duration",
-  description: "Calculate how many days your EV battery can power your home and appliances using Vehicle-to-Load (V2L) or V2H. Includes driving range reserve and continuous AC power limits.",
-  alternates: { canonical: "/ev/v2l-runtime-calculator" },
-  robots: { index: isPublished, follow: true },
-  openGraph: {
-    title: "Vehicle-to-Load (V2L) Runtime Calculator — PowerLab",
-    description: "Calculate how many days your EV traction battery can power your home appliances during an electrical blackout.",
-    url: `${siteConfig.url}/ev/v2l-runtime-calculator`,
-    siteName: siteConfig.name,
-    locale: "en_US",
-    type: "website",
-  },
-};
+export const metadata: Metadata = buildPageMetadata({
+  title: "V2L Runtime Calculator — EV Backup Power Hours",
+  description: "Calculate how many days your EV battery can power home appliances with Vehicle-to-Load (V2L). Includes driving range reserves and AC continuous power limits.",
+  canonicalPath: "/ev/v2l-runtime-calculator",
+  category: "ev",
+});
 
 const FAQS = [
   {

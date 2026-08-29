@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { buildPageMetadata } from "@/lib/seo/metadata-helper";
 import Link from "next/link";
 import { SolarPanelOutputCalculator } from "@/components/calculator/solar-panel-output-calculator";
 import { isCalculatorPublished } from "@/lib/calculator-registry";
@@ -11,20 +12,12 @@ import { DirectAnswerCard } from "@/components/seo/direct-answer-card";
 
 const isPublished = isCalculatorPublished("solar-panel-output");
 
-export const metadata: Metadata = {
-  title: "Solar Panel Output & Production Calculator — kWh Yield",
-  description: "Calculate monthly and annual solar panel output and energy yield (kWh) based on system size, location, tilt, azimuth, and NREL PVWatts V8 solar production modeling.",
-  alternates: { canonical: "/solar/solar-panel-output-calculator" },
-  robots: { index: isPublished, follow: true },
-  openGraph: {
-    title: "Solar Panel Output & Production Calculator — PowerLab",
-    description: "Calculate monthly and annual solar panel output, production, and kilowatt-hour yield with NREL PVWatts V8 solar modeling.",
-    url: `${siteConfig.url}/solar/solar-panel-output-calculator`,
-    siteName: siteConfig.name,
-    locale: "en_US",
-    type: "website",
-  },
-};
+export const metadata: Metadata = buildPageMetadata({
+  title: "Solar Panel Output Calculator — kWh Yield",
+  description: "Calculate monthly and annual solar panel output and energy yield (kWh) from system size, location, tilt, azimuth, and NREL PVWatts V8 production modeling.",
+  canonicalPath: "/solar/solar-panel-output-calculator",
+  category: "solar",
+});
 
 const FAQS = [
   {
@@ -189,7 +182,7 @@ export default function SolarOutputPage() {
       <section id="related-tools">
         <h2>Related Solar Planning Tools</h2>
         <p>
-          Calculate optimal mounting tilt with the <Link href="/solar/solar-panel-tilt-calculator">Solar Panel Tilt Calculator</Link>, size your off-grid storage with the <Link href="/solar/solar-battery-bank-size-calculator">Solar Battery Bank Size Calculator</Link>, or evaluate investment returns with the <Link href="/solar/solar-payback-calculator">Solar Payback Calculator</Link>.
+          Calculate optimal mounting tilt with the <Link href="/solar/solar-panel-tilt-calculator">Solar Panel Tilt Calculator</Link>, size your off-grid storage with the <Link href="/solar/solar-battery-bank-size-calculator">Solar Battery Bank Size Calculator</Link>, evaluate investment returns with the <Link href="/solar/solar-payback-calculator">Solar Payback Calculator</Link>, or read our guide on <Link href="/guides/solar-panel-tilt-angle-by-latitude-and-season-guide">Solar Panel Tilt Angle by Latitude &amp; Season</Link>.
         </p>
       </section>
     </article>

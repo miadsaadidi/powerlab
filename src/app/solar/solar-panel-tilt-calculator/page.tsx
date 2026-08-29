@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { buildPageMetadata } from "@/lib/seo/metadata-helper";
 import Link from "next/link";
 import { SolarPanelTiltCalculator } from "@/components/calculator/solar-panel-tilt-calculator";
 import { siteConfig } from "@/lib/site-config";
@@ -11,20 +12,12 @@ import { SystemFlowDiagram } from "@/components/seo/system-flow-diagram";
 
 const isPublished = isCalculatorPublished("solar-panel-tilt");
 
-export const metadata: Metadata = {
-  title: "Solar Panel Angle & Tilt Calculator — Optimal Angle & Pitch",
+export const metadata: Metadata = buildPageMetadata({
+  title: "Solar Panel Tilt Calculator — Optimal Angle",
   description: "Calculate optimal solar panel tilt angle and azimuth for your latitude. Features seasonal summer/winter angle adjustments and roof pitch comparison.",
-  alternates: { canonical: "/solar/solar-panel-tilt-calculator" },
-  robots: { index: isPublished, follow: true },
-  openGraph: {
-    title: "Solar Panel Angle & Tilt Calculator — PowerLab",
-    description: "Calculate optimal solar panel angle and equator-facing orientation from latitude with seasonal tilt adjustments.",
-    url: `${siteConfig.url}/solar/solar-panel-tilt-calculator`,
-    siteName: siteConfig.name,
-    locale: "en_US",
-    type: "website",
-  },
-};
+  canonicalPath: "/solar/solar-panel-tilt-calculator",
+  category: "solar",
+});
 
 const FAQS = [
   {

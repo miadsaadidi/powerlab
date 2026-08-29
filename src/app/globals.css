@@ -759,7 +759,7 @@ main { max-width:1280px; }
   }
 
   .page::after {
-    content: "Generated via PowerLab Energy Planning (https://powerlab.energy) • Deterministic Calculation Engine • All Rights Reserved.";
+    content: "Generated via PowerLab Verified Energy Planning (https://www.powelab.org) • Verified Deterministic Physics Engine • Open-Access Methodology.";
     display: block;
     font-size: 8.5pt;
     color: #64748b;
@@ -1061,6 +1061,7 @@ main { max-width:1280px; }
 .button-row .print-spec-btn,
 .button-row .export-spec-btn,
 .button-row .embed-btn,
+.button-row .google-preferred-btn,
 .button-row button {
   display: inline-flex !important;
   align-items: center !important;
@@ -1090,12 +1091,30 @@ main { max-width:1280px; }
 .button-row .print-spec-btn:hover,
 .button-row .export-spec-btn:hover,
 .button-row .embed-btn:hover,
+.button-row .google-preferred-btn:hover,
 .button-row button:hover {
   background: var(--bg-secondary, #f8fafc) !important;
   border-color: var(--accent, #c65d24) !important;
   color: var(--accent, #c65d24) !important;
   transform: translateY(-1px);
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.08) !important;
+}
+
+.google-preferred-banner {
+  transition: all 160ms ease !important;
+  text-decoration: none !important;
+}
+
+.google-preferred-banner:hover {
+  border-color: rgba(66, 133, 244, 0.45) !important;
+  box-shadow: 0 6px 18px rgba(38, 68, 53, 0.1) !important;
+  transform: translateY(-1px) !important;
+  text-decoration: none !important;
+}
+
+.google-preferred-banner:hover .google-preferred-cta {
+  background: var(--brand-strong, #264435) !important;
+  box-shadow: 0 3px 8px rgba(38, 68, 53, 0.35) !important;
 }
 
 /* Standalone Embed Mode (iframe / ?embed=true) */

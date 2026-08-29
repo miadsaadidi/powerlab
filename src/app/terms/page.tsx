@@ -1,12 +1,11 @@
-import type { Metadata } from "next";
 import Link from "next/link";
+import { buildPageMetadata } from "@/lib/seo/metadata-helper";
 
-export const metadata: Metadata = {
-  title: "Terms",
-  description: "Terms for using Energy Planning Tools calculator estimates.",
-  alternates: { canonical: "/terms" },
-  openGraph: { title: "Terms", description: "Terms for using Energy Planning Tools calculator estimates." },
-};
+export const metadata = buildPageMetadata({
+  title: "Terms of Use",
+  description: "Review terms of use and planning disclaimers for PowerLab deterministic mathematical models, physical loss formulas, and energy calculators.",
+  canonicalPath: "/terms",
+});
 
 export default function TermsPage() {
   return (

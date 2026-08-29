@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { buildPageMetadata } from "@/lib/seo/metadata-helper";
 import Link from "next/link";
 import { BatterySizeCalculator } from "@/components/calculator/battery-size-calculator";
 import { siteConfig } from "@/lib/site-config";
@@ -10,20 +11,12 @@ import { DirectAnswerCard } from "@/components/seo/direct-answer-card";
 import { SystemFlowDiagram } from "@/components/seo/system-flow-diagram";
 
 
-export const metadata: Metadata = {
-  title: "Battery Size Calculator — Size Battery Bank in kWh & Ah",
-  description: "Calculate the battery size needed for any load and backup runtime. Accurately determines required kWh and Ah capacity with DOD, inverter efficiency, and safety margin.",
-  alternates: { canonical: "/battery/battery-size-calculator" },
-  robots: { index: isCalculatorPublished("battery-size"), follow: true },
-  openGraph: {
-    title: "Battery Size Calculator — Size Battery Bank in kWh & Ah",
-    description: "Calculate the battery size needed for a load and backup time with transparent reserve, efficiency and health assumptions.",
-    url: `${siteConfig.url}/battery/battery-size-calculator`,
-    siteName: siteConfig.name,
-    locale: "en_US",
-    type: "website",
-  },
-};
+export const metadata: Metadata = buildPageMetadata({
+  title: "Battery Size Calculator — Backup kWh & Ah",
+  description: "Calculate required battery size (kWh & Ah) for any load and backup runtime. Includes DOD reserves, inverter efficiency, and safety margin.",
+  canonicalPath: "/battery/battery-size-calculator",
+  category: "battery",
+});
 
 const FAQS = [
   {

@@ -24,24 +24,14 @@ const batteryToolContent: Record<string, string> = {
   "inverter-size": "Calculate continuous and surge inverter wattage, DC battery amperage, fuse rating, and battery cable gauge.",
 };
 
-export const metadata: Metadata = {
+import { buildPageMetadata } from "@/lib/seo/metadata-helper";
+
+export const metadata: Metadata = buildPageMetadata({
   title: "Battery Calculators",
   description: "Free deterministic battery planning tools to calculate runtime, bank sizing, Ah-to-Wh conversions, UPS backup, and charge times.",
-  alternates: { canonical: "/battery" },
-  openGraph: {
-    title: "Battery Planning Calculators — Runtime, Size & Capacity",
-    description: "Free deterministic battery planning tools to calculate runtime, bank sizing, Ah-to-Wh conversions, UPS backup, and charge times.",
-    url: `${siteConfig.url}/battery`,
-    siteName: siteConfig.name,
-    locale: "en_US",
-    type: "website",
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: "Battery Planning Calculators",
-    description: "Free deterministic battery planning tools to calculate runtime, bank sizing, Ah-to-Wh conversions, UPS backup, and charge times.",
-  },
-};
+  canonicalPath: "/battery",
+  category: "battery",
+});
 
 export default function BatteryHub() {
   if (!isCategoryPublished("battery")) notFound();
@@ -250,6 +240,15 @@ export default function BatteryHub() {
           <h3>To size an off-grid DC-to-AC inverter:</h3>
           <p>Use the <Link href="/battery/inverter-size-calculator">Inverter Size Calculator</Link> to calculate continuous running watts, peak inductive motor starting surges, and DC battery cable fuse ampacity.</p>
         </article>
+      </div>
+    </section>
+    <section className="hub-support" aria-labelledby="battery-guides-heading">
+      <h2 id="battery-guides-heading">Featured Battery Engineering Guides</h2>
+      <p>Explore our peer-reviewed technical reference guides for battery storage and electrical conductor sizing:</p>
+      <div className="supporting-links" style={{ display: "flex", flexWrap: "wrap", gap: "0.85rem", marginTop: "0.75rem" }}>
+        <Link href="/guides/battery-backup-runtime-calculation-guide" className="footer-link">🔋 Battery Backup Runtime Formula &amp; Inverter Loss Guide</Link>
+        <Link href="/guides/voltage-drop-and-wire-size-calculation-guide" className="footer-link">⚡ Voltage Drop &amp; Wire Size Calculation Guide</Link>
+        <Link href="/guides" className="footer-link">📚 All Engineering Guides</Link>
       </div>
     </section>
     <section className="hub-support" aria-labelledby="battery-method-heading">

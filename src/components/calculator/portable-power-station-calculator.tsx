@@ -10,6 +10,9 @@ import { MobileResultBar } from "@/components/calculator/mobile-result-bar";
 import { LossWaterfall } from "@/components/calculator/loss-waterfall";
 import { ShareButton } from "@/components/calculator/share-button";
 import { PrintSpecButton } from "@/components/calculator/print-spec-button";
+import { GooglePreferredBanner } from "@/components/calculator/google-preferred-banner";
+import { CalculatorTrustPill } from "@/components/calculator/calculator-trust-pill";
+import { StandardsBadge } from "@/components/calculator/standards-badge";
 
 const QUICK_POWER_STATION_PRESETS = [
   { label: "📱 Weekend Camping (256Wh · 45W)", wh: 256, watts: 45, cont: 300 },
@@ -228,6 +231,8 @@ export function PortablePowerStationCalculator() {
               ))}
             </div>
           </div>
+
+          <CalculatorTrustPill />
 
           <form noValidate onSubmit={handleSubmit}>
             <fieldset className="input-group">
@@ -551,6 +556,7 @@ export function PortablePowerStationCalculator() {
                 <>
                   <p className="result-lede">{hasOutputOverload ? "Energy estimate — output overload" : "Estimated runtime"}</p>
                   <p className="result-value">{formatRuntime(calculationResult!.runtimeHours!)}</p>
+                  <StandardsBadge standards={["UL 2743", "IEC 62133", "UN 38.3"]} />
                   <LossWaterfall
                     steps={[
                       { label: "Nominal Battery Capacity", value: calculation!.capacityWh, unit: "Wh", subtext: "Rated battery capacity of the power station" },
@@ -563,6 +569,7 @@ export function PortablePowerStationCalculator() {
                 <>
                   <p className="result-lede">{hasOutputOverload ? "Required energy — output overload" : "Required nominal capacity"}</p>
                   <p className="result-value">{formatNumber(calculationResult!.requiredNominalWh!)} Wh</p>
+                  <StandardsBadge standards={["UL 2743", "IEC 62133", "UN 38.3"]} />
                   <LossWaterfall
                     steps={[
                       { label: "Required Delivered AC Energy", value: calculationResult!.requiredDeliveredWh!, unit: "Wh", subtext: `Energy needed to run ${formatNumber(calculationResult!.averageLoadW)} W for ${formatNumber(desiredRuntimeHours)}h` },
@@ -659,7 +666,10 @@ export function PortablePowerStationCalculator() {
                   </div>
                 </dl>
               </section>
-              <div className="button-row" style={{ marginTop: "1rem", display: "flex", gap: "0.5rem", flexWrap: "wrap" }}>
+
+              <GooglePreferredBanner />
+
+              <div className="button-row" style={{ marginTop: "0.85rem", display: "flex", gap: "0.5rem", flexWrap: "wrap" }}>
                 <ShareButton title="Portable Power Station Calculation" />
                 <PrintSpecButton />
                 {showElectricityUsage && (

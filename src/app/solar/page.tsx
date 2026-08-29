@@ -21,24 +21,14 @@ const solarToolContent: Record<string, string> = {
   "solar-charge-controller": "Size MPPT and PWM solar charge controllers by required charging current and cold-weather Voc voltage limits.",
 };
 
-export const metadata: Metadata = {
+import { buildPageMetadata } from "@/lib/seo/metadata-helper";
+
+export const metadata: Metadata = buildPageMetadata({
   title: "Solar Calculators",
   description: "Free deterministic solar planning calculators for tilt angle, monthly PVWatts production yield, array sizing, and off-grid battery banks.",
-  alternates: { canonical: "/solar" },
-  openGraph: {
-    title: "Solar Planning Calculators — Solar Tilt, Production & Sizing",
-    description: "Free deterministic solar planning calculators for tilt angle, monthly PVWatts production yield, array sizing, and off-grid battery banks.",
-    url: `${siteConfig.url}/solar`,
-    siteName: siteConfig.name,
-    locale: "en_US",
-    type: "website",
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: "Solar Planning Calculators",
-    description: "Free deterministic solar planning calculators for tilt angle, PVWatts output, array sizing, and off-grid battery banks.",
-  },
-};
+  canonicalPath: "/solar",
+  category: "solar",
+});
 
 export default function SolarHub() {
   if (!isCategoryPublished("solar")) notFound();
@@ -223,6 +213,15 @@ export default function SolarHub() {
           <h3>For MPPT charge controller sizing:</h3>
           <p>Use the <Link href="/solar/solar-charge-controller-calculator">Solar Charge Controller Calculator</Link> to calculate required charging amperage and sub-zero Voc open-circuit voltage rise.</p>
         </article>
+      </div>
+    </section>
+    <section className="hub-support" aria-labelledby="solar-guides-heading">
+      <h2 id="solar-guides-heading">Featured Solar Engineering Guides</h2>
+      <p>Explore our peer-reviewed technical reference guides for solar photovoltaic installation and system design:</p>
+      <div className="supporting-links" style={{ display: "flex", flexWrap: "wrap", gap: "0.85rem", marginTop: "0.75rem" }}>
+        <Link href="/guides/solar-panel-tilt-angle-by-latitude-and-season-guide" className="footer-link">☀️ Solar Panel Tilt Angle by Latitude &amp; Season Guide</Link>
+        <Link href="/guides/mppt-solar-charge-controller-sizing-guide" className="footer-link">⚡ MPPT vs PWM Solar Charge Controller Sizing Guide</Link>
+        <Link href="/guides" className="footer-link">📚 All Engineering Guides</Link>
       </div>
     </section>
     <section className="hub-support" aria-labelledby="solar-method-heading">

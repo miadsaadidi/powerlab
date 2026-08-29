@@ -1,20 +1,11 @@
-import type { Metadata } from "next";
 import Link from "next/link";
-import { siteConfig } from "@/lib/site-config";
+import { buildPageMetadata } from "@/lib/seo/metadata-helper";
 
-export const metadata: Metadata = {
+export const metadata = buildPageMetadata({
   title: "Privacy Policy & Zero-Database Architecture",
   description: "Learn how PowerLab protects your privacy with 100% client-side computation, zero user-account databases, and browser-local localStorage isolation.",
-  alternates: { canonical: "/privacy" },
-  openGraph: {
-    title: "Privacy Policy — PowerLab",
-    description: "Learn how PowerLab protects your privacy with 100% client-side computation and zero database tracking.",
-    url: `${siteConfig.url}/privacy`,
-    siteName: siteConfig.name,
-    locale: "en_US",
-    type: "website",
-  },
-};
+  canonicalPath: "/privacy",
+});
 
 export default function PrivacyPage() {
   return (

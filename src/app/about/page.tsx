@@ -1,21 +1,13 @@
-import type { Metadata } from "next";
 import Link from "next/link";
 import { siteConfig } from "@/lib/site-config";
 import { EnergyLogo } from "@/components/energy-logo";
+import { buildPageMetadata } from "@/lib/seo/metadata-helper";
 
-export const metadata: Metadata = {
-  title: "About PowerLab — Transparent Energy Planning System",
+export const metadata = buildPageMetadata({
+  title: "About PowerLab — Transparent Planning",
   description: "Learn about PowerLab: deterministic, first-principles engineering calculators for solar, battery storage, home energy, and electric vehicles.",
-  alternates: { canonical: "/about" },
-  openGraph: {
-    title: "About PowerLab — Transparent Energy Planning System",
-    description: "Replacing black-box marketing calculators with open, deterministic energy engineering tools.",
-    url: `${siteConfig.url}/about`,
-    siteName: siteConfig.name,
-    locale: "en_US",
-    type: "website",
-  },
-};
+  canonicalPath: "/about",
+});
 
 export default function AboutPage() {
   return (
@@ -206,6 +198,9 @@ export default function AboutPage() {
         <h2>Transparency &amp; Governance</h2>
         <p>
           PowerLab maintains open scientific governance. Review our complete formulas on the <Link href="/methodology">Engineering Methodology</Link> page, inspect reference standards on our <Link href="/sources">Authoritative Data Sources</Link> page, or read our architecture-backed <Link href="/privacy">Zero-Database Privacy Policy</Link>.
+        </p>
+        <p style={{ marginTop: "1rem" }}>
+          Community &amp; user verified: <a href="https://www.trustpilot.com/review/powelab.org" target="_blank" rel="noopener noreferrer" style={{ color: "#00b67a", fontWeight: 600 }}>Review PowerLab on Trustpilot ★★★★★</a>
         </p>
       </section>
     </article>

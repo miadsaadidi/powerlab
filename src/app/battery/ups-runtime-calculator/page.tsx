@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { buildPageMetadata } from "@/lib/seo/metadata-helper";
 import Link from "next/link";
 import { UpsRuntimeCalculator } from "@/components/calculator/ups-runtime-calculator";
 import { isCalculatorPublished } from "@/lib/calculator-registry";
@@ -11,13 +12,12 @@ import { DirectAnswerCard } from "@/components/seo/direct-answer-card";
 
 const published = isCalculatorPublished("ups-runtime");
 
-export const metadata: Metadata = {
+export const metadata: Metadata = buildPageMetadata({
   title: "UPS Runtime Calculator — Estimate Backup Time",
   description: "Estimate UPS backup runtime from battery energy, load watts, usable energy, battery health and UPS efficiency.",
-  alternates: { canonical: "/battery/ups-runtime-calculator" },
-  robots: { index: published, follow: true },
-  openGraph: { title: "UPS Runtime Calculator — Estimate Backup Time", description: "Estimate UPS backup runtime from battery energy, load watts, usable energy, battery health and UPS efficiency." },
-};
+  canonicalPath: "/battery/ups-runtime-calculator",
+  category: "battery",
+});
 
 const FAQS = [
   {
