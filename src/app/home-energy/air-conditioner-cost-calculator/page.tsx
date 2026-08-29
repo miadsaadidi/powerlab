@@ -192,7 +192,7 @@ export default function AcCostPage() {
       <section id="related-tools">
         <h2>Related Cooling &amp; Home Energy Planning</h2>
         <p>
-          Need a complete breakdown of total household electrical demand? Read our comprehensive <Link href="/guides/how-many-kwh-does-a-house-use-per-day">Household Daily kWh &amp; HVAC Load Guide</Link>. You can also compare winter heating with the <Link href="/home-energy/heat-pump-cost-calculator">Heat Pump Cost Calculator</Link>, check space heater bills with the <Link href="/home-energy/space-heater-cost-calculator">Space Heater Cost Calculator</Link>, or calculate whole-home consumption with the <Link href="/home-energy/electricity-usage-calculator">Electricity Usage Calculator</Link>.
+          Need a complete engineering breakdown of SEER2 formulas, tonnage sizing, and compressor inrush? Read our in-depth <Link href="/guides/central-ac-and-heat-pump-electricity-cost-guide" style={{ fontWeight: 600, color: "var(--accent)" }}>Central AC &amp; Heat Pump Electricity Cost Guide</Link> or examine total household power in our <Link href="/guides/how-many-kwh-does-a-house-use-per-day">Household Daily kWh Usage Guide</Link>. You can also size emergency generator backup for your AC with the <Link href="/home-energy/generator-size-calculator">Generator Size Calculator</Link>, compare winter heating with the <Link href="/home-energy/heat-pump-cost-calculator">Heat Pump Cost Calculator</Link>, or model whole-home consumption with the <Link href="/home-energy/electricity-usage-calculator">Electricity Usage Calculator</Link>.
         </p>
       </section>
 

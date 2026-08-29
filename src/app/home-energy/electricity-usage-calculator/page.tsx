@@ -206,9 +206,12 @@ export default function ElectricityUsagePage() {
       </section>
 
       <section id="related-tools">
-        <h2>Related Home Energy Tools</h2>
+        <h2>Related Home Energy Planning Tools &amp; Guides</h2>
         <p>
-          Calculate total monthly bills with the <Link href="/home-energy/energy-bill-calculator">Energy Bill Calculator</Link>, check specific AC costs with the <Link href="/home-energy/air-conditioner-cost-calculator">Air Conditioner Cost Calculator</Link>, or size solar panels with the <Link href="/solar/solar-panel-size-calculator">Solar Panel Size Calculator</Link>.
+          Calculate total utility bills with the <Link href="/home-energy/energy-bill-calculator">Energy Bill Calculator</Link>, model cooling expenses with the <Link href="/home-energy/air-conditioner-cost-calculator">Air Conditioner Cost Calculator</Link>, size blackout backup with the <Link href="/home-energy/generator-size-calculator">Generator Size Calculator</Link>, or size a solar array with the <Link href="/solar/solar-panel-size-calculator">Solar Panel Size Calculator</Link>.
+        </p>
+        <p style={{ marginTop: "0.75rem" }}>
+          📖 <strong>In-Depth Technical Guides:</strong> Read our empirical benchmark breakdown in the <Link href="/guides/how-many-kwh-does-a-house-use-per-day" style={{ fontWeight: 600, color: "var(--accent)" }}>Daily Household kWh Usage Guide</Link> or examine HVAC cooling formulas in our <Link href="/guides/central-ac-and-heat-pump-electricity-cost-guide" style={{ fontWeight: 600, color: "var(--accent)" }}>Central AC &amp; Heat Pump Cost Guide</Link>.
         </p>
       </section>
     </article>

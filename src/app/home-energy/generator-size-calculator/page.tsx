@@ -205,7 +205,7 @@ export default function GeneratorSizePage() {
       <section id="related-tools">
         <h2>Related Outage Backup &amp; Home Energy Planning</h2>
         <p>
-          Need a deep technical breakdown of motor inrush physics and fuel derating? Read our full <Link href="/guides/emergency-generator-sizing-and-inrush-load-guide">Emergency Generator Sizing &amp; Motor Inrush Guide</Link>. You can also compare generator backup with whole-home batteries using our <Link href="/home-energy/home-battery-size-calculator">Home Battery Size Calculator</Link>, estimate individual device wattage with the <Link href="/home-energy/appliance-wattage-calculator">Appliance Wattage Calculator</Link>, or calculate monthly household energy with the <Link href="/home-energy/electricity-usage-calculator">Electricity Usage Calculator</Link>.
+          Need a deep technical breakdown of motor inrush physics and fuel derating? Read our full <Link href="/guides/emergency-generator-sizing-and-inrush-load-guide">Emergency Generator Sizing &amp; Motor Inrush Guide</Link>. You can also size generator power cords with our <Link href="/battery/voltage-drop-calculator">Voltage Drop Calculator</Link>, calculate battery storage runtime with the <Link href="/battery/battery-runtime-calculator">Battery Runtime Calculator</Link>, compare whole-home batteries using our <Link href="/home-energy/home-battery-size-calculator">Home Battery Size Calculator</Link>, explore AC compressor power draw in our <Link href="/guides/central-ac-and-heat-pump-electricity-cost-guide">Central AC &amp; Heat Pump Cost Guide</Link>, or model monthly household consumption with the <Link href="/home-energy/electricity-usage-calculator">Electricity Usage Calculator</Link>.
         </p>
       </section>
 

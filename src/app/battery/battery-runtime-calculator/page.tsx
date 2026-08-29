@@ -220,7 +220,7 @@ export default function BatteryRuntimePage() {
       <section id="related-tools">
         <h2>Related Battery Planning Tools &amp; In-Depth Guides</h2>
         <p>
-          Need to size a battery for a specific target runtime? Use our <Link href="/battery/battery-size-calculator">Battery Size Calculator</Link>, check inverter continuous wattage with the <Link href="/battery/inverter-size-calculator">Inverter Size Calculator</Link>, or size whole-home backup with the <Link href="/home-energy/home-battery-size-calculator">Home Battery Size Calculator</Link>.
+          Need to size a battery for a specific target runtime? Use our <Link href="/battery/battery-size-calculator">Battery Size Calculator</Link>, check inverter continuous wattage with the <Link href="/battery/inverter-size-calculator">Inverter Size Calculator</Link>, calculate DC cable gauge with the <Link href="/battery/voltage-drop-calculator">Voltage Drop Calculator</Link>, or compare battery storage with fuel backup using the <Link href="/home-energy/generator-size-calculator">Generator Size Calculator</Link>.
         </p>
         <p style={{ marginTop: "0.75rem" }}>
           📖 <strong>In-Depth Technical Guides:</strong> Read our comprehensive <Link href="/guides/battery-backup-runtime-calculation-guide" style={{ fontWeight: 600, color: "var(--accent)" }}>Battery Backup Runtime Formula &amp; Inverter Loss Guide</Link>, or explore motor starting surge and fuel requirements in our <Link href="/guides/emergency-generator-sizing-and-inrush-load-guide" style={{ fontWeight: 600, color: "var(--accent)" }}>Emergency Generator Sizing &amp; Inrush Load Guide</Link>.

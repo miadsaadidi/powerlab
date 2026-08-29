@@ -423,7 +423,7 @@ export default function EmergencyGeneratorGuidePage() {
       <section id="related-tools">
         <h2>Related Emergency Power &amp; Electrical Sizing Tools</h2>
         <p>
-          Planning comprehensive blackout resilience or clean energy backup? Calculate battery inverter capacity with the <Link href="/battery/inverter-size-calculator">Inverter Size Calculator</Link>, model whole-home battery backup with the <Link href="/battery/battery-size-calculator">Battery Size Calculator</Link>, estimate battery runtimes with the <Link href="/battery/battery-runtime-calculator">Battery Runtime Calculator</Link>, or check heavy appliance power draws with the <Link href="/home-energy/appliance-wattage-calculator">Appliance Wattage Calculator</Link>.
+          Planning comprehensive blackout resilience or clean energy backup? Calculate battery inverter capacity with the <Link href="/battery/inverter-size-calculator">Inverter Size Calculator</Link>, model whole-home battery backup with the <Link href="/battery/battery-size-calculator">Battery Size Calculator</Link>, estimate battery runtimes with the <Link href="/battery/battery-runtime-calculator">Battery Runtime Calculator</Link>, size generator transfer switch cables with the <Link href="/battery/voltage-drop-calculator">Voltage Drop Calculator</Link>, or examine AC compressor power draws in our <Link href="/guides/central-ac-and-heat-pump-electricity-cost-guide">Central AC &amp; Heat Pump Cost Guide</Link>.
         </p>
       </section>
 

@@ -6,6 +6,7 @@ const staticPaths = [
   "/",
   "/guides",
   "/guides/battery-backup-runtime-calculation-guide",
+  "/guides/central-ac-and-heat-pump-electricity-cost-guide",
   "/guides/emergency-generator-sizing-and-inrush-load-guide",
   "/guides/how-many-kwh-does-a-house-use-per-day",
   "/guides/level-2-ev-charging-speed-and-breaker-sizing-guide",

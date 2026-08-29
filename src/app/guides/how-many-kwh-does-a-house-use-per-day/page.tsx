@@ -287,6 +287,19 @@ export default function HowManyKwhDoesAHouseUsePerDayPage() {
               Open Home Battery Size Calculator →
             </Link>
           </div>
+
+          <div style={{ padding: "1.5rem", borderRadius: "0.85rem", border: "1px solid var(--line)", background: "var(--surface)" }}>
+            <h3 style={{ marginTop: 0, color: "var(--brand-strong)" }}>❄️ Modeling Central AC &amp; Heat Pump Load</h3>
+            <p style={{ fontSize: "0.95rem", lineHeight: 1.55, color: "var(--muted)" }}>
+              Because HVAC represents <strong>40% to 50%</strong> of daily summer kWh, model your exact cooling tonnage, SEER2 ratings, and cycling costs:
+            </p>
+            <p style={{ fontFamily: "var(--font-mono, monospace)", background: "#eee5d7", padding: "0.5rem 0.75rem", borderRadius: "0.4rem", fontSize: "0.9rem" }}>
+              Cooling kWh = (36,000 BTU ÷ 15 SEER2 ÷ 1,000) × 10h = <strong>24.0 kWh/day</strong>
+            </p>
+            <Link href="/guides/central-ac-and-heat-pump-electricity-cost-guide" className="button" style={{ display: "inline-block", marginTop: "0.75rem", fontSize: "0.9rem" }}>
+              Open Central AC &amp; Heat Pump Guide →
+            </Link>
+          </div>
         </div>
       </section>
 

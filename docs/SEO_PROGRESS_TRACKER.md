@@ -1,8 +1,8 @@
 # SEO Execution & Progress Tracker - PowerLab
 
 **Domain:** `https://www.powelab.org`  
-**Last Updated:** August 27, 2026  
-**Status:** Technical SEO baseline complete; 7 flagship educational link magnets published; 61 canonical URLs active & live on Vercel production
+**Last Updated:** August 29, 2026  
+**Status:** Technical SEO baseline complete; 8 flagship educational link magnets published; 62 canonical URLs active & live on Vercel production; GSC live impressions surged to 7.69k across 1,000+ distinct queries.
 
 ---
 
@@ -12,21 +12,21 @@
 | :--- | :--- | :--- | :--- |
 | **GSC & Webmaster** | Google Search Console verification | Completed | Domain property and URL prefix verified |
 | **GSC & Webmaster** | Bing Webmaster Tools setup | Completed | Search console imported/verified |
-| **Sitemap Submission** | `sitemap.xml` updated | Completed | Dynamic route `/sitemap.xml`; inventory exposes **61 canonical URLs**: 30 calculators, 4 category hubs, 7 comprehensive technical guides and root/utility/legal pages |
-| **Flagship Educational Guides** | In-depth technical guides & link magnets | Completed | Published: (1) Battery Backup Runtime Formula Guide, (2) Level 2 EV Charging Speed & Breaker Guide, (3) Solar Panel Tilt by Latitude Guide, (4) MPPT vs PWM Sizing Guide, (5) Daily Household kWh Usage Guide, (6) Voltage Drop & Wire Size Guide, (7) **Emergency Generator Sizing & Motor Inrush Guide (Aug 27 — Live with embedded `<GeneratorSizeCalculator />`)** |
-| **URL Inspection** | Priority URL Indexing Requests | Completed (Aug 27) | Priority inspection submitted for: `/guides/emergency-generator-sizing-and-inrush-load-guide`, `/guides/voltage-drop-and-wire-size-calculation-guide`, `/sitemap.xml` |
+| **Sitemap Submission** | `sitemap.xml` updated | Completed | Dynamic route `/sitemap.xml`; inventory exposes **62 canonical URLs**: 30 calculators, 4 category hubs, 8 comprehensive technical guides and root/utility/legal pages |
+| **Flagship Educational Guides** | In-depth technical guides & link magnets | Completed | Published: (1) Battery Backup Runtime Formula Guide, (2) Level 2 EV Charging Speed & Breaker Guide, (3) Solar Panel Tilt by Latitude Guide, (4) MPPT vs PWM Sizing Guide, (5) Daily Household kWh Usage Guide, (6) Voltage Drop & Wire Size Guide, (7) Emergency Generator Sizing & Motor Inrush Guide, (8) **Central AC & Heat Pump Electricity Cost Guide (Aug 29 — Live with embedded `<AcCostCalculator />`)** |
+| **URL Inspection** | Priority URL Indexing Requests | Completed (Aug 27) | Priority inspection submitted for: `/guides/emergency-generator-sizing-and-inrush-load-guide`, `/guides/voltage-drop-and-wire-size-calculation-guide`, `/guides/central-ac-and-heat-pump-electricity-cost-guide`, `/sitemap.xml` |
 | **Community Policy** | Reddit policy update | August 26, 2026 | Removed Reddit outreach in favor of high-authority academic syndication and direct peer engineering pitches |
 | **Directory Submissions** | Free tool aggregators and Show HN | Completed | Submitted to directory catalogs and tech showcases |
 | **FAQ & Speakable Schema** | `FAQPage` & `SpeakableSpecification` JSON-LD | Completed (Aug 27) | Added Schema.org `speakable` selectors (`.direct-answer-card`, `h1`) and professional audience metadata across all calculators and guides for Google AI Overviews and GEO |
 | **WebApplication & Article Schema** | `WebApplication`, `TechArticle`, `BreadcrumbList` | Completed | Validated in Google Rich Results Test; all 30 calculators pass verified engineering standards citations (`isBasedOn` & `citation`) for IEEE, NEC, UL, IEC, and NREL |
 | **Root OpenGraph Card** | Root `opengraph-image.tsx` | Completed | 1200x630 dynamic Next.js OG preview |
 | **Category OG Cards** | Category-specific `opengraph-image.tsx` | Completed | Dedicated cards created for `/solar`, `/battery`, `/home-energy`, and `/ev` |
-| **Internal Linking Graph** | Guides-to-tools & tools-to-guides reciprocal workflow links | Completed | Bidirectional links between guides and corresponding calculators (`battery-runtime`, `ev-charging-time`, `solar-panel-tilt`, `generator-size`, `voltage-drop`, etc.) |
+| **Internal Linking Graph** | Guides-to-tools & tools-to-guides reciprocal workflow links | Completed | Bidirectional links reinforced between all 8 guides and corresponding calculators (`battery-runtime`, `generator-size`, `ac-cost`, `voltage-drop`, `ev-charging-time`, `solar-panel-tilt`, `how-many-kwh`) |
 | **Phase 5 SERP and Keyword Research** | Keyword Planner and SERP Analysis | Completed | 10 high-impact expansion specs and canonical maps added |
 | **Community & Academic Outreach Kit** | Technical distribution templates (`docs/outreach/`) | Completed | Turnkey worked examples for DIY Solar Forum, Tesla Motors Club, and university/vocational OER syllabus pitches |
 | **High-DA Academic Paper Syndication** | Working Papers 1, 2 & 3 (Live on Academia.edu & Figshare) | Completed (August 26, 2026) | Paper 1 (Academia/Figshare/Archive). Paper 2 (DOI: 10.6084/m9.figshare.33321774). **Paper 3 Published on Academia.edu** (*Deterministic Modeling of Inductive Motor Inrush Currents and Non-Coincident Load Stacking for Residential Backup Power Systems*) |
 | **AlternativeTo Directory Submission** | Listing submitted with PVWatts & HOMER alternatives | Completed (August 24, 2026) | PoweLab profile submitted to AlternativeTo.net (DA 84) linked to PVWatts, HOMER Pro, and PVsyst |
-| **Daily 5 High-Impact Outreach Sprint** | 30 Turnkey Email Pitches (`docs/outreach/04_*`) | In Progress (Batch 3 Active) | **Batch 1 (Aug 24)**: Stanford, NREL (`pvwatts@nrel.gov`), AppState, UTK, NC State.<br>**Batch 2 (Aug 26)**: NJATC, IBEW 134, NECA NorCal, NABCEP, Lincoln Tech.<br>**Batch 3 (Aug 27 — Today)**: Trade Media Editors (*Solar Power World*, *InsideEVs*, *EC&M*, *Canary Media*, *PV Magazine*). |
+| **Daily 5 High-Impact Outreach Sprint** | 30 Turnkey Email Pitches (`docs/outreach/04_*`) | In Progress (Batch 4 Completed) | **Batch 1 (Aug 24)**: Stanford, NREL (`pvwatts@nrel.gov`), AppState, UTK, NC State.<br>**Batch 2 (Aug 26)**: NJATC, IBEW 134, NECA NorCal, NABCEP, Lincoln Tech.<br>**Batch 3 (Aug 27)**: Trade Media Editors (*Solar Power World*, *InsideEVs*, *EC&M*, *Canary Media*, *PV Magazine*).<br>**Batch 4 (Aug 29 — Today)**: State Clean Energy Centers & Extensions (*FSEC/UCF*, *UT Austin*, *CU Boulder*, *NCCETC*, *UC Davis*). |
 | **Ahrefs Audit Remediation** | 100% resolution of Ahrefs August 27 Crawl Issues | August 27, 2026 | Resolved: (1) Orphan page `/terms` eliminated; (2) Incomplete OG tags resolved across all 49 pages via `buildPageMetadata` with 1200x630 category cards; (3) 19 title length issues fixed (all final rendered titles <= 60 chars); (4) 18 meta descriptions trimmed to 140–155 chars; (5) Short descriptions expanded; (6) 6 single-link pages reinforced with 2–3+ contextual reciprocal links; (7) IndexNow integrated & 49 URLs submitted (HTTP 202 Accepted). |
 | **IndexNow Protocol** | Native key verification & instant submission API | August 27, 2026 | Route `/c94b7e8d1a2f43b68019e34a75d28b12.txt` active; `/api/indexnow/submit` and `scripts/submit-indexnow.ts` tested & submitted all 49 URLs with HTTP 202. |
 | **Google Publisher Center & Preferred Sources** | Google Publisher Center verified & configured | August 29, 2026 | Publication ID `CAowrJPNDA` verified via GSC; primary language English (`en-US`), 1000x1000 square logo uploaded; on-site interactive "Pin to Google" banner deployed in calculator result panel. |
@@ -41,24 +41,24 @@
 | **Batch 1** | University Faculty & Energy Labs (Stanford, NREL, AppState, UTK, NC State) | August 24, 2026 | **August 31, 2026** | Sent — Awaiting reply / Follow-up pending (Note: re-send to `chris.deline@nrel.gov` without space) |
 | **Batch 2** | Electrical Apprenticeship & Vocational Directors (NJATC, IBEW 134, NECA, NABCEP, Lincoln Tech) | August 26, 2026 | **September 2, 2026** | Sent — Awaiting reply (`training@ualocal602.org` queued 45h; `smartin@ejatt.com` hard bounced) |
 | **Batch 3** | Clean Energy Trade Media Editors (Solar Power World, InsideEVs, EC&M, Canary, PV Mag) | **August 27, 2026** | **September 3, 2026** | **Sent** (Emails 11, 12, 15 delivered; 13 routed to `eparson@endeavorb2b.com`; 14 routed to `editors@canarymedia.com`) |
-| **Batch 4** | State Clean Energy Centers & Extensions (FSEC, UT Austin, CU Boulder, NCCETC, UC Davis) | August 28, 2026 | September 4, 2026 | Queued for tomorrow |
-| **Batch 5** | Advocacy Non-Profits & EV Coalitions (Plug In America, SEIA, Energy Innovation, Electrek, ILSR) | August 29, 2026 | September 5, 2026 | Queued |
-| **Batch 6** | Open Educational Resources & STEM Libraries (LibreTexts, MIT OCW, OER Commons, MERLOT, CC) | August 30, 2026 | September 6, 2026 | Queued |
+| **Batch 4** | State Clean Energy Centers & Extensions (FSEC, UT Austin, CU Boulder, NCCETC, UC Davis) | **August 29, 2026** | **September 5, 2026** | **Sent** (Emails 16, 17, 18, 19, 20 delivered) |
+| **Batch 5** | Advocacy Non-Profits & EV Coalitions (Plug In America, SEIA, Energy Innovation, Electrek, ILSR) | August 30, 2026 | September 6, 2026 | Queued for tomorrow |
+| **Batch 6** | Open Educational Resources & STEM Libraries (LibreTexts, MIT OCW, OER Commons, MERLOT, CC) | August 31, 2026 | September 7, 2026 | Queued |
 
 ---
 
 ## 3. Technical SEO Baseline Status
 
 * **Robots.txt**: Cleanly permits all canonical pages and references `https://www.powelab.org/sitemap.xml`.
-* **Canonical URLs**: All 61 pages define explicit canonical URLs.
-* **Sitemap inventory**: 61 canonical URLs: 30 calculators, 4 category hubs, 7 guide routes, the homepage and root/utility/legal pages.
+* **Canonical URLs**: All 62 pages define explicit canonical URLs.
+* **Sitemap inventory**: 62 canonical URLs: 30 calculators, 4 category hubs, 8 guide routes, the homepage and root/utility/legal pages.
 * **Sitemap freshness**: Timestamps omitted to preserve honest indexing crawl frequency.
 * **Semantic hierarchy**: Calculator and content pages use a single `<h1>` with semantic `<article>`, `<section>` and breadcrumb navigation.
 * **Structured data graph**:
   * Root: `Organization` and `WebSite` with `SearchAction`.
   * Category hubs: `CollectionPage`, `ItemList` and `BreadcrumbList`.
   * Calculators: `WebApplication` (free/0 USD), `BreadcrumbList`, `SpeakableSpecification`, and visible-content `FAQPage` across all 30 routes.
-  * Guides: `TechArticle`, `BreadcrumbList`, `SpeakableSpecification`, standard citations (`IEEE`, `NEC`, `IEC`, `SAE`, `NREL`, `NEMA`, `ISO`) and `FAQPage` across all 7 guides.
+  * Guides: `TechArticle`, `BreadcrumbList`, `SpeakableSpecification`, standard citations (`IEEE`, `NEC`, `IEC`, `SAE`, `NREL`, `NEMA`, `ISO`, `AHRI`, `ASHRAE`) and `FAQPage` across all 8 guides.
 * **Internal linking**: Guides, category hubs, and calculators expose bidirectional next-step links across Home Energy, Solar, Battery, and EV planning paths.
 
 ---
@@ -100,74 +100,111 @@ To establish unbreakable domain authority and AI trust signals, maintain active 
 
 ---
 
-## 4. Google Search Console Baseline Snapshot (August 25, 2026)
+## 4. Google Search Console Live Snapshot (August 29, 2026 — 7-Day Window Aug 18–26)
 
 ### 4.1 Macro Performance Metrics
 
-| Metric | Previous Baseline (Aug 20, 2026) | Current Baseline (Aug 25, 2026) | Delta / Trend |
-| :--- | :---: | :---: | :---: |
-| **Total Impressions** | 195 | **4,450 (4.45k)** | **+2,182%** 🚀 |
-| **Total Clicks** | 0 | **2** | +2 clicks (Solar Panel Size & Methodology) |
-| **Average Position** | 64.0 | **56.8** | +7.2 positions improvement |
-| **Total Query Terms Ranking** | ~25 | **793 distinct queries** | +768 new ranking keywords |
-| **Pages in Active Index** | 18 | **32 pages** | +14 newly indexed canonical URLs |
-| **Discovered, Not Yet Indexed** | 5 | **11 pages** | In queue for crawl budget allocation |
-| **Pages with 301 Redirect** | 3 | **3 pages** | `http://powelab.org`, `https://powelab.org`, `http://www.powelab.org` (Healthy) |
+| Metric | Baseline (Aug 20, 2026) | Snapshot (Aug 25, 2026) | Current Live (Aug 29, 2026) | Delta / Trend |
+| :--- | :---: | :---: | :---: | :---: |
+| **Total Impressions** | 195 | 4,450 (4.45k) | **7,690 (7.69k)** | **+72.8%** (vs Aug 25) / **+3,843%** 🚀 |
+| **Total Clicks** | 0 | 2 | **4** | **+100%** (Doubled organic clicks) |
+| **Average Position** | 64.0 | 56.8 | **56.8** | Stable while ranking pool expanded by hundreds |
+| **Average CTR** | 0.0% | 0.05% | **0.1%** | Upward inflection |
+| **Total Query Terms Ranking** | ~25 | 793 distinct queries | **1,000+ distinct queries** | +207+ new ranking queries (hitting GSC 1,000 cap) |
+| **Discovered, Not Yet Indexed** | 5 | 11 pages | **11 pages** | In crawl queue (`/about`, `/battery`, `/battery/battery-size-calculator`, `/battery/ups-battery-size-calculator`, `/battery/ups-runtime-calculator`, `/battery/voltage-drop-calculator`, `/ev/ev-charging-time-calculator`, `/privacy`, `/solar`, `/solar/solar-payback-calculator`) |
+| **Pages with 301 Redirect** | 3 | 3 pages | **3 pages** | `http://powelab.org`, `https://powelab.org`, `http://www.powelab.org` (Proper canonical 301s) |
 
 ---
 
-### 4.2 Top Performing URLs by Organic Search Impressions (Aug 25, 2026)
+### 4.2 Top Performing Queries in Search Console (Aug 29, 2026)
 
-| Rank | Canonical URL / Page | Impressions | Clicks | Primary Ranking Query Theme |
-| :---: | :--- | ---:| ---:| :--- |
-| 1 | `/home-energy/air-conditioner-cost-calculator` | **580** | 0 | `ac cost calculator`, `central ac energy cost`, `air conditioning cost per month` |
-| 2 | `/battery/battery-capacity-calculator` | **568** | 0 | `battery backup calculator`, `home battery backup calculator`, `mah to kwh`, `ah to kwh` |
-| 3 | `/home-energy/energy-bill-calculator` | **359** | 0 | `electricity usage calculator`, `energy bill calculator`, `calculate utility bills` |
-| 4 | `/solar/solar-panel-output-calculator` | **357** | 0 | `solar panel output calculator`, `how to calculate solar panel output`, `solar yield calculation` |
-| 5 | `/ev/ev-range-calculator` | **320** | 0 | `electric vehicle range calculator`, `ev range calculator`, `ev calculate` |
-| 6 | `/guides/how-many-kwh-does-a-house-use-per-day` | **275** | 0 | `how many kwh does a house use per day`, `average household electricity consumption` |
-| 7 | `/home-energy/electricity-usage-calculator` | **266** | 0 | `electricity usage calculator`, `electric consumption calculator` |
-| 8 | `/battery/battery-charging-time-calculator` | **251** | 0 | `battery charge time calculator`, `calculate charge time`, `charging speed calculator` |
-| 9 | `/home-energy/generator-size-calculator` | **192** | 0 | `generator wattage calculator`, `calculate size of generator for home`, `standby generator size` |
-| 10 | `/battery/battery-runtime-calculator` | **191** | 0 | `battery runtime calculator`, `calculate runtime of battery`, `inverter runtime calculator` |
-| 11 | `/` (Homepage Hub) | **155** | 0 | Brand and broad energy planning terms |
-| 12 | `/solar/solar-panel-size-calculator` | **153** | 1 | `solar panel size calculator`, `solar power size calculator` |
-| 13 | `/solar/solar-battery-bank-size-calculator` | **95** | 0 | `solar battery storage calculator`, `solar panel battery bank calculator` |
-| 14 | `/home-energy/space-heater-cost-calculator` | **85** | 0 | `space heater cost calculator`, `1500 watt heater cost per hour` |
-| 15 | `/solar/solar-panel-tilt-calculator` | **84** | 0 | `solar panel angle calculator`, `tilt angle solar panel calculator` |
-| 16 | `/battery/portable-power-station-calculator` | **76** | 0 | `portable power station calculator`, `solar charger calculator` |
-| 17 | `/home-energy/home-battery-size-calculator` | **75** | 0 | `home battery backup calculator`, `home battery capacity calculator` |
-| 18 | `/home-energy/appliance-wattage-calculator` | **66** | 0 | `appliance wattage`, `household appliance wattage calculator` |
-| 19 | `/methodology` | **59** | 1 | Citations, formula transparency, NREL model methodology |
-| 20 | `/ev/ev-savings-calculator` | **49** | 0 | `ev vs gas savings calculator`, `electric car savings calculator` |
-| 21 | `/solar/solar-charge-controller-calculator` | **47** | 0 | `sizing solar charge controller`, `mppt charge controller calculator` |
+| Query Term | Impressions | Clicks | Strategic Intent / Target Route |
+| :--- | ---:| ---:| :--- |
+| `electricity usage calculator` | **25** | 0 | `/home-energy/electricity-usage-calculator` |
+| `solar panel angle calculator` | **25** | 0 | `/solar/solar-panel-tilt-calculator` |
+| `solar panel output calculator` | **22** | 0 | `/solar/solar-panel-output-calculator` |
+| `solar panel size calculator` | **22** | 0 | `/solar/solar-panel-size-calculator` |
+| `solar power battery calculator` | **18** | 0 | `/solar/solar-battery-bank-size-calculator` |
+| `solar yield calculation` | **18** | 0 | `/solar/solar-panel-output-calculator` |
+| `central ac energy cost` | **17** | 0 | `/home-energy/air-conditioner-cost-calculator` |
+| `home battery backup calculator` | **17** | 0 | `/home-energy/home-battery-size-calculator` |
+| `ac cost calculator` | **15** | 0 | `/home-energy/air-conditioner-cost-calculator` |
+| `how much kwh does a house use per day` | **15** | 0 | `/guides/how-many-kwh-does-a-house-use-per-day` |
+| `solar production calculator` | **15** | 0 | `/solar/solar-panel-output-calculator` |
+| `ev charging time calculator` | **14** | 0 | `/ev/ev-charging-time-calculator` |
+| `mah berekenen` (NL/BE) | **14** | 0 | `/battery/battery-capacity-calculator` *(International reach)* |
+| `battery backup calculator` | **14** | 0 | `/battery/battery-runtime-calculator` |
+| `solar battery size calculator` | **12** | 0 | `/solar/solar-battery-bank-size-calculator` |
+| `generator wattage calculator` | **12** | 0 | `/home-energy/generator-size-calculator` *(Surging)* |
+| `charger calculator` | **12** | 0 | `/battery/battery-charging-time-calculator` |
+| `generator size calculator` | **12** | 0 | `/home-energy/generator-size-calculator` *(Surging)* |
+| `electricity calculator` | **11** | 0 | `/home-energy/electricity-usage-calculator` |
+| `solar panel kilowatt hour calculator` | **11** | 0 | `/solar/solar-panel-output-calculator` |
+| `how much power does a house use a day` | **10** | 0 | `/guides/how-many-kwh-does-a-house-use-per-day` |
+| `solar battery storage calculator` | **10** | 0 | `/solar/solar-battery-bank-size-calculator` |
+| `how to calculate solar panel output` | **10** | 0 | `/solar/solar-panel-output-calculator` |
+| `what size generator for 150 amp service` | **10** | 0 | `/guides/emergency-generator-sizing-and-inrush-load-guide` |
+| `zonnepanelen kwh calculator` (NL/BE) | **10** | 0 | `/solar/solar-panel-output-calculator` *(International reach)* |
+| `backup generator size calculator` | **9** | 0 | `/home-energy/generator-size-calculator` |
+| `portable generator wattage calculator` | **9** | 0 | `/battery/portable-power-station-calculator` |
+| `standby generator sizing calculator` | **9** | 0 | `/home-energy/generator-size-calculator` |
+| `solar panel kw calculator` | **9** | 0 | `/solar/solar-panel-size-calculator` |
+| `calculate backup power requirements` | **9** | 0 | `/guides/battery-backup-runtime-calculation-guide` |
+| `ev charging cost calculator` | **8** | 0 | `/ev/ev-charging-cost-calculator` |
+| `12v battery run time calculator` | **8** | 0 | `/battery/battery-runtime-calculator` |
+| `air conditioning energy savings calculator` | **8** | 0 | `/home-energy/air-conditioner-cost-calculator` |
+| `standby generator size calculator` | **8** | 0 | `/home-energy/generator-size-calculator` |
+| `peak shaving calculator` | **8** | 0 | `/solar/solar-battery-bank-size-calculator` |
+| `pvwatts` / `pvwatts calculator` | **11** | 0 | `/solar/solar-panel-tilt-calculator` |
+| `generac generator size calculator` | **7** | 0 | `/home-energy/generator-size-calculator` |
+| `what size generator needed to run sump pump` | **6** | 0 | `/guides/emergency-generator-sizing-and-inrush-load-guide` |
+| `comment calculer la capacité d'une batterie en ah` (FR) | **4** | 0 | `/battery/battery-capacity-calculator` *(International reach)* |
+| `comment calculer la capacité d'une batterie en kwh` (FR) | **4** | 0 | `/battery/battery-capacity-calculator` *(International reach)* |
 
 ---
 
-### 4.3 High-Value Query Clusters Tracked for Position Acceleration
+### 4.3 High-Value Query Clusters Momentum & Acceleration
 
 ```text
-Cluster 1: Generator & Emergency Power (192+ impressions)
-• generator wattage calculator (7 imp)
-• standby generator sizing calculator (6 imp)
-• calculate size of generator for home (6 imp)
-• what size generator needed to run sump pump (4 imp)
-• what size generator for 150 amp service (4 imp)
--> Target: Release Guide 2 (Aug 27) to capture Top 10 positions.
+Cluster 1: Generator & Emergency Inrush Surge (Surging rapidly — 70+ impressions across 10 query variants)
+• generator wattage calculator (12 imp)
+• generator size calculator (12 imp)
+• what size generator for 150 amp service (10 imp)
+• backup generator size calculator (9 imp)
+• standby generator sizing calculator (9 imp)
+• portable generator wattage calculator (9 imp)
+• calculate size of generator for home (8 imp)
+• generac generator size calculator (7 imp)
+• what size generator needed to run sump pump (6 imp)
+• whole house generator sizing calculator (5 imp)
+-> Target: Published Guide 7 (Emergency Generator Sizing & Motor Inrush Guide) is capturing this exact cluster.
 
-Cluster 2: HVAC & Cooling/Heating Costs (665+ impressions)
-• ac cost calculator (10 imp)
-• central ac energy cost (10 imp)
-• air conditioning energy savings calculator (5 imp)
-• 1500 watt heater cost per hour (2 imp)
--> Target: Release Guide 3 & Guide 5 to capture high seasonal volume.
+Cluster 2: Solar Tilt, Output & Geometry (95+ impressions across variants)
+• solar panel angle calculator (25 imp)
+• solar panel output calculator (22 imp)
+• solar panel size calculator (22 imp)
+• solar yield calculation (18 imp)
+• solar production calculator (15 imp)
+• pvwatts / pvwatts calculator (11 imp)
+• solar panel kilowatt hour calculator (11 imp)
+-> Target: PVWatts V8 engine and Solar Tilt Latitude Guide driving authoritative organic discovery.
 
-Cluster 3: Battery Capacity & Conversions (759+ impressions)
-• solar power battery calculator (10 imp)
-• home battery backup calculator (9 imp)
-• mah berekenen / mah to kwh (8 imp)
-• 12v battery run time calculator (5 imp)
--> Target: Expand technical guides with interactive SVG calculators.
+Cluster 3: Home Cooling & Heating Costs (48+ impressions)
+• central ac energy cost (17 imp)
+• ac cost calculator (15 imp)
+• air conditioning energy savings calculator (8 imp)
+• 1500 watts cost per hour (3 imp)
+-> Target: Upcoming Guide 3 (Central AC & Heat Pump Electricity Cost Guide) scheduled to monopolize this intent.
+
+Cluster 4: Battery Capacity, Runtime & International Ingestion
+• solar power battery calculator (18 imp)
+• home battery backup calculator (17 imp)
+• battery backup calculator (14 imp)
+• mah berekenen (14 imp - NL/BE)
+• solar battery size calculator (12 imp)
+• 12v battery run time calculator (8 imp)
+• comment calculer la capacité d'une batterie en ah / kwh (8 imp - FR)
+-> Target: Universal engineering formulas bridging multilingual European technical queries without ad tracking.
 ```
 
 ---

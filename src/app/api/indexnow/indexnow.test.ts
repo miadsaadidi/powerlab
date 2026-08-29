@@ -11,7 +11,7 @@ describe("IndexNow verification and sitemap coverage", () => {
     expect(text).toBe("c94b7e8d1a2f43b68019e34a75d28b12");
   });
 
-  it("ensures sitemap paths contains all 49 canonical URLs including utility and guides", () => {
+  it("ensures sitemap paths contains all 50 canonical URLs including utility and guides", () => {
     const paths = getSitemapPaths();
     expect(paths).toContain("/");
     expect(paths).toContain("/terms");
@@ -21,6 +21,6 @@ describe("IndexNow verification and sitemap coverage", () => {
     expect(paths).toContain("/developers");
     expect(paths).toContain("/methodology");
     expect(paths).toContain("/sources");
-    expect(paths.length).toBe(49);
+    expect(paths.length).toBe(50);
   });
 });

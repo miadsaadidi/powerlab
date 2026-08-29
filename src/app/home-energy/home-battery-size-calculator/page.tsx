@@ -186,9 +186,12 @@ export default function HomeBatterySizePage() {
       </section>
 
       <section id="related-tools">
-        <h2>Related Energy &amp; Storage Calculators</h2>
+        <h2>Related Energy &amp; Storage Calculators &amp; Guides</h2>
         <p>
           Size an emergency standby generator with the <Link href="/home-energy/generator-size-calculator">Generator Size Calculator</Link>, size off-grid solar storage with the <Link href="/solar/solar-battery-bank-size-calculator">Solar Battery Bank Size Calculator</Link>, or calculate solar panel capacity with the <Link href="/solar/solar-panel-size-calculator">Solar Panel Size Calculator</Link>.
+        </p>
+        <p style={{ marginTop: "0.75rem" }}>
+          📖 <strong>In-Depth Technical Guides:</strong> Learn how HVAC loads impact battery runtime in our <Link href="/guides/central-ac-and-heat-pump-electricity-cost-guide" style={{ fontWeight: 600, color: "var(--accent)" }}>Central AC &amp; Heat Pump Cost Guide</Link> or benchmark your home&apos;s total electricity demand with our <Link href="/guides/how-many-kwh-does-a-house-use-per-day" style={{ fontWeight: 600, color: "var(--accent)" }}>Daily Household kWh Usage Guide</Link>.
         </p>
       </section>
     </article>
