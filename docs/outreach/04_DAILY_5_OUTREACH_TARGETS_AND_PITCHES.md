@@ -6,6 +6,16 @@ This document contains 30 curated, highly targeted email pitches organized in ba
 - **Intellectual & Scientific Curiosity First:** Every pitch centers on a specific, non-trivial engineering challenge, thermodynamic phase boundary, electrochemical loss mechanism, or mathematical divergence between textbook formulas and field measurements.
 - **Zero Promotional / Spam Language:** Never use marketing clichés (e.g. avoid *"100% free"*, *"ad-free"*, *"no signup required"*, *"check out our site"*, *"please link to us"*).
 - **Peer-to-Peer Engineering Tone:** Maintain the rigorous, collegial tone of a computational modeling group offering transparent mathematical datasets, deterministic models, or technical discussion points.
+- **No AI Stylistic Artifacts:** Avoid em dashes ("—"), generic cheerleading, hollow adjectives ("cutting-edge", "game-changing"), or conversational filler. Keep all links and citations direct and clean.
+
+### The Psychological & Scientific Curiosity Trigger Framework (Mandatory for All Pitches)
+Every cold email to an academic, director, or analyst MUST contain a **Cognitive Dissonance / Counter-Intuitive Anomaly hook**. An expert will never reply to generic praise or common-knowledge summaries; they reply when presented with an interesting empirical tension in their own domain.
+
+Follow this 4-step psychological trigger structure in every outreach email:
+1. **The Common Practice / Intuitive Assumption (The Status Quo):** State what 95% of consumers, textbooks, or commercial calculators assume (e.g. *"Conventional wisdom assumes EV city driving is always more efficient than highway"* or *"Nominal vehicle efficiency metrics assume window-sticker mi/kWh equals fuel tank equivalence"*).
+2. **The Counter-Intuitive Physical Mechanism (The Anomaly):** Reveal the hidden physical variable that breaks the assumption (e.g. *"Because cabin heating is a fixed time-based continuous load (3 kW–5 kW) rather than distance-based, slow 20 mph city traffic causes the heater to consume more energy per mile than the motor itself, cutting range by 40%+, whereas at 70 mph the exact same draw is amortized over triple the distance"*).
+3. **The Material Quantitative Impact:** Ground the anomaly with real numbers that matter to an economist, engineer, or policy advocate (e.g. *"At $0.35/kWh, this 10%–14% conversion loss shifts parity against gas by $400/year"*).
+4. **The Transparent Deterministic Artifact:** Present PowerLab not as a product, but as an open mathematical reference that models that exact variable with zero black-box obscurity.
 
 ---
 
