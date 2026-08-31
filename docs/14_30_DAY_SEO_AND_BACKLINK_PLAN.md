@@ -55,13 +55,14 @@
 
 Target communities and authoritative institutions where educators, editors, and engineers actively seek transparent, ad-free calculations:
 
-* [ ] **Daily 20-Minute Actionable Routine (Pillars 1–5 & Outreach)**:
+* [ ] **Daily 25-Minute Actionable Routine (Pillars 1–5 & Outreach)**:
   1. **Pillar 3 (Preferred Sources):** Check [google.com/preferences/source](https://www.google.com/preferences/source) for `PowerLab` / `powelab.org` to detect when Publication ID `CAowrJPNDA` is live in search preferences.
   2. **Pillar 2 (Mathematical Rigor):** GSC coverage & query inspection (monitor top impression queries like *ac cost*, *battery capacity*, *peukert*).
   3. **Pillar 4 (AI Overviews / GEO):** Spot-check 2 target keywords in Google AI Overviews and Perplexity to verify PowerLab direct answer citation.
   4. **Pillar 1 (Zero-Spam Trust Moat):** Scan 1 technical forum thread (DIY Solar, TMC, Reddit) complaining about solar lead-broker spam; share PowerLab with emphasis on *no email / 100% private*.
   5. **Pillar 5 (Institutional Outreach):** Send 5 targeted emails from `docs/outreach/04_*`.
-  6. **Pillar 5 (Academic Backlinks):** Send 72h follow-ups; maintain working papers on Academia.edu, Figshare (DOI: `10.6084/m9.figshare.33321774`), and Internet Archive.
+  6. **Pillar 5 (Authority & Backlinks — Medium):** Publish 1 concise technical post/teardown on Medium (DA 96) adapting PowerLab's guide formulas, with canonical attribution and reciprocal link to `powelab.org`.
+  7. **Pillar 5 (Academic Backlinks):** Send 72h follow-ups; maintain working papers on Academia.edu, Figshare (DOI: `10.6084/m9.figshare.33321774`), and Internet Archive.
 
 * [x] **Day 8 — AlternativeTo Submission & Indexing (DA 84)**:
   * Submit PowerLab to **AlternativeTo.net** as an open-access, ad-free alternative to *PVWatts*, *Victron MPPT Calculator*, *HOMER Energy*, and *SolarEdge Designer*.
@@ -119,15 +120,16 @@ Target communities and authoritative institutions where educators, editors, and 
 
 ---
 
-## 3. Verified High-DA Academic & Research Platforms (Zero-Headache Core Trio)
+## 3. Verified High-DA Publishing, Academic & Research Platforms (Core 4 Authority Network)
 
-To build unbreakable domain authority, authoritative academic citation signals, and Google Scholar / AI overview references, syndicate technical papers and calculation models across these **3 verified instant-publishing platforms (no approval delays, no institutional email gates)**:
+To build unbreakable domain authority, authoritative academic citation signals, and Google Scholar / AI overview references, syndicate technical papers, teardowns, and calculation models across these **4 verified instant-publishing platforms (no approval delays, no institutional email gates)**:
 
 | Priority | Platform | Domain Authority (DA) | Best Use & Content Format | Verification / Speed |
 | :---: | :--- | :---: | :--- | :--- |
-| **🥇 Core 1** | **Academia.edu** (`academia.edu`) | **93** | Upload Working Papers, Technical Reports, and post 2×/week technical discussion updates | Free account, **instant live profile & backlink** |
-| **🥈 Core 2** | **Figshare** (`figshare.com`) | **90** | Upload Preprints, working papers; issues official citable DOI | Free account, **instant DOI generation & publication** |
-| **🥉 Core 3** | **Internet Archive** (`archive.org`) | **99** | Permanent open-access PDF & whitepaper archive with live source links | Free account, **instant worldwide publication** |
+| **🥇 Core 1** | **Medium** (`medium.com`) | **96** | 1 daily 500-word engineering teardown or canonical guide import with links to `powelab.org` | Free account, **instant live publication & indexation** |
+| **🥈 Core 2** | **Academia.edu** (`academia.edu`) | **93** | Upload Working Papers, Technical Reports, and post 2×/week technical discussion updates | Free account, **instant live profile & backlink** |
+| **🥉 Core 3** | **Figshare** (`figshare.com`) | **90** | Upload Preprints, working papers; issues official citable DOI | Free account, **instant DOI generation & publication** |
+| **4th Core** | **Internet Archive** (`archive.org`) | **99** | Permanent open-access PDF & whitepaper archive with live source links | Free account, **instant worldwide publication** |
 | *Secondary* | **OSF / ECSarXiv** (`osf.io`) | **88** | Open Science Framework preprint server | Free, subject to 24–48h community moderation queue |
 | *Secondary* | **SSRN / Zenodo / ResearchGate** | **91–93** | Institutional preprints & CERN Open Science | Subject to network/institutional email requirements |
 

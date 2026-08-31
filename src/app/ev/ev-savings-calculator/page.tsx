@@ -162,6 +162,7 @@ export default function EvSavingsPage() {
           notes={[
             "Annual Fuel Savings = Gas_Annual_Cost - EV_Annual_Cost.",
             "Total Annual Savings = Annual Fuel Savings + (Gas Maintenance - EV Maintenance).",
+            "Charging loss factor accounts for AC recharge energy (wall-to-battery) rather than nominal DC battery discharge. Level 1 charging (120V) incurs lower efficiency (~78%–83%) due to fixed continuous vehicle computer loads, while cold ambient temperatures require active battery pack heating (Archsmith, Kendall, & Rapson, 2015).",
           ]}
         />
       </div>

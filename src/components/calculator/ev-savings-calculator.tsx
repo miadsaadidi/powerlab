@@ -313,9 +313,12 @@ export function EvSavingsCalculator() {
             {advancedOpen && (
               <fieldset className="input-group advanced-settings">
                 <legend>Advanced assumptions</legend>
-                <label>
-                  Charging efficiency (%)
+                <div>
+                  <label htmlFor="ev-charging-eff-input">
+                    Charging efficiency (%)
+                  </label>
                   <input
+                    id="ev-charging-eff-input"
                     type="number"
                     min="0.1"
                     max="100"
@@ -326,8 +329,60 @@ export function EvSavingsCalculator() {
                       markStale();
                     }}
                   />
-                  <span className="form-hint">Planning assumption for electricity delivered to the battery.</span>
-                </label>
+                  <div style={{ display: "flex", gap: "0.35rem", flexWrap: "wrap", marginTop: "0.4rem" }}>
+                    <button
+                      type="button"
+                      className="button secondary-button"
+                      style={{ fontSize: "0.72rem", padding: "0.2rem 0.45rem" }}
+                      onClick={() => {
+                        setEvEfficiency("90");
+                        markStale();
+                      }}
+                      title="Standard 240V residential AC charging at mild ambient temperatures"
+                    >
+                      ⚡ Level 2 Typical (90%)
+                    </button>
+                    <button
+                      type="button"
+                      className="button secondary-button"
+                      style={{ fontSize: "0.72rem", padding: "0.2rem 0.45rem" }}
+                      onClick={() => {
+                        setEvEfficiency("81");
+                        markStale();
+                      }}
+                      title="120V trickle charging (continuous ~250W parasitic BMS/computer overhead)"
+                    >
+                      🔌 Level 1 Trickle (81%)
+                    </button>
+                    <button
+                      type="button"
+                      className="button secondary-button"
+                      style={{ fontSize: "0.72rem", padding: "0.2rem 0.45rem" }}
+                      onClick={() => {
+                        setEvEfficiency("83");
+                        markStale();
+                      }}
+                      title="Sub-zero winter conditions with active PTC battery thermal conditioning"
+                    >
+                      ❄️ Cold Climate (83%)
+                    </button>
+                    <button
+                      type="button"
+                      className="button secondary-button"
+                      style={{ fontSize: "0.72rem", padding: "0.2rem 0.45rem" }}
+                      onClick={() => {
+                        setEvEfficiency("93");
+                        markStale();
+                      }}
+                      title="Modern Silicon Carbide (SiC) 800V architecture at 48A"
+                    >
+                      🚀 High Efficiency SiC (93%)
+                    </button>
+                  </div>
+                  <span className="form-hint" style={{ marginTop: "0.35rem", display: "block" }}>
+                    Models AC-to-DC conversion &amp; thermal losses. Level 1 suffers higher percentage loss due to fixed vehicle computer/BMS draw (~150W–300W), while freezing temperatures divert energy to active pack heating (Archsmith, Kendall, &amp; Rapson, 2015).
+                  </span>
+                </div>
                 <label>
                   Annual EV maintenance (optional)
                   <input

@@ -195,8 +195,14 @@ export default function MethodologyPage() {
         </div>
 
         <p>
-          PowerLab applies standard level efficiencies: <strong>Level 1 (120V / 12–16A):</strong> ~83%–85% efficiency due to fixed onboard computer overhead; <strong>Level 2 (240V / 32–48A):</strong> ~90%–92% efficiency; <strong>DC Fast Charging (400V–800V):</strong> modeled with non-linear tapering beyond 80% State of Charge.
+          PowerLab applies empirical level efficiencies rooted in AC recharge energy modeling:
         </p>
+        <ul style={{ margin: "0.5rem 0 1rem 1.25rem", fontSize: "0.92rem", lineHeight: 1.6 }}>
+          <li><strong>Level 1 (120V / 12–16A AC):</strong> ~78%–83% efficiency. At low charging throughput (~1.4 kW), fixed continuous parasitic loads from vehicle computers, coolant pumps, and BMS (~150W–300W) consume 15%–20% of supplied energy.</li>
+          <li><strong>Level 2 (240V / 32–48A AC):</strong> ~88%–92% efficiency. Higher delivery rates (7.7–11.5 kW) reduce the relative parasitic overhead to &lt;4%, with losses dominated by onboard charger (OBC) rectification.</li>
+          <li><strong>Cold Weather Thermal Conditioning (&lt;0°C / 32°F):</strong> ~80%–84% effective grid-to-battery efficiency due to increased internal electrochemical cell impedance and power diversion to active PTC battery heaters, as empirically quantified by <em>Archsmith, Kendall, &amp; Rapson (2015)</em>.</li>
+          <li><strong>DC Fast Charging (400V–800V DC):</strong> Off-board rectification delivers ~90%–95% direct-to-battery efficiency, modeled with non-linear saturation tapering beyond 80% State of Charge.</li>
+        </ul>
 
         <div style={{ marginTop: "1rem", display: "flex", gap: "0.75rem", flexWrap: "wrap" }}>
           <Link href="/ev/ev-charging-time-calculator" className="button secondary-button" style={{ fontSize: "0.82rem", padding: "0.4rem 0.75rem" }}>

@@ -76,7 +76,7 @@ To systematically outperform legacy aggregators (OmniCalculator, EnergySage, Sol
 | **Step 3: Pillar 4 (AI Overviews / GEO)** | **Generative Search Citation Spot-Check (3 mins)**<br>Run 2 target queries in Google AI Overviews, Perplexity AI, and ChatGPT Search (e.g. *"battery backup runtime formula"*, *"generator size for central ac"*). Verify if PowerLab's direct answer block or schema is cited. | Google Search / Perplexity | Ensure Direct Answer cards stay optimized for LLM extraction |
 | **Step 4: Pillar 1 (Zero-Spam Trust Moat)** | **Community Value Drop / Forum Response (4 mins)**<br>Scan 1 technical thread on DIY Solar Forum, Reddit (`r/solar`, `r/electricians`), or Tesla Motors Club where users complain about lead-gen sales calls or inaccurate rough estimates. Provide the exact math using PowerLab (highlighting *100% private, no signup*). | DIY Solar / TMC / Reddit | 1 authentic community referral link; reinforces anti-lead-gen reputation |
 | **Step 5: Pillar 5 (Institutional Outreach)** | **Execute Daily 5 Outreach Pitches (7 mins)**<br>Send 5 personalized technical pitches from [`docs/outreach/04_*`](file:///d:/powerlab/docs/outreach/04_DAILY_5_OUTREACH_TARGETS_AND_PITCHES.md) to university engineering faculty (.edu), apprenticeship directors, or trade media editors. | Email Client / Workspace | 5 clean, hyper-targeted institutional emails sent per day |
-| **Step 6: Pillar 5 (Follow-Up & Papers)** | **72-Hour Follow-Up & Academic Paper Syndication (2 mins)**<br>Check outreach replies. Send polite 2-sentence follow-ups for threads sent 72 hours ago. On scheduled days, update paper discussions on Academia.edu and Figshare (DOI: `10.6084/m9.figshare.33321774`). | Academia.edu / Figshare | >15% institutional response rate and permanent high-DA backlinks |
+| **Step 6: Pillar 5 (Authority & Backlinks)** | **72-Hour Follow-Up, Medium Post & Academic Papers (3 mins)**<br>Check outreach replies. Send polite 2-sentence follow-ups for threads sent 72 hours ago. Publish/schedule daily Medium (DA 96) engineering post or discussion update on Academia.edu (DA 93) and Figshare (DOI: `10.6084/m9.figshare.33321774`) with reciprocal links to `powelab.org`. | Medium / Academia.edu / Figshare | >15% institutional response rate and permanent high-DA backlinks |
 
 ---
 
@@ -91,12 +91,13 @@ To systematically outperform legacy aggregators (OmniCalculator, EnergySage, Sol
 
 ---
 
-### 3.3 High-DA Academic Paper & Backlink Platforms (Core Trio)
+### 3.3 High-DA Publishing, Paper & Backlink Platforms (Core 4 Authority Network)
 
-To establish unbreakable domain authority and AI trust signals, maintain active publications across the Core 3 verified platforms:
-1. **Academia.edu (DA 93):** Profile active. Post 2×/week technical discussion updates linking to new interactive guides.
-2. **Figshare (DA 90):** Working Paper #2 live with citable DOI (`10.6084/m9.figshare.33321774`). Paper 3 scheduled for upload.
-3. **Internet Archive (DA 99):** Permanent open-access PDF archive with live canonical source links.
+To establish unbreakable domain authority and AI trust signals, maintain active publications across the Core 4 verified platforms:
+1. **Medium (DA 96):** Primary daily technical publishing and syndication hub (`medium.com`). Post 1 daily focused engineering teardown or canonical guide import with direct links to `powelab.org`. Yields instant Google indexation and heavy citation in LLMs (Perplexity, ChatGPT, Claude).
+2. **Academia.edu (DA 93):** Profile active. Post 2×/week technical discussion updates linking to new interactive guides.
+3. **Figshare (DA 90):** Working Paper #2 live with citable DOI (`10.6084/m9.figshare.33321774`). Paper 3 scheduled for upload.
+4. **Internet Archive (DA 99):** Permanent open-access PDF archive with live canonical source links.
 
 ---
 

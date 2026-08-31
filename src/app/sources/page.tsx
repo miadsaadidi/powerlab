@@ -107,14 +107,14 @@ export default function SourcesPage() {
 
           <article>
             <div style={{ display: "flex", justifyContent: "space-between", alignItems: "baseline", marginBottom: "0.25rem" }}>
-              <h3 style={{ margin: 0 }}>EPA &amp; ENERGY STAR® EVSE</h3>
-              <span style={{ fontSize: "0.72rem", fontWeight: 700, color: "#8b5cf6", background: "rgba(139, 92, 246, 0.1)", padding: "0.2rem 0.5rem", borderRadius: "0.35rem" }}>Efficiency</span>
+              <h3 style={{ margin: 0 }}>Archsmith, Kendall, &amp; Rapson (2015)</h3>
+              <span style={{ fontSize: "0.72rem", fontWeight: 700, color: "#8b5cf6", background: "rgba(139, 92, 246, 0.1)", padding: "0.2rem 0.5rem", borderRadius: "0.35rem" }}>AC Loss &amp; Climate</span>
             </div>
             <p>
-              Electric Vehicle Supply Equipment (EVSE) Energy Efficiency: Standby power requirements, onboard charger thermal conversion efficiency, and MPGe energy equivalence (1 gal gasoline ≈ 33.7 kWh).
+              <em>Research in Transportation Economics</em>, Vol. 52 (&ldquo;From Cradle to Junkyard: Assessing the Life Cycle Greenhouse Gas Benefits of Electric Vehicles&rdquo;): Empirical methodology establishing the necessity of accounting for AC recharge energy (wall draw) rather than nominal DC battery discharge, quantifying charging efficiency dissipation factors across ambient temperatures and regional grid marginal emissions.
             </p>
-            <a href="https://www.energystar.gov/products/ev_chargers" target="_blank" rel="noopener noreferrer">
-              ENERGY STAR EV Charger Benchmarks ↗
+            <a href="https://doi.org/10.1016/j.retrec.2015.10.007" target="_blank" rel="noopener noreferrer">
+              Research in Transportation Economics (DOI: 10.1016/j.retrec.2015.10.007) ↗
             </a>
           </article>
         </div>
