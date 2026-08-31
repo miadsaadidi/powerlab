@@ -768,32 +768,26 @@ https://www.powelab.org
 dsrapson@ucdavis.edu
 ```
 
-**Subject:**
+**Status & History:**
+- **Initial Pitch Sent:** August 29, 2026
+- **Rapson Replied:** August 30, 2026 (asked about 10%–14% variance drivers and whether models are vehicle-specific; noted he factored this into his 2015 *Cradle to Junkyard* paper)
+- **Detailed Technical Reply Sent:** August 31, 2026 (explained L1/L2 continuous parasitic baseline overhead, thermal conditioning, added live interactive presets to `/ev/ev-savings-calculator`, and formally cited *Archsmith, Kendall, & Rapson (2015)* in `/methodology` and `/sources`).
+- ⚠️ **DO NOT SEND GENERIC FOLLOW-UP.**
+- **Dedicated 7-Day Follow-Up Due Date:** **September 7, 2026**
+
+**Tailored Follow-Up Template (Due September 7, 2026):**
 ```text
-Quantifying efficiency-adjusted EV operating costs: factoring OBC rectification dissipation into $/mi economics
-```
+Subject: Re: EV operating economics & charging dissipation
 
-**Email Body:**
-```text
-Hi Dr. Rapson,
+Hi Dave,
 
-I’ve followed your empirical research at UC Davis on transportation electrification economics and how electricity pricing structures impact consumer EV adoption.
+Just following up to see if you had a chance to look over the operational presets and the updated methodology citing your 2015 paper:
+https://www.powelab.org/ev/ev-savings-calculator
 
-When consumers and economists compare EV operating costs against internal combustion vehicles, nominal vehicle efficiency metrics ($\text{mi/kWh}$) frequently omit the 10% to 14% energy dissipation from onboard charger rectification and battery thermal conditioning. At utility rates of $\$0.35/\text{kWh}$, this conversion penalty materially impacts operating cost parity.
-
-To help model true operating economics across varied tariff structures, we developed an open calculation engine:
-• EV vs Gasoline Savings Calculator: https://www.powelab.org/ev/ev-savings-calculator
-• EV Charging Cost & Rate Sizer: https://www.powelab.org/ev/ev-charging-cost-calculator
-
-The model incorporates vehicle efficiency, charging efficiency factors, local fuel benchmarks, and tiered utility rates.
-
-If this would provide a useful interactive computational reference for your students or research portal, please feel free to share it.
+If you or your students have any feedback on how the AC recharge and thermal sensitivity controls work in practice, we would love to hear your thoughts. And if you find it helpful as an open computational reference for your courses at UC Davis, please feel free to share it.
 
 Best regards,
-
-Miad S.
-PowerLab Engineering Group
-https://www.powelab.org
+Miad
 ```
 
 ---
