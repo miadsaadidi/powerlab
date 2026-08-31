@@ -38,8 +38,11 @@ describe("structured-data", () => {
     const webApp = data.find(
       (item) => Array.isArray(item["@type"]) && item["@type"].includes("WebApplication"),
     ) as any;
-    expect(webApp).toBeDefined();
     expect(webApp.citation).toEqual(["IEEE 485", "UL 1973"]);
+    expect(webApp.operatingSystem).toBe("All (Modern Web Browsers, iOS, Android, macOS, Windows)");
+    expect(webApp.browserRequirements).toBe("Requires JavaScript. Requires HTML5 Canvas/SVG.");
+    expect(webApp.offers.availability).toBe("https://schema.org/InStock");
+    expect(webApp.isAccessibleForFree).toBe(true);
 
     const faqPage = data.find((item) => item["@type"] === "FAQPage") as any;
     expect(faqPage).toBeDefined();

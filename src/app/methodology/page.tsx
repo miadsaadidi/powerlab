@@ -3,7 +3,7 @@ import { buildPageMetadata } from "@/lib/seo/metadata-helper";
 import { AcademicCitationModal } from "@/components/seo/academic-citation-modal";
 
 export const metadata = buildPageMetadata({
-  title: "Engineering Methodology & Formulas",
+  title: "Engineering Methodology & Physical Formulas",
   description: "Explore the first-principles mathematical formulas, visible physical loss models, and deterministic standards powering PowerLab energy planning tools.",
   canonicalPath: "/methodology",
 });

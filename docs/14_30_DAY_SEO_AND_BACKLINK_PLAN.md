@@ -61,7 +61,7 @@ Target communities and authoritative institutions where educators, editors, and 
   3. **Pillar 4 (AI Overviews / GEO):** Spot-check 2 target keywords in Google AI Overviews and Perplexity to verify PowerLab direct answer citation.
   4. **Pillar 1 (Zero-Spam Trust Moat):** Scan 1 technical forum thread (DIY Solar, TMC, Reddit) complaining about solar lead-broker spam; share PowerLab with emphasis on *no email / 100% private*.
   5. **Pillar 5 (Institutional Outreach):** Send 5 targeted emails from `docs/outreach/04_*`.
-  6. **Pillar 5 (Authority & Backlinks — Medium):** Publish 1 concise technical post/teardown on Medium (DA 96) adapting PowerLab's guide formulas, with canonical attribution and reciprocal link to `powelab.org`.
+  6. **Pillar 5 (Authority & Backlinks — Medium):** Starting **September 1, 2026**, publish **1 in-depth technical article every 2 days on Medium (DA 96)**. *Mandatory Dual-Link Rule:* Every post must link to a relevant tool on `powelab.org` AND at least one external authoritative institution (NREL, DOE, IEEE, AHRI, or NFPA 70) to prevent algorithmic spam flags and anchor high-trust domain associations.
   7. **Pillar 5 (Academic Backlinks):** Send 72h follow-ups; maintain working papers on Academia.edu, Figshare (DOI: `10.6084/m9.figshare.33321774`), and Internet Archive.
 
 * [x] **Day 8 — AlternativeTo Submission & Indexing (DA 84)**:

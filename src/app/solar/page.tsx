@@ -24,7 +24,7 @@ const solarToolContent: Record<string, string> = {
 import { buildPageMetadata } from "@/lib/seo/metadata-helper";
 
 export const metadata: Metadata = buildPageMetadata({
-  title: "Solar Calculators",
+  title: "Solar Calculators — PV Sizing, Tilt & Output",
   description: "Free deterministic solar planning calculators for tilt angle, monthly PVWatts production yield, array sizing, and off-grid battery banks.",
   canonicalPath: "/solar",
   category: "solar",

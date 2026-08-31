@@ -2,7 +2,7 @@ import Link from "next/link";
 import { buildPageMetadata } from "@/lib/seo/metadata-helper";
 
 export const metadata = buildPageMetadata({
-  title: "Terms of Use",
+  title: "Terms of Use & Calculator Disclaimers",
   description: "Review terms of use and planning disclaimers for PowerLab deterministic mathematical models, physical loss formulas, and energy calculators.",
   canonicalPath: "/terms",
 });

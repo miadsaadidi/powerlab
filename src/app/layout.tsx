@@ -1,10 +1,18 @@
 import type { Metadata } from "next";
+import { Titillium_Web } from "next/font/google";
 import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
 import { PwaRegister } from "@/components/pwa-register";
 import { EmbedDetector } from "@/components/embed-detector";
 import { siteConfig } from "@/lib/site-config";
 import "./globals.css";
+
+const titillium = Titillium_Web({
+  subsets: ["latin"],
+  weight: ["400", "600", "700"],
+  display: "swap",
+  variable: "--font-titillium",
+});
 
 const GA_MEASUREMENT_ID = process.env.NEXT_PUBLIC_GA_ID || "G-H7T6ZEHVEP";
 
@@ -46,6 +54,7 @@ export const viewport = {
   themeColor: "#0284c7",
   width: "device-width",
   initialScale: 1,
+  maximumScale: 5,
 };
 
 const rootStructuredData = {
@@ -102,7 +111,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
           }}
         />
       </head>
-      <body>
+      <body className={titillium.variable}>
         <a className="skip-link" href="#content">Skip to content</a>
         <PwaRegister />
         <EmbedDetector />

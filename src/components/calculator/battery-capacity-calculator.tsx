@@ -7,6 +7,7 @@ import { calculateBatteryCapacity, type BatteryCapacityInput, type BatteryCapaci
 import { resolveBatteryCapacityInitialization } from "@/lib/calculators/battery-capacity/initialization";
 import { createEnergyProfileStore } from "@/lib/energy-profile/store";
 import { isCalculatorPublished } from "@/lib/calculator-registry";
+import Link from "next/link";
 import { GooglePreferredBanner } from "@/components/calculator/google-preferred-banner";
 import { CalculatorTrustPill } from "@/components/calculator/calculator-trust-pill";
 import { ShareButton } from "@/components/calculator/share-button";
@@ -219,12 +220,22 @@ export function BatteryCapacityCalculator() {
           <section className="assumption-summary"><h3>Assumptions used</h3><dl><div><dt>Battery chemistry</dt><dd>{chemistryPreset.label}</dd></div><div><dt>Voltage</dt><dd>{displayVoltage(result.voltage)} V</dd></div></dl><button className="text-button" type="button" onClick={() => setAdvancedOpen(true)}>Edit assumptions</button></section>
           {runtimePublished && (
             <section className="handoff">
-              <h3>Next step</h3>
-              <p>See how this battery capacity may perform against a load.</p>
-              <button className="button secondary-button handoff-link" type="button" onClick={useInRuntime}>
-                <span>Use in Battery Runtime</span>
-                <span aria-hidden="true">→</span>
-              </button>
+              <h3>Next steps &amp; system sizing</h3>
+              <p>See how this battery capacity performs against a load or size balance-of-system wiring and inverters:</p>
+              <div style={{ display: "flex", flexDirection: "column", gap: "0.5rem" }}>
+                <button className="button secondary-button handoff-link" type="button" onClick={useInRuntime}>
+                  <span>Use in Battery Runtime Calculator</span>
+                  <span aria-hidden="true">→</span>
+                </button>
+                <div style={{ display: "flex", gap: "0.5rem", flexWrap: "wrap", marginTop: "0.25rem" }}>
+                  <Link href="/battery/inverter-size-calculator" className="footer-link" style={{ fontSize: "0.82rem" }}>
+                    ⚡ Size Inverter &amp; DC Fuse →
+                  </Link>
+                  <Link href="/battery/voltage-drop-calculator" className="footer-link" style={{ fontSize: "0.82rem" }}>
+                    📏 Calculate Battery Cable Gauge →
+                  </Link>
+                </div>
+              </div>
             </section>
           )}
 

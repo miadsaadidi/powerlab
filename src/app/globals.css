@@ -1,9 +1,27 @@
-@import url("https://fonts.googleapis.com/css2?family=Titillium+Web:wght@400;600;700&display=swap");
-
-:root { --ink:#28312c; --muted:#68736b; --surface:#fffdf9; --soft:#f5f2eb; --line:#d9d4c9; --brand:#375e4b; --brand-strong:#264435; --accent:#c65d24; --focus:#c65d24; --danger:#b42318; color-scheme:light; }
+:root {
+  --ink:#28312c;
+  --muted:#68736b;
+  --surface:#fffdf9;
+  --soft:#f5f2eb;
+  --line:#d9d4c9;
+  --brand:#375e4b;
+  --brand-strong:#264435;
+  --accent:#c65d24;
+  --focus:#c65d24;
+  --danger:#b42318;
+  color-scheme:light;
+}
 * { box-sizing:border-box; }
 html { scroll-behavior:smooth; }
-body { margin:0; background:radial-gradient(circle at top right, #ebe2d3 0, transparent 34rem), var(--soft); color:var(--ink); font:16px/1.55 "Titillium Web", Arial, sans-serif; }
+body {
+  margin:0;
+  background:radial-gradient(circle at top right, #ebe2d3 0, transparent 34rem), var(--soft);
+  color:var(--ink);
+  font:16px/1.55 var(--font-titillium), "Titillium Web", Arial, sans-serif;
+}
+button, input, select, textarea, a, summary, [role="button"] {
+  touch-action: manipulation;
+}
 a { color:var(--brand-strong); font-size:1rem; font-weight:500; text-underline-offset:3px; }
 a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible, summary:focus-visible { outline:3px solid var(--focus); outline-offset:3px; }
 .skip-link { position:absolute; left:1rem; top:-4rem; z-index:10; background:#fff; padding:.5rem .75rem; }.skip-link:focus { top:1rem; }
@@ -62,6 +80,27 @@ a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible
 
 @media (max-width: 768px) {
   .site-footer-inner { grid-template-columns:1fr; gap:1.75rem; }
+  
+  /* Google Mobile-First Tap Target Compliance: >= 44px on interactive controls */
+  .header-utility-btn, .theme-toggle-btn, .cmd-k-btn, .profile-badge-btn, .header-menu-btn {
+    min-height: 44px;
+    min-width: 44px;
+    padding: 0 1rem;
+  }
+  .button, .secondary-button, .text-button, input, select, textarea, summary {
+    min-height: 44px;
+  }
+  .footer-link {
+    min-height: 44px;
+    padding: .6rem 1rem;
+  }
+  .appliance-options button {
+    min-height: 48px;
+  }
+  .remove-button {
+    min-height: 44px;
+    min-width: 44px;
+  }
 }
 
 /* Fast-Track 8 Goals Grid: 4 cards per row */

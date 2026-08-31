@@ -2,7 +2,7 @@ import Link from "next/link";
 import { buildPageMetadata } from "@/lib/seo/metadata-helper";
 
 export const metadata = buildPageMetadata({
-  title: "Laboratory Sources & Standards",
+  title: "Laboratory Sources & Engineering Standards",
   description: "Scientific and industry standards informing PowerLab calculators: NREL PVWatts V8, NEC 2023, Victron Energy, US DOE, EPA, and IEEE standards.",
   canonicalPath: "/sources",
 });

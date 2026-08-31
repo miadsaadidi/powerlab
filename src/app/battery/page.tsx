@@ -27,7 +27,7 @@ const batteryToolContent: Record<string, string> = {
 import { buildPageMetadata } from "@/lib/seo/metadata-helper";
 
 export const metadata: Metadata = buildPageMetadata({
-  title: "Battery Calculators",
+  title: "Battery Calculators — Runtime, Sizing & Ah to Wh",
   description: "Free deterministic battery planning tools to calculate runtime, bank sizing, Ah-to-Wh conversions, UPS backup, and charge times.",
   canonicalPath: "/battery",
   category: "battery",

@@ -12,7 +12,7 @@ import { SystemFlowDiagram } from "@/components/seo/system-flow-diagram";
 import { buildPageMetadata } from "@/lib/seo/metadata-helper";
 
 export const metadata: Metadata = buildPageMetadata({
-  title: "Home Energy Calculators",
+  title: "Home Energy Calculators — Power Usage & Bills",
   description: "Free deterministic home energy calculators to estimate appliance electricity usage, calculate utility power bills, and size whole-home battery backup.",
   canonicalPath: "/home-energy",
   category: "home-energy",

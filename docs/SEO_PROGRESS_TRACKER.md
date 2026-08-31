@@ -105,7 +105,7 @@ To systematically outperform legacy aggregators (OmniCalculator, EnergySage, Sol
 | **Step 3: Pillar 4 (AI Overviews / GEO)** | **Generative Search Citation Spot-Check (3 mins)**<br>Run 2 target queries in Google AI Overviews, Perplexity AI, and ChatGPT Search (e.g. *"battery backup runtime formula"*, *"generator size for central ac"*). Verify if PowerLab's direct answer block or schema is cited. | Google Search / Perplexity | Ensure Direct Answer cards stay optimized for LLM extraction |
 | **Step 4: Pillar 1 (Zero-Spam Trust Moat)** | **Community Value Drop / Forum Response (4 mins)**<br>Scan 1 technical thread on DIY Solar Forum, Reddit (`r/solar`, `r/electricians`), or Tesla Motors Club where users complain about lead-gen sales calls or inaccurate rough estimates. Provide the exact math using PowerLab (highlighting *100% private, no signup*). | DIY Solar / TMC / Reddit | 1 authentic community referral link; reinforces anti-lead-gen reputation |
 | **Step 5: Pillar 5 (Institutional Outreach)** | **Execute Daily 5 Outreach Pitches (7 mins)**<br>Send 5 personalized technical pitches from [`docs/outreach/04_*`](file:///d:/powerlab/docs/outreach/04_DAILY_5_OUTREACH_TARGETS_AND_PITCHES.md) to university engineering faculty (.edu), apprenticeship directors, or trade media editors. | Email Client / Workspace | 5 clean, hyper-targeted institutional emails sent per day |
-| **Step 6: Pillar 5 (Authority & Backlinks)** | **72-Hour Follow-Up, Medium Post & Academic Papers (3 mins)**<br>Check outreach replies. Send polite 2-sentence follow-ups for threads sent 72 hours ago. Publish/schedule daily Medium (DA 96) engineering post or discussion update on Academia.edu (DA 93) and Figshare (DOI: `10.6084/m9.figshare.33321774`) with reciprocal links to `powelab.org`. | Medium / Academia.edu / Figshare | >15% institutional response rate and permanent high-DA backlinks |
+| **Step 6: Pillar 5 (Authority & Backlinks)** | **Medium Publication Cadence (Every 2 Days) & Academic Updates (3 mins)**<br>Starting **September 1, 2026**, publish **1 in-depth technical article on Medium (DA 96) every 2 days**. Each article must reference:<br>1. A relevant tool/guide on **`powelab.org`** (clean contextual link).<br>2. At least one **external authoritative reference** (e.g., NREL PVWatts, US DOE, AHRI, IEEE Std 485, NEC NFPA 70) to establish algorithmic trust and prevent algorithmic anti-spam penalties.<br>Also check outreach replies and manage working papers on Academia.edu and Figshare. | Medium / Academia.edu / Figshare | 15 authoritative articles/month, clean backlink profiles, zero spam penalties |
 
 ---
 
@@ -113,9 +113,9 @@ To systematically outperform legacy aggregators (OmniCalculator, EnergySage, Sol
 
 * **Batch 1 (Day 1):** University Engineering Faculty (.edu) — *Stanford, NREL, AppState, UTK, NC State* (Sent Aug 24; Follow-up: Aug 31)
 * **Batch 2 (Day 2):** Electrical Apprenticeship & Vocational Directors — *NJATC, IBEW 134, NECA NorCal, NABCEP, Lincoln Tech* (Sent Aug 26; Follow-up: Sep 2)
-* **Batch 3 (Day 3):** Clean Energy Trade Media Editors — *Solar Power World, InsideEVs, EC&M, Canary Media, PV Magazine* (Sent Aug 27; Follow-up: Sep 3)
-* **Batch 4 (Day 4):** State Clean Energy Centers & Extensions — *FSEC UCF, UT Austin Energy Institute, CU Boulder, NCCETC, UC Davis* (Queued Batch 4)
-* **Batch 5 (Day 5):** Clean Energy Advocacy Non-Profits & EV Coalitions — *Plug In America, SEIA, Energy Innovation, Electrek, ILSR*
+* **Batch 3 (Day 3):** Clean Energy Trade Media Editors — *Solar Power World, InsideEVs, EC&M Canary Media, PV Magazine* (Sent Aug 27; Follow-up: Sep 3)
+* **Batch 4 (Day 4):** State Clean Energy Centers & Extensions — *FSEC UCF, UT Austin, CU Boulder, NCCETC, UC Davis* (Sent Aug 29; Dr. Rapson active conversation)
+* **Batch 5 (Day 5):** Clean Energy Advocacy Non-Profits & EV Coalitions — *Plug In America, SEIA, Energy Innovation, Electrek, ILSR* (Sent Aug 31; Follow-up: Sep 7)
 * **Batch 6 (Day 6):** Open Educational Resources (OER) & Digital STEM Libraries — *LibreTexts Engineering, MIT OCW, OER Commons, MERLOT, Creative Commons*
 
 ---
@@ -123,7 +123,13 @@ To systematically outperform legacy aggregators (OmniCalculator, EnergySage, Sol
 ### 3.3 High-DA Publishing, Paper & Backlink Platforms (Core 4 Authority Network)
 
 To establish unbreakable domain authority and AI trust signals, maintain active publications across the Core 4 verified platforms:
-1. **Medium (DA 96):** Primary daily technical publishing and syndication hub (`medium.com`). Post 1 daily focused engineering teardown or canonical guide import with direct links to `powelab.org`. Yields instant Google indexation and heavy citation in LLMs (Perplexity, ChatGPT, Claude).
+1. **Medium (DA 96) — Mandatory 1 Article Every 2 Days (Starts Tomorrow, Sept 1, 2026):**
+   * **Cadence:** Strictly 1 post every 48 hours (15 technical articles per month).
+   * **Mandatory Dual-Link Rule (Anti-Spam & Semantic Citation):**
+     * **Link 1 (Target Tool/Guide):** Direct contextual link to a specific PowerLab calculator or guide (`powelab.org`).
+     * **Link 2 (Authoritative Primary Source):** Direct citation link to an independent authoritative standard or laboratory (e.g. NREL `developer.nrel.gov`, DOE `energy.gov`, IEEE Xplore, AHRI Directory, or NFPA 70 NEC).
+     * *Why this rule matters:* Search engine webspam algorithms (and Medium's distribution filters) flag articles that only link to a single personal domain as self-promotional spam. Linking simultaneously to high-trust institutional sources establishes legitimate editorial entity status and boosts PageRank flow.
+   * **Topic Pipeline:** Adapt PowerLab's published guides into bite-sized engineering teardowns (e.g., AC cooling costs vs SEER2, EV range in winter, battery standby tare losses, generator inrush currents).
 2. **Academia.edu (DA 93):** Profile active. Post 2×/week technical discussion updates linking to new interactive guides.
 3. **Figshare (DA 90):** Working Paper #2 live with citable DOI (`10.6084/m9.figshare.33321774`). Paper 3 scheduled for upload.
 4. **Internet Archive (DA 99):** Permanent open-access PDF archive with live canonical source links.
