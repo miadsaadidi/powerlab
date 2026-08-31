@@ -67,6 +67,22 @@ const GOAL_OPTIONS: GoalOption[] = [
     categoryColor: "#0284c7",
   },
   {
+    icon: "❄️",
+    title: "Air Conditioner Running Cost",
+    subtitle: "Calculate central AC, mini-split & window unit costs per hour and month.",
+    href: "/home-energy/air-conditioner-cost-calculator",
+    badge: "Cooling Bills",
+    categoryColor: "#0284c7",
+  },
+  {
+    icon: "🔋",
+    title: "EV Real-World Range",
+    subtitle: "Calculate highway range drops from 75 mph speed & cold winter temperatures.",
+    href: "/ev/ev-range-calculator",
+    badge: "EV Highway Range",
+    categoryColor: "#8b5cf6",
+  },
+  {
     icon: "💰",
     title: "Solar Payback & 25-Yr ROI",
     subtitle: "Calculate break-even years, utility inflation & lifetime savings.",

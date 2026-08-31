@@ -171,9 +171,11 @@ export default function HowManyKwhDoesAHouseUsePerDayPage() {
               <strong>Daily Consumption:</strong> 10 to 25 kWh/day (35%–45% of total bill)<br />
               <strong>Duty Cycle:</strong> In peak summer or sub-zero winter, central compressors run 4 to 8 hours of cumulative runtime per day.
             </p>
-            <Link href="/home-energy/air-conditioner-cost-calculator" style={{ fontSize: "0.85rem", fontWeight: 600, color: "var(--accent)" }}>
-              Calculate AC Cooling Costs →
-            </Link>
+            <div style={{ marginTop: "0.5rem", display: "flex", flexDirection: "column", gap: "0.25rem" }}>
+              <Link href="/home-energy/air-conditioner-cost-calculator" style={{ fontSize: "0.88rem", fontWeight: 700, color: "var(--accent)" }}>
+                ⚡ Calculate Hourly &amp; Monthly AC Costs →
+              </Link>
+            </div>
           </article>
 
           <article style={{ padding: "1.25rem", borderRadius: "0.85rem", border: "1px solid var(--line)", background: "var(--surface)" }}>
@@ -189,15 +191,20 @@ export default function HowManyKwhDoesAHouseUsePerDayPage() {
           </article>
 
           <article style={{ padding: "1.25rem", borderRadius: "0.85rem", border: "1px solid var(--line)", background: "var(--surface)" }}>
-            <h3 style={{ marginTop: 0, color: "var(--brand-strong)", fontSize: "1.1rem" }}>3. Electric Vehicle (Level 2 Home Charger)</h3>
+            <h3 style={{ marginTop: 0, color: "var(--brand-strong)", fontSize: "1.1rem" }}>3. Electric Vehicle (Home Charging &amp; Range)</h3>
             <p style={{ fontSize: "0.95rem", lineHeight: 1.5, color: "var(--muted)", margin: "0 0 0.5rem" }}>
               <strong>Power Draw:</strong> 7,200W to 11,500W (32A to 48A @ 240V)<br />
               <strong>Daily Consumption:</strong> 10 to 30 kWh/day (for 35–90 miles of daily driving)<br />
               <strong>Efficiency:</strong> Typical EV consumes 0.28 to 0.35 kWh per mile driven.
             </p>
-            <Link href="/ev/ev-charging-cost-calculator" style={{ fontSize: "0.85rem", fontWeight: 600, color: "var(--accent)" }}>
-              Calculate EV Charging Costs →
-            </Link>
+            <div style={{ display: "flex", gap: "0.75rem", flexWrap: "wrap", marginTop: "0.4rem" }}>
+              <Link href="/ev/ev-charging-cost-calculator" style={{ fontSize: "0.85rem", fontWeight: 600, color: "var(--accent)" }}>
+                EV Charging Costs →
+              </Link>
+              <Link href="/ev/ev-range-calculator" style={{ fontSize: "0.85rem", fontWeight: 600, color: "var(--accent)" }}>
+                Highway &amp; Winter Range Calculator →
+              </Link>
+            </div>
           </article>
 
           <article style={{ padding: "1.25rem", borderRadius: "0.85rem", border: "1px solid var(--line)", background: "var(--surface)" }}>

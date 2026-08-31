@@ -13,8 +13,8 @@ import { DirectAnswerCard } from "@/components/seo/direct-answer-card";
 const isPublished = isCalculatorPublished("v2l-runtime");
 
 export const metadata: Metadata = buildPageMetadata({
-  title: "V2L Runtime Calculator — EV Backup Power Hours",
-  description: "Calculate how many days your EV battery can power home appliances with Vehicle-to-Load (V2L). Includes driving range reserves and AC continuous power limits.",
+  title: "V2L Runtime Calculator: EV Home Backup Days",
+  description: "Calculate how many days your EV battery can power essential household appliances during a power outage with Vehicle-to-Load (V2L) bidirectional power.",
   canonicalPath: "/ev/v2l-runtime-calculator",
   category: "ev",
 });

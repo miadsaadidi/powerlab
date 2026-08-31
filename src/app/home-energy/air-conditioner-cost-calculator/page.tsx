@@ -13,8 +13,8 @@ import { DirectAnswerCard } from "@/components/seo/direct-answer-card";
 const isPublished = isCalculatorPublished("ac-cost");
 
 export const metadata: Metadata = buildPageMetadata({
-  title: "Air Conditioner Cost Calculator — AC kWh & Cost",
-  description: "Calculate central AC energy cost and room air conditioner running costs per hour, day, and month. Supports central AC, mini-splits, and window units.",
+  title: "Air Conditioner Cost Calculator: $/Hour & Month",
+  description: "Calculate air conditioner electricity costs per hour, day, and month. Accurate formulas for central AC, mini-splits, and window units with SEER2 ratings.",
   canonicalPath: "/home-energy/air-conditioner-cost-calculator",
   category: "home-energy",
 });
