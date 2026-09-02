@@ -10,8 +10,8 @@ import { FormulaCard } from "@/components/seo/formula-card";
 import { buildPageMetadata } from "@/lib/seo/metadata-helper";
 
 export const metadata: Metadata = buildPageMetadata({
-  title: "How Many kWh Does a House Use Per Day?",
-  description: "Discover how many kWh an average house uses per day (29–30 kWh/day average). Explore home size benchmarks, heavy appliances, and daily power formulas.",
+  title: "How Many kWh Does a House Use Per Day? (2026)",
+  description: "An average US home uses 29–30 kWh/day (900 kWh/mo). Calculate your exact daily power consumption by square footage, HVAC, and top household appliances.",
   canonicalPath: "/guides/how-many-kwh-does-a-house-use-per-day",
   category: "home-energy",
   isArticle: true,

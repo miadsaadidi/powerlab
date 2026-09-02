@@ -1,37 +1,87 @@
 # SEO Execution & Progress Tracker - PowerLab
 
 **Domain:** `https://www.powelab.org`  
-**Last Updated:** August 31, 2026  
-**Status:** Technical SEO baseline complete; 8 flagship educational link magnets published; 62 canonical URLs active & live on Vercel production; GSC live 28-day impressions surged past **12,500+** (peaking at 2,074 daily impressions on Aug 29) with strong mobile average position of 15.33.
+**Last Updated:** September 2, 2026  
+**Status:** Technical SEO baseline complete; 8 flagship educational link magnets published; 62 canonical URLs active; Official GSC Indexation confirmed at **41 indexed pages** (0 crawled-not-indexed quality rejections); GSC impressions reached **14,253+ total impressions** across the initial 13-day indexation window, peaking at **2,074 daily impressions on Aug 29**.
 
 ---
 
-## 0. Live Search Console Performance Snapshot (Last 28 Days)
+## 0. Official Google Search Console Comprehensive Performance Audit
 
-| Device | Clicks | Impressions | CTR | Average Position |
-| :--- | :---: | :---: | :---: | :---: |
-| **Desktop** | 5 | 10,226 | 0.05% | 70.09 |
-| **Mobile** | 1 | 2,246 | 0.04% | **15.33** (Close to Page 1!) |
-| **Tablet** | 0 | 33 | 0% | **8.52** (Page 1) |
-| **Total** | **6** | **12,505** | **0.05%** | **60.1** |
+### 0.1 Device Breakdown (Total: 14,253 Impressions & 6 Clicks)
 
-### Daily Impression Acceleration Curve
-- **Aug 18:** 195 impressions
-- **Aug 20:** 964 impressions
-- **Aug 25:** 1,224 impressions
-- **Aug 28:** 1,459 impressions
-- **Aug 29:** **2,074 impressions / day** (10x growth in 11 days)
+| Device | Clicks | Impressions | CTR | Average Position | Key Takeaway |
+| :--- | :---: | :---: | :---: | :---: | :--- |
+| **Ordinateur (Desktop)** | 5 | 11,739 | 0.04% | 70.15 | Vast high-volume query impression testing across desktop |
+| **Mobile** | 1 | 2,472 | 0.04% | **15.19** | 🎯 **Close to Page 1!** Strong mobile algorithmic evaluation |
+| **Tablette (Tablet)** | 0 | 42 | 0.00% | **9.17** | 🏆 **Page 1 Rank Average!** |
+| **Total / Aggregate** | **6** | **14,253** | **0.04%** | **60.4** | **10.6x growth in 12 days** |
 
-### Top Breakout Pages by Impressions & CTR
-1. `/home-energy/air-conditioner-cost-calculator` — **1,404 impressions** (Avg Pos: 16.5)
-2. `/battery/battery-capacity-calculator` — **1,295 impressions** (Avg Pos: 69.2)
-3. `/home-energy/electricity-usage-calculator` — **1,245 impressions** (Avg Pos: 71.4)
-4. `/guides/how-many-kwh-does-a-house-use-per-day` — **1,049 impressions** (Avg Pos: 54.6)
-5. `/solar/solar-panel-output-calculator` — **884 impressions** (Avg Pos: 71.5)
-6. `/home-energy/energy-bill-calculator` — **790 impressions** (Avg Pos: 68.2)
-7. `/ev/ev-range-calculator` — **709 impressions** (Avg Pos: **22.8**)
-8. `/ev/v2l-runtime-calculator` — **9.09% CTR** (Avg Pos: **7.0** — Solid Page 1 Rank)
-9. `/guides/battery-backup-runtime-calculation-guide` — **4.76% CTR** (Avg Pos: 58.5)
+---
+
+### 0.2 Daily Search Discovery & Impression Acceleration (Aug 18–30, 2026)
+
+| Date | Clicks | Impressions | CTR | Avg Position | Daily Milestone |
+| :---: | :---: | :---: | :---: | :---: | :--- |
+| **2026-08-18** | 0 | 195 | 0.00% | 64.3 | Initial baseline discovery |
+| **2026-08-19** | 0 | 716 | 0.00% | 58.6 | 3.6x surge |
+| **2026-08-20** | 0 | 964 | 0.00% | 57.5 | Approaching 1k/day |
+| **2026-08-21** | 0 | 880 | 0.00% | 56.4 | 32 pages indexed |
+| **2026-08-22** | 0 | 891 | 0.00% | 56.7 | 41 pages indexed |
+| **2026-08-23** | **2** | 801 | **0.25%** | 53.0 | First multi-click day |
+| **2026-08-24** | 0 | 838 | 0.00% | **51.4** | Peak average rank |
+| **2026-08-25** | **2** | 1,224 | **0.16%** | 59.0 | Breakout past 1.2k |
+| **2026-08-26** | 0 | 1,180 | 0.00% | 58.3 | High volume sustained |
+| **2026-08-27** | 0 | 1,283 | 0.00% | 61.3 | Mid-week expansion |
+| **2026-08-28** | 1 | 1,459 | 0.07% | 64.7 | 7.5x vs baseline |
+| **2026-08-29** | 1 | **2,074** | 0.05% | 68.4 | 🚀 **All-Time Peak (2k+ in 1 day)** |
+| **2026-08-30** | 0 | **1,748** | 0.00% | 62.9 | High weekend baseline |
+
+---
+
+### 0.3 Complete URL Performance & Breakout Pages Inventory
+
+| Canonical URL | Clicks | Impressions | CTR | Avg Position | Opportunity Level |
+| :--- | :---: | :---: | :---: | :---: | :--- |
+| [`/home-energy/air-conditioner-cost-calculator`](https://www.powelab.org/home-energy/air-conditioner-cost-calculator) | **1** | **1,499** | 0.07% | **16.95** | 🔥 **Top Breakout (Strike Distance to Page 1)** |
+| [`/home-energy/electricity-usage-calculator`](https://www.powelab.org/home-energy/electricity-usage-calculator) | 0 | **1,446** | 0.00% | 71.91 | Massive head-term testing |
+| [`/battery/battery-capacity-calculator`](https://www.powelab.org/battery/battery-capacity-calculator) | 0 | **1,429** | 0.00% | 68.68 | Strong battery intent volume |
+| [`/guides/how-many-kwh-does-a-house-use-per-day`](https://www.powelab.org/guides/how-many-kwh-does-a-house-use-per-day) | 0 | **1,170** | 0.00% | **54.65** | #1 Performing Educational Guide |
+| [`/solar/solar-panel-output-calculator`](https://www.powelab.org/solar/solar-panel-output-calculator) | **1** | **1,000** | **0.10%** | 70.21 | Top Solar calculator |
+| [`/home-energy/energy-bill-calculator`](https://www.powelab.org/home-energy/energy-bill-calculator) | 0 | **886** | 0.00% | 68.03 | High-volume financial term |
+| [`/ev/ev-range-calculator`](https://www.powelab.org/ev/ev-range-calculator) | 0 | **828** | 0.00% | **21.88** | 🎯 **Striking Distance (Page 2)** |
+| [`/battery/battery-charging-time-calculator`](https://www.powelab.org/battery/battery-charging-time-calculator) | 0 | **712** | 0.00% | 70.67 | Core battery tool |
+| [`/guides`](https://www.powelab.org/guides) | 0 | **639** | 0.00% | 74.73 | Guide index hub |
+| [`/home-energy/generator-size-calculator`](https://www.powelab.org/home-energy/generator-size-calculator) | 0 | **512** | 0.00% | 72.44 | High seasonal power intent |
+| [`/battery/battery-runtime-calculator`](https://www.powelab.org/battery/battery-runtime-calculator) | 0 | **427** | 0.00% | 69.63 | Core battery flagship |
+| [`/solar/solar-panel-size-calculator`](https://www.powelab.org/solar/solar-panel-size-calculator) | **1** | **417** | **0.24%** | 74.12 | Solar planning tool |
+| [`/solar/solar-panel-tilt-calculator`](https://www.powelab.org/solar/solar-panel-tilt-calculator) | 0 | **365** | 0.00% | 74.31 | Flagship solar tool |
+| [`/`](https://www.powelab.org/) | 0 | **326** | 0.00% | 74.97 | Homepage brand & hub |
+| [`/battery/battery-size-calculator`](https://www.powelab.org/battery/battery-size-calculator) | 0 | **315** | 0.00% | 74.48 | Battery sizing tool |
+| [`/ev/ev-charging-time-calculator`](https://www.powelab.org/ev/ev-charging-time-calculator) | 0 | **301** | 0.00% | 70.41 | EV flagship tool |
+| [`/solar/solar-battery-bank-size-calculator`](https://www.powelab.org/solar/solar-battery-bank-size-calculator) | 0 | **274** | 0.00% | 76.68 | Combined solar+battery |
+| [`/home-energy/home-battery-size-calculator`](https://www.powelab.org/home-energy/home-battery-size-calculator) | 0 | **222** | 0.00% | **55.91** | Whole-home BESS intent |
+| [`/guides/voltage-drop-and-wire-size-calculation-guide`](https://www.powelab.org/guides/voltage-drop-and-wire-size-calculation-guide) | 0 | **210** | 0.00% | 76.93 | Technical wire guide |
+| [`/methodology`](https://www.powelab.org/methodology) | **1** | **195** | **0.51%** | 70.14 | Scientific methodology page |
+| [`/home-energy/appliance-wattage-calculator`](https://www.powelab.org/home-energy/appliance-wattage-calculator) | 0 | **194** | 0.00% | 71.09 | Household power lookup |
+| [`/battery/portable-power-station-calculator`](https://www.powelab.org/battery/portable-power-station-calculator) | 0 | **182** | 0.00% | **39.01** | Solid page 4 rank |
+| [`/home-energy`](https://www.powelab.org/home-energy) | 0 | **151** | 0.00% | 64.46 | Category hub |
+| [`/ev/ev-savings-calculator`](https://www.powelab.org/ev/ev-savings-calculator) | 0 | **135** | 0.00% | 76.11 | Financial fuel savings tool |
+| [`/battery`](https://www.powelab.org/battery) | 0 | **128** | 0.00% | 81.85 | Category hub |
+| [`/guides/solar-panel-tilt-angle-by-latitude-and-season-guide`](https://www.powelab.org/guides/solar-panel-tilt-angle-by-latitude-and-season-guide) | 0 | **123** | 0.00% | 77.20 | Solar tilt guide |
+| [`/home-energy/space-heater-cost-calculator`](https://www.powelab.org/home-energy/space-heater-cost-calculator) | 0 | **89** | 0.00% | **47.64** | Heating seasonal tool |
+| [`/ev/ev-charging-cost-calculator`](https://www.powelab.org/ev/ev-charging-cost-calculator) | 0 | **55** | 0.00% | 67.87 | Charging cost tool |
+| [`/solar/solar-charge-controller-calculator`](https://www.powelab.org/solar/solar-charge-controller-calculator) | 0 | **48** | 0.00% | 66.21 | MPPT sizing tool |
+| [`/solar/solar-load-calculator`](https://www.powelab.org/solar/solar-load-calculator) | 0 | **40** | 0.00% | 66.40 | Load profiling tool |
+| [`/guides/level-2-ev-charging-speed-and-breaker-sizing-guide`](https://www.powelab.org/guides/level-2-ev-charging-speed-and-breaker-sizing-guide) | 0 | **35** | 0.00% | **49.54** | Technical EV guide |
+| [`/ev/ev-charger-breaker-size-calculator`](https://www.powelab.org/ev/ev-charger-breaker-size-calculator) | 0 | **32** | 0.00% | **36.88** | Electrical branch tool |
+| [`/guides/mppt-solar-charge-controller-sizing-guide`](https://www.powelab.org/guides/mppt-solar-charge-controller-sizing-guide) | 0 | **32** | 0.00% | **53.56** | Charge controller guide |
+| [`/developers`](https://www.powelab.org/developers) | 0 | **27** | 0.00% | 52.48 | Developer API docs |
+| [`/guides/battery-backup-runtime-calculation-guide`](https://www.powelab.org/guides/battery-backup-runtime-calculation-guide) | **1** | **24** | **4.17%** | 60.00 | ⚡ **High CTR Guide** |
+| [`/sources`](https://www.powelab.org/sources) | 0 | **24** | 0.00% | 48.75 | Academic citations page |
+| [`/home-energy/heat-pump-cost-calculator`](https://www.powelab.org/home-energy/heat-pump-cost-calculator) | 0 | **21** | 0.00% | 67.29 | HVAC heating tool |
+| [`/ev/v2l-runtime-calculator`](https://www.powelab.org/ev/v2l-runtime-calculator) | **1** | **12** | **8.33%** | **9.83** | 🏆 **Page 1 Rank (Top 10)** |
+| [`/battery/inverter-size-calculator`](https://www.powelab.org/battery/inverter-size-calculator) | 0 | **5** | 0.00% | 63.40 | Power electronics tool |
 
 ---
 
@@ -53,26 +103,28 @@
 | **Internal Linking Graph** | Guides-to-tools & tools-to-guides reciprocal workflow links | Completed | Bidirectional links reinforced between all 8 guides and corresponding calculators (`battery-runtime`, `generator-size`, `ac-cost`, `voltage-drop`, `ev-charging-time`, `solar-panel-tilt`, `how-many-kwh`) |
 | **Phase 5 SERP and Keyword Research** | Keyword Planner and SERP Analysis | Completed | 10 high-impact expansion specs and canonical maps added |
 | **Community & Academic Outreach Kit** | Technical distribution templates (`docs/outreach/`) | Completed | Turnkey worked examples for DIY Solar Forum, Tesla Motors Club, and university/vocational OER syllabus pitches |
-| **High-DA Academic Paper Syndication** | Working Papers 1, 2 & 3 (Live on Academia.edu & Figshare) | Completed (August 26, 2026) | Paper 1 (Academia/Figshare/Archive). Paper 2 (DOI: 10.6084/m9.figshare.33321774). **Paper 3 Published on Academia.edu** (*Deterministic Modeling of Inductive Motor Inrush Currents and Non-Coincident Load Stacking for Residential Backup Power Systems*) |
+| **High-DA Academic Paper Syndication** | Working Papers 1, 2, 3 & 4 (Academia.edu, Figshare & ResearchGate) | Completed (September 2, 2026) | Paper 1 (Academia/Figshare/Archive). Paper 2 (DOI: 10.6084/m9.figshare.33321774). Paper 3 (Academia.edu - Motor Inrush). **Paper 4 LIVE on Academia.edu** ([`academia.edu/172873251`](https://www.academia.edu/172873251/Non_Linear_Coefficient_of_Performance_COP_Degradation_Defrost_Entropy_Losses_and_Auxiliary_Resistive_Staging_Dynamics_in_Cold_Climate_Air_Source_Heat_Pumps_ccASHP_)) — *Non-Linear Coefficient of Performance (COP) Degradation, Defrost Entropy Losses, and Auxiliary Resistive Staging Dynamics in Cold-Climate Air-Source Heat Pumps* |
 | **AlternativeTo Directory Submission** | Listing submitted with PVWatts & HOMER alternatives | Completed (August 24, 2026) | PoweLab profile submitted to AlternativeTo.net (DA 84) linked to PVWatts, HOMER Pro, and PVsyst |
 | **Daily 5 High-Impact Outreach Sprint** | 30 Turnkey Email Pitches (`docs/outreach/04_*`) | In Progress (Batch 4 Completed) | **Batch 1 (Aug 24)**: Stanford, NREL (`pvwatts@nrel.gov`), AppState, UTK, NC State.<br>**Batch 2 (Aug 26)**: NJATC, IBEW 134, NECA NorCal, NABCEP, Lincoln Tech.<br>**Batch 3 (Aug 27)**: Trade Media Editors (*Solar Power World*, *InsideEVs*, *EC&M*, *Canary Media*, *PV Magazine*).<br>**Batch 4 (Aug 29 — Today)**: State Clean Energy Centers & Extensions (*FSEC/UCF*, *UT Austin*, *CU Boulder*, *NCCETC*, *UC Davis*). |
 | **Ahrefs Audit Remediation** | 100% resolution of Ahrefs August 27 Crawl Issues | August 27, 2026 | Resolved: (1) Orphan page `/terms` eliminated; (2) Incomplete OG tags resolved across all 49 pages via `buildPageMetadata` with 1200x630 category cards; (3) 19 title length issues fixed (all final rendered titles <= 60 chars); (4) 18 meta descriptions trimmed to 140–155 chars; (5) Short descriptions expanded; (6) 6 single-link pages reinforced with 2–3+ contextual reciprocal links; (7) IndexNow integrated & 49 URLs submitted (HTTP 202 Accepted). |
 | **IndexNow Protocol** | Native key verification & instant submission API | August 27, 2026 | Route `/c94b7e8d1a2f43b68019e34a75d28b12.txt` active; `/api/indexnow/submit` and `scripts/submit-indexnow.ts` tested & submitted all 49 URLs with HTTP 202. |
-| **Google Publisher Center & Preferred Sources** | Google Publisher Center verified & configured | August 29, 2026 | Publication ID `CAowrJPNDA` verified via GSC; primary language English (`en-US`), 1000x1000 square logo uploaded; on-site interactive "Pin to Google" banner deployed in calculator result panel. |
+| **Google Publisher Center & Preferred Sources** | Google Search Preferences Verified & LIVE | **LIVE (Sept 2, 2026)** | 🏆 **MAJOR MILESTONE:** `powelab.org` / `PowerLab` is now officially active and selectable in **Google Search Preferences** (`google.com/preferences`). Publication ID `CAowrJPNDA` is indexed in Google's Knowledge Graph entity database for user pinning and boosted Discover visibility. |
+| **Title & CTR Optimization Sprint** | SERP Snippet Optimization on Top 5 Breakout Pages | **Completed (Sept 2, 2026)** | Optimized Titles (<= 58 chars) and Meta Descriptions (150–155 chars) across: (1) `/home-energy/air-conditioner-cost-calculator`, (2) `/ev/ev-range-calculator`, (3) `/battery/battery-capacity-calculator`, (4) `/guides/how-many-kwh-does-a-house-use-per-day`, (5) `/home-energy/space-heater-cost-calculator`. All 55 test suites passed & Next.js production build verified. |
 | **Ground Albedo & Snow Shedding Model** | Added to Solar Tilt Calculator & Formula Card | August 23, 2026 | Implemented Perez ground view factor and snow backscatter reflectance gain in engine, UI card, and tests |
+| **Medium Authority & Interlinking Network** | Launch of Medium Topical Silo Strategy (`docs/outreach/05_*`) | In Progress (Post 1 LIVE) | **Post 1 LIVE on Medium (DA 96):** [*The Level 1 EV Charging Penalty*](https://medium.com/@miadpower/level-1-ev-charging-penalty-120v-efficiency-losses-bf8f874626ce) anchoring `/ev/ev-savings-calculator`. 15-article curiosity calendar active across 4 topical silos. |
 
 ---
 
 ## 2. Active Outreach & 7-Day Follow-Up Schedule
 
-| Batch # | Target Group | Sent Date | 7-Day Follow-up Due Date | Status |
+| Batch # | Target Group | Sent Date | 7-Day Follow-up Due Date | Status & Delivery Tracking |
 | :--- | :--- | :---: | :---: | :--- |
-| **Batch 1** | University Faculty & Energy Labs (Stanford, NREL, AppState, UTK, NC State) | August 24, 2026 | **August 31, 2026** | Sent — Awaiting reply / Follow-up pending (Note: re-send to `chris.deline@nrel.gov` without space) |
-| **Batch 2** | Electrical Apprenticeship & Vocational Directors (NJATC, IBEW 134, NECA, NABCEP, Lincoln Tech) | August 26, 2026 | **September 2, 2026** | Sent — Awaiting reply (`training@ualocal602.org` queued 45h; `smartin@ejatt.com` hard bounced) |
-| **Batch 3** | Clean Energy Trade Media Editors (Solar Power World, InsideEVs, EC&M, Canary, PV Mag) | **August 27, 2026** | **September 3, 2026** | **Sent** (Emails 11, 12, 15 delivered; 13 routed to `eparson@endeavorb2b.com`; 14 routed to `editors@canarymedia.com`) |
-| **Batch 4** | State Clean Energy Centers & Extensions (FSEC, UT Austin, CU Boulder, NCCETC, UC Davis) | **August 29, 2026** | **September 5, 2026** | **Sent** (Emails 16, 17, 18, 19, 20 delivered).<br>🔥 **HIGH-VALUE CONVERSATION — Dr. David Rapson (UC Davis):** Replied on Aug 30 praising point on AC rectification dissipation and asking about the 10%–14% variance and model specificity. Responded on **Aug 31** with thorough engineering explanation, added live operational presets (Level 1, Level 2, Cold Climate) to `/ev/ev-savings-calculator`, and formally cited *Archsmith, Kendall, & Rapson (2015)* in `/methodology` and `/sources`.<br>⚠️ **DO NOT SEND GENERIC BATCH FOLLOW-UP TO DR. RAPSON.** Scheduled for **tailored follow-up on September 7, 2026** (checking if he/students found the new presets & citations helpful). |
-| **Batch 5** | Advocacy Non-Profits & EV Coalitions (Plug In America, SEIA, Energy Innovation, Electrek, ILSR) | **August 31, 2026** | **September 7, 2026** | **Sent** (Emails 21, 22, 23, 24, 25 delivered with scientific curiosity hooks) |
-| **Batch 6** | Open Educational Resources & STEM Libraries (LibreTexts, MIT OCW, OER Commons, MERLOT, CC) | August 31, 2026 | September 7, 2026 | Queued |
+| **Batch 1** | University Faculty & Energy Labs (Stanford, NREL, AppState, UTK, NC State) | August 24, 2026 | August 31, 2026 | **Delivered & Tracked:** Stanford (`ram.rajagopal@stanford.edu`), NREL (`pvwatts@nrel.gov`), AppState (`zubricksc@appstate.edu`), UTK (`cchen26@utk.edu`), NC State (`nccleantech@ncsu.edu`).<br>❌ *Purged bounced:* `chris.deline@nrel.gov` (hard bounce/delivery error). |
+| **Batch 2** | Electrical Apprenticeship & Vocational Directors (NJATC, IBEW 134, NECA, NABCEP, Lincoln Tech) | August 26, 2026 | **September 2, 2026** | **Follow-ups Sent (Sept 2):** Lincoln Tech (`inquiries@lincolntech.edu`).<br>⚠️ *Unsent in original run:* `info@nabcep.org`, `norcal@norcaljatc.com`.<br>❌ *Purged bounced addresses:* `mcallanan@electricaltrainingalliance.org` (hard bounce), `smartin@ejatt.com` (hard bounce), `training@ualocal602.org` (delivery timeout). |
+| **Batch 3** | Clean Energy Trade Media Editors (Solar Power World, InsideEVs, EC&M, Canary, PV Mag) | **August 27, 2026** | **September 3, 2026 (Tomorrow)** | **Sent & Verified:** *Solar Power World* (`kannenberg@wtwhmedia.com`), *InsideEVs* (`tim.levin@insideevs.com`), *EC&M* (`eparson@endeavorb2b.com`), *Canary Media* (`editors@canarymedia.com`), *PV Magazine* (`tim.sylvia@pv-magazine.com`). |
+| **Batch 4** | State Clean Energy Centers & Extensions (FSEC, UT Austin, CU Boulder, NCCETC, UC Davis) | **August 29, 2026** | **September 5, 2026** | **Sent & Verified:** FSEC (`colleen@fsec.ucf.edu`), UT Austin (`energy@energy.utexas.edu`), CU Boulder (`homerinfo@homerenergy.com`), NCCETC (`cleanenergy@ncsu.edu`), UC Davis (`dsrapson@ucdavis.edu`).<br>🔥 **HIGH-VALUE CONVERSATION — Dr. David Rapson (UC Davis):** Replied on Aug 30 praising point on AC rectification dissipation. Responded Aug 31 with full technical breakdown and live presets. **Tailored follow-up scheduled for September 7, 2026.** |
+| **Batch 5** | Advocacy Non-Profits & EV Coalitions (Plug In America, SEIA, Energy Innovation, Electrek, ILSR) | **August 31, 2026** | **September 7, 2026** | **Sent & Verified:** Plug In America (`info@pluginamerica.org`), SEIA (`research@seia.org`), Energy Innovation (`info@energyinnovation.org`), Electrek (`tips@electrek.co`), ILSR (`jfarrell@ilsr.org`). |
+| **Batch 6** | Open Educational Resources & STEM Libraries (LibreTexts, MIT OCW, OER Commons, MERLOT, CC) | August 31, 2026 | September 7, 2026 | Queued for submission. |
 
 ---
 

@@ -1,0 +1,683 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PowerLab Working Paper — Non-Linear COP Degradation & Auxiliary Staging in Cold-Climate Heat Pumps</title>
+  
+  <!-- KaTeX for crisp mathematical rendering -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"
+    onload="renderMathInElement(document.body, {
+      delimiters: [
+        {left: '$$', right: '$$', display: true},
+        {left: '$', right: '$', display: false}
+      ]
+    });"></script>
+
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,400;0,600;0,700;1,400&family=JetBrains+Mono:wght@400;600&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
+
+    :root {
+      --primary: #0f172a;
+      --accent: #0284c7;
+      --accent-dark: #0369a1;
+      --emerald: #059669;
+      --amber: #d97706;
+      --rose: #e11d48;
+      --slate-800: #1e293b;
+      --slate-700: #334155;
+      --slate-600: #475569;
+      --slate-500: #64748b;
+      --slate-200: #e2e8f0;
+      --slate-100: #f1f5f9;
+      --slate-50: #f8fafc;
+      --border: #cbd5e1;
+    }
+
+    * {
+      box-sizing: border-box;
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+    }
+
+    @page {
+      size: A4 portrait;
+      margin: 12mm 14mm 12mm 14mm;
+      @bottom-right {
+        content: counter(page);
+        font-family: 'Plus Jakarta Sans', sans-serif;
+        font-size: 8pt;
+        color: #64748b;
+      }
+    }
+
+    body {
+      font-family: 'Crimson Pro', Georgia, serif;
+      font-size: 10pt;
+      line-height: 1.45;
+      color: var(--primary);
+      background-color: #fff;
+      margin: 0;
+      padding: 0;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 820px;
+      margin: 0 auto;
+      background: #fff;
+      padding: 0 0.5rem;
+    }
+
+    .page-break {
+      page-break-before: always;
+      padding-top: 1rem;
+    }
+
+    /* Header & Document Metadata */
+    .paper-header {
+      border-bottom: 2.5px solid var(--primary);
+      padding-bottom: 0.8rem;
+      margin-bottom: 1rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+    }
+
+    .brand-logo {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-weight: 800;
+      font-size: 1.4rem;
+      letter-spacing: -0.03em;
+      color: var(--primary);
+      line-height: 1;
+    }
+    .brand-logo span {
+      color: var(--accent);
+    }
+    .paper-subbrand {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 0.72rem;
+      color: var(--slate-500);
+      font-weight: 600;
+      margin-top: 3px;
+    }
+    .paper-badge {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 0.7rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      padding: 3px 10px;
+      background: var(--slate-100);
+      color: var(--slate-700);
+      border-radius: 4px;
+      border: 1px solid var(--slate-200);
+      display: inline-block;
+    }
+
+    .paper-title {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 1.45rem;
+      font-weight: 800;
+      line-height: 1.25;
+      color: var(--primary);
+      margin: 0 0 0.4rem 0;
+      letter-spacing: -0.02em;
+    }
+
+    .paper-subtitle {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 0.92rem;
+      font-weight: 600;
+      color: var(--accent-dark);
+      margin: 0 0 0.9rem 0;
+      line-height: 1.35;
+    }
+
+    .meta-bar {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 0.5rem;
+      background: var(--slate-50);
+      border: 1px solid var(--slate-200);
+      border-radius: 6px;
+      padding: 0.6rem 0.8rem;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 0.75rem;
+      margin-bottom: 1.2rem;
+    }
+    .meta-item strong {
+      display: block;
+      color: var(--slate-500);
+      font-size: 0.68rem;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      margin-bottom: 1px;
+    }
+    .meta-item span {
+      color: var(--slate-800);
+      font-weight: 600;
+    }
+
+    /* Abstract Block */
+    .abstract-box {
+      background: #f0f9ff;
+      border-left: 4px solid var(--accent);
+      border-radius: 0 6px 6px 0;
+      padding: 0.8rem 1rem;
+      margin-bottom: 1.2rem;
+    }
+    .abstract-box h3 {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 0.82rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--accent-dark);
+      margin: 0 0 0.35rem 0;
+    }
+    .abstract-box p {
+      font-size: 9.5pt;
+      margin: 0 0 0.4rem 0;
+      line-height: 1.45;
+      color: #0c4a6e;
+    }
+    .keywords {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 0.72rem;
+      color: #0369a1;
+      font-weight: 600;
+    }
+
+    /* Section Headings */
+    h2 {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 1.05rem;
+      font-weight: 800;
+      color: var(--primary);
+      border-bottom: 1.5px solid var(--slate-200);
+      padding-bottom: 0.25rem;
+      margin: 1.2rem 0 0.5rem 0;
+      letter-spacing: -0.01em;
+    }
+    h3 {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 0.92rem;
+      font-weight: 700;
+      color: var(--slate-700);
+      margin: 0.9rem 0 0.35rem 0;
+    }
+
+    p {
+      margin: 0 0 0.6rem 0;
+      text-align: justify;
+    }
+
+    /* Equations & Mathematical Display */
+    .equation-card {
+      background: var(--slate-50);
+      border: 1px solid var(--slate-200);
+      border-radius: 6px;
+      padding: 0.6rem 0.8rem;
+      margin: 0.6rem 0;
+      text-align: center;
+    }
+    .equation-card .katex-display {
+      margin: 0.2rem 0;
+    }
+
+    /* Tables */
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 0.76rem;
+      margin: 0.8rem 0;
+      background: #fff;
+    }
+    th {
+      background: var(--slate-100);
+      color: var(--slate-700);
+      font-weight: 700;
+      text-align: left;
+      padding: 6px 8px;
+      border-top: 1.5px solid var(--slate-700);
+      border-bottom: 1.5px solid var(--slate-700);
+      font-size: 0.72rem;
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+    }
+    td {
+      padding: 5px 8px;
+      border-bottom: 1px solid var(--slate-200);
+      color: var(--slate-700);
+      vertical-align: middle;
+    }
+    tr:last-child td {
+      border-bottom: 1.5px solid var(--slate-700);
+    }
+    .table-caption {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 0.72rem;
+      font-weight: 700;
+      color: var(--slate-600);
+      margin-bottom: 0.25rem;
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+    }
+
+    /* Callouts & Alert Boxes */
+    .callout {
+      border-radius: 6px;
+      padding: 0.65rem 0.85rem;
+      margin: 0.8rem 0;
+      font-size: 9pt;
+      line-height: 1.4;
+    }
+    .callout-warning {
+      background: #fffbeb;
+      border-left: 4px solid var(--amber);
+      color: #92400e;
+    }
+    .callout-danger {
+      background: #fff1f2;
+      border-left: 4px solid var(--rose);
+      color: #9f1239;
+    }
+    .callout-success {
+      background: #ecfdf5;
+      border-left: 4px solid var(--emerald);
+      color: #065f46;
+    }
+    .callout strong {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-weight: 700;
+      display: inline-block;
+      margin-bottom: 2px;
+    }
+
+    /* ASCII Diagrams */
+    pre.diagram {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 7.2pt;
+      line-height: 1.25;
+      background: var(--slate-900);
+      color: #38bdf8;
+      padding: 0.6rem 0.8rem;
+      border-radius: 6px;
+      overflow-x: hidden;
+      margin: 0.6rem 0;
+    }
+
+    .footer-note {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 0.7rem;
+      color: var(--slate-500);
+      border-top: 1px solid var(--slate-200);
+      padding-top: 0.5rem;
+      margin-top: 1.5rem;
+      display: flex;
+      justify-content: space-between;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+
+    <!-- PAGE 1 -->
+    <div class="paper-header">
+      <div>
+        <div class="brand-logo">Power<span>Lab</span></div>
+        <div class="paper-subbrand">Engineering & Applied Energy Modeling Research Initiative</div>
+      </div>
+      <div>
+        <div class="paper-badge">Technical Working Paper</div>
+      </div>
+    </div>
+
+    <h1 class="paper-title">Non-Linear Coefficient of Performance (COP) Degradation, Defrost Entropy Losses, and Auxiliary Resistive Staging Dynamics in Cold-Climate Air-Source Heat Pumps (ccASHP)</h1>
+    <div class="paper-subtitle">A Thermodynamic Framework, Building Envelope Equilibrium Model, and Electrical Demand Analysis under AHRI 210/240 and ASHRAE Fundamentals</div>
+
+    <div class="meta-bar">
+      <div class="meta-item">
+        <strong>Authors</strong>
+        <span>Miad S., PowerLab Group</span>
+      </div>
+      <div class="meta-item">
+        <strong>Document ID</strong>
+        <span>PL-WP-2026-04</span>
+      </div>
+      <div class="meta-item">
+        <strong>Date & Version</strong>
+        <span>September 2026 (v1.0)</span>
+      </div>
+      <div class="meta-item">
+        <strong>Open Tool Route</strong>
+        <span>powelab.org/home-energy/</span>
+      </div>
+    </div>
+
+    <div class="abstract-box">
+      <h3>Abstract</h3>
+      <p>
+        The rapid global transition toward residential building decarbonization has established Air-Source Heat Pumps (ASHPs) and Cold-Climate Air-Source Heat Pumps (ccASHPs) as primary heating equipment. While heat pumps exhibit outstanding nominal efficiency under standard test conditions ($\text{COP} \ge 3.5$ at $47^\circ\text{F} / 8.3^\circ\text{C}$), real-world cold-weather performance exhibits severe, non-linear degradation. This divergence creates widespread consumer "bill shock" and extreme winter peak grid stress.
+      </p>
+      <p>
+        This paper formulates a deterministic thermodynamic and building physics framework analyzing four interlinked mechanisms: (1) Carnot lift and refrigerant suction vapor density rarefaction ($\rho_{\text{suction}}$); (2) parasitic reverse-cycle defrost entropy penalties ($28^\circ\text{F} \le T_{\text{amb}} \le 43^\circ\text{F}$); (3) thermal balance point ($T_{\text{balance}}$) envelope inversion; and (4) the auxiliary resistive "strip heat cliff" causing instantaneous $400\%\text{ to }750\%$ electrical power demand surges.
+      </p>
+      <div class="keywords">
+        <strong>Keywords:</strong> Cold-Climate Heat Pump, COP Decay, Suction Density, Defrost Penalty, Thermal Balance Point, Auxiliary Strip Heat, AHRI 210/240, ASHRAE Bin Method.
+      </div>
+    </div>
+
+    <h2>1. Introduction & The Electrification Dilemma</h2>
+    <p>
+      Air-source heat pumps (ASHPs) transfer heat from ambient outdoor air into conditioned indoor spaces via a closed vapor-compression refrigeration cycle. Modern inverter systems achieve rated COPs between 3.0 and 4.5 at rating conditions ($47^\circ\text{F} / 8.3^\circ\text{C}$). However, a fundamental thermodynamic dichotomy governs building electrification: <strong>building heating demand increases linearly as outdoor temperature plummets, whereas heat pump compressor capacity decreases non-linearly.</strong>
+    </p>
+
+    <div class="callout callout-warning">
+      <strong>The Winter Peak Electrification Dilemma:</strong>
+      When outdoor ambient temperatures drop during severe cold snaps, the building envelope heat loss reaches its annual maximum exactly when heat pump compressor thermal output and thermodynamic efficiency are at their lowest point.
+    </div>
+
+    <h2>2. Governing Thermodynamic Principles</h2>
+
+    <h3>2.1 Carnot Limit and Temperature Lift</h3>
+    <p>
+      The theoretical maximum heating efficiency for a vapor compression cycle operating between evaporator temperature $T_{\text{evap}}$ and condenser temperature $T_{\text{cond}}$ is governed by the Carnot heating COP:
+    </p>
+
+    <div class="equation-card">
+      $$\text{COP}_{\text{carnot}}(T_{\text{amb}}, T_{\text{supply}}) = \frac{T_{\text{cond}}}{T_{\text{cond}} - T_{\text{evap}}} = \frac{T_{\text{supply}} + \Delta T_{\text{hex,in}}}{(T_{\text{supply}} + \Delta T_{\text{hex,in}}) - (T_{\text{amb}} - \Delta T_{\text{hex,out}})}$$
+    </div>
+
+    <p>
+      In actual equipment, second-law losses (non-isentropic compression, motor dissipation, throttling irreversibilities) yield an effective operational COP of $\text{COP}_{\text{actual}} = \eta_{\text{carnot}} \cdot \text{COP}_{\text{carnot}}$, where $\eta_{\text{carnot}} \approx 0.35\text{–}0.52$.
+    </p>
+
+    <h3>2.2 Refrigerant Suction Vapor Density Rarefaction</h3>
+    <p>
+      Compressor mass flow delivery $\dot{m}_{\text{ref}}$ is constrained by suction vapor density $\rho_{\text{suction}}$ entering the compressor cylinders:
+    </p>
+
+    <div class="equation-card">
+      $$\dot{m}_{\text{ref}}(T_{\text{amb}}) = \rho_{\text{suction}}\left(P_{\text{evap}}(T_{\text{amb}}), T_{\text{superheat}}\right) \cdot \dot{V}_{\text{disp}} \cdot \eta_{\text{vol}}$$
+    </div>
+
+    <p>
+      As saturated evaporating pressure collapses under sub-zero temperatures via the Clausius-Clapeyron relation, suction density falls precipitously. At $-20^\circ\text{C}$ ($-4^\circ\text{F}$), R-410A vapor density drops by <strong>68.7%</strong> relative to rating conditions, severely choking thermal output.
+    </p>
+
+    <!-- PAGE 2 -->
+    <div class="page-break"></div>
+
+    <div class="table-caption">Table 1: R-410A Thermodynamic State Properties Across Heating Ambient Regimes</div>
+    <table>
+      <thead>
+        <tr>
+          <th>Outdoor Temp ($T_{\text{amb}}$)</th>
+          <th>Evap Sat Temp</th>
+          <th>Evap Pressure ($P_{\text{evap}}$)</th>
+          <th>Suction Density ($\rho_{\text{suc}}$)</th>
+          <th>Relative Mass Flow</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>+10°C (+50°F)</strong></td>
+          <td>+3.3°C (+38°F)</td>
+          <td>872 kPa (126 psi)</td>
+          <td>35.8 kg/m³</td>
+          <td><strong>100.0% (Base)</strong></td>
+        </tr>
+        <tr>
+          <td><strong>+0°C (+32°F)</strong></td>
+          <td>-6.7°C (+20°F)</td>
+          <td>638 kPa (92 psi)</td>
+          <td>25.4 kg/m³</td>
+          <td><strong>70.9%</strong></td>
+        </tr>
+        <tr>
+          <td><strong>-10°C (+14°F)</strong></td>
+          <td>-16.7°C (+2°F)</td>
+          <td>449 kPa (65 psi)</td>
+          <td>17.3 kg/m³</td>
+          <td><strong>48.3%</strong></td>
+        </tr>
+        <tr>
+          <td><strong>-20°C (-4°F)</strong></td>
+          <td>-26.7°C (-16°F)</td>
+          <td>302 kPa (44 psi)</td>
+          <td>11.2 kg/m³</td>
+          <td><strong>31.3%</strong></td>
+        </tr>
+        <tr>
+          <td><strong>-30°C (-22°F)</strong></td>
+          <td>-36.7°C (-34°F)</td>
+          <td>194 kPa (28 psi)</td>
+          <td>6.8 kg/m³</td>
+          <td><strong>19.0%</strong></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h2>3. Reverse-Cycle Defrost Entropy Penalties</h2>
+    <p>
+      In humid atmospheric conditions between $-2^\circ\text{C}$ and $+6^\circ\text{C}$ ($28^\circ\text{F}\text{–}43^\circ\text{F}$), outdoor coil frost accretion forces periodic reverse-cycle defrost. The four-way valve shifts to cooling mode, extracting indoor heat to melt outdoor ice ($\Delta H_{\text{fusion}} = 334\text{ kJ/kg}$) while staging $5–10\text{ kW}$ of resistive heat to temper indoor drafts.
+    </p>
+
+    <div class="equation-card">
+      $$\text{COP}_{\text{net}}(T_{\text{amb}}, \text{RH}) = \text{COP}_{\text{steady}}(T_{\text{amb}}) \cdot \left[ 1 - \phi_{\text{defrost}}(T_{\text{amb}}, \text{RH}) \right]$$
+    </div>
+
+    <p>
+      During peak frosting ($32^\circ\text{F} / 85\%\text{ RH}$), cyclic defrost reduces net delivered heating efficiency by <strong>15% to 28%</strong>.
+    </p>
+
+    <h2>4. The Thermal Balance Point & The Auxiliary "Strip Heat Cliff"</h2>
+    <p>
+      The <strong>Thermal Balance Point ($T_{\text{balance}}$)</strong> is the exact outdoor temperature where building envelope heat loss equals maximum compressor heating capacity:
+    </p>
+
+    <div class="equation-card">
+      $$\dot{Q}_{\text{loss}}(T_{\text{balance}}) = (UA)_{\text{bldg}} \cdot (T_{\text{indoor}} - T_{\text{balance}}) = \dot{Q}_{\text{hp, max}}(T_{\text{balance}})$$
+    </div>
+
+    <p>
+      Below $T_{\text{balance}}$, supplemental electric resistance elements ($\text{COP}_{\text{aux}} \equiv 1.0$) stage on. Total system power demand transitions to:
+    </p>
+
+    <div class="equation-card">
+      $$P_{\text{total}}(T_{\text{amb}}) = \frac{\dot{Q}_{\text{hp, max}}(T_{\text{amb}})}{\text{COP}_{\text{net}}(T_{\text{amb}})} + \frac{\dot{Q}_{\text{loss}}(T_{\text{amb}}) - \dot{Q}_{\text{hp, max}}(T_{\text{amb}})}{1.0}$$
+    </div>
+
+    <pre class="diagram">
+Heating Capacity vs. Heat Loss & Auxiliary Staging
+60k BTU/hr ▲                                   / [Building Heat Loss Q_loss]
+           │                                  /
+40k BTU/hr │   [Heat Pump Output Q_hp]       /
+           │  ┌─────────────────────────────/ ◄── Thermal Balance Point (T_bal = 24°F)
+20k BTU/hr │  │                            /\───────────────────────────────
+           │  │                           /  \ [Auxiliary Strip Heat: COP = 1.0]
+ 0 BTU/hr  └──┴──────────────────────────┴────┴─────────────────────────────► Outdoor Temp
+            -15°F                        24°F 47°F
+    </pre>
+
+    <div class="table-caption">Table 2: Electrical Demand & System Net COP for a 3-Ton System (36k BTU/hr Nominal)</div>
+    <table>
+      <thead>
+        <tr>
+          <th>Outdoor Temp ($T_{\text{amb}}$)</th>
+          <th>Building Loss ($\dot{Q}_{\text{loss}}$)</th>
+          <th>Compressor Output</th>
+          <th>Strip Heat Needed</th>
+          <th>Total Power ($P_{\text{total}}$)</th>
+          <th>Net COP</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>47°F (8.3°C)</strong></td>
+          <td>18,400 BTU/hr</td>
+          <td>36,000 BTU/hr</td>
+          <td>0.0 kW</td>
+          <td>1.45 kW</td>
+          <td><strong>3.72</strong></td>
+        </tr>
+        <tr>
+          <td><strong>35°F (1.7°C)</strong></td>
+          <td>28,000 BTU/hr</td>
+          <td>31,500 BTU/hr</td>
+          <td>0.0 kW</td>
+          <td>2.82 kW</td>
+          <td><strong>2.91</strong></td>
+        </tr>
+        <tr>
+          <td><strong>24°F (-4.4°C)</strong></td>
+          <td>36,800 BTU/hr</td>
+          <td>36,800 BTU/hr</td>
+          <td>0.0 kW (Balance Point)</td>
+          <td>4.31 kW</td>
+          <td><strong>2.50</strong></td>
+        </tr>
+        <tr>
+          <td><strong>10°F (-12.2°C)</strong></td>
+          <td>48,000 BTU/hr</td>
+          <td>24,200 BTU/hr</td>
+          <td>7.0 kW (23,800 BTU/hr)</td>
+          <td>10.98 kW</td>
+          <td><strong>1.28</strong></td>
+        </tr>
+        <tr>
+          <td><strong>0°F (-17.8°C)</strong></td>
+          <td>56,000 BTU/hr</td>
+          <td>18,500 BTU/hr</td>
+          <td>11.0 kW (37,500 BTU/hr)</td>
+          <td>14.34 kW</td>
+          <td><strong>1.14</strong></td>
+        </tr>
+        <tr>
+          <td><strong>-15°F (-26.1°C)</strong></td>
+          <td>68,000 BTU/hr</td>
+          <td>12,000 BTU/hr</td>
+          <td>16.4 kW (56,000 BTU/hr)</td>
+          <td>18.70 kW</td>
+          <td><strong>1.06</strong></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="callout callout-danger">
+      <strong>The 1,290% Load Spike Finding:</strong>
+      As outdoor temperatures drop from $47^\circ\text{F}$ down to $-15^\circ\text{F}$, total electrical power draw surges from <strong>1.45 kW to 18.70 kW</strong>. This 12.9x power surge exposes distribution transformers to severe overload conditions during cold snaps.
+    </div>
+
+    <!-- PAGE 3 -->
+    <div class="page-break"></div>
+
+    <h2>5. ASHRAE Bin Integration & Delivered Heat Economics</h2>
+    <p>
+      Applying the ASHRAE Temperature Bin Method over annual weather distributions allows accurate computation of seasonal energy consumption and Levelized Cost of Heat ($\text{LCOH}$):
+    </p>
+
+    <div class="equation-card">
+      $$E_{\text{seasonal, elec}} = \sum_{j=1}^{N_{\text{bins}}} H_j \cdot P_{\text{total}}(T_j) \quad [\text{kWh}], \qquad \text{LCOH} = \frac{C_{\text{fuel/elec}}}{\eta_{\text{seasonal}} \cdot \text{Energy Density}} \quad \left[\frac{\$}{\text{MMBtu}}\right]$$
+    </div>
+
+    <div class="table-caption">Table 3: Levelized Cost of Heat Delivered ($/MMBtu) Across Fuel Types</div>
+    <table>
+      <thead>
+        <tr>
+          <th>Heating Technology</th>
+          <th>Unit Fuel Price</th>
+          <th>Rated Efficiency</th>
+          <th>Effective Seasonal COP</th>
+          <th>Delivered Cost ($/MMBtu)</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>ccASHP (Cold Climate Inverter)</strong></td>
+          <td>$0.16 / kWh</td>
+          <td>Variable EVI Inverter</td>
+          <td>2.85 Seasonal</td>
+          <td><strong>$16.44 / MMBtu</strong></td>
+        </tr>
+        <tr>
+          <td><strong>Standard Heat Pump (Mid-Tier)</strong></td>
+          <td>$0.16 / kWh</td>
+          <td>Standard Staged</td>
+          <td>2.20 Seasonal</td>
+          <td><strong>$21.30 / MMBtu</strong></td>
+        </tr>
+        <tr>
+          <td><strong>Natural Gas (96% Condensing)</strong></td>
+          <td>$1.20 / Therm</td>
+          <td>96% AFUE</td>
+          <td>0.96</td>
+          <td><strong>$12.50 / MMBtu</strong></td>
+        </tr>
+        <tr>
+          <td><strong>Natural Gas (80% Standard)</strong></td>
+          <td>$1.20 / Therm</td>
+          <td>80% AFUE</td>
+          <td>0.80</td>
+          <td><strong>$15.00 / MMBtu</strong></td>
+        </tr>
+        <tr>
+          <td><strong>Propane (LP Furnace)</strong></td>
+          <td>$2.85 / Gallon</td>
+          <td>92% AFUE</td>
+          <td>0.92</td>
+          <td><strong>$33.91 / MMBtu</strong></td>
+        </tr>
+        <tr>
+          <td><strong>Heating Oil (#2 Fuel Oil)</strong></td>
+          <td>$3.90 / Gallon</td>
+          <td>85% AFUE</td>
+          <td>0.85</td>
+          <td><strong>$33.15 / MMBtu</strong></td>
+        </tr>
+        <tr>
+          <td><strong>Electric Resistance Heat Strip</strong></td>
+          <td>$0.16 / kWh</td>
+          <td>100% Joule Heating</td>
+          <td>1.00</td>
+          <td><strong>$46.88 / MMBtu</strong></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h2>6. Open Computational Implementation</h2>
+    <p>
+      The algorithms and thermodynamic models derived in this paper are openly accessible as interactive deterministic calculation engines:
+    </p>
+    <ul>
+      <li><strong>Heat Pump Running Cost Calculator:</strong> <a href="https://www.powelab.org/home-energy/heat-pump-cost-calculator">https://www.powelab.org/home-energy/heat-pump-cost-calculator</a></li>
+      <li><strong>Central AC & Heat Pump Electricity Cost Calculator:</strong> <a href="https://www.powelab.org/home-energy/air-conditioner-cost-calculator">https://www.powelab.org/home-energy/air-conditioner-cost-calculator</a></li>
+      <li><strong>Space Heater Operating Cost Calculator:</strong> <a href="https://www.powelab.org/home-energy/space-heater-cost-calculator">https://www.powelab.org/home-energy/space-heater-cost-calculator</a></li>
+    </ul>
+
+    <h2>7. References & Standards</h2>
+    <p style="font-size: 8.5pt; line-height: 1.35; color: var(--slate-700);">
+      1. <strong>AHRI:</strong> <em>Standard 210/240-2023: Performance Rating of Unitary Air-Conditioning & Air-Source Heat Pump Equipment</em>. Arlington, VA, 2023.<br>
+      2. <strong>ASHRAE:</strong> <em>2021 ASHRAE Handbook — Fundamentals</em>. Chapter 18: Nonresidential Cooling and Heating Load Calculations. Atlanta, GA, 2021.<br>
+      3. <strong>NEEP:</strong> <em>Cold Climate Air-Source Heat Pump (ccASHP) Specification Version 4.0</em>. Lexington, MA, 2024.<br>
+      4. <strong>DOE EERE:</strong> <em>Residential Cold Climate Heat Pump Challenge Technical Specifications</em>. Building Technologies Office, 2022.<br>
+      5. <strong>Archsmith, J., Kendall, A., & Rapson, D.:</strong> <em>From Cradle to Grid: Life Cycle Analysis of Electrification and Efficiency</em>. Environmental Science & Technology, 2015.<br>
+      6. <strong>NFPA:</strong> <em>NFPA 70: National Electrical Code (NEC)</em>, Articles 220 & 440. Quincy, MA, 2026.
+    </p>
+
+    <div class="footer-note">
+      <span>PowerLab Working Paper Series • Document ID: PL-WP-2026-04</span>
+      <span>Published under CC BY-NC-ND 4.0 • powelab.org</span>
+    </div>
+
+  </div>
+
+</body>
+</html>

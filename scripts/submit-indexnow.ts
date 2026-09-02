@@ -17,24 +17,32 @@ async function submitIndexNow() {
     urlList,
   };
 
-  try {
-    const res = await fetch("https://api.indexnow.org/indexnow", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json; charset=utf-8",
-      },
-      body: JSON.stringify(payload),
-    });
+  const endpoints = [
+    "https://api.indexnow.org/indexnow",
+    "https://yandex.com/indexnow",
+    "https://www.bing.com/indexnow"
+  ];
 
-    console.log(`IndexNow HTTP status: ${res.status} ${res.statusText}`);
-    if (res.ok || res.status === 200 || res.status === 202) {
-      console.log(`Successfully submitted ${urlList.length} URLs to IndexNow!`);
-    } else {
-      const text = await res.text();
-      console.warn(`IndexNow responded with status ${res.status}: ${text}`);
+  for (const endpoint of endpoints) {
+    try {
+      const res = await fetch(endpoint, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json; charset=utf-8",
+        },
+        body: JSON.stringify(payload),
+      });
+
+      console.log(`[${endpoint}] Status: ${res.status} ${res.statusText}`);
+      if (res.ok || res.status === 200 || res.status === 202) {
+        console.log(`Successfully submitted ${urlList.length} URLs via ${endpoint}!`);
+      } else {
+        const text = await res.text();
+        console.warn(`[${endpoint}] Response: ${text}`);
+      }
+    } catch (err) {
+      console.error(`[${endpoint}] Request failed:`, err);
     }
-  } catch (err) {
-    console.error("IndexNow network request failed:", err);
   }
 }
 

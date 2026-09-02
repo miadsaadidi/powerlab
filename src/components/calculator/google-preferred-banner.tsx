@@ -22,7 +22,7 @@ interface GooglePreferredBannerProps {
  * Master release flag for Google Preferred Source banner.
  * Set to `true` once the property is indexed and searchable on https://www.google.com/preferences/source
  */
-export const GOOGLE_PREFERRED_ACTIVE = false;
+export const GOOGLE_PREFERRED_ACTIVE = true;
 
 /**
  * Reusable Google Preferred Source card for all PowerLab calculators.

@@ -48,8 +48,8 @@ export const calculatorRegistry: CalculatorRegistryItem[] = [
     "phase": 4,
     "status": "published",
     "primaryKeyword": "ev range calculator",
-    "seoTitle": "EV Range Calculator — Estimate Real-World Range",
-    "metaDescription": "Estimate EV range from usable battery capacity, state of charge, reserve, battery health and consumption in kWh/100 km or mi/kWh.",
+    "seoTitle": "Real-World EV Range Calculator by Speed & Temp",
+    "metaDescription": "Calculate real-world EV driving range by battery kWh, highway speed & winter temperature drop. Physics-based range estimation for all electric vehicles.",
     "relatedCalculatorIds": [
       "ev-charging-time",
       "ev-charging-cost"
@@ -231,8 +231,8 @@ export const calculatorRegistry: CalculatorRegistryItem[] = [
     "phase": 2,
     "status": "published",
     "primaryKeyword": "battery capacity calculator",
-    "seoTitle": "Battery Capacity Calculator — Ah, Wh & kWh",
-    "metaDescription": "Convert battery capacity between amp-hours, watt-hours and kWh using voltage, and estimate usable energy from state of charge, reserve and battery health.",
+    "seoTitle": "Battery Capacity Calculator: Ah, Wh to kWh",
+    "metaDescription": "Convert battery capacity between Ah, Wh, and kWh by nominal voltage (12V, 24V, 48V). Calculate usable battery storage by chemistry, DoD, and cycle health.",
     "relatedCalculatorIds": [
       "battery-runtime"
     ]
@@ -354,8 +354,8 @@ export const calculatorRegistry: CalculatorRegistryItem[] = [
     "phase": 5,
     "status": "published",
     "primaryKeyword": "air conditioner electricity cost calculator",
-    "seoTitle": "Air Conditioner Cost Calculator — AC kWh & Cost",
-    "metaDescription": "Calculate central AC energy cost and room air conditioner running costs per hour, day, and month. Supports central AC, mini-splits, and window units.",
+    "seoTitle": "AC Electricity Cost Calculator: $/Hour & Month",
+    "metaDescription": "Calculate exact AC electricity costs per hour, day & month. Sizing formulas for Central AC, Mini-Splits & Window units with SEER2 efficiency & duty cycle.",
     "relatedCalculatorIds": [
       "electricity-usage",
       "energy-bill",
@@ -370,8 +370,8 @@ export const calculatorRegistry: CalculatorRegistryItem[] = [
     "phase": 5,
     "status": "published",
     "primaryKeyword": "space heater electricity cost calculator",
-    "seoTitle": "Space Heater Cost Calculator — Running Cost & kWh",
-    "metaDescription": "Calculate how much your electric space heater costs to run per hour, 8-hour night, and month. See exact electricity costs for 500W, 1000W, and 1500W heaters.",
+    "seoTitle": "Space Heater Electricity Cost Calculator: $/Hr",
+    "metaDescription": "Calculate exact space heater electricity costs per hour, night & month for 500W, 1000W & 1500W heaters. Model thermostat duty cycle vs central heating.",
     "relatedCalculatorIds": [
       "electricity-usage",
       "energy-bill",

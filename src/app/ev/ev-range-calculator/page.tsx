@@ -12,8 +12,8 @@ import { DirectAnswerCard } from "@/components/seo/direct-answer-card";
 const isPublished = isCalculatorPublished("ev-range");
 
 export const metadata: Metadata = buildPageMetadata({
-  title: "EV Range Calculator: Miles by Speed & Temperature",
-  description: "Calculate real-world EV driving range based on battery capacity, highway speed, cold temperature loss, and terrain with transparent physical formulas.",
+  title: "Real-World EV Range Calculator by Speed & Temp",
+  description: "Calculate real-world EV driving range by battery kWh, highway speed & winter temperature drop. Physics-based range estimation for all electric vehicles.",
   canonicalPath: "/ev/ev-range-calculator",
   category: "ev",
 });
