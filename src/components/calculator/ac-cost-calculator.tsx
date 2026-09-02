@@ -10,6 +10,8 @@ import { ShareButton } from "@/components/calculator/share-button";
 import { PrintSpecButton } from "@/components/calculator/print-spec-button";
 import { GooglePreferredBanner } from "@/components/calculator/google-preferred-banner";
 import { CalculatorTrustPill } from "@/components/calculator/calculator-trust-pill";
+import { RegionalClimateSelector } from "@/components/calculator/regional-climate-selector";
+import type { RegionalClimateData } from "@/data/regional-climate-solar-data";
 
 export function AcCostCalculator() {
   const [inputMode, setInputMode] = useState<"btu_seer" | "watts">(AC_COST_DEFAULTS.inputMode);
@@ -124,6 +126,40 @@ export function AcCostCalculator() {
               ))}
             </div>
           </div>
+
+          <RegionalClimateSelector
+            applyTarget="hvac"
+            title="📍 Regional ASHRAE Cooling Climate & EIA Rates"
+            description="Select your state to load official ASHRAE 1% summer design temperatures, cooling season duration, and EIA grid rates."
+            onSelectRegion={(region: RegionalClimateData) => {
+              setElectricityRate(region.electricityRateKwh);
+              // Set cooling season months based on climate zone & summer design temp
+              const isHotSouth = region.summerDesignTempF > 94;
+              const isModerate = region.summerDesignTempF >= 88;
+              const nextMonths = isHotSouth ? 6 : isModerate ? 4 : 3;
+              const nextHours = isHotSouth ? 10 : 8;
+              setSeasonMonths(nextMonths);
+              setDailyHours(nextHours);
+              try {
+                const res = calculateAcCost({
+                  inputMode,
+                  coolingCapacityBtu: coolingBtu,
+                  seer2Rating: seerRating,
+                  nameplateWatts,
+                  dailyHours: nextHours,
+                  compressorDutyCyclePercent: dutyCycle,
+                  electricityRate: region.electricityRateKwh,
+                  coolingSeasonMonths: nextMonths,
+                });
+                setCalculated(res);
+                setStale(false);
+                setError(null);
+              } catch {
+                if (calculated) setStale(true);
+              }
+              track("calculator_region_select", { calculator_id: "ac-cost", state: region.stateCode });
+            }}
+          />
 
           <CalculatorTrustPill />
 

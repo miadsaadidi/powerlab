@@ -252,8 +252,10 @@ The final canonical keyword map is in `docs/05_KEYWORD_AND_SERP_ANALYSIS.md`.
 
 ## Definition of done
 
-## Deployment credentials
+## Deployment credentials & Execution Rules
 
+- **Direct Questions First:** When the user asks a question (e.g., 'did you push to vercel? yes/no'), answer the question directly without autonomously executing scripts, modifying code, or deploying.
+- **Explicit Request Required:** Never initiate a production deployment, code modification, or build unless explicitly instructed by the user.
 - For Vercel deployments, read the local `accesskeys.txt` file for the deployment token when needed.
 - Never print, copy, commit, or expose token values in source code, logs, messages, or deployment output.
 - Keep using the existing Vercel project and team scope; do not create a replacement project.

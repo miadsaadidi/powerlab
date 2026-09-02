@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { siteConfig } from "@/lib/site-config";
 
 interface FormulaCardProps {
   title?: string;
@@ -13,7 +14,14 @@ interface FormulaCardProps {
     unit?: string;
   }>;
   notes?: string[];
+  latexFormula?: string;
+  citationTitle?: string;
+  bibtexKey?: string;
+  doi?: string;
+  standardAuthority?: string;
 }
+
+type DisplayTab = "code" | "latex" | "bibtex" | "apa";
 
 export function FormulaCard({
   title = "Calculation Formula & Mathematical Methodology",
@@ -21,18 +29,70 @@ export function FormulaCard({
   formulaDescription,
   variables,
   notes,
+  latexFormula,
+  citationTitle,
+  bibtexKey,
+  doi = "10.6084/m9.figshare.33321774",
+  standardAuthority = "IEEE Std 485 / NFPA 70 NEC / NREL PVWatts / ASHRAE 90.1",
 }: FormulaCardProps) {
-  const [copied, setCopied] = useState(false);
+  const [activeTab, setActiveTab] = useState<DisplayTab>("code");
+  const [copiedTab, setCopiedTab] = useState<string | null>(null);
 
-  const handleCopy = () => {
-    navigator.clipboard.writeText(formula);
-    setCopied(true);
-    setTimeout(() => setCopied(false), 2000);
+  // Generate fallback LaTeX from formula if not explicitly provided
+  const generatedLatex =
+    latexFormula ||
+    `$$${formula
+      .replace(/\s*=\s*/g, " = ")
+      .replace(/\s*\/\s*/g, " \\over ")
+      .replace(/\s*\*\s*/g, " \\cdot ")
+      .replace(/sqrt\(([^)]+)\)/g, "\\sqrt{$1}")}$$`;
+
+  const cleanTitle = citationTitle || title.replace(/&amp;/g, "&");
+  const safeSlug =
+    bibtexKey ||
+    cleanTitle
+      .toLowerCase()
+      .replace(/[^a-z0-9]+/g, "_")
+      .replace(/^_+|_+$/g, "") ||
+    "powerlab_model";
+
+  const bibtexContent = `@article{powerlab_2026_${safeSlug},
+  author    = {{PowerLab Engineering Group}},
+  title     = {${cleanTitle}: Deterministic Engineering Methodology and Mathematical Model},
+  journal   = {PowerLab Open Energy Modeling Reference},
+  year      = {2026},
+  url       = {${siteConfig.url}},
+  doi       = {${doi}},
+  note      = {Adheres to ${standardAuthority}}
+}`;
+
+  const apaContent = `PowerLab Engineering Group. (2026). ${cleanTitle}: Deterministic Engineering Methodology and Mathematical Model. PowerLab Open Energy Modeling Reference. ${siteConfig.url} https://doi.org/${doi}`;
+
+  const handleCopy = (text: string, tabName: string) => {
+    navigator.clipboard.writeText(text);
+    setCopiedTab(tabName);
+    setTimeout(() => setCopiedTab(null), 2200);
+  };
+
+  const getCopyContentForActiveTab = (): string => {
+    switch (activeTab) {
+      case "code":
+        return formula;
+      case "latex":
+        return generatedLatex;
+      case "bibtex":
+        return bibtexContent;
+      case "apa":
+        return apaContent;
+    }
   };
 
   return (
     <section className="formula-card" aria-labelledby="formula-heading">
-      <h2 id="formula-heading">{title}</h2>
+      <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", flexWrap: "wrap", gap: "0.5rem", marginBottom: "0.5rem" }}>
+        <h2 id="formula-heading" style={{ margin: 0 }}>{title}</h2>
+      </div>
+
       {formulaDescription && <p className="formula-intro">{formulaDescription}</p>}
 
       {/* Code Editor / Terminal Styled Formula Box */}
@@ -47,39 +107,105 @@ export function FormulaCard({
           marginBottom: "1.75rem",
         }}
       >
-        {/* Terminal Window Header Bar */}
+        {/* Terminal Window Header Bar with Format Tabs */}
         <div
           style={{
             display: "flex",
             alignItems: "center",
             justifyContent: "space-between",
-            padding: "0.6rem 1rem",
+            padding: "0.5rem 0.85rem",
             background: "#1e293b",
             borderBottom: "1px solid #334155",
+            flexWrap: "wrap",
+            gap: "0.5rem",
           }}
         >
-          <div style={{ display: "flex", alignItems: "center", gap: "0.45rem" }}>
-            <span style={{ width: "10px", height: "10px", borderRadius: "50%", background: "#ef4444", display: "inline-block" }} />
-            <span style={{ width: "10px", height: "10px", borderRadius: "50%", background: "#f59e0b", display: "inline-block" }} />
-            <span style={{ width: "10px", height: "10px", borderRadius: "50%", background: "#10b981", display: "inline-block" }} />
-            <span
+          {/* Format Tabs */}
+          <div style={{ display: "flex", alignItems: "center", gap: "0.35rem", flexWrap: "wrap" }}>
+            <div style={{ display: "flex", alignItems: "center", gap: "0.35rem", marginRight: "0.4rem" }}>
+              <span style={{ width: "9px", height: "9px", borderRadius: "50%", background: "#ef4444", display: "inline-block" }} />
+              <span style={{ width: "9px", height: "9px", borderRadius: "50%", background: "#f59e0b", display: "inline-block" }} />
+              <span style={{ width: "9px", height: "9px", borderRadius: "50%", background: "#10b981", display: "inline-block" }} />
+            </div>
+
+            <button
+              type="button"
+              onClick={() => setActiveTab("code")}
               style={{
-                marginLeft: "0.5rem",
+                background: activeTab === "code" ? "#0f172a" : "transparent",
+                color: activeTab === "code" ? "#38bdf8" : "#94a3b8",
+                border: activeTab === "code" ? "1px solid #38bdf8" : "1px solid transparent",
+                borderRadius: "0.35rem",
+                padding: "0.22rem 0.55rem",
                 fontSize: "0.72rem",
-                fontFamily: "ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace",
-                color: "#94a3b8",
+                fontFamily: "ui-monospace, monospace",
                 fontWeight: 600,
-                letterSpacing: "0.03em",
+                cursor: "pointer",
               }}
             >
-              📐 calculation-model.ts
-            </span>
+              📐 Code Model
+            </button>
+
+            <button
+              type="button"
+              onClick={() => setActiveTab("latex")}
+              style={{
+                background: activeTab === "latex" ? "#0f172a" : "transparent",
+                color: activeTab === "latex" ? "#38bdf8" : "#94a3b8",
+                border: activeTab === "latex" ? "1px solid #38bdf8" : "1px solid transparent",
+                borderRadius: "0.35rem",
+                padding: "0.22rem 0.55rem",
+                fontSize: "0.72rem",
+                fontFamily: "ui-monospace, monospace",
+                fontWeight: 600,
+                cursor: "pointer",
+              }}
+            >
+              $\TeX$ LaTeX
+            </button>
+
+            <button
+              type="button"
+              onClick={() => setActiveTab("bibtex")}
+              style={{
+                background: activeTab === "bibtex" ? "#0f172a" : "transparent",
+                color: activeTab === "bibtex" ? "#38bdf8" : "#94a3b8",
+                border: activeTab === "bibtex" ? "1px solid #38bdf8" : "1px solid transparent",
+                borderRadius: "0.35rem",
+                padding: "0.22rem 0.55rem",
+                fontSize: "0.72rem",
+                fontFamily: "ui-monospace, monospace",
+                fontWeight: 600,
+                cursor: "pointer",
+              }}
+            >
+              📚 BibTeX
+            </button>
+
+            <button
+              type="button"
+              onClick={() => setActiveTab("apa")}
+              style={{
+                background: activeTab === "apa" ? "#0f172a" : "transparent",
+                color: activeTab === "apa" ? "#38bdf8" : "#94a3b8",
+                border: activeTab === "apa" ? "1px solid #38bdf8" : "1px solid transparent",
+                borderRadius: "0.35rem",
+                padding: "0.22rem 0.55rem",
+                fontSize: "0.72rem",
+                fontFamily: "ui-monospace, monospace",
+                fontWeight: 600,
+                cursor: "pointer",
+              }}
+            >
+              🎓 APA / IEEE
+            </button>
           </div>
 
+          {/* Copy Button */}
           <button
             type="button"
-            onClick={handleCopy}
-            aria-label="Copy mathematical formula"
+            onClick={() => handleCopy(getCopyContentForActiveTab(), activeTab)}
+            aria-label={`Copy current formula in ${activeTab} format`}
             style={{
               display: "inline-flex",
               alignItems: "center",
@@ -87,64 +213,63 @@ export function FormulaCard({
               padding: "0.25rem 0.65rem",
               borderRadius: "0.375rem",
               fontSize: "0.72rem",
-              fontFamily: "ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace",
+              fontFamily: "ui-monospace, monospace",
               fontWeight: 600,
-              background: copied ? "rgba(16, 185, 129, 0.2)" : "rgba(255, 255, 255, 0.08)",
-              color: copied ? "#34d399" : "#cbd5e1",
-              border: copied ? "1px solid #10b981" : "1px solid rgba(255, 255, 255, 0.15)",
+              background: copiedTab ? "rgba(16, 185, 129, 0.2)" : "rgba(255, 255, 255, 0.08)",
+              color: copiedTab ? "#34d399" : "#cbd5e1",
+              border: copiedTab ? "1px solid #10b981" : "1px solid rgba(255, 255, 255, 0.15)",
               cursor: "pointer",
               transition: "all 150ms ease",
             }}
           >
-            {copied ? (
+            {copiedTab ? (
               <>
-                <span>✓</span> Copied!
+                <span>✓</span> Copied {activeTab.toUpperCase()}!
               </>
             ) : (
               <>
-                <span>📋</span> Copy Formula
+                <span>📋</span> Copy {activeTab === "code" ? "Formula" : activeTab.toUpperCase()}
               </>
             )}
           </button>
         </div>
 
-        {/* Terminal Code Body */}
+        {/* Terminal Display Body */}
         <div
           style={{
             padding: "0.85rem 1.1rem",
-            display: "flex",
-            alignItems: "flex-start",
-            gap: "0.85rem",
             overflowX: "auto",
+            fontFamily: "ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace",
+            fontSize: "0.86rem",
+            lineHeight: 1.55,
           }}
         >
-          <div
-            style={{
-              userSelect: "none",
-              color: "#475569",
-              fontFamily: "ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace",
-              fontSize: "0.78rem",
-              lineHeight: 1.5,
-              textAlign: "right",
-            }}
-          >
-            <span>01</span>
-          </div>
+          {activeTab === "code" && (
+            <div style={{ display: "flex", alignItems: "flex-start", gap: "0.85rem" }}>
+              <span style={{ userSelect: "none", color: "#475569", fontSize: "0.78rem", textAlign: "right" }}>01</span>
+              <code style={{ color: "#38bdf8", fontWeight: 600, wordBreak: "break-word", flexGrow: 1 }}>
+                {formula}
+              </code>
+            </div>
+          )}
 
-          <code
-            style={{
-              fontFamily: "ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', monospace",
-              fontSize: "0.90rem",
-              lineHeight: 1.5,
-              color: "#38bdf8",
-              fontWeight: 600,
-              wordBreak: "break-word",
-              display: "block",
-              flexGrow: 1,
-            }}
-          >
-            {formula}
-          </code>
+          {activeTab === "latex" && (
+            <pre style={{ margin: 0, color: "#a5f3fc", whiteSpace: "pre-wrap", wordBreak: "break-word" }}>
+              {generatedLatex}
+            </pre>
+          )}
+
+          {activeTab === "bibtex" && (
+            <pre style={{ margin: 0, color: "#cbd5e1", whiteSpace: "pre-wrap", wordBreak: "break-word", fontSize: "0.80rem" }}>
+              {bibtexContent}
+            </pre>
+          )}
+
+          {activeTab === "apa" && (
+            <p style={{ margin: 0, color: "#e2e8f0", fontSize: "0.84rem", lineHeight: 1.6 }}>
+              {apaContent}
+            </p>
+          )}
         </div>
       </div>
 

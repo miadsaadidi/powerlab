@@ -10,6 +10,8 @@ import { PrintSpecButton } from "@/components/calculator/print-spec-button";
 import { GooglePreferredBanner } from "@/components/calculator/google-preferred-banner";
 import { CalculatorTrustPill } from "@/components/calculator/calculator-trust-pill";
 import { StandardsBadge } from "@/components/calculator/standards-badge";
+import { RegionalClimateSelector } from "@/components/calculator/regional-climate-selector";
+import type { RegionalClimateData } from "@/data/regional-climate-solar-data";
 
 export function HeatPumpCostCalculator() {
   const [heatingDemandMmbtu, setHeatingDemandMmbtu] = useState<number>(HEAT_PUMP_DEFAULTS.annualHeatingDemandMmbtu);
@@ -125,6 +127,40 @@ export function HeatPumpCostCalculator() {
               ))}
             </div>
           </div>
+
+          <RegionalClimateSelector
+            applyTarget="hvac"
+            title="📍 Regional ASHRAE Climate & EIA Grid Rates"
+            description="Select your state to load official ASHRAE 99% winter design temperatures and EIA electricity rates."
+            onSelectRegion={(region: RegionalClimateData) => {
+              setElectricityRate(region.electricityRateKwh);
+              // Adjust demand based on climate zone if appropriate
+              const isCold = region.winterDesignTempF < 15;
+              const isVeryCold = region.winterDesignTempF < 0;
+              const nextMmbtu = isVeryCold ? 65 : isCold ? 50 : 30;
+              const nextScop = isVeryCold ? 2.6 : isCold ? 2.9 : 3.4;
+              setHeatingDemandMmbtu(nextMmbtu);
+              setScop(nextScop);
+              try {
+                const res = calculateHeatPumpCost({
+                  annualHeatingDemandMmbtu: nextMmbtu,
+                  heatPumpScop: nextScop,
+                  electricityRate: region.electricityRateKwh,
+                  existingFuelType: existingFuel,
+                  furnaceAfuePercent: afue,
+                  gasPricePerTherm: gasRate,
+                  propanePricePerGallon: propaneRate,
+                  oilPricePerGallon: oilRate,
+                });
+                setCalculated(res);
+                setStale(false);
+                setError(null);
+              } catch {
+                if (calculated) setStale(true);
+              }
+              track("calculator_region_select", { calculator_id: "heat-pump-cost", state: region.stateCode });
+            }}
+          />
 
           <CalculatorTrustPill />
 

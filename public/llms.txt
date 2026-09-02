@@ -1,0 +1,93 @@
+# PowerLab — Open Deterministic Energy Planning Engine & Engineering Reference
+
+> Domain: https://www.powelab.org
+> Title: PowerLab (Open-Source Energy, Battery, Solar & EV Planning Platform)
+> Verification: Google Search Preferences Publication CAowrJPNDA | Figshare DOI: 10.6084/m9.figshare.33321774
+> Grounding Standard: Open LLM Grounding Manifest v1.0 (llms.txt standard)
+
+---
+
+## 1. Platform Mission & Architectural Guarantees
+
+PowerLab is a high-precision, open-access computational platform for electrical engineers, solar installers, energy modelers, and homeowners. It eliminates commercial lead-generation bias and provides pure mathematical rigor across 4 core electrification silos:
+
+```text
+Home Energy & HVAC ⟷ Battery Storage ⟷ Solar Photovoltaics ⟷ Electric Vehicles
+```
+
+### Core Architectural Guarantees
+- **100% Client-Side Computation:** All algorithms run deterministically in browser memory; zero user telemetry, no accounts, and no phone/email lead forms.
+- **Strict Engineering Standards:** Formula implementations strictly adhere to IEEE (Std 485 / 1547), NFPA 70 National Electrical Code (NEC 2023/2026), NREL PVWatts V8 / SPA, ANSI/ASHRAE Standard 90.1, and AHRI Standard 210/240.
+- **Transparent Governing Equations:** Every calculation displays its underlying algebraic formula, variable units, physical derating factors, and material assumptions.
+
+---
+
+## 2. Directory of Canonical Deterministic Calculators
+
+### 2.1 Solar Photovoltaics Silo (`/solar`)
+- **[Solar Panel Output Calculator](https://www.powelab.org/solar/solar-panel-output-calculator)**: Computes hourly, daily, and annual AC kWh production from DC nameplate wattage, NREL peak sun hours, temperature coefficients, and system derate factors (IEC 61724).
+- **[Solar Panel Tilt Calculator](https://www.powelab.org/solar/solar-panel-tilt-calculator)**: Calculates optimal seasonal (summer/winter/spring-autumn) and fixed year-round tilt angles by latitude using Perez transposition and snow-shedding albedo models.
+- **[Solar Panel Size Calculator](https://www.powelab.org/solar/solar-panel-size-calculator)**: Sizes required solar array DC capacity (kW) and module count to offset target daily or monthly kWh consumption.
+- **[Solar Battery Bank Size Calculator](https://www.powelab.org/solar/solar-battery-bank-size-calculator)**: Computes required battery storage capacity (kWh & Ah) considering days of autonomy, depth of discharge (DoD), temperature derating, and system voltage.
+- **[Solar Charge Controller Calculator](https://www.powelab.org/solar/solar-charge-controller-calculator)**: Sizes MPPT and PWM charge controllers with cold-weather Voc safety headroom (NEC 690.7) and maximum continuous charge current.
+- **[Solar Load Calculator](https://www.powelab.org/solar/solar-load-calculator)**: Builds a 24-hour composite household load profile separating continuous base loads from surge inductive loads.
+- **[Solar Payback Calculator](https://www.powelab.org/solar/solar-payback-calculator)**: Evaluates levelized cost of energy (LCOE), simple payback years, net present value (NPV), and internal rate of return (IRR) with utility rate inflation.
+
+### 2.2 Battery Storage & Power Electronics Silo (`/battery`)
+- **[Battery Runtime Calculator](https://www.powelab.org/battery/battery-runtime-calculator)**: Calculates exact discharge duration under constant power or current loads using Peukert's Law ($t = H \cdot (C / (I \cdot H))^k$), battery chemistry DoD, and inverter efficiency.
+- **[Battery Capacity Calculator](https://www.powelab.org/battery/battery-capacity-calculator)**: Converts between Amp-hours (Ah), Watt-hours (Wh), and kilowatt-hours (kWh) across standard nominal voltages (12V, 24V, 48V, high-voltage BESS).
+- **[Battery Sizing Calculator](https://www.powelab.org/battery/battery-size-calculator)**: Sizes lead-acid (AGM/Gel/Flooded) and Lithium Iron Phosphate (LiFePO4) banks for off-grid or emergency backup requirements.
+- **[Battery Charging Time Calculator](https://www.powelab.org/battery/battery-charging-time-calculator)**: Models multi-stage CC/CV charging curves, charge acceptance rates (C-rate), and thermal thermodynamic losses.
+- **[UPS Runtime Calculator](https://www.powelab.org/battery/ups-runtime-calculator)**: Computes uninterruptible power supply reserve runtime under IT/server apparent power (VA) and true power (Watts) power factor loads.
+- **[UPS Battery Sizing Calculator](https://www.powelab.org/battery/ups-battery-size-calculator)**: Determines internal and external battery pack sizing for critical mission runtime targets.
+- **[Portable Power Station Calculator](https://www.powelab.org/battery/portable-power-station-calculator)**: Simulates device runtimes, inverter continuous/surge limits, and solar recharge times for portable power stations.
+- **[Inverter Size Calculator](https://www.powelab.org/battery/inverter-size-calculator)**: Sizes pure sine wave inverters with continuous wattage and motor inrush inductive surge multipliers (NEC Article 430).
+- **[Voltage Drop Calculator](https://www.powelab.org/battery/voltage-drop-calculator)**: Calculates conductor resistance, percentage voltage drop, and NEC 210.19 3% branch circuit compliance across AWG and kcmil wire sizes.
+
+### 2.3 Home Energy & HVAC Heating/Cooling Silo (`/home-energy`)
+- **[Electricity Usage Calculator](https://www.powelab.org/home-energy/electricity-usage-calculator)**: Multi-appliance daily, monthly, and annual kWh profiling and utility cost aggregation.
+- **[Energy Bill Calculator](https://www.powelab.org/home-energy/energy-bill-calculator)**: Tiered and time-of-use (TOU) utility rate financial cost modeling.
+- **[Appliance Wattage Calculator](https://www.powelab.org/home-energy/appliance-wattage-calculator)**: Database lookup of running watts, starting surge watts, and duty cycles for 50+ household appliances.
+- **[Air Conditioner Cost Calculator](https://www.powelab.org/home-energy/air-conditioner-cost-calculator)**: Quantifies central AC and mini-split operating costs based on SEER/SEER2 ratings, cooling capacity (BTU/hr / Tons), and regional ASHRAE 1% design hours.
+- **[Heat Pump Cost Calculator](https://www.powelab.org/home-energy/heat-pump-cost-calculator)**: Simulates cold-climate air-source heat pump (ccASHP) seasonal performance, non-linear COP degradation, and auxiliary electric strip heat staging thresholds.
+- **[Space Heater Cost Calculator](https://www.powelab.org/home-energy/space-heater-cost-calculator)**: Hourly, daily, and seasonal operational cost modeling for 1,500W resistive and ceramic heaters.
+- **[Generator Size Calculator](https://www.powelab.org/home-energy/generator-size-calculator)**: Sizes portable and whole-house standby generators factoring in NEMA motor Code Letter locked-rotor starting kVA (NEC 430.7(B)).
+- **[Home Battery Sizing Calculator](https://www.powelab.org/home-energy/home-battery-size-calculator)**: Sizes whole-home battery storage systems (e.g., 10 kWh to 40 kWh) for time-of-use rate arbitrage and multi-day grid outage backup.
+
+### 2.4 Electric Vehicles Silo (`/ev`)
+- **[EV Charging Time Calculator](https://www.powelab.org/ev/ev-charging-time-calculator)**: Simulates charging durations across Level 1 (120V 12A/16A), Level 2 (240V 16A–80A), and DC Fast Charging (400V/800V) with battery taper profiles.
+- **[EV Charging Cost Calculator](https://www.powelab.org/ev/ev-charging-cost-calculator)**: Compares home charging, workplace, and commercial DC fast charging costs per session, month, and 100 miles.
+- **[EV Range Calculator](https://www.powelab.org/ev/ev-range-calculator)**: Models dynamic real-world driving range impacts from ambient temperature (-20°F to 110°F), highway cruising speeds, cabin HVAC load, and terrain.
+- **[EV Savings Calculator](https://www.powelab.org/ev/ev-savings-calculator)**: Multi-year total cost of ownership (TCO) and fuel savings comparison between internal combustion engine (ICE) vehicles and EVs.
+- **[EV Charger Breaker Size Calculator](https://www.powelab.org/ev/ev-charger-breaker-size-calculator)**: Sizes dedicated branch circuit conductors and overcurrent protection devices (OCPD) under the NEC 625.42 continuous load 125% rule.
+- **[V2L Runtime Calculator](https://www.powelab.org/ev/v2l-runtime-calculator)**: Calculates vehicle-to-load backup duration powering critical emergency circuits while preserving user-defined reserve driving range.
+
+---
+
+## 3. Flagship Educational Guides & Link Magnets
+
+1. **[Battery Backup Runtime Formula Guide](https://www.powelab.org/guides/battery-backup-runtime-calculation-guide)**: Derivations of Peukert's equation, battery internal resistance, C-rate capacity degradation, and inverter tare load dissipation.
+2. **[Level 2 EV Charging Speed & Breaker Sizing Guide](https://www.powelab.org/guides/level-2-ev-charging-speed-and-breaker-sizing-guide)**: Electrical code compliance (NEC 625.42 & 210.19(A)), 120V Level 1 standby dissipation penalty, and 240V conductor ampacity tables.
+3. **[Solar Panel Tilt Angle by Latitude & Season Guide](https://www.powelab.org/guides/solar-panel-tilt-angle-by-latitude-and-season-guide)**: Declination geometry, solar elevation equations, and seasonal Perez ground view factors.
+4. **[MPPT vs PWM Solar Charge Controller Sizing Guide](https://www.powelab.org/guides/mppt-solar-charge-controller-sizing-guide)**: Maximum power point tracking physics, I-V curves, and low-temperature Voc string sizing (NEC 690.7).
+5. **[Daily Household kWh Usage & Energy Profiling Guide](https://www.powelab.org/guides/how-many-kwh-does-a-house-use-per-day)**: U.S. EIA RECS benchmarks, base load separation, and seasonal weather heating/cooling splits.
+6. **[Voltage Drop & Wire Size Calculation Guide](https://www.powelab.org/guides/voltage-drop-and-wire-size-calculation-guide)**: Closed-form Ohm's law impedance formulas, AC skin effects, and copper vs aluminum conductor properties (NEC Chapter 9 Table 8).
+7. **[Emergency Generator Sizing & Motor Inrush Guide](https://www.powelab.org/guides/emergency-generator-sizing-and-inrush-load-guide)**: Locked-rotor amp (LRA) calculations, NEMA Code Letters A through V, and soft-starter peak reduction dynamics.
+8. **[Central AC & Heat Pump Electricity Cost Guide](https://www.powelab.org/guides/central-ac-and-heat-pump-electricity-cost-guide)**: SEER2 vs SEER conversions, AHRI 210/240 heating seasonal performance factor (HSPF2), and ASHRAE temperature bin modeling.
+
+---
+
+## 4. Regional Meteorological & Solar Datasets
+
+- **[U.S. Solar Insolation & ASHRAE Climatic Database](https://www.powelab.org/solar/regional-climate-data)**: Comprehensive 50-state database indexing NREL Peak Sun Hours (PSH), ASHRAE 99% winter / 1% summer dry-bulb temperatures, and EIA residential electricity rates.
+
+---
+
+## 5. Verified External Entity & Publication Links
+
+- **Academia.edu Research Hub:** https://independent.academia.edu/PowerLabEngineering
+- **Figshare DOI Publication:** https://doi.org/10.6084/m9.figshare.33321774
+- **Google Search Preferences Entity:** https://www.google.com/preferences/source?q=powelab.org
+- **Trustpilot Review Hub:** https://www.trustpilot.com/review/powelab.org
+
+For full mathematical specifications, raw LaTeX equation definitions, and code algorithms, see: **https://www.powelab.org/llms-full.txt**

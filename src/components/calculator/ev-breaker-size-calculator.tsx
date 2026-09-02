@@ -11,6 +11,8 @@ import { PrintSpecButton } from "@/components/calculator/print-spec-button";
 import { GooglePreferredBanner } from "@/components/calculator/google-preferred-banner";
 import { CalculatorTrustPill } from "@/components/calculator/calculator-trust-pill";
 import { StandardsBadge } from "@/components/calculator/standards-badge";
+import { QuickReferenceTable } from "@/components/seo/quick-reference-table";
+import { CalculationWalkthrough } from "@/components/seo/calculation-walkthrough";
 
 export function EvBreakerSizeCalculator() {
   const [chargingAmps, setChargingAmps] = useState<number>(EV_BREAKER_DEFAULTS.chargingAmps);
@@ -273,6 +275,61 @@ export function EvBreakerSizeCalculator() {
           )}
         </aside>
       </div>
+
+      {/* Quick Reference Sizing Matrix (Google Position 0 Table Snippet Magnet) */}
+      <QuickReferenceTable
+        title="EV Charger Circuit Breaker & Wire Sizing Matrix (240V Level 2)"
+        subtitle="National Electrical Code (NEC 625.42) 125% continuous load requirements and standard wire gauge allocations."
+        columns={[
+          { key: "charger", header: "EV Charger Type", isPrimary: true },
+          { key: "amps", header: "Continuous Amps", align: "center" },
+          { key: "breaker", header: "Minimum Breaker", align: "center" },
+          { key: "thhn", header: "THHN Conduit (75°C)", align: "center" },
+          { key: "romex", header: "Romex NM-B (60°C)", align: "center" },
+          { key: "power", header: "Power (kW / mph)", align: "right" },
+        ]}
+        rows={[
+          { charger: "12A Level 1 (Standard 120V)", amps: "12 A", breaker: "15A (1-Pole)", thhn: "14 AWG", romex: "14 AWG", power: "1.4 kW (~4 mph)" },
+          { charger: "16A Level 2 (20A Circuit)", amps: "16 A", breaker: "20A (2-Pole)", thhn: "12 AWG", romex: "12 AWG", power: "3.8 kW (~14 mph)" },
+          { charger: "24A Level 2 (Dryer NEMA 10-30)", amps: "24 A", breaker: "30A (2-Pole)", thhn: "10 AWG", romex: "10 AWG", power: "5.8 kW (~22 mph)" },
+          { charger: "32A Level 2 (NEMA 14-50 Plug)", amps: "32 A", breaker: "40A (2-Pole)", thhn: "8 AWG", romex: "8 AWG", power: "7.7 kW (~30 mph)" },
+          { charger: "40A Level 2 (NEMA 14-50 Max)", amps: "40 A", breaker: "50A (2-Pole)", thhn: "8 AWG", romex: "6 AWG", power: "9.6 kW (~38 mph)", isHighlighted: true, badge: "Most Popular" },
+          { charger: "48A Level 2 (Hardwired Wallbox)", amps: "48 A", breaker: "60A (2-Pole)", thhn: "6 AWG", romex: "4 AWG", power: "11.5 kW (~44 mph)", isHighlighted: true, badge: "Best Hardwire" },
+          { charger: "80A Level 2 (Commercial / Dual)", amps: "80 A", breaker: "100A (2-Pole)", thhn: "3 AWG", romex: "1 AWG", power: "19.2 kW (~60 mph)" },
+        ]}
+        footerNote="Romex NM-B must be sized using the 60°C ampacity column (NEC 334.80). THHN in conduit uses the 75°C column."
+        standardReference="NFPA 70 (NEC Article 625.42 & Table 310.16)"
+      />
+
+      {/* Step-by-Step Engineering Calculation Walkthrough */}
+      <CalculationWalkthrough
+        calculatorName="EV Charger Breaker & Wire Size"
+        overview="How to determine electrical branch circuit specifications for Level 2 EVSE following the National Electrical Code."
+        steps={[
+          {
+            stepNumber: 1,
+            title: "Determine EVSE Continuous Current Draw",
+            description: "Identify the vehicle's onboard AC charger maximum acceptance amperage (e.g., 32A, 40A, 48A) or the configurable current limit of your charging station.",
+            formula: "P_{\\text{kW}} = \\frac{V \\times I_{\\text{charging}}}{1000}",
+            exampleValue: "A 48-Amp Level 2 charger at 240 Volts delivers 11.52 kW of continuous charging power.",
+          },
+          {
+            stepNumber: 2,
+            title: "Apply NEC 625.42 125% Continuous Load Multiplier",
+            description: "Because EV charging operates continuously for 3+ hours, branch circuit overcurrent protection devices (OCPD) must be sized for at least 125% of the continuous charging current.",
+            formula: "I_{\\text{breaker,min}} = I_{\\text{continuous}} \\times 1.25",
+            exampleValue: "48A continuous draw × 1.25 = 60A. Select a standard 60-Amp double-pole circuit breaker.",
+          },
+          {
+            stepNumber: 3,
+            title: "Select Conductor Gauge from NEC Table 310.16",
+            description: "Match conductor ampacity to the breaker size while respecting temperature limits (60°C for Romex NM-B; 75°C for THHN in conduit).",
+            formula: "\\text{Ampacity}_{\\text{conductor}} \\ge I_{\\text{breaker,rating}}",
+            exampleValue: "For a 60A breaker: THHN in conduit requires 6 AWG copper (65A rated at 75°C); Romex NM-B requires 4 AWG copper (70A rated at 60°C).",
+          },
+        ]}
+        standardCitation="NFPA 70 (NEC 2023/2026 Article 625 & 310)"
+      />
 
       {calculated && <MobileResultBar label="Required Breaker Size" value={`${calculated.result.recommendedBreakerAmps}A Double-Pole`} targetId="calculator-result" />}
     </section>

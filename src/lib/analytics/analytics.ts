@@ -5,6 +5,7 @@ export type AnalyticsEvent =
   | "calculator_mode_change"
   | "calculator_appliance_add"
   | "calculator_preset_click"
+  | "calculator_region_select"
   | "calculator_handoff";
 
 declare global {

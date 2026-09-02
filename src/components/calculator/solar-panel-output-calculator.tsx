@@ -14,6 +14,10 @@ import { CalculatorTrustPill } from "@/components/calculator/calculator-trust-pi
 import { EmbedModal } from "@/components/calculator/embed-modal";
 import { SolarRoofVisualizer } from "@/components/calculator/solar-roof-visualizer";
 import { SolarMonthlyYieldChart } from "@/components/charts/solar-monthly-yield";
+import { RegionalClimateSelector } from "@/components/calculator/regional-climate-selector";
+import type { RegionalClimateData } from "@/data/regional-climate-solar-data";
+import { QuickReferenceTable } from "@/components/seo/quick-reference-table";
+import { CalculationWalkthrough } from "@/components/seo/calculation-walkthrough";
 
 
 
@@ -146,6 +150,19 @@ export function SolarPanelOutputCalculator() {
         </div>
       </div>
 
+      <RegionalClimateSelector
+        applyTarget="solar"
+        title="📍 Regional NREL Solar Irradiance Presets"
+        description="Select your state to load official NREL annual peak sun hours, optimal tilt angle, and geographic coordinates."
+        onSelectRegion={(region: RegionalClimateData) => {
+          updateLocation(region.latitude, region.longitude);
+          setTilt(region.optimalTiltDeg);
+          setTiltSource("user");
+          markStale();
+          track("calculator_region_select", { calculator_id: "solar-panel-output", state: region.stateCode });
+        }}
+      />
+
       <form onSubmit={(event) => { event.preventDefault(); void calculate(); }}>
         <fieldset className="input-group"><legend>Location</legend>
           <div className="field-pair"><label>Latitude (°)<input type="number" inputMode="decimal" step="any" value={latitude ?? ""} onChange={(event) => { const value = numberOr(event.target.value, Number.NaN); updateLocation(value); }} /></label><label>Longitude (°)<input type="number" inputMode="decimal" step="any" value={longitude ?? ""} onChange={(event) => { const value = numberOr(event.target.value, Number.NaN); setLongitude(value); saveSolar({ longitude: value }); markStale(); }} /></label></div>
@@ -184,7 +201,61 @@ export function SolarPanelOutputCalculator() {
         <PrintSpecButton />
       </div>
       </>}</aside>
-<p className="sr-only" role="status" aria-live="polite" aria-atomic="true">{announcement || message}</p></div>
-  </section>;
+      <p className="sr-only" role="status" aria-live="polite" aria-atomic="true">{announcement || message}</p>
+    </div>
 
+    {/* Quick-Reference Solar Production Matrix (Google Position 0 Table Snippet Magnet) */}
+    <QuickReferenceTable
+      title="Solar Panel Daily &amp; Annual AC kWh Yield Matrix (by Peak Sun Hours)"
+      subtitle="Estimated AC electricity generated across standard DC array capacities factoring in 14% NREL PVWatts system losses."
+      columns={[
+        { key: "system", header: "DC Array Capacity", isPrimary: true },
+        { key: "psh35", header: "3.5 PSH (Pacific NW)", align: "center" },
+        { key: "psh45", header: "4.5 PSH (Midwest/NE)", align: "center" },
+        { key: "psh55", header: "5.5 PSH (South/Texas)", align: "center" },
+        { key: "psh65", header: "6.5 PSH (Desert SW)", align: "center" },
+        { key: "annual", header: "Est. Annual (4.5 PSH)", align: "right" },
+      ]}
+      rows={[
+        { system: "400 W (1x Residential Module)", psh35: "1.2 kWh/day", psh45: "1.5 kWh/day", psh55: "1.9 kWh/day", psh65: "2.2 kWh/day", annual: "551 kWh/yr" },
+        { system: "1.2 kW (3x Modules / RV / Shed)", psh35: "3.5 kWh/day", psh45: "4.5 kWh/day", psh55: "5.5 kWh/day", psh65: "6.6 kWh/day", annual: "1,657 kWh/yr" },
+        { system: "4.0 kW (10x Modules / Townhouse)", psh35: "11.8 kWh/day", psh45: "15.1 kWh/day", psh55: "18.5 kWh/day", psh65: "21.8 kWh/day", annual: "5,518 kWh/yr" },
+        { system: "6.0 kW (15x Modules / Mid Home)", psh35: "17.6 kWh/day", psh45: "22.7 kWh/day", psh55: "27.7 kWh/day", psh65: "32.8 kWh/day", annual: "8,278 kWh/yr", isHighlighted: true, badge: "Most Common" },
+        { system: "10.0 kW (25x Modules / All-Electric)", psh35: "29.4 kWh/day", psh45: "37.8 kWh/day", psh55: "46.2 kWh/day", psh65: "54.6 kWh/day", annual: "13,797 kWh/yr" },
+        { system: "15.0 kW (38x Modules / Estate & EV)", psh35: "44.1 kWh/day", psh45: "56.7 kWh/day", psh55: "69.3 kWh/day", psh65: "81.9 kWh/day", annual: "20,695 kWh/yr" },
+      ]}
+      footerNote="Assumes fixed equator-facing tilt matching regional latitude, 0.86 composite derate factor (soiling, inverter, wiring), and -0.35%/°C temperature coefficient."
+      standardReference="NREL PVWatts V8 / IEC 61724"
+    />
+
+    {/* Step-by-Step Engineering Calculation Walkthrough */}
+    <CalculationWalkthrough
+      calculatorName="Solar Panel AC Electricity Output"
+      overview="How to calculate hourly, daily, and annual photovoltaic AC energy production step-by-step using NREL PVWatts standards."
+      steps={[
+        {
+          stepNumber: 1,
+          title: "Determine Total DC Nameplate Array Capacity",
+          description: "Multiply the individual solar panel STC nameplate wattage by the total number of installed modules to find peak DC kilowatts ($P_{\\text{dc,STC}}$).",
+          formula: "P_{\\text{dc}} = \\frac{N_{\\text{modules}} \\times P_{\\text{module,watts}}}{1000}",
+          exampleValue: "15 modules of 400 Watts each = (15 × 400) / 1,000 = 6.0 kW DC capacity.",
+        },
+        {
+          stepNumber: 2,
+          title: "Lookup Regional Solar Insolation (Peak Sun Hours)",
+          description: "Retrieve local annual average Peak Sun Hours (PSH) from NREL National Solar Radiation Database (NSRDB) representing 1,000 W/m² equivalent hours.",
+          formula: "\\text{PSH} = \\frac{\\text{Daily Solar Irradiation (Wh/m}^2)}{1000\\text{ W/m}^2}",
+          exampleValue: "Austin, Texas receives an annual average of 5.15 Peak Sun Hours per day.",
+        },
+        {
+          stepNumber: 3,
+          title: "Apply System Derate Factors & Inverter Efficiency",
+          description: "Multiply DC nameplate capacity by regional PSH and the composite system derating factor (typically 0.84 to 0.86 accounting for thermal degradation, soiling, wiring losses, and DC-to-AC conversion).",
+          formula: "E_{\\text{daily,kWh}} = P_{\\text{dc}} \\times \\text{PSH} \\times \\eta_{\\text{system}}",
+          exampleValue: "6.0 kW × 5.15 PSH × 0.86 = 26.57 kWh per day (~9,699 kWh per year).",
+        },
+      ]}
+      standardCitation="NREL PVWatts V8 / IEC 61724"
+    />
+  </section>;
 }

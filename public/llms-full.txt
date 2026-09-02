@@ -1,0 +1,221 @@
+# PowerLab — Complete Mathematical & Engineering Reference Manifest (llms-full.txt)
+
+> Canonical URL: https://www.powelab.org/llms-full.txt
+> Summary Manifest: https://www.powelab.org/llms.txt
+> Engineering Standards: IEEE Std 485 / 1547 | NFPA 70 (NEC 2023/2026) | NREL PVWatts V8 | ANSI/ASHRAE 90.1 | AHRI 210/240
+> Grounding Verification: Figshare DOI: 10.6084/m9.figshare.33321774 | Google Preferred Source CAowrJPNDA
+
+---
+
+## 1. Battery Storage & Power Electronics Governing Equations
+
+### 1.1 Peukert's Law for Battery Discharge Duration
+For lead-acid chemistries (AGM, Gel, Flooded), usable discharge capacity degrades non-linearly at elevated discharge C-rates. The runtime $t$ (hours) under constant discharge current $I$ (Amps) is modeled as:
+
+```latex
+t = H \cdot \left( \frac{C}{I \cdot H} \right)^k
+```
+
+Where:
+- $t$: Battery runtime duration in hours
+- $H$: Rated discharge time baseline in hours (typically $H = 20\text{ hours}$ for C20 lead-acid capacity ratings)
+- $C$: Manufacturer rated Amp-hour capacity at baseline $H$ (Ah)
+- $I$: Actual continuous discharge current in Amps ($I = P_{\text{load}} / (V_{\text{nominal}} \cdot \eta_{\text{inv}})$)
+- $k$: Peukert exponent (dimensionless):
+  - Flooded Lead-Acid: $k \approx 1.20 - 1.25$
+  - AGM / Gel: $k \approx 1.10 - 1.15$
+  - Lithium Iron Phosphate (LiFePO4): $k \approx 1.01 - 1.05$ (nearly linear, negligible Peukert loss)
+
+### 1.2 Lithium Battery Usable Energy & DC-AC Inverter Dissipation
+For modern Lithium-ion / LiFePO4 battery banks:
+
+```latex
+E_{\text{usable}} = C_{\text{rated}} \cdot V_{\text{nominal}} \cdot \text{DoD}_{\text{max}} \cdot \eta_{\text{temp}}
+```
+
+```latex
+t_{\text{runtime}} = \frac{E_{\text{usable}} \cdot \eta_{\text{inverter}}}{P_{\text{continuous}} + P_{\text{tare}}}
+```
+
+Where:
+- $\text{DoD}_{\text{max}}$: Recommended maximum Depth of Discharge ($0.80 - 0.90$ for LiFePO4, $0.50$ for Lead-Acid)
+- $\eta_{\text{temp}}$: Thermal derating multiplier ($1.00$ at $25^\circ\text{C}$; drops to $0.80$ at $0^\circ\text{C}$)
+- $\eta_{\text{inverter}}$: Inverter conversion efficiency under load ($0.90 - 0.96$)
+- $P_{\text{tare}}$: Inverter idle / no-load standby power dissipation ($15\text{W} - 60\text{W}$)
+
+---
+
+## 2. Solar Photovoltaic Sizing & Irradiance Transposition
+
+### 2.1 Daily & Annual AC Energy Production (NREL PVWatts V8 Model)
+Daily AC solar energy output $E_{\text{daily}}$ (kWh/day) is derived from regional Peak Sun Hours (PSH) and comprehensive system derating:
+
+```latex
+E_{\text{daily}} = P_{\text{dc,STC}} \cdot \text{PSH} \cdot \eta_{\text{system}} \cdot \left[ 1 + \gamma_{Pmp} \cdot (T_{\text{cell}} - 25^\circ\text{C}) \right]
+```
+
+Where:
+- $P_{\text{dc,STC}}$: DC nameplate array capacity in kilowatts (kW) under Standard Test Conditions ($1,000\text{ W/m}^2$, $25^\circ\text{C}$, AM 1.5G)
+- $\text{PSH}$: Peak Sun Hours (equivalent hours per day at $1,000\text{ W/m}^2$ irradiance)
+- $\eta_{\text{system}}$: Combined sub-system derate factor ($0.82 - 0.86$ typical), compounding:
+  - Soiling loss: $2\% - 5\%$
+  - Shading loss: $1\% - 3\%$
+  - Wiring DC resistance: $1.5\% - 2\%$
+  - Inverter AC conversion: $2.5\% - 4\%$
+  - Module manufacturing mismatch: $1\% - 2\%$
+- $\gamma_{Pmp}$: Temperature coefficient of maximum power (typically $-0.35\%/^\circ\text{C}$ for monocrystalline silicon)
+- $T_{\text{cell}}$: Operating cell temperature ($T_{\text{cell}} = T_{\text{ambient}} + \text{PSH} \cdot \frac{\text{NOCT} - 20}{0.8}$)
+
+### 2.2 Solar Array Sizing to Offset Target Consumption
+
+```latex
+P_{\text{dc,required}} = \frac{E_{\text{target,daily}}}{\text{PSH} \cdot \eta_{\text{system}}}
+```
+
+```latex
+N_{\text{modules}} = \left\lceil \frac{P_{\text{dc,required}} \cdot 1000}{P_{\text{module,wattage}}} \right\rceil
+```
+
+### 2.3 Solar Charge Controller Headroom & Cold-Weather Voc (NEC 690.7)
+Under sub-freezing conditions, photovoltaic open-circuit voltage ($V_{oc}$) increases significantly. Sizing requires the lowest expected ambient temperature $T_{\text{min}}$:
+
+```latex
+V_{oc,\text{max}} = V_{oc,\text{STC}} \cdot \left[ 1 + \beta_{Voc} \cdot (T_{\text{min}} - 25^\circ\text{C}) \right] \cdot N_{\text{series}}
+```
+
+Where:
+- $\beta_{Voc}$: Temperature coefficient of $V_{oc}$ (typically $-0.28\%/^\circ\text{C}$ to $-0.30\%/^\circ\text{C}$)
+- Charge controller maximum input rating $V_{\text{controller,max}}$ must satisfy: $V_{\text{controller,max}} \ge V_{oc,\text{max}}$
+
+---
+
+## 3. Electric Vehicle (EV) Charging & Electrical Infrastructure
+
+### 3.1 Continuous Load 125% Rule for EV Branch Circuits (NEC 625.42 & 210.19)
+Because EV charging operates continuously for 3 or more hours, the National Electrical Code classifies EVSE branch circuits as continuous loads:
+
+```latex
+I_{\text{breaker,min}} = I_{\text{continuous,charging}} \times 1.25
+```
+
+```latex
+I_{\text{max,charging}} = I_{\text{breaker,rating}} \times 0.80
+```
+
+Standard North American Breaker & Charging Allocations:
+- 15A Breaker $\rightarrow$ 12A continuous charging ($1.44\text{ kW}$ at 120V Level 1)
+- 20A Breaker $\rightarrow$ 16A continuous charging ($3.84\text{ kW}$ at 240V Level 2)
+- 40A Breaker $\rightarrow$ 32A continuous charging ($7.68\text{ kW}$ at 240V Level 2)
+- 50A Breaker $\rightarrow$ 40A continuous charging ($9.60\text{ kW}$ at 240V Level 2)
+- 60A Breaker $\rightarrow$ 48A continuous charging ($11.52\text{ kW}$ at 240V Level 2)
+- 100A Breaker $\rightarrow$ 80A continuous charging ($19.20\text{ kW}$ at 240V Level 2)
+
+### 3.2 AC-to-DC Charging Time Simulation with Taper Profile
+Total charging energy required:
+
+```latex
+E_{\text{grid,input}} = \frac{\Delta \text{SoC} \cdot C_{\text{battery,usable}}}{\eta_{\text{onboard\_charger}} \cdot \eta_{\text{battery\_acceptance}}}
+```
+
+```latex
+t_{\text{charge}} = \frac{E_{\text{grid,input}}}{P_{\text{EVSE,delivered}}}
+```
+
+Where:
+- $\eta_{\text{onboard\_charger}}$: Onboard AC-to-DC rectification efficiency ($82\% - 86\%$ on 120V Level 1 due to continuous thermal/control overhead; $90\% - 94\%$ on 240V Level 2)
+- $\Delta \text{SoC}$: State of Charge increase fraction (e.g., $0.20 \rightarrow 0.80 = 0.60$)
+
+---
+
+## 4. Heating, Ventilation & Air Conditioning (HVAC) Thermodynamics
+
+### 4.1 Heat Pump Coefficient of Performance (COP) & SEER2 / HSPF2 Conversions
+Seasonal energy efficiency metrics relate directly to instantaneous thermodynamic COP:
+
+```latex
+\text{COP}_{\text{cooling}} = \text{EER} \times 0.293071
+```
+
+```latex
+\text{COP}_{\text{heating,seasonal}} = \text{HSPF2} \times 0.293071
+```
+
+Electrical power draw $\dot{W}_{\text{elec}}$ (kW) for delivered thermal capacity $\dot{Q}_{\text{thermal}}$ (BTU/hr):
+
+```latex
+\dot{W}_{\text{elec}} = \frac{\dot{Q}_{\text{thermal}}}{3412.142 \cdot \text{COP}(T_{\text{ambient}})}
+```
+
+### 4.2 ASHRAE Temperature Bin Method for Cold-Climate ccASHP
+Seasonal operating cost over annual temperature bins $j = 1 \dots N$:
+
+```latex
+E_{\text{seasonal,kWh}} = \sum_{j=1}^{N} \left[ \frac{\dot{Q}_{\text{building}}(T_j)}{\text{COP}(T_j) \cdot 3412.142} \cdot n_j \right] + E_{\text{aux,resistive}}
+```
+
+Where:
+- $n_j$: Number of annual hours in temperature bin $T_j$
+- $\dot{Q}_{\text{building}}(T_j) = \text{UA}_{\text{envelope}} \cdot (T_{\text{indoor}} - T_j)$
+- $E_{\text{aux,resistive}}$: Supplemental electric resistance strip heat required when outdoor temperature falls below the building's thermal balance point ($T_{\\text{ambient}} < T_{\\text{balance}}$)
+
+---
+
+## 5. Generator Sizing & Inductive Motor Inrush (NEC Article 430)
+
+### 5.1 Motor Locked-Rotor Starting Inrush kVA
+Inductive electric motors (air conditioner compressors, well pumps, sump pumps) draw $4\times - 7\times$ their running wattage during initial rotor acceleration. Inrush kVA is governed by NEMA Code Letters (NEC Table 430.7(B)):
+
+```latex
+\text{kVA}_{\text{starting}} = \frac{\text{HP} \cdot \text{kVA/HP}_{\text{Code Letter}}}{\eta_{\text{motor}}}
+```
+
+```latex
+I_{\text{LRA}} = \frac{\text{kVA}_{\text{starting}} \cdot 1000}{V_{\text{line}} \cdot \sqrt{\phi}}
+```
+
+### 5.2 Generator Capacity Allocation
+
+```latex
+P_{\text{gen,continuous}} \ge \sum P_{\text{running,all}}
+```
+
+```latex
+P_{\text{gen,surge}} \ge \sum P_{\text{running,non-motor}} + P_{\text{running,other-motors}} + P_{\text{starting,largest-motor}}
+```
+
+---
+
+## 6. Conductor Voltage Drop (Ohm's Law & NEC 210.19(A))
+
+Percentage voltage drop $VD_{\%}$ across single-phase AC circuits:
+
+```latex
+VD_{\text{volts}} = \frac{2 \cdot K \cdot I \cdot L}{A_{\text{cmil}}}
+```
+
+```latex
+VD_{\%} = \left( \frac{VD_{\text{volts}}}{V_{\text{nominal}}} \right) \times 100\%
+```
+
+Where:
+- $K$: Specific resistivity of conductor ($12.9\text{ }\Omega\cdot\text{cmil/ft}$ for Copper, $21.2\text{ }\Omega\cdot\text{cmil/ft}$ for Aluminum at $75^\circ\text{C}$)
+- $I$: Load current in Amperes
+- $L$: One-way circuit length in feet
+- $A_{\text{cmil}}$: Conductor cross-sectional area in circular mils (from NEC Chapter 9 Table 8)
+- NEC Recommendation: $VD_{\%} \le 3.0\%$ on branch circuits, $VD_{\%} \le 5.0\%$ total combined feeder + branch.
+
+---
+
+## 7. Machine-Readable Summary of Verified Constants
+
+| Constant Name | Symbol | Standard Value | Unit | Authority Reference |
+| :--- | :--- | :--- | :--- | :--- |
+| Standard Test Conditions Irradiance | $G_{\text{STC}}$ | 1000 | W/m² | IEC 60904-3 |
+| Solar Constant Extraterrestrial | $G_{\text{sc}}$ | 1367 | W/m² | ASTM E490 |
+| Continuous Load Multiplier | - | 1.25 | dimensionless | NEC 625.42 / 210.19 |
+| Copper Resistivity (75°C) | $K_{\text{Cu}}$ | 12.9 | $\Omega\cdot\text{cmil/ft}$ | NEC Chapter 9 Table 8 |
+| Aluminum Resistivity (75°C) | $K_{\text{Al}}$ | 21.2 | $\Omega\cdot\text{cmil/ft}$ | NEC Chapter 9 Table 8 |
+| BTU to kWh Conversion | - | 3412.142 | BTU/kWh | NIST Special Pub 811 |
+| SEER2 / HSPF2 to COP Factor | - | 0.293071 | W/BTU/hr | AHRI 210/240 |
+| Peukert Exponent (LiFePO4) | $k_{\text{LFP}}$ | 1.02 | dimensionless | IEEE Std 485 |
+| Peukert Exponent (AGM Lead) | $k_{\text{AGM}}$ | 1.12 | dimensionless | Peukert (1897) |

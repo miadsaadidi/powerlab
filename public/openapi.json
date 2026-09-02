@@ -1,0 +1,97 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "PowerLab Clean Energy & Electrification Calculation Engine API",
+    "description": "Deterministic computational algorithms and mathematical modeling engines for solar photovoltaics, battery storage, heat pump HVAC thermodynamics, and electric vehicle charging infrastructure.",
+    "version": "1.0.0",
+    "contact": {
+      "name": "PowerLab Engineering Team",
+      "url": "https://www.powelab.org",
+      "email": "engineering@powelab.org"
+    },
+    "license": {
+      "name": "Open Engineering Access",
+      "url": "https://www.powelab.org/terms"
+    }
+  },
+  "servers": [
+    {
+      "url": "https://www.powelab.org",
+      "description": "Production Deterministic Web & CDN Server"
+    }
+  ],
+  "paths": {
+    "/llms.txt": {
+      "get": {
+        "summary": "LLM Grounding Manifest",
+        "description": "Returns markdown summary manifest of all 30 canonical calculators and 8 technical guides.",
+        "responses": {
+          "200": {
+            "description": "Markdown grounding manifest",
+            "content": {
+              "text/markdown": {
+                "schema": { "type": "string" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/llms-full.txt": {
+      "get": {
+        "summary": "Full Mathematical & Engineering Reference Manifest",
+        "description": "Returns full LaTeX equations and governing physics for Peukert's law, PVWatts transposition, NEC continuous loads, ASHRAE bin methods, and motor inrush.",
+        "responses": {
+          "200": {
+            "description": "Full mathematical LaTeX manifest",
+            "content": {
+              "text/markdown": {
+                "schema": { "type": "string" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/solar/regional-climate-data": {
+      "get": {
+        "summary": "50-State NREL Solar & ASHRAE Climatic Database Hub",
+        "description": "Returns comprehensive meteorological dataset including Peak Sun Hours, 99% winter / 1% summer dry-bulb temperatures, and EIA electricity rates.",
+        "responses": {
+          "200": {
+            "description": "Interactive HTML table & Dataset Schema",
+            "content": {
+              "text/html": {
+                "schema": { "type": "string" }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "BatteryRuntimeCalculation": {
+        "type": "object",
+        "properties": {
+          "loadWatts": { "type": "number", "description": "Continuous electrical load in Watts" },
+          "batteryAh": { "type": "number", "description": "Nominal Amp-hour capacity" },
+          "voltage": { "type": "number", "description": "Nominal DC system voltage (12, 24, 48)" },
+          "chemistry": { "type": "string", "enum": ["lifepo4", "agm", "gel", "flooded"] },
+          "runtimeHours": { "type": "number", "description": "Deterministic runtime in hours" }
+        }
+      },
+      "SolarOutputCalculation": {
+        "type": "object",
+        "properties": {
+          "systemWatts": { "type": "number", "description": "DC array nameplate capacity in Watts" },
+          "peakSunHours": { "type": "number", "description": "Regional Peak Sun Hours (kWh/m²/day)" },
+          "derateFactor": { "type": "number", "description": "Composite derating factor (default 0.84)" },
+          "dailyKwh": { "type": "number", "description": "Daily AC energy yield in kWh" },
+          "annualKwh": { "type": "number", "description": "Annual AC energy yield in kWh" }
+        }
+      }
+    }
+  }
+}

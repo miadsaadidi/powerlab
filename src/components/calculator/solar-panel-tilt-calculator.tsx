@@ -11,6 +11,8 @@ import { ShareButton } from "@/components/calculator/share-button";
 import { PrintSpecButton } from "@/components/calculator/print-spec-button";
 import { GooglePreferredBanner } from "@/components/calculator/google-preferred-banner";
 import { CalculatorTrustPill } from "@/components/calculator/calculator-trust-pill";
+import { RegionalClimateSelector } from "@/components/calculator/regional-climate-selector";
+import type { RegionalClimateData } from "@/data/regional-climate-solar-data";
 
 const QUICK_LOCATIONS = [
   { label: "🌴 Miami (26° N)", lat: 25.76, lon: -80.19 },
@@ -177,6 +179,19 @@ export function SolarPanelTiltCalculator() {
             ))}
           </div>
         </div>
+
+        <RegionalClimateSelector
+          applyTarget="solar"
+          title="📍 Regional Solar Tilt & Latitude Presets"
+          description="Select your state to load latitude, optimal fixed tilt angle, and NREL annual peak sun hours."
+          onSelectRegion={(region: RegionalClimateData) => {
+            setLatitude(region.latitude);
+            setLongitude(region.longitude);
+            setLatitudeTouched(true);
+            saveSolar({ latitude: region.latitude, longitude: region.longitude });
+            track("calculator_region_select", { calculator_id: "solar-panel-tilt", state: region.stateCode });
+          }}
+        />
 
         <form onSubmit={(event) => event.preventDefault()}>
           <fieldset className="input-group">

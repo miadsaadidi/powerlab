@@ -13,6 +13,8 @@ const staticPaths = [
   "/guides/mppt-solar-charge-controller-sizing-guide",
   "/guides/solar-panel-tilt-angle-by-latitude-and-season-guide",
   "/guides/voltage-drop-and-wire-size-calculation-guide",
+  "/solar/regional-climate-data",
+  "/glossary",
   "/developers",
   "/methodology",
   "/sources",

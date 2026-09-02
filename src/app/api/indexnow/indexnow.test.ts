@@ -21,6 +21,8 @@ describe("IndexNow verification and sitemap coverage", () => {
     expect(paths).toContain("/developers");
     expect(paths).toContain("/methodology");
     expect(paths).toContain("/sources");
-    expect(paths.length).toBe(50);
+    expect(paths).toContain("/solar/regional-climate-data");
+    expect(paths).toContain("/glossary");
+    expect(paths.length).toBe(52);
   });
 });

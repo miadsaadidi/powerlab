@@ -39,6 +39,8 @@ export function isCategoryPublished(category: PublishedCategory) {
 export function getFooterNavigation(): NavigationItem[] {
   return [
     ...getPrimaryNavigation(),
+    { label: "Regional Climate & Solar Data", href: "/solar/regional-climate-data" },
+    { label: "Engineering Glossary", href: "/glossary" },
     { label: "Embed Widgets", href: "/developers" },
     { label: "Methodology", href: "/methodology" },
     { label: "Sources", href: "/sources" },

@@ -4,10 +4,13 @@ import {
   buildCategoryHubStructuredData,
   buildGuideStructuredData,
   buildWebSiteStructuredData,
+  buildDefinedTermSetStructuredData,
+  getDomainWikidataEntities,
+  SHARED_AUTHORITY_SAME_AS,
 } from "./structured-data";
 
 describe("structured-data", () => {
-  it("builds valid calculator structured data with speakable specification", () => {
+  it("builds valid calculator structured data with MathSolver, Wikidata entity triples, and speakable specification", () => {
     const data = buildCalculatorStructuredData({
       name: "Battery Runtime Calculator",
       description: "Calculate runtime of battery banks under varying continuous loads.",
@@ -23,7 +26,7 @@ describe("structured-data", () => {
       ],
     });
 
-    expect(data.length).toBe(4); // BreadcrumbList, WebPage, WebApplication, FAQPage
+    expect(data.length).toBe(4); // BreadcrumbList, WebPage, WebApplication/MathSolver, FAQPage
 
     const breadcrumb = data.find((item) => item["@type"] === "BreadcrumbList") as any;
     expect(breadcrumb).toBeDefined();
@@ -38,11 +41,24 @@ describe("structured-data", () => {
     const webApp = data.find(
       (item) => Array.isArray(item["@type"]) && item["@type"].includes("WebApplication"),
     ) as any;
+    expect(webApp["@type"]).toContain("MathSolver");
+    expect(webApp["@type"]).toContain("LearningResource");
     expect(webApp.citation).toEqual(["IEEE 485", "UL 1973"]);
     expect(webApp.operatingSystem).toBe("All (Modern Web Browsers, iOS, Android, macOS, Windows)");
     expect(webApp.browserRequirements).toBe("Requires JavaScript. Requires HTML5 Canvas/SVG.");
     expect(webApp.offers.availability).toBe("https://schema.org/InStock");
     expect(webApp.isAccessibleForFree).toBe(true);
+
+    // Wikidata Triples
+    expect(webApp.about).toBeDefined();
+    expect(Array.isArray(webApp.about)).toBe(true);
+    const aboutNames = webApp.about.map((e: any) => e.name);
+    expect(aboutNames).toContain("Peukert's law");
+    expect(aboutNames).toContain("Lithium-ion battery");
+
+    // Authority sameAs links
+    expect(webApp.author.sameAs).toEqual(SHARED_AUTHORITY_SAME_AS);
+    expect(webApp.author.sameAs).toContain("https://doi.org/10.6084/m9.figshare.33321774");
 
     const faqPage = data.find((item) => item["@type"] === "FAQPage") as any;
     expect(faqPage).toBeDefined();
@@ -71,6 +87,65 @@ describe("structured-data", () => {
     expect(article.audience["@type"]).toBe("Audience");
     expect(article.speakable.cssSelector).toEqual([".direct-answer-card", "h1"]);
     expect(article.citation).toEqual(["NEC 210.19(A)", "NEC Chapter 9 Table 8"]);
+    expect(article.about).toBeDefined();
+  });
+
+  it("retrieves ASHRAE and thermodynamic Wikidata entities for HVAC and Home Energy tools", () => {
+    const entities = getDomainWikidataEntities("Home Energy", "/home-energy/heat-pump-cost-calculator");
+    const names = entities.map((e) => e.name);
+    expect(names).toContain("ASHRAE");
+    expect(names).toContain("ASHRAE 90.1");
+    expect(names).toContain("Heat pump");
+    expect(names).toContain("Thermodynamics");
+  });
+
+  it("builds valid calculator structured data with HowTo schema when howToSteps are provided", () => {
+    const data = buildCalculatorStructuredData({
+      name: "EV Charger Breaker Size Calculator",
+      description: "Calculate circuit breaker size for Level 2 EV charging.",
+      route: "/ev/ev-charger-breaker-size-calculator",
+      categoryName: "EV",
+      categoryRoute: "/ev",
+      howToSteps: [
+        { name: "Determine Continuous Load", text: "Identify charging amperage." },
+        { name: "Apply NEC 125% Rule", text: "Multiply continuous load by 1.25." },
+        { name: "Select Breaker", text: "Choose standard OCPD breaker rating." },
+      ],
+    });
+
+    const howTo = data.find((item) => item["@type"] === "HowTo") as any;
+    expect(howTo).toBeDefined();
+    expect(howTo.name).toBe("How to Calculate EV Charger Breaker Size Calculator");
+    expect(howTo.step.length).toBe(3);
+    expect(howTo.step[0]["@type"]).toBe("HowToStep");
+    expect(howTo.step[0].name).toBe("Determine Continuous Load");
+  });
+
+  it("builds valid DefinedTermSet structured data for engineering glossary", () => {
+    const data = buildDefinedTermSetStructuredData({
+      name: "PowerLab Engineering Glossary",
+      description: "Glossary of clean energy and electrical engineering terms.",
+      route: "/glossary",
+      terms: [
+        {
+          term: "Peukert's Exponent",
+          definition: "Empirical coefficient characterizing battery capacity reduction at higher currents.",
+          category: "battery",
+          symbol: "k",
+          unit: "dimensionless",
+          sameAsWikidata: "https://www.wikidata.org/wiki/Q7179471",
+        },
+      ],
+    });
+
+    expect(data.length).toBe(3); // BreadcrumbList, WebPage, DefinedTermSet
+    const termSet = data.find((item) => item["@type"] === "DefinedTermSet") as any;
+    expect(termSet).toBeDefined();
+    expect(termSet.name).toBe("PowerLab Engineering Glossary");
+    expect(termSet.hasDefinedTerm.length).toBe(1);
+    expect(termSet.hasDefinedTerm[0]["@type"]).toBe("DefinedTerm");
+    expect(termSet.hasDefinedTerm[0].name).toBe("Peukert's Exponent");
+    expect(termSet.hasDefinedTerm[0].sameAs).toBe("https://www.wikidata.org/wiki/Q7179471");
   });
 
   it("builds valid category hub and website structured data", () => {

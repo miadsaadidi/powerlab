@@ -28,9 +28,9 @@ export const config = {
      * Match all request paths except:
      * - _next/static (static files)
      * - _next/image (image optimization files)
-     * - favicon.ico, sitemap.xml, robots.txt
+     * - favicon.ico, sitemap.xml, robots.txt, llms.txt, llms-full.txt
      * - public assets like icon.svg, sw.js, etc.
      */
-    "/((?!_next/static|_next/image|favicon.ico|sitemap.xml|robots.txt|icon.svg|sw.js).*)",
+    "/((?!_next/static|_next/image|favicon.ico|sitemap.xml|robots.txt|llms.txt|llms-full.txt|icon.svg|sw.js).*)",
   ],
 };

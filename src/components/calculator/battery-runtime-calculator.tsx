@@ -17,6 +17,8 @@ import { StandardsBadge } from "@/components/calculator/standards-badge";
 import { EmbedModal } from "@/components/calculator/embed-modal";
 import { OutageTimelineVisualizer } from "@/components/calculator/outage-timeline-visualizer";
 import { BatteryDischargeCurveChart } from "@/components/charts/battery-discharge-curve";
+import { QuickReferenceTable } from "@/components/seo/quick-reference-table";
+import { CalculationWalkthrough } from "@/components/seo/calculation-walkthrough";
 
 
 
@@ -378,6 +380,60 @@ export function BatteryRuntimeCalculator() {
         </> : <p>Enter valid values to see the estimate.</p>}
       </aside>
     </div>
+
+    {/* Quick-Reference Lookup Matrix (Google Position 0 Table Snippet Magnet) */}
+    <QuickReferenceTable
+      title="Battery Backup Runtime Quick Lookup Matrix (12V LiFePO4 / 90% DoD)"
+      subtitle="Estimated runtimes across standard battery capacities under continuous AC appliance loads (92% inverter efficiency)."
+      columns={[
+        { key: "load", header: "Continuous AC Load", isPrimary: true },
+        { key: "b50", header: "50 Ah (640 Wh)", align: "right" },
+        { key: "b100", header: "100 Ah (1.28 kWh)", align: "right" },
+        { key: "b200", header: "200 Ah (2.56 kWh)", align: "right" },
+        { key: "b300", header: "300 Ah (3.84 kWh)", align: "right" },
+      ]}
+      rows={[
+        { load: "50 W (Wi-Fi, LED lights, CPAP)", b50: "10.6 hrs", b100: "21.2 hrs", b200: "42.4 hrs", b300: "63.6 hrs" },
+        { load: "100 W (Laptop + Fridge cycle)", b50: "5.3 hrs", b100: "10.6 hrs", b200: "21.2 hrs", b300: "31.8 hrs", isHighlighted: true, badge: "Popular" },
+        { load: "250 W (Desktop PC + Monitor)", b50: "2.1 hrs", b100: "4.2 hrs", b200: "8.5 hrs", b300: "12.7 hrs" },
+        { load: "500 W (Sump pump / Refrigerator)", b50: "1.1 hrs", b100: "2.1 hrs", b200: "4.2 hrs", b300: "6.4 hrs" },
+        { load: "1,000 W (Microwave / Power tools)", b50: "0.5 hrs", b100: "1.1 hrs", b200: "2.1 hrs", b300: "3.2 hrs" },
+        { load: "1,500 W (Space heater / Kettle)", b50: "0.3 hrs", b100: "0.7 hrs", b200: "1.4 hrs", b300: "2.1 hrs" },
+      ]}
+      footerNote="Assumes 12.8V nominal LiFePO4 chemistry with 90% DoD and 25W inverter tare dissipation."
+      standardReference="IEEE Std 485 / Peukert Equation (k = 1.02)"
+    />
+
+    {/* Step-by-Step Engineering Calculation Walkthrough */}
+    <CalculationWalkthrough
+      calculatorName="Battery Backup Runtime"
+      overview="How to calculate battery discharge duration step-by-step using Peukert's law, depth of discharge windows, and power conversion efficiencies."
+      steps={[
+        {
+          stepNumber: 1,
+          title: "Calculate Effective Battery-Side Load Current",
+          description: "Divide the AC load wattage by nominal battery voltage and inverter efficiency to find the total DC Amperes drawn from the battery bank.",
+          formula: "I = \\frac{P_{\\text{load}}}{V_{\\text{nominal}} \\times \\eta_{\\text{inverter}}}",
+          exampleValue: "100W load at 12V with 92% inverter efficiency draws: 100 / (12 × 0.92) = 9.06 Amps DC",
+        },
+        {
+          stepNumber: 2,
+          title: "Determine Usable Amp-Hour Capacity",
+          description: "Multiply rated manufacturer Amp-hour capacity by maximum safe Depth of Discharge (0.80–0.90 for LiFePO4; 0.50 for Lead-Acid) and battery state of health.",
+          formula: "C_{\\text{usable}} = C_{\\text{rated}} \\times \\text{DoD}_{\\text{max}} \\times \\text{Health}",
+          exampleValue: "100Ah LiFePO4 battery at 90% DoD and 100% Health provides: 100 × 0.90 × 1.0 = 90 Usable Ah",
+        },
+        {
+          stepNumber: 3,
+          title: "Solve for Runtime Duration via Peukert Equation",
+          description: "Apply Peukert's Law to account for high-current capacity degradation under heavier loads.",
+          formula: "t = H \\cdot \\left( \\frac{C_{\\text{usable}}}{I \\cdot H} \\right)^k",
+          exampleValue: "90 usable Ah / 9.06A continuous current = ~9.9 hours of continuous runtime",
+        },
+      ]}
+      standardCitation="IEEE Std 485 / Peukert (1897)"
+    />
+
     {visibleResult && (
       <MobileResultBar
         label="Estimated Runtime"

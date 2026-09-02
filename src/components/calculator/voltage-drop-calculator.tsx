@@ -12,6 +12,8 @@ import { GooglePreferredBanner } from "@/components/calculator/google-preferred-
 import { CalculatorTrustPill } from "@/components/calculator/calculator-trust-pill";
 import { StandardsBadge } from "@/components/calculator/standards-badge";
 import { VoltageDropVisualizer } from "@/components/calculator/voltage-drop-visualizer";
+import { QuickReferenceTable } from "@/components/seo/quick-reference-table";
+import { CalculationWalkthrough } from "@/components/seo/calculation-walkthrough";
 
 export function VoltageDropCalculator() {
   const [circuitType, setCircuitType] = useState<CircuitType>(VOLTAGE_DROP_DEFAULTS.circuitType);
@@ -395,6 +397,59 @@ export function VoltageDropCalculator() {
           )}
         </aside>
       </div>
+
+      {/* Quick Reference Voltage Drop Matrix (Google Position 0 Table Snippet Magnet) */}
+      <QuickReferenceTable
+        title="Copper Conductor Voltage Drop &amp; Distance Matrix (120V &amp; 240V AC)"
+        subtitle="Calculated percentage voltage drop across standard run lengths using NEC Chapter 9 Table 8 conductor resistances."
+        columns={[
+          { key: "circuit", header: "Circuit Load & Voltage", isPrimary: true },
+          { key: "d25", header: "25 Feet", align: "center" },
+          { key: "d50", header: "50 Feet", align: "center" },
+          { key: "d100", header: "100 Feet", align: "center" },
+          { key: "d150", header: "150 Feet", align: "center" },
+          { key: "maxLimit", header: "Max Run (3% Limit)", align: "right" },
+        ]}
+        rows={[
+          { circuit: "15A @ 120V (14 AWG)", d25: "1.6%", d50: "3.2% ⚠️", d100: "6.5% ❌", d150: "9.7% ❌", maxLimit: "46 Feet" },
+          { circuit: "20A @ 120V (12 AWG)", d25: "1.3%", d50: "2.6%", d100: "5.2% ❌", d150: "7.8% ❌", maxLimit: "58 Feet", isHighlighted: true, badge: "Standard 120V" },
+          { circuit: "30A @ 240V (10 AWG)", d25: "0.6%", d50: "1.3%", d100: "2.6%", d150: "3.9% ⚠️", maxLimit: "115 Feet" },
+          { circuit: "40A @ 240V (8 AWG)", d25: "0.5%", d50: "1.0%", d100: "2.1%", d150: "3.1% ⚠️", maxLimit: "144 Feet" },
+          { circuit: "50A @ 240V (6 AWG)", d25: "0.4%", d50: "0.8%", d100: "1.6%", d150: "2.5%", maxLimit: "181 Feet", isHighlighted: true, badge: "EV Charger" },
+        ]}
+        footerNote="NEC 210.19 Informational Note No. 4 recommends a maximum voltage drop of 3% on branch circuits."
+        standardReference="NFPA 70 (NEC 210.19) / ASTM B258 Copper (K = 12.9 Ω·cmil/ft)"
+      />
+
+      {/* Step-by-Step Engineering Calculation Walkthrough */}
+      <CalculationWalkthrough
+        calculatorName="Conductor Voltage Drop &amp; Wire Sizing"
+        overview="How to calculate circuit voltage drop step-by-step using Ohm's Law and circular mil conductor specifications."
+        steps={[
+          {
+            stepNumber: 1,
+            title: "Identify Circuit Load, Voltage & One-Way Distance",
+            description: "Determine the continuous amperage drawn by the appliance ($I$), the supply line voltage ($V$), and the one-way distance in feet ($L$) from the distribution panel to the load.",
+            formula: "P = V \\times I",
+            exampleValue: "A 20-Amp continuous load on a 120V branch circuit running 50 feet away.",
+          },
+          {
+            stepNumber: 2,
+            title: "Lookup Conductor Resistivity & Circular Mils",
+            description: "Retrieve conductor material resistivity ($K = 12.9$ for Copper at 75°C) and cross-sectional area in circular mils ($A_{\\text{cmil}}$) from NEC Chapter 9 Table 8.",
+            formula: "VD_{\\text{volts}} = \\frac{2 \\times K \\times I \\times L}{A_{\\text{cmil}}}",
+            exampleValue: "12 AWG copper wire has 6,530 circular mils. $VD = (2 \\times 12.9 \\times 20 \\times 50) / 6,530 = 3.95\\text{ Volts}$.",
+          },
+          {
+            stepNumber: 3,
+            title: "Calculate Percentage Drop & Verify NEC 3% Compliance",
+            description: "Divide the dropped voltage by nominal line voltage to calculate percentage loss. If drop exceeds 3%, upsize conductor gauge by one increment.",
+            formula: "VD_{\\%} = \\left( \\frac{VD_{\\text{volts}}}{V_{\\text{nominal}}} \\right) \\times 100\\%",
+            exampleValue: "$(3.95\\text{V} / 120\\text{V}) \\times 100 = 3.29\\%$. Upsize to 10 AWG to achieve a compliant 2.07% drop.",
+          },
+        ]}
+        standardCitation="NFPA 70 (NEC 210.19 & Chapter 9 Table 8)"
+      />
 
       {calculated && <MobileResultBar label="Recommended Wire Gauge" value={calculated.result.recommendedGauge.awg} targetId="calculator-result" />}
     </section>

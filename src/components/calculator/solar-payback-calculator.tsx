@@ -10,6 +10,8 @@ import { PrintSpecButton } from "@/components/calculator/print-spec-button";
 import { GooglePreferredBanner } from "@/components/calculator/google-preferred-banner";
 import { CalculatorTrustPill } from "@/components/calculator/calculator-trust-pill";
 import { StandardsBadge } from "@/components/calculator/standards-badge";
+import { RegionalClimateSelector } from "@/components/calculator/regional-climate-selector";
+import type { RegionalClimateData } from "@/data/regional-climate-solar-data";
 
 export function SolarPaybackCalculator() {
   const [grossCost, setGrossCost] = useState<number>(SOLAR_PAYBACK_DEFAULTS.grossCost);
@@ -119,6 +121,36 @@ export function SolarPaybackCalculator() {
               ))}
             </div>
           </div>
+
+          <RegionalClimateSelector
+            applyTarget="solar"
+            title="📍 Regional Solar Yield & EIA Electricity Rates"
+            description="Select your state to load official NREL annual peak sun hours, calculated 8kW array kWh yield, and EIA utility rates."
+            onSelectRegion={(region: RegionalClimateData) => {
+              setElectricityRate(region.electricityRateKwh);
+              // Annual production for standard 8kW system = 8kW * PSH * 365 * 0.84 derate
+              const estimatedAnnualKwh = Math.round(8 * region.peakSunHours * 365 * 0.84);
+              setAnnualProductionKwh(estimatedAnnualKwh);
+              try {
+                const res = calculateSolarPayback({
+                  grossCost,
+                  incentivePercent,
+                  annualProductionKwh: estimatedAnnualKwh,
+                  electricityRate: region.electricityRateKwh,
+                  utilityInflationPercent: utilityInflation,
+                  panelDegradationPercent: panelDegradation,
+                  inverterReplacementCost,
+                  inverterReplacementYear,
+                });
+                setCalculated(res);
+                setStale(false);
+                setError(null);
+              } catch {
+                if (calculated) setStale(true);
+              }
+              track("calculator_region_select", { calculator_id: "solar-payback", state: region.stateCode });
+            }}
+          />
 
           <CalculatorTrustPill />
 
