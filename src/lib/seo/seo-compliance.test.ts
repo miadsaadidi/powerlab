@@ -62,6 +62,9 @@ describe("Google Search Essentials & Technical SEO Compliance", () => {
       { file: "terms/page.tsx", canonical: "/terms" },
       { file: "privacy/page.tsx", canonical: "/privacy" },
       { file: "about/page.tsx", canonical: "/about" },
+      { file: "glossary/page.tsx", canonical: "/glossary" },
+      { file: "research/page.tsx", canonical: "/research" },
+      { file: "solar/regional-climate-data/page.tsx", canonical: "/solar/regional-climate-data" },
     ];
 
     for (const page of pagesToCheck) {
@@ -87,6 +90,31 @@ describe("Google Search Essentials & Technical SEO Compliance", () => {
         expect(desc.length, `Description in ${page.file} >= 100 chars`).toBeGreaterThanOrEqual(100);
         expect(desc.length, `Description in ${page.file} <= 160 chars`).toBeLessThanOrEqual(160);
       }
+    }
+  });
+
+  it("ensures all research paper metadata fields strictly comply with Google SERP limits", async () => {
+    const { RESEARCH_PAPERS } = await import("../../data/research-papers");
+    for (const paper of RESEARCH_PAPERS) {
+      // Short title (used in page title tag) must be between 30 and 60 chars
+      expect(
+        paper.shortTitle.length,
+        `Research paper shortTitle for ${paper.slug} ("${paper.shortTitle}") >= 30 chars`
+      ).toBeGreaterThanOrEqual(30);
+      expect(
+        paper.shortTitle.length,
+        `Research paper shortTitle for ${paper.slug} ("${paper.shortTitle}") <= 60 chars`
+      ).toBeLessThanOrEqual(60);
+
+      // Meta description must be between 100 and 160 chars
+      expect(
+        paper.metaDescription.length,
+        `Research paper metaDescription for ${paper.slug} >= 100 chars`
+      ).toBeGreaterThanOrEqual(100);
+      expect(
+        paper.metaDescription.length,
+        `Research paper metaDescription for ${paper.slug} <= 160 chars`
+      ).toBeLessThanOrEqual(160);
     }
   });
 });

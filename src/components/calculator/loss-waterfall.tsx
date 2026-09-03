@@ -26,7 +26,7 @@ export function LossWaterfall({
 
   return (
     <div className="loss-waterfall" role="region" aria-label={ariaLabel}>
-      {title && <h4 className="loss-waterfall-title">{title}</h4>}
+      {title && <h3 className="loss-waterfall-title">{title}</h3>}
       <div className="loss-waterfall-steps">
         {steps.map((step, index) => {
           const widthPercent = Math.max(8, Math.min(100, (step.value / maxValue) * 100));

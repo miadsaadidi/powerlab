@@ -289,7 +289,7 @@ ROI (%) = (Lifetime Net Profit ÷ Net Initial Cost) × 100%`}</code>
         </p>
 
         <div style={{ background: "var(--surface)", border: "1px solid var(--line)", borderRadius: "0.75rem", padding: "1.25rem", margin: "1rem 0" }}>
-          <h4 style={{ margin: "0 0 0.5rem", color: "var(--brand-strong)" }}>Input Parameters:</h4>
+          <h3 style={{ margin: "0 0 0.5rem", color: "var(--brand-strong)", fontSize: "1.1rem" }}>Input Parameters:</h3>
           <ul style={{ margin: 0, paddingLeft: "1.25rem", lineHeight: 1.6, fontSize: "0.95rem" }}>
             <li><strong>Nameplate Capacity:</strong> 8.0 kW DC (20 × 400W Monocrystalline PERC modules)</li>
             <li><strong>Gross Turn-Key Cost:</strong> $22,400 ($2.80/Watt installed)</li>
