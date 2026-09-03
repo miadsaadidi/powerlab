@@ -41,7 +41,9 @@ Before changing implementation, read:
 13. `docs/11_ANALYTICS_AND_EVENTS.md`
 14. `docs/12_SOURCES_AND_METHODOLOGY.md`
 15. `docs/13_CALCULATOR_REGISTRY_AND_ROUTES.md`
-16. the relevant file under `docs/calculators/`
+16. `docs/14_30_DAY_SEO_AND_BACKLINK_PLAN.md`
+17. `docs/outreach/04_DAILY_5_OUTREACH_TARGETS_AND_PITCHES.md`
+18. the relevant file under `docs/calculators/`
 
 ## Final public architecture
 
@@ -250,7 +252,20 @@ The final canonical keyword map is in `docs/05_KEYWORD_AND_SERP_ANALYSIS.md`.
 - For Google generative search, follow normal technical SEO and people-first content rules; do not add special `llms.txt`/AI markup as a ranking requirement.
 - Every calculator must provide unique non-commodity value: actual computation, transparent assumptions, examples, comparisons and connected next steps.
 
-## Definition of done
+## Mandatory Email Outreach & Communication Protocol
+
+Before writing, drafting, generating, or reviewing ANY outreach pitch, educational email, or editorial inquiry, you MUST strictly adhere to:
+
+1. **Peer-to-Peer Engineering Tone:** Represent PowerLab as a computational modeling research group sharing deterministic models, equations, and reproducible data.
+2. **Scientific Curiosity & Counter-Intuitive Trigger:** Every pitch must follow the 4-step framework:
+   - *The Status Quo / Intuitive Assumption*
+   - *The Counter-Intuitive Physical Anomaly* (e.g. inverter tare losses, Peukert electrochemical derating, cold $V_{oc}$ expansion)
+   - *The Material Quantitative Impact* (grounded in concrete numbers/losses)
+   - *The Deterministic Artifact* (open mathematical model with transparent derivations)
+3. **Zero Marketing / Promotional Clichés:** Prohibited terms: *"100% free"*, *"ad-free"*, *"no signup required"*, *"cutting-edge"*, *"game-changing"*, *"check out our site"*, *"please link to us"*.
+4. **No AI Stylistic Artifacts:** No em dashes (`—`), generic fluff, or template cheerleading.
+5. **Strict Follow-Up Discipline:** Exactly 1 polite follow-up after 7 days (72+ hours). Never send a third unprompted message.
+6. **Required Reference Documents:** Read `.agents/rules/email-outreach-rules.md`, `docs/outreach/04_DAILY_5_OUTREACH_TARGETS_AND_PITCHES.md`, and `docs/14_30_DAY_SEO_AND_BACKLINK_PLAN.md`.
 
 ## Deployment & Execution Rules (Vercel Git Integration)
 
