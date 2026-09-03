@@ -304,7 +304,20 @@ Cluster 4: Battery Capacity, Runtime & International Ingestion
 * Meta tag audit: 0 titles > 60 chars (with `%s | PowerLab` template), 0 meta descriptions > 160 chars, 0 meta descriptions < 70 chars.
 * OpenGraph audit: 100% complete OG metadata with dedicated 1200x630 category cards and Twitter cards across all 49 pages.
 * IndexNow: Key verification route `/c94b7e8d1a2f43b68019e34a75d28b12.txt` active, all 49 URLs submitted with HTTP 202 Accepted.
-* Production build: Clean Next.js 15 App Router static generation (63 static pages).
-* Test suite: 54 test files, 248 Vitest tests passing.
+* Production build: Clean Next.js 15 App Router static generation (73 static pages).
+* Test suite: 58 test files, 264 Vitest tests passing.
 * TypeScript typecheck: 0 errors (`tsc --noEmit`).
+
+---
+
+## 6. Open Pull Requests & Scheduled Merges
+
+> [!IMPORTANT]
+> **Merge Schedule:** All open PR branches are queued to be merged into `main` tomorrow.
+
+| Branch | PR Scope | Status | Verification Status |
+| :--- | :--- | :--- | :--- |
+| `feat/mobile-ux-and-search-optimizations` | Mobile UX refinements & home search filter optimizations | Pushed to `origin` | Tests & build passing |
+| `fix/openseo-audit-compliance` | 25 OpenSEO audit fixes (heading skips, descriptions, titles, terms page) | Pushed to `origin` | 264/264 tests & 73/73 routes passing |
+
 
