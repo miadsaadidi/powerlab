@@ -134,10 +134,36 @@ To build unbreakable domain authority, authoritative academic citation signals, 
 | *Secondary* | **SSRN / Zenodo / ResearchGate** | **91–93** | Institutional preprints & CERN Open Science | Subject to network/institutional email requirements |
 
 ### Working Paper Publication Roster:
-- **Paper 1 (Live):** *Deterministic Mathematical Modeling and Sizing Framework for Distributed Clean Energy (Solar, BESS, EVSE)* — [Academia.edu / Figshare / Archive.org]
-- **Paper 2 (Ready / PDF Formatted):** *Continuous-Duty Thermal Sizing, Conductor Terminal Limits, and Branch Circuit Ampacity Requirements for Residential Level 2 EVSE (NEC 625, 310 & 110.14(C))* — [`docs/papers/PowerLab_EVSE_Thermal_Sizing_Technical_Paper.pdf`](file:///d:/powerlab/docs/papers/PowerLab_EVSE_Thermal_Sizing_Technical_Paper.pdf)
-- **Paper 3 (Scheduled Week 3):** *Thermal Voltage Expansion, Ground Albedo Transposition, and String Inverter Oversizing Limits in Photovoltaic Systems under NEC 690 & Perez Anisotropic Models*
-- **Paper 4 (Scheduled Week 4):** *Electrochemical Capacity Derating & Non-Linear Inverter Tare Loss Kinetics in Stationary BESS (IEEE 485 vs Field Realities)*
+- **Paper 1 (Live):** *Continuous-Duty Thermal Sizing, Conductor Terminal Limits, and Branch Circuit Ampacity Requirements for Residential Level 2 EVSE (NEC 625, 310 & 110.14(C))* — [`/research/continuous-duty-thermal-sizing-evse-ampacity`](https://www.powelab.org/research/continuous-duty-thermal-sizing-evse-ampacity) &bull; DOI: `10.6084/m9.figshare.33321774`
+- **Paper 2 (Live):** *Thermal Degradation Kinetics, Auxiliary Electric Resistance Staging, and Seasonal HSPF2/COP Derating in Cold-Climate Air-Source Heat Pumps* — [`/research/heat-pump-cop-degradation-and-auxiliary-heat-kinetics`](https://www.powelab.org/research/heat-pump-cop-degradation-and-auxiliary-heat-kinetics)
+- **Paper 3 (Live):** *Deterministic Modeling of Inductive Motor Inrush Currents and Non-Coincident Load Stacking for Residential Backup Power Systems (NEC 702 & NEMA MG-1)* — [`/research/deterministic-inrush-load-stacking-generator-sizing`](https://www.powelab.org/research/deterministic-inrush-load-stacking-generator-sizing)
+- **Paper 4 (Live):** *Ground View Factor Transposition, Snow Albedo Dynamics, and Sub-Zero Open-Circuit Voltage Expansion in Photovoltaic Arrays (NEC 690 & Perez Anisotropic Models)* — [`/research/ground-view-factor-snow-albedo-pv-tilt`](https://www.powelab.org/research/ground-view-factor-snow-albedo-pv-tilt)
+
+---
+
+### Academic Preprint & Whitepaper Publishing SOP (Sync with `/research` Hub):
+
+Whenever a new research paper or technical report is published, execute this 6-step synchronization protocol:
+
+```text
+Draft in docs/papers/
+  └── Generate PDF to public/whitepapers/
+        └── Register in src/data/research-papers.ts
+              └── Auto-sync: /research, /sitemap.xml, /llms.txt, Google Scholar Highwire tags
+                    └── Upload to Academia.edu / Figshare (Mint DOI)
+                          └── Send Daily 5 Academic Outreach Batch
+```
+
+1. **Step 1 (Source Files):** Place the markdown working paper in `docs/papers/` and compile the formatted PDF to `public/whitepapers/[paper-slug].pdf`.
+2. **Step 2 (Digital Identifier):** Mint a citable DOI via **Figshare** (e.g. `10.6084/m9.figshare.33321774`), **Zenodo** (CERN), or **OSF**.
+3. **Step 3 (Registry Ingestion):** Add the paper object to [`src/data/research-papers.ts`](file:///d:/powerlab/src/data/research-papers.ts) (`id`, `slug`, `reportNumber`, `title`, `abstract`, `doi`, `pdfUrl`, `standards`, `keyFindings`, `equations`, `bibtex`, `apaCitation`).
+4. **Step 4 (Automated Site Cascade):**
+   - The [`/research`](https://www.powelab.org/research) hub renders the new paper card with 1-click PDF download & citation export.
+   - The canonical reader route [`/research/[slug]`](https://www.powelab.org/research) renders with Highwire Press metadata (`citation_title`, `citation_author`, `citation_doi`, `citation_pdf_url`) for instant **Google Scholar** and **Semantic Scholar** indexing.
+   - [`/sitemap.xml`](https://www.powelab.org/sitemap.xml) automatically includes the new route via dynamic `getSitemapPaths()`.
+   - [`/llms.txt`](https://www.powelab.org/llms.txt) references the paper for AI grounding.
+5. **Step 5 (Multi-Platform Syndication):** Upload the PDF to **Academia.edu** (DA 93), **Figshare** (DA 90), and **Internet Archive** (DA 99).
+6. **Step 6 (Outreach Trigger):** Reference the preprint URL and DOI in the next Daily 5 academic email sprint (`docs/outreach/04_*`).
 
 ---
 

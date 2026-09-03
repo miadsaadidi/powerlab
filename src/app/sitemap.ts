@@ -2,6 +2,8 @@ import type { MetadataRoute } from "next";
 import { publishedCalculators } from "../lib/calculator-registry";
 import { siteConfig } from "../lib/site-config";
 
+import { RESEARCH_PAPERS } from "../data/research-papers";
+
 const staticPaths = [
   "/",
   "/guides",
@@ -15,6 +17,7 @@ const staticPaths = [
   "/guides/solar-payback-and-roi-calculation-guide",
   "/guides/space-heater-electricity-cost-and-wattage-guide",
   "/guides/voltage-drop-and-wire-size-calculation-guide",
+  "/research",
   "/solar/regional-climate-data",
   "/glossary",
   "/developers",
@@ -28,7 +31,8 @@ const staticPaths = [
 export function getSitemapPaths() {
   const published = publishedCalculators();
   const categories = [...new Set(published.map((calculator) => `/${calculator.category}`))];
-  return [...staticPaths, ...categories, ...published.map((calculator) => calculator.route)];
+  const researchPaths = RESEARCH_PAPERS.map((paper) => `/research/${paper.slug}`);
+  return [...staticPaths, ...researchPaths, ...categories, ...published.map((calculator) => calculator.route)];
 }
 
 export default function sitemap(): MetadataRoute.Sitemap {

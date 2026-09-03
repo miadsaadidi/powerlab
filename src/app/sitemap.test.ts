@@ -56,6 +56,8 @@ describe("sitemap", () => {
     expect(paths).toContain("/guides/central-ac-and-heat-pump-electricity-cost-guide");
     expect(paths).toContain("/guides/solar-payback-and-roi-calculation-guide");
     expect(paths).toContain("/guides/space-heater-electricity-cost-and-wattage-guide");
+    expect(paths).toContain("/research");
+    expect(paths).toContain("/research/continuous-duty-thermal-sizing-evse-ampacity");
   });
 });
 

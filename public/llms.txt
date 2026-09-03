@@ -74,10 +74,21 @@ Home Energy & HVAC ⟷ Battery Storage ⟷ Solar Photovoltaics ⟷ Electric Vehi
 6. **[Voltage Drop & Wire Size Calculation Guide](https://www.powelab.org/guides/voltage-drop-and-wire-size-calculation-guide)**: Closed-form Ohm's law impedance formulas, AC skin effects, and copper vs aluminum conductor properties (NEC Chapter 9 Table 8).
 7. **[Emergency Generator Sizing & Motor Inrush Guide](https://www.powelab.org/guides/emergency-generator-sizing-and-inrush-load-guide)**: Locked-rotor amp (LRA) calculations, NEMA Code Letters A through V, and soft-starter peak reduction dynamics.
 8. **[Central AC & Heat Pump Electricity Cost Guide](https://www.powelab.org/guides/central-ac-and-heat-pump-electricity-cost-guide)**: SEER2 vs SEER conversions, AHRI 210/240 heating seasonal performance factor (HSPF2), and ASHRAE temperature bin modeling.
+9. **[Solar Payback Period & Net Metering ROI Financial Guide](https://www.powelab.org/guides/solar-payback-and-roi-calculation-guide)**: Simple payback vs dynamic discounted cash flows, 30% Federal ITC (IRC Section 25D), panel degradation, and NEM 3.0 net billing tariffs.
+10. **[Space Heater vs Central Heating Electricity Cost Guide](https://www.powelab.org/guides/space-heater-electricity-cost-and-wattage-guide)**: Joule heating thermodynamics ($P = I^2 R$), 1,500W continuous circuit limits (NEC 210.19), thermostat duty cycles, and zone heating vs heat pump COP economics.
 
 ---
 
-## 4. Regional Meteorological & Solar Datasets
+## 4. Peer-Referenced Technical Whitepapers & Research Preprints (`/research`)
+
+1. **[Level 2 EVSE Continuous-Duty Thermal Sizing & Ampacity Requirements](https://www.powelab.org/research/continuous-duty-thermal-sizing-evse-ampacity)** (Report: `PL-TR-2026-EVSE01` · DOI: `10.6084/m9.figshare.33321774`): Mathematical and code-compliance analysis of continuous-load thermal mechanics in Level 2 EVSE under NEC 625, 310, and 110.14(C).
+2. **[Heat Pump COP Degradation & Auxiliary Heat Staging Kinetics](https://www.powelab.org/research/heat-pump-cop-degradation-and-auxiliary-heat-kinetics)** (Report: `PL-TR-2026-HVAC01`): Thermodynamic evaluation of air-source heat pump performance across sub-freezing ambient temperature spectra (-20°C to +10°C) and auxiliary strip heat economics.
+3. **[Motor Inrush Surge & Generator Load Stacking Sizing](https://www.powelab.org/research/deterministic-inrush-load-stacking-generator-sizing)** (Report: `PL-TR-2026-GEN02`): Deterministic load sizing framework for emergency residential generators under NEC Article 702 and ISO 8528-5.
+4. **[PV Ground Albedo Dynamics & Cold-Weather Voc Expansion](https://www.powelab.org/research/ground-view-factor-snow-albedo-pv-tilt)** (Report: `PL-TR-2026-SOL03`): Ground view factor transposition, snow albedo capture enhancements, and sub-zero temperature coefficient open-circuit voltage expansion under NEC 690.7.
+
+---
+
+## 5. Regional Meteorological & Solar Datasets
 
 - **[U.S. Solar Insolation & ASHRAE Climatic Database](https://www.powelab.org/solar/regional-climate-data)**: Comprehensive 50-state database indexing NREL Peak Sun Hours (PSH), ASHRAE 99% winter / 1% summer dry-bulb temperatures, and EIA residential electricity rates.
 
