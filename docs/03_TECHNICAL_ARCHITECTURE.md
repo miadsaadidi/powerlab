@@ -399,31 +399,44 @@ AI_PROVIDER_API_KEY=
 
 Do not put secret keys in public variables.
 
+## Hosting, CI/CD & Vercel Integration
+
+Vercel is directly connected to GitHub. Production deployments trigger **automatically** on git push or PR merge to `main`.
+
 ## CI / release checks
 
-At minimum:
+At minimum prior to merging or deploying:
 
 ```text
 install
 lint
 typecheck
 unit tests
-Playwright smoke/happy path
 production build
 ```
 
-Add Lighthouse/automated accessibility checks if already supported by the repo.
+## Git & GitHub Pull Request Protocol (Institutional Trust & Research Provenance)
 
-## GitHub Pull Request & Academic Audit Protocol
+The GitHub Pull Request history serves as a **verifiable public audit trail and proof of engineering rigor** for external collaborators, clean tech research laboratories, university faculties, and institutional investors.
 
-For any **substantial or architectural updates** (e.g., new calculator engines, technical whitepapers, guides, schema overhauls, or API integrations — excluding minor one-off UI tweaks):
+Workflow is divided based on scope of changes:
 
-1. **Semantic Feature Branching:** Always branch off `main` to a semantic feature branch (e.g. `git checkout -b feat/whitepaper-bess-kinetics`).
-2. **Pre-PR Verification:** Run unit tests (`npm test`), TypeScript verification (`npm run typecheck`), and static build (`npm run build`) before pushing.
-3. **Push & Create GitHub PR:** Push to `origin <branch-name>` and provide the direct GitHub PR creation link.
-4. **Structured PR Documentation:** Document:
-   - **Summary of Architectural Changes**
-   - **Governing Mathematical Models & Standards Cited** (IEEE, NEC, NREL, ASHRAE)
-   - **Verification Suite Proofs** (test counts, 0 type errors, static route generation)
-5. **Merge Traceability:** Merge into `main` to maintain a permanent, verifiable PR history on GitHub for institutional research lab submissions, syllabus citations, and accreditation audits.
+### 1. Small Tweaks & Minor Fixes (Direct to `main`, No PR Needed)
+- **Scope:** Minor UI tweaks, CSS fixes, copy improvements, typo corrections, small metadata updates, single-component polish.
+- **Action:** Commit directly to `main` and push. Vercel automatically deploys the production build.
+
+### 2. Medium & Large Updates (GitHub Pull Request Required)
+- **Scope:** Adding new pages, new calculator engines, technical whitepapers, guides, batch feature updates, schema overhauls, architectural refactoring, or API integrations.
+- **Action:**
+  1. **Semantic Feature Branching:** Always branch off `main` to a semantic feature branch (e.g. `git checkout -b feat/whitepaper-bess-kinetics` or `feat/ieee-1547-interconnection`).
+  2. **Pre-PR Verification:** Run unit tests (`npm test`), TypeScript verification (`npm run typecheck`), and static build (`npm run build`) before pushing.
+  3. **Push & Create GitHub PR:** Push to `origin <branch-name>` and provide the direct GitHub PR creation link.
+  4. **Structured PR Documentation:** Use `.github/pull_request_template.md` to document:
+     - **Strategic Context & Executive Summary**
+     - **Governing Mathematical Models & Standards Cited** (IEEE, NFPA/NEC, NREL SAM, ASHRAE, IEC)
+     - **Verification Suite Proofs** (exact test counts, 0 type errors, static route generation)
+     - **Institutional & Academic Utility** (syllabus integration, lab reproducibility)
+  5. **Merge Traceability:** Merge into `main` to trigger automated Vercel deployment and maintain a permanent, peer-reviewable PR history on GitHub for institutional research lab submissions, syllabus citations, and accreditation audits.
+
+
 

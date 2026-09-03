@@ -252,26 +252,36 @@ The final canonical keyword map is in `docs/05_KEYWORD_AND_SERP_ANALYSIS.md`.
 
 ## Definition of done
 
-## Deployment credentials & Execution Rules
+## Deployment & Execution Rules (Vercel Git Integration)
 
-- **Direct Questions First:** When the user asks a question (e.g., 'did you push to vercel? yes/no'), answer the question directly without autonomously executing scripts, modifying code, or deploying.
-- **Explicit Request Required:** Never initiate a production deployment, code modification, or build unless explicitly instructed by the user.
-- For Vercel deployments, read the local `accesskeys.txt` file for the deployment token when needed.
-- Never print, copy, commit, or expose token values in source code, logs, messages, or deployment output.
-- Keep using the existing Vercel project and team scope; do not create a replacement project.
+Vercel is connected directly to Git. Production deployments are **fully automated** upon push/merge to `main`.
 
-## GitHub Pull Request & Academic Audit Protocol
+- **Direct Questions First:** When the user asks a question (e.g., 'did you push to vercel? yes/no'), answer the question directly without autonomously executing unrequested scripts or builds.
+- **Automated Deployments:** Deployments trigger automatically via Git integration upon push/merge. Manual deployment scripts are deprecated/fallback only.
+- **Never Expose Secrets:** Never print, copy, commit, or expose token values, API keys, or private environment variables in source code, logs, or chat messages.
 
-For any **substantial or architectural updates** (e.g., new calculator engines, technical whitepapers, guides, schema overhauls, or API integrations — excluding minor one-off UI tweaks):
+## Git & GitHub Pull Request Protocol (Institutional Trust & Research Provenance)
 
-1. **Semantic Feature Branching:** Always branch off `main` to a feature branch (e.g. `git checkout -b feat/bess-degradation-model`).
-2. **Pre-PR Verification:** Run unit tests (`npm test`), TypeScript verification (`npm run typecheck`), and static build (`npm run build`) before pushing.
-3. **Push & Create GitHub PR:** Push to `origin <branch-name>` and provide the direct GitHub PR creation link.
-4. **Structured PR Documentation:** Document:
-   - **Summary of Architectural Changes**
-   - **Governing Mathematical Models & Standards Cited** (IEEE, NEC, NREL, ASHRAE)
-   - **Verification Suite Proofs** (test counts, 0 type errors, static route generation)
-5. **Merge Traceability:** Merge into `main` to maintain a permanent, verifiable PR history on GitHub for institutional research lab submissions, syllabus citations, and accreditation audits.
+The GitHub Pull Request history serves as a **verifiable, public audit log and proof of engineering rigor** for external collaborators, clean energy research laboratories, university engineering faculties, and institutional investors.
+
+Development workflow is partitioned by the scope of changes:
+
+### 1. Small Tweaks & Minor Fixes (Direct to `main`, No PR Needed)
+- **Scope:** Minor UI adjustments, CSS refinements, typo fixes, copy updates, small metadata tweaks, isolated single-line bug fixes.
+- **Action:** Commit and push directly to `main`. Vercel automatically deploys the update.
+
+### 2. Medium & Large Updates (GitHub Pull Request Required)
+- **Scope:** Adding new pages, new calculator engines, technical whitepapers, guides, multi-feature batches, schema overhauls, architectural refactoring, or API integrations.
+- **Action:**
+  1. **Semantic Feature Branching:** Always branch off `main` to a semantic feature branch (e.g. `git checkout -b feat/bess-degradation-model` or `feat/ieee-1547-interconnection`).
+  2. **Pre-PR Verification:** Run unit tests (`npm test`), TypeScript verification (`npm run typecheck`), and static build (`npm run build`) before pushing.
+  3. **Push & Create GitHub PR:** Push to `origin <branch-name>` and provide the direct GitHub PR creation link.
+  4. **Structured PR Documentation:** Use `.github/pull_request_template.md` to document:
+     - **Strategic Context & Executive Summary**
+     - **Governing Mathematical Models & Standards Cited** (IEEE, NFPA/NEC, NREL SAM, ASHRAE, IEC)
+     - **Verification Suite Proofs** (exact test counts, 0 type errors, static route generation)
+     - **Institutional & Academic Relevance** (syllabus integration, laboratory reproducibility)
+  5. **Merge Traceability:** Merge into `main` to trigger automated Vercel deployment and build a permanent, peer-reviewable GitHub history that establishes institutional trust with investors, laboratories, and academic bodies.
 
 A page is not done because the formula runs. It is done when:
 

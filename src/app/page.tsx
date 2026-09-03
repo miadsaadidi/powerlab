@@ -4,6 +4,7 @@ import { siteConfig } from "@/lib/site-config";
 import { publishedCalculators } from "@/lib/calculator-registry";
 import { HeroGoalSelector } from "@/components/home/hero-goal-selector";
 import { HeroQuickEstimator } from "@/components/home/hero-quick-estimator";
+import { PopularCalculatorsLauncher } from "@/components/home/popular-calculators-launcher";
 import { ConnectedSystemFlow } from "@/components/home/connected-system-flow";
 import { HomeSearchFilter } from "@/components/home/home-search-filter";
 import { TrustBadges } from "@/components/home/trust-badges";
@@ -157,6 +158,9 @@ export default function HomePage() {
 
       {/* Instant Micro-Estimator */}
       <HeroQuickEstimator />
+
+      {/* Top 4 Popular Tools Launcher (GA4 & GSC High Engagement) */}
+      <PopularCalculatorsLauncher />
 
       {/* Goal Fast-Track Selector */}
       <HeroGoalSelector />
