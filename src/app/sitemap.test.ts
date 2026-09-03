@@ -54,6 +54,8 @@ describe("sitemap", () => {
     expect(paths).toContain("/ev");
     expect(paths).toContain("/guides");
     expect(paths).toContain("/guides/central-ac-and-heat-pump-electricity-cost-guide");
+    expect(paths).toContain("/guides/solar-payback-and-roi-calculation-guide");
+    expect(paths).toContain("/guides/space-heater-electricity-cost-and-wattage-guide");
   });
 });
 

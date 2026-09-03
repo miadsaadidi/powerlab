@@ -12,6 +12,8 @@ const staticPaths = [
   "/guides/level-2-ev-charging-speed-and-breaker-sizing-guide",
   "/guides/mppt-solar-charge-controller-sizing-guide",
   "/guides/solar-panel-tilt-angle-by-latitude-and-season-guide",
+  "/guides/solar-payback-and-roi-calculation-guide",
+  "/guides/space-heater-electricity-cost-and-wattage-guide",
   "/guides/voltage-drop-and-wire-size-calculation-guide",
   "/solar/regional-climate-data",
   "/glossary",

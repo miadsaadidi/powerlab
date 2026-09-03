@@ -288,10 +288,10 @@ To capture high-volume transactional and informational keywords with deep techni
 | Release Day | Target Date | Canonical Guide Route | Primary Target Keyword | Monthly Search Volume | Status |
 |:---|:---|:---|:---|---:|:---|
 | **Day 0** | **2026-08-25** | `/guides/voltage-drop-and-wire-size-calculation-guide` | `voltage drop calculation formula` / `voltage drop guide` | **74,000/mo** | ✅ **Published & Live** |
-| **Day 2** | **2026-08-27** | `/guides/generator-sizing-and-starting-watts-guide` | `generator sizing guide` / `starting watts formula` | **40,500/mo** | ⏳ Scheduled |
-| **Day 4** | **2026-08-29** | `/guides/central-ac-and-heat-pump-electricity-cost-guide` | `air conditioner running cost guide` / `heat pump cost` | **34,300/mo** | ⏳ Scheduled |
-| **Day 6** | **2026-08-31** | `/guides/solar-payback-and-roi-calculation-guide` | `solar payback period formula` / `solar roi guide` | **18,100/mo** | ⏳ Scheduled |
-| **Day 8** | **2026-09-02** | `/guides/space-heater-electricity-cost-and-wattage-guide` | `space heater electricity cost formula` | **18,100/mo** | ⏳ Scheduled |
+| **Day 2** | **2026-08-27** | `/guides/emergency-generator-sizing-and-inrush-load-guide` | `generator sizing guide` / `starting watts formula` | **40,500/mo** | ✅ **Published & Live** |
+| **Day 4** | **2026-08-29** | `/guides/central-ac-and-heat-pump-electricity-cost-guide` | `air conditioner running cost guide` / `heat pump cost` | **34,300/mo** | ✅ **Published & Live** |
+| **Day 6** | **2026-08-31** | `/guides/solar-payback-and-roi-calculation-guide` | `solar payback period formula` / `solar roi guide` | **18,100/mo** | ✅ **Published & Live** |
+| **Day 8** | **2026-09-02** | `/guides/space-heater-electricity-cost-and-wattage-guide` | `space heater electricity cost formula` | **18,100/mo** | ✅ **Published & Live** |
 
 ### Content Standards per Guide:
 1. **Interactive SVG Visualizer:** Custom dynamic SVG diagram showing the physical circuit loop, gradient drop, or surge curve.

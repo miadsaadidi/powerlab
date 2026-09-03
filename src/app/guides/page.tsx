@@ -128,6 +128,34 @@ const FEATURED_GUIDES: GuideItem[] = [
     standards: ["NEC Article 625", "SAE J1772 / NACS", "UL 2594 EVSE"],
   },
   {
+    name: "Solar Payback Period & Net Metering ROI Financial Guide",
+    route: "/guides/solar-payback-and-roi-calculation-guide",
+    category: "Solar Photovoltaics",
+    categoryIcon: "☀️",
+    categoryColor: "#f59e0b",
+    categoryBg: "rgba(245, 158, 11, 0.1)",
+    badge: "🔥 18,100+ Search Target",
+    badgeType: "new",
+    description: "Master solar payback and ROI financial formulas. Calculate net capital basis after the 30% Federal ITC, project utility inflation, model NEM 3.0 avoided cost rates, and calculate 25-year cash flows.",
+    readTime: "9 min read",
+    updatedDate: "Published August 31, 2026",
+    standards: ["NREL SAM Financial", "IRC Section 25D ITC", "IEEE 1547", "IEC 61724"],
+  },
+  {
+    name: "Space Heater vs Central Heating Electricity Cost Guide (1500W & Duty Cycles)",
+    route: "/guides/space-heater-electricity-cost-and-wattage-guide",
+    category: "Home Energy",
+    categoryIcon: "🔥",
+    categoryColor: "#ef4444",
+    categoryBg: "rgba(239, 68, 68, 0.1)",
+    badge: "🔥 18,100+ Search Target",
+    badgeType: "new",
+    description: "Thermal and electrical engineering guide: calculate space heater electricity cost, 1,500W power draw, thermostat duty cycles, zone heating economics vs. heat pumps, and NEC 80% circuit limits.",
+    readTime: "8 min read",
+    updatedDate: "Published September 2, 2026",
+    standards: ["UL 1278 Standard", "NEC Article 210.19/20", "DOE 10 CFR 430", "ASHRAE 62.2"],
+  },
+  {
     name: "Solar Panel Tilt Angle by Latitude & Season Guide",
     route: "/guides/solar-panel-tilt-angle-by-latitude-and-season-guide",
     category: "Solar Photovoltaics",
@@ -382,47 +410,47 @@ export default function GuidesHubPage() {
         <div style={{ display: "grid", gap: "0.75rem" }}>
           <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", padding: "0.85rem 1rem", borderRadius: "0.6rem", background: "rgba(16, 185, 129, 0.08)", border: "1px solid rgba(16, 185, 129, 0.3)" }}>
             <div>
-              <span style={{ fontSize: "0.75rem", fontWeight: 700, color: "#10b981", textTransform: "uppercase" }}>✅ Day 0 (Today · Aug 25)</span>
+              <span style={{ fontSize: "0.75rem", fontWeight: 700, color: "#10b981", textTransform: "uppercase" }}>✅ Day 0 (Aug 25, 2026) · Live</span>
               <div style={{ fontWeight: 700, fontSize: "0.95rem", color: "var(--foreground)" }}>Voltage Drop &amp; Wire Size Calculation Guide (NEC 3% &amp; Table 8)</div>
               <div style={{ fontSize: "0.8rem", color: "var(--muted)" }}>Target Keyword: Voltage Drop Formula &bull; 74,000/mo &bull; Live Now</div>
             </div>
             <Link href="/guides/voltage-drop-and-wire-size-calculation-guide" style={{ fontSize: "0.82rem", fontWeight: 700, color: "#10b981", textDecoration: "none" }}>Read Guide →</Link>
           </div>
 
-          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", padding: "0.85rem 1rem", borderRadius: "0.6rem", background: "var(--surface-subtle, #f8fafc)", border: "1px solid var(--line)" }}>
+          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", padding: "0.85rem 1rem", borderRadius: "0.6rem", background: "rgba(16, 185, 129, 0.08)", border: "1px solid rgba(16, 185, 129, 0.3)" }}>
             <div>
-              <span style={{ fontSize: "0.75rem", fontWeight: 700, color: "var(--accent)", textTransform: "uppercase" }}>⏳ Day 2 (Aug 27, 2026)</span>
+              <span style={{ fontSize: "0.75rem", fontWeight: 700, color: "#10b981", textTransform: "uppercase" }}>✅ Day 2 (Aug 27, 2026) · Live</span>
               <div style={{ fontWeight: 700, fontSize: "0.95rem", color: "var(--foreground)" }}>Whole-Home Backup Generator Sizing &amp; Motor Inrush Current Guide</div>
               <div style={{ fontSize: "0.8rem", color: "var(--muted)" }}>Target Keyword: Generator Sizing Guide &bull; 40,500/mo &bull; Running vs Starting Watts (LRA)</div>
             </div>
-            <span style={{ fontSize: "0.78rem", color: "var(--muted)", fontWeight: 600 }}>Scheduled</span>
+            <Link href="/guides/emergency-generator-sizing-and-inrush-load-guide" style={{ fontSize: "0.82rem", fontWeight: 700, color: "#10b981", textDecoration: "none" }}>Read Guide →</Link>
           </div>
 
-          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", padding: "0.85rem 1rem", borderRadius: "0.6rem", background: "var(--surface-subtle, #f8fafc)", border: "1px solid var(--line)" }}>
+          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", padding: "0.85rem 1rem", borderRadius: "0.6rem", background: "rgba(16, 185, 129, 0.08)", border: "1px solid rgba(16, 185, 129, 0.3)" }}>
             <div>
-              <span style={{ fontSize: "0.75rem", fontWeight: 700, color: "var(--accent)", textTransform: "uppercase" }}>⏳ Day 4 (Aug 29, 2026)</span>
+              <span style={{ fontSize: "0.75rem", fontWeight: 700, color: "#10b981", textTransform: "uppercase" }}>✅ Day 4 (Aug 29, 2026) · Live</span>
               <div style={{ fontWeight: 700, fontSize: "0.95rem", color: "var(--foreground)" }}>Central Air Conditioner &amp; Heat Pump Electricity Cost Guide</div>
               <div style={{ fontSize: "0.8rem", color: "var(--muted)" }}>Target Keyword: AC Running Cost Guide &bull; 34,300/mo &bull; SEER2 &amp; HSPF2 Duty Cycles</div>
             </div>
-            <span style={{ fontSize: "0.78rem", color: "var(--muted)", fontWeight: 600 }}>Scheduled</span>
+            <Link href="/guides/central-ac-and-heat-pump-electricity-cost-guide" style={{ fontSize: "0.82rem", fontWeight: 700, color: "#10b981", textDecoration: "none" }}>Read Guide →</Link>
           </div>
 
-          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", padding: "0.85rem 1rem", borderRadius: "0.6rem", background: "var(--surface-subtle, #f8fafc)", border: "1px solid var(--line)" }}>
+          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", padding: "0.85rem 1rem", borderRadius: "0.6rem", background: "rgba(16, 185, 129, 0.08)", border: "1px solid rgba(16, 185, 129, 0.3)" }}>
             <div>
-              <span style={{ fontSize: "0.75rem", fontWeight: 700, color: "var(--accent)", textTransform: "uppercase" }}>⏳ Day 6 (Aug 31, 2026)</span>
+              <span style={{ fontSize: "0.75rem", fontWeight: 700, color: "#10b981", textTransform: "uppercase" }}>✅ Day 6 (Aug 31, 2026) · Live</span>
               <div style={{ fontWeight: 700, fontSize: "0.95rem", color: "var(--foreground)" }}>Solar Payback Period &amp; Net Metering ROI Financial Guide</div>
               <div style={{ fontSize: "0.8rem", color: "var(--muted)" }}>Target Keyword: Solar Payback Formula &bull; 18,100/mo &bull; Net Billing 3.0 &amp; ITC Tax Credits</div>
             </div>
-            <span style={{ fontSize: "0.78rem", color: "var(--muted)", fontWeight: 600 }}>Scheduled</span>
+            <Link href="/guides/solar-payback-and-roi-calculation-guide" style={{ fontSize: "0.82rem", fontWeight: 700, color: "#10b981", textDecoration: "none" }}>Read Guide →</Link>
           </div>
 
-          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", padding: "0.85rem 1rem", borderRadius: "0.6rem", background: "var(--surface-subtle, #f8fafc)", border: "1px solid var(--line)" }}>
+          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", padding: "0.85rem 1rem", borderRadius: "0.6rem", background: "rgba(16, 185, 129, 0.08)", border: "1px solid rgba(16, 185, 129, 0.3)" }}>
             <div>
-              <span style={{ fontSize: "0.75rem", fontWeight: 700, color: "var(--accent)", textTransform: "uppercase" }}>⏳ Day 8 (Sep 2, 2026)</span>
+              <span style={{ fontSize: "0.75rem", fontWeight: 700, color: "#10b981", textTransform: "uppercase" }}>✅ Day 8 (Sep 2, 2026) · Live</span>
               <div style={{ fontWeight: 700, fontSize: "0.95rem", color: "var(--foreground)" }}>Space Heater vs Central Heating Electricity Cost Guide</div>
               <div style={{ fontSize: "0.8rem", color: "var(--muted)" }}>Target Keyword: Space Heater Electricity Cost &bull; 18,100/mo &bull; 1500W Duty Cycles</div>
             </div>
-            <span style={{ fontSize: "0.78rem", color: "var(--muted)", fontWeight: 600 }}>Scheduled</span>
+            <Link href="/guides/space-heater-electricity-cost-and-wattage-guide" style={{ fontSize: "0.82rem", fontWeight: 700, color: "#10b981", textDecoration: "none" }}>Read Guide →</Link>
           </div>
         </div>
       </section>
