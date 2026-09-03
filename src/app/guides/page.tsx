@@ -463,25 +463,31 @@ export default function GuidesHubPage() {
         <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(260px, 1fr))", gap: "1.25rem" }}>
           <div style={{ padding: "1.35rem", borderRadius: "0.85rem", background: "var(--surface)", border: "1px solid var(--line)" }}>
             <span style={{ fontSize: "1.4rem" }}>🎓</span>
-            <h3 style={{ margin: "0.5rem 0 0.35rem", fontSize: "1.05rem", color: "var(--brand-strong)" }}>Open Educational Resource (OER)</h3>
+            <h3 style={{ margin: "0.5rem 0 0.35rem", fontSize: "1.05rem", color: "var(--brand-strong)" }}>
+              <Link href="/research" style={{ color: "inherit", textDecoration: "none" }}>Open Research &amp; Preprints →</Link>
+            </h3>
             <p style={{ margin: 0, fontSize: "0.88rem", lineHeight: 1.5, color: "var(--muted)" }}>
-              Licensed for free educational use in university engineering courses, electrical vocational programs, and research papers.
+              Explore our citable technical reports (Figshare DOI, Academia.edu) covering EVSE continuous load, heat pump COP decay, and generator motor inrush.
             </p>
           </div>
 
           <div style={{ padding: "1.35rem", borderRadius: "0.85rem", background: "var(--surface)", border: "1px solid var(--line)" }}>
             <span style={{ fontSize: "1.4rem" }}>📐</span>
-            <h3 style={{ margin: "0.5rem 0 0.35rem", fontSize: "1.05rem", color: "var(--brand-strong)" }}>Formula Transparency</h3>
+            <h3 style={{ margin: "0.5rem 0 0.35rem", fontSize: "1.05rem", color: "var(--brand-strong)" }}>
+              <Link href="/glossary" style={{ color: "inherit", textDecoration: "none" }}>Engineering Glossary →</Link>
+            </h3>
             <p style={{ margin: 0, fontSize: "0.88rem", lineHeight: 1.5, color: "var(--muted)" }}>
-              Zero proprietary black-box calculations. Every equation, conversion constant, and derating factor is displayed with variable definitions.
+              Detailed physical definitions, mathematical formulas, and code references for electrical, thermodynamic, and solar terms.
             </p>
           </div>
 
           <div style={{ padding: "1.35rem", borderRadius: "0.85rem", background: "var(--surface)", border: "1px solid var(--line)" }}>
             <span style={{ fontSize: "1.4rem" }}>⚡</span>
-            <h3 style={{ margin: "0.5rem 0 0.35rem", fontSize: "1.05rem", color: "var(--brand-strong)" }}>Verified Engineering Standards</h3>
+            <h3 style={{ margin: "0.5rem 0 0.35rem", fontSize: "1.05rem", color: "var(--brand-strong)" }}>
+              <Link href="/solar/regional-climate-data" style={{ color: "inherit", textDecoration: "none" }}>Regional Climate &amp; Solar DB →</Link>
+            </h3>
             <p style={{ margin: 0, fontSize: "0.88rem", lineHeight: 1.5, color: "var(--muted)" }}>
-              Mathematical models directly implement formulas from NFPA 70 / NEC 2023, IEEE 1547, IEC 62548, and NREL PVWatts V8.
+              50-state meteorological irradiance, peak sun hours, and ASHRAE extreme dry bulb design temperatures.
             </p>
           </div>
         </div>

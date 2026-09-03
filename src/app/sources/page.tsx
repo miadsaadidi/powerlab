@@ -152,6 +152,83 @@ export default function SourcesPage() {
         </div>
       </section>
 
+      {/* Technical Research & Working Papers Section */}
+      <section>
+        <h2>🔬 PowerLab Original Technical Research &amp; Preprints</h2>
+        <p>
+          To establish mathematical transparency and rigorous derivations for physical variables used across our tools, PowerLab publishes open-access engineering technical reports:
+        </p>
+        <div className="source-list">
+          <article>
+            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "baseline", marginBottom: "0.25rem" }}>
+              <h3 style={{ margin: 0 }}>
+                <Link href="/research/continuous-duty-thermal-sizing-evse-ampacity" style={{ color: "inherit", textDecoration: "underline" }}>
+                  Level 2 EVSE Continuous-Duty Thermal Sizing &amp; Ampacity (PL-TR-2026-EVSE01)
+                </Link>
+              </h3>
+              <span style={{ fontSize: "0.72rem", fontWeight: 700, color: "#8b5cf6", background: "rgba(139, 92, 246, 0.1)", padding: "0.2rem 0.5rem", borderRadius: "0.35rem" }}>DOI: 10.6084</span>
+            </div>
+            <p>
+              Investigates continuous load Joule heating ($I^2Rt$), terminal temperature derating (60°C vs 75°C), and 125% ampacity rules under NEC Article 625.42.
+            </p>
+            <Link href="/research/continuous-duty-thermal-sizing-evse-ampacity">
+              View Technical Report &amp; Derivations →
+            </Link>
+          </article>
+
+          <article>
+            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "baseline", marginBottom: "0.25rem" }}>
+              <h3 style={{ margin: 0 }}>
+                <Link href="/research/heat-pump-cop-degradation-and-auxiliary-heat-kinetics" style={{ color: "inherit", textDecoration: "underline" }}>
+                  Cold-Climate Heat Pump COP Degradation &amp; Strip Heat Staging (PL-TR-2026-HVAC01)
+                </Link>
+              </h3>
+              <span style={{ fontSize: "0.72rem", fontWeight: 700, color: "#0284c7", background: "rgba(2, 132, 199, 0.1)", padding: "0.2rem 0.5rem", borderRadius: "0.35rem" }}>AHRI 210/240</span>
+            </div>
+            <p>
+              Thermodynamic evaluation of sub-freezing vapor compression efficiency, defrost parasitic draw, and electric resistance backup staging economics.
+            </p>
+            <Link href="/research/heat-pump-cop-degradation-and-auxiliary-heat-kinetics">
+              View Technical Report &amp; Derivations →
+            </Link>
+          </article>
+
+          <article>
+            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "baseline", marginBottom: "0.25rem" }}>
+              <h3 style={{ margin: 0 }}>
+                <Link href="/research/deterministic-inrush-load-stacking-generator-sizing" style={{ color: "inherit", textDecoration: "underline" }}>
+                  Inductive Motor Inrush Currents &amp; Generator Load Stacking (PL-TR-2026-GEN02)
+                </Link>
+              </h3>
+              <span style={{ fontSize: "0.72rem", fontWeight: 700, color: "#10b981", background: "rgba(16, 185, 129, 0.1)", padding: "0.2rem 0.5rem", borderRadius: "0.35rem" }}>ISO 8528-5</span>
+            </div>
+            <p>
+              Locked Rotor Amperage (LRA) sub-transient reactance modeling, voltage dip envelopes, and non-coincident peak load stacking for backup generators.
+            </p>
+            <Link href="/research/deterministic-inrush-load-stacking-generator-sizing">
+              View Technical Report &amp; Derivations →
+            </Link>
+          </article>
+
+          <article>
+            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "baseline", marginBottom: "0.25rem" }}>
+              <h3 style={{ margin: 0 }}>
+                <Link href="/research/ground-view-factor-snow-albedo-pv-tilt" style={{ color: "inherit", textDecoration: "underline" }}>
+                  Snow Albedo Transposition &amp; Cold-Weather Voc Expansion (PL-TR-2026-SOL03)
+                </Link>
+              </h3>
+              <span style={{ fontSize: "0.72rem", fontWeight: 700, color: "#f59e0b", background: "rgba(245, 158, 11, 0.1)", padding: "0.2rem 0.5rem", borderRadius: "0.35rem" }}>NEC 690.7</span>
+            </div>
+            <p>
+              Anisotropic Perez ground-reflected diffuse gain models and sub-zero open-circuit voltage string sizing for MPPT charge controllers.
+            </p>
+            <Link href="/research/ground-view-factor-snow-albedo-pv-tilt">
+              View Technical Report &amp; Derivations →
+            </Link>
+          </article>
+        </div>
+      </section>
+
       {/* Review Footer */}
       <section>
         <h2>Citation &amp; Methodology Governance</h2>
@@ -159,7 +236,7 @@ export default function SourcesPage() {
           Standards and manufacturer data sheets last reviewed: <time dateTime="2026-08-17">{reviewDate}</time>.
         </p>
         <p>
-          For a detailed breakdown of the mathematical equations and loss formulas derived from these sources, see our <Link href="/methodology">Engineering Methodology</Link>, learn more <Link href="/about">About PowerLab</Link>, or review our <Link href="/privacy">Zero-Database Privacy Policy</Link>.
+          For a detailed breakdown of the mathematical equations and loss formulas derived from these sources, explore our <Link href="/research">Research &amp; Working Papers</Link>, inspect our <Link href="/methodology">Engineering Methodology</Link>, search the <Link href="/glossary">Engineering Glossary</Link>, learn more <Link href="/about">About PowerLab</Link>, or review our <Link href="/privacy">Zero-Database Privacy Policy</Link>.
         </p>
       </section>
     </article>

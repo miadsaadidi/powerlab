@@ -172,8 +172,11 @@ export default function MethodologyPage() {
           <Link href="/solar/solar-panel-output-calculator" className="button secondary-button" style={{ fontSize: "0.82rem", padding: "0.4rem 0.75rem" }}>
             Solar Panel Output Calculator →
           </Link>
-          <Link href="/solar/solar-battery-bank-size-calculator" className="button secondary-button" style={{ fontSize: "0.82rem", padding: "0.4rem 0.75rem" }}>
-            Solar Battery Bank Calculator →
+          <Link href="/solar/regional-climate-data" className="button secondary-button" style={{ fontSize: "0.82rem", padding: "0.4rem 0.75rem" }}>
+            50-State Climate &amp; Solar DB →
+          </Link>
+          <Link href="/research/ground-view-factor-snow-albedo-pv-tilt" className="button secondary-button" style={{ fontSize: "0.82rem", padding: "0.4rem 0.75rem" }}>
+            Snow Albedo &amp; Tilt Paper →
           </Link>
         </div>
       </section>
@@ -199,7 +202,7 @@ export default function MethodologyPage() {
         </p>
         <ul style={{ margin: "0.5rem 0 1rem 1.25rem", fontSize: "0.92rem", lineHeight: 1.6 }}>
           <li><strong>Level 1 (120V / 12–16A AC):</strong> ~78%–83% efficiency. At low charging throughput (~1.4 kW), fixed continuous parasitic loads from vehicle computers, coolant pumps, and BMS (~150W–300W) consume 15%–20% of supplied energy.</li>
-          <li><strong>Level 2 (240V / 32–48A AC):</strong> ~88%–92% efficiency. Higher delivery rates (7.7–11.5 kW) reduce the relative parasitic overhead to &lt;4%, with losses dominated by onboard charger (OBC) rectification.</li>
+          <li><strong>Level 2 (240V / 32–48A AC):</strong> ~88%–92% efficiency. Higher delivery rates (7.7–11.5 kW) reduce the relative parasitic overhead to &lt;4%, with losses dominated by onboard charger (OBC) rectification. Governed by NEC 625 continuous load requirements (see our <Link href="/research/continuous-duty-thermal-sizing-evse-ampacity">EVSE Thermal Sizing Research Report</Link>).</li>
           <li><strong>Cold Weather Thermal Conditioning (&lt;0°C / 32°F):</strong> ~80%–84% effective grid-to-battery efficiency due to increased internal electrochemical cell impedance and power diversion to active PTC battery heaters, as empirically quantified by <em>Archsmith, Kendall, &amp; Rapson (2015)</em>.</li>
           <li><strong>DC Fast Charging (400V–800V DC):</strong> Off-board rectification delivers ~90%–95% direct-to-battery efficiency, modeled with non-linear saturation tapering beyond 80% State of Charge.</li>
         </ul>
@@ -211,8 +214,8 @@ export default function MethodologyPage() {
           <Link href="/ev/ev-charging-cost-calculator" className="button secondary-button" style={{ fontSize: "0.82rem", padding: "0.4rem 0.75rem" }}>
             EV Charging Cost Calculator →
           </Link>
-          <Link href="/ev/ev-savings-calculator" className="button secondary-button" style={{ fontSize: "0.82rem", padding: "0.4rem 0.75rem" }}>
-            EV Fuel Savings Calculator →
+          <Link href="/research/continuous-duty-thermal-sizing-evse-ampacity" className="button secondary-button" style={{ fontSize: "0.82rem", padding: "0.4rem 0.75rem" }}>
+            EVSE Continuous Duty Paper →
           </Link>
         </div>
       </section>
@@ -221,21 +224,24 @@ export default function MethodologyPage() {
       <section>
         <h2>4. Household Electrical Load &amp; Tariff Modeling</h2>
         <p>
-          Appliance wattage audits differentiate between <strong>continuous running power</strong> and <strong>inductive inrush surge power</strong> (e.g., compressor start on refrigerators and HVAC heat pumps).
+          Appliance wattage audits differentiate between <strong>continuous running power</strong> and <strong>inductive inrush surge power</strong> (e.g., compressor start on refrigerators, well pumps, and HVAC heat pumps). For inductive starting physics and generator branch sizing, see our <Link href="/research/deterministic-inrush-load-stacking-generator-sizing">Inductive Motor Inrush Technical Report</Link>.
         </p>
         <p>
-          Energy bill estimations support tiered pricing, fixed meter connection charges, and seasonal volumetric kilowatt-hour utility rates.
+          Energy bill and heating estimations support seasonal COP degradation, auxiliary strip heat staging (see our <Link href="/research/heat-pump-cop-degradation-and-auxiliary-heat-kinetics">Heat Pump COP &amp; Strip Heat Research Paper</Link>), tiered pricing, and seasonal volumetric utility rates.
         </p>
 
         <div style={{ marginTop: "1rem", display: "flex", gap: "0.75rem", flexWrap: "wrap" }}>
           <Link href="/home-energy/electricity-usage-calculator" className="button secondary-button" style={{ fontSize: "0.82rem", padding: "0.4rem 0.75rem" }}>
             Electricity Usage Calculator →
           </Link>
-          <Link href="/home-energy/appliance-wattage-calculator" className="button secondary-button" style={{ fontSize: "0.82rem", padding: "0.4rem 0.75rem" }}>
-            Appliance Wattage Audit →
+          <Link href="/home-energy/heat-pump-cost-calculator" className="button secondary-button" style={{ fontSize: "0.82rem", padding: "0.4rem 0.75rem" }}>
+            Heat Pump Cost Calculator →
           </Link>
-          <Link href="/home-energy/energy-bill-calculator" className="button secondary-button" style={{ fontSize: "0.82rem", padding: "0.4rem 0.75rem" }}>
-            Energy Bill Calculator →
+          <Link href="/research/heat-pump-cop-degradation-and-auxiliary-heat-kinetics" className="button secondary-button" style={{ fontSize: "0.82rem", padding: "0.4rem 0.75rem" }}>
+            Heat Pump COP Paper →
+          </Link>
+          <Link href="/research/deterministic-inrush-load-stacking-generator-sizing" className="button secondary-button" style={{ fontSize: "0.82rem", padding: "0.4rem 0.75rem" }}>
+            Motor Inrush &amp; Generator Paper →
           </Link>
         </div>
       </section>
@@ -247,7 +253,7 @@ export default function MethodologyPage() {
           Every calculator engine is governed by strict Vitest unit test suites testing edge cases, boundary invariants, unit conversions, and known bench-test measurements before deployment.
         </p>
         <p>
-          For full references and technical literature citations, visit our <Link href="/sources">Authoritative Data Sources</Link> page or review our <Link href="/privacy">Zero-Database Privacy Policy</Link>.
+          To review our complete academic catalog, explore our <Link href="/research">Open Research Papers</Link>, look up technical terminology in the <Link href="/glossary">Engineering Glossary</Link>, visit our <Link href="/sources">Authoritative Data Sources</Link> page, or review our <Link href="/privacy">Zero-Database Privacy Policy</Link>.
         </p>
       </section>
     </article>

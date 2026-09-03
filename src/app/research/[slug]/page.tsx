@@ -234,7 +234,27 @@ export default async function ResearchPaperPage({ params }: PageProps) {
         </div>
       </section>
 
-      {/* Section 6: Full Citable Formats */}
+      {/* Section 6: More Technical Reports in this Series */}
+      <section style={{ margin: "2.5rem 0", padding: "1.5rem", borderRadius: "0.85rem", background: "var(--surface)", border: "1px solid var(--line)" }}>
+        <h2 style={{ marginTop: 0, fontSize: "1.25rem", color: "var(--brand-strong)" }}>
+          More PowerLab Technical Reports &amp; Preprints
+        </h2>
+        <div style={{ display: "grid", gap: "0.75rem", marginTop: "1rem" }}>
+          {RESEARCH_PAPERS.filter((p) => p.slug !== paper.slug).map((otherPaper) => (
+            <div key={otherPaper.slug} style={{ display: "flex", justifyContent: "space-between", alignItems: "center", padding: "0.75rem 1rem", borderRadius: "0.5rem", background: "var(--surface-subtle, #f8fafc)", border: "1px solid var(--line)" }}>
+              <div>
+                <span style={{ fontSize: "0.75rem", fontWeight: 700, color: "var(--accent)" }}>{otherPaper.reportNumber}</span>
+                <div style={{ fontWeight: 600, fontSize: "0.92rem", color: "var(--brand-strong)" }}>{otherPaper.shortTitle}</div>
+              </div>
+              <Link href={`/research/${otherPaper.slug}`} style={{ fontSize: "0.82rem", fontWeight: 700, color: "var(--accent)", textDecoration: "none", flexShrink: 0, marginLeft: "1rem" }}>
+                Read Report →
+              </Link>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* Section 7: Full Citable Formats */}
       <section style={{ margin: "2rem 0" }}>
         <h2 style={{ fontSize: "1.3rem", color: "var(--brand-strong)", borderBottom: "1px solid var(--line)", paddingBottom: "0.35rem" }}>
           Academic Citations

@@ -583,6 +583,7 @@ https://www.powelab.org
 ```text
 jonathan.gifford@pv-magazine.com
 ```
+*(Editorial Desk Alternative: `editors@pv-magazine.com`)*
 
 **Subject:**
 ```text
@@ -1044,8 +1045,9 @@ https://www.powelab.org
 
 **Recipient:**
 ```text
-cnewton@mit.edu
+ocw@mit.edu
 ```
+*(Alternate / Department: `openlearning@mit.edu`)*
 
 **Subject:**
 ```text
@@ -1161,7 +1163,7 @@ https://www.powelab.org
 
 **Recipient:**
 ```text
-cathy@casserlyconsulting.com
+cathy@cathycasserly.com
 ```
 
 **Subject:**

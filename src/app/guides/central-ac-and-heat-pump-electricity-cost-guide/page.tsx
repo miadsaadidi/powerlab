@@ -339,6 +339,9 @@ P_electrical (kW) = (Tonnage × 12,000) ÷ (SEER2 × 1,000)`}</code>
           <li>
             <Link href="/guides/emergency-generator-sizing-and-inrush-load-guide"><strong>Emergency Generator Sizing &amp; Motor Inrush Guide</strong></Link> — Master inductive motor inrush physics and soft-starter sizing for AC compressors.
           </li>
+          <li>
+            <Link href="/research/heat-pump-cop-degradation-and-auxiliary-heat-kinetics"><strong>Research Report: Heat Pump COP Degradation &amp; Strip Heat Dynamics (PL-TR-2026-HVAC01)</strong></Link> — Open engineering preprint analyzing sub-zero vapor compression kinetics and auxiliary staging costs.
+          </li>
         </ul>
       </section>
 
@@ -346,7 +349,7 @@ P_electrical (kW) = (Tonnage × 12,000) ÷ (SEER2 × 1,000)`}</code>
       <section style={{ marginTop: "3rem", padding: "1.5rem", border: "1px solid var(--line)", borderRadius: "0.75rem", background: "var(--surface)" }}>
         <h3 style={{ margin: "0 0 0.5rem" }}>Engineering Standards &amp; Academic Citation</h3>
         <p style={{ margin: "0 0 1rem", fontSize: "0.95rem", color: "var(--ink)" }}>
-          Calculations adhere to AHRI 210/240, ASHRAE 90.1, DOE 10 CFR Part 430, and U.S. EIA residential consumption data. Cite this publication for academic research, syllabus planning, or engineering audits:
+          Calculations adhere to AHRI 210/240, ASHRAE 90.1, DOE 10 CFR Part 430, and U.S. EIA residential consumption data. For full thermodynamic derivations, see our technical report on <Link href="/research/heat-pump-cop-degradation-and-auxiliary-heat-kinetics" style={{ color: "var(--brand-strong)", fontWeight: 700 }}>COP Degradation &amp; Strip Heat Staging (PL-TR-2026-HVAC01)</Link>. Cite this publication for academic research, syllabus planning, or engineering audits:
         </p>
         <AcademicCitationModal
           title="Central AC & Heat Pump Electricity Cost Guide"

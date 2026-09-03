@@ -331,9 +331,12 @@ export default function EvChargingGuidePage() {
       <section id="sources-methodology" style={{ marginTop: "2.5rem", padding: "1.5rem", borderRadius: "0.85rem", background: "var(--surface)", border: "1px solid var(--line)" }}>
         <h2 style={{ marginTop: 0 }}>Methodology &amp; Standards Citations</h2>
         <p style={{ fontSize: "0.95rem", lineHeight: 1.6, color: "var(--muted)" }}>
-          Calculations adhere to <strong>NFPA 70 / NEC Article 625</strong> (Electric Vehicle Power Transfer Systems), <strong>SAE J1772</strong> / <strong>SAE J3400 (NACS)</strong> protocol standards, <strong>UL 2594</strong>, and <strong>IEEE 2030.1.1</strong> EV electrical infrastructure requirements.
+          Calculations adhere to <strong>NFPA 70 / NEC Article 625</strong> (Electric Vehicle Power Transfer Systems), <strong>SAE J1772</strong> / <strong>SAE J3400 (NACS)</strong> protocol standards, <strong>UL 2594</strong>, and <strong>IEEE 2030.1.1</strong> EV electrical infrastructure requirements. For continuous load thermal mechanics and terminal temperature derating, read our technical report: <Link href="/research/continuous-duty-thermal-sizing-evse-ampacity" style={{ color: "var(--brand-strong)", fontWeight: 700, textDecoration: "underline" }}>Continuous-Duty Thermal Sizing &amp; Ampacity (PL-TR-2026-EVSE01)</Link>.
         </p>
         <div style={{ display: "flex", flexWrap: "wrap", gap: "1rem", marginTop: "1rem" }}>
+          <Link href="/research/continuous-duty-thermal-sizing-evse-ampacity" style={{ fontSize: "0.9rem", fontWeight: 600, color: "var(--accent)" }}>
+            Read EVSE Research Report (DOI: 10.6084) →
+          </Link>
           <Link href="/methodology" style={{ fontSize: "0.9rem", fontWeight: 600, color: "var(--accent)" }}>
             Full PowerLab Calculation Methodology →
           </Link>
