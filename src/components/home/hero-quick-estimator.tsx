@@ -219,17 +219,19 @@ export function HeroQuickEstimator() {
         <div style={{ display: "flex", gap: "0.75rem", flexWrap: "wrap", justifyContent: "flex-end" }}>
           <Link
             href={`/solar/solar-panel-size-calculator?kwh=${monthlyKwh.toFixed(0)}&period=month`}
-            className="btn btn-secondary"
-            style={{ fontSize: "0.85rem", padding: "0.45rem 0.9rem" }}
+            className="button secondary-button"
+            style={{ fontSize: "0.85rem", padding: "0.45rem 0.95rem" }}
           >
-            ☀️ Size Full Solar Array →
+            <span>☀️ Size Full Solar Array</span>
+            <span>→</span>
           </Link>
           <Link
             href={`/home-energy/home-battery-size-calculator?monthlyKwh=${monthlyKwh.toFixed(0)}`}
-            className="btn btn-primary"
-            style={{ fontSize: "0.85rem", padding: "0.45rem 0.9rem" }}
+            className="button"
+            style={{ fontSize: "0.85rem", padding: "0.45rem 1rem" }}
           >
-            🔋 Plan Home Battery Backup →
+            <span>🔋 Plan Home Battery Backup</span>
+            <span>→</span>
           </Link>
         </div>
       </div>

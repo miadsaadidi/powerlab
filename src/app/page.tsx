@@ -191,18 +191,10 @@ export default function HomePage() {
           </div>
           <Link
             href="/guides"
+            className="button secondary-button"
             style={{
-              display: "inline-flex",
-              alignItems: "center",
-              gap: "0.35rem",
               padding: "0.45rem 1rem",
-              borderRadius: "0.5rem",
               fontSize: "0.88rem",
-              fontWeight: 600,
-              color: "var(--brand-strong)",
-              background: "rgba(198, 93, 36, 0.08)",
-              border: "1px solid rgba(198, 93, 36, 0.2)",
-              textDecoration: "none",
             }}
           >
             <span>Explore All Guides</span>
@@ -226,8 +218,18 @@ export default function HomePage() {
             <p style={{ margin: 0, fontSize: "0.88rem", color: "var(--ink)", lineHeight: 1.5, flexGrow: 1 }}>
               Empirical residential electricity analysis based on EIA benchmarks. Square-footage tiers, appliance duty cycles, and daily kWh formula modeling.
             </p>
-            <Link href="/guides/how-many-kwh-does-a-house-use-per-day" style={{ fontSize: "0.85rem", fontWeight: 600, color: "#16a34a", textDecoration: "none" }}>
-              Read Guide &amp; Calculate →
+            <Link
+              href="/guides/how-many-kwh-does-a-house-use-per-day"
+              className="button"
+              style={{
+                alignSelf: "flex-start",
+                padding: "0.45rem 1rem",
+                fontSize: "0.84rem",
+                marginTop: "0.35rem",
+              }}
+            >
+              <span>Read Guide &amp; Calculate</span>
+              <span>→</span>
             </Link>
           </article>
 
@@ -246,8 +248,18 @@ export default function HomePage() {
             <p style={{ margin: 0, fontSize: "0.88rem", color: "var(--ink)", lineHeight: 1.5, flexGrow: 1 }}>
               Engineering guide to sizing solar charge controllers. Continuous charging amperage, sub-zero Voc voltage expansion, and MPPT efficiency gains.
             </p>
-            <Link href="/guides/mppt-solar-charge-controller-sizing-guide" style={{ fontSize: "0.85rem", fontWeight: 600, color: "#16a34a", textDecoration: "none" }}>
-              Read Guide &amp; Calculate →
+            <Link
+              href="/guides/mppt-solar-charge-controller-sizing-guide"
+              className="button"
+              style={{
+                alignSelf: "flex-start",
+                padding: "0.45rem 1rem",
+                fontSize: "0.84rem",
+                marginTop: "0.35rem",
+              }}
+            >
+              <span>Read Guide &amp; Calculate</span>
+              <span>→</span>
             </Link>
           </article>
         </div>
