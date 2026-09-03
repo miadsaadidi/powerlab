@@ -413,3 +413,17 @@ production build
 ```
 
 Add Lighthouse/automated accessibility checks if already supported by the repo.
+
+## GitHub Pull Request & Academic Audit Protocol
+
+For any **substantial or architectural updates** (e.g., new calculator engines, technical whitepapers, guides, schema overhauls, or API integrations — excluding minor one-off UI tweaks):
+
+1. **Semantic Feature Branching:** Always branch off `main` to a semantic feature branch (e.g. `git checkout -b feat/whitepaper-bess-kinetics`).
+2. **Pre-PR Verification:** Run unit tests (`npm test`), TypeScript verification (`npm run typecheck`), and static build (`npm run build`) before pushing.
+3. **Push & Create GitHub PR:** Push to `origin <branch-name>` and provide the direct GitHub PR creation link.
+4. **Structured PR Documentation:** Document:
+   - **Summary of Architectural Changes**
+   - **Governing Mathematical Models & Standards Cited** (IEEE, NEC, NREL, ASHRAE)
+   - **Verification Suite Proofs** (test counts, 0 type errors, static route generation)
+5. **Merge Traceability:** Merge into `main` to maintain a permanent, verifiable PR history on GitHub for institutional research lab submissions, syllabus citations, and accreditation audits.
+
