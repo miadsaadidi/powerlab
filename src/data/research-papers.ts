@@ -15,6 +15,7 @@ export interface ResearchPaper {
   reportNumber: string;
   title: string;
   shortTitle: string;
+  metaDescription: string;
   abstract: string;
   authors: string[];
   institution: string;
@@ -44,7 +45,8 @@ export const RESEARCH_PAPERS: ResearchPaper[] = [
     slug: "continuous-duty-thermal-sizing-evse-ampacity",
     reportNumber: "PL-TR-2026-EVSE01",
     title: "Continuous-Duty Thermal Sizing, Conductor Terminal Limits, and Branch Circuit Ampacity Requirements for Residential Level 2 EVSE",
-    shortTitle: "Level 2 EVSE Thermal Sizing & Ampacity Requirements",
+    shortTitle: "Level 2 EVSE Thermal Sizing & Ampacity",
+    metaDescription: "Mathematical and code analysis of continuous-load thermal mechanics and conductor terminal ampacity derating for residential Level 2 EVSE under NEC 625.",
     abstract: "A rigorous mathematical and code-compliance analysis of continuous-load thermal mechanics in residential Level 2 Electric Vehicle Supply Equipment (EVSE). Evaluates the 125% continuous duty multiplier under NFPA 70 (NEC Article 625.42), terminal temperature ratings under NEC 110.14(C) (60°C vs 75°C limits), conductor ampacity derating adjustments under NEC Table 310.16, and Joule heating dynamics (I²R) in residential enclosures.",
     authors: ["PowerLab Clean Energy Engineering Group"],
     institution: "PowerLab Open Energy Research",
@@ -115,7 +117,8 @@ export const RESEARCH_PAPERS: ResearchPaper[] = [
     slug: "heat-pump-cop-degradation-and-auxiliary-heat-kinetics",
     reportNumber: "PL-TR-2026-HVAC01",
     title: "Thermal Degradation Kinetics, Auxiliary Electric Resistance Staging, and Seasonal HSPF2/COP Derating in Cold-Climate Air-Source Heat Pumps",
-    shortTitle: "Heat Pump COP Degradation & Auxiliary Heat Staging",
+    shortTitle: "Heat Pump COP Degradation & Aux Heat",
+    metaDescription: "Thermodynamic evaluation of air-source heat pump COP derating across sub-freezing spectra and electric resistance auxiliary strip heat staging kinetics.",
     abstract: "A thermodynamic evaluation of air-source heat pump (ASHP) performance across sub-freezing ambient temperature spectra (-20°C to +10°C). Models vapor-compression Carnot limits, refrigeration enthalpy drops, coefficient of performance (COP) nonlinear decline, defrost cycle parasitic consumption, and the financial impact of staging auxiliary electric resistance elements (strip heat) versus dual-fuel natural gas systems.",
     authors: ["PowerLab Clean Energy Engineering Group"],
     institution: "PowerLab Open Energy Research",
@@ -182,7 +185,8 @@ export const RESEARCH_PAPERS: ResearchPaper[] = [
     slug: "deterministic-inrush-load-stacking-generator-sizing",
     reportNumber: "PL-TR-2026-GEN02",
     title: "Deterministic Modeling of Inductive Motor Inrush Currents and Non-Coincident Load Stacking for Residential Backup Power Systems",
-    shortTitle: "Motor Inrush Surge & Generator Load Stacking",
+    shortTitle: "Motor Inrush Surge & Generator Sizing",
+    metaDescription: "Deterministic load sizing framework for residential standby generators modeling inductive motor starting LRA surges, voltage dips, and fuel derating.",
     abstract: "Presents a deterministic load sizing framework for emergency residential generators under NEC Article 702 and ISO 8528-5. Investigates transient sub-transient reactance (X''d), Locked Rotor Amperage (LRA) voltage dip envelopes during inductive motor starts (compressors, well pumps, sump pumps), sequential soft-starting step curves, and fuel-type derating factors (Gasoline vs Propane vs Natural Gas).",
     authors: ["PowerLab Clean Energy Engineering Group"],
     institution: "PowerLab Open Energy Research",
@@ -248,7 +252,8 @@ export const RESEARCH_PAPERS: ResearchPaper[] = [
     slug: "ground-view-factor-snow-albedo-pv-tilt",
     reportNumber: "PL-TR-2026-SOL03",
     title: "Ground View Factor Transposition, Snow Albedo Dynamics, and Sub-Zero Open-Circuit Voltage Expansion in Photovoltaic Arrays",
-    shortTitle: "PV Ground Albedo & Cold-Weather Voc Expansion",
+    shortTitle: "PV Ground Albedo & Cold-Weather Voc",
+    metaDescription: "Transposition modeling of ground-reflected snow albedo and sub-zero open-circuit voltage (Voc) expansion in photovoltaic arrays under NEC 690.7.",
     abstract: "Examines anisotropic sky diffuse and ground-reflected albedo transposition models (Perez & Hay-Davies) across seasonal solar panel tilt configurations. Quantifies high-latitude snow albedo capture enhancements (+25% to +40% diffuse boost), sub-zero temperature coefficient open-circuit voltage expansion (NEC 690.7), and string inverter maximum DC input voltage limits.",
     authors: ["PowerLab Clean Energy Engineering Group"],
     institution: "PowerLab Open Energy Research",

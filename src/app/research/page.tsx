@@ -8,7 +8,7 @@ import { buildPageMetadata } from "@/lib/seo/metadata-helper";
 export const metadata: Metadata = {
   ...buildPageMetadata({
     title: "Engineering Research & Technical Whitepapers",
-    description: "Peer-referenced open access technical whitepapers and mathematical frameworks for solar photovoltaics, BESS storage, EVSE infrastructure, and heat pump thermodynamics.",
+    description: "Open access technical whitepapers and mathematical models for solar photovoltaics, BESS storage, EVSE infrastructure, and heat pump thermodynamics.",
     canonicalPath: "/research",
     ogImageUrlOverride: `${siteConfig.url}/clean_energy_educational_model.jpg`,
     ogImageAlt: "PowerLab Engineering Research & Technical Whitepapers",

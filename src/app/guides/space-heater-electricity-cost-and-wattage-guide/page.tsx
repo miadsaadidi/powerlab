@@ -251,11 +251,11 @@ Space Heater Heat Output = 1 kWh Electricity → 1.0 kWh Thermal Energy (3,412 B
         </p>
 
         <div style={{ background: "var(--surface)", border: "1px solid var(--line)", borderRadius: "0.75rem", padding: "1.25rem", margin: "1rem 0" }}>
-          <h4 style={{ margin: "0 0 0.5rem", color: "var(--brand-strong)" }}>Scenario Comparison (8-Hour Overnight Sleep Period):</h4>
+          <h3 style={{ margin: "0 0 0.5rem", color: "var(--brand-strong)", fontSize: "1.1rem" }}>Scenario Comparison (8-Hour Overnight Sleep Period):</h3>
           
           <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))", gap: "1rem", marginTop: "0.75rem" }}>
             <div style={{ padding: "1rem", borderRadius: "0.5rem", background: "rgba(220, 38, 38, 0.06)", border: "1px solid rgba(220, 38, 38, 0.25)" }}>
-              <h5 style={{ margin: "0 0 0.5rem", color: "#dc2626" }}>❌ Option A: Whole-House Central Heating at 70°F</h5>
+              <h4 style={{ margin: "0 0 0.5rem", color: "#dc2626", fontSize: "0.95rem" }}>❌ Option A: Whole-House Central Heating at 70°F</h4>
               <p style={{ fontSize: "0.9rem", lineHeight: 1.5, margin: 0 }}>
                 Maintaining a 2,200 sq ft home at 70°F overnight with a central 80,000 BTU gas furnace or 3.5-ton heat pump during 28°F outdoor weather requires approximately <strong>2.5 therms of gas ($3.25/night)</strong> or <strong>24 kWh of heat pump electricity ($3.84/night)</strong>.<br />
                 <strong>Monthly Overnight Cost: $98 to $115/month</strong>
@@ -263,7 +263,7 @@ Space Heater Heat Output = 1 kWh Electricity → 1.0 kWh Thermal Energy (3,412 B
             </div>
 
             <div style={{ padding: "1rem", borderRadius: "0.5rem", background: "rgba(22, 163, 74, 0.06)", border: "1px solid rgba(22, 163, 74, 0.25)" }}>
-              <h5 style={{ margin: "0 0 0.5rem", color: "#16a34a" }}>✅ Option B: Thermostat Setback (62°F) + Bedroom Space Heater (70°F)</h5>
+              <h4 style={{ margin: "0 0 0.5rem", color: "#16a34a", fontSize: "0.95rem" }}>✅ Option B: Thermostat Setback (62°F) + Bedroom Space Heater (70°F)</h4>
               <p style={{ fontSize: "0.9rem", lineHeight: 1.5, margin: 0 }}>
                 Setting central thermostat back to 62°F cuts whole-house baseline heat loss by 40% ($1.95/night central load). Running one 1,500W space heater at 65% duty cycle in the occupied master bedroom adds <strong>7.8 kWh ($1.25/night)</strong>.<br />
                 <strong>Total Combined Cost: $3.20/night ($96.00/month) — Plus improved comfort</strong>

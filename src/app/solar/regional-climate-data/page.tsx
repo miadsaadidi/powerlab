@@ -5,7 +5,7 @@ import { DirectAnswerCard } from "@/components/seo/direct-answer-card";
 import { US_REGIONAL_CLIMATE_DATA } from "@/data/regional-climate-solar-data";
 
 export const metadata: Metadata = {
-  title: "U.S. Solar Insolation & ASHRAE Climatic Design Data (50 States)",
+  title: "U.S. Solar Insolation & ASHRAE Climatic Data",
   description:
     "Official NREL Peak Sun Hours, ASHRAE 99% winter / 1% summer design temperatures, and EIA electricity rates for all 50 U.S. states and major metropolitan areas.",
   alternates: {

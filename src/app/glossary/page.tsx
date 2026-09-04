@@ -5,7 +5,7 @@ import { buildPageMetadata } from "@/lib/seo/metadata-helper";
 import Link from "next/link";
 
 export const metadata: Metadata = buildPageMetadata({
-  title: "Clean Energy & Electrical Engineering Glossary | PowerLab",
+  title: "Clean Energy & Electrical Engineering Glossary",
   description: "Verified engineering terminology, governing equations, SI units, and standards for solar PV, battery storage, HVAC heat pumps, and EV charging.",
   canonicalPath: "/glossary",
 });

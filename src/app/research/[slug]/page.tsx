@@ -29,8 +29,8 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   }
 
   const baseMeta = buildPageMetadata({
-    title: `${paper.shortTitle} — Technical Report`,
-    description: paper.abstract,
+    title: paper.shortTitle,
+    description: paper.metaDescription || paper.abstract,
     canonicalPath: `/research/${paper.slug}`,
     category: paper.categorySlug,
     isArticle: true,
@@ -261,14 +261,14 @@ export default async function ResearchPaperPage({ params }: PageProps) {
         </h2>
         
         <div style={{ margin: "1rem 0" }}>
-          <h4 style={{ margin: "0 0 0.25rem", fontSize: "0.9rem", color: "var(--muted)" }}>APA Format:</h4>
+          <h3 style={{ margin: "0 0 0.25rem", fontSize: "0.95rem", color: "var(--brand-strong)" }}>APA Format:</h3>
           <pre style={{ padding: "0.75rem", background: "var(--surface)", borderRadius: "0.5rem", border: "1px solid var(--line)", fontSize: "0.85rem", overflowX: "auto", whiteSpace: "pre-wrap" }}>
             {paper.apaCitation}
           </pre>
         </div>
 
         <div style={{ margin: "1rem 0" }}>
-          <h4 style={{ margin: "0 0 0.25rem", fontSize: "0.9rem", color: "var(--muted)" }}>BibTeX Entry:</h4>
+          <h3 style={{ margin: "0 0 0.25rem", fontSize: "0.95rem", color: "var(--brand-strong)" }}>BibTeX Entry:</h3>
           <pre style={{ padding: "0.75rem", background: "var(--surface)", borderRadius: "0.5rem", border: "1px solid var(--line)", fontSize: "0.82rem", overflowX: "auto" }}>
             {paper.bibtex}
           </pre>

@@ -53,9 +53,9 @@ export function HeroQuickEstimator() {
           <span style={{ fontSize: "0.75rem", fontWeight: 700, textTransform: "uppercase", color: "#0284c7", letterSpacing: "0.05em" }}>
             ⚡ Instant Sizing Quick Check
           </span>
-          <h3 style={{ margin: "0.2rem 0 0", fontSize: "1.15rem", fontWeight: 700 }}>
+          <h2 style={{ margin: "0.2rem 0 0", fontSize: "1.15rem", fontWeight: 700 }}>
             Enter your monthly electric bill to estimate solar &amp; storage:
-          </h3>
+          </h2>
         </div>
         <span
           style={{
