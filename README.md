@@ -50,9 +50,10 @@ The architecture and docs cover all 20 tools, but the site publishes them by pha
 
 ## Deployment & Git Workflow
 
-- **Auto Vercel Deployments:** Connected directly to GitHub repository. Deployments trigger automatically on push / merge to `main`.
-- **Small Tweaks:** Minor UI, copy, meta, or bug fixes are committed directly to `main` without requiring a Pull Request.
-- **Medium & Large Updates:** Adding new pages, new calculator engines, guides, whitepapers, or multi-feature updates follow the GitHub Pull Request workflow (feature branch, pre-PR test/build verification, PR link, merge to `main`).
+- **Auto Vercel Deployments:** Connected directly to the GitHub repository. Deployments trigger automatically on push / merge to `main`.
+- **Small Tweaks (Direct to `main`):** Minor UI adjustments, text/copy corrections, meta tweaks, or single-file bug fixes are committed directly to `main` without requiring a Pull Request.
+- **Medium & Large Updates (MANDATORY PR):** Adding new calculators, pages, whitepapers, schema overhauls, or multi-feature updates require a dedicated feature branch (`feat/<slug>`), pre-PR test/typecheck verification, and an immediate formal GitHub Pull Request.
+- **Full Contribution Guide:** Refer to [CONTRIBUTING.md](file:///d:/powerlab/CONTRIBUTING.md) and [AGENTS.md](file:///d:/powerlab/AGENTS.md) for full branch lifecycle, review window (2-24h), and merge/branch cleanup procedures.
 
 ## Research provenance
 

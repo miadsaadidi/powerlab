@@ -27,23 +27,24 @@ There is **no Supabase, no authentication, no user-account system, no country ta
 Before changing implementation, read:
 
 1. `AGENTS.md`
-2. `README.md`
-3. `docs/01_PRODUCT_VISION.md`
-4. `docs/02_WEBSITE_ARCHITECTURE_AND_DESIGN.md`
-5. `docs/03_TECHNICAL_ARCHITECTURE.md`
-6. `docs/04_SEO_AND_GEO_STRATEGY.md`
-7. `docs/05_KEYWORD_AND_SERP_ANALYSIS.md`
-8. `docs/06_ENERGY_PROFILE_AND_DATA_MODEL.md`
-9. `docs/07_INITIAL_DATA_AND_DEFAULTS.md`
-10. `docs/08_CONTENT_AND_PAGE_TEMPLATE.md`
-11. `docs/09_IMPLEMENTATION_ROADMAP.md`
-12. `docs/10_TESTING_AND_ACCEPTANCE.md`
-13. `docs/11_ANALYTICS_AND_EVENTS.md`
-14. `docs/12_SOURCES_AND_METHODOLOGY.md`
-15. `docs/13_CALCULATOR_REGISTRY_AND_ROUTES.md`
-16. `docs/14_30_DAY_SEO_AND_BACKLINK_PLAN.md`
-17. `docs/outreach/04_DAILY_5_OUTREACH_TARGETS_AND_PITCHES.md`
-18. the relevant file under `docs/calculators/`
+2. `CONTRIBUTING.md`
+3. `README.md`
+4. `docs/01_PRODUCT_VISION.md`
+5. `docs/02_WEBSITE_ARCHITECTURE_AND_DESIGN.md`
+6. `docs/03_TECHNICAL_ARCHITECTURE.md`
+7. `docs/04_SEO_AND_GEO_STRATEGY.md`
+8. `docs/05_KEYWORD_AND_SERP_ANALYSIS.md`
+9. `docs/06_ENERGY_PROFILE_AND_DATA_MODEL.md`
+10. `docs/07_INITIAL_DATA_AND_DEFAULTS.md`
+11. `docs/08_CONTENT_AND_PAGE_TEMPLATE.md`
+12. `docs/09_IMPLEMENTATION_ROADMAP.md`
+13. `docs/10_TESTING_AND_ACCEPTANCE.md`
+14. `docs/11_ANALYTICS_AND_EVENTS.md`
+15. `docs/12_SOURCES_AND_METHODOLOGY.md`
+16. `docs/13_CALCULATOR_REGISTRY_AND_ROUTES.md`
+17. `docs/14_30_DAY_SEO_AND_BACKLINK_PLAN.md`
+18. `docs/outreach/04_DAILY_5_OUTREACH_TARGETS_AND_PITCHES.md`
+19. the relevant file under `docs/calculators/`
 
 ## Final public architecture
 
@@ -275,30 +276,45 @@ Vercel is connected directly to Git. Production deployments are **fully automate
 - **Automated Deployments:** Deployments trigger automatically via Git integration upon push/merge. Manual deployment scripts are deprecated/fallback only.
 - **Never Expose Secrets:** Never print, copy, commit, or expose token values, API keys, or private environment variables in source code, logs, or chat messages.
 
-## Git & GitHub Pull Request Protocol (Institutional Trust & Research Provenance)
+## Git & GitHub Pull Request Protocol (Production-Grade Branch Lifecycle)
 
-The GitHub Pull Request history serves as a **verifiable, public audit log and proof of engineering rigor** for external collaborators, clean energy research laboratories, university engineering faculties, and institutional investors.
+All code modifications and contributions must strictly follow this production-grade GitHub Pull Request (PR) and branch lifecycle protocol (also codified in `CONTRIBUTING.md`):
 
-Development workflow is partitioned by the scope of changes:
+### 1. Scale Thresholds
+- **Small Tweaks (No PR Required):** Direct commits to `main` for simple text/copy corrections, minor CSS refinements, small metadata tweaks, or isolated single-file bug fixes. Vercel automatically deploys `main` to Production.
+- **Medium & Large Updates (MANDATORY PR):** Dedicated feature branch (`feat/<slug>`, `refactor/<slug>`, `docs/<slug>`, `fix/<slug>`) and a formal GitHub Pull Request for multi-feature additions, new routes/pages, major mathematical refactors, or schema architectures. Direct commits to `main` for these scopes are strictly forbidden.
 
-### 1. Small Tweaks & Minor Fixes (Direct to `main`, No PR Needed)
-- **Scope:** Minor UI adjustments, CSS refinements, typo fixes, copy updates, small metadata tweaks, isolated single-line bug fixes.
-- **Action:** Commit and push directly to `main`. Vercel automatically deploys the update.
+### 2. Pre-PR Verification Gate (MANDATORY)
+Before pushing any branch to `origin` or creating a PR, you MUST run and pass:
+1. **Unit tests:** `npm test` (100% passing across all suites).
+2. **Typecheck:** `npm run typecheck` / `tsc --noEmit` (0 compilation errors).
+3. **Static build (recommended):** `npm run build` (Clean static route generation).
 
-### 2. Medium & Large Updates (GitHub Pull Request Required)
-- **Scope:** Adding new pages, new calculator engines, technical whitepapers, guides, multi-feature batches, schema overhauls, architectural refactoring, or API integrations.
-- **Action:**
-  1. **Semantic Feature Branching:** Always branch off `main` to a semantic feature branch (e.g. `git checkout -b feat/bess-degradation-model` or `feat/ieee-1547-interconnection`).
-  2. **Pre-PR Verification:** Run unit tests (`npm test`), TypeScript verification (`npm run typecheck`), and static build (`npm run build`) before pushing.
-  3. **Push & Create GitHub PR:** Push to `origin <branch-name>` and provide the direct GitHub PR creation link.
-  4. **Structured PR Documentation:** Use `.github/pull_request_template.md` to document:
-     - **Strategic Context & Executive Summary**
-     - **Governing Mathematical Models & Standards Cited** (IEEE, NFPA/NEC, NREL SAM, ASHRAE, IEC)
-     - **Verification Suite Proofs** (exact test counts, 0 type errors, static route generation)
-     - **Institutional & Academic Relevance** (syllabus integration, laboratory reproducibility)
-  5. **Merge Traceability:** Merge into `main` to trigger automated Vercel deployment and build a permanent, peer-reviewable GitHub history that establishes institutional trust with investors, laboratories, and academic bodies.
+### 3. Immediate Formal PR Creation on Push (NEVER STOP AT RAW PUSH)
+Whenever you create and push a feature branch (`git push -u origin feat/<slug>`):
+- **You MUST IMMEDIATELY open the formal Pull Request on GitHub** (via GitHub API / CLI / GitHub web interface).
+- **Never stop at simply pushing the branch.** The PR must appear as **OPEN** in the repository's GitHub Pull Requests tab immediately.
+- The PR description must adhere to `.github/pull_request_template.md` and include:
+  - **Overview & Domain Motivation**
+  - **Governing Mathematical Models & Standards Cited** (IEEE, NFPA/NEC, NREL SAM, ASHRAE, IEC)
+  - **Key Technical Changes Breakdown** (Engines, UI, Datasets, SEO Schema)
+  - **Validation & Test Matrix Evidence** (Exact test counts, 0 type errors, clean static build)
+  - **Institutional & Academic Relevance** (Syllabus integration, laboratory reproducibility)
 
-A page is not done because the formula runs. It is done when:
+### 4. Review Window & Vercel Preview
+- Leave PRs open for a realistic review window (**2 to 24 hours**) for thorough peer inspection, UX testing, and mobile responsiveness validation.
+- Vercel automatically generates and maintains an isolated Preview Deployment with a dedicated preview URL for the open PR.
+
+### 5. Clean Merge & Branch Deletion
+When authorized to merge:
+1. **Merge through GitHub:** Merge the PR so that it is permanently marked as **Closed / Merged** in GitHub PR history.
+2. **Delete Remote Branch:** Delete the remote feature branch (`origin/feat/<slug>`) from GitHub.
+3. **Clean Local Git:** Checkout `main`, pull the merged changes, delete the local branch (`git branch -d feat/<slug>`), and prune remote tracking (`git fetch --prune`).
+4. **Active Branch & Production Verification:** Vercel automatically removes the preview branch from "Active Branches" and deploys `main` to Production.
+
+---
+
+A page or calculator feature is not done because the formula runs. It is done when:
 
 - engine and tests pass;
 - UI is usable on mobile and keyboard;
