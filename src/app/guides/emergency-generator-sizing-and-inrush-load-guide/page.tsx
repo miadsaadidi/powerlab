@@ -430,7 +430,7 @@ export default function EmergencyGeneratorGuidePage() {
       <section>
         <h2>Methodology and Standards</h2>
         <p>
-          Calculations follow NFPA 70 (NEC Article 702), IEEE Std 446 (Orange Book), and NEMA MG-1 motor inrush standards. Review our complete <Link href="/methodology">calculation methodology</Link> and <Link href="/sources">engineering sources</Link>.
+          Calculations follow NFPA 70 (NEC Article 702), IEEE Std 446 (Orange Book), and NEMA MG-1 motor inrush standards. For complete mathematical proofs on sub-transient reactance ($X&apos;&apos;_d$) and inductive surge envelopes, read our technical report: <Link href="/research/deterministic-inrush-load-stacking-generator-sizing" style={{ color: "var(--brand-strong)", fontWeight: 700, textDecoration: "underline" }}>Deterministic Modeling of Inductive Motor Inrush Currents (PL-TR-2026-GEN02)</Link>. Review our complete <Link href="/methodology">calculation methodology</Link> and <Link href="/sources">engineering sources</Link>.
         </p>
       </section>
 

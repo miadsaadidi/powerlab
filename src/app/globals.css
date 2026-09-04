@@ -89,6 +89,7 @@ a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible
   }
   .button, .secondary-button, .text-button, input, select, textarea, summary {
     min-height: 44px;
+    font-size: 16px !important;
   }
   .footer-link {
     min-height: 44px;

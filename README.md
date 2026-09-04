@@ -48,6 +48,12 @@ Start with `AGENTS.md`, then read `docs/01_...` through `docs/13_...` in numeric
 
 The architecture and docs cover all 20 tools, but the site publishes them by phase. Planned routes must not exist as thin/indexable placeholders.
 
+## Deployment & Git Workflow
+
+- **Auto Vercel Deployments:** Connected directly to GitHub repository. Deployments trigger automatically on push / merge to `main`.
+- **Small Tweaks:** Minor UI, copy, meta, or bug fixes are committed directly to `main` without requiring a Pull Request.
+- **Medium & Large Updates:** Adding new pages, new calculator engines, guides, whitepapers, or multi-feature updates follow the GitHub Pull Request workflow (feature branch, pre-PR test/build verification, PR link, merge to `main`).
+
 ## Research provenance
 
 Keyword volumes and Google Ads competition come from the supplied Google Keyword Planner exports, reporting approximately July 2025–June 2026. Organic competition values come from the manual SERP review recorded 2026-08-10. External technical assumptions are documented in `docs/12_SOURCES_AND_METHODOLOGY.md` and the static-data specification.

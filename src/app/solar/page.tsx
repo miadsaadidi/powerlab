@@ -216,18 +216,21 @@ export default function SolarHub() {
       </div>
     </section>
     <section className="hub-support" aria-labelledby="solar-guides-heading">
-      <h2 id="solar-guides-heading">Featured Solar Engineering Guides</h2>
-      <p>Explore our peer-reviewed technical reference guides for solar photovoltaic installation and system design:</p>
+      <h2 id="solar-guides-heading">Featured Solar Engineering Guides &amp; Datasets</h2>
+      <p>Explore our peer-reviewed technical reference guides, datasets, and preprints for solar photovoltaic system design:</p>
       <div className="supporting-links" style={{ display: "flex", flexWrap: "wrap", gap: "0.85rem", marginTop: "0.75rem" }}>
+        <Link href="/solar/regional-climate-data" className="footer-link">🗺️ 50-State NREL Solar &amp; ASHRAE Climatic Database</Link>
         <Link href="/guides/solar-panel-tilt-angle-by-latitude-and-season-guide" className="footer-link">☀️ Solar Panel Tilt Angle by Latitude &amp; Season Guide</Link>
         <Link href="/guides/mppt-solar-charge-controller-sizing-guide" className="footer-link">⚡ MPPT vs PWM Solar Charge Controller Sizing Guide</Link>
+        <Link href="/guides/solar-payback-and-roi-calculation-guide" className="footer-link">📈 Solar Payback &amp; ROI Calculation Guide</Link>
+        <Link href="/research/ground-view-factor-snow-albedo-pv-tilt" className="footer-link">🔬 Research: Snow Albedo &amp; Sub-Zero Voc Expansion Paper</Link>
         <Link href="/guides" className="footer-link">📚 All Engineering Guides</Link>
       </div>
     </section>
     <section className="hub-support" aria-labelledby="solar-method-heading">
       <h2 id="solar-method-heading">Deterministic calculations &amp; verified laboratory models</h2>
       <p>Our solar tools pair local geometry heuristics with NREL PVWatts V8 solar irradiance data. Every technical assumption (losses, inverter efficiency, DC-to-AC ratio) is visible and user-editable.</p>
-      <p><Link href="/methodology">Read the solar methodology</Link> or <Link href="/sources">review laboratory sources</Link>.</p>
+      <p>Consult our <Link href="/solar/regional-climate-data">50-State Regional Climate Data</Link>, <Link href="/research">read published research papers</Link>, <Link href="/methodology">inspect our methodology</Link>, or <Link href="/sources">review laboratory sources</Link>.</p>
     </section>
   </section>;
 }

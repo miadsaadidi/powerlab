@@ -323,9 +323,15 @@ export default function SolarTiltGuidePage() {
       <section id="sources-methodology" style={{ marginTop: "2.5rem", padding: "1.5rem", borderRadius: "0.85rem", background: "var(--surface)", border: "1px solid var(--line)" }}>
         <h2 style={{ marginTop: 0 }}>Methodology &amp; Standards Citations</h2>
         <p style={{ fontSize: "0.95rem", lineHeight: 1.6, color: "var(--muted)" }}>
-          Calculations implement mathematical algorithms from the <strong>National Renewable Energy Laboratory (NREL PVWatts V8 &amp; SPA)</strong>, <strong>IEC 61724</strong> photovoltaic monitoring standards, and <strong>ASHRAE</strong> clear-sky solar irradiance formulas.
+          Calculations implement mathematical algorithms from the <strong>National Renewable Energy Laboratory (NREL PVWatts V8 &amp; SPA)</strong>, <strong>IEC 61724</strong> photovoltaic monitoring standards, and <strong>ASHRAE</strong> clear-sky solar irradiance formulas. For snow albedo diffuse boost and sub-zero <em>V<sub>oc</sub></em> expansion formulas under NEC 690.7, read our technical report: <Link href="/research/ground-view-factor-snow-albedo-pv-tilt" style={{ color: "var(--brand-strong)", fontWeight: 700, textDecoration: "underline" }}>Ground View Factor Transposition &amp; Snow Albedo (PL-TR-2026-SOL03)</Link>.
         </p>
         <div style={{ display: "flex", flexWrap: "wrap", gap: "1rem", marginTop: "1rem" }}>
+          <Link href="/solar/regional-climate-data" style={{ fontSize: "0.9rem", fontWeight: 600, color: "var(--accent)" }}>
+            50-State NREL Solar &amp; Climate Database →
+          </Link>
+          <Link href="/research/ground-view-factor-snow-albedo-pv-tilt" style={{ fontSize: "0.9rem", fontWeight: 600, color: "var(--accent)" }}>
+            Read Solar Research Report (PL-TR-2026-SOL03) →
+          </Link>
           <Link href="/methodology" style={{ fontSize: "0.9rem", fontWeight: 600, color: "var(--accent)" }}>
             Full PowerLab Calculation Methodology →
           </Link>

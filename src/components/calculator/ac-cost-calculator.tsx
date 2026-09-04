@@ -216,6 +216,7 @@ export function AcCostCalculator() {
                     <input
                       id="ac-watts"
                       type="number"
+                      inputMode="decimal"
                       min="100"
                       step="50"
                       value={nameplateWatts}
@@ -261,6 +262,7 @@ export function AcCostCalculator() {
                   <input
                     id="ac-hours"
                     type="number"
+                    inputMode="decimal"
                     min="1"
                     max="24"
                     step="1"
@@ -276,6 +278,7 @@ export function AcCostCalculator() {
                   <input
                     id="ac-rate"
                     type="number"
+                    inputMode="decimal"
                     min="0.01"
                     step="0.01"
                     value={electricityRate}
