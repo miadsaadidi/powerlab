@@ -32,7 +32,7 @@ export function FormulaCard({
   latexFormula,
   citationTitle,
   bibtexKey,
-  doi = "10.6084/m9.figshare.33321774",
+  doi,
   standardAuthority = "IEEE Std 485 / NFPA 70 NEC / NREL PVWatts / ASHRAE 90.1",
 }: FormulaCardProps) {
   const [activeTab, setActiveTab] = useState<DisplayTab>("code");

@@ -420,11 +420,59 @@ export default function EmergencyGeneratorGuidePage() {
         </div>
       </section>
 
-      <section id="related-tools">
-        <h2>Related Emergency Power &amp; Electrical Sizing Tools</h2>
-        <p>
-          Planning comprehensive blackout resilience or clean energy backup? Calculate battery inverter capacity with the <Link href="/battery/inverter-size-calculator">Inverter Size Calculator</Link>, model whole-home battery backup with the <Link href="/battery/battery-size-calculator">Battery Size Calculator</Link>, estimate battery runtimes with the <Link href="/battery/battery-runtime-calculator">Battery Runtime Calculator</Link>, size generator transfer switch cables with the <Link href="/battery/voltage-drop-calculator">Voltage Drop Calculator</Link>, or examine AC compressor power draws in our <Link href="/guides/central-ac-and-heat-pump-electricity-cost-guide">Central AC &amp; Heat Pump Cost Guide</Link>.
+      <section id="related-tools" style={{ marginTop: "3rem", padding: "1.75rem", borderRadius: "0.85rem", background: "var(--surface)", border: "1px solid var(--line)" }}>
+        <h2 style={{ marginTop: 0, fontSize: "1.35rem", color: "var(--brand-strong)" }}>Related Emergency Backup &amp; Inrush Sizing Tools</h2>
+        <p style={{ marginBottom: "1.25rem", color: "var(--muted)", lineHeight: 1.55 }}>
+          Plan continuous backup resilience across fuel, inverter, and battery storage architectures:
         </p>
+
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(260px, 1fr))", gap: "1rem" }}>
+          <div style={{ padding: "1.25rem", borderRadius: "0.75rem", background: "var(--surface-subtle, #fafafa)", border: "1px solid var(--line)" }}>
+            <h3 style={{ margin: "0 0 0.5rem", fontSize: "1.05rem", color: "var(--brand-strong)" }}>⚡ Emergency Generator Size Calculator</h3>
+            <p style={{ fontSize: "0.88rem", color: "var(--muted)", margin: "0 0 0.75rem", lineHeight: 1.5 }}>
+              Select specific appliances, apply fuel derating factors, and compute exact running and starting generator wattage.
+            </p>
+            <Link href="/home-energy/generator-size-calculator" className="button secondary-button" style={{ width: "100%", textAlign: "center", display: "block" }}>
+              Generator Sizing Calculator →
+            </Link>
+          </div>
+
+          <div style={{ padding: "1.25rem", borderRadius: "0.75rem", background: "var(--surface-subtle, #fafafa)", border: "1px solid var(--line)" }}>
+            <h3 style={{ margin: "0 0 0.5rem", fontSize: "1.05rem", color: "var(--brand-strong)" }}>🔋 Portable Power Station Calculator</h3>
+            <p style={{ fontSize: "0.88rem", color: "var(--muted)", margin: "0 0 0.75rem", lineHeight: 1.5 }}>
+              Calculate runtime hours for camping, CPAP machines, and blackouts with inverter tare loss and surge watts.
+            </p>
+            <Link href="/battery/portable-power-station-calculator" className="button secondary-button" style={{ width: "100%", textAlign: "center", display: "block" }}>
+              Portable Power Station Calc →
+            </Link>
+          </div>
+
+          <div style={{ padding: "1.25rem", borderRadius: "0.75rem", background: "var(--surface-subtle, #fafafa)", border: "1px solid var(--line)" }}>
+            <h3 style={{ margin: "0 0 0.5rem", fontSize: "1.05rem", color: "var(--brand-strong)" }}>🔄 Inverter Sizing Calculator</h3>
+            <p style={{ fontSize: "0.88rem", color: "var(--muted)", margin: "0 0 0.75rem", lineHeight: 1.5 }}>
+              Size off-grid and backup DC-to-AC inverters for continuous power draw and 3x motor surge starting requirements.
+            </p>
+            <Link href="/battery/inverter-size-calculator" className="button secondary-button" style={{ width: "100%", textAlign: "center", display: "block" }}>
+              Inverter Size Calculator →
+            </Link>
+          </div>
+
+          <div style={{ padding: "1.25rem", borderRadius: "0.75rem", background: "var(--surface-subtle, #fafafa)", border: "1px solid var(--line)" }}>
+            <h3 style={{ margin: "0 0 0.5rem", fontSize: "1.05rem", color: "var(--brand-strong)" }}>🔌 Appliance Wattage Audit</h3>
+            <p style={{ fontSize: "0.88rem", color: "var(--muted)", margin: "0 0 0.75rem", lineHeight: 1.5 }}>
+              Lookup nameplate running and starting watts for refrigerators, sump pumps, well pumps, and air compressors.
+            </p>
+            <Link href="/home-energy/appliance-wattage-calculator" className="button secondary-button" style={{ width: "100%", textAlign: "center", display: "block" }}>
+              Appliance Wattage Calculator →
+            </Link>
+          </div>
+        </div>
+
+        <div style={{ marginTop: "1rem", display: "flex", gap: "0.5rem", flexWrap: "wrap" }}>
+          <Link href="/battery/battery-size-calculator" className="button secondary-button" style={{ fontSize: "0.85rem" }}>Battery Size Calculator</Link>
+          <Link href="/battery/voltage-drop-calculator" className="button secondary-button" style={{ fontSize: "0.85rem" }}>Voltage Drop Calculator</Link>
+          <Link href="/guides/voltage-drop-and-wire-size-calculation-guide" className="button secondary-button" style={{ fontSize: "0.85rem" }}>Wire Sizing Guide</Link>
+        </div>
       </section>
 
       <section>

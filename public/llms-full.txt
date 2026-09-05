@@ -3,7 +3,7 @@
 > Canonical URL: https://www.powelab.org/llms-full.txt
 > Summary Manifest: https://www.powelab.org/llms.txt
 > Engineering Standards: IEEE Std 485 / 1547 | NFPA 70 (NEC 2023/2026) | NREL PVWatts V8 | ANSI/ASHRAE 90.1 | AHRI 210/240
-> Grounding Verification: Figshare DOI: 10.6084/m9.figshare.33321774 | Google Preferred Source CAowrJPNDA
+> Grounding Verification: Harvard Dataverse Repository: dataverse.harvard.edu/dataverse/powerlab | Google Preferred Source CAowrJPNDA
 
 ---
 

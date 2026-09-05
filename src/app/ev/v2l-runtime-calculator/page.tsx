@@ -183,11 +183,59 @@ export default function V2lRuntimePage() {
         </div>
       </section>
 
-      <section id="related-tools">
-        <h2>Related EV &amp; Emergency Backup Planning</h2>
-        <p>
-          Estimate your real-world driving range with our <Link href="/ev/ev-range-calculator">EV Range Calculator</Link>, compare vehicle storage with stationary batteries using the <Link href="/home-energy/home-battery-size-calculator">Home Battery Size Calculator</Link>, or check portable power durations with the <Link href="/battery/portable-power-station-calculator">Portable Power Station Calculator</Link>.
+      <section id="related-tools" style={{ marginTop: "3rem", padding: "1.75rem", borderRadius: "0.85rem", background: "var(--surface)", border: "1px solid var(--line)" }}>
+        <h2 style={{ marginTop: 0, fontSize: "1.35rem", color: "var(--brand-strong)" }}>Related Electric Vehicle &amp; Energy Planning Tools</h2>
+        <p style={{ marginBottom: "1.25rem", color: "var(--muted)", lineHeight: 1.55 }}>
+          Plan driving range, charging infrastructure, and stationary backup integration:
         </p>
+
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(260px, 1fr))", gap: "1rem" }}>
+          <div style={{ padding: "1.25rem", borderRadius: "0.75rem", background: "var(--surface-subtle, #fafafa)", border: "1px solid var(--line)" }}>
+            <h3 style={{ margin: "0 0 0.5rem", fontSize: "1.05rem", color: "var(--brand-strong)" }}>🚗 EV Driving Range Calculator</h3>
+            <p style={{ fontSize: "0.88rem", color: "var(--muted)", margin: "0 0 0.75rem", lineHeight: 1.5 }}>
+              Calculate real-world highway range based on speed drag, winter temperatures, and battery state of charge.
+            </p>
+            <Link href="/ev/ev-range-calculator" className="button secondary-button" style={{ width: "100%", textAlign: "center", display: "block" }}>
+              EV Range Calculator →
+            </Link>
+          </div>
+
+          <div style={{ padding: "1.25rem", borderRadius: "0.75rem", background: "var(--surface-subtle, #fafafa)", border: "1px solid var(--line)" }}>
+            <h3 style={{ margin: "0 0 0.5rem", fontSize: "1.05rem", color: "var(--brand-strong)" }}>⚡ EV Charger Breaker Sizing</h3>
+            <p style={{ fontSize: "0.88rem", color: "var(--muted)", margin: "0 0 0.75rem", lineHeight: 1.5 }}>
+              Size circuit breakers and wire gauge (AWG) under NEC 625 125% continuous-duty rules for Level 2 EVSE.
+            </p>
+            <Link href="/ev/ev-charger-breaker-size-calculator" className="button secondary-button" style={{ width: "100%", textAlign: "center", display: "block" }}>
+              EV Breaker Size Calculator →
+            </Link>
+          </div>
+
+          <div style={{ padding: "1.25rem", borderRadius: "0.75rem", background: "var(--surface-subtle, #fafafa)", border: "1px solid var(--line)" }}>
+            <h3 style={{ margin: "0 0 0.5rem", fontSize: "1.05rem", color: "var(--brand-strong)" }}>⏱️ EV Charging Time Calculator</h3>
+            <p style={{ fontSize: "0.88rem", color: "var(--muted)", margin: "0 0 0.75rem", lineHeight: 1.5 }}>
+              Model charge durations across Level 1 (120V), Level 2 (240V), and DC Fast Charging with taper curves.
+            </p>
+            <Link href="/ev/ev-charging-time-calculator" className="button secondary-button" style={{ width: "100%", textAlign: "center", display: "block" }}>
+              EV Charging Time Calc →
+            </Link>
+          </div>
+
+          <div style={{ padding: "1.25rem", borderRadius: "0.75rem", background: "var(--surface-subtle, #fafafa)", border: "1px solid var(--line)" }}>
+            <h3 style={{ margin: "0 0 0.5rem", fontSize: "1.05rem", color: "var(--brand-strong)" }}>🔋 Portable Power Station Sizing</h3>
+            <p style={{ fontSize: "0.88rem", color: "var(--muted)", margin: "0 0 0.75rem", lineHeight: 1.5 }}>
+              Compare high-voltage vehicle V2L battery output against standalone LFP portable power station capacities.
+            </p>
+            <Link href="/battery/portable-power-station-calculator" className="button secondary-button" style={{ width: "100%", textAlign: "center", display: "block" }}>
+              Portable Power Station Calc →
+            </Link>
+          </div>
+        </div>
+
+        <div style={{ marginTop: "1rem", display: "flex", gap: "0.5rem", flexWrap: "wrap" }}>
+          <Link href="/home-energy/home-battery-size-calculator" className="button secondary-button" style={{ fontSize: "0.85rem" }}>Home Battery Size Calculator</Link>
+          <Link href="/ev/ev-savings-calculator" className="button secondary-button" style={{ fontSize: "0.85rem" }}>EV vs Gas Savings Calculator</Link>
+          <Link href="/guides/level-2-ev-charging-speed-and-breaker-sizing-guide" className="button secondary-button" style={{ fontSize: "0.85rem" }}>EV Charging Speed Guide</Link>
+        </div>
       </section>
 
       <section>

@@ -58,7 +58,7 @@ describe("structured-data", () => {
 
     // Authority sameAs links
     expect(webApp.author.sameAs).toEqual(SHARED_AUTHORITY_SAME_AS);
-    expect(webApp.author.sameAs).toContain("https://doi.org/10.6084/m9.figshare.33321774");
+    expect(webApp.author.sameAs).toContain("https://dataverse.harvard.edu/dataverse/powerlab");
 
     const faqPage = data.find((item) => item["@type"] === "FAQPage") as any;
     expect(faqPage).toBeDefined();

@@ -407,18 +407,59 @@ ROI (%) = (Lifetime Net Profit ÷ Net Initial Cost) × 100%`}</code>
       </section>
 
       {/* Section 8: Related Calculators & Planning Paths */}
-      <section id="related-tools" style={{ marginTop: "3rem", padding: "1.5rem", borderRadius: "0.85rem", background: "var(--surface)", border: "1px solid var(--line)" }}>
-        <h2 style={{ marginTop: 0, fontSize: "1.3rem", color: "var(--brand-strong)" }}>Related Solar &amp; Financial Planning Tools</h2>
-        <p style={{ marginBottom: "1rem", color: "var(--muted)", lineHeight: 1.55 }}>
+      <section id="related-tools" style={{ marginTop: "3rem", padding: "1.75rem", borderRadius: "0.85rem", background: "var(--surface)", border: "1px solid var(--line)" }}>
+        <h2 style={{ marginTop: 0, fontSize: "1.35rem", color: "var(--brand-strong)" }}>Complete Your Solar Photovoltaic Design &amp; Financial Model</h2>
+        <p style={{ marginBottom: "1.25rem", color: "var(--muted)", lineHeight: 1.55 }}>
           Integrate your payback projections with PowerLab&apos;s connected deterministic clean energy calculation engines:
         </p>
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))", gap: "0.75rem" }}>
-          <Link href="/solar/solar-payback-calculator" className="button secondary-button">Solar Payback Calculator</Link>
-          <Link href="/solar/solar-panel-output-calculator" className="button secondary-button">Solar Panel Output Calculator</Link>
-          <Link href="/solar/solar-panel-tilt-calculator" className="button secondary-button">Solar Panel Tilt Calculator</Link>
-          <Link href="/solar/solar-battery-bank-size-calculator" className="button secondary-button">Solar Battery Bank Sizing</Link>
-          <Link href="/home-energy/home-battery-size-calculator" className="button secondary-button">Home Battery Size Calculator</Link>
-          <Link href="/home-energy/electricity-usage-calculator" className="button secondary-button">Electricity Usage Calculator</Link>
+
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(260px, 1fr))", gap: "1rem" }}>
+          <div style={{ padding: "1.25rem", borderRadius: "0.75rem", background: "var(--surface-subtle, #fafafa)", border: "1px solid var(--line)" }}>
+            <h3 style={{ margin: "0 0 0.5rem", fontSize: "1.05rem", color: "var(--brand-strong)" }}>☀️ Solar Panel Output Calculator</h3>
+            <p style={{ fontSize: "0.88rem", color: "var(--muted)", margin: "0 0 0.75rem", lineHeight: 1.5 }}>
+              Calculate exact daily, monthly, and annual kilowatt-hour generation with peak sun hours and inverter derating.
+            </p>
+            <Link href="/solar/solar-panel-output-calculator" className="button secondary-button" style={{ width: "100%", textAlign: "center", display: "block" }}>
+              Calculate Solar Panel Output →
+            </Link>
+          </div>
+
+          <div style={{ padding: "1.25rem", borderRadius: "0.75rem", background: "var(--surface-subtle, #fafafa)", border: "1px solid var(--line)" }}>
+            <h3 style={{ margin: "0 0 0.5rem", fontSize: "1.05rem", color: "var(--brand-strong)" }}>📐 Solar System Size Calculator</h3>
+            <p style={{ fontSize: "0.88rem", color: "var(--muted)", margin: "0 0 0.75rem", lineHeight: 1.5 }}>
+              Size your DC kW array to offset 100% of your home electric bill based on monthly kWh utility usage.
+            </p>
+            <Link href="/solar/solar-panel-size-calculator" className="button secondary-button" style={{ width: "100%", textAlign: "center", display: "block" }}>
+              Solar Panel Size Calculator →
+            </Link>
+          </div>
+
+          <div style={{ padding: "1.25rem", borderRadius: "0.75rem", background: "var(--surface-subtle, #fafafa)", border: "1px solid var(--line)" }}>
+            <h3 style={{ margin: "0 0 0.5rem", fontSize: "1.05rem", color: "var(--brand-strong)" }}>🔋 Solar Battery Bank Sizing</h3>
+            <p style={{ fontSize: "0.88rem", color: "var(--muted)", margin: "0 0 0.75rem", lineHeight: 1.5 }}>
+              Calculate usable battery storage capacity (kWh &amp; Ah) for off-grid autonomy or NEM 3.0 peak rate shifting.
+            </p>
+            <Link href="/solar/solar-battery-bank-size-calculator" className="button secondary-button" style={{ width: "100%", textAlign: "center", display: "block" }}>
+              Solar Battery Bank Calculator →
+            </Link>
+          </div>
+
+          <div style={{ padding: "1.25rem", borderRadius: "0.75rem", background: "var(--surface-subtle, #fafafa)", border: "1px solid var(--line)" }}>
+            <h3 style={{ margin: "0 0 0.5rem", fontSize: "1.05rem", color: "var(--brand-strong)" }}>🌐 Optimal Solar Panel Tilt</h3>
+            <p style={{ fontSize: "0.88rem", color: "var(--muted)", margin: "0 0 0.75rem", lineHeight: 1.5 }}>
+              Calculate exact seasonal and year-round tilt angles based on your geographic latitude and local albedo.
+            </p>
+            <Link href="/solar/solar-panel-tilt-calculator" className="button secondary-button" style={{ width: "100%", textAlign: "center", display: "block" }}>
+              Solar Panel Tilt Calculator →
+            </Link>
+          </div>
+        </div>
+
+        <div style={{ marginTop: "1rem", display: "flex", gap: "0.5rem", flexWrap: "wrap" }}>
+          <Link href="/home-energy/home-battery-size-calculator" className="button secondary-button" style={{ fontSize: "0.85rem" }}>Home Battery Size Calculator</Link>
+          <Link href="/home-energy/electricity-usage-calculator" className="button secondary-button" style={{ fontSize: "0.85rem" }}>Electricity Usage Calculator</Link>
+          <Link href="/guides/solar-panel-tilt-angle-by-latitude-and-season-guide" className="button secondary-button" style={{ fontSize: "0.85rem" }}>Solar Tilt Angle Guide</Link>
+          <Link href="/guides/mppt-solar-charge-controller-sizing-guide" className="button secondary-button" style={{ fontSize: "0.85rem" }}>MPPT Controller Sizing Guide</Link>
         </div>
       </section>
 

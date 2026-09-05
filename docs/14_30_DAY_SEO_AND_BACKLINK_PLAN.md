@@ -61,8 +61,12 @@ Target communities and authoritative institutions where educators, editors, and 
   3. **Pillar 4 (AI Overviews / GEO):** Spot-check 2 target keywords in Google AI Overviews and Perplexity to verify PowerLab direct answer citation.
   4. **Pillar 1 (Zero-Spam Trust Moat):** Scan 1 technical forum thread (DIY Solar, TMC, Reddit) complaining about solar lead-broker spam; share PowerLab with emphasis on *no email / 100% private*.
   5. **Pillar 5 (Institutional Outreach):** Send 5 targeted emails from `docs/outreach/04_*`.
-  6. **Pillar 5 (Authority & Backlinks — Medium):** Starting **September 1, 2026**, execute the **15-article 30-day Medium Publishing Schedule** (1 technical teardown every 2 days; details in [`docs/outreach/05_MEDIUM_PUBLISHING_AND_INTERLINKING_TRACKER.md`](file:///d:/powerlab/docs/outreach/05_MEDIUM_PUBLISHING_AND_INTERLINKING_TRACKER.md)). *Mandatory Link Budget:* Max 4–5 links per post (1 primary PowerLab tool + max 1 secondary PowerLab tool + 1–2 external standards [NREL, DOE, IEEE, AHRI, NFPA 70] + 1 sister Medium post).
-  7. **Pillar 5 (Academic Backlinks):** Send 72h follow-ups; maintain working papers on Academia.edu, Figshare (DOI: `10.6084/m9.figshare.33321774`), and Internet Archive.
+  6. **Core 1 (Medium — DA 96):** 1 engineering teardown every 2 days (started Sep 1, 2026; tracker in [`docs/outreach/05_MEDIUM_PUBLISHING_AND_INTERLINKING_TRACKER.md`](file:///d:/powerlab/docs/outreach/05_MEDIUM_PUBLISHING_AND_INTERLINKING_TRACKER.md)).
+  7. **Core 2 (DEV.to — DA 91):** 1 developer/TypeScript energy post every 2 days (started Sep 4, 2026; schedule in [`docs/outreach/08_DEV_TO_PUBLISHING_SCHEDULE_AND_TEMPLATES.md`](file:///d:/powerlab/docs/outreach/08_DEV_TO_PUBLISHING_SCHEDULE_AND_TEMPLATES.md)).
+  8. **Core 3 (Harvard Dataverse — DA 93):** Deposit 1 flagship benchmark dataset/paper **every week** to mint permanent Harvard DOIs (`doi:10.7910/DVN/...`) (schedule in [`docs/outreach/09_HARVARD_DATAVERSE_DATASET_DEPOSIT_SCHEDULE.md`](file:///d:/powerlab/docs/outreach/09_HARVARD_DATAVERSE_DATASET_DEPOSIT_SCHEDULE.md)).
+  9. **Core 4 (Academia.edu — DA 93):** Publish 2 working papers / discussion updates **per week** (schedule & tracker in [`docs/outreach/06_ACADEMIA_EDU_PUBLISHING_TEMPLATE.md`](file:///d:/powerlab/docs/outreach/06_ACADEMIA_EDU_PUBLISHING_TEMPLATE.md)).
+  10. **Core 5 (Internet Archive — DA 99):** Permanent archival upload of every whitepaper, specification, and methodology document every 2 days (schedule in [`docs/outreach/12_INTERNET_ARCHIVE_PUBLISHING_SCHEDULE.md`](file:///d:/powerlab/docs/outreach/12_INTERNET_ARCHIVE_PUBLISHING_SCHEDULE.md)).
+  11. **Academic Triad Integration:** Execute pipeline: *Academia.edu Working Paper (2x/wk) ➔ Internet Archive Preservation (1:1) ➔ Harvard Dataverse Flagship Selection (1x/wk DOI)*.
 
 * [x] **Day 8 — AlternativeTo Submission & Indexing (DA 84)**:
   * Submit PowerLab to **AlternativeTo.net** as an open-access, ad-free alternative to *PVWatts*, *Victron MPPT Calculator*, *HOMER Energy*, and *SolarEdge Designer*.
@@ -74,14 +78,15 @@ Target communities and authoritative institutions where educators, editors, and 
   * Submit to curated software directories: AlternativeTo, Product Hunt, and Hacker News Show HN.
 * [x] **Day 12 — Daily 5 Outreach (Batch 1: University Engineering Faculty .edu)**:
   * Sent 5 personalized technical pitches to top academic energy programs (Stanford S3L, NREL PV reliability, Appalachian State, UT Knoxville CURENT, NC State NCCETC).
-  * **Working Paper #2 Live on Figshare with DOI:** `10.6084/m9.figshare.33321774`.
+  * **Working Papers Live on Academia.edu & Internet Archive**.
 * [x] **Day 13 — Daily 5 Outreach (Batch 2: Electrical Apprentice Training Directors)**:
   * Sent 5 technical pitches to national apprenticeship leadership (NJATC, IBEW Local 134, NECA NorCal, NABCEP, Lincoln Tech) on **August 26, 2026**.
   * **7-Day Follow-Up Scheduled**: **September 2, 2026**.
   * Reference: `docs/outreach/04_DAILY_5_OUTREACH_TARGETS_AND_PITCHES.md` (#6 to #10).
-* [ ] **Day 14 — Daily 5 Outreach (Batch 3: Clean Energy Trade Media Editorial Directors)**:
-  * Send 5 technical pitches to editors covering solar, EVSE, and storage (Solar Power World, InsideEVs, EC&M Magazine, Canary Media, PV Magazine).
-  * See ready-to-send templates: `docs/outreach/04_DAILY_5_OUTREACH_TARGETS_AND_PITCHES.md` (#11 to #15).
+* [x] **Day 14 — Daily 5 Outreach (Batch 3: Clean Energy Trade Media Editorial Directors)**:
+  * Sent 5 technical pitches to senior editors and directors (*Solar Power World, InsideEVs, EC&M Magazine, Canary Media, PV Magazine*) on **September 4, 2026**.
+  * **7-Day Follow-Up Scheduled**: **September 11, 2026** (72h check: **September 7, 2026**).
+  * Reference: `docs/outreach/04_DAILY_5_OUTREACH_TARGETS_AND_PITCHES.md` (#11 to #15).
 
 ---
 
@@ -94,7 +99,8 @@ Target communities and authoritative institutions where educators, editors, and 
   * Send 5 pitches to non-profits and industry associations (Plug In America, SEIA, Energy Innovation, Electrek, ILSR).
   * See templates: `docs/outreach/04_DAILY_5_OUTREACH_TARGETS_AND_PITCHES.md` (#21 to #25).
 * **Day 17 — Daily 5 Outreach (Batch 6: Open Educational Resources & STEM Libraries)**:
-  * Send 5 pitches to digital OER repositories (LibreTexts Engineering, MIT OpenCourseWare, OER Commons, MERLOT Engineering, Creative Commons).
+  * **OER Commons (DA 76+) Live Listing:** [`https://oercommons.org/courses/powerlab-deterministic-energy-systems-battery-storage-modeling-suite`](https://oercommons.org/courses/powerlab-deterministic-energy-systems-battery-storage-modeling-suite) *(Completed & indexed across university OER catalogs)*.
+  * Send pitches to remaining STEM repositories (LibreTexts Engineering, MERLOT Engineering, Creative Commons).
   * See templates: `docs/outreach/04_DAILY_5_OUTREACH_TARGETS_AND_PITCHES.md` (#26 to #30).
 * **Day 18 — 72-Hour Polite Follow-Up Cadence**:
   * Execute standard 2-sentence follow-up on Batches 1–3 threads that haven't replied.
@@ -113,28 +119,33 @@ Target communities and authoritative institutions where educators, editors, and 
 * **Day 25–27 — Energy Blogger & Clean Tech Guest Contribution**:
   * Contact clean energy bloggers (CleanTechnica, Electrek contributors, Solar Reviewers). Offer custom worked examples for their battery/solar buying guides.
 * **Day 28–29 — Working Paper Syndication Update**:
-  * Post discussion updates on Academia.edu and Figshare linking to the latest interactive guides.
+  * Post discussion updates on Academia.edu and Internet Archive linking to the latest interactive guides.
 * **Day 30 — Month 1 Review & Month 2 Keyword Target Setting**:
   * Review rankings across all 30 primary keywords.
   * Set Phase 2 expansion targets for competitive Tier-2 head terms (`energy bill calculator`, `electricity usage calculator`).
 
 ---
 
-## 3. Verified High-DA Publishing, Academic & Research Platforms (Core 4 Authority Network)
+## 3. Verified High-DA Publishing, Academic & Research Platforms (Core 5 Authority Network)
 
-To build unbreakable domain authority, authoritative academic citation signals, and Google Scholar / AI overview references, syndicate technical papers, teardowns, and calculation models across these **4 verified instant-publishing platforms (no approval delays, no institutional email gates)**:
+To build unbreakable domain authority, authoritative academic citation signals, and Google Scholar / AI overview references, syndicate technical papers, developer teardowns, and calculation models across these **5 verified high-DA publishing platforms (no approval delays, direct editorial control)**:
 
-| Priority | Platform | Domain Authority (DA) | Best Use & Content Format | Verification / Speed |
-| :---: | :--- | :---: | :--- | :--- |
-| **🥇 Core 1** | **Medium** (`medium.com`) | **96** | 1 daily 500-word engineering teardown or canonical guide import with links to `powelab.org` | Free account, **instant live publication & indexation** |
-| **🥈 Core 2** | **Academia.edu** (`academia.edu`) | **93** | Upload Working Papers, Technical Reports, and post 2×/week technical discussion updates | Free account, **instant live profile & backlink** |
-| **🥉 Core 3** | **Figshare** (`figshare.com`) | **90** | Upload Preprints, working papers; issues official citable DOI | Free account, **instant DOI generation & publication** |
-| **4th Core** | **Internet Archive** (`archive.org`) | **99** | Permanent open-access PDF & whitepaper archive with live source links | Free account, **instant worldwide publication** |
-| *Secondary* | **OSF / ECSarXiv** (`osf.io`) | **88** | Open Science Framework preprint server | Free, subject to 24–48h community moderation queue |
-| *Secondary* | **SSRN / Zenodo / ResearchGate** | **91–93** | Institutional preprints & CERN Open Science | Subject to network/institutional email requirements |
+| Priority | Platform | Domain Authority (DA) | Best Use & Content Format | Cadence & Launch Date | Verification / Speed |
+| :---: | :--- | :---: | :--- | :---: | :--- |
+| **🥇 Core 1** | **Medium** (`medium.com`) | **96** | 1 engineering teardown or physical principles explainer with dual citations & links to `powelab.org` | **Every 2 days**<br>(Started Sept 1, 2026) | Free account, **instant live publication & indexation** |
+| **🥈 Core 2** | **DEV.to** (`dev.to`) | **91** | 1 developer-first computational engineering article (TypeScript math engines, client-side simulation, zero-storage architecture) | **Every 2 days**<br>(Starts Sept 4, 2026) | Free account, **instant live indexing & RSS dev syndication** |
+| **🥉 Core 3** | **Harvard Dataverse** (`dataverse.harvard.edu`) | **93** | 1 open benchmark research dataset & simulation matrix deposit with citable Harvard DOI (`doi:10.7910/DVN/...`) | **Every week**<br>(Starts Sept 4, 2026) | Harvard IQSS account, **instant DOI minting & .edu link equity** |
+| **4th Core** | **Academia.edu** (`academia.edu`) | **93** | Upload Working Papers, Technical Reports, and post 2×/week technical discussion updates | **2× / week** | Free account, **instant live profile & backlink** |
+| **5th Core** | **Internet Archive** (`archive.org`) | **99** | 1 permanent open-access PDF, technical report, engineering methodology specification, or benchmark data archive upload | **Every 2 days**<br>(Starts Sept 4, 2026) | Free account, **instant worldwide publication & permanent Wayback indexing** |
+| *Secondary* | **OSF / ECSarXiv** (`osf.io`) | **88** | Open Science Framework preprint server | As needed | Free, subject to 24–48h community moderation queue |
+| *Secondary* | **SSRN / Zenodo / ResearchGate** | **91–93** | Institutional preprints & CERN Open Science | As needed | Subject to network/institutional email requirements |
 
-### Working Paper Publication Roster:
-- **Paper 1 (Live):** *Continuous-Duty Thermal Sizing, Conductor Terminal Limits, and Branch Circuit Ampacity Requirements for Residential Level 2 EVSE (NEC 625, 310 & 110.14(C))* — [`/research/continuous-duty-thermal-sizing-evse-ampacity`](https://www.powelab.org/research/continuous-duty-thermal-sizing-evse-ampacity) &bull; DOI: `10.6084/m9.figshare.33321774`
+### Open Benchmark Dataset & Paper Publication Roster:
+- **Dataset 1 (Harvard Dataverse — Week 1):** *50-State NREL PV Solar Irradiance, Peak Sun Hours, and ASHRAE Climatic Design Conditions Dataset (1991–2020)* — [`/solar/regional-climate-data`](https://www.powelab.org/solar/regional-climate-data) &bull; Harvard Dataverse DOI
+- **Dataset 2 (Harvard Dataverse — Week 2):** *Residential Level 2 EVSE Continuous-Duty Thermal Sizing, Terminal Temperature De-rating, and Voltage Drop Benchmark Dataset* — [`/research/continuous-duty-thermal-sizing-evse-ampacity`](https://www.powelab.org/research/continuous-duty-thermal-sizing-evse-ampacity)
+- **Dataset 3 (Harvard Dataverse — Week 3):** *Cold-Climate Air-Source Heat Pump (ccASHP) Non-Linear COP Degradation, Reverse-Cycle Defrost Penalties, and Auxiliary Heat Staging Simulation Dataset* — [`/research/heat-pump-cop-degradation-and-auxiliary-heat-kinetics`](https://www.powelab.org/research/heat-pump-cop-degradation-and-auxiliary-heat-kinetics)
+- **Dataset 4 (Harvard Dataverse — Week 4):** *Inductive Motor Inrush Currents, Locked Rotor Amps (LRA) Code Letters, and Generator Transient Reactance Loading Matrix* — [`/research/deterministic-inrush-load-stacking-generator-sizing`](https://www.powelab.org/research/deterministic-inrush-load-stacking-generator-sizing)
+- **Paper 1 (Live):** *Continuous-Duty Thermal Sizing, Conductor Terminal Limits, and Branch Circuit Ampacity Requirements for Residential Level 2 EVSE (NEC 625, 310 & 110.14(C))* — [`/research/continuous-duty-thermal-sizing-evse-ampacity`](https://www.powelab.org/research/continuous-duty-thermal-sizing-evse-ampacity)
 - **Paper 2 (Live):** *Thermal Degradation Kinetics, Auxiliary Electric Resistance Staging, and Seasonal HSPF2/COP Derating in Cold-Climate Air-Source Heat Pumps* — [`/research/heat-pump-cop-degradation-and-auxiliary-heat-kinetics`](https://www.powelab.org/research/heat-pump-cop-degradation-and-auxiliary-heat-kinetics)
 - **Paper 3 (Live):** *Deterministic Modeling of Inductive Motor Inrush Currents and Non-Coincident Load Stacking for Residential Backup Power Systems (NEC 702 & NEMA MG-1)* — [`/research/deterministic-inrush-load-stacking-generator-sizing`](https://www.powelab.org/research/deterministic-inrush-load-stacking-generator-sizing)
 - **Paper 4 (Live):** *Ground View Factor Transposition, Snow Albedo Dynamics, and Sub-Zero Open-Circuit Voltage Expansion in Photovoltaic Arrays (NEC 690 & Perez Anisotropic Models)* — [`/research/ground-view-factor-snow-albedo-pv-tilt`](https://www.powelab.org/research/ground-view-factor-snow-albedo-pv-tilt)
@@ -150,19 +161,22 @@ Draft in docs/papers/
   └── Generate PDF to public/whitepapers/
         └── Register in src/data/research-papers.ts
               └── Auto-sync: /research, /sitemap.xml, /llms.txt, Google Scholar Highwire tags
-                    └── Upload to Academia.edu / Figshare (Mint DOI)
+                    └── Upload to Academia.edu / Internet Archive / Harvard Dataverse
                           └── Send Daily 5 Academic Outreach Batch
 ```
 
 1. **Step 1 (Source Files):** Place the markdown working paper in `docs/papers/` and compile the formatted PDF to `public/whitepapers/[paper-slug].pdf`.
-2. **Step 2 (Digital Identifier):** Mint a citable DOI via **Figshare** (e.g. `10.6084/m9.figshare.33321774`), **Zenodo** (CERN), or **OSF**.
+2. **Step 2 (Digital Identifier):** Mint a citable DOI via **Harvard Dataverse** or **Zenodo** (CERN).
 3. **Step 3 (Registry Ingestion):** Add the paper object to [`src/data/research-papers.ts`](file:///d:/powerlab/src/data/research-papers.ts) (`id`, `slug`, `reportNumber`, `title`, `abstract`, `doi`, `pdfUrl`, `standards`, `keyFindings`, `equations`, `bibtex`, `apaCitation`).
 4. **Step 4 (Automated Site Cascade):**
    - The [`/research`](https://www.powelab.org/research) hub renders the new paper card with 1-click PDF download & citation export.
    - The canonical reader route [`/research/[slug]`](https://www.powelab.org/research) renders with Highwire Press metadata (`citation_title`, `citation_author`, `citation_doi`, `citation_pdf_url`) for instant **Google Scholar** and **Semantic Scholar** indexing.
    - [`/sitemap.xml`](https://www.powelab.org/sitemap.xml) automatically includes the new route via dynamic `getSitemapPaths()`.
    - [`/llms.txt`](https://www.powelab.org/llms.txt) references the paper for AI grounding.
-5. **Step 5 (Multi-Platform Syndication):** Upload the PDF to **Academia.edu** (DA 93), **Figshare** (DA 90), and **Internet Archive** (DA 99).
+5. **Step 5 (Academic Triad Syndication):**
+   - Upload working paper and discussion points to **Academia.edu** (DA 93).
+   - Universal archival upload of the PDF / technical report to **Internet Archive** (DA 99).
+   - If selected as the weekly flagship benchmark dataset/paper, deposit to **Harvard Dataverse** (DA 93) to mint a permanent Harvard DOI (`doi:10.7910/DVN/...`).
 6. **Step 6 (Outreach Trigger):** Reference the preprint URL and DOI in the next Daily 5 academic email sprint (`docs/outreach/04_*`).
 
 ---

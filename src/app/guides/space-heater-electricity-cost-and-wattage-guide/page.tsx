@@ -323,18 +323,58 @@ Space Heater Heat Output = 1 kWh Electricity → 1.0 kWh Thermal Energy (3,412 B
       </section>
 
       {/* Section 8: Related Calculators & Planning Paths */}
-      <section id="related-tools" style={{ marginTop: "3rem", padding: "1.5rem", borderRadius: "0.85rem", background: "var(--surface)", border: "1px solid var(--line)" }}>
-        <h2 style={{ marginTop: 0, fontSize: "1.3rem", color: "var(--brand-strong)" }}>Related Home Energy &amp; Heating Planning Tools</h2>
-        <p style={{ marginBottom: "1rem", color: "var(--muted)", lineHeight: 1.55 }}>
-          Explore connected calculators to model home thermal efficiency and electrical consumption:
+      <section id="related-tools" style={{ marginTop: "3rem", padding: "1.75rem", borderRadius: "0.85rem", background: "var(--surface)", border: "1px solid var(--line)" }}>
+        <h2 style={{ marginTop: 0, fontSize: "1.35rem", color: "var(--brand-strong)" }}>Compare Space Heating with Whole-Home HVAC Calculators</h2>
+        <p style={{ marginBottom: "1.25rem", color: "var(--muted)", lineHeight: 1.55 }}>
+          Integrate space heater calculations with whole-home HVAC and utility auditing engines to optimize your annual energy budget:
         </p>
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))", gap: "0.75rem" }}>
-          <Link href="/home-energy/space-heater-cost-calculator" className="button secondary-button">Space Heater Calculator</Link>
-          <Link href="/home-energy/air-conditioner-cost-calculator" className="button secondary-button">AC &amp; Heat Pump Cost Calculator</Link>
-          <Link href="/home-energy/electricity-usage-calculator" className="button secondary-button">Electricity Usage Calculator</Link>
-          <Link href="/home-energy/energy-bill-calculator" className="button secondary-button">Energy Bill Calculator</Link>
-          <Link href="/home-energy/appliance-wattage-calculator" className="button secondary-button">Appliance Wattage Calculator</Link>
-          <Link href="/battery/voltage-drop-calculator" className="button secondary-button">Voltage Drop &amp; Wire Size Calculator</Link>
+
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(260px, 1fr))", gap: "1rem" }}>
+          <div style={{ padding: "1.25rem", borderRadius: "0.75rem", background: "var(--surface-subtle, #fafafa)", border: "1px solid var(--line)" }}>
+            <h3 style={{ margin: "0 0 0.5rem", fontSize: "1.05rem", color: "var(--brand-strong)" }}>❄️ Air Conditioner &amp; Cooling Cost</h3>
+            <p style={{ fontSize: "0.88rem", color: "var(--muted)", margin: "0 0 0.75rem", lineHeight: 1.5 }}>
+              Calculate hourly, monthly, and seasonal operating costs for window AC units, ductless mini-splits, and central cooling.
+            </p>
+            <Link href="/home-energy/air-conditioner-cost-calculator" className="button secondary-button" style={{ width: "100%", textAlign: "center", display: "block" }}>
+              Air Conditioner Cost Calculator →
+            </Link>
+          </div>
+
+          <div style={{ padding: "1.25rem", borderRadius: "0.75rem", background: "var(--surface-subtle, #fafafa)", border: "1px solid var(--line)" }}>
+            <h3 style={{ margin: "0 0 0.5rem", fontSize: "1.05rem", color: "var(--brand-strong)" }}>🔥 Cold-Climate Heat Pump Sizing</h3>
+            <p style={{ fontSize: "0.88rem", color: "var(--muted)", margin: "0 0 0.75rem", lineHeight: 1.5 }}>
+              Model COP efficiency derating, seasonal HSPF2 benchmarks, and auxiliary electric strip heat staging costs in sub-freezing weather.
+            </p>
+            <Link href="/home-energy/heat-pump-cost-calculator" className="button secondary-button" style={{ width: "100%", textAlign: "center", display: "block" }}>
+              Heat Pump Running Cost Calculator →
+            </Link>
+          </div>
+
+          <div style={{ padding: "1.25rem", borderRadius: "0.75rem", background: "var(--surface-subtle, #fafafa)", border: "1px solid var(--line)" }}>
+            <h3 style={{ margin: "0 0 0.5rem", fontSize: "1.05rem", color: "var(--brand-strong)" }}>⚡ Household Electricity Consumption</h3>
+            <p style={{ fontSize: "0.88rem", color: "var(--muted)", margin: "0 0 0.75rem", lineHeight: 1.5 }}>
+              Audit your home&apos;s daily and monthly kilowatt-hour consumption across all major appliances and duty cycles.
+            </p>
+            <Link href="/home-energy/electricity-usage-calculator" className="button secondary-button" style={{ width: "100%", textAlign: "center", display: "block" }}>
+              Electricity Usage Calculator →
+            </Link>
+          </div>
+
+          <div style={{ padding: "1.25rem", borderRadius: "0.75rem", background: "var(--surface-subtle, #fafafa)", border: "1px solid var(--line)" }}>
+            <h3 style={{ margin: "0 0 0.5rem", fontSize: "1.05rem", color: "var(--brand-strong)" }}>💡 Energy Bill &amp; Tiered Rates</h3>
+            <p style={{ fontSize: "0.88rem", color: "var(--muted)", margin: "0 0 0.75rem", lineHeight: 1.5 }}>
+              Estimate your monthly utility power bill with tiered rates, fixed service charges, and seasonal peak multipliers.
+            </p>
+            <Link href="/home-energy/energy-bill-calculator" className="button secondary-button" style={{ width: "100%", textAlign: "center", display: "block" }}>
+              Energy Bill Calculator →
+            </Link>
+          </div>
+        </div>
+
+        <div style={{ marginTop: "1rem", display: "flex", gap: "0.5rem", flexWrap: "wrap" }}>
+          <Link href="/home-energy/appliance-wattage-calculator" className="button secondary-button" style={{ fontSize: "0.85rem" }}>Appliance Wattage Calculator</Link>
+          <Link href="/battery/voltage-drop-calculator" className="button secondary-button" style={{ fontSize: "0.85rem" }}>Voltage Drop &amp; Wire Size Calculator</Link>
+          <Link href="/guides/central-ac-and-heat-pump-electricity-cost-guide" className="button secondary-button" style={{ fontSize: "0.85rem" }}>Central AC &amp; Heat Pump Guide</Link>
         </div>
       </section>
 

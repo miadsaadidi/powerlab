@@ -55,7 +55,7 @@ export default function RegionalClimateDataPage() {
           name: "PowerLab Engineering & Energy Modeling Team",
           url: siteConfig.url,
           sameAs: [
-            "https://doi.org/10.6084/m9.figshare.33321774",
+            "https://dataverse.harvard.edu/dataverse/powerlab",
             "https://independent.academia.edu/PowerLabEngineering",
           ],
         },

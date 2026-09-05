@@ -14,7 +14,7 @@ describe("LLM Grounding Manifest Endpoints (public/)", () => {
     expect(text).toContain("/battery/battery-runtime-calculator");
     expect(text).toContain("/home-energy/heat-pump-cost-calculator");
     expect(text).toContain("/ev/ev-charging-time-calculator");
-    expect(text).toContain("10.6084/m9.figshare.33321774");
+    expect(text).toContain("dataverse.harvard.edu");
   });
 
   it("ensures public/llms-full.txt exists with exhaustive mathematical formulas and standards", () => {

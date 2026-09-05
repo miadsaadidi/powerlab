@@ -105,11 +105,11 @@ export default function HowManyKwhDoesAHouseUsePerDayPage() {
 
         <div className="scenario-table" style={{ overflowX: "auto", margin: "1.25rem 0" }}>
           <table style={{ width: "100%", borderCollapse: "collapse" }}>
-            <caption>Table 1: Daily and Monthly Electricity Usage by Home Size (US National Average Rates)</caption>
+            <caption>Table 1: Daily and Monthly Electricity Usage Benchmarks by Home Size &amp; Archetype (US National Average Rates)</caption>
             <thead>
               <tr>
-                <th scope="col">Home Type &amp; Size</th>
-                <th scope="col">Daily Usage (kWh/day)</th>
+                <th scope="col">Home Archetype &amp; Size</th>
+                <th scope="col">Daily Benchmark (kWh/day)</th>
                 <th scope="col">Monthly Usage (kWh/mo)</th>
                 <th scope="col">Annual Usage (kWh/yr)</th>
                 <th scope="col">Est. Monthly Cost (@ $0.16/kWh)</th>
@@ -118,35 +118,35 @@ export default function HowManyKwhDoesAHouseUsePerDayPage() {
             <tbody>
               <tr>
                 <td><strong>Studio / 1-Bed Apartment</strong> (&lt;800 sq ft)</td>
-                <td>8 – 14 kWh</td>
+                <td><strong>12 kWh/day</strong> (8 – 14 kWh)</td>
                 <td>240 – 420 kWh</td>
                 <td>2,900 – 5,100 kWh</td>
                 <td>$38 – $67</td>
               </tr>
               <tr>
                 <td><strong>Townhouse / Small Home</strong> (1,000 – 1,500 sq ft)</td>
-                <td>15 – 24 kWh</td>
-                <td>450 – 720 kWh</td>
-                <td>5,400 – 8,600 kWh</td>
-                <td>$72 – $115</td>
+                <td><strong>25 kWh/day</strong> (20 – 26 kWh)</td>
+                <td>600 – 780 kWh</td>
+                <td>7,200 – 9,300 kWh</td>
+                <td>$96 – $125</td>
               </tr>
               <tr>
                 <td><strong>Average Single-Family Home</strong> (1,800 – 2,400 sq ft)</td>
-                <td><strong>28 – 32 kWh</strong></td>
-                <td><strong>840 – 960 kWh</strong></td>
-                <td><strong>10,200 – 11,500 kWh</strong></td>
-                <td><strong>$134 – $154</strong></td>
+                <td><strong>29 – 30 kWh/day</strong> (EIA Avg)</td>
+                <td><strong>880 – 900 kWh</strong></td>
+                <td><strong>10,600 – 10,800 kWh</strong></td>
+                <td><strong>$141 – $144</strong></td>
               </tr>
               <tr>
                 <td><strong>Large Home with Central AC</strong> (2,500 – 3,500 sq ft)</td>
-                <td>35 – 48 kWh</td>
+                <td><strong>45 kWh/day</strong> (35 – 48 kWh)</td>
                 <td>1,050 – 1,440 kWh</td>
                 <td>12,600 – 17,200 kWh</td>
                 <td>$168 – $230</td>
               </tr>
               <tr>
-                <td><strong>All-Electric Home + EV Charger</strong> (3,000+ sq ft)</td>
-                <td>50 – 75+ kWh</td>
+                <td><strong>All-Electric Home + Heat Pump + EV</strong> (3,000+ sq ft)</td>
+                <td><strong>50 – 75+ kWh/day</strong></td>
                 <td>1,500 – 2,250 kWh</td>
                 <td>18,000 – 27,000 kWh</td>
                 <td>$240 – $360</td>
@@ -310,7 +310,63 @@ export default function HowManyKwhDoesAHouseUsePerDayPage() {
         </div>
       </section>
 
-      {/* Section 5: FAQs */}
+      {/* Section 5: Connected Planning Tools */}
+      <section id="connected-tools" style={{ marginTop: "3rem", padding: "1.75rem", borderRadius: "0.85rem", background: "var(--surface)", border: "1px solid var(--line)" }}>
+        <h2 style={{ marginTop: 0, fontSize: "1.35rem", color: "var(--brand-strong)" }}>Connected Residential Energy &amp; Utility Planning Tools</h2>
+        <p style={{ marginBottom: "1.25rem", color: "var(--muted)", lineHeight: 1.55 }}>
+          Audit your exact household electricity usage, estimate utility bills, and model clean energy offsets with PowerLab&apos;s calculation engines:
+        </p>
+
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(260px, 1fr))", gap: "1rem" }}>
+          <div style={{ padding: "1.25rem", borderRadius: "0.75rem", background: "var(--surface-subtle, #fafafa)", border: "1px solid var(--line)" }}>
+            <h3 style={{ margin: "0 0 0.5rem", fontSize: "1.05rem", color: "var(--brand-strong)" }}>⚡ Electricity Usage Calculator</h3>
+            <p style={{ fontSize: "0.88rem", color: "var(--muted)", margin: "0 0 0.75rem", lineHeight: 1.5 }}>
+              Custom load audit: add specific household appliances, set operational hours, and calculate daily/monthly kilowatt-hours.
+            </p>
+            <Link href="/home-energy/electricity-usage-calculator" className="button secondary-button" style={{ width: "100%", textAlign: "center", display: "block" }}>
+              Electricity Usage Calculator →
+            </Link>
+          </div>
+
+          <div style={{ padding: "1.25rem", borderRadius: "0.75rem", background: "var(--surface-subtle, #fafafa)", border: "1px solid var(--line)" }}>
+            <h3 style={{ margin: "0 0 0.5rem", fontSize: "1.05rem", color: "var(--brand-strong)" }}>❄️ Air Conditioner Cost Calculator</h3>
+            <p style={{ fontSize: "0.88rem", color: "var(--muted)", margin: "0 0 0.75rem", lineHeight: 1.5 }}>
+              Compute cooling costs per hour and month for central AC, mini-splits, and window units with SEER2 efficiency.
+            </p>
+            <Link href="/home-energy/air-conditioner-cost-calculator" className="button secondary-button" style={{ width: "100%", textAlign: "center", display: "block" }}>
+              Air Conditioner Cost Calculator →
+            </Link>
+          </div>
+
+          <div style={{ padding: "1.25rem", borderRadius: "0.75rem", background: "var(--surface-subtle, #fafafa)", border: "1px solid var(--line)" }}>
+            <h3 style={{ margin: "0 0 0.5rem", fontSize: "1.05rem", color: "var(--brand-strong)" }}>💡 Energy Bill Calculator</h3>
+            <p style={{ fontSize: "0.88rem", color: "var(--muted)", margin: "0 0 0.75rem", lineHeight: 1.5 }}>
+              Model tiered utility rate structures, fixed customer charges, and calculate monthly power bill totals.
+            </p>
+            <Link href="/home-energy/energy-bill-calculator" className="button secondary-button" style={{ width: "100%", textAlign: "center", display: "block" }}>
+              Energy Bill Calculator →
+            </Link>
+          </div>
+
+          <div style={{ padding: "1.25rem", borderRadius: "0.75rem", background: "var(--surface-subtle, #fafafa)", border: "1px solid var(--line)" }}>
+            <h3 style={{ margin: "0 0 0.5rem", fontSize: "1.05rem", color: "var(--brand-strong)" }}>🔋 Home Battery Size Calculator</h3>
+            <p style={{ fontSize: "0.88rem", color: "var(--muted)", margin: "0 0 0.75rem", lineHeight: 1.5 }}>
+              Size a whole-house battery backup system (kWh) for 1, 2, or 3 days of complete off-grid blackout resilience.
+            </p>
+            <Link href="/home-energy/home-battery-size-calculator" className="button secondary-button" style={{ width: "100%", textAlign: "center", display: "block" }}>
+              Home Battery Size Calculator →
+            </Link>
+          </div>
+        </div>
+
+        <div style={{ marginTop: "1rem", display: "flex", gap: "0.5rem", flexWrap: "wrap" }}>
+          <Link href="/home-energy/appliance-wattage-calculator" className="button secondary-button" style={{ fontSize: "0.85rem" }}>Appliance Wattage Calculator</Link>
+          <Link href="/solar/solar-panel-output-calculator" className="button secondary-button" style={{ fontSize: "0.85rem" }}>Solar Panel Output Calculator</Link>
+          <Link href="/guides/space-heater-electricity-cost-and-wattage-guide" className="button secondary-button" style={{ fontSize: "0.85rem" }}>Space Heater Cost Guide</Link>
+        </div>
+      </section>
+
+      {/* Section 6: FAQs */}
       <section id="faqs" style={{ marginTop: "2.5rem" }}>
         <h2>Frequently Asked Questions</h2>
         <div style={{ display: "grid", gap: "1rem", marginTop: "1rem" }}>

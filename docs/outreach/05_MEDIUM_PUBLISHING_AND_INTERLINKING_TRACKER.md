@@ -73,7 +73,7 @@
 * **Primary PowerLab Link:** [`/home-energy/generator-size-calculator`](https://www.powelab.org/home-energy/generator-size-calculator)
 * **Secondary PowerLab Link:** [`/home-energy/air-conditioner-cost-calculator`](https://www.powelab.org/home-energy/air-conditioner-cost-calculator)
 * **External High-Authority Citation:** *NEMA MG-1 Standard (Motors and Generators) & IEEE Standard 399*
-* **Live Medium URL:** *(Pending publication)*
+* **Live Medium URL:** [`https://medium.com/@miadpower/generator-size-calculator-605f96508fcb`](https://medium.com/@miadpower/generator-size-calculator-605f96508fcb) (Published September 4, 2026)
 
 ---
 
