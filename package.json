@@ -2,6 +2,26 @@
   "name": "energy-planning-tools",
   "version": "0.1.0",
   "private": true,
+  "homepage": "https://powelab.org",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/miadsaadidi/powerlab.git"
+  },
+  "bugs": {
+    "url": "https://github.com/miadsaadidi/powerlab/issues"
+  },
+  "author": "Miad S.",
+  "license": "MIT",
+  "keywords": [
+    "solar-pv",
+    "battery-storage",
+    "energy-storage",
+    "clean-energy",
+    "peukert-effect",
+    "electric-vehicles",
+    "load-sizing",
+    "engineering-calculators"
+  ],
   "scripts": {
     "dev": "next dev",
     "dev:all": "next dev --turbopack",
