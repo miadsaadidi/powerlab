@@ -6,5 +6,11 @@ test-results
 *.tsbuildinfo
 accesskeys.txt
 public/Screenshot*
+.env*
+*.local
 
-.vercel
+# Internal Documentation & Strategy
+docs/
+.agents/
+AGENTS.md
+00_CODEX_READ_ME_FIRST.md
