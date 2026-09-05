@@ -24,6 +24,7 @@ describe("IndexNow verification and sitemap coverage", () => {
     expect(paths).toContain("/solar/regional-climate-data");
     expect(paths).toContain("/glossary");
     expect(paths).toContain("/research");
-    expect(paths.length).toBe(59);
+    expect(paths).toContain("/guides/how-to-calculate-ev-driving-range-and-efficiency-guide");
+    expect(paths.length).toBe(60);
   });
 });

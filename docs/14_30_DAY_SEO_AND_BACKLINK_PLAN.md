@@ -194,14 +194,71 @@ Full roster of 30 ready-to-send daily email templates: [`docs/outreach/04_DAILY_
 
 ---
 
-## 5. Key Performance Indicators (KPI Tracker)
+## 5. Key Performance Indicators (KPI Tracker & Empirical GSC Baseline)
 
-| KPI Metric | Baseline (Day 1) | Target (Day 15) | Target (Day 30) |
+| KPI Metric | Baseline (Day 1) | Empirical Actual (Day 15) | Target (Day 30) |
 | :--- | :---: | :---: | :---: |
-| **Indexed Pages** | ~0 | 35+ | 47 (100%) |
-| **Outreach Emails Sent** | 0 | 40 | 150 (5/day) |
-| **Outreach Positive Response Rate** | — | >15% | >20% |
-| **GSC Average Position (Tier 1)** | — | <25 | Top 10 |
-| **Daily Organic Impressions** | 0 | 500+ | 1,500+ |
-| **Referring Domains (Ahrefs)** | 0 | 5+ | 15–25 |
-| **Brand Searches ("PowerLab energy")** | 0 | 50+ | 200+ |
+| **Indexed Pages** | ~0 | **41 Pages** (78.8% Coverage, 0 Thin-Content Demotions) | 60+ Pages |
+| **Outreach Emails Sent** | 0 | **15 Sent** (Batches 1–3 Complete) | 150 (5/day) |
+| **GSC Average Position (Overall)** | 64.3 | **19.0** (Mobile: **13.74**) | Top 10 Site-wide |
+| **Daily Organic Impressions** | 195/day | **1,459 – 2,074/day** (18,719 total in cycle) | 5,000+/day |
+| **Total Organic Clicks** | 0 | **17 Clicks** (Peak CTR: 0.58% on Sep 3) | 250+ Clicks/mo |
+| **Top 10 Ranks in Google** | 0 | **5 Pages on Page 1** (Space Heater #3, Solar Payback #6.8, Generator #8.3, V2L #8.6, UPS #9.7) | 15+ Page 1 Ranks |
+
+---
+
+## 6. 15-Day Daily Educational Guide Publishing Calendar (GSC Query-Driven)
+
+To capitalize on the empirical search queries and striking-distance keywords discovered in Google Search Console, PowerLab will execute a **1-guide-per-day publishing sprint** over the next 15 days. Every guide embeds the companion interactive calculator, provides mathematical derivations, includes real-world load tables, and targets specific high-volume SERP queries.
+
+```text
+┌────────────────────────────────────────────────────────────────────────────────────────┐
+│ 15-DAY DAILY GUIDE SPRINT (GSC STRIKING-DISTANCE & KEYWORD ROADMAP)                    │
+├────────────────────────────────────────────────────────────────────────────────────────┤
+│ Day 01 : EV Driving Range & Efficiency (Formula, Speed Drag & Winter Losses)           │
+│ Day 02 : Battery Capacity in Ah & kWh (Peukert Derating, C-Rate & Nominal Voltage)     │
+│ Day 03 : Window vs Portable vs Central AC Running Cost (Hourly, Monthly & SEER2)       │
+│ Day 04 : Solar Panel Output & Daily kWh Yield (Peak Sun Hours & Derating Formula)      │
+│ Day 05 : Portable Power Station & Solar Generator Sizing (Inverter Standby & Surge)   │
+│ Day 06 : Level 2 EV Charger Breaker & Wire Sizing (48A, 40A, 32A under NEC 625)        │
+│ Day 07 : UPS Battery Runtime Calculation & Sizing (VA vs Watts & SLA/LFP Curve)        │
+│ Day 08 : How Long Will a 12V Battery Run an Inverter/Appliance? (Runtime Formula)      │
+│ Day 09 : How to Calculate Electric Bills from Meter Readings (Tiered Rates & Fees)     │
+│ Day 10 : How Many Batteries for a Solar System? (Off-Grid Days of Autonomy)            │
+│ Day 11 : How to Size an MPPT Solar Charge Controller (Cold Voc Expansion Formula)      │
+│ Day 12 : Heat Pump Operating Cost vs Gas Furnace Breakdown (COP Derating Kinetics)     │
+│ Day 13 : Electric Car vs Gas Cost Comparison: Exact Dollar Savings Breakdown           │
+│ Day 14 : What Size Generator to Run a House, Well Pump, Sump Pump & AC?                │
+│ Day 15 : How Many kWh of Home Battery Storage Do You Need for Blackout Backup?         │
+└────────────────────────────────────────────────────────────────────────────────────────┘
+```
+
+### Detailed Day-by-Day Editorial & Keyword Specifications:
+
+| Day | Planned Route | Primary & Secondary GSC Queries | Companion Tool (GSC Metrics) |
+| :---: | :--- | :--- | :--- |
+| **01** | `/guides/how-to-calculate-ev-driving-range-and-efficiency-guide` | `how to calculate ev range` (Pos 15.5)<br>`ev range calculation formula` (Pos 20.0)<br>`electric vehicle range calculator` (Pos 57.0)<br>`tesla range calculator` (Pos 67.0) | [EV Range Calculator](/ev/ev-range-calculator)<br>*(1,331 imp @ Pos 16.7)* |
+| **02** | `/guides/how-to-calculate-battery-capacity-ah-and-kwh-guide` | `battery capacity calculator` (Pos 73.2, 1 click)<br>`mah to kwh` (Pos 58.3)<br>`convert ah to kwh` (Pos 77.2)<br>`ah to kwh` (Pos 74.5) | [Battery Capacity Calculator](/battery/battery-capacity-calculator)<br>*(1,719 imp @ Pos 61.8)* |
+| **03** | `/guides/window-vs-portable-vs-central-ac-running-cost-guide` | `ac cost calculator` (Pos 31.5)<br>`portable ac electricity cost calculator` (Pos 33.0)<br>`air conditioner electricity cost calculator` (Pos 35.4)<br>`cost of running air conditioner calculator` (Pos 43.0) | [Air Conditioner Cost Calculator](/home-energy/air-conditioner-cost-calculator)<br>*(1,997 imp @ Pos 16.4)* |
+| **04** | `/guides/how-to-calculate-solar-panel-output-and-kwh-yield-guide` | `how to calculate solar panel output` (Pos 81.6)<br>`solar panel kilowatt hour calculator` (Pos 81.0)<br>`solar yield calculation` (Pos 86.3)<br>`solar production calculator` (Pos 86.8) | [Solar Panel Output Calculator](/solar/solar-panel-output-calculator)<br>*(1,381 imp @ Pos 56.8)* |
+| **05** | `/guides/portable-power-station-and-solar-generator-sizing-guide` | `portable power station runtime calculator` (Pos 32.0)<br>`solar generator run time calculator` (Pos 67.7)<br>`power station calculator` (Pos 75.1) | [Portable Power Station Calculator](/battery/portable-power-station-calculator)<br>*(327 imp @ Pos 25.9)* |
+| **06** | `/guides/ev-charger-breaker-and-wire-sizing-guide` | `what size breaker for 48 amp ev charger` (Pos 38.0)<br>`ev charger breaker size` (Pos 69.0)<br>`breaker size for ev charger` (Pos 65.5)<br>`level 2 charger breaker size` (Pos 61.5) | [EV Charger Breaker Size Calculator](/ev/ev-charger-breaker-size-calculator)<br>*(68 imp @ Pos 26.9)* |
+| **07** | `/guides/ups-battery-runtime-calculation-and-sizing-guide` | `ups runtime calculator` (Pos 27.5, CTR 1.35%)<br>`ups runtime calculation` (Pos 49.5)<br>`ups battery calculator` (Pos 75.7)<br>`uninterruptible power supply calculator` (Pos 62.0) | [UPS Runtime Calculator](/battery/ups-runtime-calculator)<br>*(74 imp @ Pos 20.3)* |
+| **08** | `/guides/how-long-will-a-12v-battery-run-an-inverter-or-appliance-guide` | `12v battery run time calculator` (Pos 67.8)<br>`calculate runtime of battery` (Pos 73.3)<br>`battery duration calculator` (Pos 69.8)<br>`battery life calculator watts` (Pos 61.0) | [Battery Runtime Calculator](/battery/battery-runtime-calculator)<br>*(472 imp @ Pos 69.0)* |
+| **09** | `/guides/how-to-calculate-electric-bill-from-meter-reading-guide` | `how to calculate electricity bill from meter reading` (Pos 81.8)<br>`how to calculate your energy bill` (Pos 55.8)<br>`cost per kwh calculator` (Pos 73.3)<br>`utility bill cost calculator` (Pos 59.0) | [Energy Bill Calculator](/home-energy/energy-bill-calculator)<br>*(1,024 imp @ Pos 64.5)* |
+| **10** | `/guides/how-many-batteries-do-i-need-for-a-solar-system-guide` | `solar battery storage calculator` (Pos 66.4)<br>`solar power battery calculator` (Pos 74.2)<br>`solar battery bank size calculator` (Pos 62.5)<br>`battery bank size for solar` (Pos 73.3) | [Solar Battery Bank Size Calculator](/solar/solar-battery-bank-size-calculator)<br>*(324 imp @ Pos 74.9)* |
+| **11** | `/guides/how-to-size-mppt-solar-charge-controller-guide` | `how to size mppt charge controller` (Pos 36.0)<br>`how to size mppt solar charge controller` (Pos 48.5)<br>`sizing a solar charge controller` (Pos 82.8)<br>`mppt calculator free` (Pos 57.5) | [Solar Charge Controller Calculator](/solar/solar-charge-controller-calculator)<br>*(50 imp @ Pos 63.8)* |
+| **12** | `/guides/heat-pump-operating-cost-vs-gas-furnace-breakdown-guide` | `heat pump operating costs` (Pos 56.1)<br>`is a heat pump expensive to run` (Pos 47.0)<br>`heat pump cost calculator canada` (Pos 69.5)<br>`central ac electricity cost` (Pos 66.1) | [Heat Pump Cost Calculator](/home-energy/heat-pump-cost-calculator)<br>*(45 imp @ Pos 49.2)* |
+| **13** | `/guides/electric-car-vs-gas-cost-comparison-guide` | `ev charging cost vs gas calculator` (Pos 72.0)<br>`ev vs gas calculator` (Pos 71.5)<br>`gas vs electric calculator` (Pos 66.0)<br>`calculate savings electric car` (Pos 84.8) | [EV Savings Calculator](/ev/ev-savings-calculator)<br>*(235 imp @ Pos 48.3)* |
+| **14** | `/guides/what-size-generator-do-i-need-to-run-a-house-and-pumps-guide` | `what size generator to run a sump pump` (Pos 65.0)<br>`what size generator needed to run sump pump` (Pos 65.3)<br>`what size generator for 200 amp service` (Pos 81.0)<br>`what size generator for 150 amp service` (Pos 84.3) | [Generator Size Calculator](/home-energy/generator-size-calculator)<br>*(729 imp @ Pos 69.1)* |
+| **15** | `/guides/how-many-kwh-home-battery-backup-storage-needed-guide` | `how many kwh do i need for home backup power` (Pos 76.0)<br>`whole house battery backup calculator` (Pos 65.0)<br>`home battery kwh calculation` (Pos 72.2)<br>`what size battery backup do i need for my house` (Pos 67.2) | [Home Battery Size Calculator](/home-energy/home-battery-size-calculator)<br>*(321 imp @ Pos 46.3)* |
+
+---
+
+### Guide Production & Synchronization Checklist (1 Per Day)
+Every new daily guide MUST execute this 5-step checklist:
+1. **Interactive Embedded Tool:** Embed the companion calculator component at the top of the article.
+2. **Direct Answer Card:** Provide instant formula + standard example answering the primary search query without fluff.
+3. **Engineering Equations & Load Table:** Include standard formulas (KaTeX / FormulaCard) and empirical lookup tables.
+4. **Structured Data:** Full `buildGuideStructuredData` with `TechArticle`, `FAQPage`, `BreadcrumbList`, and standards citations.
+5. **Cross-Linking & Sitemap Sync:** Add route to `sitemap.ts`, feature card in `guides/page.tsx`, and contextual link inside the companion calculator page.
