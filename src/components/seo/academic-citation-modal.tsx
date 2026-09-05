@@ -15,7 +15,7 @@ interface AcademicCitationModalProps {
 export function AcademicCitationModal({
   title,
   urlPath,
-  doi = "10.6084/m9.figshare.33321774",
+  doi,
   year = 2026,
   buttonLabel = "🎓 Cite this Engineering Guide",
   className = "",

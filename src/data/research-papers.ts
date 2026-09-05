@@ -24,7 +24,7 @@ export interface ResearchPaper {
   doi?: string;
   pdfUrl: string;
   htmlUrl?: string;
-  figshareUrl?: string;
+  dataverseUrl?: string;
   academiaUrl?: string;
   category: "Electric Vehicles" | "Home Energy" | "Solar Photovoltaics" | "Battery Storage";
   categorySlug: "ev" | "home-energy" | "solar" | "battery";
@@ -52,10 +52,8 @@ export const RESEARCH_PAPERS: ResearchPaper[] = [
     institution: "PowerLab Open Energy Research",
     datePublished: "2026-08-26",
     dateModified: "2026-08-26",
-    doi: "10.6084/m9.figshare.33321774",
     pdfUrl: "/whitepapers/evse-continuous-duty-thermal-sizing.pdf",
-    figshareUrl: "https://figshare.com/articles/preprint/33321774",
-    academiaUrl: "https://independent.academia.edu/PowerLab",
+    academiaUrl: "https://www.academia.edu/173484506/Continuous_Duty_Thermal_Sizing_Conductor_Terminal_Limits_and_Branch_Circuit_Ampacity_Requirements_for_Residential_Level_2_EVSE",
     category: "Electric Vehicles",
     categorySlug: "ev",
     keywords: [
@@ -106,11 +104,10 @@ export const RESEARCH_PAPERS: ResearchPaper[] = [
   institution = {PowerLab Open Energy Research},
   year        = {2026},
   number      = {PL-TR-2026-EVSE01},
-  doi         = {10.6084/m9.figshare.33321774},
   url         = {https://www.powelab.org/research/continuous-duty-thermal-sizing-evse-ampacity}
 }`,
-    apaCitation: "PowerLab Clean Energy Engineering Group. (2026). Continuous-Duty Thermal Sizing, Conductor Terminal Limits, and Branch Circuit Ampacity Requirements for Residential Level 2 EVSE (Technical Report No. PL-TR-2026-EVSE01). PowerLab Open Energy Research. https://doi.org/10.6084/m9.figshare.33321774",
-    ieeeCitation: "PowerLab Clean Energy Engineering Group, \"Continuous-Duty Thermal Sizing, Conductor Terminal Limits, and Branch Circuit Ampacity Requirements for Residential Level 2 EVSE,\" PowerLab Open Energy Research, Tech. Rep. PL-TR-2026-EVSE01, 2026. doi: 10.6084/m9.figshare.33321774.",
+    apaCitation: "PowerLab Clean Energy Engineering Group. (2026). Continuous-Duty Thermal Sizing, Conductor Terminal Limits, and Branch Circuit Ampacity Requirements for Residential Level 2 EVSE (Technical Report No. PL-TR-2026-EVSE01). PowerLab Open Energy Research. https://www.powelab.org/research/continuous-duty-thermal-sizing-evse-ampacity",
+    ieeeCitation: "PowerLab Clean Energy Engineering Group, \"Continuous-Duty Thermal Sizing, Conductor Terminal Limits, and Branch Circuit Ampacity Requirements for Residential Level 2 EVSE,\" PowerLab Open Energy Research, Tech. Rep. PL-TR-2026-EVSE01, 2026.",
   },
   {
     id: "PL-TR-2026-HVAC01",

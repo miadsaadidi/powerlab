@@ -81,7 +81,7 @@ export default function ResearchHubPage() {
 
         <div style={{ display: "flex", gap: "0.75rem", flexWrap: "wrap", marginTop: "1rem", alignItems: "center" }}>
           <span style={{ fontSize: "0.8rem", fontWeight: 700, padding: "4px 10px", borderRadius: "999px", background: "rgba(2, 132, 199, 0.1)", color: "var(--accent)", border: "1px solid rgba(2, 132, 199, 0.25)" }}>
-            🎓 Google Scholar &amp; Figshare Indexed
+            🎓 Google Scholar &amp; Harvard Dataverse Indexed
           </span>
           <span style={{ fontSize: "0.8rem", fontWeight: 700, padding: "4px 10px", borderRadius: "999px", background: "rgba(16, 185, 129, 0.1)", color: "#10b981", border: "1px solid rgba(16, 185, 129, 0.25)" }}>
             🔓 100% Open Access (CC BY 4.0)
@@ -192,7 +192,7 @@ export default function ResearchHubPage() {
         </p>
         <ul style={{ color: "var(--ink)", lineHeight: 1.65, fontSize: "0.95rem", paddingLeft: "1.25rem", margin: "0.75rem 0 1.25rem" }}>
           <li><strong>Zero Paywalls or Student Logins:</strong> All formulas, source code, and whitepaper datasets are available without student registration or paywall gating.</li>
-          <li><strong>Permanent DOI Archiving:</strong> Preprints are mirrored across Figshare, Zenodo, and the Internet Archive with permanent Digital Object Identifiers.</li>
+          <li><strong>Permanent DOI Archiving:</strong> Preprints and benchmark datasets are mirrored across Harvard Dataverse, Zenodo, and the Internet Archive with permanent Digital Object Identifiers.</li>
           <li><strong>Interactive Syllabus Companion:</strong> Every technical report links directly to its companion browser-local simulation engine for class assignments and lab exercises.</li>
         </ul>
         <div style={{ display: "flex", gap: "0.75rem", flexWrap: "wrap" }}>

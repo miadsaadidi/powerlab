@@ -182,11 +182,59 @@ export default function UpsBatterySizePage() {
         </div>
       </section>
 
-      <section id="related-tools">
-        <h2>Related Backup &amp; Battery Tools</h2>
-        <p>
-          Verify operating duration with the <Link href="/battery/ups-runtime-calculator">UPS Runtime Calculator</Link>, size general storage with the <Link href="/battery/battery-size-calculator">Battery Size Calculator</Link>, or check battery discharge with the <Link href="/battery/battery-runtime-calculator">Battery Runtime Calculator</Link>.
+      <section id="related-tools" style={{ marginTop: "3rem", padding: "1.75rem", borderRadius: "0.85rem", background: "var(--surface)", border: "1px solid var(--line)" }}>
+        <h2 style={{ marginTop: 0, fontSize: "1.35rem", color: "var(--brand-strong)" }}>Related Uninterruptible Power &amp; Battery Storage Tools</h2>
+        <p style={{ marginBottom: "1.25rem", color: "var(--muted)", lineHeight: 1.55 }}>
+          Model backup runtimes, battery chemistries, and DC conductor voltage drop across your critical power infrastructure:
         </p>
+
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(260px, 1fr))", gap: "1rem" }}>
+          <div style={{ padding: "1.25rem", borderRadius: "0.75rem", background: "var(--surface-subtle, #fafafa)", border: "1px solid var(--line)" }}>
+            <h3 style={{ margin: "0 0 0.5rem", fontSize: "1.05rem", color: "var(--brand-strong)" }}>⏱️ UPS Runtime Calculator</h3>
+            <p style={{ fontSize: "0.88rem", color: "var(--muted)", margin: "0 0 0.75rem", lineHeight: 1.5 }}>
+              Calculate exact minutes and hours of backup power for existing UPS units under specific computer and server loads.
+            </p>
+            <Link href="/battery/ups-runtime-calculator" className="button secondary-button" style={{ width: "100%", textAlign: "center", display: "block" }}>
+              UPS Runtime Calculator →
+            </Link>
+          </div>
+
+          <div style={{ padding: "1.25rem", borderRadius: "0.75rem", background: "var(--surface-subtle, #fafafa)", border: "1px solid var(--line)" }}>
+            <h3 style={{ margin: "0 0 0.5rem", fontSize: "1.05rem", color: "var(--brand-strong)" }}>🔋 Battery Capacity &amp; Ah/kWh</h3>
+            <p style={{ fontSize: "0.88rem", color: "var(--muted)", margin: "0 0 0.75rem", lineHeight: 1.5 }}>
+              Convert Amp-Hours (Ah) to Kilowatt-Hours (kWh), calculate series/parallel string voltage, and model Peukert losses.
+            </p>
+            <Link href="/battery/battery-capacity-calculator" className="button secondary-button" style={{ width: "100%", textAlign: "center", display: "block" }}>
+              Battery Capacity Calculator →
+            </Link>
+          </div>
+
+          <div style={{ padding: "1.25rem", borderRadius: "0.75rem", background: "var(--surface-subtle, #fafafa)", border: "1px solid var(--line)" }}>
+            <h3 style={{ margin: "0 0 0.5rem", fontSize: "1.05rem", color: "var(--brand-strong)" }}>⚡ Battery Runtime Calculator</h3>
+            <p style={{ fontSize: "0.88rem", color: "var(--muted)", margin: "0 0 0.75rem", lineHeight: 1.5 }}>
+              Estimate discharge time across Lead-Acid (AGM/Gel) and Lithium Iron Phosphate (LiFePO4) chemistries.
+            </p>
+            <Link href="/battery/battery-runtime-calculator" className="button secondary-button" style={{ width: "100%", textAlign: "center", display: "block" }}>
+              Battery Runtime Calculator →
+            </Link>
+          </div>
+
+          <div style={{ padding: "1.25rem", borderRadius: "0.75rem", background: "var(--surface-subtle, #fafafa)", border: "1px solid var(--line)" }}>
+            <h3 style={{ margin: "0 0 0.5rem", fontSize: "1.05rem", color: "var(--brand-strong)" }}>📉 Voltage Drop &amp; Wire Size</h3>
+            <p style={{ fontSize: "0.88rem", color: "var(--muted)", margin: "0 0 0.75rem", lineHeight: 1.5 }}>
+              Size heavy DC battery cables (12V/24V/48V) to maintain &lt;2% voltage drop between battery bank and inverter.
+            </p>
+            <Link href="/battery/voltage-drop-calculator" className="button secondary-button" style={{ width: "100%", textAlign: "center", display: "block" }}>
+              Voltage Drop Calculator →
+            </Link>
+          </div>
+        </div>
+
+        <div style={{ marginTop: "1rem", display: "flex", gap: "0.5rem", flexWrap: "wrap" }}>
+          <Link href="/battery/battery-size-calculator" className="button secondary-button" style={{ fontSize: "0.85rem" }}>Battery Size Calculator</Link>
+          <Link href="/home-energy/home-battery-size-calculator" className="button secondary-button" style={{ fontSize: "0.85rem" }}>Home Battery Size Calculator</Link>
+          <Link href="/guides/battery-backup-runtime-calculation-guide" className="button secondary-button" style={{ fontSize: "0.85rem" }}>Battery Runtime Calculation Guide</Link>
+        </div>
       </section>
     </article>
   );

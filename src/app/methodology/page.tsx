@@ -30,13 +30,13 @@ export default function MethodologyPage() {
           buttonLabel="🎓 Cite Methodology (BibTeX / APA / IEEE)"
         />
         <a
-          href="https://doi.org/10.6084/m9.figshare.33321774"
+          href="https://dataverse.harvard.edu/dataverse/powerlab"
           target="_blank"
           rel="noopener noreferrer"
           className="button secondary-button"
           style={{ fontSize: "0.84rem", padding: "0.45rem 0.9rem" }}
         >
-          📄 View Figshare Working Paper (DOI)
+          🏛️ View Harvard Dataverse Open Datasets
         </a>
       </div>
 

@@ -273,6 +273,8 @@ Before writing, drafting, generating, or reviewing ANY outreach pitch, education
 Vercel is connected directly to Git. Production deployments are **fully automated** upon push/merge to `main`.
 
 - **Direct Questions First:** When the user asks a question (e.g., 'did you push to vercel? yes/no'), answer the question directly without autonomously executing unrequested scripts or builds.
+- **Markdown & SEO Plans Are Not Code:** Markdown documents (`.md` files, outreach plans, SEO strategies, documentation) are not executable code. Never run unit tests (`npm test`), typechecks, or production builds (`npm run build`) for documentation, markdown, or SEO plan updates.
+- **No Unrequested Builds / Deployments:** Never trigger production builds or manual deployment runs unless explicitly requested by the user.
 - **Automated Deployments:** Deployments trigger automatically via Git integration upon push/merge. Manual deployment scripts are deprecated/fallback only.
 - **Never Expose Secrets:** Never print, copy, commit, or expose token values, API keys, or private environment variables in source code, logs, or chat messages.
 
@@ -284,11 +286,12 @@ All code modifications and contributions must strictly follow this production-gr
 - **Small Tweaks (No PR Required):** Direct commits to `main` for simple text/copy corrections, minor CSS refinements, small metadata tweaks, or isolated single-file bug fixes. Vercel automatically deploys `main` to Production.
 - **Medium & Large Updates (MANDATORY PR):** Dedicated feature branch (`feat/<slug>`, `refactor/<slug>`, `docs/<slug>`, `fix/<slug>`) and a formal GitHub Pull Request for multi-feature additions, new routes/pages, major mathematical refactors, or schema architectures. Direct commits to `main` for these scopes are strictly forbidden.
 
-### 2. Pre-PR Verification Gate (MANDATORY)
-Before pushing any branch to `origin` or creating a PR, you MUST run and pass:
+### 2. Pre-PR Verification Gate (For Code Changes Only)
+For executable code modifications (TypeScript, TSX, API routes, engines, state stores), run and pass before pushing or creating a PR:
 1. **Unit tests:** `npm test` (100% passing across all suites).
 2. **Typecheck:** `npm run typecheck` / `tsc --noEmit` (0 compilation errors).
 3. **Static build (recommended):** `npm run build` (Clean static route generation).
+*(Note: Markdown documents, outreach templates, and SEO plan files do NOT require tests or builds).*
 
 ### 3. Immediate Formal PR Creation on Push (NEVER STOP AT RAW PUSH)
 Whenever you create and push a feature branch (`git push -u origin feat/<slug>`):

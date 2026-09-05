@@ -12,7 +12,7 @@ import { DirectAnswerCard } from "@/components/seo/direct-answer-card";
 const isPublished = isCalculatorPublished("ev-range");
 
 export const metadata: Metadata = buildPageMetadata({
-  title: "EV Range Calculator — Real-World Highway Speed & Winter Temp Loss",
+  title: "EV Range Calculator — Highway & Winter Range",
   description: "Estimate real-world electric vehicle driving range by battery kWh, 70+ mph highway speed & cold winter temperature drop. Physics-based EV range estimation.",
   canonicalPath: "/ev/ev-range-calculator",
   category: "ev",

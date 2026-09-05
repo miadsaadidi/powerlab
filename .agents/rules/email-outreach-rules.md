@@ -44,3 +44,21 @@ Every cold email to an academic, director, or analyst MUST follow this 4-step ps
 
 4. **The Transparent Deterministic Artifact:**
    Offer PowerLab not as a product, but as an open mathematical reference with transparent, step-by-step derivations and zero black-box calculations.
+
+---
+
+## 3. Mandatory 2-Step Gate: Discussion & Approval First (NEVER DUMP EMAILS UNPROMPTED)
+
+Whenever the user mentions "outreach", asks for outreach tasks, or explores communication:
+
+1. **Step 1: Present ONLY the high-level Candidate Recipient List:**
+   - Output ONLY a concise bulleted list of the candidates:
+     - Recipient Name & Title
+     - Target Publication / Organization
+     - Proposed 1-line Engineering Hook / Topic
+   - **DO NOT write, draft, or dump the email bodies.**
+
+2. **Step 2: Pause and Ask for Explicit Approval:**
+   - Ask the user to review the recipient list, suggest adjustments, or approve which specific emails to draft.
+   - Wait for explicit user confirmation before generating ANY pitch text.
+

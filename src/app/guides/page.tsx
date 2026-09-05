@@ -467,7 +467,7 @@ export default function GuidesHubPage() {
               <Link href="/research" style={{ color: "inherit", textDecoration: "none" }}>Open Research &amp; Preprints →</Link>
             </h3>
             <p style={{ margin: 0, fontSize: "0.88rem", lineHeight: 1.5, color: "var(--muted)" }}>
-              Explore our citable technical reports (Figshare DOI, Academia.edu) covering EVSE continuous load, heat pump COP decay, and generator motor inrush.
+              Explore our citable technical reports (Harvard Dataverse, Academia.edu) covering EVSE continuous load, heat pump COP decay, and generator motor inrush.
             </p>
           </div>
 

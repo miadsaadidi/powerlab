@@ -2,6 +2,9 @@
 
 This document provides formal email outreach pitches tailored for university professors, electrical engineering departments, renewable energy clubs, and vocational trade schools.
 
+> **Live Verified OER Registry:**
+> • **OER Commons (DA 76+):** [`https://oercommons.org/courses/powerlab-deterministic-energy-systems-battery-storage-modeling-suite`](https://oercommons.org/courses/powerlab-deterministic-energy-systems-battery-storage-modeling-suite) *(Status: Live & Indexed across university OER catalogs)*
+> 
 > **Note:** For the complete, verified 30-target daily outreach roster (5 emails/day across 6 target categories), see [`docs/outreach/04_DAILY_5_OUTREACH_TARGETS_AND_PITCHES.md`](file:///d:/powerlab/docs/outreach/04_DAILY_5_OUTREACH_TARGETS_AND_PITCHES.md).
 
 ---
