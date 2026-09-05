@@ -11,6 +11,7 @@ const staticPaths = [
   "/guides/central-ac-and-heat-pump-electricity-cost-guide",
   "/guides/emergency-generator-sizing-and-inrush-load-guide",
   "/guides/how-many-kwh-does-a-house-use-per-day",
+  "/guides/how-to-calculate-ev-driving-range-and-efficiency-guide",
   "/guides/level-2-ev-charging-speed-and-breaker-sizing-guide",
   "/guides/mppt-solar-charge-controller-sizing-guide",
   "/guides/solar-panel-tilt-angle-by-latitude-and-season-guide",

@@ -30,14 +30,28 @@ interface GuideItem {
 
 const FEATURED_GUIDES: GuideItem[] = [
   {
+    name: "How to Calculate EV Driving Range & Efficiency (Formula, Speed Drag & Winter Losses)",
+    route: "/guides/how-to-calculate-ev-driving-range-and-efficiency-guide",
+    category: "Electric Vehicles",
+    categoryIcon: "🚗",
+    categoryColor: "#8b5cf6",
+    categoryBg: "rgba(139, 92, 246, 0.1)",
+    badge: "🔥 New Flagship Guide",
+    badgeType: "new",
+    description: "Master the mathematical physics of electric vehicle range. Calculate real-world highway range from usable battery kWh, aerodynamic speed drag (v²), rolling resistance, winter cold derating, and battery degradation.",
+    readTime: "9 min read",
+    updatedDate: "Published September 5, 2026",
+    standards: ["SAE J1634", "EPA 40 CFR 600", "WLTP GTR No. 15", "ISO 15118"],
+  },
+  {
     name: "Central AC & Heat Pump Electricity Cost Guide (SEER2, Tons & Power Draw)",
     route: "/guides/central-ac-and-heat-pump-electricity-cost-guide",
     category: "Home Energy",
     categoryIcon: "❄️",
     categoryColor: "#0ea5e9",
     categoryBg: "rgba(14, 165, 233, 0.1)",
-    badge: "🔥 New Flagship Guide",
-    badgeType: "new",
+    badge: "🔥 Popular Guide",
+    badgeType: "trending",
     description: "Calculate central AC and heat pump operating costs. Master SEER2, tonnage power draw, compressor cycling duty cycles, and heat pump vs. natural gas break-even economics.",
     readTime: "9 min read",
     updatedDate: "Published August 29, 2026",
@@ -451,6 +465,15 @@ export default function GuidesHubPage() {
               <div style={{ fontSize: "0.8rem", color: "var(--muted)" }}>Target Keyword: Space Heater Electricity Cost &bull; 18,100/mo &bull; 1500W Duty Cycles</div>
             </div>
             <Link href="/guides/space-heater-electricity-cost-and-wattage-guide" style={{ fontSize: "0.82rem", fontWeight: 700, color: "#10b981", textDecoration: "none" }}>Read Guide →</Link>
+          </div>
+
+          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", padding: "0.85rem 1rem", borderRadius: "0.6rem", background: "rgba(16, 185, 129, 0.08)", border: "1px solid rgba(16, 185, 129, 0.3)" }}>
+            <div>
+              <span style={{ fontSize: "0.75rem", fontWeight: 700, color: "#10b981", textTransform: "uppercase" }}>✅ Day 10 (Sep 5, 2026) · Live Flagship</span>
+              <div style={{ fontWeight: 700, fontSize: "0.95rem", color: "var(--foreground)" }}>How to Calculate EV Driving Range &amp; Efficiency Guide</div>
+              <div style={{ fontSize: "0.8rem", color: "var(--muted)" }}>Target Keyword: How to Calculate EV Range &bull; Aerodynamic Speed Drag (v²) &amp; Winter Losses</div>
+            </div>
+            <Link href="/guides/how-to-calculate-ev-driving-range-and-efficiency-guide" style={{ fontSize: "0.82rem", fontWeight: 700, color: "#10b981", textDecoration: "none" }}>Read Guide →</Link>
           </div>
         </div>
       </section>

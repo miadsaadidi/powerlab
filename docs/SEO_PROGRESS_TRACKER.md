@@ -311,7 +311,7 @@ Cluster 4: Battery Capacity, Runtime & International Ingestion
 
 ## 5. Verification Evidence
 
-* Internal-link audit: 0 orphan pages, 0 single incoming link pages across all canonical routes.
+* Internal-link audit: 0 orphan pages, 0 single incoming link pages across all canonical routes. High-authority internal link bridges active from Page 1 rankers into Page 2 striking-distance calculators.
 * Meta tag audit: 0 titles > 60 chars (with `%s | PowerLab` template), 0 meta descriptions > 160 chars, 0 meta descriptions < 70 chars.
 * OpenGraph audit: 100% complete OG metadata with dedicated 1200x630 category cards and Twitter cards across all 49 pages.
 * IndexNow: Key verification route `/c94b7e8d1a2f43b68019e34a75d28b12.txt` active, all 49 URLs submitted with HTTP 202 Accepted.
@@ -321,14 +321,33 @@ Cluster 4: Battery Capacity, Runtime & International Ingestion
 
 ---
 
-## 6. Open Pull Requests & Scheduled Merges
+## 6. 15-Day Daily Educational Guide Publishing Tracker (GSC Query-Driven)
 
-> [!IMPORTANT]
-> **Merge Schedule:** All open PR branches are queued to be merged into `main` tomorrow.
+| Day | Planned Guide Route | Target GSC Queries & Search Volume | Companion Calculator | Status |
+| :---: | :--- | :--- | :--- | :---: |
+| **01** | `/guides/how-to-calculate-ev-driving-range-and-efficiency-guide` | `how to calculate ev range` (Pos 15.5)<br>`ev range calculation formula` (Pos 20.0)<br>`electric vehicle range calculator` (Pos 57.0) | [EV Range Calculator](/ev/ev-range-calculator) *(1,331 imp)* | 🟡 **In Progress (Stream B)** |
+| **02** | `/guides/how-to-calculate-battery-capacity-ah-and-kwh-guide` | `battery capacity calculator` (Pos 73.2)<br>`mah to kwh` (Pos 58.3)<br>`convert ah to kwh` (Pos 77.2) | [Battery Capacity Calculator](/battery/battery-capacity-calculator) *(1,719 imp)* | ⚪ Scheduled |
+| **03** | `/guides/window-vs-portable-vs-central-ac-running-cost-guide` | `ac cost calculator` (Pos 31.5)<br>`portable ac electricity cost calculator` (Pos 33.0)<br>`air conditioner electricity cost calculator` (Pos 35.4) | [Air Conditioner Cost Calculator](/home-energy/air-conditioner-cost-calculator) *(1,997 imp)* | ⚪ Scheduled |
+| **04** | `/guides/how-to-calculate-solar-panel-output-and-kwh-yield-guide` | `how to calculate solar panel output` (Pos 81.6)<br>`solar panel kilowatt hour calculator` (Pos 81.0)<br>`solar yield calculation` (Pos 86.3) | [Solar Panel Output Calculator](/solar/solar-panel-output-calculator) *(1,381 imp)* | ⚪ Scheduled |
+| **05** | `/guides/portable-power-station-and-solar-generator-sizing-guide` | `portable power station runtime calculator` (Pos 32.0)<br>`solar generator run time calculator` (Pos 67.7)<br>`power station calculator` (Pos 75.1) | [Portable Power Station Calculator](/battery/portable-power-station-calculator) *(327 imp)* | ⚪ Scheduled |
+| **06** | `/guides/ev-charger-breaker-and-wire-sizing-guide` | `what size breaker for 48 amp ev charger` (Pos 38.0)<br>`ev charger breaker size` (Pos 69.0)<br>`breaker size for ev charger` (Pos 65.5) | [EV Charger Breaker Size Calculator](/ev/ev-charger-breaker-size-calculator) *(68 imp)* | ⚪ Scheduled |
+| **07** | `/guides/ups-battery-runtime-calculation-and-sizing-guide` | `ups runtime calculator` (Pos 27.5)<br>`ups runtime calculation` (Pos 49.5)<br>`ups battery calculator` (Pos 75.7) | [UPS Runtime Calculator](/battery/ups-runtime-calculator) *(74 imp)* | ⚪ Scheduled |
+| **08** | `/guides/how-long-will-a-12v-battery-run-an-inverter-or-appliance-guide` | `12v battery run time calculator` (Pos 67.8)<br>`calculate runtime of battery` (Pos 73.3)<br>`battery duration calculator` (Pos 69.8) | [Battery Runtime Calculator](/battery/battery-runtime-calculator) *(472 imp)* | ⚪ Scheduled |
+| **09** | `/guides/how-to-calculate-electric-bill-from-meter-reading-guide` | `how to calculate electricity bill from meter reading` (Pos 81.8)<br>`how to calculate your energy bill` (Pos 55.8)<br>`cost per kwh calculator` (Pos 73.3) | [Energy Bill Calculator](/home-energy/energy-bill-calculator) *(1,024 imp)* | ⚪ Scheduled |
+| **10** | `/guides/how-many-batteries-do-i-need-for-a-solar-system-guide` | `solar battery storage calculator` (Pos 66.4)<br>`solar power battery calculator` (Pos 74.2)<br>`solar battery bank size calculator` (Pos 62.5) | [Solar Battery Bank Size Calculator](/solar/solar-battery-bank-size-calculator) *(324 imp)* | ⚪ Scheduled |
+| **11** | `/guides/how-to-size-mppt-solar-charge-controller-guide` | `how to size mppt charge controller` (Pos 36.0)<br>`how to size mppt solar charge controller` (Pos 48.5)<br>`sizing a solar charge controller` (Pos 82.8) | [Solar Charge Controller Calculator](/solar/solar-charge-controller-calculator) *(50 imp)* | ⚪ Scheduled |
+| **12** | `/guides/heat-pump-operating-cost-vs-gas-furnace-breakdown-guide` | `heat pump operating costs` (Pos 56.1)<br>`is a heat pump expensive to run` (Pos 47.0)<br>`heat pump cost calculator canada` (Pos 69.5) | [Heat Pump Cost Calculator](/home-energy/heat-pump-cost-calculator) *(45 imp)* | ⚪ Scheduled |
+| **13** | `/guides/electric-car-vs-gas-cost-comparison-guide` | `ev charging cost vs gas calculator` (Pos 72.0)<br>`ev vs gas calculator` (Pos 71.5)<br>`calculate savings electric car` (Pos 84.8) | [EV Savings Calculator](/ev/ev-savings-calculator) *(235 imp)* | ⚪ Scheduled |
+| **14** | `/guides/what-size-generator-do-i-need-to-run-a-house-and-pumps-guide` | `what size generator to run a sump pump` (Pos 65.0)<br>`what size generator for 200 amp service` (Pos 81.0)<br>`what size generator for 150 amp service` (Pos 84.3) | [Generator Size Calculator](/home-energy/generator-size-calculator) *(729 imp)* | ⚪ Scheduled |
+| **15** | `/guides/how-many-kwh-home-battery-backup-storage-needed-guide` | `how many kwh do i need for home backup power` (Pos 76.0)<br>`whole house battery backup calculator` (Pos 65.0)<br>`home battery kwh calculation` (Pos 72.2) | [Home Battery Size Calculator](/home-energy/home-battery-size-calculator) *(321 imp)* | ⚪ Scheduled |
+
+---
+
+## 7. Open Pull Requests & Branch Lifecycle
 
 | Branch | PR Scope | Status | Verification Status |
 | :--- | :--- | :--- | :--- |
-| `feat/mobile-ux-and-search-optimizations` | Mobile UX refinements & home search filter optimizations | Pushed to `origin` | Tests & build passing |
-| `fix/openseo-audit-compliance` | 25 OpenSEO audit fixes (heading skips, descriptions, titles, terms page) | Pushed to `origin` | 264/264 tests & 73/73 routes passing |
+| `feat/seo-internal-link-capitalization` | Stream A: High-authority internal link bridges from Page 1 rankers | [PR on GitHub](https://github.com/miadsaadidi/powerlab/pull/new/feat/seo-internal-link-capitalization) | 264/264 tests & 73/73 routes passing |
+| `feat/guide-ev-range-calculation` | Stream B: Guide #11 EV Driving Range & Efficiency Calculation Guide | Active Development | Ready for implementation |
 
 

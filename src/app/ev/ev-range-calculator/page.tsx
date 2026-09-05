@@ -182,11 +182,34 @@ export default function EvRangePage() {
         </div>
       </section>
 
-      <section id="related-tools">
-        <h2>Related EV Planning Tools</h2>
-        <p>
-          Calculate charging duration with the <Link href="/ev/ev-charging-time-calculator">EV Charging Time Calculator</Link>, estimate trip charging costs with the <Link href="/ev/ev-charging-cost-calculator">EV Charging Cost Calculator</Link>, or check vehicle-to-load backup runtime with the <Link href="/ev/v2l-runtime-calculator">V2L Runtime Calculator</Link>.
+      <section id="related-tools" style={{ marginTop: "3rem", padding: "1.75rem", borderRadius: "0.85rem", background: "var(--surface)", border: "1px solid var(--line)" }}>
+        <h2 style={{ marginTop: 0, fontSize: "1.35rem", color: "var(--brand-strong)" }}>Related Electric Vehicle Engineering Guides &amp; Tools</h2>
+        <p style={{ marginBottom: "1.25rem", color: "var(--muted)", lineHeight: 1.55 }}>
+          Dive into the underlying physics of highway aerodynamic drag, winter battery losses, and home charging sizing:
         </p>
+
+        <div style={{ padding: "1.25rem", borderRadius: "0.75rem", background: "linear-gradient(135deg, rgba(139, 92, 246, 0.08) 0%, rgba(139, 92, 246, 0.03) 100%)", border: "1.5px solid rgba(139, 92, 246, 0.3)", marginBottom: "1.25rem" }}>
+          <div style={{ display: "flex", alignItems: "center", gap: "0.5rem", marginBottom: "0.4rem" }}>
+            <span style={{ fontSize: "1.3rem" }}>📘</span>
+            <h3 style={{ margin: 0, fontSize: "1.1rem", color: "var(--brand-strong)" }}>
+              Featured Engineering Guide: How to Calculate EV Driving Range &amp; Efficiency
+            </h3>
+          </div>
+          <p style={{ margin: "0 0 0.75rem", fontSize: "0.92rem", color: "var(--ink)", lineHeight: 1.55 }}>
+            Master aerodynamic speed drag formulas ($F_d = \frac{1}{2} \rho C_d A v^2$), winter heat pump vs PTC strip heating penalties, and 100,000-mile battery degradation kinetics.
+          </p>
+          <Link href="/guides/how-to-calculate-ev-driving-range-and-efficiency-guide" className="button" style={{ display: "inline-block", background: "#8b5cf6", color: "#ffffff", fontWeight: 700, padding: "0.6rem 1.25rem", borderRadius: "0.5rem", textDecoration: "none", fontSize: "0.9rem" }}>
+            Read Complete EV Range Calculation Guide →
+          </Link>
+        </div>
+
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))", gap: "0.75rem" }}>
+          <Link href="/ev/ev-charging-time-calculator" className="button secondary-button">EV Charging Time Calculator</Link>
+          <Link href="/ev/ev-charging-cost-calculator" className="button secondary-button">EV Charging Cost Calculator</Link>
+          <Link href="/ev/ev-charger-breaker-size-calculator" className="button secondary-button">EV Breaker Size Calculator</Link>
+          <Link href="/ev/v2l-runtime-calculator" className="button secondary-button">V2L Runtime Calculator</Link>
+          <Link href="/ev/ev-savings-calculator" className="button secondary-button">EV vs Gas Savings Calculator</Link>
+        </div>
       </section>
     </article>
   );
