@@ -76,7 +76,7 @@ export default async function ResearchPaperPage({ params }: PageProps) {
     sameAs: [
       paper.doi ? `https://doi.org/${paper.doi}` : null,
       paper.academiaUrl || null,
-      paper.archiveUrl || null,
+      paper.dataverseUrl || null,
     ].filter(Boolean),
     author: paper.authors.map((author) => ({
       "@type": "Organization",
@@ -142,17 +142,6 @@ export default async function ResearchPaperPage({ params }: PageProps) {
             doi={paper.doi}
             buttonLabel="🎓 Export Citation"
           />
-          {paper.archiveUrl && (
-            <a
-              href={paper.archiveUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="button secondary-button"
-              style={{ fontSize: "0.85rem", padding: "0.5rem 0.85rem" }}
-            >
-              🏛️ Internet Archive
-            </a>
-          )}
           {paper.academiaUrl && (
             <a
               href={paper.academiaUrl}
@@ -161,7 +150,7 @@ export default async function ResearchPaperPage({ params }: PageProps) {
               className="button secondary-button"
               style={{ fontSize: "0.85rem", padding: "0.5rem 0.85rem" }}
             >
-              🎓 Academia.edu
+              🎓 Read on Academia
             </a>
           )}
           {paper.doi && (
@@ -172,7 +161,18 @@ export default async function ResearchPaperPage({ params }: PageProps) {
               className="button secondary-button"
               style={{ fontSize: "0.85rem", padding: "0.5rem 0.85rem" }}
             >
-              DOI: {paper.doi}
+              📊 Figshare / DOI: {paper.doi}
+            </a>
+          )}
+          {paper.dataverseUrl && (
+            <a
+              href={paper.dataverseUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="button secondary-button"
+              style={{ fontSize: "0.85rem", padding: "0.5rem 0.85rem" }}
+            >
+              🏛️ Harvard Dataverse
             </a>
           )}
         </div>

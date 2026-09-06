@@ -26,7 +26,6 @@ export interface ResearchPaper {
   htmlUrl?: string;
   dataverseUrl?: string;
   academiaUrl?: string;
-  archiveUrl?: string;
   category: "Electric Vehicles" | "Home Energy" | "Solar Photovoltaics" | "Battery Storage";
   categorySlug: "ev" | "home-energy" | "solar" | "battery";
   keywords: string[];
@@ -56,7 +55,6 @@ export const RESEARCH_PAPERS: ResearchPaper[] = [
     doi: "10.6084/m9.figshare.33321774",
     pdfUrl: "/whitepapers/evse-continuous-duty-thermal-sizing.pdf",
     academiaUrl: "https://www.academia.edu/173621969/Continuous_Duty_Thermal_Sizing_Conductor_Terminal_Limits_and_Branch_Circuit_Ampacity_Requirements_for_Residential_Level_2_Electric_Vehicle_Supply_Equipment_EVSE_",
-    archiveUrl: "https://archive.org/details/powerlab-tr-2026-01-deterministic-energy-algorithms",
     category: "Electric Vehicles",
     categorySlug: "ev",
     keywords: [
@@ -194,6 +192,7 @@ export const RESEARCH_PAPERS: ResearchPaper[] = [
     datePublished: "2026-08-27",
     dateModified: "2026-08-27",
     pdfUrl: "/whitepapers/deterministic-inrush-load-stacking-generator-sizing.pdf",
+    academiaUrl: "https://www.academia.edu/172416009/Deterministic_Modeling_of_Inductive_Motor_Inrush_Currents_and_Non_Coincident_Load_Stacking_for_Residential_Backup_Power_Systems",
     category: "Home Energy",
     categorySlug: "home-energy",
     keywords: [

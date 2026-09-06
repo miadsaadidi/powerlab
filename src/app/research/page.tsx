@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { siteConfig } from "@/lib/site-config";
 import { RESEARCH_PAPERS } from "@/data/research-papers";
-import { AcademicCitationModal } from "@/components/seo/academic-citation-modal";
 import { buildPageMetadata } from "@/lib/seo/metadata-helper";
 
 export const metadata: Metadata = {
@@ -143,68 +142,24 @@ export default function ResearchHubPage() {
               </div>
             </div>
 
-            {/* Action Bar: PDF, Read Online, DOI, Cite */}
-            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: "0.75rem", paddingTop: "1rem", borderTop: "1px solid var(--line)" }}>
-              <div style={{ display: "flex", gap: "0.5rem", flexWrap: "wrap" }}>
-                <a
-                  href={paper.pdfUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="button"
-                  style={{ fontSize: "0.85rem", padding: "0.45rem 0.9rem", display: "inline-flex", alignItems: "center", gap: "0.35rem" }}
-                >
-                  📄 Download PDF Whitepaper
-                </a>
-                <Link
-                  href={`/research/${paper.slug}`}
-                  className="button secondary-button"
-                  style={{ fontSize: "0.85rem", padding: "0.45rem 0.9rem" }}
-                >
-                  Read Paper Online →
-                </Link>
-              </div>
-
-              <div style={{ display: "flex", gap: "0.5rem", alignItems: "center", flexWrap: "wrap" }}>
-                {paper.academiaUrl && (
-                  <a
-                    href={paper.academiaUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="button secondary-button"
-                    style={{ fontSize: "0.82rem", padding: "0.4rem 0.8rem", display: "inline-flex", alignItems: "center", gap: "0.35rem" }}
-                  >
-                    🎓 Read on Academia
-                  </a>
-                )}
-                {paper.archiveUrl && (
-                  <a
-                    href={paper.archiveUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="button secondary-button"
-                    style={{ fontSize: "0.82rem", padding: "0.4rem 0.8rem", display: "inline-flex", alignItems: "center", gap: "0.35rem" }}
-                  >
-                    🏛️ Archive.org
-                  </a>
-                )}
-                {paper.doi && (
-                  <a
-                    href={`https://doi.org/${paper.doi}`}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="button secondary-button"
-                    style={{ fontSize: "0.82rem", padding: "0.4rem 0.8rem", display: "inline-flex", alignItems: "center", gap: "0.35rem" }}
-                  >
-                    📊 DOI: {paper.doi}
-                  </a>
-                )}
-                <AcademicCitationModal
-                  title={paper.title}
-                  urlPath={`/research/${paper.slug}`}
-                  doi={paper.doi}
-                  buttonLabel="🎓 Cite"
-                />
-              </div>
+            {/* Action Bar: Download PDF & Read Online */}
+            <div style={{ display: "flex", gap: "0.5rem", flexWrap: "wrap", alignItems: "center", paddingTop: "1rem", borderTop: "1px solid var(--line)" }}>
+              <a
+                href={paper.pdfUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="button"
+                style={{ fontSize: "0.85rem", padding: "0.45rem 0.9rem", display: "inline-flex", alignItems: "center", gap: "0.35rem" }}
+              >
+                📄 Download PDF Whitepaper
+              </a>
+              <Link
+                href={`/research/${paper.slug}`}
+                className="button secondary-button"
+                style={{ fontSize: "0.85rem", padding: "0.45rem 0.9rem" }}
+              >
+                Read Paper Online →
+              </Link>
             </div>
           </div>
         ))}
@@ -220,7 +175,7 @@ export default function ResearchHubPage() {
         </p>
         <ul style={{ color: "var(--ink)", lineHeight: 1.65, fontSize: "0.95rem", paddingLeft: "1.25rem", margin: "0.75rem 0 1.25rem" }}>
           <li><strong>Zero Paywalls or Student Logins:</strong> All formulas, source code, and whitepaper datasets are available without student registration or paywall gating.</li>
-          <li><strong>Permanent DOI Archiving:</strong> Preprints and benchmark datasets are mirrored across Harvard Dataverse, Zenodo, and the Internet Archive with permanent Digital Object Identifiers.</li>
+          <li><strong>Permanent DOI Archiving:</strong> Preprints and benchmark datasets are mirrored across Harvard Dataverse and Figshare with permanent Digital Object Identifiers.</li>
           <li><strong>Interactive Syllabus Companion:</strong> Every technical report links directly to its companion browser-local simulation engine for class assignments and lab exercises.</li>
         </ul>
         <div style={{ display: "flex", gap: "0.75rem", flexWrap: "wrap" }}>
