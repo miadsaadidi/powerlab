@@ -73,7 +73,11 @@ export default async function ResearchPaperPage({ params }: PageProps) {
     url: `${siteConfig.url}/research/${paper.slug}`,
     datePublished: paper.datePublished,
     dateModified: paper.dateModified,
-    sameAs: paper.doi ? `https://doi.org/${paper.doi}` : undefined,
+    sameAs: [
+      paper.doi ? `https://doi.org/${paper.doi}` : null,
+      paper.academiaUrl || null,
+      paper.archiveUrl || null,
+    ].filter(Boolean),
     author: paper.authors.map((author) => ({
       "@type": "Organization",
       name: author,
@@ -138,6 +142,28 @@ export default async function ResearchPaperPage({ params }: PageProps) {
             doi={paper.doi}
             buttonLabel="🎓 Export Citation"
           />
+          {paper.archiveUrl && (
+            <a
+              href={paper.archiveUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="button secondary-button"
+              style={{ fontSize: "0.85rem", padding: "0.5rem 0.85rem" }}
+            >
+              🏛️ Internet Archive
+            </a>
+          )}
+          {paper.academiaUrl && (
+            <a
+              href={paper.academiaUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="button secondary-button"
+              style={{ fontSize: "0.85rem", padding: "0.5rem 0.85rem" }}
+            >
+              🎓 Academia.edu
+            </a>
+          )}
           {paper.doi && (
             <a
               href={`https://doi.org/${paper.doi}`}
