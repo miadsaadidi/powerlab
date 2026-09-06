@@ -26,6 +26,7 @@ export interface ResearchPaper {
   htmlUrl?: string;
   dataverseUrl?: string;
   academiaUrl?: string;
+  archiveUrl?: string;
   category: "Electric Vehicles" | "Home Energy" | "Solar Photovoltaics" | "Battery Storage";
   categorySlug: "ev" | "home-energy" | "solar" | "battery";
   keywords: string[];
@@ -51,9 +52,11 @@ export const RESEARCH_PAPERS: ResearchPaper[] = [
     authors: ["PowerLab Clean Energy Engineering Group"],
     institution: "PowerLab Open Energy Research",
     datePublished: "2026-08-26",
-    dateModified: "2026-08-26",
+    dateModified: "2026-09-06",
+    doi: "10.6084/m9.figshare.33321774",
     pdfUrl: "/whitepapers/evse-continuous-duty-thermal-sizing.pdf",
-    academiaUrl: "https://www.academia.edu/173484506/Continuous_Duty_Thermal_Sizing_Conductor_Terminal_Limits_and_Branch_Circuit_Ampacity_Requirements_for_Residential_Level_2_EVSE",
+    academiaUrl: "https://www.academia.edu/173621969/Continuous_Duty_Thermal_Sizing_Conductor_Terminal_Limits_and_Branch_Circuit_Ampacity_Requirements_for_Residential_Level_2_Electric_Vehicle_Supply_Equipment_EVSE_",
+    archiveUrl: "https://archive.org/details/powerlab-tr-2026-01-deterministic-energy-algorithms",
     category: "Electric Vehicles",
     categorySlug: "ev",
     keywords: [
@@ -120,9 +123,10 @@ export const RESEARCH_PAPERS: ResearchPaper[] = [
     authors: ["PowerLab Clean Energy Engineering Group"],
     institution: "PowerLab Open Energy Research",
     datePublished: "2026-08-28",
-    dateModified: "2026-08-28",
+    dateModified: "2026-09-06",
     pdfUrl: "/whitepapers/heat-pump-cop-degradation-auxiliary-heat.pdf",
     htmlUrl: "/whitepapers/heat-pump-cop-degradation-auxiliary-heat.html",
+    academiaUrl: "https://www.academia.edu/172873251/Non_Linear_Coefficient_of_Performance_COP_Degradation_Defrost_Entropy_Losses_and_Auxiliary_Resistive_Staging_Dynamics_in_Cold_Climate_Air_Source_Heat_Pumps_ccASHP_",
     category: "Home Energy",
     categorySlug: "home-energy",
     keywords: [

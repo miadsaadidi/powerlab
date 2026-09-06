@@ -93,7 +93,7 @@ export default function ResearchHubPage() {
       </header>
 
       {/* Roster of Published Papers */}
-      <section style={{ display: "grid", gap: "1.75rem" }}>
+      <section style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(min(100%, 450px), 1fr))", gap: "1.75rem" }}>
         {RESEARCH_PAPERS.map((paper, idx) => (
           <div
             key={paper.id}
@@ -103,39 +103,44 @@ export default function ResearchHubPage() {
               background: "var(--surface)",
               border: "1px solid var(--line)",
               boxShadow: "0 2px 8px rgba(0,0,0,0.03)",
+              display: "flex",
+              flexDirection: "column",
+              justifyContent: "space-between",
             }}
           >
-            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: "0.5rem", marginBottom: "0.6rem" }}>
-              <div style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}>
-                <span style={{ fontSize: "0.78rem", fontWeight: 800, padding: "3px 8px", borderRadius: "4px", background: "var(--surface-subtle, #f1f5f9)", color: "var(--brand-strong)", border: "1px solid var(--line)" }}>
-                  {paper.reportNumber}
-                </span>
-                <span style={{ fontSize: "0.8rem", fontWeight: 700, color: "var(--muted)" }}>
-                  {paper.category}
+            <div>
+              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: "0.5rem", marginBottom: "0.6rem" }}>
+                <div style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}>
+                  <span style={{ fontSize: "0.78rem", fontWeight: 800, padding: "3px 8px", borderRadius: "4px", background: "var(--surface-subtle, #f1f5f9)", color: "var(--brand-strong)", border: "1px solid var(--line)" }}>
+                    {paper.reportNumber}
+                  </span>
+                  <span style={{ fontSize: "0.8rem", fontWeight: 700, color: "var(--muted)" }}>
+                    {paper.category}
+                  </span>
+                </div>
+                <span style={{ fontSize: "0.82rem", color: "var(--muted)" }}>
+                  Published {paper.datePublished}
                 </span>
               </div>
-              <span style={{ fontSize: "0.82rem", color: "var(--muted)" }}>
-                Published {paper.datePublished}
-              </span>
-            </div>
 
-            <h2 style={{ fontSize: "1.35rem", lineHeight: 1.25, margin: "0.25rem 0 0.75rem", color: "var(--brand-strong)" }}>
-              <Link href={`/research/${paper.slug}`} style={{ textDecoration: "none", color: "inherit" }}>
-                {paper.title}
-              </Link>
-            </h2>
+              <h2 style={{ fontSize: "1.28rem", lineHeight: 1.3, margin: "0.25rem 0 0.75rem", color: "var(--brand-strong)" }}>
+                <Link href={`/research/${paper.slug}`} style={{ textDecoration: "none", color: "inherit" }}>
+                  {paper.title}
+                </Link>
+              </h2>
 
-            <p style={{ fontSize: "0.95rem", lineHeight: 1.6, color: "var(--ink)", marginBottom: "1.25rem" }}>
-              {paper.abstract}
-            </p>
+              <p style={{ fontSize: "0.92rem", lineHeight: 1.6, color: "var(--ink)", marginBottom: "1.25rem" }}>
+                {paper.abstract}
+              </p>
 
-            {/* Standards Badges */}
-            <div style={{ display: "flex", flexWrap: "wrap", gap: "0.4rem", marginBottom: "1.25rem" }}>
-              {paper.standards.map((std, sIdx) => (
-                <span key={sIdx} style={{ fontSize: "0.75rem", padding: "2px 8px", borderRadius: "4px", background: "var(--surface-subtle, #f8fafc)", border: "1px solid var(--line)", color: "var(--muted)" }}>
-                  {std}
-                </span>
-              ))}
+              {/* Standards Badges */}
+              <div style={{ display: "flex", flexWrap: "wrap", gap: "0.4rem", marginBottom: "1.25rem" }}>
+                {paper.standards.map((std, sIdx) => (
+                  <span key={sIdx} style={{ fontSize: "0.75rem", padding: "2px 8px", borderRadius: "4px", background: "var(--surface-subtle, #f8fafc)", border: "1px solid var(--line)", color: "var(--muted)" }}>
+                    {std}
+                  </span>
+                ))}
+              </div>
             </div>
 
             {/* Action Bar: PDF, Read Online, DOI, Cite */}
@@ -160,14 +165,37 @@ export default function ResearchHubPage() {
               </div>
 
               <div style={{ display: "flex", gap: "0.5rem", alignItems: "center", flexWrap: "wrap" }}>
+                {paper.academiaUrl && (
+                  <a
+                    href={paper.academiaUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="button secondary-button"
+                    style={{ fontSize: "0.82rem", padding: "0.4rem 0.8rem", display: "inline-flex", alignItems: "center", gap: "0.35rem" }}
+                  >
+                    🎓 Read on Academia
+                  </a>
+                )}
+                {paper.archiveUrl && (
+                  <a
+                    href={paper.archiveUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="button secondary-button"
+                    style={{ fontSize: "0.82rem", padding: "0.4rem 0.8rem", display: "inline-flex", alignItems: "center", gap: "0.35rem" }}
+                  >
+                    🏛️ Archive.org
+                  </a>
+                )}
                 {paper.doi && (
                   <a
                     href={`https://doi.org/${paper.doi}`}
                     target="_blank"
                     rel="noopener noreferrer"
-                    style={{ fontSize: "0.78rem", fontWeight: 600, color: "var(--accent)", textDecoration: "none" }}
+                    className="button secondary-button"
+                    style={{ fontSize: "0.82rem", padding: "0.4rem 0.8rem", display: "inline-flex", alignItems: "center", gap: "0.35rem" }}
                   >
-                    DOI: {paper.doi}
+                    📊 DOI: {paper.doi}
                   </a>
                 )}
                 <AcademicCitationModal
