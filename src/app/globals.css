@@ -672,6 +672,41 @@ main { max-width:1280px; }
   border-color: #f59e0b;
   color: #f59e0b;
 }
+.standard-green-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  padding: 0.18rem 0.6rem;
+  border-radius: 9999px;
+  background: rgba(16, 185, 129, 0.08);
+  border: 1px solid rgba(16, 185, 129, 0.28);
+  font-size: 0.73rem;
+  font-weight: 600;
+  color: #047857;
+  text-decoration: none;
+  line-height: 1.35;
+  transition: all 140ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+.standard-green-badge:hover {
+  background: rgba(16, 185, 129, 0.18) !important;
+  border-color: rgba(16, 185, 129, 0.5) !important;
+  color: #065f46 !important;
+  transform: translateY(-1px);
+  box-shadow: 0 3px 8px rgba(16, 185, 129, 0.14);
+  text-decoration: none;
+}
+[data-theme="dark"] .standard-green-badge {
+  background: rgba(16, 185, 129, 0.12) !important;
+  border-color: rgba(16, 185, 129, 0.35) !important;
+  color: #34d399 !important;
+}
+[data-theme="dark"] .standard-green-badge:hover {
+  background: rgba(16, 185, 129, 0.22) !important;
+  border-color: #34d399 !important;
+  color: #6ee7b7 !important;
+  box-shadow: 0 4px 12px rgba(16, 185, 129, 0.25);
+}
+
 [data-theme="dark"] .verified-standards-box {
   background: linear-gradient(145deg, #0f172a 0%, #1e293b 100%) !important;
   border-color: #334155 !important;

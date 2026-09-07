@@ -41,77 +41,45 @@ export function StandardsBadge({ standards, calculatorId, className = "" }: Stan
 
   return (
     <div
-      className={`standards-badge ${className}`.trim()}
-      role="note"
-      aria-label="Verified engineering standards compliance"
+      className={`standards-badge-group ${className}`.trim()}
+      role="group"
+      aria-label="Governing engineering standards"
       style={{
         display: "inline-flex",
         alignItems: "center",
         flexWrap: "wrap",
-        gap: "0.35rem 0.5rem",
-        padding: "0.3rem 0.65rem",
-        borderRadius: "6px",
-        background: "rgba(37, 99, 235, 0.06)",
-        border: "1px solid rgba(37, 99, 235, 0.18)",
-        fontSize: "0.75rem",
-        color: "#1d4ed8",
-        fontWeight: 500,
-        margin: "0.5rem 0 0.8rem 0",
-        width: "fit-content",
+        gap: "0.35rem",
+        margin: "0.4rem 0 0.6rem 0",
         maxWidth: "100%",
-        lineHeight: 1.3,
       }}
     >
-      <Link
-        href="/standards"
-        style={{
-          display: "inline-flex",
-          alignItems: "center",
-          gap: "0.3rem",
-          fontWeight: 700,
-          color: "inherit",
-          textDecoration: "none",
-        }}
-        title="View PowerLab Standards & Code Compliance Matrix"
-      >
-        <svg
-          width="13"
-          height="13"
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          strokeWidth="2.5"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          aria-hidden="true"
-        >
-          <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
-          <path d="m9 12 2 2 4-4" />
-        </svg>
-        <span>Verified Standards:</span>
-      </Link>
-
-      {resolvedList.map((standard, index) => {
+      {resolvedList.map((standard) => {
         const anchor = getStandardAnchor(standard);
         const targetUrl = anchor ? `/standards#${anchor}` : "/standards";
 
         return (
-          <span key={standard} style={{ display: "inline-flex", alignItems: "center", gap: "0.35rem" }}>
-            <Link
-              href={targetUrl}
-              style={{
-                fontWeight: 600,
-                color: "var(--foreground, #1e293b)",
-                textDecoration: "none",
-              }}
-              title={`Inspect governing clause for ${standard}`}
+          <Link
+            key={standard}
+            href={targetUrl}
+            className="standard-green-badge"
+            title={`Inspect governing engineering standard: ${standard}`}
+          >
+            <svg
+              width="10"
+              height="10"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="3"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              aria-hidden="true"
+              style={{ color: "#10b981", flexShrink: 0 }}
             >
-              {standard}
-            </Link>
-            {index < resolvedList.length - 1 && (
-              <span style={{ opacity: 0.4, color: "var(--muted, #64748b)" }}>•</span>
-            )}
-          </span>
+              <polyline points="20 6 9 17 4 12" />
+            </svg>
+            <span>{standard}</span>
+          </Link>
         );
       })}
     </div>
