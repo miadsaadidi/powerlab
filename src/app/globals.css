@@ -618,7 +618,6 @@ main { max-width:1280px; }
 [data-theme="dark"] .goal-card,
 [data-theme="dark"] .workflow-card,
 [data-theme="dark"] .flow-node-card,
-[data-theme="dark"] .hero-quick-estimator,
 [data-theme="dark"] .trust-badge-grid > div {
   background: #0f172a !important;
   border-color: #334155 !important;
