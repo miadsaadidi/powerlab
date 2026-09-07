@@ -5,17 +5,8 @@ import { EnergyLogo } from "@/components/energy-logo";
 
 export function SiteFooter() {
   return (
-    <footer
-      className="site-footer"
-      style={{
-        borderTop: "1px solid var(--border-color, #e2e8f0)",
-        background: "var(--bg-secondary, #f8fafc)",
-        padding: "3.5rem 0 2.5rem",
-        marginTop: "auto",
-        width: "100%",
-      }}
-    >
-      <div className="site-container" style={{ maxWidth: "1240px", margin: "0 auto", padding: "0 1.25rem" }}>
+    <footer className="site-footer">
+      <div className="site-container">
         <div
           style={{
             display: "grid",
@@ -70,21 +61,6 @@ export function SiteFooter() {
               className="google-pin-button"
               title="Pin PowerLab on Google Preferences"
               aria-label="Pin PowerLab to your Google Preferences (opens in a new tab)"
-              style={{
-                display: "inline-flex",
-                alignItems: "center",
-                gap: "0.5rem",
-                padding: "0.45rem 0.85rem",
-                borderRadius: "0.5rem",
-                fontSize: "0.78125rem",
-                fontWeight: 600,
-                color: "var(--ink, #0f172a)",
-                background: "var(--surface, #ffffff)",
-                border: "1px solid var(--border-color, #cbd5e1)",
-                textDecoration: "none",
-                boxShadow: "0 1px 3px rgba(0,0,0,0.03)",
-                transition: "all 0.15s ease",
-              }}
             >
               <svg width="15" height="15" viewBox="0 0 24 24" aria-hidden="true" style={{ flexShrink: 0 }}>
                 <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" />
@@ -99,106 +75,106 @@ export function SiteFooter() {
 
           {/* PILLAR 1: SOLAR PV */}
           <div>
-            <p style={{ fontSize: "0.8125rem", fontWeight: 700, textTransform: "uppercase", color: "var(--ink, #0f172a)", marginBottom: "0.75rem" }}>
+            <p className="footer-column-title">
               <Link href="/solar" style={{ color: "inherit", textDecoration: "none" }}>
-                Solar PV →
+                Solar PV ↗
               </Link>
             </p>
-            <ul style={{ listStyle: "none", padding: 0, margin: 0, display: "flex", flexDirection: "column", gap: "0.45rem", fontSize: "0.8125rem" }}>
-              <li><Link href="/solar/solar-panel-output-calculator" style={{ color: "inherit", textDecoration: "none" }}>Solar Output (PVWatts V8)</Link></li>
-              <li><Link href="/solar/solar-panel-tilt-calculator" style={{ color: "inherit", textDecoration: "none" }}>Solar Panel Tilt &amp; Azimuth</Link></li>
-              <li><Link href="/solar/solar-charge-controller-calculator" style={{ color: "inherit", textDecoration: "none" }}>MPPT Charge Controller Sizer</Link></li>
-              <li><Link href="/solar/solar-panel-size-calculator" style={{ color: "inherit", textDecoration: "none" }}>Solar Panel Count Sizer</Link></li>
-              <li><Link href="/solar/solar-battery-bank-size-calculator" style={{ color: "inherit", textDecoration: "none" }}>Solar Battery Bank Size</Link></li>
-              <li><Link href="/solar/solar-load-calculator" style={{ color: "inherit", textDecoration: "none" }}>Solar Daily Load Profiler</Link></li>
-              <li><Link href="/solar/solar-payback-calculator" style={{ color: "inherit", textDecoration: "none" }}>Solar Payback &amp; 25-Yr ROI</Link></li>
+            <ul>
+              <li><Link href="/solar/solar-panel-output-calculator">Solar Output (PVWatts V8)</Link></li>
+              <li><Link href="/solar/solar-panel-tilt-calculator">Solar Panel Tilt &amp; Azimuth</Link></li>
+              <li><Link href="/solar/solar-charge-controller-calculator">MPPT Charge Controller Sizer</Link></li>
+              <li><Link href="/solar/solar-panel-size-calculator">Solar Panel Count Sizer</Link></li>
+              <li><Link href="/solar/solar-battery-bank-size-calculator">Solar Battery Bank Size</Link></li>
+              <li><Link href="/solar/solar-load-calculator">Solar Daily Load Profiler</Link></li>
+              <li><Link href="/solar/solar-payback-calculator">Solar Payback &amp; 25-Yr ROI</Link></li>
             </ul>
           </div>
 
           {/* PILLAR 2: BATTERY & STORAGE */}
           <div>
-            <p style={{ fontSize: "0.8125rem", fontWeight: 700, textTransform: "uppercase", color: "var(--ink, #0f172a)", marginBottom: "0.75rem" }}>
+            <p className="footer-column-title">
               <Link href="/battery" style={{ color: "inherit", textDecoration: "none" }}>
-                Battery &amp; Storage →
+                Battery &amp; Storage ↗
               </Link>
             </p>
-            <ul style={{ listStyle: "none", padding: 0, margin: 0, display: "flex", flexDirection: "column", gap: "0.45rem", fontSize: "0.8125rem" }}>
-              <li><Link href="/battery/battery-runtime-calculator" style={{ color: "inherit", textDecoration: "none" }}>Battery Backup Runtime</Link></li>
-              <li><Link href="/battery/battery-size-calculator" style={{ color: "inherit", textDecoration: "none" }}>Battery Sizing Calculator</Link></li>
-              <li><Link href="/battery/battery-capacity-calculator" style={{ color: "inherit", textDecoration: "none" }}>Battery Capacity (Ah &bull; kWh)</Link></li>
-              <li><Link href="/battery/battery-charging-time-calculator" style={{ color: "inherit", textDecoration: "none" }}>Battery Charging Duration</Link></li>
-              <li><Link href="/battery/inverter-size-calculator" style={{ color: "inherit", textDecoration: "none" }}>Pure Sine Wave Inverter</Link></li>
-              <li><Link href="/battery/ups-runtime-calculator" style={{ color: "inherit", textDecoration: "none" }}>UPS Backup Runtime</Link></li>
-              <li><Link href="/battery/ups-battery-size-calculator" style={{ color: "inherit", textDecoration: "none" }}>UPS Battery Bank Sizer</Link></li>
-              <li><Link href="/battery/portable-power-station-calculator" style={{ color: "inherit", textDecoration: "none" }}>Portable Power Stations</Link></li>
+            <ul>
+              <li><Link href="/battery/battery-runtime-calculator">Battery Backup Runtime</Link></li>
+              <li><Link href="/battery/battery-size-calculator">Battery Sizing Calculator</Link></li>
+              <li><Link href="/battery/battery-capacity-calculator">Battery Capacity (Ah &bull; kWh)</Link></li>
+              <li><Link href="/battery/battery-charging-time-calculator">Battery Charging Duration</Link></li>
+              <li><Link href="/battery/inverter-size-calculator">Pure Sine Wave Inverter</Link></li>
+              <li><Link href="/battery/ups-runtime-calculator">UPS Backup Runtime</Link></li>
+              <li><Link href="/battery/ups-battery-size-calculator">UPS Battery Bank Sizer</Link></li>
+              <li><Link href="/battery/portable-power-station-calculator">Portable Power Stations</Link></li>
             </ul>
           </div>
 
           {/* PILLAR 3: EV & HOME ENERGY */}
           <div>
-            <p style={{ fontSize: "0.8125rem", fontWeight: 700, textTransform: "uppercase", color: "var(--ink, #0f172a)", marginBottom: "0.75rem" }}>
-              <Link href="/ev" style={{ color: "inherit", textDecoration: "none" }}>EV</Link> &amp; <Link href="/home-energy" style={{ color: "inherit", textDecoration: "none" }}>Home Energy →</Link>
+            <p className="footer-column-title">
+              <Link href="/ev" style={{ color: "inherit", textDecoration: "none" }}>EV</Link> &amp; <Link href="/home-energy" style={{ color: "inherit", textDecoration: "none" }}>Home Energy ↗</Link>
             </p>
-            <ul style={{ listStyle: "none", padding: 0, margin: 0, display: "flex", flexDirection: "column", gap: "0.45rem", fontSize: "0.8125rem" }}>
-              <li><Link href="/ev/ev-range-calculator" style={{ color: "inherit", textDecoration: "none" }}>Real-World EV Range Decay</Link></li>
-              <li><Link href="/ev/ev-charging-time-calculator" style={{ color: "inherit", textDecoration: "none" }}>EV Charging Speed Sizer</Link></li>
-              <li><Link href="/ev/ev-charger-breaker-size-calculator" style={{ color: "inherit", textDecoration: "none" }}>EV Breaker Size (NEC 625)</Link></li>
-              <li><Link href="/ev/v2l-runtime-calculator" style={{ color: "inherit", textDecoration: "none" }}>V2L Blackout Outage Runtime</Link></li>
-              <li><Link href="/home-energy/air-conditioner-cost-calculator" style={{ color: "inherit", textDecoration: "none" }}>AC Electricity Cost (SEER2)</Link></li>
-              <li><Link href="/home-energy/heat-pump-cost-calculator" style={{ color: "inherit", textDecoration: "none" }}>Heat Pump vs Gas Heating</Link></li>
-              <li><Link href="/home-energy/generator-size-calculator" style={{ color: "inherit", textDecoration: "none" }}>Emergency Generator Sizing</Link></li>
-              <li><Link href="/battery/voltage-drop-calculator" style={{ color: "inherit", textDecoration: "none" }}>Wire Voltage Drop &amp; AWG</Link></li>
+            <ul>
+              <li><Link href="/ev/ev-range-calculator">Real-World EV Range Decay</Link></li>
+              <li><Link href="/ev/ev-charging-time-calculator">EV Charging Speed Sizer</Link></li>
+              <li><Link href="/ev/ev-charger-breaker-size-calculator">EV Breaker Size (NEC 625)</Link></li>
+              <li><Link href="/ev/v2l-runtime-calculator">V2L Blackout Outage Runtime</Link></li>
+              <li><Link href="/home-energy/air-conditioner-cost-calculator">AC Electricity Cost (SEER2)</Link></li>
+              <li><Link href="/home-energy/heat-pump-cost-calculator">Heat Pump vs Gas Heating</Link></li>
+              <li><Link href="/home-energy/generator-size-calculator">Emergency Generator Sizing</Link></li>
+              <li><Link href="/battery/voltage-drop-calculator">Wire Voltage Drop &amp; AWG</Link></li>
             </ul>
           </div>
 
           {/* STANDARDS & AUTHORITY */}
           <div>
-            <p style={{ fontSize: "0.8125rem", fontWeight: 700, textTransform: "uppercase", color: "var(--accent, #c65d24)", marginBottom: "0.75rem" }}>
+            <p className="footer-column-title" style={{ color: "var(--accent, #c65d24)" }}>
               Standards &amp; Trust
             </p>
-            <ul style={{ listStyle: "none", padding: 0, margin: 0, display: "flex", flexDirection: "column", gap: "0.5rem", fontSize: "0.8125rem" }}>
+            <ul style={{ gap: "0.5rem" }}>
               <li>
-                <Link href="/guides" style={{ fontWeight: 600, color: "var(--accent, #c65d24)", textDecoration: "none" }}>
+                <Link href="/guides" style={{ fontWeight: 600, color: "var(--accent, #c65d24)" }}>
                   📚 Master Engineering Guides
                 </Link>
               </li>
               <li>
-                <Link href="/research" style={{ fontWeight: 600, textDecoration: "none" }}>
+                <Link href="/research" style={{ fontWeight: 600 }}>
                   🔬 Research &amp; Whitepapers
                 </Link>
               </li>
               <li>
-                <Link href="/standards" style={{ fontWeight: 600, textDecoration: "none" }}>
+                <Link href="/standards" style={{ fontWeight: 600 }}>
                   🛡️ Standards &amp; Codes Matrix
                 </Link>
               </li>
               <li>
-                <Link href="/solar/regional-climate-data" style={{ fontWeight: 600, textDecoration: "none" }}>
+                <Link href="/solar/regional-climate-data" style={{ fontWeight: 600 }}>
                   📍 Regional Climatic Solar Data
                 </Link>
               </li>
               <li>
-                <Link href="/methodology" style={{ fontWeight: 600, textDecoration: "none" }}>
+                <Link href="/methodology" style={{ fontWeight: 600 }}>
                   📐 Calculation Methodology
                 </Link>
               </li>
               <li>
-                <Link href="/sources" style={{ fontWeight: 600, textDecoration: "none" }}>
+                <Link href="/sources" style={{ fontWeight: 600 }}>
                   🧪 Laboratory Sources &amp; Codes
                 </Link>
               </li>
               <li>
-                <Link href="/developers" style={{ fontWeight: 600, textDecoration: "none" }}>
+                <Link href="/developers" style={{ fontWeight: 600 }}>
                   ⚡ API &amp; Embed Widgets
                 </Link>
               </li>
               <li>
-                <Link href="/about" style={{ fontWeight: 600, textDecoration: "none" }}>
+                <Link href="/about" style={{ fontWeight: 600 }}>
                   ℹ️ About PowerLab
                 </Link>
               </li>
               <li>
-                <Link href="/privacy" style={{ fontWeight: 600, textDecoration: "none" }}>
+                <Link href="/privacy" style={{ fontWeight: 600 }}>
                   🔒 Zero-Database Privacy
                 </Link>
               </li>
@@ -207,7 +183,7 @@ export function SiteFooter() {
                   href="https://www.google.com/preferences/source?q=powerlab.org"
                   target="_blank"
                   rel="noopener noreferrer"
-                  style={{ fontWeight: 600, display: "inline-flex", alignItems: "center", gap: "0.35rem", color: "var(--accent, #c65d24)", textDecoration: "none" }}
+                  style={{ fontWeight: 600, display: "inline-flex", alignItems: "center", gap: "0.35rem", color: "var(--accent, #c65d24)" }}
                   title="Pin PowerLab to your Google preferences to see accurate calculations first"
                 >
                   📌 Pin on Google
@@ -220,7 +196,7 @@ export function SiteFooter() {
         {/* BOTTOM COPYRIGHT & DISCLAIMER */}
         <div
           style={{
-            borderTop: "1px solid var(--border-color, #cbd5e1)",
+            borderTop: "1px solid var(--line, #e2e8f0)",
             paddingTop: "1.5rem",
             display: "flex",
             flexWrap: "wrap",
