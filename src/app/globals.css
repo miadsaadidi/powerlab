@@ -1323,7 +1323,7 @@ body.embed-mode {
 }
 
 .site-footer a {
-  color: var(--muted, #64748b);
+  color: #0284c7 !important;
   font-size: 0.8125rem !important;
   font-weight: 500 !important;
   text-decoration: none !important;
@@ -1331,8 +1331,8 @@ body.embed-mode {
 }
 
 .site-footer a:hover {
-  color: var(--accent, #c65d24) !important;
-  text-decoration: none !important;
+  color: #0369a1 !important;
+  text-decoration: underline !important;
 }
 
 .site-footer ul {
@@ -1353,16 +1353,36 @@ body.embed-mode {
   margin-bottom: 0.75rem;
 }
 
+.site-footer .footer-column-title a {
+  color: var(--ink, #0f172a) !important;
+  font-weight: 700 !important;
+  text-decoration: none !important;
+}
+
+.site-footer .footer-column-title a:hover {
+  color: #0284c7 !important;
+  text-decoration: none !important;
+}
+
 [data-theme="dark"] .site-footer .footer-column-title {
   color: #f8fafc !important;
 }
 
+[data-theme="dark"] .site-footer .footer-column-title a {
+  color: #f8fafc !important;
+}
+
+[data-theme="dark"] .site-footer .footer-column-title a:hover {
+  color: #38bdf8 !important;
+}
+
 [data-theme="dark"] .site-footer a {
-  color: #94a3b8 !important;
+  color: #38bdf8 !important;
 }
 
 [data-theme="dark"] .site-footer a:hover {
-  color: #38bdf8 !important;
+  color: #7dd3fc !important;
+  text-decoration: underline !important;
 }
 
 .site-footer .google-pin-button {

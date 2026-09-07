@@ -129,12 +129,12 @@ export function SiteFooter() {
 
           {/* STANDARDS & AUTHORITY */}
           <div>
-            <p className="footer-column-title" style={{ color: "var(--accent, #c65d24)" }}>
+            <p className="footer-column-title" style={{ color: "#0284c7" }}>
               Standards &amp; Trust
             </p>
             <ul style={{ gap: "0.5rem" }}>
               <li>
-                <Link href="/guides" style={{ fontWeight: 600, color: "var(--accent, #c65d24)" }}>
+                <Link href="/guides" style={{ fontWeight: 600, color: "#0284c7" }}>
                   📚 Master Engineering Guides
                 </Link>
               </li>
@@ -183,7 +183,7 @@ export function SiteFooter() {
                   href="https://www.google.com/preferences/source?q=powerlab.org"
                   target="_blank"
                   rel="noopener noreferrer"
-                  style={{ fontWeight: 600, display: "inline-flex", alignItems: "center", gap: "0.35rem", color: "var(--accent, #c65d24)" }}
+                  style={{ fontWeight: 600, display: "inline-flex", alignItems: "center", gap: "0.35rem", color: "#0284c7" }}
                   title="Pin PowerLab to your Google preferences to see accurate calculations first"
                 >
                   📌 Pin on Google
