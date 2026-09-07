@@ -74,17 +74,21 @@ Every Pull Request must use `.github/pull_request_template.md` and contain:
 
 ---
 
-## 5. Clean Merge & Branch Deletion Protocol
-
+## 5. Clean Merge & Branch Deletion Protocol (STRICT - NO LOCAL MERGING)
+ 
 When a Pull Request has satisfied all review criteria and is authorized for merge:
-
-1. **Merge via GitHub:**
-   - Execute the merge on GitHub (Merge Commit or Squash & Merge as appropriate).
-   - The PR is permanently recorded as **Closed / Merged** in GitHub's public audit history.
-2. **Delete Remote Feature Branch:**
-   - Delete the remote feature branch (`origin/feat/<slug>`) from GitHub immediately upon merge.
-   - Vercel automatically unlinks the preview branch from "Active Branches".
-3. **Clean Local Repository:**
+ 
+> [!CAUTION]
+> **NEVER run `git merge` locally on `main` to merge feature branches.**  
+> Merging locally and pushing directly to `main` completely bypasses GitHub's PR closure webhook. If GitHub never fires the `pull_request: closed` event, Vercel will **never** retire the preview deployment, leaving the branch orphaned in Vercel's "Active Branches" list.
+ 
+1. **Merge EXCLUSIVELY via GitHub:**
+   - Execute the merge on GitHub via the GitHub PR interface ("Merge pull request" or "Squash and merge") or the GitHub REST API.
+   - The PR is permanently recorded as **Closed / Merged** in GitHub's public audit history and triggers the webhook to Vercel.
+2. **Delete Remote Feature Branch on GitHub:**
+   - Click the "Delete branch" button in GitHub's PR UI (or run `git push origin --delete feat/<slug>`).
+   - GitHub fires the branch deletion webhook that instructs Vercel to remove the preview branch from "Active Branches".
+3. **Clean Local Repository (Never Merge Locally):**
    ```bash
    git checkout main
    git pull origin main
@@ -93,7 +97,7 @@ When a Pull Request has satisfied all review criteria and is authorized for merg
    ```
 4. **Production Verification:**
    - Vercel automatically triggers a zero-downtime deployment of `main` to Production.
-   - Verify that the production build is live and healthy.
+   - Verify that the production build is live and healthy, and that the branch is gone from Vercel's "Active Branches".
 
 ---
 
