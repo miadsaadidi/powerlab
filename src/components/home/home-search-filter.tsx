@@ -256,30 +256,24 @@ export function HomeSearchFilter({ calculators, cardContent }: HomeSearchFilterP
                   {calculator.name}
                 </h3>
 
-                {/* Standards Badges Row */}
+                {/* Standards Badge */}
                 {standards && standards.length > 0 && (
-                  <div style={{ display: "flex", flexWrap: "wrap", gap: "0.3rem", marginBottom: "0.45rem" }}>
+                  <div style={{ display: "flex", flexWrap: "wrap", gap: "0.3rem", marginBottom: "0.55rem" }}>
                     {standards.slice(0, 3).map((std) => (
                       <span
                         key={std.code}
                         style={{
-                          display: "inline-flex",
-                          alignItems: "center",
-                          gap: "0.22rem",
                           fontSize: "0.68rem",
                           fontWeight: 600,
-                          color: "#047857",
-                          background: "rgba(16, 185, 129, 0.09)",
-                          border: "1px solid rgba(16, 185, 129, 0.25)",
-                          padding: "1px 6px",
-                          borderRadius: "9999px",
+                          background: `${color}15`,
+                          color: color,
+                          border: `1px solid ${color}35`,
+                          padding: "0.15rem 0.45rem",
+                          borderRadius: "4px",
                           lineHeight: 1.3,
                         }}
                       >
-                        <svg width="8" height="8" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" style={{ color: "#10b981", flexShrink: 0 }}>
-                          <polyline points="20 6 9 17 4 12" />
-                        </svg>
-                        <span>{std.code}</span>
+                        {std.code}
                       </span>
                     ))}
                   </div>

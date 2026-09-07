@@ -1,5 +1,6 @@
 "use client";
 
+import React from "react";
 import Link from "next/link";
 import { CALCULATOR_STANDARDS_MAP } from "@/data/standards-registry";
 
@@ -7,6 +8,7 @@ interface StandardsBadgeProps {
   standards?: string[];
   calculatorId?: string;
   className?: string;
+  label?: string;
 }
 
 /**
@@ -25,10 +27,14 @@ function getStandardAnchor(code: string): string {
 }
 
 /**
- * Renders a verified engineering standard compliance pill on calculator results
- * (e.g. IEEE 485, NEC 2023, NREL PVWatts V8) to visibly prove mathematical rigor over competitors.
+ * Renders governing engineering standards compliance badges matching HVACLab's design system.
  */
-export function StandardsBadge({ standards, calculatorId, className = "" }: StandardsBadgeProps) {
+export function StandardsBadge({
+  standards,
+  calculatorId,
+  className = "",
+  label = "Governing Standards & Technical References:",
+}: StandardsBadgeProps) {
   let resolvedList: string[] = [];
 
   if (standards && standards.length > 0) {
@@ -41,47 +47,72 @@ export function StandardsBadge({ standards, calculatorId, className = "" }: Stan
 
   return (
     <div
-      className={`standards-badge-group ${className}`.trim()}
-      role="group"
-      aria-label="Governing engineering standards"
+      className={`standards-compliance-container ${className}`.trim()}
+      role="region"
+      aria-label="Governing Energy Planning Standards"
       style={{
-        display: "inline-flex",
-        alignItems: "center",
-        flexWrap: "wrap",
-        gap: "0.35rem",
-        margin: "0.4rem 0 0.6rem 0",
-        maxWidth: "100%",
+        marginTop: "0.65rem",
+        marginBottom: "0.5rem",
+        display: "flex",
+        flexDirection: "column",
+        gap: "0.3rem",
       }}
     >
-      {resolvedList.map((standard) => {
-        const anchor = getStandardAnchor(standard);
-        const targetUrl = anchor ? `/standards#${anchor}` : "/standards";
+      <div
+        style={{
+          display: "flex",
+          alignItems: "center",
+          gap: "0.35rem",
+          fontSize: "0.68rem",
+          fontWeight: 700,
+          color: "var(--text-muted, #64748b)",
+          textTransform: "uppercase",
+          letterSpacing: "0.05em",
+        }}
+      >
+        <span aria-hidden="true" style={{ fontSize: "0.75rem" }}>⚡</span>
+        <span>{label}</span>
+      </div>
 
-        return (
-          <Link
-            key={standard}
-            href={targetUrl}
-            className="standard-green-badge"
-            title={`Inspect governing engineering standard: ${standard}`}
-          >
-            <svg
-              width="10"
-              height="10"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="3"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              aria-hidden="true"
-              style={{ color: "#10b981", flexShrink: 0 }}
+      <div
+        style={{
+          display: "flex",
+          flexWrap: "wrap",
+          alignItems: "center",
+          gap: "0.35rem",
+        }}
+      >
+        {resolvedList.map((standard) => {
+          const anchor = getStandardAnchor(standard);
+          const targetUrl = anchor ? `/standards#${anchor}` : "/standards";
+
+          return (
+            <Link
+              key={standard}
+              href={targetUrl}
+              title={`View governing engineering documentation for ${standard} on PowerLab`}
+              style={{
+                display: "inline-flex",
+                alignItems: "center",
+                gap: "0.25rem",
+                padding: "0.18rem 0.55rem",
+                borderRadius: "4px",
+                fontSize: "0.68rem",
+                fontWeight: 600,
+                background: "rgba(16, 185, 129, 0.08)",
+                border: "1px solid rgba(16, 185, 129, 0.25)",
+                color: "var(--brand-strong, #047857)",
+                textDecoration: "none",
+                letterSpacing: "0.01em",
+                transition: "background 0.15s ease, border-color 0.15s ease",
+              }}
             >
-              <polyline points="20 6 9 17 4 12" />
-            </svg>
-            <span>{standard}</span>
-          </Link>
-        );
-      })}
+              <span style={{ fontSize: "0.65rem" }}>🛡️</span>
+              <span>{standard}</span>
+            </Link>
+          );
+        })}
+      </div>
     </div>
   );
 }

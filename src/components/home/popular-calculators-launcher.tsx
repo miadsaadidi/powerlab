@@ -158,29 +158,23 @@ export function PopularCalculatorsLauncher() {
               {tool.title}
             </h3>
 
-            {/* Standards Badges Row */}
-            <div style={{ display: "flex", flexWrap: "wrap", gap: "0.3rem", marginBottom: "0.45rem" }}>
+            {/* Standards Badge */}
+            <div style={{ display: "flex", flexWrap: "wrap", gap: "0.3rem", marginBottom: "0.55rem" }}>
               {tool.standards.map((std) => (
                 <span
                   key={std}
                   style={{
-                    display: "inline-flex",
-                    alignItems: "center",
-                    gap: "0.22rem",
                     fontSize: "0.68rem",
                     fontWeight: 600,
-                    color: "#047857",
-                    background: "rgba(16, 185, 129, 0.09)",
-                    border: "1px solid rgba(16, 185, 129, 0.25)",
-                    padding: "1px 6px",
-                    borderRadius: "9999px",
+                    background: `${tool.color}15`,
+                    color: tool.color,
+                    border: `1px solid ${tool.color}35`,
+                    padding: "0.15rem 0.45rem",
+                    borderRadius: "4px",
                     lineHeight: 1.3,
                   }}
                 >
-                  <svg width="8" height="8" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" style={{ color: "#10b981", flexShrink: 0 }}>
-                    <polyline points="20 6 9 17 4 12" />
-                  </svg>
-                  <span>{std}</span>
+                  {std}
                 </span>
               ))}
             </div>

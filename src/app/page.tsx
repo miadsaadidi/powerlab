@@ -141,50 +141,16 @@ export default function HomePage() {
         </h1>
         <p
           style={{
-            fontSize: "0.92rem",
+            fontSize: "1.05rem",
             color: "var(--text-muted)",
             maxWidth: "680px",
-            margin: "0 auto 0.65rem",
-            lineHeight: 1.5,
+            margin: "0 auto 1.5rem",
+            lineHeight: 1.55,
             textAlign: "center",
           }}
         >
           Transparent physical loss models built on IEEE, NFPA 70 (NEC), NREL &amp; SAE standards. Zero database tracking.
         </p>
-
-        {/* Governing Standards Top Bar */}
-        <div
-          style={{
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            flexWrap: "wrap",
-            gap: "0.4rem 0.55rem",
-            margin: "0.25rem auto 1.15rem",
-            maxWidth: "840px",
-          }}
-        >
-          <Link href="/standards#ieee-485" className="standard-green-badge" title="IEEE 485 & 1547 Stationary Battery & Interconnection Standards">
-            <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" style={{ color: "#10b981", flexShrink: 0 }}><polyline points="20 6 9 17 4 12" /></svg>
-            <span>IEEE 485 &amp; 1547</span>
-          </Link>
-          <Link href="/standards#nec-690" className="standard-green-badge" title="NFPA 70 National Electrical Code (2023)">
-            <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" style={{ color: "#10b981", flexShrink: 0 }}><polyline points="20 6 9 17 4 12" /></svg>
-            <span>NFPA 70 (NEC 2023)</span>
-          </Link>
-          <Link href="/standards#nrel-pvwatts" className="standard-green-badge" title="NREL PVWatts V8 Empirical Solar Insolation Model">
-            <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" style={{ color: "#10b981", flexShrink: 0 }}><polyline points="20 6 9 17 4 12" /></svg>
-            <span>NREL PVWatts® V8</span>
-          </Link>
-          <Link href="/standards#nec-625" className="standard-green-badge" title="SAE J1772 & J3400 (NACS) EV Charging Standards">
-            <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" style={{ color: "#10b981", flexShrink: 0 }}><polyline points="20 6 9 17 4 12" /></svg>
-            <span>SAE J1772 &amp; J3400</span>
-          </Link>
-          <Link href="/standards#ahri-210-240" className="standard-green-badge" title="UL 9540 Energy Storage Safety & AHRI 210/240 Performance">
-            <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" style={{ color: "#10b981", flexShrink: 0 }}><polyline points="20 6 9 17 4 12" /></svg>
-            <span>UL 9540 &amp; AHRI</span>
-          </Link>
-        </div>
       </section>
 
 
