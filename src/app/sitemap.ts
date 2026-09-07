@@ -23,6 +23,7 @@ const staticPaths = [
   "/glossary",
   "/developers",
   "/methodology",
+  "/standards",
   "/sources",
   "/about",
   "/privacy",

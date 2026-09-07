@@ -143,14 +143,44 @@ export default function HomePage() {
           style={{
             fontSize: "1.05rem",
             color: "var(--text-muted)",
-            maxWidth: "660px",
-            margin: "0 auto 0.5rem",
-            lineHeight: 1.45,
+            maxWidth: "680px",
+            margin: "0 auto 0.65rem",
+            lineHeight: 1.5,
             textAlign: "center",
           }}
         >
-          Transparent physical loss models with zero database tracking.
+          Transparent physical loss models built on IEEE, NFPA 70 (NEC), NREL &amp; SAE standards. Zero database tracking.
         </p>
+
+        {/* Governing Standards Top Bar */}
+        <div
+          style={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            flexWrap: "wrap",
+            gap: "0.4rem 0.55rem",
+            margin: "0.35rem auto 1.15rem",
+            maxWidth: "840px",
+          }}
+        >
+          <span
+            style={{
+              fontSize: "0.72rem",
+              fontWeight: 700,
+              textTransform: "uppercase",
+              letterSpacing: "0.06em",
+              color: "var(--brand-strong, #264435)",
+            }}
+          >
+            Governing Standards:
+          </span>
+          <Link href="/standards#ieee-485" className="hero-standard-pill" title="IEEE 485 & 1547 Stationary Battery & Interconnection Standards">IEEE 485 &amp; 1547</Link>
+          <Link href="/standards#nec-690" className="hero-standard-pill" title="NFPA 70 National Electrical Code (2023)">NFPA 70 (NEC 2023)</Link>
+          <Link href="/standards#nrel-pvwatts" className="hero-standard-pill" title="NREL PVWatts V8 Empirical Solar Insolation Model">NREL PVWatts® V8</Link>
+          <Link href="/standards#nec-625" className="hero-standard-pill" title="SAE J1772 & J3400 (NACS) EV Charging Standards">SAE J1772 &amp; J3400</Link>
+          <Link href="/standards#ahri-210-240" className="hero-standard-pill" title="UL 9540 Energy Storage Safety & AHRI 210/240 Performance">UL 9540 &amp; AHRI</Link>
+        </div>
       </section>
 
 

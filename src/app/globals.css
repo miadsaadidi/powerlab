@@ -633,6 +633,61 @@ main { max-width:1280px; }
 }
 
 /* ==========================================================================
+   Standards Hero Chips & Verified Standards Banner
+   ========================================================================== */
+.hero-standard-pill {
+  display: inline-flex;
+  align-items: center;
+  font-size: 0.74rem;
+  font-weight: 700;
+  font-family: var(--font-mono, monospace);
+  padding: 0.25rem 0.6rem;
+  border-radius: 9999px;
+  background: var(--surface, #ffffff);
+  border: 1px solid var(--border-color, #cbd5e1);
+  color: var(--brand-strong, #264435);
+  text-decoration: none;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.03);
+  transition: all 140ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+.hero-standard-pill:hover {
+  border-color: var(--accent, #c65d24);
+  color: var(--accent, #c65d24);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 10px rgba(198, 93, 36, 0.12);
+  text-decoration: none;
+}
+.standard-pill-tag:hover {
+  border-color: var(--accent, #c65d24) !important;
+  color: var(--accent, #c65d24) !important;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 10px rgba(198, 93, 36, 0.12) !important;
+}
+[data-theme="dark"] .hero-standard-pill {
+  background: #0f172a;
+  border-color: #334155;
+  color: #94a3b8;
+}
+[data-theme="dark"] .hero-standard-pill:hover {
+  border-color: #f59e0b;
+  color: #f59e0b;
+}
+[data-theme="dark"] .verified-standards-box {
+  background: linear-gradient(145deg, #0f172a 0%, #1e293b 100%) !important;
+  border-color: #334155 !important;
+}
+[data-theme="dark"] .standard-pill-tag {
+  background: #0f172a !important;
+  border-color: #334155 !important;
+  color: #f8fafc !important;
+}
+[data-theme="dark"] .standard-pill-tag:hover {
+  border-color: #f59e0b !important;
+  color: #f59e0b !important;
+}
+
+
+/* ==========================================================================
    Quick Scenario & 1-Click Autofill Preset Chips
    ========================================================================== */
 
