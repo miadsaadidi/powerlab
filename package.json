@@ -31,7 +31,10 @@
     "typecheck": "tsc --noEmit",
     "test": "vitest run",
     "test:watch": "vitest",
-    "test:e2e": "playwright test"
+    "test:e2e": "playwright test",
+    "pr:list": "node scripts/pr-lifecycle.js",
+    "pr:merge": "node scripts/pr-lifecycle.js merge",
+    "prepare": "git config core.hooksPath .githooks || true"
   },
   "dependencies": {
     "next": "15.5.23",
