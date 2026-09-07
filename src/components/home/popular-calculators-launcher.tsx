@@ -5,65 +5,65 @@ import { track } from "@/lib/analytics/analytics";
 
 interface PopularTool {
   id: string;
+  category: string;
   title: string;
   tagline: string;
   badge: string;
-  badgeColor: string;
+  color: string;
   icon: string;
   route: string;
   actionText: string;
-  metricLabel: string;
-  metricValue: string;
+  metric: string;
 }
 
 const POPULAR_TOOLS: PopularTool[] = [
   {
     id: "solar-panel-output",
+    category: "Solar PV",
     title: "Solar Panel Output & Yield",
     tagline: "Monthly kWh production with tilt & PVWatts physical loss modeling.",
     badge: "Top Engagement",
-    badgeColor: "#d97706",
+    color: "#f59e0b",
     icon: "☀️",
     route: "/solar/solar-panel-output-calculator",
     actionText: "Calculate Solar Yield",
-    metricLabel: "Benchmark",
-    metricValue: "400W–10kW Systems",
+    metric: "400W–10kW Systems • PVWatts",
   },
   {
     id: "ac-cost",
+    category: "Home Energy",
     title: "AC Electricity Cost Calculator",
     tagline: "Hourly, monthly & seasonal cooling costs by BTU & SEER2 rating.",
     badge: "Trending Search",
-    badgeColor: "#0284c7",
+    color: "#0284c7",
     icon: "❄️",
     route: "/home-energy/air-conditioner-cost-calculator",
     actionText: "Calculate AC Bill",
-    metricLabel: "Standard Sizing",
-    metricValue: "Window, Mini-Split, Central",
+    metric: "SEER2 • Window, Mini-Split & Central",
   },
   {
     id: "battery-runtime",
+    category: "Battery Storage",
     title: "Battery Backup Runtime",
     tagline: "Exact backup duration in hours for home loads, LiFePO4 & AGM.",
     badge: "Zero-Bounce Favorite",
-    badgeColor: "#16a34a",
+    color: "#10b981",
     icon: "🔋",
     route: "/battery/battery-runtime-calculator",
     actionText: "Calculate Backup Hours",
-    metricLabel: "Chemistries",
-    metricValue: "Lithium, Lead-Acid, LFP",
+    metric: "LiFePO4 & AGM • Hours Backup",
   },
   {
     id: "ev-range",
+    category: "Electric Vehicles",
     title: "Real-World EV Range",
     tagline: "Range decay modeling under 70+ mph highway speed & cold winter temps.",
     badge: "Physics Model",
-    badgeColor: "#7c3aed",
+    color: "#8b5cf6",
     icon: "🚗",
     route: "/ev/ev-range-calculator",
     actionText: "Estimate Real Range",
-    metricLabel: "Factors",
-    metricValue: "Speed, Temp, Battery Health",
+    metric: "Speed & Cold Weather Decay",
   },
 ];
 
@@ -113,98 +113,111 @@ export function PopularCalculatorsLauncher() {
         style={{
           display: "grid",
           gridTemplateColumns: "repeat(auto-fit, minmax(260px, 1fr))",
-          gap: "1rem",
+          gap: "1.15rem",
         }}
       >
         {POPULAR_TOOLS.map((tool) => (
-          <div
+          <Link
             key={tool.id}
+            href={tool.route}
+            className="flow-node-card home-calc-card"
             style={{
-              borderRadius: "0.85rem",
-              border: "1px solid var(--border-color, #e2e8f0)",
-              background: "var(--card-bg, #ffffff)",
-              boxShadow: "0 2px 8px rgba(0, 0, 0, 0.04)",
-              padding: "1.25rem",
               display: "flex",
               flexDirection: "column",
-              justifyContent: "space-between",
-              gap: "0.85rem",
-              transition: "transform 140ms ease, box-shadow 140ms ease",
+              padding: "1.25rem",
+              borderRadius: "0.85rem",
+              background: "var(--card-bg, #ffffff)",
+              border: "1px solid var(--border-color, #cbd5e1)",
+              borderTop: `4px solid ${tool.color}`,
+              textDecoration: "none",
+              color: "inherit",
+              transition: "transform 0.15s ease, box-shadow 0.15s ease",
             }}
+            onClick={() => track("calculator_calculate", { calculator: tool.id, action: "popular_launcher_click" })}
           >
-            <div>
-              <div
-                style={{
-                  display: "flex",
-                  justifyContent: "space-between",
-                  alignItems: "center",
-                  gap: "0.5rem",
-                  marginBottom: "0.5rem",
-                }}
-              >
-                <span style={{ fontSize: "1.5rem" }} aria-hidden="true">
-                  {tool.icon}
-                </span>
+            {/* Top Row: Category Label on left, Icon on right */}
+            <div
+              style={{
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "space-between",
+                marginBottom: "0.75rem",
+              }}
+            >
+              <div style={{ display: "flex", alignItems: "center", gap: "0.45rem" }}>
                 <span
                   style={{
                     fontSize: "0.7rem",
                     fontWeight: 700,
-                    padding: "2px 8px",
+                    textTransform: "uppercase",
+                    letterSpacing: "0.05em",
+                    color: tool.color,
+                  }}
+                >
+                  {tool.category}
+                </span>
+                <span
+                  style={{
+                    fontSize: "0.68rem",
+                    fontWeight: 600,
+                    padding: "1px 6px",
                     borderRadius: "9999px",
-                    background: `${tool.badgeColor}15`,
-                    color: tool.badgeColor,
-                    border: `1px solid ${tool.badgeColor}30`,
+                    background: `${tool.color}15`,
+                    color: tool.color,
+                    border: `1px solid ${tool.color}30`,
                   }}
                 >
                   {tool.badge}
                 </span>
               </div>
-
-              <h3 style={{ fontSize: "1.05rem", fontWeight: 700, margin: "0 0 0.35rem" }}>
-                <Link
-                  href={tool.route}
-                  style={{ textDecoration: "none", color: "var(--ink, #1e293b)" }}
-                  onClick={() => track("calculator_calculate", { calculator: tool.id, action: "popular_launcher_click" })}
-                >
-                  {tool.title}
-                </Link>
-              </h3>
-
-              <p style={{ fontSize: "0.86rem", color: "var(--text-muted, #64748b)", margin: 0, lineHeight: 1.45 }}>
-                {tool.tagline}
-              </p>
+              <span style={{ fontSize: "1.5rem" }} aria-hidden="true">
+                {tool.icon}
+              </span>
             </div>
 
-            <div style={{ paddingTop: "0.5rem", borderTop: "1px solid var(--border-color, #f1f5f9)" }}>
-              <div
-                style={{
-                  display: "flex",
-                  justifyContent: "space-between",
-                  fontSize: "0.78rem",
-                  color: "var(--text-muted, #64748b)",
-                  marginBottom: "0.65rem",
-                }}
-              >
-                <span>{tool.metricLabel}:</span>
-                <strong style={{ color: "var(--ink, #1e293b)" }}>{tool.metricValue}</strong>
-              </div>
+            {/* Calculator Title */}
+            <h3 style={{ margin: "0 0 0.35rem", fontSize: "1.05rem", fontWeight: 700, color: "var(--ink, #1e293b)" }}>
+              {tool.title}
+            </h3>
 
-              <Link
-                href={tool.route}
-                className="button btn-primary"
-                style={{
-                  width: "100%",
-                  textAlign: "center",
-                  fontSize: "0.85rem",
-                  padding: "0.5rem 0.75rem",
-                  textDecoration: "none",
-                }}
-                onClick={() => track("calculator_calculate", { calculator: tool.id, action: "popular_launcher_click" })}
-              >
-                {tool.actionText} →
-              </Link>
+            {/* Metric / Benchmark Pill */}
+            <div
+              style={{
+                display: "inline-block",
+                alignSelf: "flex-start",
+                fontSize: "0.75rem",
+                fontWeight: 600,
+                color: tool.color,
+                background: "var(--bg-secondary, #f8fafc)",
+                padding: "2px 8px",
+                borderRadius: "4px",
+                marginBottom: "0.6rem",
+              }}
+            >
+              {tool.metric}
             </div>
-          </div>
+
+            {/* Description */}
+            <p style={{ margin: 0, fontSize: "0.85rem", color: "var(--text-muted, #64748b)", lineHeight: 1.45, flexGrow: 1 }}>
+              {tool.tagline}
+            </p>
+
+            {/* Bottom Action Link */}
+            <div
+              style={{
+                marginTop: "1rem",
+                display: "flex",
+                alignItems: "center",
+                gap: "0.25rem",
+                fontSize: "0.825rem",
+                fontWeight: 600,
+                color: tool.color,
+              }}
+            >
+              <span>{tool.actionText}</span>
+              <span aria-hidden="true">→</span>
+            </div>
+          </Link>
         ))}
       </div>
     </section>
