@@ -1,0 +1,24 @@
+#!/bin/sh
+# Prevent local merges into main branch
+CURRENT_BRANCH=$(git rev-parse --abbrev-ref HEAD)
+
+if [ "$CURRENT_BRANCH" = "main" ]; then
+    echo ""
+    echo "================================================================================"
+    echo "❌ ERROR: LOCAL MERGES INTO 'main' ARE PROHIBITED BY REPOSITORY POLICY!"
+    echo "--------------------------------------------------------------------------------"
+    echo "Running 'git merge <branch>' locally into 'main' bypasses GitHub's PR pipeline,"
+    echo "leaves no closed PR record in GitHub, and leaves Vercel preview branches stuck"
+    echo "in the 'Active Branches' list without receiving the retirement webhook."
+    echo ""
+    echo "REQUIRED PROTOCOL:"
+    echo "1. Push feature branch to remote: git push origin <feature-branch>"
+    echo "2. Open and merge PR via GitHub Web UI or GitHub REST API"
+    echo "3. Delete the remote branch on GitHub (fires Vercel retirement webhook)"
+    echo "4. On local machine: git checkout main && git pull origin main && git fetch --prune"
+    echo "================================================================================"
+    echo ""
+    exit 1
+fi
+
+exit 0

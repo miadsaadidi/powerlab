@@ -5,65 +5,65 @@ import { track } from "@/lib/analytics/analytics";
 
 interface PopularTool {
   id: string;
-  category: string;
-  title: string;
-  tagline: string;
-  badge: string;
+  categoryLabel: string;
   color: string;
+  title: string;
+  description: string;
+  standards: string[];
+  metric: string;
   icon: string;
   route: string;
   actionText: string;
-  metric: string;
 }
 
 const POPULAR_TOOLS: PopularTool[] = [
   {
     id: "solar-panel-output",
-    category: "Solar PV",
-    title: "Solar Panel Output & Yield",
-    tagline: "Monthly kWh production with tilt & PVWatts physical loss modeling.",
-    badge: "Top Engagement",
+    categoryLabel: "Solar PV",
     color: "#f59e0b",
+    title: "Solar Panel Output & Yield",
+    description: "Monthly & annual kWh solar production with tilt & PVWatts physical loss modeling.",
+    standards: ["NREL PVWatts V8", "IEC 61215"],
+    metric: "kWh/yr • PVWatts V8 Model",
     icon: "☀️",
     route: "/solar/solar-panel-output-calculator",
     actionText: "Calculate Solar Yield",
-    metric: "400W–10kW Systems • PVWatts",
   },
   {
     id: "ac-cost",
-    category: "Home Energy",
-    title: "AC Electricity Cost Calculator",
-    tagline: "Hourly, monthly & seasonal cooling costs by BTU & SEER2 rating.",
-    badge: "Trending Search",
+    categoryLabel: "Home Energy",
     color: "#0284c7",
+    title: "AC Electricity Cost Calculator",
+    description: "Hourly, monthly & seasonal cooling costs by BTU, SEER2 rating, and climate zone.",
+    standards: ["AHRI 210/240", "ASHRAE 90.1"],
+    metric: "SEER2 • BTU • Hourly & Monthly",
     icon: "❄️",
     route: "/home-energy/air-conditioner-cost-calculator",
     actionText: "Calculate AC Bill",
-    metric: "SEER2 • Window, Mini-Split & Central",
   },
   {
     id: "battery-runtime",
-    category: "Battery Storage",
-    title: "Battery Backup Runtime",
-    tagline: "Exact backup duration in hours for home loads, LiFePO4 & AGM.",
-    badge: "Zero-Bounce Favorite",
+    categoryLabel: "Battery Storage",
     color: "#10b981",
+    title: "Battery Backup Runtime",
+    description: "Exact backup duration in hours for home loads, LiFePO4, AGM, and Peukert derating.",
+    standards: ["IEEE 485", "Peukert's Law"],
+    metric: "Hours • Peukert Law • Inverter",
     icon: "🔋",
     route: "/battery/battery-runtime-calculator",
     actionText: "Calculate Backup Hours",
-    metric: "LiFePO4 & AGM • Hours Backup",
   },
   {
     id: "ev-range",
-    category: "Electric Vehicles",
-    title: "Real-World EV Range",
-    tagline: "Range decay modeling under 70+ mph highway speed & cold winter temps.",
-    badge: "Physics Model",
+    categoryLabel: "Electric Vehicles",
     color: "#8b5cf6",
+    title: "Real-World EV Range",
+    description: "Range decay modeling under 70+ mph highway speed, cold winter temps, and HVAC loads.",
+    standards: ["SAE J1634", "EPA Dynamometer"],
+    metric: "Miles • mi/kWh • Cold Weather",
     icon: "🚗",
     route: "/ev/ev-range-calculator",
     actionText: "Estimate Real Range",
-    metric: "Speed & Cold Weather Decay",
   },
 ];
 
@@ -73,7 +73,7 @@ export function PopularCalculatorsLauncher() {
       className="popular-launcher-section"
       aria-label="Most Popular Energy Planning Calculators"
       style={{
-        margin: "0.5rem auto 2rem",
+        margin: "0.5rem auto 2.5rem",
         maxWidth: "1200px",
         width: "100%",
       }}
@@ -85,7 +85,7 @@ export function PopularCalculatorsLauncher() {
           justifyContent: "space-between",
           flexWrap: "wrap",
           gap: "0.75rem",
-          marginBottom: "1rem",
+          marginBottom: "1.15rem",
         }}
       >
         <div>
@@ -100,7 +100,7 @@ export function PopularCalculatorsLauncher() {
           >
             ⭐ Most Popular Tools
           </span>
-          <h2 style={{ fontSize: "1.35rem", fontWeight: 700, margin: "0.15rem 0 0" }}>
+          <h2 style={{ fontSize: "1.4rem", fontWeight: 700, margin: "0.15rem 0 0" }}>
             Top Energy Planning Calculators
           </h2>
         </div>
@@ -113,7 +113,7 @@ export function PopularCalculatorsLauncher() {
         style={{
           display: "grid",
           gridTemplateColumns: "repeat(auto-fit, minmax(260px, 1fr))",
-          gap: "1.15rem",
+          gap: "1.25rem",
         }}
       >
         {POPULAR_TOOLS.map((tool) => (
@@ -124,7 +124,7 @@ export function PopularCalculatorsLauncher() {
             style={{
               display: "flex",
               flexDirection: "column",
-              padding: "1.25rem",
+              padding: "1.35rem",
               borderRadius: "0.85rem",
               background: "var(--card-bg, #ffffff)",
               border: "1px solid var(--border-color, #cbd5e1)",
@@ -136,51 +136,50 @@ export function PopularCalculatorsLauncher() {
             onClick={() => track("calculator_calculate", { calculator: tool.id, action: "popular_launcher_click" })}
           >
             {/* Top Row: Category Label on left, Icon on right */}
-            <div
-              style={{
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "space-between",
-                marginBottom: "0.75rem",
-              }}
-            >
-              <div style={{ display: "flex", alignItems: "center", gap: "0.45rem" }}>
-                <span
-                  style={{
-                    fontSize: "0.7rem",
-                    fontWeight: 700,
-                    textTransform: "uppercase",
-                    letterSpacing: "0.05em",
-                    color: tool.color,
-                  }}
-                >
-                  {tool.category}
-                </span>
-                <span
-                  style={{
-                    fontSize: "0.68rem",
-                    fontWeight: 600,
-                    padding: "1px 6px",
-                    borderRadius: "9999px",
-                    background: `${tool.color}15`,
-                    color: tool.color,
-                    border: `1px solid ${tool.color}30`,
-                  }}
-                >
-                  {tool.badge}
-                </span>
-              </div>
+            <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: "0.75rem" }}>
+              <span
+                style={{
+                  fontSize: "0.7rem",
+                  fontWeight: 700,
+                  textTransform: "uppercase",
+                  letterSpacing: "0.05em",
+                  color: tool.color,
+                }}
+              >
+                {tool.categoryLabel}
+              </span>
               <span style={{ fontSize: "1.5rem" }} aria-hidden="true">
                 {tool.icon}
               </span>
             </div>
 
             {/* Calculator Title */}
-            <h3 style={{ margin: "0 0 0.35rem", fontSize: "1.05rem", fontWeight: 700, color: "var(--ink, #1e293b)" }}>
+            <h3 style={{ margin: "0 0 0.35rem", fontSize: "1.05rem", fontWeight: 700 }}>
               {tool.title}
             </h3>
 
-            {/* Metric / Benchmark Pill */}
+            {/* Standards Badge */}
+            <div style={{ display: "flex", flexWrap: "wrap", gap: "0.3rem", marginBottom: "0.55rem" }}>
+              {tool.standards.map((std) => (
+                <span
+                  key={std}
+                  style={{
+                    fontSize: "0.68rem",
+                    fontWeight: 600,
+                    background: `${tool.color}15`,
+                    color: tool.color,
+                    border: `1px solid ${tool.color}35`,
+                    padding: "0.15rem 0.45rem",
+                    borderRadius: "4px",
+                    lineHeight: 1.3,
+                  }}
+                >
+                  {std}
+                </span>
+              ))}
+            </div>
+
+            {/* Metric Pill Badge */}
             <div
               style={{
                 display: "inline-block",
@@ -198,8 +197,8 @@ export function PopularCalculatorsLauncher() {
             </div>
 
             {/* Description */}
-            <p style={{ margin: 0, fontSize: "0.85rem", color: "var(--text-muted, #64748b)", lineHeight: 1.45, flexGrow: 1 }}>
-              {tool.tagline}
+            <p style={{ margin: 0, fontSize: "0.85rem", color: "var(--text-muted)", lineHeight: 1.4, flexGrow: 1 }}>
+              {tool.description}
             </p>
 
             {/* Bottom Action Link */}

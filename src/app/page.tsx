@@ -143,13 +143,13 @@ export default function HomePage() {
           style={{
             fontSize: "1.05rem",
             color: "var(--text-muted)",
-            maxWidth: "660px",
-            margin: "0 auto 0.5rem",
-            lineHeight: 1.45,
+            maxWidth: "680px",
+            margin: "0 auto 1.5rem",
+            lineHeight: 1.55,
             textAlign: "center",
           }}
         >
-          Transparent physical loss models with zero database tracking.
+          Transparent physical loss models built on IEEE, NFPA 70 (NEC), NREL &amp; SAE standards. Zero database tracking.
         </p>
       </section>
 

@@ -126,7 +126,7 @@ export function GooglePreferredButton({
                 lineHeight: 1.35,
               }}
             >
-              Found this helpful? Keep PowerLab first on Google
+              Save PowerLab to your Favorites
             </strong>
             <span
               style={{
@@ -137,7 +137,7 @@ export function GooglePreferredButton({
                 lineHeight: 1.4,
               }}
             >
-              In 1 click, pin PowerLab to your Google preferences. No forms, no sign-ups.
+              In 1 click, add PowerLab to your preferred engineering tools. No forms, no sign-ups.
             </span>
           </div>
         </div>
@@ -147,22 +147,23 @@ export function GooglePreferredButton({
           style={{
             display: "inline-flex",
             alignItems: "center",
-            gap: "0.45rem",
+            gap: "0.5rem",
             height: "36px",
             padding: "0 0.95rem",
             borderRadius: "0.5rem",
-            background: "var(--brand, #375e4b)",
-            color: "#ffffff",
+            background: "var(--surface, #ffffff)",
+            border: "1px solid var(--line, #cbd5e1)",
+            color: "var(--ink, #0f172a)",
             fontSize: "0.8125rem",
             fontWeight: 700,
             whiteSpace: "nowrap",
-            boxShadow: "0 2px 6px rgba(38, 68, 53, 0.2)",
+            boxShadow: "0 1px 3px rgba(0, 0, 0, 0.06)",
             transition: "all 140ms ease",
             flexShrink: 0,
           }}
         >
-          <PinIcon size={13} />
-          <span>Pin to Google</span>
+          <GoogleGIcon size={16} />
+          <span>Add to Favorites</span>
         </span>
       </a>
     );
@@ -175,15 +176,17 @@ export function GooglePreferredButton({
       target="_blank"
       rel="noopener noreferrer"
       className={`button secondary-button google-preferred-btn ${className}`.trim()}
-      title="Pin PowerLab to your Google preferences for top placement in search and AI Overviews"
-      aria-label="Pin PowerLab to Google (opens in new tab)"
+      title="Add PowerLab to your favorites for top placement in search and AI Overviews"
+      aria-label="Add PowerLab to Favorites (opens in new tab)"
       style={{
         textDecoration: "none",
+        display: "inline-flex",
+        alignItems: "center",
+        gap: "0.45rem",
       }}
     >
-      <GoogleGIcon size={15} />
-      <span>Pin to Google</span>
-      <PinIcon size={12} />
+      <GoogleGIcon size={16} />
+      <span>Add to Favorites</span>
     </a>
   );
 }

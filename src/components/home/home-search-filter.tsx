@@ -3,6 +3,7 @@
 import { useState, useMemo } from "react";
 import Link from "next/link";
 import type { CalculatorRegistryItem } from "@/lib/calculator-registry";
+import { CALCULATOR_STANDARDS_MAP } from "@/data/standards-registry";
 
 interface HomeSearchFilterProps {
   calculators: CalculatorRegistryItem[];
@@ -212,6 +213,7 @@ export function HomeSearchFilter({ calculators, cardContent }: HomeSearchFilterP
             const content = cardContent[calculator.id];
             const catInfo = CATEGORY_META[calculator.category] ?? { label: calculator.category, icon: "⚡", color: "#0284c7" };
             const meta = CALCULATOR_METRICS[calculator.id];
+            const standards = CALCULATOR_STANDARDS_MAP[calculator.id];
             const color = catInfo.color;
             const categoryName = catInfo.label;
 
@@ -253,6 +255,29 @@ export function HomeSearchFilter({ calculators, cardContent }: HomeSearchFilterP
                 <h3 style={{ margin: "0 0 0.35rem", fontSize: "1.05rem", fontWeight: 700 }}>
                   {calculator.name}
                 </h3>
+
+                {/* Standards Badge */}
+                {standards && standards.length > 0 && (
+                  <div style={{ display: "flex", flexWrap: "wrap", gap: "0.3rem", marginBottom: "0.55rem" }}>
+                    {standards.slice(0, 3).map((std) => (
+                      <span
+                        key={std.code}
+                        style={{
+                          fontSize: "0.68rem",
+                          fontWeight: 600,
+                          background: `${color}15`,
+                          color: color,
+                          border: `1px solid ${color}35`,
+                          padding: "0.15rem 0.45rem",
+                          borderRadius: "4px",
+                          lineHeight: 1.3,
+                        }}
+                      >
+                        {std.code}
+                      </span>
+                    ))}
+                  </div>
+                )}
 
                 {/* Metric Pill Badge */}
                 <div

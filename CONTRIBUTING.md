@@ -99,6 +99,17 @@ When a Pull Request has satisfied all review criteria and is authorized for merg
    - Vercel automatically triggers a zero-downtime deployment of `main` to Production.
    - Verify that the production build is live and healthy, and that the branch is gone from Vercel's "Active Branches".
 
+### Automated Safety Guards & PR Lifecycle CLI
+
+To physically enforce this protocol and prevent accidental local merges:
+1. **Active Git Hooks (`.githooks/`):**
+   - `pre-merge-commit`: Aborts any `git merge` initiated while on `main`.
+   - `pre-push`: Blocks pushing any local merge commits directly to `origin/main`.
+   - Active automatically via `git config core.hooksPath .githooks` (or `npm run prepare`).
+2. **Lifecycle CLI Scripts:**
+   - `npm run pr:list`: Inspect all open and closed PRs with their live branch and review statuses.
+   - `npm run pr:merge <number>`: Executes the complete GitHub API merge, deletes the remote branch to fire Vercel retirement webhooks, and synchronizes the local workspace cleanly.
+
 ---
 
 ## 6. Core Engineering & Mathematical Principles
