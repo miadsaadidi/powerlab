@@ -114,32 +114,6 @@ export default function ResearchHubPage() {
                   {paper.reportNumber}
                 </span>
 
-                {paper.doi && (
-                  <a
-                    href={`https://doi.org/${paper.doi}`}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    style={{
-                      background: "rgba(167, 139, 250, 0.12)",
-                      color: "#9333ea",
-                      border: "1px solid rgba(167, 139, 250, 0.3)",
-                      fontSize: "0.74rem",
-                      fontWeight: 700,
-                      padding: "0.2rem 0.55rem",
-                      borderRadius: "4px",
-                      textDecoration: "none",
-                      display: "inline-flex",
-                      alignItems: "center",
-                      gap: "0.25rem",
-                    }}
-                    title={`View official DataCite DOI: ${paper.doi}`}
-                  >
-                    <span>DOI:</span>
-                    <span>{paper.doi}</span>
-                    <span style={{ fontSize: "0.7rem", opacity: 0.8 }}>↗</span>
-                  </a>
-                )}
-
                 <span style={{ fontSize: "0.78rem", fontWeight: 700, color: "var(--muted)" }}>
                   {paper.category}
                 </span>
@@ -169,7 +143,7 @@ export default function ResearchHubPage() {
               </div>
             </div>
 
-            {/* HVACLogic-Style Action Bar: Read Online, Download PDF, Academia, Data Repositories */}
+            {/* Paper Action Bar: Read Online, Download PDF, Academia */}
             <div style={{ display: "flex", flexWrap: "wrap", alignItems: "center", gap: "0.6rem", paddingTop: "1rem", borderTop: "1px solid var(--line)" }}>
               <Link
                 href={`/research/${paper.slug}`}
@@ -238,55 +212,6 @@ export default function ResearchHubPage() {
                   <span>Academia.edu</span>
                   <span style={{ fontSize: "0.75rem", opacity: 0.8 }}>↗</span>
                 </a>
-              )}
-
-              {paper.doi && (
-                <a
-                  href={`https://doi.org/${paper.doi}`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  style={{
-                    display: "inline-flex",
-                    alignItems: "center",
-                    gap: "0.35rem",
-                    background: "rgba(14, 165, 233, 0.08)",
-                    color: "var(--accent, #0284c7)",
-                    border: "1px solid rgba(2, 132, 199, 0.25)",
-                    fontWeight: 600,
-                    fontSize: "0.82rem",
-                    padding: "0.55rem 0.95rem",
-                    borderRadius: "0.45rem",
-                    textDecoration: "none",
-                    minHeight: "40px",
-                  }}
-                  title={`View Replication Dataset on ${paper.datasetRepository || "Figshare"}`}
-                >
-                  <span>📊</span>
-                  <span>{paper.datasetRepository || "Figshare"}</span>
-                  <span style={{ fontSize: "0.75rem", opacity: 0.8 }}>↗</span>
-                </a>
-              )}
-
-              {paper.datasetStatus === "accession_pending" && (
-                <span
-                  style={{
-                    display: "inline-flex",
-                    alignItems: "center",
-                    gap: "0.35rem",
-                    fontSize: "0.78rem",
-                    fontWeight: 600,
-                    padding: "0.5rem 0.8rem",
-                    borderRadius: "0.45rem",
-                    border: "1px solid var(--line)",
-                    background: "var(--surface-subtle, #f8fafc)",
-                    color: "var(--muted)",
-                    minHeight: "40px",
-                  }}
-                  title="Replication dataset deposit registered with repository. Awaiting public accession minting."
-                >
-                  <span>🔒</span>
-                  <span>{paper.datasetRepository || "Dataverse"} Accession Pending</span>
-                </span>
               )}
             </div>
           </article>
