@@ -79,6 +79,10 @@ export default function SolarPaybackPage() {
         </p>
       </div>
 
+      <div id="calculator-tool">
+        <SolarPaybackCalculator />
+      </div>
+
       <DirectAnswerCard
         keyword="solar payback period and ROI calculation"
         answer="The average residential solar payback period in the US is 6.5 to 8.5 years after applying the 30% Federal Clean Energy Tax Credit (ITC). Simple payback is calculated by dividing net installation cost by Year-1 electricity bill savings. An 8 kW system costing $22,400 ($15,680 after ITC) generating $2,100 in annual power achieves break-even in approximately 7.1 years."
@@ -88,10 +92,6 @@ export default function SolarPaybackPage() {
       />
 
       <PageJumpNav />
-
-      <div id="calculator-tool">
-        <SolarPaybackCalculator />
-      </div>
 
       <section id="how-to-guide" style={{ marginTop: "3rem" }}>
         <h2>How to Calculate Your Solar Payback Period</h2>

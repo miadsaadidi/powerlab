@@ -79,6 +79,10 @@ export default function SolarPanelSizePage() {
         </p>
       </div>
 
+      <div id="calculator-tool">
+        <SolarPanelSizeCalculator />
+      </div>
+
       <DirectAnswerCard
         keyword="solar panel size and count calculation"
         answer="An average American home consuming 900 kWh/month (10,800 kWh/year) in a region with 1,450 kWh/kW-yr solar yield requires approximately an 8.0 kW to 8.5 kW solar system. With standard 400W solar panels, this requires 20 to 22 panels taking up roughly 400 square feet of roof space."
@@ -88,10 +92,6 @@ export default function SolarPanelSizePage() {
       />
 
       <PageJumpNav />
-
-      <div id="calculator-tool">
-        <SolarPanelSizeCalculator />
-      </div>
 
       <section id="how-to-guide" style={{ marginTop: "3rem" }}>
         <h2>How to Calculate How Many Solar Panels You Need</h2>

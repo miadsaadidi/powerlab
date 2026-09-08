@@ -13,16 +13,20 @@ import { DirectAnswerCard } from "@/components/seo/direct-answer-card";
 const isPublished = isCalculatorPublished("ac-cost");
 
 export const metadata: Metadata = buildPageMetadata({
-  title: "AC Electricity Cost Calculator: $/Hour, Month & SEER2 Sizing",
-  description: "Calculate exact air conditioner electricity costs per hour, day & month. Sizing formulas for Central AC, Mini-Splits & Window units with SEER2 efficiency & duty cycle.",
+  title: "AC Cost Calculator — Central AC & Air Conditioner Cost",
+  description: "Calculate air conditioner electricity costs per hour, day & month. Sizing formulas for Central AC, Mini-Splits & Window units with SEER2 efficiency.",
   canonicalPath: "/home-energy/air-conditioner-cost-calculator",
   category: "home-energy",
 });
 
 const FAQS = [
   {
+    question: "How much does it cost to run central air conditioning per month?",
+    answer: "Running a standard 3-ton (36,000 BTU, 14 SEER2) central air conditioner for 8 hours per day at a typical 65% compressor duty cycle consumes approximately 450 to 600 kWh per month. At the U.S. national average electric rate of $0.16/kWh, this costs between $72 and $96 per month. In hot southern climates with 12 to 14 hours of daily operation, monthly cooling costs typically range from $130 to $200 per month.",
+  },
+  {
     question: "How much does it cost to run an air conditioner for 1 hour?",
-    answer: "At the US average electric rate of $0.18/kWh: a small 5,000 BTU window AC costs about $0.05 to $0.07/hr; a modern 12,000 BTU mini-split costs about $0.08 to $0.12/hr; and a standard 3-ton (36,000 BTU) central AC costs about $0.35 to $0.55/hr depending on its SEER2 rating and compressor cycling.",
+    answer: "At the US average electric rate of $0.16/kWh: a small 5,000 BTU window AC costs about $0.05 to $0.07/hr; a modern 12,000 BTU mini-split costs about $0.08 to $0.12/hr; and a standard 3-ton (36,000 BTU) central AC costs about $0.35 to $0.55/hr depending on its SEER2 rating and compressor cycling.",
   },
   {
     question: "What is SEER2 and how does it save money on cooling bills?",
@@ -79,6 +83,10 @@ export default function AcCostPage() {
         </p>
       </div>
 
+      <div id="calculator-tool">
+        <AcCostCalculator />
+      </div>
+
       <DirectAnswerCard
         keyword="air conditioner electricity cost calculation"
         answer="Running a standard 3-ton (36,000 BTU) 15-SEER2 central air conditioner costs approximately $0.40 to $0.55 per operating hour at $0.18/kWh (averaging ~$120 to $160/month with 8 hours of daily compressor run time). A 5,000 BTU window unit costs about $0.06/hr (~$15/mo), while an 18-SEER2 mini-split costs ~$0.09/hr (~$22/mo)."
@@ -88,10 +96,6 @@ export default function AcCostPage() {
       />
 
       <PageJumpNav />
-
-      <div id="calculator-tool">
-        <AcCostCalculator />
-      </div>
 
       <section id="how-to-guide" style={{ marginTop: "3rem" }}>
         <h2>How to Calculate Air Conditioner Electricity Cost</h2>

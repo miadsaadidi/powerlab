@@ -33,6 +33,10 @@ const FAQS = [
     answer: "NEC Section 334.80 mandates that non-metallic sheathed cable (Romex NM-B) must be sized using the 60°C ampacity column of NEC Table 310.16. At 60°C, 6 AWG copper is only rated for 55 Amps (too small for a 60A breaker), meaning Romex installations require 4 AWG copper. In contrast, THHN individual conductors in conduit use the 75°C column, where 6 AWG copper is rated for 65 Amps (legal for a 60A breaker).",
   },
   {
+    question: "What wire size is required for a 48-Amp EV charger?",
+    answer: "A 48-Amp EV charger requires 6 AWG copper wire when pulled as individual THHN conductors through conduit (evaluated under the 75°C column of NEC Table 310.16, rated for 65 Amps). If you are using Romex NM-B cable, you must upsize to 4 AWG copper wire because NEC 334.80 restricts Romex to the 60°C column (where 6 AWG is capped at 55A, which is illegal for a 60A breaker).",
+  },
+  {
     question: "What is the 80% rule in electrical code for EV charging?",
     answer: "The 80% rule is the reciprocal of the 125% continuous load requirement. Because electric vehicles draw sustained maximum power for many consecutive hours, breakers and branch circuit wiring must never be loaded beyond 80% of their nameplate rating (e.g. 50A breaker × 0.80 = 40A maximum continuous charging).",
   },
@@ -80,6 +84,10 @@ export default function EvBreakerSizePage() {
         </p>
       </div>
 
+      <div id="calculator-tool">
+        <EvBreakerSizeCalculator />
+      </div>
+
       <DirectAnswerCard
         keyword="Level 2 EV charger breaker and wire sizing"
         answer="Under NEC Article 625, EV charging is a continuous electrical load requiring circuit breakers and wiring to be sized for 125% of the charger's continuous current draw. A standard 48-Amp Level 2 charger requires a 60-Amp double-pole circuit breaker and 6 AWG copper wire (in conduit) or 4 AWG Romex (NM-B), delivering up to 11.5 kW of power."
@@ -88,11 +96,30 @@ export default function EvBreakerSizePage() {
         sourceAuthority="NEC Article 625 (EV Power Transfer) & NEC Table 310.16"
       />
 
-      <PageJumpNav />
+      {/* Interactive Next-Step Planning Cards to reduce bounce rate */}
+      <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(min(100%, 300px), 1fr))", gap: "1rem", margin: "1.5rem 0" }}>
+        <div style={{ padding: "1.25rem", borderRadius: "0.75rem", background: "var(--surface)", border: "1px solid var(--line)", borderLeft: "4px solid var(--accent)" }}>
+          <h3 style={{ margin: "0 0 0.35rem", fontSize: "1.05rem", color: "var(--brand-strong)" }}>📏 Long Cable Run (&gt;50 ft)?</h3>
+          <p style={{ fontSize: "0.88rem", color: "var(--muted)", margin: "0 0 0.75rem", lineHeight: 1.5 }}>
+            Verify allowable 3% branch circuit voltage drop and determine if you must upsize conductors to prevent charging thermal throttling.
+          </p>
+          <Link href="/battery/voltage-drop-calculator" className="button secondary-button" style={{ width: "100%", textAlign: "center", display: "block", fontSize: "0.85rem" }}>
+            Calculate Voltage Drop &amp; Upsize Wire →
+          </Link>
+        </div>
 
-      <div id="calculator-tool">
-        <EvBreakerSizeCalculator />
+        <div style={{ padding: "1.25rem", borderRadius: "0.75rem", background: "var(--surface)", border: "1px solid var(--line)", borderLeft: "4px solid #10b981" }}>
+          <h3 style={{ margin: "0 0 0.35rem", fontSize: "1.05rem", color: "var(--brand-strong)" }}>⚡ How Fast Will This Circuit Charge?</h3>
+          <p style={{ fontSize: "0.88rem", color: "var(--muted)", margin: "0 0 0.75rem", lineHeight: 1.5 }}>
+            Calculate exact hours and minutes to recharge your specific EV battery pack (10% to 80% and 100%) at this breaker amperage.
+          </p>
+          <Link href="/ev/ev-charging-time-calculator" className="button secondary-button" style={{ width: "100%", textAlign: "center", display: "block", fontSize: "0.85rem" }}>
+            Calculate EV Charging Time →
+          </Link>
+        </div>
       </div>
+
+      <PageJumpNav />
 
       <section id="how-to-guide" style={{ marginTop: "3rem" }}>
         <h2>How to Size an EV Charger Circuit Breaker and Wire</h2>

@@ -79,6 +79,10 @@ export default function BatteryCapacityPage() {
         </p>
       </div>
 
+      <div id="calculator-tool">
+        <BatteryCapacityCalculator />
+      </div>
+
       <DirectAnswerCard
         keyword="battery capacity Ah to Wh conversion"
         answer="To convert Amp-hours (Ah) to Watt-hours (Wh), multiply capacity by nominal voltage: Wh = Ah × Volts. For example, a 12V 100Ah battery contains 1,200 Wh (1.2 kWh) of nominal capacity. Usable energy is calculated by multiplying nominal Wh by the safe Depth of Discharge (typically 80%–90% for LiFePO4, 50% for Lead-Acid)."
@@ -88,10 +92,6 @@ export default function BatteryCapacityPage() {
       />
 
       <PageJumpNav />
-
-      <div id="calculator-tool">
-        <BatteryCapacityCalculator />
-      </div>
 
       <section id="how-to-guide" style={{ marginTop: "3rem" }}>
         <h2>How to Convert Battery Capacity (Ah to Wh)</h2>

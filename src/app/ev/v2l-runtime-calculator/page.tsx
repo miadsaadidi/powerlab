@@ -79,6 +79,10 @@ export default function V2lRuntimePage() {
         </p>
       </div>
 
+      <div id="calculator-tool">
+        <V2lRuntimeCalculator />
+      </div>
+
       <DirectAnswerCard
         keyword="Vehicle-to-Load (V2L) backup runtime calculation"
         answer="A standard 77 kWh EV battery can power essential blackout home loads (refrigerator, lights, Wi-Fi router, phone chargers, medical devices: ~350W average) for approximately 6 to 7 continuous days, while still retaining a 20% battery reserve (~40 miles) for emergency evacuation driving."
@@ -88,10 +92,6 @@ export default function V2lRuntimePage() {
       />
 
       <PageJumpNav />
-
-      <div id="calculator-tool">
-        <V2lRuntimeCalculator />
-      </div>
 
       <section id="how-to-guide" style={{ marginTop: "3rem" }}>
         <h2>How to Calculate EV Backup Power (V2L / V2H) Runtime</h2>

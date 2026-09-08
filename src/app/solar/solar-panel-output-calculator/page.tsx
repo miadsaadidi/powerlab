@@ -80,6 +80,10 @@ export default function SolarOutputPage() {
         </p>
       </div>
 
+      <div id="calculator-tool">
+        <SolarPanelOutputCalculator />
+      </div>
+
       <DirectAnswerCard
         keyword="solar panel output calculator"
         answer="To calculate daily solar panel electricity output, multiply your solar panel wattage (Watts) by your area's average daily Peak Sun Hours (PSH), then multiply by system efficiency (~86% after wiring and inverter losses)."
@@ -89,10 +93,6 @@ export default function SolarOutputPage() {
       />
 
       <PageJumpNav />
-
-      <div id="calculator-tool">
-        <SolarPanelOutputCalculator />
-      </div>
 
       <section id="how-to-guide" style={{ marginTop: "3rem" }}>
         <h2>How to Calculate Your Solar Panel Output</h2>

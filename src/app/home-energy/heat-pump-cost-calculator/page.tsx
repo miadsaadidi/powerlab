@@ -79,6 +79,10 @@ export default function HeatPumpCostPage() {
         </p>
       </div>
 
+      <div id="calculator-tool">
+        <HeatPumpCostCalculator />
+      </div>
+
       <DirectAnswerCard
         keyword="heat pump running cost vs gas comparison"
         answer="Because heat pumps move heat rather than burning fuel, they operate at 250% to 350% seasonal efficiency (COP 2.5 to 3.5). Compared to a standard 80% natural gas furnace, a heat pump has comparable operating costs ($1,100 to $1,400/yr). Compared to propane ($3.20/gal) or oil ($4.10/gal), an electric heat pump saves homeowners $800 to $1,500 every winter."
@@ -88,10 +92,6 @@ export default function HeatPumpCostPage() {
       />
 
       <PageJumpNav />
-
-      <div id="calculator-tool">
-        <HeatPumpCostCalculator />
-      </div>
 
       <section id="how-to-guide" style={{ marginTop: "3rem" }}>
         <h2>How to Compare Heat Pump vs Furnace Heating Costs</h2>

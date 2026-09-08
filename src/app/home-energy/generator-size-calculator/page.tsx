@@ -33,6 +33,14 @@ const FAQS = [
     answer: "A 7,500W running / 9,500W surge generator can power essential household loads including a refrigerator, 1/2 HP well pump or sump pump, gas furnace blower, microwave, lights, and entertainment electronics. However, it cannot run heavy 240V whole-house electric heat, electric water heaters, or 4-ton central AC simultaneously.",
   },
   {
+    question: "What size generator is needed to run a sump pump?",
+    answer: "A standard 1/3 HP residential sump pump requires approximately 800 running watts and 1,800 to 2,400 starting surge watts. A larger 1/2 HP sump pump requires about 1,050 running watts and 2,600 to 3,200 starting surge watts. Therefore, a generator with at least 3,000 to 3,500 surge watts is recommended to handle the motor inrush without voltage sag.",
+  },
+  {
+    question: "What size generator do I need for a 150-Amp or 200-Amp electrical service?",
+    answer: "For whole-home backup on a 150A or 200A electrical service without manual load shedding, a 14 kW to 22 kW standby generator (running on natural gas or liquid propane) connected via an Automatic Transfer Switch (ATS) is standard. If using a portable generator with a 30A or 50A manual interlock kit, an 8.5 kW to 12 kW unit can power all critical circuits (fridge, well pump, lights) plus a 3-ton central AC equipped with a soft starter.",
+  },
+  {
     question: "What size generator cord and breaker do I need for a 7,500W generator?",
     answer: "A typical 7,500W generator produces up to 31.25 Amps at 240V. This requires a 4-prong NEMA L14-30 generator cord (10 AWG 4-conductor wire) connected to a 30-Amp double-pole manual transfer switch or interlock kit on your main breaker panel.",
   },
@@ -80,6 +88,10 @@ export default function GeneratorSizePage() {
         </p>
       </div>
 
+      <div id="calculator-tool">
+        <GeneratorSizeCalculator />
+      </div>
+
       <DirectAnswerCard
         keyword="generator sizing calculation"
         answer="A 7,500W running / 9,500W surge portable generator is the standard sweet spot for emergency home backup. Sizing is calculated by summing the continuous running watts of all simultaneous devices (with a 20% safety margin), then adding only the single largest motor starting surge delta (sequential motor starting method) to prevent costly oversizing."
@@ -89,10 +101,6 @@ export default function GeneratorSizePage() {
       />
 
       <PageJumpNav />
-
-      <div id="calculator-tool">
-        <GeneratorSizeCalculator />
-      </div>
 
       <section id="how-to-guide" style={{ marginTop: "3rem" }}>
         <h2>How to Size a Backup Generator</h2>

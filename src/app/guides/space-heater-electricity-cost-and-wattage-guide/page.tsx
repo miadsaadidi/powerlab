@@ -372,6 +372,7 @@ Space Heater Heat Output = 1 kWh Electricity → 1.0 kWh Thermal Energy (3,412 B
         </div>
 
         <div style={{ marginTop: "1rem", display: "flex", gap: "0.5rem", flexWrap: "wrap" }}>
+          <Link href="/home-energy/space-heater-cost-calculator" className="button" style={{ fontSize: "0.85rem" }}>⚡ Space Heater Cost Calculator →</Link>
           <Link href="/home-energy/appliance-wattage-calculator" className="button secondary-button" style={{ fontSize: "0.85rem" }}>Appliance Wattage Calculator</Link>
           <Link href="/battery/voltage-drop-calculator" className="button secondary-button" style={{ fontSize: "0.85rem" }}>Voltage Drop &amp; Wire Size Calculator</Link>
           <Link href="/guides/central-ac-and-heat-pump-electricity-cost-guide" className="button secondary-button" style={{ fontSize: "0.85rem" }}>Central AC &amp; Heat Pump Guide</Link>

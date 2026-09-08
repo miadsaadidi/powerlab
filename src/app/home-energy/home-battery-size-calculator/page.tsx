@@ -80,6 +80,10 @@ export default function HomeBatterySizePage() {
         </p>
       </div>
 
+      <div id="calculator-tool">
+        <HomeBatterySizeCalculator />
+      </div>
+
       <DirectAnswerCard
         keyword="home battery backup sizing calculation"
         answer="To power critical home essentials (refrigerator, lighting, router, electronics: ~30% of normal consumption) for 24 hours during an outage, a typical home needs approximately 10 kWh to 13.5 kWh of usable battery storage (equivalent to 1 standard Tesla Powerwall 3). For whole-home backup including 240V central AC, 20 kWh to 40 kWh is recommended."
@@ -89,10 +93,6 @@ export default function HomeBatterySizePage() {
       />
 
       <PageJumpNav />
-
-      <div id="calculator-tool">
-        <HomeBatterySizeCalculator />
-      </div>
 
       <section id="how-to-guide" style={{ marginTop: "3rem" }}>
         <h2>How to Size a Home Battery Backup System</h2>

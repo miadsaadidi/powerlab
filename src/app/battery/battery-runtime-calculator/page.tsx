@@ -105,6 +105,10 @@ export default function BatteryRuntimePage() {
         </p>
       </div>
 
+      <div id="calculator-tool">
+        <BatteryRuntimeCalculator />
+      </div>
+
       <DirectAnswerCard
         keyword="battery runtime calculator"
         answer="To calculate battery runtime, multiply your battery's total watt-hours by its usable Depth of Discharge (80% for LiFePO4, 50% for Lead-Acid) and inverter efficiency (~90%), then divide by the total connected load in watts."
@@ -113,10 +117,6 @@ export default function BatteryRuntimePage() {
       />
 
       <PageJumpNav />
-
-      <div id="calculator-tool">
-        <BatteryRuntimeCalculator />
-      </div>
 
       <section id="how-to-guide" style={{ marginTop: "3rem" }}>
         <h2>How to Calculate Battery Backup Runtime</h2>

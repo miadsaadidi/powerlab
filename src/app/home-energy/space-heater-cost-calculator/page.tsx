@@ -13,16 +13,16 @@ import { DirectAnswerCard } from "@/components/seo/direct-answer-card";
 const isPublished = isCalculatorPublished("space-heater-cost");
 
 export const metadata: Metadata = buildPageMetadata({
-  title: "Space Heater Electricity Cost Calculator: $/Hr",
-  description: "Calculate exact space heater electricity costs per hour, night & month for 500W, 1000W & 1500W heaters. Model thermostat duty cycle vs central heating.",
+  title: "Space Heater Cost Calculator — Running Cost & $/Hour",
+  description: "Calculate exact space heater electricity costs per hour, night & month for 500W, 1000W & 1500W heaters. Model thermostat duty cycle vs central heat pumps.",
   canonicalPath: "/home-energy/space-heater-cost-calculator",
   category: "home-energy",
 });
 
 const FAQS = [
   {
-    question: "How much does it cost to run a 1,500 Watt space heater for 1 hour?",
-    answer: "At the average US residential electricity rate of $0.18 per kWh, running a 1,500W electric heater at continuous full power costs exactly $0.27 per hour. If the heater has a thermostat cycling at 70% duty cycle, the effective cost drops to approximately $0.19 per hour.",
+    question: "How much electricity does a 1,500 Watt space heater use, and what does it cost per hour?",
+    answer: "A 1,500 Watt space heater uses exactly 1.5 kilowatt-hours (kWh) of electricity per hour of continuous operation. At the U.S. national average electric rate of $0.16/kWh, it costs $0.24 per continuous hour ($0.36/hr in regions with $0.24/kWh rates). When regulated by an internal thermostat cycling at a typical 65% to 70% duty cycle, effective consumption drops to approximately 1.0 kWh per hour ($0.16/hr).",
   },
   {
     question: "How much does a space heater cost to run all night (8 hours)?",
@@ -79,6 +79,10 @@ export default function SpaceHeaterCostPage() {
         </p>
       </div>
 
+      <div id="calculator-tool">
+        <SpaceHeaterCostCalculator />
+      </div>
+
       <DirectAnswerCard
         keyword="space heater electricity cost calculation"
         answer="Running a standard 1,500 Watt electric space heater continuously costs $0.27 per hour at the US average electricity rate of $0.18/kWh. With a thermostatic cycling duty cycle of 70%, operating cost is approximately $0.19 per hour, $1.51 for an 8-hour night, and about $45.30 per winter month."
@@ -88,10 +92,6 @@ export default function SpaceHeaterCostPage() {
       />
 
       <PageJumpNav />
-
-      <div id="calculator-tool">
-        <SpaceHeaterCostCalculator />
-      </div>
 
       <section id="how-to-guide" style={{ marginTop: "3rem" }}>
         <h2>How to Calculate Space Heater Electricity Cost</h2>

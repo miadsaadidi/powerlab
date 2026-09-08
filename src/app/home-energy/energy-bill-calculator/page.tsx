@@ -78,6 +78,10 @@ export default function EnergyBillCalculatorPage() {
         </p>
       </div>
 
+      <div id="calculator-tool">
+        <EnergyBillCalculator />
+      </div>
+
       <DirectAnswerCard
         keyword="electricity bill calculation"
         answer="An average US household consumes approximately 880 kWh per month, resulting in a monthly bill of roughly $145 to $160 at the national average electricity rate of $0.165/kWh (including standard monthly base connection fees). Total bill is calculated by multiplying total kWh by your price per kWh, then adding fixed charges and applicable local taxes."
@@ -87,10 +91,6 @@ export default function EnergyBillCalculatorPage() {
       />
 
       <PageJumpNav />
-
-      <div id="calculator-tool">
-        <EnergyBillCalculator />
-      </div>
 
       <section id="how-to-guide" style={{ marginTop: "3rem" }}>
         <h2>How to Calculate Your Electric Utility Bill</h2>

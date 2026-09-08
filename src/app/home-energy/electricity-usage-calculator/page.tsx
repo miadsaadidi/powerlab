@@ -79,6 +79,10 @@ export default function ElectricityUsagePage() {
         </p>
       </div>
 
+      <div id="calculator-tool">
+        <ElectricityUsageCalculator />
+      </div>
+
       <DirectAnswerCard
         keyword="electricity usage calculator"
         answer="To calculate an appliance's electricity consumption in kilowatt-hours (kWh), multiply its operating wattage by the hours used per day, then divide by 1,000. Multiply by your utility electricity rate ($/kWh) to find total operating cost."
@@ -88,10 +92,6 @@ export default function ElectricityUsagePage() {
       />
 
       <PageJumpNav />
-
-      <div id="calculator-tool">
-        <ElectricityUsageCalculator />
-      </div>
 
       <section id="how-to-guide" style={{ marginTop: "3rem" }}>
         <h2>How to Calculate Appliance Electricity Usage &amp; Costs</h2>

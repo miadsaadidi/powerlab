@@ -80,6 +80,10 @@ export default function VoltageDropPage() {
         </p>
       </div>
 
+      <div id="calculator-tool">
+        <VoltageDropCalculator />
+      </div>
+
       <DirectAnswerCard
         keyword="voltage drop and wire gauge sizing calculation"
         answer="The National Electrical Code (NEC Article 210.19) recommends limiting voltage drop to under 3% for branch circuits and 5% total system-wide. Voltage drop equals round-trip conductor resistance multiplied by current: VD = (2 × K × Length × Amps) ÷ Conductor Area (CMIL). A 12V 20A circuit over 15 feet requires at least 8 AWG copper wire to stay under 3% drop (0.36V)."
@@ -89,10 +93,6 @@ export default function VoltageDropPage() {
       />
 
       <PageJumpNav />
-
-      <div id="calculator-tool">
-        <VoltageDropCalculator />
-      </div>
 
       <section id="how-to-guide" style={{ marginTop: "3rem" }}>
         <h2>How to Use This Voltage Drop Calculator</h2>

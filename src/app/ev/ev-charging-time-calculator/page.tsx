@@ -80,6 +80,10 @@ export default function EvChargingTimePage() {
         </p>
       </div>
 
+      <div id="calculator-tool">
+        <EvChargingTimeCalculator />
+      </div>
+
       <DirectAnswerCard
         keyword="ev charging time calculator"
         answer="To calculate EV charging time, divide the energy needed (kWh) by the effective charging power (kW) delivered to the battery, accounting for approximately 90% AC charging efficiency."
@@ -89,10 +93,6 @@ export default function EvChargingTimePage() {
       />
 
       <PageJumpNav />
-
-      <div id="calculator-tool">
-        <EvChargingTimeCalculator />
-      </div>
 
       <section id="how-to-guide" style={{ marginTop: "3rem" }}>
         <h2>How to Calculate EV Charging Time</h2>

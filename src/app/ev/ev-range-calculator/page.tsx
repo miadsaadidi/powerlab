@@ -78,6 +78,10 @@ export default function EvRangePage() {
         </p>
       </div>
 
+      <div id="calculator-tool">
+        <EvRangeCalculator />
+      </div>
+
       <DirectAnswerCard
         keyword="EV driving range calculation"
         answer="Real-world EV driving range is calculated by multiplying available battery energy (kWh remaining above reserve limit) by vehicle efficiency: Range (Miles) = [Usable kWh × (Current SoC − Reserve SoC)] × Efficiency (mi/kWh). A 75 kWh EV at 80% charge with 3.5 mi/kWh efficiency and a 10% arrival reserve provides approximately 183 miles of driving range."
@@ -87,10 +91,6 @@ export default function EvRangePage() {
       />
 
       <PageJumpNav />
-
-      <div id="calculator-tool">
-        <EvRangeCalculator />
-      </div>
 
       <section id="how-to-guide" style={{ marginTop: "3rem" }}>
         <h2>How to Calculate Real-World EV Driving Range</h2>
