@@ -79,6 +79,10 @@ export default function EvChargingCostPage() {
         </p>
       </div>
 
+      <div id="calculator-tool">
+        <EvChargingCostCalculator />
+      </div>
+
       <DirectAnswerCard
         keyword="EV charging cost calculation"
         answer="Charging an electric vehicle with a 65 kWh battery from 10% to 80% at home costs approximately $8.25 at the US national average residential electricity rate of $0.165/kWh (including 90% AC onboard charger efficiency). Driving an EV costs roughly $0.04 to $0.05 per mile, compared to $0.12 to $0.14 per mile for an equivalent gas vehicle."
@@ -88,10 +92,6 @@ export default function EvChargingCostPage() {
       />
 
       <PageJumpNav />
-
-      <div id="calculator-tool">
-        <EvChargingCostCalculator />
-      </div>
 
       <section id="how-to-guide" style={{ marginTop: "3rem" }}>
         <h2>How to Calculate EV Charging Costs</h2>

@@ -78,6 +78,10 @@ export default function UpsBatterySizePage() {
         </p>
       </div>
 
+      <div id="calculator-tool">
+        <UpsBatterySizeCalculator />
+      </div>
+
       <DirectAnswerCard
         keyword="UPS battery sizing calculation"
         answer="To size a UPS battery, calculate required energy: multiply load watts by target runtime hours, then divide by inverter efficiency (88%) and usable depth-of-discharge (50% for lead-acid). For example, supporting a 300W server for 30 minutes (0.5 hr) requires approximately 375 Wh of nominal battery capacity (~31.2 Ah at a 12V bus)."
@@ -87,10 +91,6 @@ export default function UpsBatterySizePage() {
       />
 
       <PageJumpNav />
-
-      <div id="calculator-tool">
-        <UpsBatterySizeCalculator />
-      </div>
 
       <section id="how-to-guide" style={{ marginTop: "3rem" }}>
         <h2>How to Size a UPS Battery Bank</h2>

@@ -1,0 +1,43 @@
+{
+  "datasetId": "PL-DS-2026-ASHP02",
+  "title": "Empirical Coefficient of Performance (COP) Degradation and Auxiliary Electric Resistance Staging Bin Matrix for Cold-Climate Air-Source Heat Pumps (ccASHP)",
+  "version": "1.0.0",
+  "institution": "PowerLab Open Energy Research",
+  "authors": [
+    "PowerLab Clean Energy Engineering Group"
+  ],
+  "datePublished": "2026-09-08",
+  "standardsCited": [
+    "AHRI Standard 210/240",
+    "ASHRAE Fundamentals Chapter 18",
+    "ISO 13253",
+    "DOE Cold Climate Heat Pump Challenge"
+  ],
+  "nominalSystem": {
+    "ratedCapacityBtu47": 36000,
+    "ratedCop47": 3.8,
+    "indoorSetpointF": 70,
+    "designHeatLossBtu": 45000,
+    "winterDesignTempF": -10,
+    "buildingUABtuPerHrF": 500
+  },
+  "columns": [
+    "outdoor_ambient_temp_f",
+    "outdoor_ambient_temp_c",
+    "compressor_cop_nominal",
+    "defrost_penalty_factor",
+    "effective_compressor_cop",
+    "capacity_retention_pct",
+    "delivered_heat_btu_hr",
+    "building_heat_loss_btu_hr",
+    "thermal_deficit_btu_hr",
+    "auxiliary_heat_kw",
+    "compressor_power_kw",
+    "total_electrical_load_kw",
+    "combined_system_cop"
+  ],
+  "referenceUrls": {
+    "calculationTool": "https://www.powelab.org/home-energy/heat-pump-cost-calculator",
+    "technicalReport": "https://www.powelab.org/research/heat-pump-cop-degradation-and-auxiliary-heat-kinetics"
+  }
+}

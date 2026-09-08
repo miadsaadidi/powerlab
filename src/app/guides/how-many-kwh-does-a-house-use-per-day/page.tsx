@@ -360,9 +360,10 @@ export default function HowManyKwhDoesAHouseUsePerDayPage() {
         </div>
 
         <div style={{ marginTop: "1rem", display: "flex", gap: "0.5rem", flexWrap: "wrap" }}>
+          <Link href="/home-energy/electricity-usage-calculator" className="button" style={{ fontSize: "0.85rem" }}>⚡ Electricity Usage Calculator →</Link>
           <Link href="/home-energy/appliance-wattage-calculator" className="button secondary-button" style={{ fontSize: "0.85rem" }}>Appliance Wattage Calculator</Link>
+          <Link href="/home-energy/space-heater-cost-calculator" className="button secondary-button" style={{ fontSize: "0.85rem" }}>Space Heater Cost Calculator</Link>
           <Link href="/solar/solar-panel-output-calculator" className="button secondary-button" style={{ fontSize: "0.85rem" }}>Solar Panel Output Calculator</Link>
-          <Link href="/guides/space-heater-electricity-cost-and-wattage-guide" className="button secondary-button" style={{ fontSize: "0.85rem" }}>Space Heater Cost Guide</Link>
         </div>
       </section>
 

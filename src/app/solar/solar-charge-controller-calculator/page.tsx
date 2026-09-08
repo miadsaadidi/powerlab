@@ -79,6 +79,10 @@ export default function SolarChargeControllerPage() {
         </p>
       </div>
 
+      <div id="calculator-tool">
+        <SolarChargeControllerCalculator />
+      </div>
+
       <DirectAnswerCard
         keyword="solar charge controller / MPPT sizing calculation"
         answer="To size an MPPT charge controller, calculate required output current: divide total solar array wattage by nominal battery voltage and multiply by 1.25 (NEC safety margin). In addition, calculate string open-circuit voltage at your location's lowest record winter temperature (Voc rises ~0.33%/°C below 25°C) to ensure it stays below the controller's maximum voltage rating."
@@ -88,10 +92,6 @@ export default function SolarChargeControllerPage() {
       />
 
       <PageJumpNav />
-
-      <div id="calculator-tool">
-        <SolarChargeControllerCalculator />
-      </div>
 
       <section id="how-to-guide" style={{ marginTop: "3rem" }}>
         <h2>How to Size a Solar Charge Controller</h2>

@@ -79,6 +79,10 @@ export default function BatteryChargingTimePage() {
         </p>
       </div>
 
+      <div id="calculator-tool">
+        <BatteryChargingTimeCalculator />
+      </div>
+
       <DirectAnswerCard
         keyword="battery charging time calculation"
         answer="A 12V 100Ah battery takes approximately 8.5 hours to recharge from 20% to 100% using a standard 10A charger, or about 4.2 hours with a 20A charger. Charging time equals the energy deficit (Ah needed) divided by charger current, adjusted for charging efficiency (95% for LiFePO4, 85% for Lead-Acid) and the constant-voltage absorption taper stage."
@@ -88,10 +92,6 @@ export default function BatteryChargingTimePage() {
       />
 
       <PageJumpNav />
-
-      <div id="calculator-tool">
-        <BatteryChargingTimeCalculator />
-      </div>
 
       <section id="how-to-guide" style={{ marginTop: "3rem" }}>
         <h2>How to Calculate Battery Charging Duration</h2>

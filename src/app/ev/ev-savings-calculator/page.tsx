@@ -79,6 +79,10 @@ export default function EvSavingsPage() {
         </p>
       </div>
 
+      <div id="calculator-tool">
+        <EvSavingsCalculator />
+      </div>
+
       <DirectAnswerCard
         keyword="EV vs gas car fuel savings calculation"
         answer="Driving an electric vehicle 12,000 miles per year saves approximately $850 to $1,200 annually in fuel expenses compared to a 28 MPG gas car at $3.50/gallon. Annual EV electricity cost is about $550 to $650 (at $0.165/kWh) versus $1,500 for gasoline. Over 5 years, total combined fuel and maintenance savings typically exceed $6,000."
@@ -88,10 +92,6 @@ export default function EvSavingsPage() {
       />
 
       <PageJumpNav />
-
-      <div id="calculator-tool">
-        <EvSavingsCalculator />
-      </div>
 
       <section id="how-to-guide" style={{ marginTop: "3rem" }}>
         <h2>How to Calculate EV vs Gas Vehicle Savings</h2>

@@ -79,6 +79,10 @@ export default function InverterSizePage() {
         </p>
       </div>
 
+      <div id="calculator-tool">
+        <InverterSizeCalculator />
+      </div>
+
       <DirectAnswerCard
         keyword="inverter sizing calculation"
         answer="To size an inverter, sum the continuous running wattage of all simultaneous appliances and add a 20% safety headroom. In addition, ensure the inverter's surge rating accommodates the highest motor inrush wattage (typically 3× to 5× running watts for refrigerators and air conditioners). For example, a 1,200W continuous load requires at least a 1,500W to 2,000W Pure Sine Wave inverter."
@@ -88,10 +92,6 @@ export default function InverterSizePage() {
       />
 
       <PageJumpNav />
-
-      <div id="calculator-tool">
-        <InverterSizeCalculator />
-      </div>
 
       <section id="how-to-guide" style={{ marginTop: "3rem" }}>
         <h2>How to Size an Off-Grid Inverter</h2>

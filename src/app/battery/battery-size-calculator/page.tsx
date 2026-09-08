@@ -76,11 +76,15 @@ export default function BatterySizePage() {
       </nav>
 
       <div className="calculator-header">
-        <p className="eyebrow">Battery planning</p>
+        <p className="eyebrow">Battery system sizing</p>
         <h1>Battery Size Calculator</h1>
         <p className="intro">
           Estimate the exact battery capacity (Ah and kWh) needed to power your electrical appliances for a desired backup runtime, factoring in inverter conversion losses and chemistry DOD limits.
         </p>
+      </div>
+
+      <div id="calculator-tool">
+        <BatterySizeCalculator />
       </div>
 
       <DirectAnswerCard
@@ -91,10 +95,6 @@ export default function BatterySizePage() {
       />
 
       <PageJumpNav />
-
-      <div id="calculator-tool">
-        <BatterySizeCalculator />
-      </div>
 
       <section id="how-to-guide" style={{ marginTop: "3rem" }}>
         <h2>How to Size a Battery Bank for Power Outages</h2>

@@ -71,11 +71,15 @@ export default function SolarLoadPage() {
       </nav>
 
       <div className="calculator-header">
-        <p className="eyebrow">Solar planning</p>
+        <p className="eyebrow">Solar system sizing</p>
         <h1>Solar Load Calculator</h1>
         <p className="intro">
           Estimate your total daily appliance electrical energy consumption (Wh/day and kWh/day) and connected peak power to size off-grid solar arrays, battery banks, and inverters.
         </p>
+      </div>
+
+      <div id="calculator-tool">
+        <SolarLoadCalculator />
       </div>
 
       <DirectAnswerCard
@@ -87,10 +91,6 @@ export default function SolarLoadPage() {
       />
 
       <PageJumpNav />
-
-      <div id="calculator-tool">
-        <SolarLoadCalculator />
-      </div>
 
       <section id="how-to-guide" style={{ marginTop: "3rem" }}>
         <h2>How to Calculate Your Solar Load</h2>

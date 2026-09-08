@@ -79,6 +79,10 @@ export default function UpsRuntimePage() {
         </p>
       </div>
 
+      <div id="calculator-tool">
+        <UpsRuntimeCalculator />
+      </div>
+
       <DirectAnswerCard
         keyword="UPS runtime calculation"
         answer="A standard 1500VA / 900W desktop UPS (216Wh internal battery) provides approximately 50 to 60 minutes of backup for a 100W PC and monitor, or 15 minutes for a 350W gaming/workstation load. Runtime is determined by battery watt-hours multiplied by inverter efficiency (85%) divided by active equipment wattage."
@@ -88,10 +92,6 @@ export default function UpsRuntimePage() {
       />
 
       <PageJumpNav />
-
-      <div id="calculator-tool">
-        <UpsRuntimeCalculator />
-      </div>
 
       <section id="how-to-guide" style={{ marginTop: "3rem" }}>
         <h2>How to Calculate UPS Battery Backup Duration</h2>

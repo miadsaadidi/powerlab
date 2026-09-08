@@ -80,6 +80,10 @@ export default function SolarTiltPage() {
         </p>
       </div>
 
+      <div id="calculator-tool">
+        <SolarPanelTiltCalculator />
+      </div>
+
       <DirectAnswerCard
         keyword="solar panel tilt calculator"
         answer="As a general rule of thumb, your optimal year-round solar panel tilt angle equals your geographic latitude. For seasonal adjustments, tilt panels Latitude + 15° in winter (when the sun is lower) and Latitude - 15° in summer."
@@ -89,10 +93,6 @@ export default function SolarTiltPage() {
       />
 
       <PageJumpNav />
-
-      <div id="calculator-tool">
-        <SolarPanelTiltCalculator />
-      </div>
 
       <section id="how-to-guide" style={{ marginTop: "3rem" }}>
         <h2>How to Find Your Optimal Solar Panel Tilt Angle</h2>

@@ -26,6 +26,8 @@ export interface ResearchPaper {
   htmlUrl?: string;
   dataverseUrl?: string;
   academiaUrl?: string;
+  datasetStatus?: "published" | "accession_pending" | "none";
+  datasetRepository?: string;
   category: "Electric Vehicles" | "Home Energy" | "Solar Photovoltaics" | "Battery Storage";
   categorySlug: "ev" | "home-energy" | "solar" | "battery";
   keywords: string[];
@@ -55,6 +57,8 @@ export const RESEARCH_PAPERS: ResearchPaper[] = [
     doi: "10.6084/m9.figshare.33321774",
     pdfUrl: "/whitepapers/evse-continuous-duty-thermal-sizing.pdf",
     academiaUrl: "https://www.academia.edu/173621969/Continuous_Duty_Thermal_Sizing_Conductor_Terminal_Limits_and_Branch_Circuit_Ampacity_Requirements_for_Residential_Level_2_Electric_Vehicle_Supply_Equipment_EVSE_",
+    datasetStatus: "published",
+    datasetRepository: "Figshare",
     category: "Electric Vehicles",
     categorySlug: "ev",
     keywords: [
@@ -124,7 +128,10 @@ export const RESEARCH_PAPERS: ResearchPaper[] = [
     dateModified: "2026-09-06",
     pdfUrl: "/whitepapers/heat-pump-cop-degradation-auxiliary-heat.pdf",
     htmlUrl: "/whitepapers/heat-pump-cop-degradation-auxiliary-heat.html",
+    doi: "10.6084/m9.figshare.33470950",
     academiaUrl: "https://www.academia.edu/172873251/Non_Linear_Coefficient_of_Performance_COP_Degradation_Defrost_Entropy_Losses_and_Auxiliary_Resistive_Staging_Dynamics_in_Cold_Climate_Air_Source_Heat_Pumps_ccASHP_",
+    datasetStatus: "published",
+    datasetRepository: "Figshare",
     category: "Home Energy",
     categorySlug: "home-energy",
     keywords: [
@@ -193,6 +200,8 @@ export const RESEARCH_PAPERS: ResearchPaper[] = [
     dateModified: "2026-08-27",
     pdfUrl: "/whitepapers/deterministic-inrush-load-stacking-generator-sizing.pdf",
     academiaUrl: "https://www.academia.edu/172416009/Deterministic_Modeling_of_Inductive_Motor_Inrush_Currents_and_Non_Coincident_Load_Stacking_for_Residential_Backup_Power_Systems",
+    datasetStatus: "accession_pending",
+    datasetRepository: "Harvard Dataverse",
     category: "Home Energy",
     categorySlug: "home-energy",
     keywords: [
@@ -261,6 +270,9 @@ export const RESEARCH_PAPERS: ResearchPaper[] = [
     dateModified: "2026-08-30",
     pdfUrl: "/whitepapers/ground-view-factor-snow-albedo-pv-tilt.pdf",
     htmlUrl: "/whitepapers/ground-view-factor-snow-albedo-pv-tilt.html",
+    academiaUrl: "https://www.academia.edu/175217881/Ground_View_Factor_Transposition_Snow_Albedo_Dynamics_and_Sub_Zero_Open_Circuit_Voltage_Expansion_in_Photovoltaic_Arrays",
+    datasetStatus: "accession_pending",
+    datasetRepository: "Harvard Dataverse",
     category: "Solar Photovoltaics",
     categorySlug: "solar",
     keywords: [
@@ -315,5 +327,75 @@ export const RESEARCH_PAPERS: ResearchPaper[] = [
 }`,
     apaCitation: "PowerLab Clean Energy Engineering Group. (2026). Ground View Factor Transposition, Snow Albedo Dynamics, and Sub-Zero Open-Circuit Voltage Expansion in Photovoltaic Arrays (Technical Report No. PL-TR-2026-SOL03). PowerLab Open Energy Research. https://www.powelab.org/research/ground-view-factor-snow-albedo-pv-tilt",
     ieeeCitation: "PowerLab Clean Energy Engineering Group, \"Ground View Factor Transposition, Snow Albedo Dynamics, and Sub-Zero Open-Circuit Voltage Expansion in Photovoltaic Arrays,\" PowerLab Open Energy Research, Tech. Rep. PL-TR-2026-SOL03, 2026.",
+  },
+];
+
+export interface BenchmarkDataset {
+  id: string;
+  repository: "Figshare" | "Harvard Dataverse" | "Zenodo";
+  doi?: string;
+  status: "published" | "accession_pending";
+  title: string;
+  subtitle: string;
+  description: string;
+  recordCount: string;
+  format: string;
+  downloadUrl?: string;
+  repositoryUrl: string;
+  paperSlug: string;
+}
+
+export const BENCHMARK_DATASETS: BenchmarkDataset[] = [
+  {
+    id: "PL-DS-EVSE-01",
+    repository: "Figshare",
+    doi: "10.6084/m9.figshare.33321774",
+    status: "published",
+    title: "Level 2 EVSE Continuous-Duty Conductor & Terminal Temperature Benchmark Dataset",
+    subtitle: "Continuous-duty Joule heating (I²R), conductor temperature rise, and 60°C vs 75°C terminal temperature envelopes under NEC 625.42.",
+    description: "Benchmark matrix tabulating 120 continuous load runs (16A to 80A), wire gauge thermal limits (14 AWG to 2 AWG Cu/Al), conduit fill ampacity derating, and contact resistance thermal runaway thresholds.",
+    recordCount: "120 Records",
+    format: "CSV / Replication Package",
+    downloadUrl: "https://doi.org/10.6084/m9.figshare.33321774",
+    repositoryUrl: "https://doi.org/10.6084/m9.figshare.33321774",
+    paperSlug: "continuous-duty-thermal-sizing-evse-ampacity",
+  },
+  {
+    id: "PL-DS-HP-02",
+    repository: "Figshare",
+    doi: "10.6084/m9.figshare.33470950",
+    status: "published",
+    title: "Cold-Climate Air-Source Heat Pump COP Degradation & Balance Point Dataset",
+    subtitle: "Sub-freezing ambient temperature spectra (-20°C to +10°C) COP degradation, flash-injection capacity curves, and auxiliary resistive staging economics under AHRI 210/240.",
+    description: "Empirical thermodynamic performance matrix for variable-speed inverter vapor scroll heat pumps across outdoor temperatures, evaluating sensible heating capacity, electrical power draw, and balance point transition curves.",
+    recordCount: "240 Records",
+    format: "CSV / Tabular Matrix",
+    downloadUrl: "https://figshare.com/articles/dataset/Empirical_Coefficient_of_Performance_COP_Degradation_and_Auxiliary_Electric_Resistance_Staging_Bin_Matrix_for_Cold-Climate_Air-Source_Heat_Pumps_ccASHP_/33470950?file=68317969",
+    repositoryUrl: "https://doi.org/10.6084/m9.figshare.33470950",
+    paperSlug: "heat-pump-cop-degradation-and-auxiliary-heat-kinetics",
+  },
+  {
+    id: "PL-DS-GEN-03",
+    repository: "Harvard Dataverse",
+    status: "accession_pending",
+    title: "Residential Standby Generator Motor Inrush & Sub-Transient Voltage Dip Matrix",
+    subtitle: "Locked Rotor Amperage (LRA) sub-transient reactance (X''d) voltage dip envelopes and fuel derating factors (Gasoline vs Propane vs Natural Gas) under ISO 8528-5.",
+    description: "Transient response benchmark tracking 0.1s to 0.5s instantaneous voltage sag and frequency recovery curves across single-phase induction motor compressor starts with and without solid-state soft starters.",
+    recordCount: "180 Records",
+    format: "Tabular Matrix",
+    repositoryUrl: "/research/deterministic-inrush-load-stacking-generator-sizing",
+    paperSlug: "deterministic-inrush-load-stacking-generator-sizing",
+  },
+  {
+    id: "PL-DS-SOL-04",
+    repository: "Harvard Dataverse",
+    status: "accession_pending",
+    title: "Ground-Reflected Snow Albedo & Sub-Zero Photovoltaic Voc Expansion Dataset",
+    subtitle: "Anisotropic diffuse transposition capture and sub-zero open-circuit voltage expansion envelopes under NEC 690.7 and IEC 61724-1.",
+    description: "Multi-tilt empirical transposition dataset evaluating ground-reflected albedo (rho = 0.20 grass to rho = 0.80 fresh snow) and cold-weather string voltage expansion across high-latitude solar installations.",
+    recordCount: "160 Records",
+    format: "Tabular Matrix",
+    repositoryUrl: "/research/ground-view-factor-snow-albedo-pv-tilt",
+    paperSlug: "ground-view-factor-snow-albedo-pv-tilt",
   },
 ];

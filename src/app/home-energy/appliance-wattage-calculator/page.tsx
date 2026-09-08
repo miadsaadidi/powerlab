@@ -70,11 +70,15 @@ export default function ApplianceWattagePage() {
       </nav>
 
       <div className="calculator-header">
-        <p className="eyebrow">Home energy planning</p>
+        <p className="eyebrow">Electrical power planning</p>
         <h1>Appliance Wattage Calculator</h1>
         <p className="intro">
           Calculate appliance running power in Watts from nameplate Volts and Amps (W = V × A), factor in motor power factors, and estimate daily energy consumption (kWh).
         </p>
+      </div>
+
+      <div id="calculator-tool">
+        <ApplianceWattageCalculator />
       </div>
 
       <DirectAnswerCard
@@ -86,10 +90,6 @@ export default function ApplianceWattagePage() {
       />
 
       <PageJumpNav />
-
-      <div id="calculator-tool">
-        <ApplianceWattageCalculator />
-      </div>
 
       <section id="how-to-guide" style={{ marginTop: "3rem" }}>
         <h2>How to Calculate Appliance Wattage</h2>

@@ -4,6 +4,7 @@ interface PageJumpNavProps {
   hasMatrix?: boolean;
   hasHowTo?: boolean;
   hasFormula?: boolean;
+  hasWorkedExample?: boolean;
   hasFaqs?: boolean;
   hasRelated?: boolean;
 }
@@ -12,6 +13,7 @@ export function PageJumpNav({
   hasMatrix = true,
   hasHowTo = true,
   hasFormula = true,
+  hasWorkedExample = false,
   hasFaqs = true,
   hasRelated = true,
 }: PageJumpNavProps) {
@@ -40,6 +42,7 @@ export function PageJumpNav({
           textTransform: "uppercase",
           letterSpacing: "0.05em",
           marginRight: "0.15rem",
+          flexShrink: 0,
         }}
       >
         Jump to:
@@ -60,10 +63,12 @@ export function PageJumpNav({
           textDecoration: "none",
           fontSize: "0.74rem",
           fontWeight: 600,
+          whiteSpace: "nowrap",
+          flexShrink: 0,
           transition: "all 140ms ease",
         }}
       >
-        <span style={{ fontSize: "0.75rem" }}>🧮</span> Calculator
+        <span style={{ fontSize: "0.75rem" }}>🧮</span> Interactive Tool
       </a>
 
       {hasHowTo && (
@@ -82,10 +87,12 @@ export function PageJumpNav({
             textDecoration: "none",
             fontSize: "0.74rem",
             fontWeight: 600,
+            whiteSpace: "nowrap",
+            flexShrink: 0,
             transition: "all 140ms ease",
           }}
         >
-          <span style={{ fontSize: "0.75rem" }}>📋</span> How-To Guide
+          <span style={{ fontSize: "0.75rem" }}>📋</span> Methodology &amp; Guide
         </a>
       )}
 
@@ -105,10 +112,12 @@ export function PageJumpNav({
             textDecoration: "none",
             fontSize: "0.74rem",
             fontWeight: 600,
+            whiteSpace: "nowrap",
+            flexShrink: 0,
             transition: "all 140ms ease",
           }}
         >
-          <span style={{ fontSize: "0.75rem" }}>📊</span> Sizing Matrix
+          <span style={{ fontSize: "0.75rem" }}>📊</span> Reference Sizing Table
         </a>
       )}
 
@@ -128,10 +137,37 @@ export function PageJumpNav({
             textDecoration: "none",
             fontSize: "0.74rem",
             fontWeight: 600,
+            whiteSpace: "nowrap",
+            flexShrink: 0,
             transition: "all 140ms ease",
           }}
         >
-          <span style={{ fontSize: "0.75rem" }}>📐</span> Formulas
+          <span style={{ fontSize: "0.75rem" }}>📐</span> Governing Formulas
+        </a>
+      )}
+
+      {hasWorkedExample && (
+        <a
+          href="#worked-example"
+          className="jump-pill"
+          style={{
+            display: "inline-flex",
+            alignItems: "center",
+            gap: "0.25rem",
+            padding: "0.18rem 0.5rem",
+            borderRadius: "9999px",
+            background: "var(--soft, #f8fafc)",
+            border: "1px solid var(--line, #e2e8f0)",
+            color: "var(--ink, #1e293b)",
+            textDecoration: "none",
+            fontSize: "0.74rem",
+            fontWeight: 600,
+            whiteSpace: "nowrap",
+            flexShrink: 0,
+            transition: "all 140ms ease",
+          }}
+        >
+          <span style={{ fontSize: "0.75rem" }}>📝</span> Worked Example
         </a>
       )}
 
@@ -151,6 +187,8 @@ export function PageJumpNav({
             textDecoration: "none",
             fontSize: "0.74rem",
             fontWeight: 600,
+            whiteSpace: "nowrap",
+            flexShrink: 0,
             transition: "all 140ms ease",
           }}
         >
@@ -174,6 +212,8 @@ export function PageJumpNav({
             textDecoration: "none",
             fontSize: "0.74rem",
             fontWeight: 600,
+            whiteSpace: "nowrap",
+            flexShrink: 0,
             transition: "all 140ms ease",
           }}
         >

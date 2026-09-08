@@ -80,6 +80,10 @@ export default function SolarBatteryBankSizePage() {
         </p>
       </div>
 
+      <div id="calculator-tool">
+        <SolarBatteryBankSizeCalculator />
+      </div>
+
       <DirectAnswerCard
         keyword="solar battery bank sizing calculation"
         answer="To size an off-grid solar battery bank, multiply daily load (kWh/day) by days of autonomy (typically 1.5 to 2 days) and a 10% design buffer, then divide by inverter efficiency (90%) and usable battery depth of discharge (80% for LiFePO4). A home using 10 kWh/day with 1.5 days autonomy requires approximately 23 kWh of nominal LiFePO4 storage (480 Ah at 48V)."
@@ -89,10 +93,6 @@ export default function SolarBatteryBankSizePage() {
       />
 
       <PageJumpNav />
-
-      <div id="calculator-tool">
-        <SolarBatteryBankSizeCalculator />
-      </div>
 
       <section id="how-to-guide" style={{ marginTop: "3rem" }}>
         <h2>How to Size an Off-Grid Solar Battery Bank</h2>

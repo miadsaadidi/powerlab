@@ -109,10 +109,40 @@ export default async function ResearchPaperPage({ params }: PageProps) {
       </nav>
 
       <header className="calculator-header" style={{ border: "1px solid var(--line)", borderRadius: "0.85rem", background: "rgb(255 253 249 / 0.85)", padding: "1.75rem", marginBottom: "1.5rem" }}>
-        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: "0.5rem", marginBottom: "0.5rem" }}>
-          <span style={{ fontSize: "0.8rem", fontWeight: 800, padding: "3px 8px", borderRadius: "4px", background: "var(--surface-subtle, #f1f5f9)", color: "var(--brand-strong)", border: "1px solid var(--line)" }}>
-            {paper.reportNumber}
-          </span>
+        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: "0.5rem", marginBottom: "0.75rem" }}>
+          <div style={{ display: "flex", alignItems: "center", gap: "0.5rem", flexWrap: "wrap" }}>
+            <span style={{ fontSize: "0.8rem", fontWeight: 800, padding: "3px 8px", borderRadius: "4px", background: "var(--surface-subtle, #f1f5f9)", color: "var(--brand-strong)", border: "1px solid var(--line)", fontFamily: "monospace" }}>
+              {paper.reportNumber}
+            </span>
+            {paper.doi && (
+              <a
+                href={`https://doi.org/${paper.doi}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                style={{
+                  background: "rgba(167, 139, 250, 0.12)",
+                  color: "#9333ea",
+                  border: "1px solid rgba(167, 139, 250, 0.3)",
+                  fontSize: "0.76rem",
+                  fontWeight: 700,
+                  padding: "3px 8px",
+                  borderRadius: "4px",
+                  textDecoration: "none",
+                  display: "inline-flex",
+                  alignItems: "center",
+                  gap: "0.25rem",
+                }}
+                title={`DataCite DOI: ${paper.doi}`}
+              >
+                <span>DOI:</span>
+                <span>{paper.doi}</span>
+                <span style={{ fontSize: "0.7rem", opacity: 0.8 }}>↗</span>
+              </a>
+            )}
+            <span style={{ fontSize: "0.8rem", fontWeight: 700, color: "var(--muted)" }}>
+              {paper.category}
+            </span>
+          </div>
           <span style={{ fontSize: "0.82rem", color: "var(--muted)" }}>
             Published {paper.datePublished} &bull; Open Access CC BY 4.0
           </span>
@@ -132,7 +162,7 @@ export default async function ResearchPaperPage({ params }: PageProps) {
             target="_blank"
             rel="noopener noreferrer"
             className="button"
-            style={{ fontSize: "0.9rem", padding: "0.5rem 1rem", display: "inline-flex", alignItems: "center", gap: "0.4rem" }}
+            style={{ fontSize: "0.9rem", padding: "0.55rem 1.1rem", display: "inline-flex", alignItems: "center", gap: "0.4rem", minHeight: "40px" }}
           >
             📄 Download Official PDF Whitepaper
           </a>
@@ -147,33 +177,98 @@ export default async function ResearchPaperPage({ params }: PageProps) {
               href={paper.academiaUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="button secondary-button"
-              style={{ fontSize: "0.85rem", padding: "0.5rem 0.85rem" }}
+              style={{
+                fontSize: "0.85rem",
+                padding: "0.5rem 0.95rem",
+                minHeight: "40px",
+                display: "inline-flex",
+                alignItems: "center",
+                gap: "0.35rem",
+                background: "rgba(185, 28, 28, 0.08)",
+                color: "#ef4444",
+                border: "1px solid rgba(239, 68, 68, 0.25)",
+                fontWeight: 600,
+                borderRadius: "0.45rem",
+                textDecoration: "none",
+              }}
+              title="Read Preprint on Academia.edu"
             >
-              🎓 Read on Academia
+              <span>🎓</span>
+              <span>Read on Academia</span>
+              <span style={{ fontSize: "0.72rem", opacity: 0.8 }}>↗</span>
             </a>
           )}
-          {paper.doi && (
+          {paper.datasetStatus === "published" && paper.doi && (
             <a
               href={`https://doi.org/${paper.doi}`}
               target="_blank"
               rel="noopener noreferrer"
-              className="button secondary-button"
-              style={{ fontSize: "0.85rem", padding: "0.5rem 0.85rem" }}
+              style={{
+                fontSize: "0.85rem",
+                padding: "0.5rem 0.95rem",
+                minHeight: "40px",
+                display: "inline-flex",
+                alignItems: "center",
+                gap: "0.35rem",
+                background: "rgba(14, 165, 233, 0.08)",
+                color: "var(--accent, #0284c7)",
+                border: "1px solid rgba(2, 132, 199, 0.25)",
+                fontWeight: 600,
+                borderRadius: "0.45rem",
+                textDecoration: "none",
+              }}
+              title={`View Replication Dataset on ${paper.datasetRepository || "Figshare"}`}
             >
-              📊 Figshare / DOI: {paper.doi}
+              <span>📊</span>
+              <span>Replication Dataset ({paper.datasetRepository || "Figshare"})</span>
+              <span style={{ fontSize: "0.72rem", opacity: 0.8 }}>↗</span>
             </a>
           )}
-          {paper.dataverseUrl && (
+          {paper.datasetStatus === "published" && paper.dataverseUrl && (
             <a
               href={paper.dataverseUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="button secondary-button"
-              style={{ fontSize: "0.85rem", padding: "0.5rem 0.85rem" }}
+              style={{
+                fontSize: "0.85rem",
+                padding: "0.5rem 0.95rem",
+                minHeight: "40px",
+                display: "inline-flex",
+                alignItems: "center",
+                gap: "0.35rem",
+                background: "rgba(14, 165, 233, 0.08)",
+                color: "var(--accent, #0284c7)",
+                border: "1px solid rgba(2, 132, 199, 0.25)",
+                fontWeight: 600,
+                borderRadius: "0.45rem",
+                textDecoration: "none",
+              }}
+              title={`View Dataset on ${paper.datasetRepository || "Harvard Dataverse"}`}
             >
-              🏛️ Harvard Dataverse
+              <span>🏛️</span>
+              <span>View Dataset ({paper.datasetRepository || "Harvard Dataverse"})</span>
+              <span style={{ fontSize: "0.72rem", opacity: 0.8 }}>↗</span>
             </a>
+          )}
+          {paper.datasetStatus === "accession_pending" && (
+            <span
+              style={{
+                fontSize: "0.82rem",
+                fontWeight: 600,
+                padding: "0.5rem 0.85rem",
+                borderRadius: "0.45rem",
+                border: "1px solid var(--line, #cbd5e1)",
+                background: "var(--surface-subtle, #f8fafc)",
+                color: "var(--muted, #64748b)",
+                display: "inline-flex",
+                alignItems: "center",
+                gap: "0.4rem",
+                minHeight: "40px",
+              }}
+            >
+              <span>🔒</span>
+              <span>Accession deposit registered &bull; Public accession pending</span>
+            </span>
           )}
         </div>
       </header>

@@ -79,6 +79,10 @@ export default function PortablePowerStationPage() {
         </p>
       </div>
 
+      <div id="calculator-tool">
+        <PortablePowerStationCalculator />
+      </div>
+
       <DirectAnswerCard
         keyword="portable power station runtime calculation"
         answer="A 1,000Wh portable power station will power a 60W portable fridge for approximately 14 hours, a 30W CPAP machine for 28 hours, or recharge a 60Wh laptop ~14 times. Runtime is calculated by multiplying rated battery capacity by usable depth-of-discharge (90%) and inverter conversion efficiency (85%), then dividing by device wattage."
@@ -88,10 +92,6 @@ export default function PortablePowerStationPage() {
       />
 
       <PageJumpNav />
-
-      <div id="calculator-tool">
-        <PortablePowerStationCalculator />
-      </div>
 
       <section id="how-to-guide" style={{ marginTop: "3rem" }}>
         <h2>How to Calculate Power Station Runtime &amp; Sizing</h2>
