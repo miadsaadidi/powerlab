@@ -6,6 +6,7 @@ import { RESEARCH_PAPERS } from "../data/research-papers";
 
 const staticPaths = [
   "/",
+  "/calculators",
   "/guides",
   "/guides/battery-backup-runtime-calculation-guide",
   "/guides/central-ac-and-heat-pump-electricity-cost-guide",
@@ -48,7 +49,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     if (path === "/") {
       priority = 1.0;
       changeFrequency = "weekly";
-    } else if (publishedRoutes.has(path)) {
+    } else if (publishedRoutes.has(path) || path === "/calculators") {
       priority = 0.9;
       changeFrequency = "weekly";
     } else if (categoryRoutes.has(path)) {

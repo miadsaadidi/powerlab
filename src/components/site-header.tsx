@@ -13,6 +13,7 @@ import { ThemeToggle } from "@/components/theme-toggle";
 
 const NAV_DETAILS: Record<string, { icon: string; subtitle: string; color: string }> = {
   "/": { icon: "🏠", subtitle: "All 30 Energy Calculators", color: "#c65d24" },
+  "/calculators": { icon: "🧮", subtitle: "All Clean Energy Calculators Hub", color: "#c65d24" },
   "/solar": { icon: "☀️", subtitle: "Tilt, Output, Sizing, Payback & MPPT", color: "#f59e0b" },
   "/battery": { icon: "🔋", subtitle: "Runtime, Sizing, Voltage Drop & Inverters", color: "#10b981" },
   "/home-energy": { icon: "⚡", subtitle: "Usage, Bills, Generators & Heat Pumps", color: "#0284c7" },

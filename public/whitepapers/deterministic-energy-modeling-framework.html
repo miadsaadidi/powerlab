@@ -1,0 +1,517 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PowerLab Technical Report TR-2026-01 — Deterministic Mathematical Modeling and Sizing Framework for Distributed Clean Energy</title>
+  
+  <!-- KaTeX for crisp mathematical rendering -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"
+    onload="renderMathInElement(document.body, {
+      delimiters: [
+        {left: '$$', right: '$$', display: true},
+        {left: '$', right: '$', display: false}
+      ]
+    });"></script>
+
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,400;0,600;0,700;1,400&family=JetBrains+Mono:wght@400;600&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
+
+    :root {
+      --primary: #0f172a;
+      --accent: #0284c7;
+      --accent-dark: #0369a1;
+      --emerald: #059669;
+      --amber: #d97706;
+      --rose: #e11d48;
+      --slate-800: #1e293b;
+      --slate-700: #334155;
+      --slate-600: #475569;
+      --slate-500: #64748b;
+      --slate-200: #e2e8f0;
+      --slate-100: #f1f5f9;
+      --slate-50: #f8fafc;
+      --border: #cbd5e1;
+    }
+
+    * {
+      box-sizing: border-box;
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+    }
+
+    @page {
+      size: A4 portrait;
+      margin: 12mm 14mm 12mm 14mm;
+    }
+
+    body {
+      font-family: 'Crimson Pro', Georgia, serif;
+      font-size: 9.5pt;
+      line-height: 1.42;
+      color: var(--primary);
+      background-color: #fff;
+      margin: 0;
+      padding: 0;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 820px;
+      margin: 0 auto;
+      background: #fff;
+      padding: 0 0.5rem;
+    }
+
+    .page-break {
+      page-break-before: always;
+      padding-top: 0.8rem;
+    }
+
+    /* Header & Document Metadata */
+    .paper-header {
+      border-bottom: 2.5px solid var(--primary);
+      padding-bottom: 0.7rem;
+      margin-bottom: 0.9rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+    }
+
+    .brand-logo {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-weight: 800;
+      font-size: 1.35rem;
+      letter-spacing: -0.03em;
+      color: var(--primary);
+      line-height: 1;
+    }
+    .brand-logo span {
+      color: var(--accent);
+    }
+    .paper-subbrand {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 0.65rem;
+      font-weight: 600;
+      color: var(--slate-500);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-top: 0.2rem;
+    }
+
+    .meta-box {
+      text-align: right;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.68rem;
+      color: var(--slate-600);
+      line-height: 1.35;
+    }
+    .meta-box strong {
+      color: var(--primary);
+    }
+
+    /* Title & Abstract */
+    .paper-title {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 1.55rem;
+      font-weight: 800;
+      line-height: 1.22;
+      color: var(--primary);
+      margin: 0 0 0.5rem 0;
+      letter-spacing: -0.02em;
+    }
+
+    .paper-subtitle {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 0.92rem;
+      font-weight: 500;
+      line-height: 1.35;
+      color: var(--accent-dark);
+      margin: 0 0 0.85rem 0;
+    }
+
+    .authors-block {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 0.76rem;
+      color: var(--slate-700);
+      margin-bottom: 0.9rem;
+      padding-bottom: 0.75rem;
+      border-bottom: 1px solid var(--border);
+      line-height: 1.4;
+    }
+    .authors-block strong {
+      color: var(--primary);
+    }
+
+    .abstract-card {
+      background: var(--slate-50);
+      border: 1px solid var(--border);
+      border-left: 4px solid var(--accent);
+      padding: 0.75rem 0.95rem;
+      margin-bottom: 1rem;
+      border-radius: 3px;
+    }
+    .abstract-title {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 0.78rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--accent-dark);
+      margin-bottom: 0.35rem;
+    }
+    .abstract-text {
+      font-size: 8.8pt;
+      line-height: 1.42;
+      color: var(--slate-800);
+      margin: 0 0 0.5rem 0;
+      text-align: justify;
+    }
+    .keywords {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.68rem;
+      color: var(--slate-600);
+    }
+    .keywords strong {
+      color: var(--primary);
+    }
+
+    /* Multi-column layout */
+    .two-col {
+      column-count: 2;
+      column-gap: 1.4rem;
+      text-align: justify;
+    }
+
+    h2 {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 0.98rem;
+      font-weight: 700;
+      color: var(--primary);
+      margin: 0.85rem 0 0.35rem 0;
+      border-bottom: 1px solid var(--slate-200);
+      padding-bottom: 0.15rem;
+      break-after: avoid;
+    }
+
+    h3 {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 0.84rem;
+      font-weight: 600;
+      color: var(--slate-800);
+      margin: 0.65rem 0 0.25rem 0;
+      break-after: avoid;
+    }
+
+    p {
+      margin: 0 0 0.6rem 0;
+    }
+
+    /* Equation Display Box */
+    .equation-box {
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      border-left: 3px solid var(--accent);
+      padding: 0.45rem 0.65rem;
+      margin: 0.55rem 0;
+      font-size: 8.5pt;
+      text-align: center;
+      break-inside: avoid;
+      border-radius: 2px;
+    }
+    .equation-caption {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 0.68rem;
+      color: var(--slate-500);
+      margin-top: 0.25rem;
+      text-align: left;
+      font-weight: 500;
+    }
+
+    /* Data Table */
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 0.72rem;
+      margin: 0.55rem 0;
+      break-inside: avoid;
+    }
+    th, td {
+      border: 1px solid var(--border);
+      padding: 0.32rem 0.45rem;
+      text-align: left;
+    }
+    th {
+      background-color: var(--slate-100);
+      font-weight: 600;
+      color: var(--primary);
+    }
+    tr:nth-child(even) td {
+      background-color: #fafbfc;
+    }
+
+    /* Code block */
+    pre {
+      background: #0f172a;
+      color: #e2e8f0;
+      padding: 0.5rem;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.65rem;
+      border-radius: 3px;
+      overflow-x: auto;
+      margin: 0.5rem 0;
+      break-inside: avoid;
+      line-height: 1.3;
+    }
+
+    .callout {
+      background: #eff6ff;
+      border: 1px solid #bfdbfe;
+      border-left: 3px solid #2563eb;
+      padding: 0.45rem 0.65rem;
+      margin: 0.55rem 0;
+      font-size: 8.5pt;
+      break-inside: avoid;
+      border-radius: 2px;
+    }
+    .callout-title {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 0.72rem;
+      font-weight: 700;
+      color: #1e40af;
+      margin-bottom: 0.2rem;
+    }
+
+    /* References */
+    .references {
+      font-size: 7.8pt;
+      line-height: 1.35;
+      color: var(--slate-700);
+      margin-top: 0.6rem;
+    }
+    .ref-item {
+      margin-bottom: 0.35rem;
+      padding-left: 1.2rem;
+      text-indent: -1.2rem;
+    }
+
+    .footer-bar {
+      margin-top: 1rem;
+      border-top: 1px solid var(--border);
+      padding-top: 0.4rem;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 0.65rem;
+      color: var(--slate-500);
+      display: flex;
+      justify-content: space-between;
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+
+  <!-- Header -->
+  <header class="paper-header">
+    <div>
+      <div class="brand-logo">Power<span>Lab</span></div>
+      <div class="paper-subbrand">Applied Clean Energy Modeling &amp; Research Initiative</div>
+    </div>
+    <div class="meta-box">
+      <div><strong>Report No:</strong> PL-TR-2026-01</div>
+      <div><strong>Classification:</strong> Open Engineering Standard / Preprint</div>
+      <div><strong>Standards:</strong> IEEE 1547 • NFPA 70 • NREL SAM • ASHRAE</div>
+      <div><strong>Repository:</strong> https://github.com/miadsaadidi/powerlab</div>
+    </div>
+  </header>
+
+  <!-- Title Section -->
+  <h1 class="paper-title">Deterministic Mathematical Modeling and Sizing Framework for Distributed Clean Energy: Solar Photovoltaics, Battery Storage, and Electric Vehicle Supply Equipment</h1>
+  <div class="paper-subtitle">A First-Principles Computational Architecture for Zero-Database, Side-Effect-Free Energy Systems Simulation</div>
+
+  <div class="authors-block">
+    <strong>Author:</strong> Miad S. &lt;miadinside@gmail.com&gt; • <strong>Research Group:</strong> PowerLab Clean Energy Engineering Group<br>
+    <strong>Publication Date:</strong> September 4, 2026 • <strong>License:</strong> Creative Commons Attribution (CC BY 4.0)<br>
+    <strong>Primary Anchor:</strong> <a href="https://www.powelab.org/methodology" style="color: #0284c7; text-decoration: none;">https://www.powelab.org/methodology</a> • <strong>Interactive Tools:</strong> https://www.powelab.org
+  </div>
+
+  <!-- Abstract -->
+  <div class="abstract-card">
+    <div class="abstract-title">Abstract &amp; Executive Summary</div>
+    <div class="abstract-text">
+      Legacy consumer and commercial clean energy planning tools are predominantly built as lead-generation aggregators, utilizing stochastic heuristics, opaque spreadsheet regressions, or centralized database lookups. Such architectures suffer from unverifiable calculations, privacy risks, and severe physical inaccuracies under edge environmental and electrical operating conditions. This technical specification establishes a unified, 100% deterministic mathematical framework for distributed clean energy planning spanning solar photovoltaics (PV), electrochemical battery energy storage systems (BESS), and electric vehicle supply equipment (EVSE). Built entirely on pure, side-effect-free TypeScript engines executing locally in the browser, the architecture eliminates database dependencies while resolving coupled physical phenomena: (1) Perez anisotropic sky diffuse transposition and sub-zero open-circuit voltage ($V_{oc}$) expansion under NEC 690.7; (2) modified Peukert electrochemical capacity derating with continuous inverter standby tare loss dissipation ($P_{tare}$) and IEEE 485 depth-of-discharge constraints; (3) continuous-duty thermal ampacity sizing under NFPA 70 (NEC 625.42 and 110.14(C)) alongside Level 1 vs. Level 2 rectifier efficiency divergence; and (4) inductive motor starting Locked Rotor Amperage (LRA) sub-transient reactance ($X''_d$) voltage dip envelopes. All derivations, governing closed-form equations, boundary conditions, and test vectors are made fully open-access.
+    </div>
+    <div class="keywords">
+      <strong>Keywords:</strong> Deterministic energy modeling, pure functions, solar PV transposition, sub-zero Voc expansion, Peukert's law, inverter tare losses, continuous-duty EVSE, NEC 2023, IEEE 1547, IEEE 485, open science.
+    </div>
+  </div>
+
+  <!-- Main Body in 2-column format -->
+  <div class="two-col">
+
+    <h2>1. Introduction &amp; The Deterministic Paradigm</h2>
+    <p>
+      The decentralized transition toward electrified residential and light-commercial energy infrastructure requires tightly coupled sizing across four domains: onsite solar PV generation, chemical battery storage, controllable EV charging loads, and thermal heat pumps.
+    </p>
+    <p>
+      Historically, web-based planning calculators have abstracted these engineering problems using static "rules of thumb" (e.g., assuming battery runtime is simply capacity divided by load, or that solar production is constant across tilt and ambient temperatures). Such simplifications cause critical engineering failures: undersized inverter DC inputs that fail during cold snaps due to high open-circuit voltage ($V_{oc}$), severely underperforming battery backup systems caused by unmodeled Peukert capacity derating and inverter idle tare draw, and dangerous terminal thermal runaway in EVSE installations wired with improper conductor insulation ratings.
+    </p>
+    <p>
+      PowerLab establishes an open, deterministic paradigm: every calculation is executed by a pure mathematical engine $f: \text{Input} \to \text{Result}$ where output is invariant given identical physical inputs, with zero database dependencies, telemetry overhead, or algorithmic obfuscation.
+    </p>
+
+    <h2>2. Solar Photovoltaic DC Boundary Modeling</h2>
+
+    <h3>2.1 Perez Anisotropic Transposition</h3>
+    <p>
+      Accurately predicting solar irradiance on tilted arrays requires transposing global horizontal irradiance ($GHI$, $I_{gh}$) into plane-of-array irradiance ($POA$, $I_{poa}$). PowerLab incorporates the Perez anisotropic sky diffuse model, resolving circumsolar, horizon brightening, and isotropic diffuse components:
+    </p>
+
+    <div class="equation-box">
+      $$I_{poa} = I_{bn} \cos \theta + I_{dh} \left[ (1 - F_1) \left( \frac{1 + \cos \beta}{2} \right) + F_1 \frac{a}{b} \right] + I_{gh} \rho \left( \frac{1 - \cos \beta}{2} \right)$$
+      <div class="equation-caption"><strong>Equation 1:</strong> Perez anisotropic transposition model with ground-reflected albedo component $\rho$.</div>
+    </div>
+
+    <p>
+      Where $\beta$ is the array tilt angle, $\theta$ is the angle of incidence, $F_1$ and $F_2$ are circumsolar and horizon brightness coefficients, and $\rho$ is the ground albedo reflectance ($\rho \approx 0.20$ for grass/asphalt; $\rho \approx 0.70$–$0.80$ for fresh snow).
+    </p>
+
+    <h3>2.2 Sub-Zero $V_{oc}$ Expansion Kinetics (NEC 690.7)</h3>
+    <p>
+      Photovoltaic semiconductor bandgaps widen as silicon cell temperature drops, increasing open-circuit voltage ($V_{oc}$). Failure to calculate peak sub-zero string voltage causes catastrophic overvoltage damage to MPPT charge controllers and string inverters during freezing, sunny winter mornings.
+    </p>
+
+    <div class="equation-box">
+      $$V_{\text{string,max}} = N_{\text{series}} \times V_{oc,\text{STC}} \times \left[ 1 + \alpha_{Voc} \times (T_{\text{min,design}} - 25^\circ\text{C}) \right]$$
+      <div class="equation-caption"><strong>Equation 2:</strong> Sub-zero maximum string voltage under NEC Article 690.7.</div>
+    </div>
+
+    <p>
+      Where $\alpha_{Voc}$ is the negative temperature coefficient of open-circuit voltage (typically $-0.26\%/^\circ\text{C}$ to $-0.31\%/^\circ\text{C}$ for monocrystalline silicon) and $T_{\text{min,design}}$ is the ASHRAE extreme minimum annual dry-bulb temperature. For an array with $V_{oc,\text{STC}} = 49.5\text{V}$ and $\alpha_{Voc} = -0.28\%/^\circ\text{C}$, an ambient low of $-25^\circ\text{C}$ induces a $+14.0\%$ voltage expansion, driving string voltage from $495\text{V}$ to $564.3\text{V}$.
+    </p>
+
+    <h2>3. Battery Electrochemical Runtime &amp; Tare Losses</h2>
+
+    <h3>3.1 Modified Peukert Rate-Dependent Capacity</h3>
+    <p>
+      In electrochemical lead-acid and lithium-iron-phosphate (LiFePO4) chemistries, accessible battery capacity decreases as discharge current $I$ increases due to internal ohmic resistance and mass-transfer polarization. PowerLab implements a modernized Peukert formulation with rate-dependent hour base normalization:
+    </p>
+
+    <div class="equation-box">
+      $$t_{\text{effective}} = H \cdot \left( \frac{C_{\text{nominal}}}{I \cdot H} \right)^k$$
+      <div class="equation-caption"><strong>Equation 3:</strong> Generalized Peukert equation normalized to rated discharge period $H$ (typically 20 hours).</div>
+    </div>
+
+    <p>
+      Where $k$ is the Peukert exponent ($k = 1.02$–$1.05$ for modern LiFePO4; $k = 1.15$–$1.35$ for AGM/Flooded lead-acid). For heavy continuous loads ($> 0.5C$), lead-acid usable capacity collapses by $30\%$ to $45\%$, while LiFePO4 maintains over $95\%$ of nominal capacity.
+    </p>
+
+    <h3>3.2 Inverter Standby Tare Dissipation ($P_{tare}$)</h3>
+    <p>
+      Most planning tools calculate backup runtime simply as $t = E_{\text{bat}} / P_{\text{load}}$. In real off-grid microgrids, inverter self-consumption (quiescent tare loss $P_{tare}$) and efficiency curve decay at low load factors dominate total system drain:
+    </p>
+
+    <div class="equation-box">
+      $$P_{\text{dc,total}} = \frac{P_{\text{load,ac}}}{\eta_{\text{inverter}}(P_{\text{load}})} + P_{\text{tare,standby}}$$
+      <div class="equation-caption"><strong>Equation 4:</strong> Total DC discharge draw incorporating non-linear inverter efficiency and continuous tare loss.</div>
+    </div>
+
+    <p>
+      For a typical 3000W split-phase inverter drawing $P_{tare} = 45\text{W}$ continuously, powering a light $50\text{W}$ emergency medical load results in an actual DC draw of $105\text{W}$—slashing expected battery autonomy by more than $52\%$.
+    </p>
+
+    <h2>4. Continuous-Duty EVSE Sizing &amp; Thermal Physics</h2>
+
+    <h3>4.1 125% Continuous Duty Sizing (NEC 625.42)</h3>
+    <p>
+      Electric vehicle supply equipment operates continuously for hours, creating steady-state Joule heating ($I^2 R$) within conductors, breaker enclosures, and busbars. NFPA 70 defines any load sustained for 3 hours or more as a continuous load, requiring a 125% overcurrent protection multiplier:
+    </p>
+
+    <div class="equation-box">
+      $$I_{\text{breaker}} \ge I_{\text{nameplate,continuous}} \times 1.25$$
+      <div class="equation-caption"><strong>Equation 5:</strong> Branch circuit overcurrent protective device (OCPD) minimum ampacity.</div>
+    </div>
+
+    <p>
+      A residential 48A continuous charging load requires a minimum breaker rating of $48\text{A} \times 1.25 = 60\text{A}$.
+    </p>
+
+    <h3>4.2 Terminal Temperature Limits (NEC 110.14(C))</h3>
+    <p>
+      Conductor sizing cannot be based solely on 90°C insulation tables (e.g., THHN). Under NEC 110.14(C), equipment terminals rated 100A or less are capped at 60°C or 75°C ampacity ratings. Furthermore, non-metallic sheathed cable (NM-B / Romex) is strictly capped at 60°C ampacity under NEC 334.80:
+    </p>
+
+    <div class="callout">
+      <div class="callout-title">CRITICAL CODE RESTRICTION: 6 AWG NM-B VIOLATION</div>
+      6 AWG copper in NM-B cable is limited to 55A (60°C column). Installing 6 AWG Romex on a 60A breaker for a 48A continuous EVSE violates NEC 334.80 and creates severe thermal degradation risk. Code compliance mandates THHN in conduit (rated 65A at 75°C) or 4 AWG NM-B (rated 70A at 60°C).
+    </div>
+
+    <h3>4.3 Level 1 vs Level 2 Rectification Efficiency</h3>
+    <p>
+      Charging an EV on standard 120V Level 1 yields only $72\%$ to $78\%$ AC-to-DC efficiency due to constant onboard BMS, coolant pump, and computer parasitic overhead ($\sim 250\text{W}$–$350\text{W}$). On 240V Level 2, charging duration is shortened by $4\times$ to $6\times$, elevating net efficiency to $89\%$–$94\%$ and saving $15\%$ to $20\%$ in gross electrical energy per charge cycle.
+    </p>
+
+    <h2>5. Motor Inrush Dynamics &amp; Generator Peak Sizing</h2>
+    <p>
+      Standby generator sizing fails when relying strictly on steady-state continuous wattage. Single-phase induction motors (well pumps, HVAC compressors, sump pumps) exhibit Locked Rotor Amperage (LRA) drawing 4.5× to 7.0× Full Load Amps (FLA) during across-the-line starting ($0.1\text{s}$–$0.4\text{s}$).
+    </p>
+
+    <div class="equation-box">
+      $$S_{\text{surge,kVA}} = \frac{V_{\text{line}} \times I_{\text{LRA}}}{1000} \le S_{\text{alt,peak}} \times \left(1 - \Delta V_{\text{dip,max}}\right)$$
+      <div class="equation-caption"><strong>Equation 6:</strong> Motor starting apparent power and generator sub-transient reactance headroom.</div>
+    </div>
+
+    <p>
+      PowerLab applies non-coincident load stacking: generator capacity is sized for continuous steady-state loads plus the single largest simultaneous inductive starting surge, adjusted for fuel derating (Gasoline = 1.00; Propane = 0.90; Natural Gas = 0.80) and altitude ($3.5\%$ derating per $1,000\text{ft}$ elevation).
+    </p>
+
+    <h2>6. Deterministic Engine TypeScript Architecture</h2>
+    <p>
+      All calculations are formalized as pure functions adhering to a standardized result envelope containing transparent assumptions, provenance, and warnings:
+    </p>
+
+    <pre><code>export interface CalculationResult&lt;T&gt; {
+  formulaVersion: string;
+  result: T;
+  assumptions: Array&lt;{
+    key: string;
+    value: number | string;
+    unit?: string;
+    provenance: "measured" | "preset" | "standard";
+    description: string;
+  }&gt;;
+  warnings: Array&lt;{
+    code: string;
+    severity: "info" | "caution";
+    message: string;
+  }&gt;;
+  qualityLabel: "specific-inputs" | "preset-assisted";
+}</code></pre>
+
+    <h2>7. Standards Cited &amp; References</h2>
+    <div class="references">
+      <div class="ref-item">[1] IEEE Std 1547-2018, <em>IEEE Standard for Interconnection and Interoperability of Distributed Energy Resources with Associated Electric Power Systems Interfaces</em>.</div>
+      <div class="ref-item">[2] NFPA 70-2023, <em>National Electrical Code (NEC)</em>, National Fire Protection Association, Articles 690, 625, 702, and 110.</div>
+      <div class="ref-item">[3] IEEE Std 485-2020, <em>IEEE Recommended Practice for Sizing Lead-Acid Batteries for Stationary Applications</em>.</div>
+      <div class="ref-item">[4] Perez, R., et al. (1990). "Modeling daylight availability and irradiance components from direct and global irradiance." <em>Solar Energy</em>, 44(5), 271-289.</div>
+      <div class="ref-item">[5] Dobos, A. P. (2014). "PVWatts Version 5 Manual." Technical Report NREL/TP-6A20-62641, National Renewable Energy Laboratory.</div>
+      <div class="ref-item">[6] Peukert, W. (1897). "Über die Abhängigkeit der Kapazität von der Entladestromstärke bei Bleiakkumulatoren." <em>Elektrotechnische Zeitschrift</em>, 20, 183-186.</div>
+      <div class="ref-item">[7] ASHRAE Handbook—Fundamentals (2021). <em>Climatic Design Information &amp; Peak Design Conditions</em>.</div>
+      <div class="ref-item">[8] NEMA MG-1-2021, <em>Motors and Generators</em>, National Electrical Manufacturers Association.</div>
+    </div>
+
+  </div>
+
+  <!-- Footer -->
+  <footer class="footer-bar">
+    <div><strong>PowerLab Technical Report PL-TR-2026-01</strong> • Released September 2026</div>
+    <div>Open Access Under CC BY 4.0 • Permanent DOI / Citation at powelab.org/methodology</div>
+  </footer>
+
+</div>
+
+</body>
+</html>

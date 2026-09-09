@@ -34,6 +34,7 @@
     "test:e2e": "playwright test",
     "pr:list": "node scripts/pr-lifecycle.js",
     "pr:merge": "node scripts/pr-lifecycle.js merge",
+    "git:sync": "git checkout main && git pull origin main && git remote prune origin",
     "prepare": "git config core.hooksPath .githooks || true"
   },
   "dependencies": {

@@ -399,3 +399,87 @@ export const BENCHMARK_DATASETS: BenchmarkDataset[] = [
     paperSlug: "ground-view-factor-snow-albedo-pv-tilt",
   },
 ];
+
+export interface StudentLabExercise {
+  id: string;
+  labNumber: string;
+  title: string;
+  subtitle: string;
+  targetCourse: string;
+  level: string;
+  description: string;
+  learningObjectives: string[];
+  standards: string[];
+  calculatorRoute: string;
+  calculatorLabel: string;
+  academiaCategory: "Teaching Documents";
+}
+
+export const STUDENT_LAB_EXERCISES: StudentLabExercise[] = [
+  {
+    id: "PL-LAB-01",
+    labNumber: "Lab Unit 01",
+    title: "Battery Electrochemical Peukert Capacity Derating, C-Rate Kinetics, and Quiescent Inverter Tare Losses",
+    subtitle: "Quantitative analysis of non-linear lead-acid vs. LiFePO4 discharge envelopes, Peukert exponent derating, and continuous standby parasitic load under IEEE 485.",
+    targetCourse: "EE 301 / Energy Systems Engineering & CTE Apprenticeships",
+    level: "Undergraduate / Advanced Vocational",
+    description: "Students model real-world battery bank autonomy across varying discharge rates (0.05C to 1.0C). The exercise contrasts empirical Peukert derating across lead-acid (k = 1.15–1.30) vs. LiFePO4 (k = 1.02–1.05) chemistries, revealing how low-load inverter tare dissipation can reduce autonomy by over 50%.",
+    learningObjectives: [
+      "Calculate effective amp-hour and watt-hour capacity using the generalized Peukert equation normalized to rated discharge period H.",
+      "Evaluate depth-of-discharge (DoD) cycling life tradeoffs under IEEE 485 stationary storage guidelines.",
+      "Quantify continuous inverter tare power dissipation (Ptare) impact on autonomy during low-power emergency medical or telecommunication loads.",
+    ],
+    standards: [
+      "IEEE 485 (Sizing Lead-Acid Batteries for Stationary Systems)",
+      "UL 1973 (Batteries for Stationary & Microgrid Applications)",
+      "IEC 62619 (Secondary Lithium Cells & Batteries)",
+    ],
+    calculatorRoute: "/battery/battery-runtime-calculator",
+    calculatorLabel: "Open Battery Runtime & Peukert Engine →",
+    academiaCategory: "Teaching Documents",
+  },
+  {
+    id: "PL-LAB-02",
+    labNumber: "Lab Unit 02",
+    title: "Photovoltaic Ground View Factor Transposition, Snow Albedo Dynamics, and Sub-Zero Voc Expansion",
+    subtitle: "Mathematical modeling of anisotropic sky diffuse transposition, high-latitude snow albedo reflection gains, and cold-temperature open-circuit voltage expansion under NEC 690.7.",
+    targetCourse: "Solar PV Engineering / Applied Physics / Microgrid Design",
+    level: "Undergraduate / Clean Energy Certificate",
+    description: "Investigates the ground view factor (1 - cos β)/2 in tilted photovoltaic arrays. Students quantify diffuse irradiance amplification across high-albedo winter ground cover and calculate temperature-adjusted string Voc peaks to protect MPPT power electronics from cold-weather destruction.",
+    learningObjectives: [
+      "Model plane-of-array (POA) irradiance using Perez anisotropic transposition and ground-reflected albedo components.",
+      "Determine maximum historical DC string voltage under NEC 690.7 using ASHRAE extreme dry-bulb design temperatures.",
+      "Optimize seasonal fixed-tilt vs. latitude-based tilt angles for winter self-reliance versus annual generation maximization.",
+    ],
+    standards: [
+      "NFPA 70 / NEC Article 690.7 (Maximum Voltage Calculation)",
+      "IEC 61724-1 (Photovoltaic Performance Monitoring)",
+      "NREL SAM / PVWatts V8 Model Guidelines",
+    ],
+    calculatorRoute: "/solar/solar-panel-tilt-calculator",
+    calculatorLabel: "Open Solar Panel Tilt & Transposition Engine →",
+    academiaCategory: "Teaching Documents",
+  },
+  {
+    id: "PL-LAB-03",
+    labNumber: "Lab Unit 03",
+    title: "Continuous-Duty Thermal Sizing, Conductor Terminal Limits, and Branch Circuit Ampacity for Level 2 EVSE",
+    subtitle: "Rigorous electrical design applying the 125% continuous duty multiplier under NEC 625.42 and terminal temperature termination derating under NEC 110.14(C).",
+    targetCourse: "Power Distribution / Commercial Electrification / IBEW Apprenticeships",
+    level: "Technical Apprenticeship / Upper Division EE",
+    description: "Students evaluate continuous-load thermal mechanics in electric vehicle branch circuits. Focuses on terminal lug heating (I²R), 60°C vs. 75°C conductor termination limits, and the code hazard of using 6 AWG Romex (NM-B) for 48A charging.",
+    learningObjectives: [
+      "Apply the mandatory 125% continuous duty overcurrent protective device multiplier under NFPA 70 / NEC 625.42.",
+      "Identify terminal temperature column limitations (NEC 110.14(C)) and distinguish between NM-B (60°C capped) vs. THHN conduit systems.",
+      "Calculate steady-state conductor resistive power dissipation and voltage drop over extended branch circuit runs.",
+    ],
+    standards: [
+      "NFPA 70 / NEC Article 625 (Electric Vehicle Power Transfer Systems)",
+      "NFPA 70 / NEC Section 110.14(C) (Termination Limitations)",
+      "UL 2594 (Electric Vehicle Supply Equipment)",
+    ],
+    calculatorRoute: "/ev/ev-charger-breaker-size-calculator",
+    calculatorLabel: "Open EVSE Breaker & Thermal Sizing Engine →",
+    academiaCategory: "Teaching Documents",
+  },
+];

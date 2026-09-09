@@ -85,19 +85,17 @@ When a Pull Request has satisfied all review criteria and is authorized for merg
 1. **Merge EXCLUSIVELY via GitHub:**
    - Execute the merge on GitHub via the GitHub PR interface ("Merge pull request" or "Squash and merge") or the GitHub REST API.
    - The PR is permanently recorded as **Closed / Merged** in GitHub's public audit history and triggers the webhook to Vercel.
-2. **Delete Remote Feature Branch on GitHub:**
-   - Click the "Delete branch" button in GitHub's PR UI (or run `git push origin --delete feat/<slug>`).
-   - GitHub fires the branch deletion webhook that instructs Vercel to remove the preview branch from "Active Branches".
+2. **Automatic Remote Feature Branch Deletion:**
+   - The repository is configured with `delete_branch_on_merge: true`. GitHub automatically deletes the remote branch immediately when the PR is merged.
 3. **Clean Local Repository (Never Merge Locally):**
    ```bash
-   git checkout main
-   git pull origin main
-   git branch -d feat/<slug>
-   git fetch --prune
+   npm run git:sync
    ```
-4. **Production Verification:**
-   - Vercel automatically triggers a zero-downtime deployment of `main` to Production.
-   - Verify that the production build is live and healthy, and that the branch is gone from Vercel's "Active Branches".
+   *(Executes `git checkout main && git pull origin main && git remote prune origin`)*
+4. **Automated Vercel Production Watchdog & Preview Purge:**
+   - GitHub Actions workflow `.github/workflows/post-merge-cleanup.yml` automatically triggers upon PR merge.
+   - It monitors Vercel's production deployment until status is `READY` (HTTP 200 on `https://powelab.org`).
+   - It queries the Vercel REST API and purges all preview deployments matching the merged feature branch, keeping the Vercel dashboard and Active Branches list clean.
 
 ### Automated Safety Guards & PR Lifecycle CLI
 
@@ -108,7 +106,15 @@ To physically enforce this protocol and prevent accidental local merges:
    - Active automatically via `git config core.hooksPath .githooks` (or `npm run prepare`).
 2. **Lifecycle CLI Scripts:**
    - `npm run pr:list`: Inspect all open and closed PRs with their live branch and review statuses.
-   - `npm run pr:merge <number>`: Executes the complete GitHub API merge, deletes the remote branch to fire Vercel retirement webhooks, and synchronizes the local workspace cleanly.
+   - `npm run pr:merge <number>`: Executes the complete GitHub API merge, verifies remote branch deletion, prunes references, and synchronizes the local workspace cleanly.
+   - `npm run git:sync`: One-command checkout, pull, and remote prune on `main`.
+
+### Standard Operating Procedure for "merge pr"
+Whenever "merge pr" is requested:
+1. `npm test && npm run typecheck` (pre-merge gate)
+2. `npm run pr:merge <number>` (merge via GitHub API)
+3. `npm run git:sync` (local repository synchronization)
+4. Confirm Vercel production deployment reaches `READY` on `https://powelab.org` (monitored by GitHub Actions watchdog).
 
 ---
 

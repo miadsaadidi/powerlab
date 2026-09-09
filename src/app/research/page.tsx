@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { siteConfig } from "@/lib/site-config";
-import { RESEARCH_PAPERS, BENCHMARK_DATASETS } from "@/data/research-papers";
+import { RESEARCH_PAPERS, BENCHMARK_DATASETS, STUDENT_LAB_EXERCISES } from "@/data/research-papers";
 import { buildPageMetadata } from "@/lib/seo/metadata-helper";
 
 export const metadata: Metadata = {
@@ -216,6 +216,110 @@ export default function ResearchHubPage() {
             </div>
           </article>
         ))}
+      </section>
+
+      {/* Dedicated Section: Student Laboratory Exercises & Open Courseware */}
+      <section style={{ marginBottom: "3.5rem" }}>
+        <div style={{ display: "flex", alignItems: "center", gap: "0.6rem", marginBottom: "0.75rem" }}>
+          <span style={{ fontSize: "1.35rem" }}>🔬</span>
+          <h2 style={{ fontSize: "1.75rem", fontWeight: 800, color: "var(--brand-strong)", letterSpacing: "-0.01em", margin: 0 }}>
+            Student Laboratory Exercises &amp; Courseware
+          </h2>
+        </div>
+        <p style={{ fontSize: "0.95rem", color: "var(--muted)", maxWidth: "880px", lineHeight: 1.6, marginBottom: "1.75rem" }}>
+          Turnkey computational laboratory exercises and problem sets designed for undergraduate electrical engineering courses, clean energy degree programs, and vocational IBEW/NECA apprenticeships. Each module pairs first-principles physical derivations with side-effect-free, open-access simulation engines.
+        </p>
+
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(min(100%, 460px), 1fr))", gap: "1.75rem" }}>
+          {STUDENT_LAB_EXERCISES.map((lab) => (
+            <div
+              key={lab.id}
+              style={{
+                background: "var(--surface)",
+                border: "1px solid var(--line)",
+                borderTop: "4px solid #8b5cf6",
+                borderRadius: "0.85rem",
+                padding: "1.75rem 2rem",
+                boxShadow: "0 2px 8px rgba(0,0,0,0.03)",
+                display: "flex",
+                flexDirection: "column",
+                justifyContent: "space-between",
+              }}
+            >
+              <div>
+                <div style={{ display: "flex", flexWrap: "wrap", alignItems: "center", gap: "0.5rem", marginBottom: "0.85rem" }}>
+                  <span style={{ background: "rgba(139, 92, 246, 0.1)", color: "#7c3aed", fontSize: "0.75rem", fontWeight: 700, padding: "0.2rem 0.55rem", borderRadius: "4px", border: "1px solid rgba(139, 92, 246, 0.25)", fontFamily: "monospace" }}>
+                    {lab.labNumber}
+                  </span>
+                  <span style={{ fontSize: "0.76rem", fontWeight: 700, color: "var(--muted)" }}>
+                    {lab.targetCourse}
+                  </span>
+                  <span style={{ fontSize: "0.74rem", color: "#10b981", fontWeight: 600, marginLeft: "auto", background: "rgba(16, 185, 129, 0.08)", padding: "2px 8px", borderRadius: "4px", border: "1px solid rgba(16, 185, 129, 0.2)" }}>
+                    {lab.level}
+                  </span>
+                </div>
+
+                <h3 style={{ fontSize: "1.25rem", fontWeight: 700, lineHeight: 1.35, margin: "0.25rem 0 0.6rem", color: "var(--brand-strong)" }}>
+                  {lab.title}
+                </h3>
+                <p style={{ fontSize: "0.88rem", fontWeight: 500, color: "var(--accent)", lineHeight: 1.45, marginBottom: "0.85rem" }}>
+                  {lab.subtitle}
+                </p>
+                <p style={{ fontSize: "0.9rem", lineHeight: 1.6, color: "var(--ink)", marginBottom: "1.1rem" }}>
+                  {lab.description}
+                </p>
+
+                {/* Learning Objectives */}
+                <div style={{ background: "var(--surface-subtle, #f8fafc)", border: "1px solid var(--line)", borderRadius: "0.5rem", padding: "0.85rem 1rem", marginBottom: "1.25rem" }}>
+                  <div style={{ fontSize: "0.75rem", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.05em", color: "var(--brand-strong)", marginBottom: "0.4rem" }}>
+                    🎯 Key Learning Objectives
+                  </div>
+                  <ul style={{ margin: 0, paddingLeft: "1.1rem", fontSize: "0.84rem", lineHeight: 1.5, color: "var(--slate-700, #334155)" }}>
+                    {lab.learningObjectives.map((obj, oIdx) => (
+                      <li key={oIdx} style={{ marginBottom: "0.3rem" }}>
+                        {obj}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+
+                {/* Standards Badges */}
+                <div style={{ display: "flex", flexWrap: "wrap", gap: "0.4rem", marginBottom: "1.5rem" }}>
+                  {lab.standards.map((std, sIdx) => (
+                    <span key={sIdx} style={{ fontSize: "0.72rem", padding: "2px 8px", borderRadius: "4px", background: "var(--surface-subtle, #f8fafc)", border: "1px solid var(--line)", color: "var(--muted)" }}>
+                      📐 {std}
+                    </span>
+                  ))}
+                </div>
+              </div>
+
+              <div style={{ display: "flex", flexWrap: "wrap", alignItems: "center", gap: "0.6rem", paddingTop: "1rem", borderTop: "1px solid var(--line)" }}>
+                <Link
+                  href={lab.calculatorRoute}
+                  style={{
+                    display: "inline-flex",
+                    alignItems: "center",
+                    gap: "0.4rem",
+                    background: "#7c3aed",
+                    color: "#ffffff",
+                    fontWeight: 700,
+                    fontSize: "0.85rem",
+                    padding: "0.55rem 1.15rem",
+                    borderRadius: "0.45rem",
+                    textDecoration: "none",
+                    boxShadow: "0 2px 4px rgba(124, 58, 237, 0.3)",
+                    minHeight: "40px",
+                  }}
+                >
+                  {lab.calculatorLabel}
+                </Link>
+                <span style={{ fontSize: "0.78rem", color: "var(--muted)", fontStyle: "italic", marginLeft: "auto" }}>
+                  Category: {lab.academiaCategory}
+                </span>
+              </div>
+            </div>
+          ))}
+        </div>
       </section>
 
       {/* Dedicated Section: Open Benchmark Datasets & Replication Repositories */}

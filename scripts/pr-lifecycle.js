@@ -102,10 +102,12 @@ async function mergePR(prNumber) {
   }
   console.log(`✅ Successfully merged PR #${prNumber}! (Commit SHA: ${mergeRes.data.sha})`);
 
-  console.log(`\n🗑️ Step 2: Deleting remote branch "${branchName}" on GitHub (fires Vercel retirement webhook)...`);
+  console.log(`\n🗑️ Step 2: Verifying remote branch "${branchName}" deletion...`);
   const delRes = await githubRequest(`/git/refs/heads/${branchName}`, 'DELETE');
   if (delRes.status === 204) {
-    console.log(`✅ Remote branch "${branchName}" deleted. Vercel preview branch retired.`);
+    console.log(`✅ Remote branch "${branchName}" deleted.`);
+  } else if (delRes.status === 404 || delRes.status === 422) {
+    console.log(`✅ Remote branch "${branchName}" already deleted by GitHub auto-deletion.`);
   } else {
     console.warn(`⚠️ Warning: Could not delete remote branch (HTTP ${delRes.status}):`, delRes.data);
   }
@@ -114,12 +116,21 @@ async function mergePR(prNumber) {
   try {
     cp.execSync('git checkout main', { stdio: 'inherit' });
     cp.execSync('git pull origin main', { stdio: 'inherit' });
-    cp.execSync(`git branch -d ${branchName}`, { stdio: 'inherit' });
+    try {
+      cp.execSync(`git branch -d ${branchName}`, { stdio: 'inherit' });
+    } catch {
+      // Branch might have already been deleted or current
+    }
     cp.execSync('git fetch --prune', { stdio: 'inherit' });
-    console.log('\n🎉 Complete! PR merged through GitHub, Vercel notified, and local repo synced.\n');
+    cp.execSync('git remote prune origin', { stdio: 'inherit' });
   } catch (err) {
     console.warn('⚠️ Local sync notice:', err.message);
   }
+
+  console.log('\n📡 Step 4: GitHub Actions Post-Merge Watchdog is running...');
+  console.log('   Watch workflow: https://github.com/miadsaadidi/powerlab/actions');
+  console.log('   Production domain: https://powelab.org');
+  console.log('\n🎉 PR merge lifecycle complete!\n');
 }
 
 const action = process.argv[2];

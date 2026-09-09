@@ -71,6 +71,42 @@ export function SiteFooter() {
               <span>Add to Favorites</span>
               <span aria-hidden="true" style={{ fontSize: "0.8rem", marginLeft: "0.1rem" }}>⭐</span>
             </a>
+            <div style={{ marginTop: "1rem", display: "flex", flexDirection: "column", gap: "0.35rem", fontSize: "0.75rem" }}>
+              <span style={{ fontWeight: 700, color: "var(--ink, #0f172a)", textTransform: "uppercase", letterSpacing: "0.05em", fontSize: "0.6875rem" }}>
+                Open Source &amp; Ecosystem
+              </span>
+              <div style={{ display: "flex", flexWrap: "wrap", alignItems: "center", gap: "0.45rem" }}>
+                <a
+                  href="https://github.com/miadsaadidi/powerlab"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  style={{ display: "inline-flex", alignItems: "center", gap: "0.2rem", color: "var(--text-muted, #64748b)", textDecoration: "none" }}
+                  title="PowerLab on GitHub"
+                >
+                  <span>GitHub</span>
+                </a>
+                <span>•</span>
+                <a
+                  href="https://sourceforge.net/projects/powerlab/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  style={{ display: "inline-flex", alignItems: "center", gap: "0.2rem", color: "var(--text-muted, #64748b)", textDecoration: "none" }}
+                  title="PowerLab on SourceForge"
+                >
+                  <span>SourceForge</span>
+                </a>
+                <span>•</span>
+                <a
+                  href="https://www.saashub.com/powerlab"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  style={{ display: "inline-flex", alignItems: "center", gap: "0.2rem", color: "var(--text-muted, #64748b)", textDecoration: "none" }}
+                  title="PowerLab on SaaSHub"
+                >
+                  <span>SaaSHub</span>
+                </a>
+              </div>
+            </div>
           </div>
 
           {/* PILLAR 1: SOLAR PV */}
@@ -133,6 +169,11 @@ export function SiteFooter() {
               Standards &amp; Trust
             </p>
             <ul style={{ gap: "0.5rem" }}>
+              <li>
+                <Link href="/calculators" style={{ fontWeight: 700, color: "#f59e0b" }}>
+                  🧮 All Calculators Hub
+                </Link>
+              </li>
               <li>
                 <Link href="/guides" style={{ fontWeight: 600, color: "#0284c7" }}>
                   📚 Master Engineering Guides
