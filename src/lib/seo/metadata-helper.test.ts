@@ -13,7 +13,7 @@ describe("buildPageMetadata", () => {
 
     expect(meta.title).toBe("Solar Panel Tilt Calculator — Optimal Angle");
     expect(meta.description).toBe("Calculate optimal solar panel tilt angle and azimuth for your latitude. Features seasonal summer/winter angle adjustments and roof pitch comparison.");
-    expect(meta.alternates?.canonical).toBe("/solar/solar-panel-tilt-calculator");
+    expect(meta.alternates?.canonical).toBe(`${siteConfig.url}/solar/solar-panel-tilt-calculator`);
 
     const og = meta.openGraph as any;
     expect(og).toBeDefined();

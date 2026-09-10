@@ -4,11 +4,11 @@ import { publishedCalculators, calculatorRegistry } from "../lib/calculator-regi
 import { siteConfig } from "../lib/site-config";
 
 describe("sitemap", () => {
-  it("does not emit a generated lastmod timestamp for every URL", () => {
+  it("emits valid, meaningful lastModified timestamps for every URL", () => {
     const entries = sitemap();
 
     expect(entries.length).toBeGreaterThan(0);
-    expect(entries.every((entry) => entry.lastModified === undefined)).toBe(true);
+    expect(entries.every((entry) => entry.lastModified instanceof Date && !isNaN(entry.lastModified.getTime()))).toBe(true);
   });
 
   it("contains strictly absolute URLs rooted in siteConfig.url", () => {

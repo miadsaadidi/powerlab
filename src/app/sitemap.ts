@@ -1,7 +1,6 @@
 import type { MetadataRoute } from "next";
 import { publishedCalculators } from "../lib/calculator-registry";
 import { siteConfig } from "../lib/site-config";
-
 import { RESEARCH_PAPERS } from "../data/research-papers";
 
 const staticPaths = [
@@ -38,10 +37,61 @@ export function getSitemapPaths() {
   return [...staticPaths, ...researchPaths, ...categories, ...published.map((calculator) => calculator.route)];
 }
 
+const researchDateMap = new Map(
+  RESEARCH_PAPERS.map((paper) => [
+    `/research/${paper.slug}`,
+    new Date(`${paper.dateModified || paper.datePublished}T00:00:00Z`),
+  ])
+);
+
+export function getPathLastModified(
+  path: string,
+  calculatorPhaseMap: Map<string, number>
+): Date {
+  const paperDate = researchDateMap.get(path);
+  if (paperDate) return paperDate;
+
+  if (path.startsWith("/guides/")) {
+    if (path.includes("solar-payback") || path.includes("space-heater")) {
+      return new Date("2026-09-03T00:00:00Z");
+    }
+    if (path.includes("central-ac")) {
+      return new Date("2026-08-29T00:00:00Z");
+    }
+    return new Date("2026-08-20T00:00:00Z");
+  }
+
+  const phase = calculatorPhaseMap.get(path);
+  if (phase !== undefined) {
+    if (phase >= 4) return new Date("2026-09-03T00:00:00Z");
+    if (phase === 3) return new Date("2026-08-29T00:00:00Z");
+    return new Date("2026-08-20T00:00:00Z");
+  }
+
+  if (
+    path === "/" ||
+    path === "/calculators" ||
+    path === "/solar" ||
+    path === "/battery" ||
+    path === "/home-energy" ||
+    path === "/ev"
+  ) {
+    return new Date("2026-09-10T00:00:00Z");
+  }
+
+  if (path === "/research" || path === "/guides") {
+    return new Date("2026-09-03T00:00:00Z");
+  }
+
+  return new Date("2026-08-29T00:00:00Z");
+}
+
 export default function sitemap(): MetadataRoute.Sitemap {
   const published = publishedCalculators();
   const publishedRoutes = new Set(published.map((c) => c.route));
   const categoryRoutes = new Set([...new Set(published.map((c) => `/${c.category}`))]);
+  const calculatorPhaseMap = new Map(published.map((c) => [c.route, c.phase]));
+
   return getSitemapPaths().map((path) => {
     let priority = 0.5;
     let changeFrequency: MetadataRoute.Sitemap[number]["changeFrequency"] = "monthly";
@@ -62,6 +112,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
     return {
       url: new URL(path, siteConfig.url).toString(),
+      lastModified: getPathLastModified(path, calculatorPhaseMap),
       changeFrequency,
       priority,
     };

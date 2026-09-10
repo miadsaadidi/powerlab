@@ -46,7 +46,7 @@ export const metadata: Metadata = {
     absolute: "PowerLab — Energy Calculators for Solar, Battery & EV",
   },
   description: "Deterministic, open energy planning calculators for solar panel output, battery runtime, wire voltage drop, EV charging speeds, and home electricity usage.",
-  alternates: { canonical: "/" },
+  alternates: { canonical: siteConfig.url },
   openGraph: {
     title: "PowerLab — Energy Calculators for Solar, Battery & EV",
     description: "Deterministic, open energy planning calculators for solar panel output, battery runtime, wire voltage drop, EV charging speeds, and home electricity usage.",
