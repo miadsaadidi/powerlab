@@ -231,9 +231,13 @@ export default function HomeEnergyHub() {
       </div>
     </section>
     <section className="hub-support" aria-labelledby="home-energy-guides-heading">
-      <h2 id="home-energy-guides-heading">Featured Home Energy Guides</h2>
-      <p>Explore our empirical reference guides for residential electricity audits and emergency power planning:</p>
+      <h2 id="home-energy-guides-heading">Featured Home Energy Guides &amp; Research Preprints</h2>
+      <p>Explore our empirical reference guides and peer-reviewed technical whitepapers for residential electricity audits, heat pump thermodynamics, and emergency generator sizing:</p>
       <div className="supporting-links" style={{ display: "flex", flexWrap: "wrap", gap: "0.85rem", marginTop: "0.75rem" }}>
+        <Link href="/research/heat-pump-cop-degradation-and-auxiliary-heat-kinetics" className="footer-link">🔬 Research: Heat Pump COP Degradation &amp; Aux Heat Kinetics</Link>
+        <Link href="/research/deterministic-inrush-load-stacking-generator-sizing" className="footer-link">🔬 Research: Motor Inrush Load Stacking &amp; Generator Sizing</Link>
+        <Link href="/guides/central-ac-and-heat-pump-electricity-cost-guide" className="footer-link">❄️ Central AC &amp; Heat Pump Cost (SEER2) Guide</Link>
+        <Link href="/guides/space-heater-electricity-cost-and-wattage-guide" className="footer-link">🔥 Space Heater Electricity Cost &amp; Wattage Guide</Link>
         <Link href="/guides/how-many-kwh-does-a-house-use-per-day" className="footer-link">📊 How Many kWh Does a House Use Per Day Guide</Link>
         <Link href="/guides/emergency-generator-sizing-and-inrush-load-guide" className="footer-link">⚡ Emergency Generator Sizing &amp; Motor Inrush Guide</Link>
         <Link href="/guides" className="footer-link">📚 All Engineering Guides</Link>
@@ -241,7 +245,7 @@ export default function HomeEnergyHub() {
     </section>
     <section className="hub-support" aria-labelledby="home-energy-method-heading">
       <h2 id="home-energy-method-heading">Transparent household energy accounting</h2>
-      <p>Our home energy models separate continuous running load from peak connected load, accounting for duty cycles, standby power, and seasonal heating/cooling variance. Review our <Link href="/methodology">methodology</Link> and <Link href="/sources">sources</Link>.</p>
+      <p>Our home energy models separate continuous running load from peak connected load, accounting for duty cycles, standby power, and seasonal heating/cooling variance. Review our <Link href="/methodology">methodology</Link>, <Link href="/research">research whitepapers</Link>, or <Link href="/sources">sources</Link>.</p>
     </section>
   </section>;
 }

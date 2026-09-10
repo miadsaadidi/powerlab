@@ -140,26 +140,46 @@ export function SiteFooter() {
               <li><Link href="/battery/battery-capacity-calculator">Battery Capacity (Ah &bull; kWh)</Link></li>
               <li><Link href="/battery/battery-charging-time-calculator">Battery Charging Duration</Link></li>
               <li><Link href="/battery/inverter-size-calculator">Pure Sine Wave Inverter</Link></li>
+              <li><Link href="/battery/voltage-drop-calculator">Wire Voltage Drop &amp; AWG</Link></li>
               <li><Link href="/battery/ups-runtime-calculator">UPS Backup Runtime</Link></li>
               <li><Link href="/battery/ups-battery-size-calculator">UPS Battery Bank Sizer</Link></li>
               <li><Link href="/battery/portable-power-station-calculator">Portable Power Stations</Link></li>
             </ul>
           </div>
 
-          {/* PILLAR 3: EV & HOME ENERGY */}
+          {/* PILLAR 3: ELECTRIC VEHICLES */}
           <div>
             <p className="footer-column-title">
-              <Link href="/ev" style={{ color: "inherit", textDecoration: "none" }}>EV</Link> &amp; <Link href="/home-energy" style={{ color: "inherit", textDecoration: "none" }}>Home Energy ↗</Link>
+              <Link href="/ev" style={{ color: "inherit", textDecoration: "none" }}>
+                Electric Vehicles ↗
+              </Link>
             </p>
             <ul>
-              <li><Link href="/ev/ev-range-calculator">Real-World EV Range Decay</Link></li>
               <li><Link href="/ev/ev-charging-time-calculator">EV Charging Speed Sizer</Link></li>
+              <li><Link href="/ev/ev-charging-cost-calculator">EV Charging Cost ($/Charge)</Link></li>
+              <li><Link href="/ev/ev-range-calculator">Real-World EV Range Decay</Link></li>
+              <li><Link href="/ev/ev-savings-calculator">EV Savings vs Gas Calculator</Link></li>
               <li><Link href="/ev/ev-charger-breaker-size-calculator">EV Breaker Size (NEC 625)</Link></li>
               <li><Link href="/ev/v2l-runtime-calculator">V2L Blackout Outage Runtime</Link></li>
+            </ul>
+          </div>
+
+          {/* PILLAR 4: HOME ENERGY */}
+          <div>
+            <p className="footer-column-title">
+              <Link href="/home-energy" style={{ color: "inherit", textDecoration: "none" }}>
+                Home Energy ↗
+              </Link>
+            </p>
+            <ul>
+              <li><Link href="/home-energy/electricity-usage-calculator">Electricity Usage (kWh)</Link></li>
+              <li><Link href="/home-energy/energy-bill-calculator">Monthly Electric Bill Sizer</Link></li>
+              <li><Link href="/home-energy/appliance-wattage-calculator">Appliance Wattage Catalog</Link></li>
+              <li><Link href="/home-energy/home-battery-size-calculator">Home Battery Backup Size</Link></li>
+              <li><Link href="/home-energy/generator-size-calculator">Emergency Generator Sizing</Link></li>
               <li><Link href="/home-energy/air-conditioner-cost-calculator">AC Electricity Cost (SEER2)</Link></li>
               <li><Link href="/home-energy/heat-pump-cost-calculator">Heat Pump vs Gas Heating</Link></li>
-              <li><Link href="/home-energy/generator-size-calculator">Emergency Generator Sizing</Link></li>
-              <li><Link href="/battery/voltage-drop-calculator">Wire Voltage Drop &amp; AWG</Link></li>
+              <li><Link href="/home-energy/space-heater-cost-calculator">Space Heater Cost &amp; Watts</Link></li>
             </ul>
           </div>
 
@@ -168,7 +188,7 @@ export function SiteFooter() {
             <p className="footer-column-title" style={{ color: "#0284c7" }}>
               Standards &amp; Trust
             </p>
-            <ul style={{ gap: "0.5rem" }}>
+            <ul style={{ gap: "0.45rem" }}>
               <li>
                 <Link href="/calculators" style={{ fontWeight: 700, color: "#f59e0b" }}>
                   🧮 All Calculators Hub
@@ -205,6 +225,11 @@ export function SiteFooter() {
                 </Link>
               </li>
               <li>
+                <Link href="/glossary" style={{ fontWeight: 600 }}>
+                  📖 Engineering Glossary
+                </Link>
+              </li>
+              <li>
                 <Link href="/developers" style={{ fontWeight: 600 }}>
                   ⚡ API &amp; Embed Widgets
                 </Link>
@@ -217,6 +242,11 @@ export function SiteFooter() {
               <li>
                 <Link href="/privacy" style={{ fontWeight: 600 }}>
                   🔒 Zero-Database Privacy
+                </Link>
+              </li>
+              <li>
+                <Link href="/terms" style={{ fontWeight: 600 }}>
+                  ⚖️ Terms of Service
                 </Link>
               </li>
               <li>
@@ -237,6 +267,136 @@ export function SiteFooter() {
                 </a>
               </li>
             </ul>
+          </div>
+        </div>
+
+        {/* SITEEWIDE RESEARCH PREPRINTS & MASTER GUIDES CRAWL MESH */}
+        <div
+          style={{
+            borderTop: "1px solid var(--line, #e2e8f0)",
+            paddingTop: "1.75rem",
+            marginBottom: "2.5rem",
+            display: "flex",
+            flexDirection: "column",
+            gap: "1.25rem",
+          }}
+        >
+          {/* RESEARCH PREPRINTS */}
+          <div>
+            <p
+              style={{
+                fontSize: "0.75rem",
+                fontWeight: 800,
+                textTransform: "uppercase",
+                letterSpacing: "0.08em",
+                color: "#7c3aed",
+                margin: "0 0 0.5rem",
+                display: "flex",
+                alignItems: "center",
+                gap: "0.35rem",
+              }}
+            >
+              <span>🔬 Open Access Research Whitepapers &amp; Technical Reports:</span>
+            </p>
+            <div
+              style={{
+                display: "flex",
+                flexWrap: "wrap",
+                alignItems: "center",
+                gap: "0.4rem 1.1rem",
+                fontSize: "0.8125rem",
+                lineHeight: 1.5,
+              }}
+            >
+              <Link href="/research/continuous-duty-thermal-sizing-evse-ampacity" style={{ color: "var(--ink, #0f172a)", textDecoration: "none" }}>
+                PL-TR-2026-EVSE01: EVSE Continuous-Duty Ampacity &amp; Terminal Limits
+              </Link>
+              <span style={{ color: "var(--line, #cbd5e1)" }}>•</span>
+              <Link href="/research/deterministic-inrush-load-stacking-generator-sizing" style={{ color: "var(--ink, #0f172a)", textDecoration: "none" }}>
+                PL-TR-2026-GEN01: Inductive Motor Inrush &amp; Generator Load Stacking
+              </Link>
+              <span style={{ color: "var(--line, #cbd5e1)" }}>•</span>
+              <Link href="/research/ground-view-factor-snow-albedo-pv-tilt" style={{ color: "var(--ink, #0f172a)", textDecoration: "none" }}>
+                PL-TR-2026-PV01: Ground View Factor, Snow Albedo &amp; Cold Voc Expansion
+              </Link>
+              <span style={{ color: "var(--line, #cbd5e1)" }}>•</span>
+              <Link href="/research/heat-pump-cop-degradation-and-auxiliary-heat-kinetics" style={{ color: "var(--ink, #0f172a)", textDecoration: "none" }}>
+                PL-TR-2026-HP01: Cold-Climate Heat Pump COP Degradation Kinetics
+              </Link>
+            </div>
+          </div>
+
+          {/* MASTER ENGINEERING GUIDES */}
+          <div>
+            <p
+              style={{
+                fontSize: "0.75rem",
+                fontWeight: 800,
+                textTransform: "uppercase",
+                letterSpacing: "0.08em",
+                color: "var(--accent, #c65d24)",
+                margin: "0 0 0.5rem",
+                display: "flex",
+                alignItems: "center",
+                gap: "0.35rem",
+              }}
+            >
+              <span>📚 Master Engineering Reference Guides:</span>
+            </p>
+            <div
+              style={{
+                display: "flex",
+                flexWrap: "wrap",
+                alignItems: "center",
+                gap: "0.4rem 1rem",
+                fontSize: "0.8125rem",
+                lineHeight: 1.5,
+              }}
+            >
+              <Link href="/guides/mppt-solar-charge-controller-sizing-guide" style={{ color: "var(--text-muted, #64748b)", textDecoration: "none" }}>
+                MPPT Charge Controller Sizing
+              </Link>
+              <span style={{ color: "var(--line, #cbd5e1)" }}>•</span>
+              <Link href="/guides/battery-backup-runtime-calculation-guide" style={{ color: "var(--text-muted, #64748b)", textDecoration: "none" }}>
+                Battery Runtime Formula &amp; Inverter Losses
+              </Link>
+              <span style={{ color: "var(--line, #cbd5e1)" }}>•</span>
+              <Link href="/guides/voltage-drop-and-wire-size-calculation-guide" style={{ color: "var(--text-muted, #64748b)", textDecoration: "none" }}>
+                Voltage Drop &amp; AWG Wire Sizing
+              </Link>
+              <span style={{ color: "var(--line, #cbd5e1)" }}>•</span>
+              <Link href="/guides/solar-panel-tilt-angle-by-latitude-and-season-guide" style={{ color: "var(--text-muted, #64748b)", textDecoration: "none" }}>
+                Solar Tilt Angle by Latitude &amp; Season
+              </Link>
+              <span style={{ color: "var(--line, #cbd5e1)" }}>•</span>
+              <Link href="/guides/solar-payback-and-roi-calculation-guide" style={{ color: "var(--text-muted, #64748b)", textDecoration: "none" }}>
+                Solar Payback &amp; 25-Yr Cash Flow
+              </Link>
+              <span style={{ color: "var(--line, #cbd5e1)" }}>•</span>
+              <Link href="/guides/level-2-ev-charging-speed-and-breaker-sizing-guide" style={{ color: "var(--text-muted, #64748b)", textDecoration: "none" }}>
+                Level 2 EV Charging Speed &amp; Breaker Sizing
+              </Link>
+              <span style={{ color: "var(--line, #cbd5e1)" }}>•</span>
+              <Link href="/guides/how-to-calculate-ev-driving-range-and-efficiency-guide" style={{ color: "var(--text-muted, #64748b)", textDecoration: "none" }}>
+                EV Driving Range Formula &amp; Winter Drag
+              </Link>
+              <span style={{ color: "var(--line, #cbd5e1)" }}>•</span>
+              <Link href="/guides/central-ac-and-heat-pump-electricity-cost-guide" style={{ color: "var(--text-muted, #64748b)", textDecoration: "none" }}>
+                Central AC &amp; Heat Pump Costs (SEER2)
+              </Link>
+              <span style={{ color: "var(--line, #cbd5e1)" }}>•</span>
+              <Link href="/guides/space-heater-electricity-cost-and-wattage-guide" style={{ color: "var(--text-muted, #64748b)", textDecoration: "none" }}>
+                Space Heater Wattage &amp; Running Costs
+              </Link>
+              <span style={{ color: "var(--line, #cbd5e1)" }}>•</span>
+              <Link href="/guides/emergency-generator-sizing-and-inrush-load-guide" style={{ color: "var(--text-muted, #64748b)", textDecoration: "none" }}>
+                Generator Sizing &amp; Motor Inrush Guide
+              </Link>
+              <span style={{ color: "var(--line, #cbd5e1)" }}>•</span>
+              <Link href="/guides/how-many-kwh-does-a-house-use-per-day" style={{ color: "var(--text-muted, #64748b)", textDecoration: "none" }}>
+                Daily Household kWh Usage Benchmark
+              </Link>
+            </div>
           </div>
         </div>
 

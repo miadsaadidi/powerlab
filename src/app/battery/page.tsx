@@ -248,13 +248,15 @@ export default function BatteryHub() {
       <div className="supporting-links" style={{ display: "flex", flexWrap: "wrap", gap: "0.85rem", marginTop: "0.75rem" }}>
         <Link href="/guides/battery-backup-runtime-calculation-guide" className="footer-link">🔋 Battery Backup Runtime Formula &amp; Inverter Loss Guide</Link>
         <Link href="/guides/voltage-drop-and-wire-size-calculation-guide" className="footer-link">⚡ Voltage Drop &amp; Wire Size Calculation Guide</Link>
+        <Link href="/guides/mppt-solar-charge-controller-sizing-guide" className="footer-link">☀️ MPPT Charge Controller Sizing Guide</Link>
+        <Link href="/research" className="footer-link">🔬 Research &amp; Whitepapers Series</Link>
         <Link href="/guides" className="footer-link">📚 All Engineering Guides</Link>
       </div>
     </section>
     <section className="hub-support" aria-labelledby="battery-method-heading">
       <h2 id="battery-method-heading">Plan with the details that matter</h2>
       <p>Real battery performance depends on depth of discharge, battery chemistry, inverter efficiency, and ambient temperature. Our calculators expose every assumption so you can adjust them to your exact equipment.</p>
-      <p><Link href="/methodology">Read the calculation methodology</Link> or <Link href="/sources">review laboratory sources &amp; standards</Link>.</p>
+      <p><Link href="/methodology">Read the calculation methodology</Link>, <Link href="/research">consult our engineering research</Link>, or <Link href="/sources">review laboratory sources &amp; standards</Link>.</p>
     </section>
   </section>;
 }

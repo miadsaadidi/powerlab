@@ -221,16 +221,18 @@ export default function EvHub() {
       </div>
     </section>
     <section className="hub-support" aria-labelledby="ev-guides-heading">
-      <h2 id="ev-guides-heading">Featured EV Engineering Guides</h2>
-      <p>Explore our peer-reviewed electrical installation and charging speed technical reference:</p>
+      <h2 id="ev-guides-heading">Featured EV Engineering Guides &amp; Research Preprints</h2>
+      <p>Explore our peer-reviewed electrical installation guides, EVSE ampacity whitepapers, and aerodynamic range reference:</p>
       <div className="supporting-links" style={{ display: "flex", flexWrap: "wrap", gap: "0.85rem", marginTop: "0.75rem" }}>
+        <Link href="/research/continuous-duty-thermal-sizing-evse-ampacity" className="footer-link">🔬 Research: Level 2 EVSE Continuous-Duty Ampacity &amp; Terminal Heating</Link>
         <Link href="/guides/level-2-ev-charging-speed-and-breaker-sizing-guide" className="footer-link">🚗 Level 2 EV Charging Speed &amp; Breaker Sizing Guide</Link>
+        <Link href="/guides/how-to-calculate-ev-driving-range-and-efficiency-guide" className="footer-link">⚡ EV Driving Range Formula &amp; Winter Drag Guide</Link>
         <Link href="/guides" className="footer-link">📚 All Engineering Guides</Link>
       </div>
     </section>
     <section className="hub-support" aria-labelledby="ev-method-heading">
       <h2 id="ev-method-heading">Realistic charging and conversion models</h2>
-      <p>Our EV engines account for onboard charger limits, AC/DC conversion losses, and fast-charge thermal tapering. Read our <Link href="/methodology">methodology</Link> or <Link href="/sources">sources</Link>.</p>
+      <p>Our EV engines account for onboard charger limits, AC/DC conversion losses, and fast-charge thermal tapering. Read our <Link href="/methodology">methodology</Link>, <Link href="/research">research whitepapers</Link>, or <Link href="/sources">sources</Link>.</p>
     </section>
   </section>;
 }
