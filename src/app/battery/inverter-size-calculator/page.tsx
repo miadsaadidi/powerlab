@@ -14,7 +14,8 @@ const isPublished = isCalculatorPublished("inverter-size");
 
 export const metadata: Metadata = buildPageMetadata({
   title: "Inverter Size Calculator — Watts & Surge Sizing",
-  description: "Calculate the exact inverter size in continuous and surge watts needed to run your appliances from a battery. Find the right 12V, 24V, or 48V inverter capacity.",
+  description:
+    "Calculate inverter size in continuous and surge watts to run appliances from battery storage. Select the right 12V, 24V, or 48V inverter capacity.",
   canonicalPath: "/battery/inverter-size-calculator",
   category: "battery",
 });

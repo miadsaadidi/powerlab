@@ -245,7 +245,7 @@ export default function HomeEnergyHub() {
     </section>
     <section className="hub-support" aria-labelledby="home-energy-method-heading">
       <h2 id="home-energy-method-heading">Transparent household energy accounting</h2>
-      <p>Our home energy models separate continuous running load from peak connected load, accounting for duty cycles, standby power, and seasonal heating/cooling variance. Review our <Link href="/methodology">methodology</Link>, <Link href="/research">research whitepapers</Link>, or <Link href="/sources">sources</Link>.</p>
+      <p>Our home energy models separate continuous running load from peak connected load, accounting for duty cycles, standby power, and seasonal heating/cooling variance. Review our <Link href="/standards">engineering standards</Link>, browse the <Link href="/calculators">calculators directory</Link>, inspect our <Link href="/methodology">methodology</Link>, or examine <Link href="/sources">sources</Link>.</p>
     </section>
   </section>;
 }

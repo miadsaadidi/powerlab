@@ -8,16 +8,33 @@ import { TrustBadges } from "@/components/home/trust-badges";
 import { ConnectedSystemFlow } from "@/components/home/connected-system-flow";
 
 export const metadata: Metadata = {
-  title: "All Clean Energy Calculators - Solar, Battery, EV & Home Energy",
-  description: "Complete directory of open-source deterministic energy calculators. Sizing tools for solar PV, battery runtime, wire voltage drop, and EV charging under NEC and IEEE standards.",
-  alternates: { canonical: "/calculators" },
+  title: "Clean Energy Calculators Directory",
+  description:
+    "Complete directory of deterministic energy calculators. Sizing tools for solar PV, battery runtime, wire voltage drop, and EV charging under NEC codes.",
+  alternates: { canonical: `${siteConfig.url}/calculators` },
   openGraph: {
-    title: "All Clean Energy Calculators - Solar, Battery, EV & Home Energy",
-    description: "Complete directory of open-source deterministic energy calculators. Sizing tools for solar PV, battery runtime, wire voltage drop, and EV charging under NEC and IEEE standards.",
+    title: "Clean Energy Calculators Directory — PowerLab",
+    description:
+      "Complete directory of deterministic energy calculators. Sizing tools for solar PV, battery runtime, wire voltage drop, and EV charging under NEC codes.",
     url: `${siteConfig.url}/calculators`,
     siteName: siteConfig.name,
     locale: "en_US",
     type: "website",
+    images: [
+      {
+        url: `${siteConfig.url}/opengraph-image`,
+        width: 1200,
+        height: 630,
+        alt: "Clean Energy Calculators Directory — PowerLab",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Clean Energy Calculators Directory — PowerLab",
+    description:
+      "Complete directory of deterministic energy calculators. Sizing tools for solar PV, battery runtime, wire voltage drop, and EV charging under NEC codes.",
+    images: [`${siteConfig.url}/opengraph-image`],
   },
 };
 

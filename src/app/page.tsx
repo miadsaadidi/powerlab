@@ -149,7 +149,7 @@ export default function HomePage() {
             textAlign: "center",
           }}
         >
-          Transparent physical loss models built on IEEE, NFPA 70 (NEC), NREL &amp; SAE standards. Zero database tracking.
+          Transparent physical loss models built on <Link href="/standards" style={{ textDecoration: "underline", color: "inherit" }}>IEEE, NFPA 70 (NEC), NREL &amp; SAE standards</Link>. Zero database tracking.
         </p>
       </section>
 
@@ -171,7 +171,7 @@ export default function HomePage() {
           All 30 Energy Planning Calculators
         </h2>
         <p style={{ color: "var(--text-muted)", fontSize: "0.95rem" }}>
-          Select a category or search below to launch any calculator with prefilled engineering presets:
+          Explore our full <Link href="/calculators" style={{ color: "var(--accent, #c65d24)", fontWeight: 600 }}>calculators directory</Link>, reference our <Link href="/standards" style={{ color: "var(--accent, #c65d24)", fontWeight: 600 }}>engineering standards</Link>, or embed tools via <Link href="/developers" style={{ color: "var(--accent, #c65d24)", fontWeight: 600 }}>developer widgets</Link>:
         </p>
       </div>
 

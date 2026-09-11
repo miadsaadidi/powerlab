@@ -232,7 +232,7 @@ export default function EvHub() {
     </section>
     <section className="hub-support" aria-labelledby="ev-method-heading">
       <h2 id="ev-method-heading">Realistic charging and conversion models</h2>
-      <p>Our EV engines account for onboard charger limits, AC/DC conversion losses, and fast-charge thermal tapering. Read our <Link href="/methodology">methodology</Link>, <Link href="/research">research whitepapers</Link>, or <Link href="/sources">sources</Link>.</p>
+      <p>Our EV engines account for onboard charger limits, AC/DC conversion losses, and fast-charge thermal tapering. Review our <Link href="/standards">engineering standards</Link>, browse the <Link href="/calculators">calculators directory</Link>, embed via <Link href="/developers">developer widgets</Link>, or inspect <Link href="/methodology">methodology</Link>.</p>
     </section>
   </section>;
 }
