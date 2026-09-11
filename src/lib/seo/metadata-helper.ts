@@ -35,7 +35,7 @@ export function buildPageMetadata({
     title,
     description,
     alternates: {
-      canonical: canonicalPath,
+      canonical: url,
     },
     robots: {
       index: robotsIndex,
