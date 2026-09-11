@@ -8,7 +8,7 @@ export const metadata: Metadata = {
   title: "Standards & Code Compliance Matrix | PowerLab",
   description:
     "Cross-reference index linking IEEE, NFPA 70 (NEC), NREL PVWatts, SAE, and UL engineering standards directly to PowerLab deterministic calculation engines and mathematical equations.",
-  alternates: { canonical: "/standards" },
+  alternates: { canonical: `${siteConfig.url}/standards` },
   openGraph: {
     title: "Standards & Code Compliance Matrix | PowerLab",
     description:

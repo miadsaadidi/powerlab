@@ -10,7 +10,7 @@ import { ConnectedSystemFlow } from "@/components/home/connected-system-flow";
 export const metadata: Metadata = {
   title: "All Clean Energy Calculators - Solar, Battery, EV & Home Energy",
   description: "Complete directory of open-source deterministic energy calculators. Sizing tools for solar PV, battery runtime, wire voltage drop, and EV charging under NEC and IEEE standards.",
-  alternates: { canonical: "/calculators" },
+  alternates: { canonical: `${siteConfig.url}/calculators` },
   openGraph: {
     title: "All Clean Energy Calculators - Solar, Battery, EV & Home Energy",
     description: "Complete directory of open-source deterministic energy calculators. Sizing tools for solar PV, battery runtime, wire voltage drop, and EV charging under NEC and IEEE standards.",
