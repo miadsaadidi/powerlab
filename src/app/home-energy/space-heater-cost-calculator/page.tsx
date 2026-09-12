@@ -13,8 +13,9 @@ import { DirectAnswerCard } from "@/components/seo/direct-answer-card";
 const isPublished = isCalculatorPublished("space-heater-cost");
 
 export const metadata: Metadata = buildPageMetadata({
-  title: "Space Heater Cost Calculator — Running Cost & $/Hour",
-  description: "Calculate exact space heater electricity costs per hour, night & month for 500W, 1000W & 1500W heaters. Model thermostat duty cycle vs central heat pumps.",
+  title: "Space Heater Cost Calculator — Watts & $/Hour",
+  description:
+    "Calculate space heater electricity costs per hour, night & month for 500W, 1000W & 1500W heaters. Model thermostat duty cycle vs central heating.",
   canonicalPath: "/home-energy/space-heater-cost-calculator",
   category: "home-energy",
 });

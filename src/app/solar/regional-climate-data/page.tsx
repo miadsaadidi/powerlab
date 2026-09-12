@@ -7,15 +7,33 @@ import { US_REGIONAL_CLIMATE_DATA } from "@/data/regional-climate-solar-data";
 export const metadata: Metadata = {
   title: "U.S. Solar Insolation & ASHRAE Climatic Data",
   description:
-    "Official NREL Peak Sun Hours, ASHRAE 99% winter / 1% summer design temperatures, and EIA electricity rates for all 50 U.S. states and major metropolitan areas.",
+    "Official NREL Peak Sun Hours, ASHRAE 99% winter/summer design temperatures, and EIA electricity rates for all 50 U.S. states and major metro areas.",
   alternates: {
     canonical: `${siteConfig.url}/solar/regional-climate-data`,
   },
   openGraph: {
-    title: "U.S. Solar Insolation & ASHRAE Climatic Database | PowerLab",
+    title: "U.S. Solar Insolation & ASHRAE Climatic Database — PowerLab",
     description:
       "Deterministic NREL solar radiation benchmarks, ASHRAE climate zones, design temperatures, and EIA electricity prices across all 50 states.",
     url: `${siteConfig.url}/solar/regional-climate-data`,
+    siteName: siteConfig.name,
+    locale: "en_US",
+    type: "website",
+    images: [
+      {
+        url: `${siteConfig.url}/solar/opengraph-image`,
+        width: 1200,
+        height: 630,
+        alt: "U.S. Solar Insolation & ASHRAE Climatic Database — PowerLab",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "U.S. Solar Insolation & ASHRAE Climatic Database — PowerLab",
+    description:
+      "Deterministic NREL solar radiation benchmarks, ASHRAE climate zones, design temperatures, and EIA electricity prices across all 50 states.",
+    images: [`${siteConfig.url}/solar/opengraph-image`],
   },
 };
 

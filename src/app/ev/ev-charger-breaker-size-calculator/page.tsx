@@ -14,7 +14,8 @@ const isPublished = isCalculatorPublished("ev-breaker-size");
 
 export const metadata: Metadata = buildPageMetadata({
   title: "EV Charger Breaker Size Calculator — Amps & Wire",
-  description: "Find the exact circuit breaker size, wire gauge (AWG), and charging speed (kW) for your home Level 2 EV charger following the NEC 125% continuous load rule.",
+  description:
+    "Find the circuit breaker size, wire gauge (AWG), and charging speed (kW) for your Level 2 EV charger following the NEC 125% continuous load rule.",
   canonicalPath: "/ev/ev-charger-breaker-size-calculator",
   category: "ev",
 });

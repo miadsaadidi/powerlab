@@ -12,7 +12,8 @@ import { buildPageMetadata } from "@/lib/seo/metadata-helper";
 
 export const metadata: Metadata = buildPageMetadata({
   title: "Solar Payback Period & ROI Calculation Guide",
-  description: "Master solar payback period and ROI formulas. Learn how to calculate net system costs, 30% ITC tax credits, panel degradation, NEM 3.0, and 25-year cash flows.",
+  description:
+    "Master solar payback period and ROI formulas. Calculate net system costs, 30% ITC tax credits, panel degradation, NEM 3.0, and 25-year cash flows.",
   canonicalPath: "/guides/solar-payback-and-roi-calculation-guide",
   category: "solar",
   isArticle: true,

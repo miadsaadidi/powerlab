@@ -5,17 +5,33 @@ import { COMPREHENSIVE_STANDARDS_LIST } from "@/data/standards-registry";
 import { FormulaCopyButton } from "@/components/standards/formula-copy-button";
 
 export const metadata: Metadata = {
-  title: "Standards & Code Compliance Matrix | PowerLab",
+  title: "Standards & Code Compliance Matrix",
   description:
-    "Cross-reference index linking IEEE, NFPA 70 (NEC), NREL PVWatts, SAE, and UL engineering standards directly to PowerLab deterministic calculation engines and mathematical equations.",
+    "Cross-reference index linking IEEE, NFPA 70 NEC, NREL PVWatts, SAE, and UL engineering standards to PowerLab calculation engines and physical formulas.",
   alternates: { canonical: `${siteConfig.url}/standards` },
   openGraph: {
-    title: "Standards & Code Compliance Matrix | PowerLab",
+    title: "Standards & Code Compliance Matrix — PowerLab",
     description:
       "Direct bidirectional mapping connecting IEEE, NFPA 70 NEC, NREL, SAE, and UL codes to deterministic physical calculations.",
     url: `${siteConfig.url}/standards`,
     siteName: siteConfig.name,
-    images: [{ url: `${siteConfig.url}/opengraph-image`, width: 1200, height: 630 }],
+    locale: "en_US",
+    type: "website",
+    images: [
+      {
+        url: `${siteConfig.url}/opengraph-image`,
+        width: 1200,
+        height: 630,
+        alt: "Standards & Code Compliance Matrix — PowerLab",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Standards & Code Compliance Matrix — PowerLab",
+    description:
+      "Direct bidirectional mapping connecting IEEE, NFPA 70 NEC, NREL, SAE, and UL codes to deterministic physical calculations.",
+    images: [`${siteConfig.url}/opengraph-image`],
   },
 };
 

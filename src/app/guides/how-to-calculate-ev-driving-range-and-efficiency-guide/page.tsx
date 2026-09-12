@@ -11,8 +11,9 @@ import { AcademicCitationModal } from "@/components/seo/academic-citation-modal"
 import { buildPageMetadata } from "@/lib/seo/metadata-helper";
 
 export const metadata: Metadata = buildPageMetadata({
-  title: "How to Calculate EV Driving Range & Efficiency (Formula & Speed Drag)",
-  description: "Learn how to calculate electric vehicle driving range from usable battery kWh, aerodynamic highway speed drag (70+ mph), winter cold temperature drops, and battery degradation.",
+  title: "How to Calculate EV Driving Range & Efficiency",
+  description:
+    "Calculate EV driving range from usable battery kWh, highway aerodynamic drag (70+ mph), cold winter temperature derate, and battery degradation.",
   canonicalPath: "/guides/how-to-calculate-ev-driving-range-and-efficiency-guide",
   category: "ev",
   isArticle: true,
