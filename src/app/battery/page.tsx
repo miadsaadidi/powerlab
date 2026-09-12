@@ -256,7 +256,7 @@ export default function BatteryHub() {
     <section className="hub-support" aria-labelledby="battery-method-heading">
       <h2 id="battery-method-heading">Plan with the details that matter</h2>
       <p>Real battery performance depends on depth of discharge, battery chemistry, inverter efficiency, and ambient temperature. Our calculators expose every assumption so you can adjust them to your exact equipment.</p>
-      <p><Link href="/methodology">Read the calculation methodology</Link>, <Link href="/research">consult our engineering research</Link>, or <Link href="/sources">review laboratory sources &amp; standards</Link>.</p>
+      <p><Link href="/methodology">Read the calculation methodology</Link>, cross-reference <Link href="/standards">engineering standards</Link>, embed tools via <Link href="/developers">developer widgets</Link>, or <Link href="/sources">review laboratory sources</Link>.</p>
     </section>
   </section>;
 }

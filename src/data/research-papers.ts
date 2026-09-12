@@ -328,11 +328,88 @@ export const RESEARCH_PAPERS: ResearchPaper[] = [
     apaCitation: "PowerLab Clean Energy Engineering Group. (2026). Ground View Factor Transposition, Snow Albedo Dynamics, and Sub-Zero Open-Circuit Voltage Expansion in Photovoltaic Arrays (Technical Report No. PL-TR-2026-SOL03). PowerLab Open Energy Research. https://www.powelab.org/research/ground-view-factor-snow-albedo-pv-tilt",
     ieeeCitation: "PowerLab Clean Energy Engineering Group, \"Ground View Factor Transposition, Snow Albedo Dynamics, and Sub-Zero Open-Circuit Voltage Expansion in Photovoltaic Arrays,\" PowerLab Open Energy Research, Tech. Rep. PL-TR-2026-SOL03, 2026.",
   },
+  {
+    id: "PL-TR-2026-BESS01",
+    slug: "electrochemical-peukert-derating-bess",
+    reportNumber: "PL-TR-2026-BESS01",
+    title: "Electrochemical Peukert Capacity Derating, Depth of Discharge Boundaries, and Parasitic Inverter Tare Losses in Stationary Battery Energy Storage Systems",
+    shortTitle: "BESS Peukert Derating & Tare Losses",
+    metaDescription: "Electrochemical and power electronics modeling of Peukert capacity derating across discharge C-rates and continuous inverter tare losses under IEEE 485.",
+    abstract: "A deterministic mathematical and thermodynamic framework evaluating non-linear electrochemical rate kinetics and power electronics losses in stationary battery storage. Formulates Peukert capacity derating across varying C-rates (comparing lead-acid k=1.15–1.30 vs. LiFePO4 k=1.05), usable depth of discharge (DoD) operational boundaries, and continuous quiescent inverter tare power consumption (Ptare=15W–65W) during extended emergency backup scenarios.",
+    authors: ["PowerLab Clean Energy Engineering Group"],
+    institution: "PowerLab Open Energy Research",
+    datePublished: "2026-09-11",
+    dateModified: "2026-09-11",
+    pdfUrl: "/whitepapers/electrochemical-peukert-derating-bess.pdf",
+    htmlUrl: "/whitepapers/electrochemical-peukert-derating-bess.html",
+    academiaUrl: "https://www.academia.edu/175384576/Electrochemical_Peukert_Capacity_Derating_Depth_of_Discharge_Boundaries_and_Parasitic_Inverter_Tare_Losses_in_Stationary_Battery_Energy_Storage_Systems",
+    datasetStatus: "none",
+    category: "Battery Storage",
+    categorySlug: "battery",
+    keywords: [
+      "battery energy storage",
+      "Peukert's law",
+      "inverter tare losses",
+      "LiFePO4 battery sizing",
+      "depth of discharge",
+      "IEEE 485",
+      "NEC Article 706",
+      "battery runtime calculation"
+    ],
+    standards: [
+      "IEEE Std 485-2020 (Sizing Lead-Acid Batteries for Stationary Applications)",
+      "NFPA 70 / NEC Article 706 (Energy Storage Systems)",
+      "UL 1973 (Batteries for Stationary & Microgrid Applications)",
+      "IEC 62619 (Secondary Lithium Cells & Batteries for Industrial Use)",
+    ],
+    keyFindings: [
+      "Ignoring Peukert exponent derating in lead-acid and AGM chemistry overestimates emergency runtime by up to 42.6% under 0.5C to 1.0C continuous discharge.",
+      "Lithium iron phosphate (LiFePO4) exhibits near-ideal Peukert performance (k ≈ 1.02 to 1.05), maintaining over 97% of rated capacity under high discharge rates.",
+      "Inverter quiescent tare draw (15W to 65W constant) reduces battery autonomy by more than 50% during light continuous loads (e.g., 40W medical or networking equipment).",
+    ],
+    equations: [
+      {
+        name: "Generalized Peukert Effective Capacity Equation",
+        latex: "C_{\\text{eff}} = C_{\\text{nom}} \\times \\left( \\frac{I_{\\text{ref}}}{I_{\\text{dc}}} \\right)^{k - 1}",
+        description: "Derates nominal battery capacity as discharge current increases relative to rated reference current I_ref = C_nom / H.",
+      },
+      {
+        name: "Inverter Total DC Demand with Quiescent Tare Draw",
+        latex: "P_{\\text{dc}} = \\frac{P_{\\text{ac}}}{\\eta_{\\text{inv}}(P_{\\text{ac}})} + P_{\\text{tare}}",
+        description: "Calculates total DC power drawn from battery terminals including baseline quiescent standby loss.",
+      },
+      {
+        name: "Deterministic Usable Operational Runtime",
+        latex: "t_{\\text{run}} = \\frac{C_{\\text{eff}} \\times V_{\\text{nom}} \\times \\text{DoD}_{\\text{max}}}{P_{\\text{dc}}}",
+        description: "Computes exact operational runtime taking into account usable depth of discharge, effective capacity, and DC load.",
+      },
+    ],
+    relatedCalculators: [
+      { name: "Battery Runtime Calculator", route: "/battery/battery-runtime-calculator" },
+      { name: "Battery Size Calculator", route: "/battery/battery-size-calculator" },
+      { name: "Battery Capacity Calculator", route: "/battery/battery-capacity-calculator" },
+      { name: "Inverter Size Calculator", route: "/battery/inverter-size-calculator" },
+    ],
+    relatedGuides: [
+      { name: "How to Calculate Battery Runtime & Backup Hours", route: "/guides/how-to-calculate-battery-runtime-and-backup-hours" },
+      { name: "Battery Capacity Ah to kWh Conversion Guide", route: "/guides/battery-capacity-ah-to-kwh-conversion-guide" },
+    ],
+    bibtex: `@techreport{powerlab_2026_bess_peukert,
+  author      = {{PowerLab Clean Energy Engineering Group}},
+  title       = {Electrochemical Peukert Capacity Derating, Depth of Discharge Boundaries, and Parasitic Inverter Tare Losses in Stationary Battery Energy Storage Systems},
+  institution = {PowerLab Open Energy Research},
+  year        = {2026},
+  number      = {PL-TR-2026-BESS01},
+  url         = {https://www.powelab.org/research/electrochemical-peukert-derating-bess}
+}`,
+    apaCitation: "PowerLab Clean Energy Engineering Group. (2026). Electrochemical Peukert Capacity Derating, Depth of Discharge Boundaries, and Parasitic Inverter Tare Losses in Stationary Battery Energy Storage Systems (Technical Report No. PL-TR-2026-BESS01). PowerLab Open Energy Research. https://www.powelab.org/research/electrochemical-peukert-derating-bess",
+    ieeeCitation: "PowerLab Clean Energy Engineering Group, \"Electrochemical Peukert Capacity Derating, Depth of Discharge Boundaries, and Parasitic Inverter Tare Losses in Stationary Battery Energy Storage Systems,\" PowerLab Open Energy Research, Tech. Rep. PL-TR-2026-BESS01, 2026.",
+  },
 ];
 
 export interface BenchmarkDataset {
   id: string;
-  repository: "Figshare" | "Harvard Dataverse" | "Zenodo";
+  repository: "Figshare" | "Zenodo";
   doi?: string;
   status: "published" | "accession_pending";
   title: string;
@@ -370,13 +447,41 @@ export const BENCHMARK_DATASETS: BenchmarkDataset[] = [
     description: "Empirical thermodynamic performance matrix for variable-speed inverter vapor scroll heat pumps across outdoor temperatures, evaluating sensible heating capacity, electrical power draw, and balance point transition curves.",
     recordCount: "240 Records",
     format: "CSV / Tabular Matrix",
-    downloadUrl: "https://figshare.com/articles/dataset/Empirical_Coefficient_of_Performance_COP_Degradation_and_Auxiliary_Electric_Resistance_Staging_Bin_Matrix_for_Cold-Climate_Air-Source_Heat_Pumps_ccASHP_/33470950?file=68317969",
+    downloadUrl: "https://doi.org/10.6084/m9.figshare.33470950",
     repositoryUrl: "https://doi.org/10.6084/m9.figshare.33470950",
     paperSlug: "heat-pump-cop-degradation-and-auxiliary-heat-kinetics",
   },
   {
-    id: "PL-DS-GEN-03",
-    repository: "Harvard Dataverse",
+    id: "PL-DS-SOL-03",
+    repository: "Figshare",
+    doi: "10.6084/m9.figshare.33618778",
+    status: "published",
+    title: "50-State Solar Insolation, Peak Sun Hours, ASHRAE Climatic Design Temperatures, and Grid Electricity Rates Matrix",
+    subtitle: "Harmonized state-by-state meteorological, solar resource, and residential electricity tariff database across all 50 US states.",
+    description: "Benchmark empirical matrix tabulating NREL NSRDB peak sun hours, optimal tilt angles, ASHRAE 99% winter / 1% summer design dry-bulb temperatures, and EIA electricity rates.",
+    recordCount: "58 Records",
+    format: "CSV / Tabular Matrix",
+    downloadUrl: "https://doi.org/10.6084/m9.figshare.33618778",
+    repositoryUrl: "https://doi.org/10.6084/m9.figshare.33618778",
+    paperSlug: "ground-view-factor-snow-albedo-pv-tilt",
+  },
+  {
+    id: "PL-DS-AC-04",
+    repository: "Figshare",
+    doi: "10.6084/m9.figshare.33678514",
+    status: "published",
+    title: "Central Air Conditioner SEER2 vs SEER Energy Consumption & Cooling Degree Day (CDD) Benchmark Matrix",
+    subtitle: "Steady-state electrical power draw (Watts at 95°F), annual kilowatt-hour operational demands, and DOE M1 static pressure metrics across 1.5 to 5.0 nominal cooling tons under AHRI 210/240.",
+    description: "Benchmark empirical matrix resolving the 2023 DOE Appendix M1 transition from legacy SEER (0.10–0.20 in. w.g.) to modern SEER2 (0.50 in. w.g.), evaluating sensible cooling capacities, hourly full-load energy draw, and regional cooling degree day operational expense.",
+    recordCount: "26 Records",
+    format: "CSV / JSON Schema",
+    downloadUrl: "https://doi.org/10.6084/m9.figshare.33678514",
+    repositoryUrl: "https://doi.org/10.6084/m9.figshare.33678514",
+    paperSlug: "air-conditioner-cost-calculator",
+  },
+  {
+    id: "PL-DS-GEN-04",
+    repository: "Figshare",
     status: "accession_pending",
     title: "Residential Standby Generator Motor Inrush & Sub-Transient Voltage Dip Matrix",
     subtitle: "Locked Rotor Amperage (LRA) sub-transient reactance (X''d) voltage dip envelopes and fuel derating factors (Gasoline vs Propane vs Natural Gas) under ISO 8528-5.",
@@ -385,18 +490,6 @@ export const BENCHMARK_DATASETS: BenchmarkDataset[] = [
     format: "Tabular Matrix",
     repositoryUrl: "/research/deterministic-inrush-load-stacking-generator-sizing",
     paperSlug: "deterministic-inrush-load-stacking-generator-sizing",
-  },
-  {
-    id: "PL-DS-SOL-04",
-    repository: "Harvard Dataverse",
-    status: "accession_pending",
-    title: "Ground-Reflected Snow Albedo & Sub-Zero Photovoltaic Voc Expansion Dataset",
-    subtitle: "Anisotropic diffuse transposition capture and sub-zero open-circuit voltage expansion envelopes under NEC 690.7 and IEC 61724-1.",
-    description: "Multi-tilt empirical transposition dataset evaluating ground-reflected albedo (rho = 0.20 grass to rho = 0.80 fresh snow) and cold-weather string voltage expansion across high-latitude solar installations.",
-    recordCount: "160 Records",
-    format: "Tabular Matrix",
-    repositoryUrl: "/research/ground-view-factor-snow-albedo-pv-tilt",
-    paperSlug: "ground-view-factor-snow-albedo-pv-tilt",
   },
 ];
 
@@ -413,6 +506,9 @@ export interface StudentLabExercise {
   calculatorRoute: string;
   calculatorLabel: string;
   academiaCategory: "Teaching Documents";
+  academiaUrl?: string;
+  archiveUrl?: string;
+  pdfUrl?: string;
 }
 
 export const STUDENT_LAB_EXERCISES: StudentLabExercise[] = [
@@ -459,6 +555,9 @@ export const STUDENT_LAB_EXERCISES: StudentLabExercise[] = [
     calculatorRoute: "/solar/solar-panel-tilt-calculator",
     calculatorLabel: "Open Solar Panel Tilt & Transposition Engine →",
     academiaCategory: "Teaching Documents",
+    academiaUrl: "https://www.academia.edu/175443529/Applied_Photovoltaic_Engineering_Laboratory_Solar_PV_Array_Tilt_Optimization_Perez_Anisotropic_Transposition_and_Peak_Sun_Hour_PSH_Simulation",
+    archiveUrl: "https://archive.org/details/powerlab-pl-lab-2026-sol02-pv-tilt-psh-lab",
+    pdfUrl: "/whitepapers/student-lab-02-solar-pv-tilt-psh.pdf",
   },
   {
     id: "PL-LAB-03",

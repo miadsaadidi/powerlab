@@ -13,7 +13,7 @@ import { DirectAnswerCard } from "@/components/seo/direct-answer-card";
 const isPublished = isCalculatorPublished("ac-cost");
 
 export const metadata: Metadata = buildPageMetadata({
-  title: "AC Cost Calculator — Central AC & Air Conditioner Cost",
+  title: "AC Cost Calculator — Electricity Cost & SEER2",
   description: "Calculate air conditioner electricity costs per hour, day & month. Sizing formulas for Central AC, Mini-Splits & Window units with SEER2 efficiency.",
   canonicalPath: "/home-energy/air-conditioner-cost-calculator",
   category: "home-energy",

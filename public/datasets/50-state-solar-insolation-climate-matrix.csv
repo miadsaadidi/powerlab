@@ -1,0 +1,59 @@
+state,state_code,primary_metro,latitude,longitude,ashrae_climate_zone,winter_design_temp_f,summer_design_temp_f,peak_sun_hours_kwh_m2_day,optimal_solar_tilt_deg,residential_electricity_rate_usd_per_kwh
+"Alabama","AL","Birmingham",33.52,-86.81,"3A",22.1,93.6,4.82,30,0.154
+"Alaska","AK","Anchorage",61.22,-149.9,"7",-6.7,72.3,3.15,55,0.248
+"Arizona","AZ","Phoenix",33.45,-112.07,"2B",40.8,109.8,6.55,30,0.141
+"Arkansas","AR","Little Rock",34.75,-92.29,"3A",21.6,95.7,4.75,31,0.128
+"California","CA","Los Angeles",34.05,-118.24,"3B",44.2,86.2,5.62,31,0.315
+"California (Central)","CA-C","Fresno / Central Valley",36.74,-119.77,"3B",32,101.5,5.78,33,0.315
+"California (North)","CA-N","San Francisco / Bay Area",37.77,-122.42,"3C",38.5,78.4,5.38,34,0.315
+"Colorado","CO","Denver",39.74,-104.99,"5B",1.2,92.3,5.48,36,0.151
+"Connecticut","CT","Hartford",41.76,-72.68,"5A",4.8,89.2,4.31,37,0.289
+"Delaware","DE","Wilmington",39.74,-75.55,"4A",14.5,90.7,4.58,35,0.165
+"District of Columbia","DC","Washington D.C.",38.91,-77.04,"4A",16.9,92.8,4.62,35,0.168
+"Florida (Central)","FL","Orlando",28.54,-81.38,"2A",39.2,93.9,5.37,26,0.156
+"Florida (South)","FL-S","Miami",25.76,-80.19,"1A",48.7,91.6,5.49,23,0.156
+"Georgia","GA","Atlanta",33.75,-84.39,"3A",21.7,92.5,4.88,30,0.143
+"Hawaii","HI","Honolulu",21.31,-157.86,"1A",62.1,89.2,5.86,19,0.442
+"Idaho","ID","Boise",43.62,-116.2,"5B",11.5,96.3,4.95,39,0.112
+"Illinois","IL","Chicago",41.88,-87.63,"5A",-1.3,90.1,4.22,38,0.169
+"Indiana","IN","Indianapolis",39.77,-86.16,"5A",3.4,89.5,4.38,36,0.152
+"Iowa","IA","Des Moines",41.59,-93.61,"5A",-6,90.5,4.51,37,0.138
+"Kansas","KS","Wichita",37.69,-97.34,"4A",7.9,98.2,5.12,34,0.144
+"Kentucky","KY","Louisville",38.25,-85.76,"4A",11.8,91,4.49,34,0.131
+"Louisiana","LA","New Orleans",29.95,-90.07,"2A",32.7,93.4,4.89,27,0.124
+"Maine","ME","Portland",43.66,-70.26,"6A",-1.8,85.1,4.28,39,0.274
+"Maryland","MD","Baltimore",39.29,-76.61,"4A",15.3,92.1,4.6,35,0.178
+"Massachusetts","MA","Boston",42.36,-71.06,"5A",7.2,88,4.25,38,0.298
+"Michigan","MI","Detroit",42.33,-83.05,"5A",4.5,88.5,4.15,38,0.187
+"Minnesota","MN","Minneapolis / St. Paul",44.98,-93.27,"6A",-13.2,88.7,4.45,40,0.157
+"Mississippi","MS","Jackson",32.3,-90.18,"3A",24.1,94.3,4.8,29,0.139
+"Missouri","MO","St. Louis / Kansas City",38.63,-90.2,"4A",6.8,93.9,4.71,35,0.134
+"Montana","MT","Billings",45.78,-108.5,"6B",-13.5,92.8,4.88,41,0.126
+"Nebraska","NE","Omaha",41.26,-95.94,"5A",-4.9,92.1,4.82,37,0.129
+"Nevada","NV","Las Vegas",36.17,-115.14,"3B",32.7,108.3,6.41,33,0.162
+"New Hampshire","NH","Manchester",42.99,-71.45,"5A",-0.4,87.8,4.22,39,0.267
+"New Jersey","NJ","Newark / Jersey City",40.74,-74.17,"4A",14,90.9,4.52,37,0.198
+"New Mexico","NM","Albuquerque",35.08,-106.65,"4B",18,95.2,6.38,32,0.149
+"New York","NY","New York City",40.71,-74.01,"4A",15.1,89.8,4.41,37,0.245
+"New York (Upstate)","NY-U","Buffalo / Rochester",42.89,-78.88,"5A",4.1,85.5,3.92,39,0.215
+"North Carolina","NC","Charlotte / Raleigh",35.23,-80.84,"3A",20.3,92.5,4.95,32,0.138
+"North Dakota","ND","Fargo / Bismarck",46.88,-96.79,"7",-21.1,88.5,4.52,42,0.121
+"Ohio","OH","Columbus / Cleveland",39.96,-82.99,"5A",5.2,88.7,4.25,36,0.161
+"Oklahoma","OK","Oklahoma City",35.47,-97.52,"3A",14.5,98.4,5.28,32,0.132
+"Oregon","OR","Portland",45.52,-122.68,"4C",23.4,88.9,4.12,41,0.136
+"Pennsylvania","PA","Philadelphia / Pittsburgh",39.95,-75.17,"4A",13.6,90.7,4.39,36,0.185
+"Rhode Island","RI","Providence",41.82,-71.41,"5A",8.8,87.1,4.31,37,0.287
+"South Carolina","SC","Columbia / Charleston",34,-81.03,"3A",24.3,95,5.05,31,0.146
+"South Dakota","SD","Sioux Falls",43.55,-96.73,"6A",-13,89.8,4.75,39,0.133
+"Tennessee","TN","Nashville / Memphis",36.16,-86.78,"4A",14.7,93,4.72,33,0.129
+"Texas (North)","TX-N","Dallas / Fort Worth",32.78,-96.8,"3A",22.8,100.4,5.35,30,0.148
+"Texas (Central / South)","TX-S","Houston / Austin / San Antonio",29.76,-95.37,"2A",31.8,96.1,5.15,27,0.148
+"Texas (West)","TX-W","El Paso",31.76,-106.49,"3B",25,99.7,6.32,29,0.148
+"Utah","UT","Salt Lake City",40.76,-111.89,"5B",9.3,96.6,5.42,37,0.119
+"Vermont","VT","Burlington",44.48,-73.21,"6A",-8.7,85.8,4.1,40,0.218
+"Virginia","VA","Richmond / Norfolk",37.54,-77.44,"4A",17.6,92.8,4.78,34,0.149
+"Washington (West)","WA-W","Seattle / Tacoma",47.61,-122.33,"4C",25.9,84.9,3.85,43,0.124
+"Washington (East)","WA-E","Spokane",47.66,-117.43,"5B",4.3,92.5,4.55,43,0.124
+"West Virginia","WV","Charleston",38.35,-81.63,"4A",10.9,89.2,4.32,35,0.155
+"Wisconsin","WI","Milwaukee / Madison",43.04,-87.91,"6A",-6.5,87.4,4.31,39,0.176
+"Wyoming","WY","Cheyenne",41.14,-104.82,"6B",-6.2,88.5,5.51,37,0.127

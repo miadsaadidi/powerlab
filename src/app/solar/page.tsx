@@ -230,7 +230,7 @@ export default function SolarHub() {
     <section className="hub-support" aria-labelledby="solar-method-heading">
       <h2 id="solar-method-heading">Deterministic calculations &amp; verified laboratory models</h2>
       <p>Our solar tools pair local geometry heuristics with NREL PVWatts V8 solar irradiance data. Every technical assumption (losses, inverter efficiency, DC-to-AC ratio) is visible and user-editable.</p>
-      <p>Consult our <Link href="/solar/regional-climate-data">50-State Regional Climate Data</Link>, <Link href="/research">read published research papers</Link>, <Link href="/methodology">inspect our methodology</Link>, or <Link href="/sources">review laboratory sources</Link>.</p>
+      <p>Consult our <Link href="/solar/regional-climate-data">50-State Regional Climate Data</Link>, verify code compliance in <Link href="/standards">engineering standards</Link>, browse all categories in the <Link href="/calculators">calculators directory</Link>, <Link href="/methodology">inspect our methodology</Link>, or <Link href="/sources">review laboratory sources</Link>.</p>
     </section>
   </section>;
 }

@@ -7,7 +7,8 @@ import { buildPageMetadata } from "@/lib/seo/metadata-helper";
 
 export const metadata: Metadata = buildPageMetadata({
   title: "Energy Guides & Engineering Reference",
-  description: "In-depth, formula-backed educational guides for home energy auditing, solar photovoltaic engineering, battery storage sizing, and EV charging infrastructure.",
+  description:
+    "In-depth educational guides for home energy auditing, solar PV engineering, battery storage sizing, and EV charging infrastructure under NEC standards.",
   canonicalPath: "/guides",
   ogImageUrlOverride: `${siteConfig.url}/clean_energy_educational_model.jpg`,
   ogImageAlt: "PowerLab Educational Energy Modeling & Engineering Reference",

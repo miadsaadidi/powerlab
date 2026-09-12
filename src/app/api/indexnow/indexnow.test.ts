@@ -27,6 +27,6 @@ describe("IndexNow verification and sitemap coverage", () => {
     expect(paths).toContain("/standards");
     expect(paths).toContain("/calculators");
     expect(paths).toContain("/guides/how-to-calculate-ev-driving-range-and-efficiency-guide");
-    expect(paths.length).toBe(62);
+    expect(paths.length).toBe(63);
   });
 });

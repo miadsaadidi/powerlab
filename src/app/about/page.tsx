@@ -197,7 +197,7 @@ export default function AboutPage() {
       <section>
         <h2>Transparency &amp; Governance</h2>
         <p>
-          PowerLab maintains open scientific governance. Review our complete formulas on the <Link href="/methodology">Engineering Methodology</Link> page, inspect reference standards on our <Link href="/sources">Authoritative Data Sources</Link> page, or read our architecture-backed <Link href="/privacy">Zero-Database Privacy Policy</Link>.
+          PowerLab maintains open scientific governance. Review our complete formulas on the <Link href="/methodology">Engineering Methodology</Link> page, inspect reference codes on our <Link href="/standards">Standards Matrix</Link>, browse terminology in our <Link href="/glossary">Engineering Glossary</Link>, consult our <Link href="/terms">Terms of Service</Link>, or read our architecture-backed <Link href="/privacy">Zero-Database Privacy Policy</Link>.
         </p>
         <p style={{ marginTop: "1rem" }}>
           Community &amp; user verified: <a href="https://www.trustpilot.com/review/powelab.org" target="_blank" rel="noopener noreferrer" style={{ color: "#00b67a", fontWeight: 600 }}>Review PowerLab on Trustpilot ★★★★★</a>
