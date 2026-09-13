@@ -466,6 +466,20 @@ export const BENCHMARK_DATASETS: BenchmarkDataset[] = [
     paperSlug: "ground-view-factor-snow-albedo-pv-tilt",
   },
   {
+    id: "PL-DS-AC-04",
+    repository: "Figshare",
+    doi: "10.6084/m9.figshare.33678514",
+    status: "published",
+    title: "Central Air Conditioner SEER2 vs SEER Energy Consumption & Cooling Degree Day (CDD) Benchmark Matrix",
+    subtitle: "Steady-state electrical power draw (Watts at 95°F), annual kilowatt-hour operational demands, and DOE M1 static pressure metrics across 1.5 to 5.0 nominal cooling tons under AHRI 210/240.",
+    description: "Benchmark empirical matrix resolving the 2023 DOE Appendix M1 transition from legacy SEER (0.10–0.20 in. w.g.) to modern SEER2 (0.50 in. w.g.), evaluating sensible cooling capacities, hourly full-load energy draw, and regional cooling degree day operational expense.",
+    recordCount: "26 Records",
+    format: "CSV / JSON Schema",
+    downloadUrl: "https://doi.org/10.6084/m9.figshare.33678514",
+    repositoryUrl: "https://doi.org/10.6084/m9.figshare.33678514",
+    paperSlug: "air-conditioner-cost-calculator",
+  },
+  {
     id: "PL-DS-GEN-04",
     repository: "Figshare",
     status: "accession_pending",
@@ -492,6 +506,9 @@ export interface StudentLabExercise {
   calculatorRoute: string;
   calculatorLabel: string;
   academiaCategory: "Teaching Documents";
+  academiaUrl?: string;
+  archiveUrl?: string;
+  pdfUrl?: string;
 }
 
 export const STUDENT_LAB_EXERCISES: StudentLabExercise[] = [
@@ -538,6 +555,9 @@ export const STUDENT_LAB_EXERCISES: StudentLabExercise[] = [
     calculatorRoute: "/solar/solar-panel-tilt-calculator",
     calculatorLabel: "Open Solar Panel Tilt & Transposition Engine →",
     academiaCategory: "Teaching Documents",
+    academiaUrl: "https://www.academia.edu/175443529/Applied_Photovoltaic_Engineering_Laboratory_Solar_PV_Array_Tilt_Optimization_Perez_Anisotropic_Transposition_and_Peak_Sun_Hour_PSH_Simulation",
+    archiveUrl: "https://archive.org/details/powerlab-pl-lab-2026-sol02-pv-tilt-psh-lab",
+    pdfUrl: "/whitepapers/student-lab-02-solar-pv-tilt-psh.pdf",
   },
   {
     id: "PL-LAB-03",

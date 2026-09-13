@@ -313,6 +313,55 @@ export default function ResearchHubPage() {
                 >
                   {lab.calculatorLabel}
                 </Link>
+
+                {lab.pdfUrl && (
+                  <a
+                    href={lab.pdfUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    style={{
+                      display: "inline-flex",
+                      alignItems: "center",
+                      gap: "0.35rem",
+                      background: "transparent",
+                      color: "var(--ink)",
+                      border: "1px solid var(--line)",
+                      fontWeight: 600,
+                      fontSize: "0.82rem",
+                      padding: "0.5rem 0.9rem",
+                      borderRadius: "0.45rem",
+                      textDecoration: "none",
+                      minHeight: "40px",
+                    }}
+                  >
+                    <span>📥 Download PDF</span>
+                  </a>
+                )}
+
+                {lab.academiaUrl && (
+                  <a
+                    href={lab.academiaUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    style={{
+                      display: "inline-flex",
+                      alignItems: "center",
+                      gap: "0.35rem",
+                      background: "rgba(2, 132, 199, 0.08)",
+                      color: "var(--accent, #0284c7)",
+                      border: "1px solid rgba(2, 132, 199, 0.25)",
+                      fontWeight: 600,
+                      fontSize: "0.82rem",
+                      padding: "0.5rem 0.9rem",
+                      borderRadius: "0.45rem",
+                      textDecoration: "none",
+                      minHeight: "40px",
+                    }}
+                  >
+                    <span>Read on Academia.edu ↗</span>
+                  </a>
+                )}
+
                 <span style={{ fontSize: "0.78rem", color: "var(--muted)", fontStyle: "italic", marginLeft: "auto" }}>
                   Category: {lab.academiaCategory}
                 </span>

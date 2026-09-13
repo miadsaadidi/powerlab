@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PowerLab STEM Laboratory Manual PL-LAB-2026-SOL02 — Applied Photovoltaic Engineering Laboratory</title>
+  
+  <!-- KaTeX for mathematical rendering -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"
+    onload="renderMathInElement(document.body, {
+      delimiters: [
+        {left: '$$', right: '$$', display: true},
+        {left: '$', right: '$', display: false}
+      ]
+    });"></script>
+
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,400;0,600;0,700;1,400&family=JetBrains+Mono:wght@400;600&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
+
+    :root {
+      --primary: #0f172a;
+      --accent: #0284c7;
+      --accent-dark: #0369a1;
+      --slate-700: #334155;
+      --slate-600: #475569;
+      --slate-500: #64748b;
+      --slate-200: #e2e8f0;
+      --slate-100: #f1f5f9;
+      --border: #cbd5e1;
+    }
+
+    * {
+      box-sizing: border-box;
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+    }
+
+    @page {
+      size: A4 portrait;
+      margin: 10mm 12mm 10mm 12mm;
+    }
+
+    body {
+      font-family: 'Crimson Pro', Georgia, serif;
+      font-size: 9.5pt;
+      line-height: 1.4;
+      color: var(--primary);
+      background-color: #fff;
+      margin: 0;
+      padding: 0;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    header {
+      border-bottom: 2px solid var(--primary);
+      padding-bottom: 12px;
+      margin-bottom: 16px;
+    }
+
+    .header-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 8pt;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--slate-500);
+      margin-bottom: 8px;
+    }
+
+    .report-badge {
+      background: #e0f2fe;
+      color: #0369a1;
+      padding: 3px 10px;
+      border-radius: 4px;
+      font-weight: 800;
+      border: 1px solid #bae6fd;
+    }
+
+    h1 {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 15pt;
+      font-weight: 800;
+      line-height: 1.25;
+      color: var(--primary);
+      margin: 0 0 8px 0;
+    }
+
+    .meta-line {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 8pt;
+      color: var(--slate-600);
+      display: flex;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+
+    .abstract-card {
+      background-color: var(--slate-100);
+      border-left: 3px solid var(--accent);
+      padding: 10px 14px;
+      margin-bottom: 18px;
+      border-radius: 0 6px 6px 0;
+      font-size: 9pt;
+      line-height: 1.42;
+    }
+
+    .abstract-card strong {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 8.5pt;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--accent-dark);
+      display: block;
+      margin-bottom: 4px;
+    }
+
+    h2 {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 11pt;
+      font-weight: 700;
+      color: var(--primary);
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 4px;
+      margin-top: 16px;
+      margin-bottom: 8px;
+    }
+
+    h3 {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 9.5pt;
+      font-weight: 700;
+      color: var(--slate-700);
+      margin-top: 10px;
+      margin-bottom: 4px;
+    }
+
+    p {
+      margin: 0 0 8px 0;
+      text-align: justify;
+    }
+
+    ul, ol {
+      margin: 0 0 10px 0;
+      padding-left: 18px;
+    }
+
+    li {
+      margin-bottom: 4px;
+    }
+
+    .equation-box {
+      background: #f8fafc;
+      border: 1px solid var(--slate-200);
+      border-radius: 4px;
+      padding: 6px 12px;
+      margin: 8px 0;
+      text-align: center;
+    }
+
+    .exercise-box {
+      background: #f0fdf4;
+      border: 1px solid #bbf7d0;
+      border-left: 4px solid #16a34a;
+      border-radius: 4px;
+      padding: 10px 14px;
+      margin: 10px 0;
+    }
+
+    .exercise-title {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-weight: 700;
+      font-size: 9pt;
+      color: #15803d;
+      margin-bottom: 4px;
+    }
+
+    footer {
+      margin-top: 20px;
+      padding-top: 8px;
+      border-top: 1px solid var(--border);
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 7.5pt;
+      color: var(--slate-500);
+      display: flex;
+      justify-content: space-between;
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <header>
+    <div class="header-top">
+      <span>PowerLab Open STEM Curriculum Series</span>
+      <span class="report-badge">Teaching Document &bull; PL-LAB-2026-SOL02</span>
+    </div>
+    <h1>Applied Photovoltaic Engineering Laboratory: Solar PV Array Tilt Optimization, Perez Anisotropic Transposition, and Peak Sun Hour (PSH) Simulation</h1>
+    <div class="meta-line">
+      <span><strong>Authors:</strong> PowerLab Clean Energy Research Group</span>
+      <span><strong>Category:</strong> STEM Laboratory Manual / Problem Set</span>
+      <span><strong>Level:</strong> Undergraduate / Apprenticeship (NABCEP)</span>
+      <span><strong>Platform:</strong> <a href="https://www.powelab.org/solar/solar-panel-tilt-calculator">powelab.org/solar/solar-panel-tilt-calculator</a></span>
+    </div>
+  </header>
+
+  <div class="abstract-card">
+    <strong>Laboratory Overview & Learning Objectives</strong>
+    This laboratory manual provides an open-access, deterministic computational exercise for undergraduate engineering curricula and vocational clean energy apprenticeships. Students investigate solar geometric irradiance modeling, comparing simplified isotropic beam assumptions against empirical anisotropic diffuse sky transposition models (Perez et al.) and ground-reflected albedo dynamics. Students solve three practical problem sets evaluating solar declination, seasonal cosine projection optical losses, and geographic generation deficits across variable latitudes. All governing equations and models are reproducible at https://www.powelab.org/solar/solar-panel-tilt-calculator.
+  </div>
+
+  <h2>1. Theoretical Background & Mathematical Derivations</h2>
+  
+  <h3>1.1 Solar Declination and Solar Geometry</h3>
+  <p>The position of the sun relative to an observer on Earth varies continuously throughout the year due to Earth's axial tilt ($23.45^\circ$) and elliptical orbit. The solar declination angle ($\delta$) is modeled by Cooper's equation where $n$ is the day of the year ($1 \le n \le 365$):</p>
+  
+  <div class="equation-box">
+    $$\delta = 23.45^\circ \times \sin\left( \frac{360}{365} (284 + n) \right)$$
+  </div>
+
+  <p>At solar noon, the solar zenith angle ($\theta_z$) and solar altitude angle ($\alpha$) for an observer at latitude $\phi$ in the northern hemisphere simplify to:</p>
+  <div class="equation-box">
+    $$\theta_z = \phi - \delta, \qquad \alpha = 90^\circ - \theta_z = 90^\circ - \phi + \delta$$
+  </div>
+
+  <h3>1.2 Surface Incidence Angle & Cosine Optical Losses</h3>
+  <p>Direct Normal Irradiance ($I_{\text{DNI}}$) striking a collector tilted at angle $\beta$ from the horizontal with surface azimuth $\gamma$ exhibits an angle of incidence ($\theta$). For a south-facing collector ($\gamma = 0^\circ$) at solar noon ($\omega = 0^\circ$):</p>
+  <div class="equation-box">
+    $$\cos(\theta) = \cos(\phi - \beta - \delta), \qquad I_{\text{surface,beam}} = I_{\text{DNI}} \times \cos(\phi - \beta - \delta)$$
+  </div>
+  <p>When collector tilt matches the local zenith angle ($\beta = \phi - \delta$), incidence angle $\theta = 0^\circ$ and beam capture is 100% maximized.</p>
+
+  <h3>1.3 Perez Anisotropic Sky and Ground Albedo Modeling</h3>
+  <p>Under the Perez anisotropic transposition model incorporated in NREL SAM and PowerLab engines, total global tilted irradiance ($I_{\text{total}}$) incorporates circumsolar, horizon brightening, and ground-reflected albedo components:</p>
+  <div class="equation-box">
+    $$I_{\text{total}} = I_{\text{beam}} R_b + I_{\text{diffuse}} \left[ (1 - F_1)\left(\frac{1 + \cos\beta}{2}\right) + F_1\left(\frac{a}{b}\right) + F_2\sin\beta \right] + I_{\text{global}} \cdot \rho_{\text{ground}} \left(\frac{1 - \cos\beta}{2}\right)$$
+  </div>
+  <p>Where $\rho_{\text{ground}}$ is the ground albedo coefficient ($0.20$ for grass/asphalt, rising to $0.60\text{--}0.85$ under fresh snow cover), and $\left(\frac{1 - \cos\beta}{2}\right)$ represents the ground view factor.</p>
+
+  <h2>2. Hands-On Laboratory Problem Sets</h2>
+
+  <div class="exercise-box">
+    <div class="exercise-title">Exercise 1: Manual Calculation of Solar Geometry (Solstice & Equinox)</div>
+    <p><strong>Scenario:</strong> A solar technician is commissioning a ground-mounted array in Denver, Colorado (Latitude $\phi = 39.7^\circ\text{N}$).</p>
+    <ol>
+      <li>Calculate the solar declination ($\delta$) on the Winter Solstice (December 21, $n = 355$).</li>
+      <li>Compute the solar altitude ($\alpha$) at solar noon in Denver on December 21.</li>
+      <li>Determine the theoretical optimal fixed winter tilt angle ($\beta_{\text{winter}} = \phi - \delta$).</li>
+      <li>Compare the beam incidence angle ($\theta$) on December 21 for a roof mounted flat at latitude ($\beta = 39.7^\circ$) versus a seasonally optimized winter mount ($\beta = 54.7^\circ$). Calculate percentage cosine collection loss.</li>
+    </ol>
+  </div>
+
+  <div class="exercise-box">
+    <div class="exercise-title">Exercise 2: Interactive Simulation & Regional Climate Comparison</div>
+    <p><strong>Scenario:</strong> Model an identical $6.0\text{ kW}$ DC residential monocrystalline photovoltaic system across two geographic locations: Phoenix, AZ ($33.4^\circ\text{N}$) versus Seattle, WA ($47.6^\circ\text{N}$).</p>
+    <ol>
+      <li>Open PowerLab's <a href="https://www.powelab.org/solar/solar-panel-output-calculator">Solar Panel Output Calculator</a>.</li>
+      <li>Configure array size to $6,000\text{ W}$ DC with an average derate factor of $0.85$.</li>
+      <li>Extract average monthly Peak Sun Hours (PSH) for December and June.</li>
+      <li>Calculate the Seasonal Generation Deficit Ratio ($R_{\text{deficit}} = \text{kWh}_{\text{June}} / \text{kWh}_{\text{December}}$) for both sites.</li>
+      <li>Discuss the physical factors (cloud clearness index $\epsilon$ vs geographic zenith angle) driving the observed disparity.</li>
+    </ol>
+  </div>
+
+  <div class="exercise-box">
+    <div class="exercise-title">Exercise 3: Ground Albedo Gain & Snow Reflection Dynamics</div>
+    <p><strong>Scenario:</strong> An off-grid array tilted at a steep winter angle ($\beta = 60^\circ$) is situated in an alpine environment with fresh snow cover ($\rho_{\text{ground}} = 0.75$).</p>
+    <ol>
+      <li>Compute the ground view factor $VF_{\text{ground}} = (1 - \cos(60^\circ))/2$.</li>
+      <li>If horizontal global irradiance ($I_{\text{global}}$) is $450\text{ W/m}^2$, calculate the reflected ground irradiance received on the array face.</li>
+      <li>Compare this with a low-slope summer array ($\beta = 20^\circ$) and explain why steep winter tilts simultaneously shed snow and maximize bifacial/ground reflected irradiance.</li>
+    </ol>
+  </div>
+
+  <h2>3. Discussion & Post-Lab Review Questions</h2>
+  <ul>
+    <li><strong>Question 1:</strong> Why does a fixed year-round tilt equal to site latitude ($\beta = \phi$) underperform seasonal adjustments in off-grid battery systems where winter reliability is paramount?</li>
+    <li><strong>Question 2:</strong> Under what climatic conditions does snow albedo gain justify installing panels at angles steeper than the local latitude?</li>
+    <li><strong>Question 3:</strong> How do negative temperature coefficients of voltage ($\gamma_{Voc}$) interact with low ambient temperatures during peak winter irradiance?</li>
+  </ul>
+
+  <footer>
+    <span>PowerLab &bull; Open STEM Laboratory Curriculum &bull; PL-LAB-2026-SOL02</span>
+    <span>Interactive models: https://www.powelab.org/solar/solar-panel-tilt-calculator</span>
+  </footer>
+</div>
+
+</body>
+</html>
