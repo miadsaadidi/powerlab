@@ -201,6 +201,10 @@ export default function AboutPage() {
         </p>
         <p style={{ marginTop: "1rem" }}>
           Community &amp; user verified: <a href="https://www.trustpilot.com/review/powelab.org" target="_blank" rel="noopener noreferrer" style={{ color: "#00b67a", fontWeight: 600 }}>Review PowerLab on Trustpilot ★★★★★</a>
+          {" • "}
+          <a href="https://www.saashub.com/powerlab" target="_blank" rel="noopener noreferrer" style={{ color: "var(--text-muted, #64748b)", fontWeight: 500 }}>Verified on SaaSHub</a>
+          {" • "}
+          <a href="https://sourceforge.net/projects/powerlab/" target="_blank" rel="noopener noreferrer" style={{ color: "var(--text-muted, #64748b)", fontWeight: 500 }}>SourceForge Project</a>
         </p>
       </section>
     </article>

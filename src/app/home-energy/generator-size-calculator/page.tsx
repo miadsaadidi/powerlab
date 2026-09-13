@@ -13,8 +13,9 @@ import { DirectAnswerCard } from "@/components/seo/direct-answer-card";
 const isPublished = isCalculatorPublished("generator-size");
 
 export const metadata: Metadata = buildPageMetadata({
-  title: "Generator Size Calculator — Running & Surge Watts",
-  description: "Calculate exact generator size (running and starting watts) needed for home, RV, or jobsite appliances. Find the right portable or standby capacity.",
+  title: "Generator Size Calculator — Running & Surge kW",
+  description:
+    "Calculate exact generator size (running and starting watts) needed for home, RV, or jobsite loads. Size portable or whole-home standby capacity.",
   canonicalPath: "/home-energy/generator-size-calculator",
   category: "home-energy",
 });

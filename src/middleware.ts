@@ -5,6 +5,11 @@ export function middleware(request: NextRequest) {
   const host = request.headers.get("host") || "";
   const url = request.nextUrl.clone();
 
+  // Allow IndexNow key verification file to be served directly on apex or www without redirect
+  if (url.pathname.includes("c94b7e8d1a2f43b68019e34a75d28b12")) {
+    return NextResponse.next();
+  }
+
   // Canonicalize host to www.powelab.org in production
   // If request arrives at apex powelab.org, issue a permanent 308 redirect to www.powelab.org
   if (host === "powelab.org") {

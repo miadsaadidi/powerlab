@@ -13,7 +13,7 @@ import { DirectAnswerCard } from "@/components/seo/direct-answer-card";
 const isPublished = isCalculatorPublished("ev-charging-time");
 
 export const metadata: Metadata = buildPageMetadata({
-  title: "EV Charging Time Calculator — AC & DC Charge Time",
+  title: "EV Charging Time Calculator — AC & DC Speed",
   description: "Estimate EV charging time from battery capacity, start and target charge, charger power and vehicle limits with clear AC and DC assumptions.",
   canonicalPath: "/ev/ev-charging-time-calculator",
   category: "ev",

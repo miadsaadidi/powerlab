@@ -13,8 +13,9 @@ import { DirectAnswerCard } from "@/components/seo/direct-answer-card";
 const isPublished = isCalculatorPublished("solar-payback");
 
 export const metadata: Metadata = buildPageMetadata({
-  title: "Solar Payback Calculator — Break-Even & ROI",
-  description: "Calculate your solar payback period in years, return on investment (ROI), and 25-year lifetime savings from system cost, annual yield, and utility rates.",
+  title: "Solar Payback Calculator — ROI & Break-Even",
+  description:
+    "Calculate solar payback period in years, ROI, and 25-year lifetime net savings from system cost, annual solar yield, and electric utility rates.",
   canonicalPath: "/solar/solar-payback-calculator",
   category: "solar",
 });
