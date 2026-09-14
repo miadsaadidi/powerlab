@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Photovoltaic Array Tilt Optimization & Perez Anisotropic Transposition Lab</title>
+<style>
+  body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif; line-height: 1.6; color: #1a202c; max-width: 900px; margin: 40px auto; padding: 0 20px; }
+  h1 { color: #0f172a; font-size: 26px; border-bottom: 2px solid #e2e8f0; padding-bottom: 8px; }
+  h2 { color: #1e293b; font-size: 20px; margin-top: 28px; }
+  h3 { color: #334155; font-size: 16px; margin-top: 18px; }
+  p, li { font-size: 15px; color: #334155; }
+  table { width: 100%; border-collapse: collapse; margin: 20px 0; }
+  th, td { border: 1px solid #cbd5e1; padding: 10px 12px; text-align: left; font-size: 14px; }
+  th { background-color: #f1f5f9; font-weight: 600; }
+  code, pre { background-color: #f8fafc; padding: 3px 6px; border-radius: 4px; font-family: monospace; }
+  a { color: #0284c7; text-decoration: underline; font-weight: 500; }
+  .callout { background: #f0fdf4; border-left: 4px solid #22c55e; padding: 14px; margin: 20px 0; }
+</style>
+</head>
+<body>
+
+<h1>Laboratory Procedure, Mathematical Formulations, and Simulation Workbench</h1>
+
+<h2>1. Pedagogical Learning Objectives</h2>
+<p>Upon completion of this laboratory module, students will be able to:</p>
+<ul>
+  <li>Formulate solar declination (δ), hour angle (ω), and zenith angle (θz) for any geographic latitude and day of year (n).</li>
+  <li>Contrast isotropic transposition models (Liu-Jordan) against anisotropic formulations (Perez 1990) accounting for circumsolar and horizon brightening bands.</li>
+  <li>Utilize open-access computational simulation engines to determine seasonal and annual optimal tilt angles for fixed-tilt photovoltaic arrays.</li>
+  <li>Quantify geometric cosine losses and clipping penalties resulting from non-optimal fixed array orientations.</li>
+</ul>
+
+<h2>2. Theoretical Background & Mathematical Physics</h2>
+
+<h3>2.1 Solar Declination and Geometric Incidence</h3>
+<p>The angle of solar declination δ represents the angular tilt of Earth's rotational axis relative to the ecliptic plane, modeled by Cooper (1969):</p>
+<p><strong>δ = 23.45° · sin((360 / 365) · (284 + n))</strong></p>
+<p>Where <em>n</em> is the day of the year (1 ≤ n ≤ 365).</p>
+
+<h3>2.2 Transposition from Horizontal to Plane of Array (POA)</h3>
+<p>Total incident solar radiation on a tilted collector surface (I_POA) comprises direct beam (I_b), sky diffuse (I_d), and ground-reflected (I_g) components:</p>
+<p><strong>I_POA = I_b,POA + I_d,POA + I_g,POA</strong></p>
+<p>Under anisotropic sky conditions, diffuse circumsolar irradiance is concentrated around the solar disk rather than uniformly distributed across the celestial hemisphere.</p>
+
+<h2>3. Laboratory Apparatus & Simulation Instrument</h2>
+<p>Students will utilize the deterministic simulation suite developed by the PowerLab Applied Energy Modeling Research Initiative to simulate geographic POA irradiance and energy yield without requiring local software compilation:</p>
+<ul>
+  <li><strong>Interactive Laboratory Workbench:</strong> <a href="https://www.powelab.org/solar/solar-panel-tilt-calculator" target="_blank" rel="noopener">PowerLab Solar Panel Tilt & Output Simulation Engine</a></li>
+  <li><strong>Reference Standard Test Conditions (STC):</strong> 1000 W/m², 25°C cell temperature, AM 1.5G spectrum.</li>
+</ul>
+
+<h2>4. Experimental Step-by-Step Procedure</h2>
+<ol>
+  <li><strong>Step 1: Station Configuration</strong> — Open the <a href="https://www.powelab.org/solar/solar-panel-tilt-calculator" target="_blank" rel="noopener">PowerLab Solar Panel Tilt & Output Simulation Engine</a>. Enter your laboratory test latitude (e.g., 34.05° N for Los Angeles or 40.71° N for New York).</li>
+  <li><strong>Step 2: Baseline Measurement (Latitude Tilt)</strong> — Set array tilt equal to geographic latitude (β = Φ). Record the modeled annual Peak Sun Hours (PSH) and annual energy production (kWh/kWp).</li>
+  <li><strong>Step 3: Winter Optimization</strong> — Adjust array tilt to β = Φ + 15°. Record December and January POA irradiance and daily PSH values.</li>
+  <li><strong>Step 4: Summer Optimization</strong> — Adjust array tilt to β = Φ - 15°. Record June and July POA irradiance and daily PSH values.</li>
+  <li><strong>Step 5: Horizontal Collector Baseline</strong> — Set tilt to 0° (horizontal collector) and quantify the annual geometric insolation penalty.</li>
+</ol>
+
+<h2>5. Student Data Collection Matrix</h2>
+<table>
+  <thead>
+    <tr>
+      <th>Test Case</th>
+      <th>Array Tilt (β)</th>
+      <th>Azimuth (γ)</th>
+      <th>Annual Yield (kWh/kWp)</th>
+      <th>Winter PSH (Dec)</th>
+      <th>Summer PSH (Jun)</th>
+      <th>Transposition Gain vs Horiz (%)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>Baseline</strong></td>
+      <td>Φ (Latitude)</td>
+      <td>180° (True South)</td>
+      <td>[ Record ]</td>
+      <td>[ Record ]</td>
+      <td>[ Record ]</td>
+      <td>[ Calculate ]</td>
+    </tr>
+    <tr>
+      <td><strong>Winter Bias</strong></td>
+      <td>Φ + 15°</td>
+      <td>180° (True South)</td>
+      <td>[ Record ]</td>
+      <td>[ Record ]</td>
+      <td>[ Record ]</td>
+      <td>[ Calculate ]</td>
+    </tr>
+    <tr>
+      <td><strong>Summer Bias</strong></td>
+      <td>Φ - 15°</td>
+      <td>180° (True South)</td>
+      <td>[ Record ]</td>
+      <td>[ Record ]</td>
+      <td>[ Record ]</td>
+      <td>[ Calculate ]</td>
+    </tr>
+    <tr>
+      <td><strong>Horizontal</strong></td>
+      <td>0°</td>
+      <td>N/A</td>
+      <td>[ Record ]</td>
+      <td>[ Record ]</td>
+      <td>[ Record ]</td>
+      <td>0.0% (Ref)</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2>6. Post-Lab Analytical Assessment</h2>
+<ol>
+  <li>Explain why an array tilted at β = Φ - 15° maximizes summer kilowatt-hour generation but results in a lower total annual economic yield in regions with flat year-round electricity tariffs.</li>
+  <li>In high-albedo environments (ground snow cover, albedo = 0.65), how does increasing the tilt angle beyond latitude impact the ground-reflected component I_g,POA?</li>
+  <li>Calculate the percentage difference in annual kWh/kWp between the fixed latitude tilt and the seasonal optimum for your assigned latitude.</li>
+</ol>
+
+</body>
+</html>
