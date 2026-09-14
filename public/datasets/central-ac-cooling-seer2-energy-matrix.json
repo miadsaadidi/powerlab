@@ -1,0 +1,22 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "dataset": "PL-DS-2026-AC01",
+  "title": "Empirical Central Air Conditioner SEER2 vs SEER Energy Consumption and Cooling Degree Day (CDD) Benchmark Matrix",
+  "version": "1.0.0",
+  "publisher": "PowerLab Applied Clean Energy Research Group",
+  "canonical_url": "https://www.powelab.org/home-energy/air-conditioner-cost-calculator",
+  "standards_cited": [
+    "AHRI Standard 210/240-2023 (Performance Rating of Unitary Air-Conditioning & Air-Source Heat Pump Equipment)",
+    "ASHRAE Standard 90.1 (Energy Standard for Buildings Except Low-Rise Residential Buildings)",
+    "U.S. Department of Energy (DOE) 10 CFR Part 430 Appendix M1 (SEER2 Testing Metrics)"
+  ],
+  "license": "CC-BY-4.0",
+  "methodology": {
+    "seer2_definition": "Seasonal Energy Efficiency Ratio 2 under DOE M1 external static pressure testing (0.50 in. w.g. vs legacy 0.10-0.20 in. w.g.).",
+    "hourly_power_at_95f": "Electrical power demand in Watts during peak design outdoor dry-bulb temperature (95 deg F / 35 deg C).",
+    "annual_hours_moderate": "1,200 annual compressor runtime hours (typical DOE North/Mid-Atlantic climate).",
+    "annual_hours_hot_south": "2,100 annual compressor runtime hours (typical DOE South/Southeast cooling-dominated climate)."
+  },
+  "records_count": 26,
+  "data_file": "central-ac-cooling-seer2-energy-matrix.csv"
+}

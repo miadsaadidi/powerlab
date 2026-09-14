@@ -1,0 +1,22 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "dataset": "PL-DS-2026-LRA04",
+  "title": "Deterministic Inductive Motor Inrush Currents (LRA) and Non-Coincident Load Stacking Benchmark Matrix",
+  "version": "1.0.0",
+  "publisher": "PowerLab Applied Clean Energy Research Group",
+  "canonical_url": "https://www.powelab.org/home-energy/generator-size-calculator",
+  "standards_cited": [
+    "NEMA Standards Publication MG 1-2021 (Motors and Generators)",
+    "IEEE Std 399-1997 (IEEE Recommended Practice for Industrial and Commercial Power Systems Analysis - Brown Book)",
+    "NFPA 70 National Electrical Code (NEC 2023/2026) Article 430 & Article 702"
+  ],
+  "license": "CC-BY-4.0",
+  "methodology": {
+    "fl_amps_definition": "Continuous full load running current at nominal system voltage (120V or 240V AC split-phase).",
+    "lra_definition": "Locked Rotor Amperes measured at standstill (s=1.0 slip) during initial 50ms-150ms sub-transient period.",
+    "surge_delta_formula": "Delta_P_surge = (LRA * Voltage) - Running_Watts",
+    "soft_start_mitigation": "Calculated assuming solid-state dual-ramp thyristor soft starter reducing initial LRA by 68% (multiplier 0.32x)."
+  },
+  "records_count": 18,
+  "data_file": "motor-inrush-lra-generator-sizing-matrix.csv"
+}
