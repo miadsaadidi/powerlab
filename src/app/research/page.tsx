@@ -23,6 +23,9 @@ export const metadata: Metadata = {
   },
 };
 
+// Helper: Strip bulky parenthetical descriptions from standard identifiers
+const formatStandard = (std: string) => std.replace(/\s*\([^)]*\)/g, "").trim();
+
 export default function ResearchHubPage() {
   const structuredData = {
     "@context": "https://schema.org",
@@ -60,258 +63,405 @@ export default function ResearchHubPage() {
   };
 
   return (
-    <article className="page reading-page">
+    <article className="page reading-page" style={{ maxWidth: "1320px", margin: "0 auto", padding: "2.5rem 1.5rem" }}>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }} />
 
-      <nav className="breadcrumb" aria-label="Breadcrumb">
+      <nav className="breadcrumb" aria-label="Breadcrumb" style={{ marginBottom: "1.25rem" }}>
         <Link href="/">Home</Link>
         <span aria-hidden="true">/</span>
         <span aria-current="page">Research &amp; Whitepapers</span>
       </nav>
 
-      <header className="calculator-header" style={{ border: "1px solid var(--line)", borderRadius: "0.85rem", background: "rgb(255 253 249 / 0.85)", padding: "1.75rem", marginBottom: "2rem" }}>
-        <div style={{ display: "flex", flexWrap: "wrap", gap: "0.5rem", marginBottom: "0.85rem" }}>
-          <div style={{ display: "inline-flex", alignItems: "center", gap: "0.4rem", padding: "0.3rem 0.8rem", borderRadius: "9999px", background: "rgba(2, 132, 199, 0.1)", border: "1px solid rgba(2, 132, 199, 0.25)", color: "var(--accent)", fontSize: "0.78rem", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.04em" }}>
-            <span>🎓</span><span>Academic Preprints &amp; Open Educational Resources (OER)</span>
+      {/* Header Banner */}
+      <header
+        className="calculator-header"
+        style={{
+          border: "1px solid var(--line)",
+          borderRadius: "0.75rem",
+          background: "rgb(255 253 249 / 0.85)",
+          padding: "1.5rem 1.75rem",
+          marginBottom: "2rem",
+        }}
+      >
+        <div style={{ display: "flex", flexWrap: "wrap", gap: "0.4rem", marginBottom: "0.65rem" }}>
+          <div style={{ display: "inline-flex", alignItems: "center", gap: "0.35rem", padding: "0.2rem 0.6rem", borderRadius: "9999px", background: "rgba(2, 132, 199, 0.1)", border: "1px solid rgba(2, 132, 199, 0.25)", color: "var(--accent)", fontSize: "0.74rem", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.03em" }}>
+            <span>🎓</span><span>Academic Preprints &amp; OER Lab</span>
           </div>
-          <div style={{ display: "inline-flex", alignItems: "center", gap: "0.4rem", padding: "0.3rem 0.8rem", borderRadius: "9999px", background: "rgba(16, 185, 129, 0.1)", border: "1px solid rgba(16, 185, 129, 0.25)", color: "#10b981", fontSize: "0.78rem", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.04em" }}>
+          <div style={{ display: "inline-flex", alignItems: "center", gap: "0.35rem", padding: "0.2rem 0.6rem", borderRadius: "9999px", background: "rgba(16, 185, 129, 0.1)", border: "1px solid rgba(16, 185, 129, 0.25)", color: "#10b981", fontSize: "0.74rem", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.03em" }}>
             <span>🛡️</span><span>CC BY 4.0 Open Access</span>
           </div>
-          <div style={{ display: "inline-flex", alignItems: "center", gap: "0.4rem", padding: "0.3rem 0.8rem", borderRadius: "9999px", background: "rgba(167, 139, 250, 0.1)", border: "1px solid rgba(167, 139, 250, 0.25)", color: "#9333ea", fontSize: "0.78rem", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.04em" }}>
-            <span>📊</span><span>Figshare &amp; Harvard Dataverse DOIs</span>
+          <div style={{ display: "inline-flex", alignItems: "center", gap: "0.35rem", padding: "0.2rem 0.6rem", borderRadius: "9999px", background: "rgba(167, 139, 250, 0.1)", border: "1px solid rgba(167, 139, 250, 0.25)", color: "#9333ea", fontSize: "0.74rem", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.03em" }}>
+            <span>📊</span><span>DataCite &amp; Figshare DOIs</span>
           </div>
         </div>
 
-        <h1 style={{ fontSize: "clamp(1.8rem, 3.4vw, 2.6rem)", fontWeight: 800, lineHeight: 1.15, margin: "0.25rem 0 0.75rem", color: "var(--brand-strong)" }}>
+        <h1 style={{ fontSize: "clamp(1.6rem, 2.8vw, 2.25rem)", fontWeight: 800, lineHeight: 1.2, margin: "0.2rem 0 0.5rem", color: "var(--brand-strong)" }}>
           Engineering Research &amp; Technical Whitepapers
         </h1>
-        <p className="intro" style={{ margin: 0, fontSize: "1.05rem", color: "var(--ink)", lineHeight: 1.6, maxWidth: "900px" }}>
-          Peer-referenced technical reports, mathematical modeling frameworks, and continuous-duty electrical engineering preprints published by the PowerLab Open Energy Research Group. All papers are open-access under <strong>Creative Commons CC BY 4.0</strong> and registered with persistent DOIs for academic courseware, syllabus citation, and laboratory benchmarking.
+        <p className="intro" style={{ margin: 0, fontSize: "0.96rem", color: "var(--ink)", lineHeight: 1.55, maxWidth: "980px" }}>
+          Peer-referenced technical reports, mathematical modeling frameworks, and continuous-duty electrical engineering preprints published by the PowerLab Open Energy Research Group. Open-access under <strong>Creative Commons CC BY 4.0</strong> and registered with persistent DOIs for academic courseware, syllabus citation, and laboratory benchmarking.
         </p>
       </header>
 
-      {/* Roster of Published Papers */}
-      <section style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(min(100%, 460px), 1fr))", gap: "1.75rem", marginBottom: "3.5rem" }}>
-        {RESEARCH_PAPERS.map((paper) => (
-          <article
-            key={paper.id}
-            style={{
-              padding: "1.75rem 2rem",
-              borderRadius: "0.85rem",
-              background: "var(--surface)",
-              border: "1px solid var(--line)",
-              borderTop: "4px solid var(--accent, #0284c7)",
-              boxShadow: "0 2px 8px rgba(0,0,0,0.03)",
-              display: "flex",
-              flexDirection: "column",
-              justifyContent: "space-between",
-            }}
-          >
-            <div>
-              {/* Card Metadata Header with Monospace Report Number, DOI Badge, & Date */}
-              <div style={{ display: "flex", flexWrap: "wrap", alignItems: "center", gap: "0.5rem", marginBottom: "0.85rem" }}>
-                <span style={{ background: "var(--surface-subtle, #f1f5f9)", color: "var(--accent, #0284c7)", fontSize: "0.75rem", fontWeight: 700, padding: "0.2rem 0.55rem", borderRadius: "4px", border: "1px solid var(--line)", fontFamily: "monospace" }}>
-                  {paper.reportNumber}
-                </span>
-
-                <span style={{ fontSize: "0.78rem", fontWeight: 700, color: "var(--muted)" }}>
-                  {paper.category}
-                </span>
-
-                <span style={{ fontSize: "0.78rem", color: "var(--muted)", marginLeft: "auto" }}>
-                  {paper.datePublished}
-                </span>
-              </div>
-
-              <h2 style={{ fontSize: "1.32rem", fontWeight: 700, lineHeight: 1.35, margin: "0.25rem 0 0.75rem", color: "var(--brand-strong)" }}>
-                <Link href={`/research/${paper.slug}`} style={{ textDecoration: "none", color: "inherit" }}>
-                  {paper.title}
-                </Link>
-              </h2>
-
-              <p style={{ fontSize: "0.92rem", lineHeight: 1.6, color: "var(--ink)", marginBottom: "1.25rem" }}>
-                {paper.abstract}
-              </p>
-
-              {/* Standards Badges */}
-              <div style={{ display: "flex", flexWrap: "wrap", gap: "0.4rem", marginBottom: "1.5rem" }}>
-                {paper.standards.map((std, sIdx) => (
-                  <span key={sIdx} style={{ fontSize: "0.74rem", padding: "2px 8px", borderRadius: "4px", background: "var(--surface-subtle, #f8fafc)", border: "1px solid var(--line)", color: "var(--muted)" }}>
-                    🏛️ {std}
-                  </span>
-                ))}
-              </div>
-            </div>
-
-            {/* Paper Action Bar: Read Online, Download PDF, Academia */}
-            <div style={{ display: "flex", flexWrap: "wrap", alignItems: "center", gap: "0.6rem", paddingTop: "1rem", borderTop: "1px solid var(--line)" }}>
-              <Link
-                href={`/research/${paper.slug}`}
-                style={{
-                  display: "inline-flex",
-                  alignItems: "center",
-                  gap: "0.4rem",
-                  background: "#0284c7",
-                  color: "#ffffff",
-                  fontWeight: 700,
-                  fontSize: "0.85rem",
-                  padding: "0.55rem 1.15rem",
-                  borderRadius: "0.45rem",
-                  textDecoration: "none",
-                  boxShadow: "0 2px 4px rgba(2, 132, 199, 0.3)",
-                  minHeight: "40px",
-                }}
-              >
-                Read Paper Online →
-              </Link>
-
-              <a
-                href={paper.pdfUrl}
-                download
-                style={{
-                  display: "inline-flex",
-                  alignItems: "center",
-                  gap: "0.4rem",
-                  background: "transparent",
-                  color: "var(--ink)",
-                  border: "1px solid var(--line)",
-                  fontWeight: 600,
-                  fontSize: "0.85rem",
-                  padding: "0.55rem 1.15rem",
-                  borderRadius: "0.45rem",
-                  textDecoration: "none",
-                  minHeight: "40px",
-                }}
-              >
-                <span>📄</span>
-                <span>Download PDF</span>
-              </a>
-
-              {paper.academiaUrl && (
-                <a
-                  href={paper.academiaUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  style={{
-                    display: "inline-flex",
-                    alignItems: "center",
-                    gap: "0.35rem",
-                    background: "rgba(185, 28, 28, 0.08)",
-                    color: "#ef4444",
-                    border: "1px solid rgba(239, 68, 68, 0.25)",
-                    fontWeight: 600,
-                    fontSize: "0.82rem",
-                    padding: "0.55rem 0.95rem",
-                    borderRadius: "0.45rem",
-                    textDecoration: "none",
-                    minHeight: "40px",
-                  }}
-                  title="Read Preprint on Academia.edu"
-                >
-                  <span>🎓</span>
-                  <span>Academia.edu</span>
-                  <span style={{ fontSize: "0.75rem", opacity: 0.8 }}>↗</span>
-                </a>
-              )}
-            </div>
-          </article>
-        ))}
-      </section>
-
-      {/* Dedicated Section: Student Laboratory Exercises & Open Courseware */}
-      <section style={{ marginBottom: "3.5rem" }}>
-        <div style={{ display: "flex", alignItems: "center", gap: "0.6rem", marginBottom: "0.75rem" }}>
-          <span style={{ fontSize: "1.35rem" }}>🔬</span>
-          <h2 style={{ fontSize: "1.75rem", fontWeight: 800, color: "var(--brand-strong)", letterSpacing: "-0.01em", margin: 0 }}>
-            Student Laboratory Exercises &amp; Courseware
+      {/* Section 1: 3-Column Responsive Grid of Technical Whitepapers */}
+      <section style={{ marginBottom: "3rem" }}>
+        <div style={{ display: "flex", alignItems: "center", gap: "0.5rem", marginBottom: "1rem" }}>
+          <span style={{ fontSize: "1.25rem" }}>📑</span>
+          <h2 style={{ fontSize: "1.45rem", fontWeight: 800, color: "var(--brand-strong)", margin: 0 }}>
+            Technical Reports &amp; Whitepapers
           </h2>
+          <span style={{ fontSize: "0.8rem", fontWeight: 700, background: "var(--surface-subtle, #f1f5f9)", color: "var(--muted)", padding: "0.15rem 0.5rem", borderRadius: "9999px", border: "1px solid var(--line)", marginLeft: "0.25rem" }}>
+            {RESEARCH_PAPERS.length} Papers
+          </span>
         </div>
-        <p style={{ fontSize: "0.95rem", color: "var(--muted)", maxWidth: "880px", lineHeight: 1.6, marginBottom: "1.75rem" }}>
-          Turnkey computational laboratory exercises and problem sets designed for undergraduate electrical engineering courses, clean energy degree programs, and vocational IBEW/NECA apprenticeships. Each module pairs first-principles physical derivations with side-effect-free, open-access simulation engines.
-        </p>
 
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(min(100%, 460px), 1fr))", gap: "1.75rem" }}>
-          {STUDENT_LAB_EXERCISES.map((lab) => (
-            <div
-              key={lab.id}
+        <div
+          style={{
+            display: "grid",
+            gridTemplateColumns: "repeat(auto-fill, minmax(min(100%, 350px), 1fr))",
+            gap: "1.25rem",
+          }}
+        >
+          {RESEARCH_PAPERS.map((paper) => (
+            <article
+              key={paper.id}
               style={{
+                padding: "1.25rem",
+                borderRadius: "0.65rem",
                 background: "var(--surface)",
                 border: "1px solid var(--line)",
-                borderTop: "4px solid #8b5cf6",
-                borderRadius: "0.85rem",
-                padding: "1.75rem 2rem",
-                boxShadow: "0 2px 8px rgba(0,0,0,0.03)",
+                borderTop: "3px solid #0284c7",
+                boxShadow: "0 2px 6px rgba(0,0,0,0.02)",
                 display: "flex",
                 flexDirection: "column",
                 justifyContent: "space-between",
               }}
             >
               <div>
-                <div style={{ display: "flex", flexWrap: "wrap", alignItems: "center", gap: "0.5rem", marginBottom: "0.85rem" }}>
-                  <span style={{ background: "rgba(139, 92, 246, 0.1)", color: "#7c3aed", fontSize: "0.75rem", fontWeight: 700, padding: "0.2rem 0.55rem", borderRadius: "4px", border: "1px solid rgba(139, 92, 246, 0.25)", fontFamily: "monospace" }}>
+                {/* Header: Monospace Report ID + Category + Date */}
+                <div style={{ display: "flex", flexWrap: "wrap", alignItems: "center", gap: "0.4rem", marginBottom: "0.65rem" }}>
+                  <span style={{ background: "var(--surface-subtle, #f1f5f9)", color: "#0284c7", fontSize: "0.72rem", fontWeight: 700, padding: "0.15rem 0.45rem", borderRadius: "4px", border: "1px solid var(--line)", fontFamily: "monospace" }}>
+                    {paper.reportNumber}
+                  </span>
+                  <span style={{ fontSize: "0.73rem", fontWeight: 600, color: "var(--muted)" }}>
+                    {paper.category}
+                  </span>
+                  <span style={{ fontSize: "0.72rem", color: "var(--muted)", marginLeft: "auto" }}>
+                    {paper.datePublished}
+                  </span>
+                </div>
+
+                {/* Clamped Paper Title (2 Lines) */}
+                <h3
+                  style={{
+                    fontSize: "1.08rem",
+                    fontWeight: 700,
+                    lineHeight: 1.35,
+                    margin: "0 0 0.5rem",
+                    color: "var(--brand-strong)",
+                    display: "-webkit-box",
+                    WebkitLineClamp: 2,
+                    WebkitBoxOrient: "vertical",
+                    overflow: "hidden",
+                    minHeight: "2.7rem",
+                  }}
+                >
+                  <Link href={`/research/${paper.slug}`} style={{ textDecoration: "none", color: "inherit" }} title={paper.title}>
+                    {paper.title}
+                  </Link>
+                </h3>
+
+                {/* Clamped Abstract (3 Lines) */}
+                <p
+                  style={{
+                    fontSize: "0.84rem",
+                    lineHeight: 1.45,
+                    color: "var(--ink)",
+                    marginBottom: "0.75rem",
+                    display: "-webkit-box",
+                    WebkitLineClamp: 3,
+                    WebkitBoxOrient: "vertical",
+                    overflow: "hidden",
+                    minHeight: "3.65rem",
+                  }}
+                  title={paper.abstract}
+                >
+                  {paper.abstract}
+                </p>
+
+                {/* Standards Micro-Pills */}
+                <div style={{ display: "flex", flexWrap: "wrap", gap: "0.3rem", marginBottom: "0.85rem" }}>
+                  {paper.standards.slice(0, 3).map((std, sIdx) => (
+                    <span
+                      key={sIdx}
+                      style={{
+                        fontSize: "0.67rem",
+                        padding: "0.15rem 0.4rem",
+                        borderRadius: "4px",
+                        background: "var(--surface-subtle, #f8fafc)",
+                        border: "1px solid var(--line)",
+                        color: "var(--muted)",
+                        whiteSpace: "nowrap",
+                      }}
+                      title={std}
+                    >
+                      🏛️ {formatStandard(std)}
+                    </span>
+                  ))}
+                  {paper.standards.length > 3 && (
+                    <span
+                      style={{
+                        fontSize: "0.67rem",
+                        padding: "0.15rem 0.4rem",
+                        borderRadius: "4px",
+                        background: "var(--surface-subtle, #f8fafc)",
+                        border: "1px solid var(--line)",
+                        color: "var(--muted)",
+                        whiteSpace: "nowrap",
+                      }}
+                    >
+                      +{paper.standards.length - 3} more
+                    </span>
+                  )}
+                </div>
+              </div>
+
+              {/* Micro Action Button Bar */}
+              <div
+                style={{
+                  display: "flex",
+                  flexWrap: "wrap",
+                  alignItems: "center",
+                  gap: "0.4rem",
+                  paddingTop: "0.75rem",
+                  borderTop: "1px solid var(--line)",
+                }}
+              >
+                <Link
+                  href={`/research/${paper.slug}`}
+                  style={{
+                    display: "inline-flex",
+                    alignItems: "center",
+                    gap: "0.25rem",
+                    background: "#0284c7",
+                    color: "#ffffff",
+                    fontWeight: 700,
+                    fontSize: "0.75rem",
+                    padding: "0.32rem 0.65rem",
+                    borderRadius: "0.35rem",
+                    textDecoration: "none",
+                  }}
+                >
+                  Read →
+                </Link>
+
+                <a
+                  href={paper.pdfUrl}
+                  download
+                  style={{
+                    display: "inline-flex",
+                    alignItems: "center",
+                    gap: "0.25rem",
+                    background: "rgba(239, 68, 68, 0.08)",
+                    color: "#ef4444",
+                    border: "1px solid rgba(239, 68, 68, 0.3)",
+                    fontWeight: 700,
+                    fontSize: "0.75rem",
+                    padding: "0.32rem 0.65rem",
+                    borderRadius: "0.35rem",
+                    textDecoration: "none",
+                  }}
+                >
+                  📥 PDF
+                </a>
+
+                {paper.doi && (
+                  <a
+                    href={`https://doi.org/${paper.doi}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    style={{
+                      display: "inline-flex",
+                      alignItems: "center",
+                      gap: "0.25rem",
+                      background: "rgba(147, 51, 234, 0.08)",
+                      color: "#9333ea",
+                      border: "1px solid rgba(147, 51, 234, 0.25)",
+                      fontWeight: 600,
+                      fontSize: "0.75rem",
+                      padding: "0.32rem 0.65rem",
+                      borderRadius: "0.35rem",
+                      textDecoration: "none",
+                    }}
+                    title={`DataCite DOI: ${paper.doi}`}
+                  >
+                    <span>📊 Figshare</span>
+                    <span style={{ fontSize: "0.65rem", opacity: 0.8 }}>↗</span>
+                  </a>
+                )}
+
+                {paper.academiaUrl && (
+                  <a
+                    href={paper.academiaUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    style={{
+                      display: "inline-flex",
+                      alignItems: "center",
+                      gap: "0.25rem",
+                      background: "rgba(185, 28, 28, 0.08)",
+                      color: "#dc2626",
+                      border: "1px solid rgba(220, 38, 38, 0.25)",
+                      fontWeight: 600,
+                      fontSize: "0.75rem",
+                      padding: "0.32rem 0.65rem",
+                      borderRadius: "0.35rem",
+                      textDecoration: "none",
+                    }}
+                    title="Read on Academia.edu"
+                  >
+                    <span>🎓 Academia</span>
+                    <span style={{ fontSize: "0.65rem", opacity: 0.8 }}>↗</span>
+                  </a>
+                )}
+              </div>
+            </article>
+          ))}
+        </div>
+      </section>
+
+      {/* Section 2: Student Laboratory Exercises & Open Courseware */}
+      <section style={{ marginBottom: "3rem" }}>
+        <div style={{ display: "flex", alignItems: "center", gap: "0.5rem", marginBottom: "0.5rem" }}>
+          <span style={{ fontSize: "1.25rem" }}>🔬</span>
+          <h2 style={{ fontSize: "1.45rem", fontWeight: 800, color: "var(--brand-strong)", margin: 0 }}>
+            Student Laboratory Exercises &amp; Courseware
+          </h2>
+          <span style={{ fontSize: "0.8rem", fontWeight: 700, background: "rgba(139, 92, 246, 0.1)", color: "#7c3aed", padding: "0.15rem 0.5rem", borderRadius: "9999px", border: "1px solid rgba(139, 92, 246, 0.25)", marginLeft: "0.25rem" }}>
+            {STUDENT_LAB_EXERCISES.length} Modules
+          </span>
+        </div>
+        <p style={{ fontSize: "0.9rem", color: "var(--muted)", maxWidth: "900px", lineHeight: 1.5, marginBottom: "1.25rem" }}>
+          Turnkey computational laboratory exercises and problem sets designed for undergraduate electrical engineering courses and vocational apprenticeships.
+        </p>
+
+        <div
+          style={{
+            display: "grid",
+            gridTemplateColumns: "repeat(auto-fill, minmax(min(100%, 350px), 1fr))",
+            gap: "1.25rem",
+          }}
+        >
+          {STUDENT_LAB_EXERCISES.map((lab) => (
+            <div
+              key={lab.id}
+              style={{
+                background: "var(--surface)",
+                border: "1px solid var(--line)",
+                borderTop: "3px solid #8b5cf6",
+                borderRadius: "0.65rem",
+                padding: "1.25rem",
+                boxShadow: "0 2px 6px rgba(0,0,0,0.02)",
+                display: "flex",
+                flexDirection: "column",
+                justifyContent: "space-between",
+              }}
+            >
+              <div>
+                <div style={{ display: "flex", flexWrap: "wrap", alignItems: "center", gap: "0.4rem", marginBottom: "0.65rem" }}>
+                  <span style={{ background: "rgba(139, 92, 246, 0.1)", color: "#7c3aed", fontSize: "0.72rem", fontWeight: 700, padding: "0.15rem 0.45rem", borderRadius: "4px", border: "1px solid rgba(139, 92, 246, 0.25)", fontFamily: "monospace" }}>
                     {lab.labNumber}
                   </span>
-                  <span style={{ fontSize: "0.76rem", fontWeight: 700, color: "var(--muted)" }}>
+                  <span style={{ fontSize: "0.72rem", fontWeight: 600, color: "var(--muted)" }}>
                     {lab.targetCourse}
                   </span>
-                  <span style={{ fontSize: "0.74rem", color: "#10b981", fontWeight: 600, marginLeft: "auto", background: "rgba(16, 185, 129, 0.08)", padding: "2px 8px", borderRadius: "4px", border: "1px solid rgba(16, 185, 129, 0.2)" }}>
+                  <span style={{ fontSize: "0.7rem", color: "#10b981", fontWeight: 600, marginLeft: "auto", background: "rgba(16, 185, 129, 0.08)", padding: "0.15rem 0.45rem", borderRadius: "4px", border: "1px solid rgba(16, 185, 129, 0.2)" }}>
                     {lab.level}
                   </span>
                 </div>
 
-                <h3 style={{ fontSize: "1.25rem", fontWeight: 700, lineHeight: 1.35, margin: "0.25rem 0 0.6rem", color: "var(--brand-strong)" }}>
+                <h3
+                  style={{
+                    fontSize: "1.08rem",
+                    fontWeight: 700,
+                    lineHeight: 1.35,
+                    margin: "0 0 0.35rem",
+                    color: "var(--brand-strong)",
+                    display: "-webkit-box",
+                    WebkitLineClamp: 2,
+                    WebkitBoxOrient: "vertical",
+                    overflow: "hidden",
+                    minHeight: "2.7rem",
+                  }}
+                >
                   {lab.title}
                 </h3>
-                <p style={{ fontSize: "0.88rem", fontWeight: 500, color: "var(--accent)", lineHeight: 1.45, marginBottom: "0.85rem" }}>
-                  {lab.subtitle}
-                </p>
-                <p style={{ fontSize: "0.9rem", lineHeight: 1.6, color: "var(--ink)", marginBottom: "1.1rem" }}>
+
+                <p
+                  style={{
+                    fontSize: "0.84rem",
+                    lineHeight: 1.45,
+                    color: "var(--ink)",
+                    marginBottom: "0.75rem",
+                    display: "-webkit-box",
+                    WebkitLineClamp: 3,
+                    WebkitBoxOrient: "vertical",
+                    overflow: "hidden",
+                    minHeight: "3.65rem",
+                  }}
+                  title={lab.description}
+                >
                   {lab.description}
                 </p>
 
-                {/* Learning Objectives */}
-                <div style={{ background: "var(--surface-subtle, #f8fafc)", border: "1px solid var(--line)", borderRadius: "0.5rem", padding: "0.85rem 1rem", marginBottom: "1.25rem" }}>
-                  <div style={{ fontSize: "0.75rem", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.05em", color: "var(--brand-strong)", marginBottom: "0.4rem" }}>
-                    🎯 Key Learning Objectives
-                  </div>
-                  <ul style={{ margin: 0, paddingLeft: "1.1rem", fontSize: "0.84rem", lineHeight: 1.5, color: "var(--slate-700, #334155)" }}>
-                    {lab.learningObjectives.map((obj, oIdx) => (
-                      <li key={oIdx} style={{ marginBottom: "0.3rem" }}>
-                        {obj}
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-
-                {/* Standards Badges */}
-                <div style={{ display: "flex", flexWrap: "wrap", gap: "0.4rem", marginBottom: "1.5rem" }}>
+                {/* Standards Micro-Pills */}
+                <div style={{ display: "flex", flexWrap: "wrap", gap: "0.3rem", marginBottom: "0.85rem" }}>
                   {lab.standards.map((std, sIdx) => (
-                    <span key={sIdx} style={{ fontSize: "0.72rem", padding: "2px 8px", borderRadius: "4px", background: "var(--surface-subtle, #f8fafc)", border: "1px solid var(--line)", color: "var(--muted)" }}>
-                      📐 {std}
+                    <span
+                      key={sIdx}
+                      style={{
+                        fontSize: "0.67rem",
+                        padding: "0.15rem 0.4rem",
+                        borderRadius: "4px",
+                        background: "var(--surface-subtle, #f8fafc)",
+                        border: "1px solid var(--line)",
+                        color: "var(--muted)",
+                        whiteSpace: "nowrap",
+                      }}
+                    >
+                      📐 {formatStandard(std)}
                     </span>
                   ))}
                 </div>
               </div>
 
-              <div style={{ display: "flex", flexWrap: "wrap", alignItems: "center", gap: "0.6rem", paddingTop: "1rem", borderTop: "1px solid var(--line)" }}>
+              {/* Lab Actions */}
+              <div
+                style={{
+                  display: "flex",
+                  flexWrap: "wrap",
+                  alignItems: "center",
+                  gap: "0.4rem",
+                  paddingTop: "0.75rem",
+                  borderTop: "1px solid var(--line)",
+                }}
+              >
                 <Link
                   href={lab.calculatorRoute}
                   style={{
                     display: "inline-flex",
                     alignItems: "center",
-                    gap: "0.4rem",
+                    gap: "0.25rem",
                     background: "#7c3aed",
                     color: "#ffffff",
                     fontWeight: 700,
-                    fontSize: "0.85rem",
-                    padding: "0.55rem 1.15rem",
-                    borderRadius: "0.45rem",
+                    fontSize: "0.75rem",
+                    padding: "0.32rem 0.65rem",
+                    borderRadius: "0.35rem",
                     textDecoration: "none",
-                    boxShadow: "0 2px 4px rgba(124, 58, 237, 0.3)",
-                    minHeight: "40px",
                   }}
                 >
-                  {lab.calculatorLabel}
+                  Launch Model →
                 </Link>
 
                 {lab.pdfUrl && (
@@ -322,19 +472,18 @@ export default function ResearchHubPage() {
                     style={{
                       display: "inline-flex",
                       alignItems: "center",
-                      gap: "0.35rem",
-                      background: "transparent",
-                      color: "var(--ink)",
-                      border: "1px solid var(--line)",
-                      fontWeight: 600,
-                      fontSize: "0.82rem",
-                      padding: "0.5rem 0.9rem",
-                      borderRadius: "0.45rem",
+                      gap: "0.25rem",
+                      background: "rgba(239, 68, 68, 0.08)",
+                      color: "#ef4444",
+                      border: "1px solid rgba(239, 68, 68, 0.3)",
+                      fontWeight: 700,
+                      fontSize: "0.75rem",
+                      padding: "0.32rem 0.65rem",
+                      borderRadius: "0.35rem",
                       textDecoration: "none",
-                      minHeight: "40px",
                     }}
                   >
-                    <span>📥 Download PDF</span>
+                    📥 PDF
                   </a>
                 )}
 
@@ -346,63 +495,68 @@ export default function ResearchHubPage() {
                     style={{
                       display: "inline-flex",
                       alignItems: "center",
-                      gap: "0.35rem",
+                      gap: "0.25rem",
                       background: "rgba(2, 132, 199, 0.08)",
                       color: "var(--accent, #0284c7)",
                       border: "1px solid rgba(2, 132, 199, 0.25)",
                       fontWeight: 600,
-                      fontSize: "0.82rem",
-                      padding: "0.5rem 0.9rem",
-                      borderRadius: "0.45rem",
+                      fontSize: "0.75rem",
+                      padding: "0.32rem 0.65rem",
+                      borderRadius: "0.35rem",
                       textDecoration: "none",
-                      minHeight: "40px",
                     }}
                   >
-                    <span>Read on Academia.edu ↗</span>
+                    <span>🎓 Academia</span>
+                    <span style={{ fontSize: "0.65rem", opacity: 0.8 }}>↗</span>
                   </a>
                 )}
-
-                <span style={{ fontSize: "0.78rem", color: "var(--muted)", fontStyle: "italic", marginLeft: "auto" }}>
-                  Category: {lab.academiaCategory}
-                </span>
               </div>
             </div>
           ))}
         </div>
       </section>
 
-      {/* Dedicated Section: Open Benchmark Datasets & Replication Repositories */}
-      <section style={{ marginBottom: "3.5rem" }}>
-        <div style={{ display: "flex", alignItems: "center", gap: "0.6rem", marginBottom: "0.75rem" }}>
-          <span style={{ fontSize: "1.35rem" }}>📊</span>
-          <h2 style={{ fontSize: "1.75rem", fontWeight: 800, color: "var(--brand-strong)", letterSpacing: "-0.01em", margin: 0 }}>
-            Open Benchmark Datasets &amp; Replication Repositories
+      {/* Section 3: Open Benchmark Datasets Grid */}
+      <section style={{ marginBottom: "3rem" }}>
+        <div style={{ display: "flex", alignItems: "center", gap: "0.5rem", marginBottom: "0.5rem" }}>
+          <span style={{ fontSize: "1.25rem" }}>📊</span>
+          <h2 style={{ fontSize: "1.45rem", fontWeight: 800, color: "var(--brand-strong)", margin: 0 }}>
+            Open Benchmark Datasets
           </h2>
+          <span style={{ fontSize: "0.8rem", fontWeight: 700, background: "rgba(16, 185, 129, 0.1)", color: "#10b981", padding: "0.15rem 0.5rem", borderRadius: "9999px", border: "1px solid rgba(16, 185, 129, 0.25)", marginLeft: "0.25rem" }}>
+            {BENCHMARK_DATASETS.length} Repositories
+          </span>
         </div>
-        <p style={{ fontSize: "0.95rem", color: "var(--muted)", maxWidth: "850px", lineHeight: 1.6, marginBottom: "1.5rem" }}>
-          Verified empirical tabular datasets and reproducible calculation packages registered with persistent DataCite DOIs across Harvard Dataverse and Figshare. Freely accessible for university electrical engineering courseware, lab validation, and DER infrastructure modeling.
+        <p style={{ fontSize: "0.9rem", color: "var(--muted)", maxWidth: "900px", lineHeight: 1.5, marginBottom: "1.25rem" }}>
+          Empirical matrices and reproducible packages registered with persistent DataCite DOIs across Figshare and Harvard Dataverse.
         </p>
 
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(min(100%, 420px), 1fr))", gap: "1.5rem" }}>
+        <div
+          style={{
+            display: "grid",
+            gridTemplateColumns: "repeat(auto-fill, minmax(min(100%, 350px), 1fr))",
+            gap: "1.25rem",
+          }}
+        >
           {BENCHMARK_DATASETS.map((ds) => (
             <div
               key={ds.id}
               style={{
                 background: "var(--surface)",
                 border: "1px solid var(--line)",
-                borderTop: "4px solid #10b981",
-                borderRadius: "0.75rem",
-                padding: "1.5rem 1.75rem",
-                boxShadow: "0 2px 6px rgba(0,0,0,0.03)",
+                borderTop: "3px solid #10b981",
+                borderRadius: "0.65rem",
+                padding: "1.25rem",
+                boxShadow: "0 2px 6px rgba(0,0,0,0.02)",
                 display: "flex",
                 flexDirection: "column",
                 justifyContent: "space-between",
               }}
             >
               <div>
-                <div style={{ display: "flex", flexWrap: "wrap", alignItems: "center", gap: "0.5rem", marginBottom: "0.75rem" }}>
-                  <span style={{ background: "rgba(16, 185, 129, 0.1)", color: "#10b981", fontSize: "0.72rem", fontWeight: 700, padding: "0.15rem 0.5rem", borderRadius: "4px", textTransform: "uppercase" }}>
-                    {ds.repository}
+                <div style={{ display: "flex", flexWrap: "wrap", alignItems: "center", gap: "0.4rem", marginBottom: "0.65rem" }}>
+                  <span style={{ background: "rgba(16, 185, 129, 0.1)", color: "#10b981", fontSize: "0.72rem", fontWeight: 700, padding: "0.15rem 0.45rem", borderRadius: "4px", textTransform: "uppercase" }}>
+                    📊 {ds.repository}
                   </span>
                   {ds.doi && (
                     <a
@@ -412,9 +566,9 @@ export default function ResearchHubPage() {
                       style={{
                         background: "var(--surface-subtle, #f1f5f9)",
                         color: "var(--ink-secondary)",
-                        fontSize: "0.72rem",
+                        fontSize: "0.7rem",
                         fontWeight: 600,
-                        padding: "0.15rem 0.5rem",
+                        padding: "0.15rem 0.45rem",
                         borderRadius: "4px",
                         border: "1px solid var(--line)",
                         fontFamily: "monospace",
@@ -424,27 +578,59 @@ export default function ResearchHubPage() {
                       DOI: {ds.doi}
                     </a>
                   )}
-                  <span style={{ fontSize: "0.75rem", color: "var(--muted)", marginLeft: "auto" }}>
-                    {ds.recordCount} &bull; {ds.format}
+                  <span style={{ fontSize: "0.72rem", color: "var(--muted)", marginLeft: "auto" }}>
+                    {ds.recordCount}
                   </span>
                 </div>
 
-                <h3 style={{ fontSize: "1.15rem", fontWeight: 700, color: "var(--brand-strong)", marginBottom: "0.45rem", lineHeight: 1.35 }}>
-                  <Link href={`/research/${ds.paperSlug}`} style={{ color: "inherit", textDecoration: "none" }}>
+                <h3
+                  style={{
+                    fontSize: "1.08rem",
+                    fontWeight: 700,
+                    color: "var(--brand-strong)",
+                    marginBottom: "0.35rem",
+                    lineHeight: 1.35,
+                    display: "-webkit-box",
+                    WebkitLineClamp: 2,
+                    WebkitBoxOrient: "vertical",
+                    overflow: "hidden",
+                    minHeight: "2.7rem",
+                  }}
+                >
+                  <Link href={`/research/${ds.paperSlug}`} style={{ color: "inherit", textDecoration: "none" }} title={ds.title}>
                     {ds.title}
                   </Link>
                 </h3>
 
-                <p style={{ fontSize: "0.85rem", color: "var(--muted)", lineHeight: 1.5, marginBottom: "0.85rem" }}>
-                  {ds.subtitle}
-                </p>
-
-                <p style={{ fontSize: "0.88rem", color: "var(--ink)", lineHeight: 1.55, marginBottom: "1.25rem" }}>
+                <p
+                  style={{
+                    fontSize: "0.84rem",
+                    color: "var(--ink)",
+                    lineHeight: 1.45,
+                    marginBottom: "0.75rem",
+                    display: "-webkit-box",
+                    WebkitLineClamp: 3,
+                    WebkitBoxOrient: "vertical",
+                    overflow: "hidden",
+                    minHeight: "3.65rem",
+                  }}
+                  title={ds.description}
+                >
                   {ds.description}
                 </p>
               </div>
 
-              <div style={{ display: "flex", flexWrap: "wrap", alignItems: "center", gap: "0.6rem", paddingTop: "0.85rem", borderTop: "1px solid var(--line)" }}>
+              {/* Dataset Action Bar */}
+              <div
+                style={{
+                  display: "flex",
+                  flexWrap: "wrap",
+                  alignItems: "center",
+                  gap: "0.4rem",
+                  paddingTop: "0.75rem",
+                  borderTop: "1px solid var(--line)",
+                }}
+              >
                 {ds.status === "published" ? (
                   <>
                     <a
@@ -454,18 +640,17 @@ export default function ResearchHubPage() {
                       style={{
                         display: "inline-flex",
                         alignItems: "center",
-                        gap: "0.35rem",
+                        gap: "0.25rem",
                         background: "#10b981",
                         color: "#ffffff",
                         fontWeight: 700,
-                        fontSize: "0.8rem",
-                        padding: "0.5rem 1rem",
-                        borderRadius: "0.4rem",
+                        fontSize: "0.75rem",
+                        padding: "0.32rem 0.65rem",
+                        borderRadius: "0.35rem",
                         textDecoration: "none",
-                        minHeight: "38px",
                       }}
                     >
-                      <span>View Repository on {ds.repository} →</span>
+                      <span>Repository →</span>
                     </a>
                     <a
                       href={ds.downloadUrl || ds.repositoryUrl}
@@ -474,19 +659,18 @@ export default function ResearchHubPage() {
                       style={{
                         display: "inline-flex",
                         alignItems: "center",
-                        gap: "0.35rem",
-                        background: "transparent",
-                        color: "var(--ink)",
-                        border: "1px solid var(--line)",
+                        gap: "0.25rem",
+                        background: "rgba(16, 185, 129, 0.08)",
+                        color: "#059669",
+                        border: "1px solid rgba(16, 185, 129, 0.3)",
                         fontWeight: 600,
-                        fontSize: "0.8rem",
-                        padding: "0.5rem 1rem",
-                        borderRadius: "0.4rem",
+                        fontSize: "0.75rem",
+                        padding: "0.32rem 0.65rem",
+                        borderRadius: "0.35rem",
                         textDecoration: "none",
-                        minHeight: "38px",
                       }}
                     >
-                      <span>📥 Download {ds.format.split("/")[0].trim()}</span>
+                      <span>📥 {ds.format.split("/")[0].trim()}</span>
                     </a>
                   </>
                 ) : (
@@ -496,35 +680,33 @@ export default function ResearchHubPage() {
                       style={{
                         display: "inline-flex",
                         alignItems: "center",
-                        gap: "0.35rem",
+                        gap: "0.25rem",
                         background: "var(--surface-subtle, #f1f5f9)",
                         color: "var(--ink)",
                         border: "1px solid var(--line)",
                         fontWeight: 600,
-                        fontSize: "0.8rem",
-                        padding: "0.5rem 1rem",
-                        borderRadius: "0.4rem",
+                        fontSize: "0.75rem",
+                        padding: "0.32rem 0.65rem",
+                        borderRadius: "0.35rem",
                         textDecoration: "none",
-                        minHeight: "38px",
                       }}
                     >
-                      <span>Read Paper &amp; Mathematical Model →</span>
+                      <span>Read Paper →</span>
                     </Link>
                     <span
                       style={{
                         display: "inline-flex",
                         alignItems: "center",
-                        gap: "0.35rem",
-                        fontSize: "0.78rem",
+                        gap: "0.25rem",
+                        fontSize: "0.72rem",
                         fontWeight: 600,
                         color: "var(--muted)",
-                        padding: "0.45rem 0.75rem",
-                        borderRadius: "0.4rem",
+                        padding: "0.3rem 0.5rem",
+                        borderRadius: "0.35rem",
                         border: "1px dashed var(--line)",
-                        minHeight: "38px",
                       }}
                     >
-                      <span>🔒 Accession Pending ({ds.repository})</span>
+                      <span>🔒 Pending</span>
                     </span>
                   </>
                 )}
@@ -535,22 +717,29 @@ export default function ResearchHubPage() {
       </section>
 
       {/* Academic Syndication & OER Trust Section */}
-      <section style={{ padding: "1.75rem", borderRadius: "0.85rem", background: "var(--surface)", border: "1px solid var(--line)" }}>
-        <h2 style={{ marginTop: 0, fontSize: "1.35rem", color: "var(--brand-strong)" }}>
+      <section
+        style={{
+          padding: "1.5rem",
+          borderRadius: "0.75rem",
+          background: "var(--surface)",
+          border: "1px solid var(--line)",
+        }}
+      >
+        <h2 style={{ marginTop: 0, fontSize: "1.25rem", color: "var(--brand-strong)", marginBottom: "0.5rem" }}>
           Academic Courseware Adoption &amp; Syllabus Integration
         </h2>
-        <p style={{ color: "var(--ink)", lineHeight: 1.6, fontSize: "0.95rem" }}>
+        <p style={{ color: "var(--ink)", lineHeight: 1.55, fontSize: "0.9rem", margin: "0 0 0.75rem" }}>
           PowerLab whitepapers and computational models are specifically designed for direct adoption into undergraduate engineering curricula, vocational electrical apprenticeship training (IBEW/NECA/NJATC), and graduate research:
         </p>
-        <ul style={{ color: "var(--ink)", lineHeight: 1.65, fontSize: "0.95rem", paddingLeft: "1.25rem", margin: "0.75rem 0 1.25rem" }}>
-          <li><strong>Zero Paywalls or Student Logins:</strong> All formulas, source code, and whitepaper datasets are available without student registration or paywall gating.</li>
+        <ul style={{ color: "var(--ink)", lineHeight: 1.55, fontSize: "0.88rem", paddingLeft: "1.25rem", margin: "0.5rem 0 1rem" }}>
+          <li><strong>Zero Paywalls or Student Logins:</strong> All formulas, source code, and whitepaper datasets are accessible without registration or paywall gating.</li>
           <li><strong>Permanent DOI Archiving:</strong> Preprints and benchmark datasets are mirrored across Harvard Dataverse and Figshare with permanent Digital Object Identifiers.</li>
           <li><strong>Interactive Syllabus Companion:</strong> Every technical report links directly to its companion browser-local simulation engine for class assignments and lab exercises.</li>
         </ul>
-        <div style={{ display: "flex", gap: "0.75rem", flexWrap: "wrap" }}>
-          <Link href="/guides" className="button secondary-button">Explore Educational Guides</Link>
-          <Link href="/developers" className="button secondary-button">Developer API &amp; TypeScript Engines</Link>
-          <Link href="/methodology" className="button secondary-button">Mathematical Methodology</Link>
+        <div style={{ display: "flex", gap: "0.6rem", flexWrap: "wrap" }}>
+          <Link href="/guides" className="button secondary-button" style={{ fontSize: "0.82rem", padding: "0.4rem 0.8rem" }}>Explore Educational Guides</Link>
+          <Link href="/developers" className="button secondary-button" style={{ fontSize: "0.82rem", padding: "0.4rem 0.8rem" }}>Developer API &amp; TypeScript Engines</Link>
+          <Link href="/methodology" className="button secondary-button" style={{ fontSize: "0.82rem", padding: "0.4rem 0.8rem" }}>Mathematical Methodology</Link>
         </div>
       </section>
     </article>
