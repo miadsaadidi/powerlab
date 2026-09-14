@@ -342,7 +342,7 @@ export const RESEARCH_PAPERS: ResearchPaper[] = [
     dateModified: "2026-09-11",
     pdfUrl: "/whitepapers/electrochemical-peukert-derating-bess.pdf",
     htmlUrl: "/whitepapers/electrochemical-peukert-derating-bess.html",
-    academiaUrl: "https://www.academia.edu/175384576/Electrochemical_Peukert_Capacity_Derating_Depth_of_Discharge_Boundaries_and_Parasitic_Inverter_Tare_Losses_in_Stationary_Battery_Energy_Storage_Systems",
+    academiaUrl: "https://www.academia.edu/175550496/Electrochemical_Peukert_Capacity_Derating_Depth_of_Discharge_Boundaries_and_Parasitic_Inverter_Tare_Losses_in_Stationary_Battery_Energy_Storage_Systems",
     datasetStatus: "none",
     category: "Battery Storage",
     categorySlug: "battery",
@@ -409,8 +409,10 @@ export const RESEARCH_PAPERS: ResearchPaper[] = [
 
 export interface BenchmarkDataset {
   id: string;
-  repository: "Figshare" | "Zenodo";
+  repository: "Figshare" | "Hugging Face" | "Zenodo";
   doi?: string;
+  huggingFaceUrl?: string;
+  huggingFaceDoi?: string;
   status: "published" | "accession_pending";
   title: string;
   subtitle: string;
@@ -427,12 +429,14 @@ export const BENCHMARK_DATASETS: BenchmarkDataset[] = [
     id: "PL-DS-EVSE-01",
     repository: "Figshare",
     doi: "10.6084/m9.figshare.33321774",
+    huggingFaceUrl: "https://huggingface.co/datasets/powerlab/evse-continuous-duty-ampacity-benchmark-2026",
+    huggingFaceDoi: "10.57967/hf/3332",
     status: "published",
     title: "Level 2 EVSE Continuous-Duty Conductor & Terminal Temperature Benchmark Dataset",
     subtitle: "Continuous-duty Joule heating (I²R), conductor temperature rise, and 60°C vs 75°C terminal temperature envelopes under NEC 625.42.",
     description: "Benchmark matrix tabulating 120 continuous load runs (16A to 80A), wire gauge thermal limits (14 AWG to 2 AWG Cu/Al), conduit fill ampacity derating, and contact resistance thermal runaway thresholds.",
     recordCount: "120 Records",
-    format: "CSV / Replication Package",
+    format: "CSV / Tabular Matrix",
     downloadUrl: "https://doi.org/10.6084/m9.figshare.33321774",
     repositoryUrl: "https://doi.org/10.6084/m9.figshare.33321774",
     paperSlug: "continuous-duty-thermal-sizing-evse-ampacity",
@@ -441,6 +445,8 @@ export const BENCHMARK_DATASETS: BenchmarkDataset[] = [
     id: "PL-DS-HP-02",
     repository: "Figshare",
     doi: "10.6084/m9.figshare.33470950",
+    huggingFaceUrl: "https://huggingface.co/datasets/powerlab/heat-pump-cop-degradation-benchmark-2026",
+    huggingFaceDoi: "10.57967/hf/3347",
     status: "published",
     title: "Cold-Climate Air-Source Heat Pump COP Degradation & Balance Point Dataset",
     subtitle: "Sub-freezing ambient temperature spectra (-20°C to +10°C) COP degradation, flash-injection capacity curves, and auxiliary resistive staging economics under AHRI 210/240.",
@@ -455,6 +461,8 @@ export const BENCHMARK_DATASETS: BenchmarkDataset[] = [
     id: "PL-DS-SOL-03",
     repository: "Figshare",
     doi: "10.6084/m9.figshare.33618778",
+    huggingFaceUrl: "https://huggingface.co/datasets/powerlab/solar-pv-subzero-voc-benchmark-2026",
+    huggingFaceDoi: "10.57967/hf/3361",
     status: "published",
     title: "50-State Solar Insolation, Peak Sun Hours, ASHRAE Climatic Design Temperatures, and Grid Electricity Rates Matrix",
     subtitle: "Harmonized state-by-state meteorological, solar resource, and residential electricity tariff database across all 50 US states.",
@@ -469,6 +477,8 @@ export const BENCHMARK_DATASETS: BenchmarkDataset[] = [
     id: "PL-DS-AC-04",
     repository: "Figshare",
     doi: "10.6084/m9.figshare.33678514",
+    huggingFaceUrl: "https://huggingface.co/datasets/powerlab/motor-inrush-lra-generator-benchmark-2026",
+    huggingFaceDoi: "10.57967/hf/3367",
     status: "published",
     title: "Central Air Conditioner SEER2 vs SEER Energy Consumption & Cooling Degree Day (CDD) Benchmark Matrix",
     subtitle: "Steady-state electrical power draw (Watts at 95°F), annual kilowatt-hour operational demands, and DOE M1 static pressure metrics across 1.5 to 5.0 nominal cooling tons under AHRI 210/240.",
@@ -482,13 +492,17 @@ export const BENCHMARK_DATASETS: BenchmarkDataset[] = [
   {
     id: "PL-DS-GEN-04",
     repository: "Figshare",
-    status: "accession_pending",
+    doi: "10.6084/m9.figshare.33753856",
+    huggingFaceUrl: "https://huggingface.co/datasets/miadinside/motor-inrush-lra-generator-benchmark-2026",
+    huggingFaceDoi: "10.57967/hf/10419",
+    status: "published",
     title: "Residential Standby Generator Motor Inrush & Sub-Transient Voltage Dip Matrix",
     subtitle: "Locked Rotor Amperage (LRA) sub-transient reactance (X''d) voltage dip envelopes and fuel derating factors (Gasoline vs Propane vs Natural Gas) under ISO 8528-5.",
     description: "Transient response benchmark tracking 0.1s to 0.5s instantaneous voltage sag and frequency recovery curves across single-phase induction motor compressor starts with and without solid-state soft starters.",
     recordCount: "180 Records",
-    format: "Tabular Matrix",
-    repositoryUrl: "/research/deterministic-inrush-load-stacking-generator-sizing",
+    format: "CSV / Tabular Matrix",
+    downloadUrl: "https://doi.org/10.6084/m9.figshare.33753856",
+    repositoryUrl: "https://doi.org/10.6084/m9.figshare.33753856",
     paperSlug: "deterministic-inrush-load-stacking-generator-sizing",
   },
 ];
@@ -533,6 +547,9 @@ export const STUDENT_LAB_EXERCISES: StudentLabExercise[] = [
     calculatorRoute: "/battery/battery-runtime-calculator",
     calculatorLabel: "Open Battery Runtime & Peukert Engine →",
     academiaCategory: "Teaching Documents",
+    academiaUrl: "https://www.academia.edu/175550496/Electrochemical_Peukert_Capacity_Derating_Depth_of_Discharge_Boundaries_and_Parasitic_Inverter_Tare_Losses_in_Stationary_Battery_Energy_Storage_Systems",
+    archiveUrl: "https://archive.org/details/powerlab-pl-tr-2026-bess01-peukert-derating_202609",
+    pdfUrl: "/whitepapers/electrochemical-peukert-derating-bess.pdf",
   },
   {
     id: "PL-LAB-02",
@@ -580,5 +597,8 @@ export const STUDENT_LAB_EXERCISES: StudentLabExercise[] = [
     calculatorRoute: "/ev/ev-charger-breaker-size-calculator",
     calculatorLabel: "Open EVSE Breaker & Thermal Sizing Engine →",
     academiaCategory: "Teaching Documents",
+    academiaUrl: "https://www.academia.edu/173621969/Continuous_Duty_Thermal_Sizing_Conductor_Terminal_Limits_and_Branch_Circuit_Ampacity_Requirements_for_Residential_Level_2_Electric_Vehicle_Supply_Equipment_EVSE_",
+    archiveUrl: "https://archive.org/details/evse-continuous-duty-thermal-sizing",
+    pdfUrl: "/whitepapers/evse-continuous-duty-thermal-sizing.pdf",
   },
 ];

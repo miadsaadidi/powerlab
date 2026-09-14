@@ -1,0 +1,13 @@
+appliance_category,appliance_name,rated_voltage_v,running_power_w,running_current_rla_a,nema_code_letter,starting_kva_per_hp,locked_rotor_amperes_lra_a,starting_surge_power_w,inrush_multiplier,starting_power_factor,subtransient_voltage_dip_pct,min_generator_surge_dol_kw,min_generator_surge_softstarter_kw,governing_standard
+HVAC,Central Air Conditioner 3.0-Ton (14 SEER),240,3500,14.6,Code G,5.6-6.3,82.0,19680,5.62,0.45,18.4,19.7,8.2,NEMA MG-1 / AHRI 210/240
+HVAC,Central Air Conditioner 4.0-Ton (16 SEER),240,4600,19.2,Code G,5.6-6.3,109.0,26160,5.68,0.44,21.2,26.2,10.8,NEMA MG-1 / AHRI 210/240
+HVAC,Central Air Conditioner 5.0-Ton (16 SEER),240,5800,24.2,Code H,6.3-7.1,138.0,33120,5.70,0.42,24.8,33.1,13.6,NEMA MG-1 / AHRI 210/240
+HVAC,Cold-Climate Heat Pump 3.0-Ton (Inverter-Driven),240,3200,13.3,Inverter VFD,N/A,18.0,4320,1.35,0.92,3.5,4.5,4.5,AHRI 1210 / IEEE 519
+Water Systems,Deep Well Submersible Pump 0.75 HP,240,1100,4.6,Code L,9.0-10.0,31.0,7440,6.74,0.48,12.2,7.5,3.2,NEMA MG-1 Section 12
+Water Systems,Deep Well Submersible Pump 1.5 HP,240,1900,7.9,Code L,9.0-10.0,52.0,12480,6.58,0.46,15.6,12.5,5.4,NEMA MG-1 Section 12
+Pumping,Sewage Ejector / Heavy Sump Pump 0.5 HP,120,950,7.9,Code J,7.1-8.0,48.0,5760,6.08,0.50,11.5,5.8,2.6,NEMA MG-1 / NEC 430
+Refrigeration,Commercial Reach-In Refrigerator 0.5 HP,120,700,5.8,Code H,6.3-7.1,34.0,4080,5.86,0.52,9.2,4.1,2.0,ASHRAE 15 / UL 60335
+Workshop,Stationary Air Compressor 2.0 HP,240,2400,10.0,Code G,5.6-6.3,58.0,13920,5.80,0.45,16.8,14.0,6.0,NEMA MG-1 / NEC 430
+Workshop,Cabinet Table Saw (Induction Motor) 3.0 HP,240,3000,12.5,Code G,5.6-6.3,72.0,17280,5.76,0.46,17.5,17.3,7.5,NEMA MG-1 / OSHA 1910
+Medical / Life,Oxygen Concentrator (Continuous Duty),120,350,2.9,Code F,5.0-5.6,11.0,1320,3.79,0.65,3.1,1.5,1.5,IEC 60601-1 / NFPA 99
+Heating,Furnace Blower Motor (PSC Multi-Speed) 0.5 HP,120,650,5.4,Code J,7.1-8.0,32.0,3840,5.93,0.52,7.8,3.9,1.8,NEMA MG-1 / CSA C22.2

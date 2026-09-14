@@ -91,7 +91,7 @@ export default function ResearchHubPage() {
             <span>🛡️</span><span>CC BY 4.0 Open Access</span>
           </div>
           <div style={{ display: "inline-flex", alignItems: "center", gap: "0.35rem", padding: "0.2rem 0.6rem", borderRadius: "9999px", background: "rgba(167, 139, 250, 0.1)", border: "1px solid rgba(167, 139, 250, 0.25)", color: "#9333ea", fontSize: "0.74rem", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.03em" }}>
-            <span>📊</span><span>DataCite &amp; Figshare DOIs</span>
+            <span>📊</span><span>DataCite &amp; Hugging Face DOIs</span>
           </div>
         </div>
 
@@ -496,17 +496,43 @@ export default function ResearchHubPage() {
                       display: "inline-flex",
                       alignItems: "center",
                       gap: "0.25rem",
-                      background: "rgba(2, 132, 199, 0.08)",
-                      color: "var(--accent, #0284c7)",
-                      border: "1px solid rgba(2, 132, 199, 0.25)",
+                      background: "rgba(185, 28, 28, 0.08)",
+                      color: "#dc2626",
+                      border: "1px solid rgba(220, 38, 38, 0.25)",
                       fontWeight: 600,
                       fontSize: "0.75rem",
                       padding: "0.32rem 0.65rem",
                       borderRadius: "0.35rem",
                       textDecoration: "none",
                     }}
+                    title="Read on Academia.edu"
                   >
                     <span>🎓 Academia</span>
+                    <span style={{ fontSize: "0.65rem", opacity: 0.8 }}>↗</span>
+                  </a>
+                )}
+
+                {lab.archiveUrl && (
+                  <a
+                    href={lab.archiveUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    style={{
+                      display: "inline-flex",
+                      alignItems: "center",
+                      gap: "0.25rem",
+                      background: "rgba(100, 116, 139, 0.08)",
+                      color: "#475569",
+                      border: "1px solid rgba(100, 116, 139, 0.25)",
+                      fontWeight: 600,
+                      fontSize: "0.75rem",
+                      padding: "0.32rem 0.65rem",
+                      borderRadius: "0.35rem",
+                      textDecoration: "none",
+                    }}
+                    title="View on Internet Archive"
+                  >
+                    <span>🏛️ Archive</span>
                     <span style={{ fontSize: "0.65rem", opacity: 0.8 }}>↗</span>
                   </a>
                 )}
@@ -521,14 +547,14 @@ export default function ResearchHubPage() {
         <div style={{ display: "flex", alignItems: "center", gap: "0.5rem", marginBottom: "0.5rem" }}>
           <span style={{ fontSize: "1.25rem" }}>📊</span>
           <h2 style={{ fontSize: "1.45rem", fontWeight: 800, color: "var(--brand-strong)", margin: 0 }}>
-            Open Benchmark Datasets
+            Open Benchmark Datasets &amp; Hugging Face Repositories
           </h2>
           <span style={{ fontSize: "0.8rem", fontWeight: 700, background: "rgba(16, 185, 129, 0.1)", color: "#10b981", padding: "0.15rem 0.5rem", borderRadius: "9999px", border: "1px solid rgba(16, 185, 129, 0.25)", marginLeft: "0.25rem" }}>
             {BENCHMARK_DATASETS.length} Repositories
           </span>
         </div>
         <p style={{ fontSize: "0.9rem", color: "var(--muted)", maxWidth: "900px", lineHeight: 1.5, marginBottom: "1.25rem" }}>
-          Empirical matrices and reproducible packages registered with persistent DataCite DOIs across Figshare and Harvard Dataverse.
+          Empirical matrices and reproducible packages registered with persistent DataCite DOIs across Figshare and Hugging Face.
         </p>
 
         <div
@@ -620,7 +646,7 @@ export default function ResearchHubPage() {
                 </p>
               </div>
 
-              {/* Dataset Action Bar */}
+              {/* Dataset Action Bar: Dedicated Figshare & Hugging Face Buttons */}
               <div
                 style={{
                   display: "flex",
@@ -631,84 +657,72 @@ export default function ResearchHubPage() {
                   borderTop: "1px solid var(--line)",
                 }}
               >
-                {ds.status === "published" ? (
-                  <>
-                    <a
-                      href={ds.repositoryUrl}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      style={{
-                        display: "inline-flex",
-                        alignItems: "center",
-                        gap: "0.25rem",
-                        background: "#10b981",
-                        color: "#ffffff",
-                        fontWeight: 700,
-                        fontSize: "0.75rem",
-                        padding: "0.32rem 0.65rem",
-                        borderRadius: "0.35rem",
-                        textDecoration: "none",
-                      }}
-                    >
-                      <span>Repository →</span>
-                    </a>
-                    <a
-                      href={ds.downloadUrl || ds.repositoryUrl}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      style={{
-                        display: "inline-flex",
-                        alignItems: "center",
-                        gap: "0.25rem",
-                        background: "rgba(16, 185, 129, 0.08)",
-                        color: "#059669",
-                        border: "1px solid rgba(16, 185, 129, 0.3)",
-                        fontWeight: 600,
-                        fontSize: "0.75rem",
-                        padding: "0.32rem 0.65rem",
-                        borderRadius: "0.35rem",
-                        textDecoration: "none",
-                      }}
-                    >
-                      <span>📥 {ds.format.split("/")[0].trim()}</span>
-                    </a>
-                  </>
-                ) : (
-                  <>
-                    <Link
-                      href={`/research/${ds.paperSlug}`}
-                      style={{
-                        display: "inline-flex",
-                        alignItems: "center",
-                        gap: "0.25rem",
-                        background: "var(--surface-subtle, #f1f5f9)",
-                        color: "var(--ink)",
-                        border: "1px solid var(--line)",
-                        fontWeight: 600,
-                        fontSize: "0.75rem",
-                        padding: "0.32rem 0.65rem",
-                        borderRadius: "0.35rem",
-                        textDecoration: "none",
-                      }}
-                    >
-                      <span>Read Paper →</span>
-                    </Link>
-                    <span
-                      style={{
-                        display: "inline-flex",
-                        alignItems: "center",
-                        gap: "0.25rem",
-                        fontSize: "0.72rem",
-                        fontWeight: 600,
-                        color: "var(--muted)",
-                        padding: "0.3rem 0.5rem",
-                        borderRadius: "0.35rem",
-                        border: "1px dashed var(--line)",
-                      }}
-                    >
-                      <span>🔒 Pending</span>
-                    </span>
-                  </>
+                <Link
+                  href={`/research/${ds.paperSlug}`}
+                  style={{
+                    display: "inline-flex",
+                    alignItems: "center",
+                    gap: "0.25rem",
+                    background: "#0284c7",
+                    color: "#ffffff",
+                    fontWeight: 700,
+                    fontSize: "0.75rem",
+                    padding: "0.32rem 0.65rem",
+                    borderRadius: "0.35rem",
+                    textDecoration: "none",
+                  }}
+                >
+                  Read →
+                </Link>
+
+                {ds.doi && (
+                  <a
+                    href={`https://doi.org/${ds.doi}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    style={{
+                      display: "inline-flex",
+                      alignItems: "center",
+                      gap: "0.25rem",
+                      background: "rgba(147, 51, 234, 0.08)",
+                      color: "#9333ea",
+                      border: "1px solid rgba(147, 51, 234, 0.25)",
+                      fontWeight: 600,
+                      fontSize: "0.75rem",
+                      padding: "0.32rem 0.65rem",
+                      borderRadius: "0.35rem",
+                      textDecoration: "none",
+                    }}
+                    title={`DataCite Figshare DOI: ${ds.doi}`}
+                  >
+                    <span>📊 Figshare</span>
+                    <span style={{ fontSize: "0.65rem", opacity: 0.8 }}>↗</span>
+                  </a>
+                )}
+
+                {(ds.huggingFaceDoi || ds.huggingFaceUrl) && (
+                  <a
+                    href={ds.huggingFaceDoi ? `https://doi.org/${ds.huggingFaceDoi}` : ds.huggingFaceUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    style={{
+                      display: "inline-flex",
+                      alignItems: "center",
+                      gap: "0.25rem",
+                      background: "rgba(234, 179, 8, 0.08)",
+                      color: "#b45309",
+                      border: "1px solid rgba(234, 179, 8, 0.3)",
+                      fontWeight: 600,
+                      fontSize: "0.75rem",
+                      padding: "0.32rem 0.65rem",
+                      borderRadius: "0.35rem",
+                      textDecoration: "none",
+                    }}
+                    title="Open on Hugging Face"
+                  >
+                    <span>🤗 Hugging Face</span>
+                    <span style={{ fontSize: "0.65rem", opacity: 0.8 }}>↗</span>
+                  </a>
                 )}
               </div>
             </div>
@@ -733,7 +747,7 @@ export default function ResearchHubPage() {
         </p>
         <ul style={{ color: "var(--ink)", lineHeight: 1.55, fontSize: "0.88rem", paddingLeft: "1.25rem", margin: "0.5rem 0 1rem" }}>
           <li><strong>Zero Paywalls or Student Logins:</strong> All formulas, source code, and whitepaper datasets are accessible without registration or paywall gating.</li>
-          <li><strong>Permanent DOI Archiving:</strong> Preprints and benchmark datasets are mirrored across Harvard Dataverse and Figshare with permanent Digital Object Identifiers.</li>
+          <li><strong>Permanent DOI Archiving:</strong> Preprints and benchmark datasets are mirrored across Harvard Dataverse, Figshare, and Hugging Face with permanent Digital Object Identifiers.</li>
           <li><strong>Interactive Syllabus Companion:</strong> Every technical report links directly to its companion browser-local simulation engine for class assignments and lab exercises.</li>
         </ul>
         <div style={{ display: "flex", gap: "0.6rem", flexWrap: "wrap" }}>
