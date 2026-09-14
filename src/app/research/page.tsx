@@ -151,7 +151,7 @@ export default function ResearchHubPage() {
                   </span>
                 </div>
 
-                {/* Clamped Paper Title (2 Lines) */}
+                {/* Paper Title */}
                 <h3
                   style={{
                     fontSize: "1.08rem",
@@ -171,13 +171,13 @@ export default function ResearchHubPage() {
                   </Link>
                 </h3>
 
-                {/* Clamped Abstract (3 Lines) */}
+                {/* Abstract */}
                 <p
                   style={{
                     fontSize: "0.84rem",
                     lineHeight: 1.45,
                     color: "var(--ink)",
-                    marginBottom: "0.75rem",
+                    marginBottom: "0.45rem",
                     display: "-webkit-box",
                     WebkitLineClamp: 3,
                     WebkitBoxOrient: "vertical",
@@ -188,6 +188,25 @@ export default function ResearchHubPage() {
                 >
                   {paper.abstract}
                 </p>
+
+                {/* Read Paper Inline Link */}
+                <div style={{ marginBottom: "0.75rem" }}>
+                  <Link
+                    href={`/research/${paper.slug}`}
+                    style={{
+                      fontSize: "0.82rem",
+                      fontWeight: 700,
+                      color: "var(--accent, #0284c7)",
+                      textDecoration: "underline",
+                      textUnderlineOffset: "3px",
+                      display: "inline-flex",
+                      alignItems: "center",
+                      gap: "0.2rem",
+                    }}
+                  >
+                    Read paper &rarr;
+                  </Link>
+                </div>
 
                 {/* Standards Micro-Pills */}
                 <div style={{ display: "flex", flexWrap: "wrap", gap: "0.3rem", marginBottom: "0.85rem" }}>
@@ -226,7 +245,7 @@ export default function ResearchHubPage() {
                 </div>
               </div>
 
-              {/* Micro Action Button Bar */}
+              {/* Action Button Bar */}
               <div
                 style={{
                   display: "flex",
@@ -237,24 +256,6 @@ export default function ResearchHubPage() {
                   borderTop: "1px solid var(--line)",
                 }}
               >
-                <Link
-                  href={`/research/${paper.slug}`}
-                  style={{
-                    display: "inline-flex",
-                    alignItems: "center",
-                    gap: "0.25rem",
-                    background: "#0284c7",
-                    color: "#ffffff",
-                    fontWeight: 700,
-                    fontSize: "0.75rem",
-                    padding: "0.32rem 0.65rem",
-                    borderRadius: "0.35rem",
-                    textDecoration: "none",
-                  }}
-                >
-                  Read →
-                </Link>
-
                 <a
                   href={paper.pdfUrl}
                   download
@@ -402,7 +403,7 @@ export default function ResearchHubPage() {
                     fontSize: "0.84rem",
                     lineHeight: 1.45,
                     color: "var(--ink)",
-                    marginBottom: "0.75rem",
+                    marginBottom: "0.45rem",
                     display: "-webkit-box",
                     WebkitLineClamp: 3,
                     WebkitBoxOrient: "vertical",
@@ -413,6 +414,25 @@ export default function ResearchHubPage() {
                 >
                   {lab.description}
                 </p>
+
+                {/* Launch Model Inline Link */}
+                <div style={{ marginBottom: "0.75rem" }}>
+                  <Link
+                    href={lab.calculatorRoute}
+                    style={{
+                      fontSize: "0.82rem",
+                      fontWeight: 700,
+                      color: "#7c3aed",
+                      textDecoration: "underline",
+                      textUnderlineOffset: "3px",
+                      display: "inline-flex",
+                      alignItems: "center",
+                      gap: "0.2rem",
+                    }}
+                  >
+                    Launch interactive model &rarr;
+                  </Link>
+                </div>
 
                 {/* Standards Micro-Pills */}
                 <div style={{ display: "flex", flexWrap: "wrap", gap: "0.3rem", marginBottom: "0.85rem" }}>
@@ -435,7 +455,7 @@ export default function ResearchHubPage() {
                 </div>
               </div>
 
-              {/* Lab Actions */}
+              {/* Lab Action Button Bar */}
               <div
                 style={{
                   display: "flex",
@@ -446,24 +466,6 @@ export default function ResearchHubPage() {
                   borderTop: "1px solid var(--line)",
                 }}
               >
-                <Link
-                  href={lab.calculatorRoute}
-                  style={{
-                    display: "inline-flex",
-                    alignItems: "center",
-                    gap: "0.25rem",
-                    background: "#7c3aed",
-                    color: "#ffffff",
-                    fontWeight: 700,
-                    fontSize: "0.75rem",
-                    padding: "0.32rem 0.65rem",
-                    borderRadius: "0.35rem",
-                    textDecoration: "none",
-                  }}
-                >
-                  Launch Model →
-                </Link>
-
                 {lab.pdfUrl && (
                   <a
                     href={lab.pdfUrl}
@@ -633,7 +635,7 @@ export default function ResearchHubPage() {
                     fontSize: "0.84rem",
                     color: "var(--ink)",
                     lineHeight: 1.45,
-                    marginBottom: "0.75rem",
+                    marginBottom: "0.45rem",
                     display: "-webkit-box",
                     WebkitLineClamp: 3,
                     WebkitBoxOrient: "vertical",
@@ -644,6 +646,25 @@ export default function ResearchHubPage() {
                 >
                   {ds.description}
                 </p>
+
+                {/* Read Paper Inline Link */}
+                <div style={{ marginBottom: "0.75rem" }}>
+                  <Link
+                    href={`/research/${ds.paperSlug}`}
+                    style={{
+                      fontSize: "0.82rem",
+                      fontWeight: 700,
+                      color: "var(--accent, #0284c7)",
+                      textDecoration: "underline",
+                      textUnderlineOffset: "3px",
+                      display: "inline-flex",
+                      alignItems: "center",
+                      gap: "0.2rem",
+                    }}
+                  >
+                    Read companion paper &rarr;
+                  </Link>
+                </div>
               </div>
 
               {/* Dataset Action Bar: Dedicated Figshare & Hugging Face Buttons */}
@@ -657,24 +678,6 @@ export default function ResearchHubPage() {
                   borderTop: "1px solid var(--line)",
                 }}
               >
-                <Link
-                  href={`/research/${ds.paperSlug}`}
-                  style={{
-                    display: "inline-flex",
-                    alignItems: "center",
-                    gap: "0.25rem",
-                    background: "#0284c7",
-                    color: "#ffffff",
-                    fontWeight: 700,
-                    fontSize: "0.75rem",
-                    padding: "0.32rem 0.65rem",
-                    borderRadius: "0.35rem",
-                    textDecoration: "none",
-                  }}
-                >
-                  Read →
-                </Link>
-
                 {ds.doi && (
                   <a
                     href={`https://doi.org/${ds.doi}`}
