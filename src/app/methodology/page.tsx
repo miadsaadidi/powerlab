@@ -24,6 +24,15 @@ export default function MethodologyPage() {
       </p>
 
       <div style={{ margin: "1rem 0 1.5rem 0", display: "flex", gap: "0.75rem", flexWrap: "wrap", alignItems: "center" }}>
+        <a
+          href="/whitepapers/deterministic-mathematical-modeling-distributed-energy.pdf"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="button"
+          style={{ fontSize: "0.84rem", padding: "0.45rem 0.9rem", display: "inline-flex", alignItems: "center", gap: "0.35rem" }}
+        >
+          📄 Download Framework Technical Paper PDF
+        </a>
         <AcademicCitationModal
           title="PowerLab Engineering Calculation Methodology & Loss Models"
           urlPath="/methodology"

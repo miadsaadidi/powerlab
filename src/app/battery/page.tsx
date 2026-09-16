@@ -243,12 +243,15 @@ export default function BatteryHub() {
       </div>
     </section>
     <section className="hub-support" aria-labelledby="battery-guides-heading">
-      <h2 id="battery-guides-heading">Featured Battery Engineering Guides</h2>
-      <p>Explore our peer-reviewed technical reference guides for battery storage and electrical conductor sizing:</p>
+      <h2 id="battery-guides-heading">Featured Battery Engineering Guides &amp; Open Datasets</h2>
+      <p>Explore our peer-reviewed technical reference guides, open empirical datasets, and research preprints for battery storage and electrical conductor sizing:</p>
       <div className="supporting-links" style={{ display: "flex", flexWrap: "wrap", gap: "0.85rem", marginTop: "0.75rem" }}>
+        <Link href="/datasets/residential-bess-peukert-derating-benchmark" className="footer-link">📊 Dataset: Residential BESS Peukert Derating Benchmark (PL-DS-BESS-05)</Link>
+        <Link href="/research/peukert-c-rate-derating-residential-bess" className="footer-link">🔬 Research: High-Discharge C-Rate Capacity Derating Whitepaper</Link>
         <Link href="/guides/battery-backup-runtime-calculation-guide" className="footer-link">🔋 Battery Backup Runtime Formula &amp; Inverter Loss Guide</Link>
         <Link href="/guides/voltage-drop-and-wire-size-calculation-guide" className="footer-link">⚡ Voltage Drop &amp; Wire Size Calculation Guide</Link>
         <Link href="/guides/mppt-solar-charge-controller-sizing-guide" className="footer-link">☀️ MPPT Charge Controller Sizing Guide</Link>
+        <Link href="/datasets" className="footer-link">📊 All Open Benchmark Datasets</Link>
         <Link href="/research" className="footer-link">🔬 Research &amp; Whitepapers Series</Link>
         <Link href="/guides" className="footer-link">📚 All Engineering Guides</Link>
       </div>

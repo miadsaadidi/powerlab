@@ -205,6 +205,11 @@ export function SiteFooter() {
                 </Link>
               </li>
               <li>
+                <Link href="/datasets" style={{ fontWeight: 600, color: "#10b981" }}>
+                  📊 Open Benchmark Datasets
+                </Link>
+              </li>
+              <li>
                 <Link href="/standards" style={{ fontWeight: 600 }}>
                   🛡️ Standards &amp; Codes Matrix
                 </Link>

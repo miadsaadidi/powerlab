@@ -56,6 +56,8 @@ export default function HeatPumpCostPage() {
       "DOE 10 CFR Part 430 Appendix M1 (HSPF2 Rating Procedures)",
       "ASHRAE Handbook of HVAC Systems and Equipment",
     ],
+    companionDatasetUrl: "https://doi.org/10.6084/m9.figshare.33821931",
+    companionPaperUrl: "https://www.powelab.org/research/central-ac-heat-pump-seasonal-efficiency-degradation",
     faqs: FAQS,
   });
 

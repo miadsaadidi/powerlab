@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { siteConfig } from "@/lib/site-config";
-import { RESEARCH_PAPERS, type ResearchPaper } from "@/data/research-papers";
+import { RESEARCH_PAPERS, BENCHMARK_DATASETS, type ResearchPaper } from "@/data/research-papers";
 import { AcademicCitationModal } from "@/components/seo/academic-citation-modal";
 import { buildPageMetadata } from "@/lib/seo/metadata-helper";
 
@@ -64,36 +64,78 @@ export default async function ResearchPaperPage({ params }: PageProps) {
     notFound();
   }
 
+  const matchingDataset = BENCHMARK_DATASETS.find((d) => d.paperSlug === paper.slug);
+
   const structuredData = {
     "@context": "https://schema.org",
-    "@type": "ScholarlyArticle",
-    headline: paper.title,
-    name: paper.title,
-    description: paper.abstract,
-    url: `${siteConfig.url}/research/${paper.slug}`,
-    datePublished: paper.datePublished,
-    dateModified: paper.dateModified,
-    sameAs: [
-      paper.doi ? `https://doi.org/${paper.doi}` : null,
-      paper.academiaUrl || null,
-      paper.dataverseUrl || null,
-    ].filter(Boolean),
-    author: paper.authors.map((author) => ({
-      "@type": "Organization",
-      name: author,
-    })),
-    publisher: {
-      "@type": "Organization",
-      name: "PowerLab Open Energy Research",
-      logo: {
-        "@type": "ImageObject",
-        url: `${siteConfig.url}/powerlab-publisher-logo-1000x1000.png`,
+    "@graph": [
+      {
+        "@type": "ScholarlyArticle",
+        "@id": `${siteConfig.url}/research/${paper.slug}#article`,
+        headline: paper.title,
+        name: paper.title,
+        description: paper.abstract,
+        url: `${siteConfig.url}/research/${paper.slug}`,
+        datePublished: paper.datePublished,
+        dateModified: paper.dateModified,
+        inLanguage: "en-US",
+        sameAs: [
+          paper.doi ? `https://doi.org/${paper.doi}` : null,
+          paper.academiaUrl || null,
+          paper.dataverseUrl || null,
+        ].filter(Boolean),
+        author: paper.authors.map((author) => ({
+          "@type": "Organization",
+          name: author,
+          url: siteConfig.url,
+        })),
+        publisher: {
+          "@type": "Organization",
+          name: "PowerLab Open Energy Research",
+          url: siteConfig.url,
+          logo: {
+            "@type": "ImageObject",
+            url: `${siteConfig.url}/powerlab-publisher-logo-1000x1000.png`,
+          },
+        },
+        about: paper.keywords.map((kw) => ({
+          "@type": "Thing",
+          name: kw,
+        })),
+        ...(matchingDataset ? {
+          isBasedOn: {
+            "@type": "Dataset",
+            name: matchingDataset.title,
+            url: `${siteConfig.url}/datasets/${matchingDataset.slug}`,
+            identifier: matchingDataset.doi ? `https://doi.org/${matchingDataset.doi}` : `${siteConfig.url}/datasets/${matchingDataset.slug}`,
+          },
+        } : {}),
       },
-    },
-    about: paper.keywords.map((kw) => ({
-      "@type": "Thing",
-      name: kw,
-    })),
+      {
+        "@type": "BreadcrumbList",
+        "@id": `${siteConfig.url}/research/${paper.slug}#breadcrumb`,
+        itemListElement: [
+          {
+            "@type": "ListItem",
+            position: 1,
+            name: "Home",
+            item: siteConfig.url,
+          },
+          {
+            "@type": "ListItem",
+            position: 2,
+            name: "Research & Whitepapers",
+            item: `${siteConfig.url}/research`,
+          },
+          {
+            "@type": "ListItem",
+            position: 3,
+            name: paper.reportNumber,
+            item: `${siteConfig.url}/research/${paper.slug}`,
+          },
+        ],
+      },
+    ],
   };
 
   return (
@@ -198,6 +240,35 @@ export default async function ResearchPaperPage({ params }: PageProps) {
               <span style={{ fontSize: "0.72rem", opacity: 0.8 }}>↗</span>
             </a>
           )}
+          {/* Canonical Dataset Landing Page Link */}
+          {(() => {
+            const matchingDataset = BENCHMARK_DATASETS.find((d) => d.paperSlug === paper.slug);
+            if (!matchingDataset) return null;
+            return (
+              <Link
+                href={`/datasets/${matchingDataset.slug}`}
+                style={{
+                  fontSize: "0.85rem",
+                  padding: "0.5rem 0.95rem",
+                  minHeight: "40px",
+                  display: "inline-flex",
+                  alignItems: "center",
+                  gap: "0.35rem",
+                  background: "rgba(16, 185, 129, 0.1)",
+                  color: "#059669",
+                  border: "1px solid rgba(16, 185, 129, 0.3)",
+                  fontWeight: 700,
+                  borderRadius: "0.45rem",
+                  textDecoration: "none",
+                }}
+                title="View Canonical Benchmark Dataset & Data Dictionary"
+              >
+                <span>📊</span>
+                <span>Open Benchmark Dataset</span>
+                <span style={{ fontSize: "0.72rem", opacity: 0.8 }}>→</span>
+              </Link>
+            );
+          })()}
           {paper.datasetStatus === "published" && paper.doi && (
             <a
               href={`https://doi.org/${paper.doi}`}

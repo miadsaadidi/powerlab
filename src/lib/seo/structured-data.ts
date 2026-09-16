@@ -18,8 +18,12 @@ export interface CalculatorStructuredDataProps {
   route: string;
   categoryName: string;
   categoryRoute: string;
+  applicationCategory?: "UtilitiesApplication" | "FinanceApplication" | "BusinessApplication" | string;
   features?: string[];
   standards?: string[];
+  companionDatasetUrl?: string;
+  companionPaperUrl?: string;
+  isBasedOn?: string[];
   faqs?: CalculatorFaq[];
   speakableSelectors?: string[];
   aboutEntities?: Array<{ name: string; sameAs: string }>;
@@ -95,8 +99,12 @@ export function buildCalculatorStructuredData({
   route,
   categoryName,
   categoryRoute,
+  applicationCategory,
   features,
   standards,
+  companionDatasetUrl,
+  companionPaperUrl,
+  isBasedOn,
   faqs,
   speakableSelectors,
   aboutEntities,
@@ -104,6 +112,16 @@ export function buildCalculatorStructuredData({
 }: CalculatorStructuredDataProps) {
   const pageUrl = new URL(route, siteConfig.url).toString();
   const categoryUrl = new URL(categoryRoute, siteConfig.url).toString();
+  const normalizedRoute = route.toLowerCase();
+
+  const resolvedCategory =
+    applicationCategory ||
+    (normalizedRoute.includes("cost") ||
+    normalizedRoute.includes("bill") ||
+    normalizedRoute.includes("savings") ||
+    normalizedRoute.includes("payback")
+      ? "FinanceApplication"
+      : "UtilitiesApplication");
 
   const organization = {
     "@type": "Organization",
@@ -120,6 +138,13 @@ export function buildCalculatorStructuredData({
   const entities = aboutEntities && aboutEntities.length > 0
     ? aboutEntities.map((e) => ({ "@type": "Thing", name: e.name, sameAs: e.sameAs }))
     : getDomainWikidataEntities(categoryName, route);
+
+  const combinedIsBasedOn: string[] = [
+    ...(standards || []),
+    ...(isBasedOn || []),
+    ...(companionDatasetUrl ? [companionDatasetUrl] : []),
+    ...(companionPaperUrl ? [companionPaperUrl] : []),
+  ];
 
   const data: Array<Record<string, unknown>> = [
     {
@@ -168,9 +193,9 @@ export function buildCalculatorStructuredData({
       description,
       url: pageUrl,
       inLanguage: "en-US",
-      applicationCategory: "UtilitiesApplication",
+      applicationCategory: resolvedCategory,
       applicationSubCategory: "Energy & Electrical Planning",
-      operatingSystem: "All (Modern Web Browsers, iOS, Android, macOS, Windows)",
+      operatingSystem: "All",
       browserRequirements: "Requires JavaScript. Requires HTML5 Canvas/SVG.",
       isAccessibleForFree: true,
       softwareVersion: "2.1.0",
@@ -184,7 +209,7 @@ export function buildCalculatorStructuredData({
       },
       about: entities,
       ...(features && features.length > 0 ? { featureList: features } : {}),
-      ...(standards && standards.length > 0 ? { isBasedOn: standards, citation: standards } : {}),
+      ...(combinedIsBasedOn.length > 0 ? { isBasedOn: combinedIsBasedOn, citation: combinedIsBasedOn } : {}),
     },
   ];
 

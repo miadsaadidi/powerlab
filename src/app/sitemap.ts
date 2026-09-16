@@ -1,7 +1,7 @@
 import type { MetadataRoute } from "next";
 import { publishedCalculators } from "../lib/calculator-registry";
 import { siteConfig } from "../lib/site-config";
-import { RESEARCH_PAPERS } from "../data/research-papers";
+import { RESEARCH_PAPERS, BENCHMARK_DATASETS } from "../data/research-papers";
 
 const staticPaths = [
   "/",
@@ -19,6 +19,7 @@ const staticPaths = [
   "/guides/space-heater-electricity-cost-and-wattage-guide",
   "/guides/voltage-drop-and-wire-size-calculation-guide",
   "/research",
+  "/datasets",
   "/solar/regional-climate-data",
   "/glossary",
   "/developers",
@@ -34,15 +35,20 @@ export function getSitemapPaths() {
   const published = publishedCalculators();
   const categories = [...new Set(published.map((calculator) => `/${calculator.category}`))];
   const researchPaths = RESEARCH_PAPERS.map((paper) => `/research/${paper.slug}`);
-  return [...staticPaths, ...researchPaths, ...categories, ...published.map((calculator) => calculator.route)];
+  const datasetPaths = BENCHMARK_DATASETS.map((ds) => `/datasets/${ds.slug}`);
+  return [...staticPaths, ...researchPaths, ...datasetPaths, ...categories, ...published.map((calculator) => calculator.route)];
 }
 
-const researchDateMap = new Map(
-  RESEARCH_PAPERS.map((paper) => [
+const researchDateMap = new Map([
+  ...RESEARCH_PAPERS.map((paper) => [
     `/research/${paper.slug}`,
     new Date(`${paper.dateModified || paper.datePublished}T00:00:00Z`),
-  ])
-);
+  ] as [string, Date]),
+  ...BENCHMARK_DATASETS.map((ds) => [
+    `/datasets/${ds.slug}`,
+    new Date(`${ds.dateModified || ds.datePublished}T00:00:00Z`),
+  ] as [string, Date]),
+]);
 
 export function getPathLastModified(
   path: string,

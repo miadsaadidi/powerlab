@@ -44,7 +44,8 @@ describe("structured-data", () => {
     expect(webApp["@type"]).toContain("MathSolver");
     expect(webApp["@type"]).toContain("LearningResource");
     expect(webApp.citation).toEqual(["IEEE 485", "UL 1973"]);
-    expect(webApp.operatingSystem).toBe("All (Modern Web Browsers, iOS, Android, macOS, Windows)");
+    expect(webApp.operatingSystem).toBe("All");
+    expect(webApp.applicationCategory).toBe("UtilitiesApplication");
     expect(webApp.browserRequirements).toBe("Requires JavaScript. Requires HTML5 Canvas/SVG.");
     expect(webApp.offers.availability).toBe("https://schema.org/InStock");
     expect(webApp.isAccessibleForFree).toBe(true);
@@ -64,6 +65,25 @@ describe("structured-data", () => {
     expect(faqPage).toBeDefined();
     expect(faqPage.mainEntity.length).toBe(1);
     expect(faqPage.mainEntity[0].name).toBe("How long does a 100Ah battery last?");
+  });
+
+  it("resolves FinanceApplication category and links companion datasets/whitepapers via isBasedOn", () => {
+    const data = buildCalculatorStructuredData({
+      name: "Solar Payback Calculator",
+      description: "Estimate solar payback period and ROI.",
+      route: "/solar/solar-payback-calculator",
+      categoryName: "Solar",
+      categoryRoute: "/solar",
+      companionDatasetUrl: "https://doi.org/10.6084/m9.figshare.33821937",
+      companionPaperUrl: "https://www.powelab.org/research/photovoltaic-inverter-clipping-efficiency-loss",
+    });
+
+    const webApp = data.find(
+      (item) => Array.isArray(item["@type"]) && item["@type"].includes("WebApplication"),
+    ) as any;
+    expect(webApp.applicationCategory).toBe("FinanceApplication");
+    expect(webApp.isBasedOn).toContain("https://doi.org/10.6084/m9.figshare.33821937");
+    expect(webApp.isBasedOn).toContain("https://www.powelab.org/research/photovoltaic-inverter-clipping-efficiency-loss");
   });
 
   it("builds valid guide structured data with speakable and audience schema", () => {

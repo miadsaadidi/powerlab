@@ -216,14 +216,16 @@ export default function SolarHub() {
       </div>
     </section>
     <section className="hub-support" aria-labelledby="solar-guides-heading">
-      <h2 id="solar-guides-heading">Featured Solar Engineering Guides &amp; Datasets</h2>
-      <p>Explore our peer-reviewed technical reference guides, datasets, and preprints for solar photovoltaic system design:</p>
+      <h2 id="solar-guides-heading">Featured Solar Engineering Guides &amp; Open Datasets</h2>
+      <p>Explore our peer-reviewed technical reference guides, empirical datasets, and preprints for solar photovoltaic system design:</p>
       <div className="supporting-links" style={{ display: "flex", flexWrap: "wrap", gap: "0.85rem", marginTop: "0.75rem" }}>
+        <Link href="/datasets/50-state-solar-insolation-climatic-benchmark" className="footer-link">📊 Dataset: 50-State Solar Insolation &amp; Climatic Benchmark (PL-DS-SOL-03)</Link>
         <Link href="/solar/regional-climate-data" className="footer-link">🗺️ 50-State NREL Solar &amp; ASHRAE Climatic Database</Link>
+        <Link href="/research/ground-view-factor-snow-albedo-pv-tilt" className="footer-link">🔬 Research: Snow Albedo &amp; Sub-Zero Voc Expansion Paper</Link>
         <Link href="/guides/solar-panel-tilt-angle-by-latitude-and-season-guide" className="footer-link">☀️ Solar Panel Tilt Angle by Latitude &amp; Season Guide</Link>
         <Link href="/guides/mppt-solar-charge-controller-sizing-guide" className="footer-link">⚡ MPPT vs PWM Solar Charge Controller Sizing Guide</Link>
         <Link href="/guides/solar-payback-and-roi-calculation-guide" className="footer-link">📈 Solar Payback &amp; ROI Calculation Guide</Link>
-        <Link href="/research/ground-view-factor-snow-albedo-pv-tilt" className="footer-link">🔬 Research: Snow Albedo &amp; Sub-Zero Voc Expansion Paper</Link>
+        <Link href="/datasets" className="footer-link">📊 All Open Benchmark Datasets</Link>
         <Link href="/guides" className="footer-link">📚 All Engineering Guides</Link>
       </div>
     </section>
