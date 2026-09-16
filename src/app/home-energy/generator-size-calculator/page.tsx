@@ -66,6 +66,8 @@ export default function GeneratorSizePage() {
       "IEEE Std 446 (Recommended Practice for Emergency and Standby Power Systems)",
       "NEMA MG-1 (Motors and Generators)",
     ],
+    companionDatasetUrl: "https://doi.org/10.6084/m9.figshare.33821934",
+    companionPaperUrl: "https://www.powelab.org/research/generator-motor-starting-lra-surge-kinetics",
     faqs: FAQS,
   });
 

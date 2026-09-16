@@ -82,6 +82,8 @@ export default function BatteryRuntimePage() {
       "UL 1973 (Batteries for Use in Stationary and Motive Applications)",
       "NFPA 70 / NEC Article 706 (Energy Storage Systems)",
     ],
+    companionDatasetUrl: "https://doi.org/10.6084/m9.figshare.33821940",
+    companionPaperUrl: "https://www.powelab.org/research/stationary-bess-peukert-derating-inverter-tare-loss",
     faqs: FAQS,
   });
 

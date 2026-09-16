@@ -55,23 +55,45 @@
 ```json
 {
   "@context": "https://schema.org",
-  "@type": "WebApplication",
-  "name": "BESS Runtime & Peukert Derating Calculator",
-  "applicationCategory": "EngineeringApplication",
-  "operatingSystem": "All",
-  "browserRequirements": "Requires JavaScript. Requires HTML5.",
-  "url": "https://www.powelab.org/battery/battery-runtime-calculator",
-  "description": "Deterministic engineering engine calculating stationary battery backup hours incorporating Peukert law rate capacity derating and continuous inverter tare losses.",
-  "offers": {
-    "@type": "Offer",
-    "price": "0",
-    "priceCurrency": "USD"
-  },
-  "publisher": {
-    "@type": "Organization",
-    "name": "PowerLab Open Energy Research",
-    "url": "https://www.powelab.org"
-  }
+  "@graph": [
+    {
+      "@type": ["WebApplication", "SoftwareApplication", "MathSolver", "LearningResource"],
+      "@id": "https://www.powelab.org/battery/battery-runtime-calculator#webapp",
+      "name": "Battery Runtime Calculator",
+      "url": "https://www.powelab.org/battery/battery-runtime-calculator",
+      "applicationCategory": "UtilitiesApplication",
+      "applicationSubCategory": "Energy & Electrical Planning",
+      "operatingSystem": "All",
+      "browserRequirements": "Requires JavaScript. Requires HTML5 Canvas/SVG.",
+      "isAccessibleForFree": true,
+      "description": "Calculates battery backup runtime hours accounting for Peukert capacity derating, discharge rates, and inverter tare losses.",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD",
+        "availability": "https://schema.org/InStock"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "PowerLab Engineering & Energy Modeling Team",
+        "url": "https://www.powelab.org"
+      },
+      "isBasedOn": [
+        "IEEE Std 485 (Recommended Practice for Sizing Lead-Acid Batteries)",
+        "https://doi.org/10.6084/m9.figshare.33821940",
+        "https://www.powelab.org/research/stationary-bess-peukert-derating-inverter-tare-loss"
+      ]
+    },
+    {
+      "@type": "BreadcrumbList",
+      "@id": "https://www.powelab.org/battery/battery-runtime-calculator#breadcrumb",
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://www.powelab.org" },
+        { "@type": "ListItem", "position": 2, "name": "Battery", "item": "https://www.powelab.org/battery" },
+        { "@type": "ListItem", "position": 3, "name": "Battery Runtime Calculator", "item": "https://www.powelab.org/battery/battery-runtime-calculator" }
+      ]
+    }
+  ]
 }
 ```
 
@@ -79,6 +101,9 @@
 
 ## 4. Structured Data Validation Rules
 
-1. **Strict Fidelity:** Schema properties must exactly mirror visible text on the page. Do not include phantom ratings, fake aggregate reviews, or inflated statistics.
-2. **DOI & Citation Persistence:** Research articles must include authoritative `identifier` fields containing valid DOIs where registered.
-3. **Google Rich Results Compliance:** Test all new schema implementations with Google Rich Results Test / Schema Validator before production deployment.
+1. **Strict Fidelity & Zero Synthetic Ratings:** Schema properties must exactly mirror visible text on the page. Never manufacture `aggregateRating` or fake reviews; omit `aggregateRating` and provide valid `offers: { price: 0, priceCurrency: USD }`.
+2. **Google-Compliant `applicationCategory`:** Use `"UtilitiesApplication"` for sizing and electrical physics tools, and `"FinanceApplication"` for economic ROI, payback, cost, and utility bill modeling tools.
+3. **Circular Linked Data (`isBasedOn`):** Link tools directly to governing engineering standards (e.g., IEEE, NEC, ASHRAE), companion open datasets (Figshare DOIs), and technical preprints.
+4. **DOI & Citation Persistence:** Research articles and datasets must include authoritative `identifier` fields containing valid DOIs where registered.
+5. **Google Rich Results Compliance:** Test all schema implementations with Google Rich Results Test / Schema Validator before production deployment.
+

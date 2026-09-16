@@ -55,6 +55,8 @@ export default function EvRangePage() {
       "SAE J1634 (Electric Vehicle Energy Consumption and Range Test Procedure)",
       "WLTP (Worldwide Harmonised Light Vehicles Test Procedure)",
     ],
+    companionDatasetUrl: "https://doi.org/10.6084/m9.figshare.33321774",
+    companionPaperUrl: "https://www.powelab.org/research/continuous-duty-thermal-sizing-evse-ampacity",
     faqs: FAQS,
   });
 

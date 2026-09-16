@@ -57,6 +57,8 @@ export default function HomeBatterySizePage() {
       "IEEE 1547 (Interconnection and Interoperability of Distributed Energy Resources)",
       "IEC 62619 Secondary Lithium Cells",
     ],
+    companionDatasetUrl: "https://doi.org/10.6084/m9.figshare.33821940",
+    companionPaperUrl: "https://www.powelab.org/research/stationary-bess-peukert-derating-inverter-tare-loss",
     faqs: FAQS,
   });
 

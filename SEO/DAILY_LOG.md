@@ -96,4 +96,28 @@
   - Ran `npm run build`: 84 static routes successfully compiled.
 * **Step 5 (Record):** Recorded actions in `SEO/DAILY_LOG.md` and `SEO/CHANGELOG.md`.
 
+---
+
+### 2026-09-16 (Session 7) — WebApplication & BreadcrumbList Schema Standardization & Linked Dataset Graphs
+* **Session Lead:** AI/SEO Agent (Approved Execution)
+* **Step 1 (Audit & Verification):** Conducted complete Google Search Central and Schema.org compliance audit across all 24 interactive calculators. Confirmed all tools genuinely qualify as `WebApplication`, mapped 7 financial/cost tools to `FinanceApplication` and 17 sizing/physics tools to `UtilitiesApplication`, and confirmed zero synthetic ratings (`aggregateRating` strictly omitted, valid free `Offer` provided).
+* **Step 2 (Plan):** Standardized `buildCalculatorStructuredData` in `src/lib/seo/structured-data.ts`, updated unit tests in `src/lib/seo/structured-data.test.ts`, updated `SEO/SCHEMA_RULES.md`, and injected companion open benchmark datasets (Figshare DOIs) and technical preprints into companion calculator pages via `isBasedOn` linked data.
+* **Step 3 (Execute):**
+  - Updated `src/lib/seo/structured-data.ts`: Enabled dynamic `applicationCategory` mapping (`FinanceApplication` vs `UtilitiesApplication`), standardized `operatingSystem: "All"`, and combined `standards`, `isBasedOn`, `companionDatasetUrl`, and `companionPaperUrl` into unified `@graph` schemas.
+  - Updated `src/lib/seo/structured-data.test.ts`: Added test assertions verifying `FinanceApplication` auto-detection, `operatingSystem: "All"`, and `isBasedOn` dataset linkages.
+  - Updated `SEO/SCHEMA_RULES.md`: Documented updated Google Search Central compliant `@graph` standards and strict validation guidelines.
+  - Linked companion dataset DOIs and research preprints via structured data on:
+    - `/battery/battery-runtime-calculator` (`PL-DS-BESS-05` / `PL-TR-2026-BESS01`)
+    - `/home-energy/home-battery-size-calculator` (`PL-DS-BESS-05` / `PL-TR-2026-BESS01`)
+    - `/ev/ev-range-calculator` (`PL-DS-EVSE-01` / `PL-TR-2026-EVSE01`)
+    - `/home-energy/generator-size-calculator` (`PL-DS-GEN-04` / `PL-TR-2026-GEN02`)
+    - `/solar/solar-panel-output-calculator` (`PL-DS-SOL-03` / `PL-TR-2026-SOL03`)
+    - `/home-energy/air-conditioner-cost-calculator` (`PL-DS-AC-04` / `PL-TR-2026-HVAC01`)
+    - `/home-energy/heat-pump-cost-calculator` (`PL-DS-AC-04` / `PL-TR-2026-HVAC01`)
+* **Step 4 (Validate):**
+  - Ran `npm run typecheck`: 0 TypeScript errors.
+  - Ran `npm test`: 58/58 test files passed (265/265 unit tests).
+  - Ran `npm run build`: 84 static SSG routes compiled cleanly with 0 errors.
+* **Step 5 (Record):** Recorded in `SEO/DAILY_LOG.md` and `SEO/CHANGELOG.md`.
+
 

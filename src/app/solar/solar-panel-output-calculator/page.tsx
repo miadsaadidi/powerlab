@@ -57,6 +57,8 @@ export default function SolarOutputPage() {
       "IEEE 1547 (Interconnection and Interoperability of Distributed Energy Resources)",
       "NFPA 70 / NEC Article 690 (Solar Photovoltaic Systems)",
     ],
+    companionDatasetUrl: "https://doi.org/10.6084/m9.figshare.33821937",
+    companionPaperUrl: "https://www.powelab.org/research/photovoltaic-inverter-clipping-efficiency-loss",
     faqs: FAQS,
   });
 
