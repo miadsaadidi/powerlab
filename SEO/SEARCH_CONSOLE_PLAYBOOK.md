@@ -66,3 +66,26 @@
   1. First evaluate whether adding an input slider/preset to an existing calculator satisfies the demand.
   2. If the user task is materially distinct (see `docs/13_CALCULATOR_REGISTRY_AND_ROUTES.md`), register a new canonical route in the implementation roadmap.
   3. Link the new asset to its parent topic hub and companion whitepapers.
+
+---
+
+## 3. Live Search Console Indexation Baseline (Export Date: 2026-09-16)
+
+### Status Summary
+* **Indexed Pages:** 17
+* **Non-Indexed Pages:** 55
+* **Peak Impressions:** 2,074/day (2026-08-29)
+* **Current Impressions:** 3–9/day (2026-09-05 to 2026-09-14)
+
+### Error & Non-Indexed Breakdown
+1. **Crawled - Currently Not Indexed (34 pages):** Status `Échec / Failed`. Remediated by upgrading dynamic sitemap priority signals, updating `lastModified` to `2026-09-16`, and deploying rich `WebApplication` + `Offer` + `Dataset` schemas across all 24 calculators.
+2. **Redirect Errors (5 pages):** Status `Non commencé`. Verified clean single-hop 308 redirects in `next.config.mjs` with 0 circular loops.
+3. **Page with Redirect (3 pages):** Status `Non commencé`. Verified zero redirected paths in `src/app/sitemap.ts`.
+4. **Discovered - Currently Not Indexed (13 pages):** Status `Non commencé`. Provided direct crawl paths from topic hubs and footer navigation.
+
+### User Action Required in GSC
+1. Navigate to **Google Search Console $\rightarrow$ Indexation $\rightarrow$ Pages**.
+2. Click on **"Explorée, actuellement non indexée"** and click the blue **"Valider la correction" (Validate Fix)** button.
+3. Click on **"Erreur liée à des redirections"** and click **"Valider la correction"**.
+4. Re-submit sitemap: `https://www.powelab.org/sitemap.xml`.
+

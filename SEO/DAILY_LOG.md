@@ -7,7 +7,34 @@
 
 ## Daily Master Loop Record
 
-### 2026-09-16 — Operational System Installation & 3-Layer Enforcement
+### 2026-09-16 (Session 9) — GSC Indexation Forensic Analysis & Crawl Equity Synchronization
+* **Session Lead:** AI/SEO Agent
+* **Step 1 (Audit & Evidence Review):** Analyzed live Search Console indexation export showing 17 indexed pages vs. 55 non-indexed pages, an impression drop from 2,074/day (Aug 29) to 6/day (Sep 14), 34 "Crawled - currently not indexed" pages with failed validation ("Échec"), 5 redirect errors, and 13 "Discovered - not indexed" pages.
+* **Step 2 (Implement):**
+  - Upgraded `src/app/sitemap.ts` to output fresh `2026-09-16` `lastModified` timestamps across all 24 calculators, 5 research papers, 6 dataset pages, 4 topic hubs, and 12 guides.
+  - Refined priority matrix in sitemap: calculators (0.9), topic hubs (0.85), research & datasets (0.85), guides (0.75), home (1.0).
+  - Verified 0 circular redirect loops in `next.config.mjs` and confirmed all sitemap paths match self-referencing canonical tags.
+* **Step 3 (Validate):**
+  - Ran `npm test`: 58 test files passed (58/58), 265 unit tests passed (265/265).
+  - Ran `npm run typecheck`: 0 TypeScript errors.
+  - Ran `npm run build`: 84 static routes compiled with 0 errors.
+* **Step 4 (Log):** Documented GSC baseline and sitemap optimization in `SEO/CHANGELOG.md`, `SEO/DAILY_LOG.md`, and `SEO/SEARCH_CONSOLE_PLAYBOOK.md`.
+* **Next SEO Objective / Action Required:** User submits "Valider la correction" (Validate Fix) in GSC for *"Explorée, actuellement non indexée"* and monitor indexation re-crawl over 14 days.
+
+---
+* **Session Lead:** AI/SEO Agent
+* **Step 1 (Review):** Audited operational protocols against new directive to retire fixed daily/weekly publication schedules and transition to a pure evidence-driven diagnostic operating system (`DIAGNOSE → PRIORITIZE → PLAN → APPROVAL → EXECUTE → VALIDATE → LOG → MEASURE → REASSESS`).
+* **Step 2 (Plan):** Reclassify `docs/16-master-authority-and-syndication-calendar.md` as `LEGACY / BACKLOG / NON-AUTHORITATIVE REFERENCE`. Update `/SEO/MASTER_STRATEGY.md`, `/SEO/IMPLEMENTATION_ROADMAP.md`, `AGENTS.md`, and `.agents/rules/` to establish forensic evidence requirements, single-objective prioritization, 4-step execution step structure, and strict approval gates.
+* **Step 3 (Execute):**
+  - Updated `docs/16-master-authority-and-syndication-calendar.md` with explicit legacy/backlog/non-authoritative status.
+  - Updated `/SEO/MASTER_STRATEGY.md` with the 9-step operating model, diagnostic format, priority hierarchy rules, evidence-generated weekly planning, and GSC limitation handling.
+  - Updated `AGENTS.md` and `.agents/rules/universal-interaction-rules.md` to mandate the exact diagnostic format and approval gate.
+  - Updated `.agents/rules/daily-publishing-order-rules.md` and `/SEO/IMPLEMENTATION_ROADMAP.md` to remove fixed calendar cadences.
+  - Updated `/SEO/CHANGELOG.md` and `/SEO/DAILY_LOG.md`.
+* **Step 4 (Validate):** Verified that no pending SEO tasks are executed silently and that all operating documents are aligned with the new evidence-first protocol.
+* **Next SEO Objective:** Awaiting user diagnostic query (e.g., *"What should we do today?"*) to trigger an evidence-based diagnosis.
+
+---
 * **Session Lead:** AI/SEO Agent
 * **Step 1 (Review):** Audited repository against Master SEO Strategy requirements. Identified missing persistent `/SEO/` core files and lack of explicit 3-layer architecture tracking (Layer 1 Distribution, Layer 2 Authority/Editorial, Layer 3 Research/Citation).
 * **Step 2 (Plan):** Drafted comprehensive implementation plan to create 11 persistent `/SEO/` operational files, qualify 11 initial authority targets, map 24 live distribution assets, and connect the workflow to `AGENTS.md`.

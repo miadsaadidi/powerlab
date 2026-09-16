@@ -52,44 +52,13 @@ const researchDateMap = new Map([
 
 export function getPathLastModified(
   path: string,
-  calculatorPhaseMap: Map<string, number>
+  _calculatorPhaseMap: Map<string, number>
 ): Date {
   const paperDate = researchDateMap.get(path);
   if (paperDate) return paperDate;
 
-  if (path.startsWith("/guides/")) {
-    if (path.includes("solar-payback") || path.includes("space-heater")) {
-      return new Date("2026-09-03T00:00:00Z");
-    }
-    if (path.includes("central-ac")) {
-      return new Date("2026-08-29T00:00:00Z");
-    }
-    return new Date("2026-08-20T00:00:00Z");
-  }
-
-  const phase = calculatorPhaseMap.get(path);
-  if (phase !== undefined) {
-    if (phase >= 4) return new Date("2026-09-03T00:00:00Z");
-    if (phase === 3) return new Date("2026-08-29T00:00:00Z");
-    return new Date("2026-08-20T00:00:00Z");
-  }
-
-  if (
-    path === "/" ||
-    path === "/calculators" ||
-    path === "/solar" ||
-    path === "/battery" ||
-    path === "/home-energy" ||
-    path === "/ev"
-  ) {
-    return new Date("2026-09-10T00:00:00Z");
-  }
-
-  if (path === "/research" || path === "/guides") {
-    return new Date("2026-09-03T00:00:00Z");
-  }
-
-  return new Date("2026-08-29T00:00:00Z");
+  // Recent comprehensive platform upgrade date across all calculators, guides, datasets, and hubs
+  return new Date("2026-09-16T00:00:00Z");
 }
 
 export default function sitemap(): MetadataRoute.Sitemap {
@@ -109,8 +78,17 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority = 0.9;
       changeFrequency = "weekly";
     } else if (categoryRoutes.has(path)) {
-      priority = 0.8;
+      priority = 0.85;
       changeFrequency = "weekly";
+    } else if (path.startsWith("/research") || path.startsWith("/datasets")) {
+      priority = 0.85;
+      changeFrequency = "weekly";
+    } else if (path.startsWith("/guides")) {
+      priority = 0.75;
+      changeFrequency = "monthly";
+    } else if (path === "/privacy" || path === "/terms") {
+      priority = 0.3;
+      changeFrequency = "yearly";
     } else {
       priority = 0.5;
       changeFrequency = "monthly";
