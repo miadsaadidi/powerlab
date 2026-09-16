@@ -231,15 +231,18 @@ export default function HomeEnergyHub() {
       </div>
     </section>
     <section className="hub-support" aria-labelledby="home-energy-guides-heading">
-      <h2 id="home-energy-guides-heading">Featured Home Energy Guides &amp; Research Preprints</h2>
-      <p>Explore our empirical reference guides and peer-reviewed technical whitepapers for residential electricity audits, heat pump thermodynamics, and emergency generator sizing:</p>
+      <h2 id="home-energy-guides-heading">Featured Home Energy Guides &amp; Open Datasets</h2>
+      <p>Explore our empirical reference guides, open benchmark datasets, and peer-reviewed technical whitepapers for residential electricity audits, heat pump thermodynamics, and emergency generator sizing:</p>
       <div className="supporting-links" style={{ display: "flex", flexWrap: "wrap", gap: "0.85rem", marginTop: "0.75rem" }}>
+        <Link href="/datasets/central-air-conditioner-seer2-cooling-degree-day-benchmark" className="footer-link">📊 Dataset: Central AC &amp; Heat Pump SEER2 Benchmark (PL-DS-AC-04)</Link>
+        <Link href="/datasets/inductive-motor-starting-surge-generator-benchmark" className="footer-link">📊 Dataset: Motor Starting Surge &amp; Inrush Benchmark (PL-DS-GEN-04)</Link>
         <Link href="/research/heat-pump-cop-degradation-and-auxiliary-heat-kinetics" className="footer-link">🔬 Research: Heat Pump COP Degradation &amp; Aux Heat Kinetics</Link>
         <Link href="/research/deterministic-inrush-load-stacking-generator-sizing" className="footer-link">🔬 Research: Motor Inrush Load Stacking &amp; Generator Sizing</Link>
         <Link href="/guides/central-ac-and-heat-pump-electricity-cost-guide" className="footer-link">❄️ Central AC &amp; Heat Pump Cost (SEER2) Guide</Link>
         <Link href="/guides/space-heater-electricity-cost-and-wattage-guide" className="footer-link">🔥 Space Heater Electricity Cost &amp; Wattage Guide</Link>
         <Link href="/guides/how-many-kwh-does-a-house-use-per-day" className="footer-link">📊 How Many kWh Does a House Use Per Day Guide</Link>
         <Link href="/guides/emergency-generator-sizing-and-inrush-load-guide" className="footer-link">⚡ Emergency Generator Sizing &amp; Motor Inrush Guide</Link>
+        <Link href="/datasets" className="footer-link">📊 All Open Benchmark Datasets</Link>
         <Link href="/guides" className="footer-link">📚 All Engineering Guides</Link>
       </div>
     </section>
