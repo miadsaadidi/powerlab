@@ -1,0 +1,19 @@
+# POWLAB SEO — Master Change Log
+
+**Domain:** `https://www.powelab.org/`  
+**Rule:** Maintain a permanent, immutable record of all SEO architectural, content, technical, and strategy changes.
+
+---
+
+## Change Log
+
+| Date | Change Summary | Reason | URLs Affected | Expected Outcome | Actual Outcome | Validation Method | Follow-Up Date |
+| :---: | :--- | :--- | :--- | :--- | :--- | :--- | :---: |
+| **2026-09-16 (S3)** | Completed end-to-end verification of dataset landing architecture, 10 Layer 2 outreach pitch packages, and repository deposit codebooks | Verify and audit 3-layer architecture, validate build, and confirm human-ready outreach assets | Global (`/datasets/*`, `/SEO/*`) | Complete operational readiness for Layer 2 editorial pitching and Layer 3 Dataverse/Zenodo mirror deposits | All 58 test files / 264 unit tests pass, typecheck passes, 84 static routes build cleanly | `npm test`, `npm run typecheck`, `npm run build` | 2026-09-23 |
+| **2026-09-16 (S2)** | Implemented dedicated Dataset Landing architecture (`/datasets`, `/datasets/[slug]`), expanded Authority Database to 65+ prospects, and updated single-objective execution rule | Resolve gaps identified in `IMPLEMENTATION_GAP_AUDIT.md` (Google Dataset Search discovery + authority scaling) | `/datasets/*`, `src/data/research-papers.ts`, `AGENTS.md`, `/SEO/*` | Discoverable canonical dataset landing pages with `Dataset` JSON-LD schema, richer internal equity distribution, and 65+ qualified authority targets | Build compiles with 84 static routes; all 264 unit tests pass | `npm test`, `npm run typecheck`, `npm run build` | 2026-09-23 |
+| **2026-09-16** | Initialized persistent `/SEO/` master architecture directory with 11 core files | Enforce cumulative POWLAB SEO Master Strategy, 3-Layer operating model, and persistent memory | Global (`/SEO/*`, `AGENTS.md`) | Single unified source of truth for all SEO, distribution, and authority workflows | All 11 files generated with verified schemas and cross-links | File structure and integrity audit | 2026-09-17 |
+| **2026-09-13** | Deployed Zero-Scroll calculator UI layouts and mobile keyboard optimizations | Eliminate mobile bounce rate and satisfy Core Web Vitals | All 24 calculators (`/battery/*`, `/solar/*`, `/home-energy/*`, `/ev/*`) | Improved mobile engagement and strike-distance ranking climbs | GSC impressions grew to 14.2k+ | GSC & OpenSEO crawler audits | 2026-09-20 |
+| **2026-09-11** | Published BESS Peukert Capacity Derating & Tare Loss whitepaper (`PL-TR-2026-BESS01`) | Establish canonical scientific asset for stationary storage cluster | `/research/electrochemical-peukert-derating-bess` | Topical authority foundation for battery runtime queries | Live and indexed | Canonical & Schema verification | 2026-09-18 |
+| **2026-09-10** | Registered MERLOT Higher-Ed OER simulation modules (`MER-01`, `MER-02`) | High-authority academic distribution and .edu backlink acquisition | `/research/heat-pump-cop-degradation-and-auxiliary-heat-kinetics`, `/battery/battery-runtime-calculator` | CSU institutional authority and referral traffic | Verified DR 63 / DA 75 Dofollow backlink acquired | Live HTML crawler inspection | 2026-09-24 |
+| **2026-09-06** | Published Inductive Motor Inrush & Generator Sizing dataset on Hugging Face (`HF-01`) | Expand research dataset distribution into ML and data science communities | `/home-energy/generator-size-calculator` | Dataset citations and data discovery | Verified DataCite DOI `10.57967/hf/10419` active | DOI resolver audit | 2026-09-20 |
+| **2026-08-26** | Initial deployment of Figshare Open DataCite DOIs (`FIG-01` through `FIG-05`) | Provide reproducible scientific data artifacts for all canonical whitepapers | `/research/*`, `/solar/regional-climate-data` | High-authority DOI-backed citations (DR 90) | Verified 5 DOIs active on Figshare | DataCite registry check | 2026-09-26 |

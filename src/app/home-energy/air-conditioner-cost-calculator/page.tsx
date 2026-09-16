@@ -158,9 +158,26 @@ export default function AcCostPage() {
                 <td>$0.27 / hr</td>
                 <td>$65.70 / mo</td>
               </tr>
+              <tr>
+                <td><strong>Central AC (4.0 Ton / 2,400–2,800 sq ft)</strong></td>
+                <td>48,000 BTU</td>
+                <td>3,400 W</td>
+                <td>$0.37 / hr</td>
+                <td>$88.80 / mo</td>
+              </tr>
             </tbody>
           </table>
         </div>
+      </section>
+
+      {/* Dataset & Research Cross-Link Callout */}
+      <section style={{ margin: "2rem 0", padding: "1.25rem 1.5rem", borderRadius: "0.75rem", background: "rgba(16, 185, 129, 0.06)", border: "1px solid rgba(16, 185, 129, 0.25)" }}>
+        <h3 style={{ margin: "0 0 0.5rem", fontSize: "1.1rem", color: "#065f46" }}>
+          📊 Open Empirical Benchmark Data
+        </h3>
+        <p style={{ margin: "0 0 0.75rem", fontSize: "0.92rem", color: "var(--ink)", lineHeight: 1.6 }}>
+          Need empirical laboratory data on cooling degree days and seasonal efficiency transitions under DOE Appendix M1? Explore our open <Link href="/datasets/central-air-conditioner-seer2-cooling-degree-day-benchmark" style={{ fontWeight: 700, color: "#059669", textDecoration: "underline" }}>Central AC &amp; Heat Pump SEER2 Benchmark Dataset (PL-DS-AC-04)</Link> and thermodynamic study on <Link href="/research/heat-pump-cop-degradation-and-auxiliary-heat-kinetics" style={{ fontWeight: 700, color: "#059669", textDecoration: "underline" }}>HVAC COP Degradation &amp; Auxiliary Staging (PL-TR-2026-HVAC01)</Link>.
+        </p>
       </section>
 
       <div id="formula-math">

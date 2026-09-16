@@ -625,7 +625,7 @@ export default function ResearchHubPage() {
                     minHeight: "2.7rem",
                   }}
                 >
-                  <Link href={`/research/${ds.paperSlug}`} style={{ color: "inherit", textDecoration: "none" }} title={ds.title}>
+                  <Link href={`/datasets/${ds.slug}`} style={{ color: "inherit", textDecoration: "none" }} title={ds.title}>
                     {ds.title}
                   </Link>
                 </h3>
