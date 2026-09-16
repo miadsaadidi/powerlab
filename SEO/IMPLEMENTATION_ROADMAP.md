@@ -1,7 +1,8 @@
 # POWLAB SEO — Implementation Roadmap
 
 **Domain:** `https://www.powelab.org/`  
-**Execution Cycle:** 6-Phase Systematic Implementation & Authority Scaling.
+**Operating Model:** Evidence-Driven Milestone Backlog (DIAGNOSE → PRIORITIZE → PLAN → APPROVAL → EXECUTE → VALIDATE → LOG → MEASURE).  
+**Status:** Milestones below represent candidate strategic opportunities. Execution of any milestone is strictly triggered when real-world SEO evidence identifies it as the single highest-value objective.
 
 ---
 

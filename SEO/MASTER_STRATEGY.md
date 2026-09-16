@@ -5,21 +5,27 @@
 
 ---
 
-## 1. CRITICAL INSTRUCTION TO THE AI/SEO AGENT
+## 1. CRITICAL INSTRUCTION & EVIDENCE-DRIVEN OPERATING SYSTEM
 
-Before doing ANY SEO work, content work, publishing work, backlink work, technical changes, or strategy changes:
-**ALWAYS MAKE A PLAN FIRST. NEVER IMMEDIATELY JUMP TO EXECUTION.**
+> [!IMPORTANT]
+> **RETIREMENT OF FIXED CALENDAR:**  
+> The old fixed daily/weekly publication calendar is **OFFICIALLY RETIRED** as an execution schedule. It is preserved strictly as a **LEGACY / BACKLOG / NON-AUTHORITATIVE REFERENCE** (`docs/16-master-authority-and-syndication-calendar.md`).  
+> **Never execute an SEO task merely because it was scheduled.** Current SEO evidence determines the work.
 
-For every task:
-1. Review this master strategy (`/SEO/MASTER_STRATEGY.md`).
-2. Review the current POWLAB SEO state/files in `/SEO/`.
-3. Identify the relevant existing assets.
-4. Identify what the task is trying to accomplish.
-5. Produce a concise implementation plan.
-6. Check the plan against the permanent rules in this document.
-7. Only then execute.
-8. After execution, record what was changed in `/SEO/CHANGELOG.md` and `/SEO/DAILY_LOG.md`.
-9. Update the relevant SEO tracking files so future sessions retain complete context.
+### The Evidence-Driven Operating System
+Every SEO cycle operates strictly according to:
+```text
+DIAGNOSE → PRIORITIZE → PLAN → APPROVAL → EXECUTE → VALIDATE → LOG → MEASURE → REASSESS
+```
+
+A scheduled task from the legacy backlog may only be executed if current evidence independently determines that task is the single highest-value objective.
+
+### Universal Rules of Engagement
+1. **Evidence-Driven Diagnosis:** Independently audit all available data (Search Console, technical crawlability, on-site architecture, content/keyword system, external ecosystem, and persistent logs).
+2. **Exactly ONE Objective:** After diagnosis, select exactly ONE highest-value objective. Never present a menu of options or generic checklists.
+3. **Mandatory Approval Gate:** Present the diagnosis, evidence, and 4-step execution plan, then **STOP IMMEDIATELY**. Never execute mutating actions prior to explicit user approval.
+4. **Targeted Execution:** Upon approval, execute the full cycle (Audit → Implement → Validate → Log), leave the repository in a verified compiling state, and stop.
+5. **No Blind Publishing:** Content creation, dataset releases, whitepapers, and outreach are never done to maintain an arbitrary cadence; they occur only when justified by evidence.
 
 If an instruction conflicts with this master strategy, stop and identify the conflict before executing. Do not silently replace or weaken an established SEO rule.
 
@@ -184,18 +190,127 @@ Never claim a backlink is dofollow without verifying the live HTML:
 
 ---
 
-## 8. PERMANENT OPERATING LOOP
+## 8. EVIDENCE-DRIVEN DAILY OPERATING MODEL & OUTPUT FORMAT
 
-Every SEO session must execute this 5-step loop:
+When asked *"What should we do today?"*, *"Check SEO"*, *"What is next?"*, or *"What is in SEO today?"*, perform an autonomous forensic diagnosis across all available evidence:
+
+1. **Search performance:** GSC impressions, clicks, CTR, average position, queries, pages, indexation, sitemap status, emerging queries, declining pages, cannibalization, strike-distance opportunities (positions 4–20).
+2. **Technical SEO:** Crawlability, indexability, canonical tags, sitemap integrity, robots directives, redirects, HTTP errors, structured JSON-LD data, Core Web Vitals, and route health.
+3. **On-site architecture:** Topical hubs, calculators, research whitepapers, datasets, guides, internal link graph, and orphan/weak pages.
+4. **Content / keyword system:** Keyword coverage, search intent alignment, cannibalization, content gaps, pages with high upside, underperforming pages.
+5. **External ecosystem:** Verified live publications, authority targets, backlinks, research citations, distribution status, and pending external opportunities.
+6. **Persistent SEO records:** Track status in `/SEO/` files as evidence, but verify actual implementation state before concluding.
+
+### Mandatory Diagnostic Output Format (Text Only, Then STOP)
+Every SEO diagnosis must return strictly in this format:
 
 ```text
-[1. REVIEW]   Check /SEO/MASTER_STRATEGY.md, CONTENT_MAP.md, KEYWORDS.md, DAILY_LOG.md
-     │
-[2. PLAN]     Select single highest-value task, draft plan, confirm against rules
-     │
-[3. EXECUTE]  Implement original asset, update, distribution piece, or outreach pitch
-     │
-[4. VALIDATE] Verify HTML, links, canonicals, schema, and mobile responsiveness
-     │
-[5. RECORD]   Log all actions in /SEO/DAILY_LOG.md and /SEO/CHANGELOG.md
+## CURRENT STATE
+[What is actually happening now on the site and external footprint.]
+
+## EVIDENCE
+[Specific verified evidence supporting the diagnosis. Clearly state when critical data like Search Console is unavailable.]
+
+## ONE PRIORITY
+[Exactly one single objective. No menus, no multiple choices, no generic lists.]
+
+## EXACT EXECUTION STEPS
+
+### Step 1 — Audit
+* File/system:
+* Action:
+* Evidence:
+* Done when:
+
+### Step 2 — Implement
+* File/system:
+* Action:
+* Evidence:
+* Done when:
+
+### Step 3 — Validate
+* Command/test:
+* Expected result:
+* Done when:
+
+### Step 4 — Log
+* File:
+* Update:
+* Done when:
+
+## EXPECTED SEO MECHANISM
+[Current problem → Action → Search/discovery mechanism → Expected improvement. No fabricated ranking guarantees.]
+
+## DEPENDENCIES
+* Actions Gemini can execute:
+* Actions requiring user approval:
+* External account requirements:
+* Third-party approval:
+* Unavailable data:
+
+## VALIDATION
+[Exact checks/tests to run: e.g. npm test, npm run typecheck, npm run build, HTML schema audit.]
+
+## FILES / SYSTEMS AFFECTED
+[Exact file paths and system routes.]
+
+## APPROVAL REQUIRED
+STOP. (Waiting for explicit user approval to proceed)
 ```
+
+---
+
+## 9. PRIORITY HIERARCHY RULES
+
+Use these evidence-based decision principles to rank candidates (evidence always overrides assumptions):
+
+1. **Highest Priority:** A verified technical or indexation problem affecting important indexable pages.
+2. **Next:** A strong measurable search-performance opportunity (e.g. high-impression low-CTR queries, strike-distance positions 4–20).
+3. **Next:** A meaningful internal architecture or content opportunity supported by evidence (topical gap, missing calculation engine, internal link equity leak).
+4. **Next:** A strong research, dataset, or distribution opportunity (Layer 1 / Layer 3 open-science deposit).
+5. **Next:** External authority editorial opportunities (Layer 2) when genuinely justified with custom research assets.
+6. **Lowest Priority:** Routine activity with no evidence of meaningful value.
+
+---
+
+## 10. WEEKLY PLANNING & MONTHLY STRATEGIC AUDIT
+
+### Weekly Planning Protocol (Evidence-Generated, Not Calendar-Generated)
+Do NOT generate a fixed weekly calendar. Instead, at the beginning of each weekly review:
+1. Analyze previous period performance.
+2. Review search and performance evidence (GSC impressions, CTR, queries).
+3. Review technical changes and crawl stability.
+4. Review content/query opportunities and coverage gaps.
+5. Review authority and distribution status.
+6. Review unfinished approved work.
+7. Determine the single highest-value objective.
+8. Produce an execution-ready plan and **STOP for approval**.
+
+### Monthly Strategic Review Protocol
+Once per month, perform a holistic audit covering:
+* Technical crawlability, indexation & CWV
+* Information architecture & topic hub equity flow
+* Keyword coverage, search intent & content gaps
+* Calculator engines, research papers & open datasets
+* External distribution footprint, backlinks & citations
+* Comparison of actual results against permanent strategy goals
+
+Do not create busywork merely because a monthly audit occurs.
+
+---
+
+## 11. CONTENT PRODUCTION & SEARCH CONSOLE LIMITATIONS
+
+### Search Console Limitation Protocol
+When live Search Console data is unavailable:
+* Explicitly state the limitation in the diagnosis.
+* Do not invent search metrics, CTRs, or impression numbers.
+* Do not claim a page is underperforming based on absent data.
+* Rely on verified codebase, structural, schema, and on-page evidence.
+* Reduce confidence levels appropriately.
+
+### Content & External Publishing Rules
+* **No Artificial Cadence:** Do not publish content or outreach simply to maintain a calendar.
+* **Justified Creation:** Content, whitepapers, datasets, and pitches must have a documented search-intent opportunity, technical gap, research utility, or authority reason.
+* **Legacy Backlog Status:** Items in `docs/16-master-authority-and-syndication-calendar.md` are backlog reference ideas only, executed only when current evidence promotes them to #1 priority.
+
