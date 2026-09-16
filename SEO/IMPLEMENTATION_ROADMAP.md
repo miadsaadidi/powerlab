@@ -60,7 +60,7 @@
   - Submit generator motor inrush & LRA soft-starting analysis to *Power Engineering International* and *Electrical Contractor Magazine*.
 - [ ] **Academic & Citation Outreach (Layer 3):**
   - Connect with university clean energy labs and IEEE working groups evaluating stationary storage standards (IEEE 485 / IEEE 1547).
-  - Submit dataset metadata to institutional repositories and scientific data indexes (Zenodo, Dataverse).
+  - Register benchmark datasets in open scientific data indexes (Figshare, Hugging Face).
 
 ---
 

@@ -95,7 +95,7 @@ SOLAR PV RESEARCH CLUSTER
 └── Layer 3 Research & Citation Targets
     ├── NREL PVWatts & SAM development teams
     ├── International Solar Energy Society (ISES) / Solar Energy Journal
-    └── Academic Repositories: Zenodo, Harvard Dataverse
+    └── Academic Repositories: Figshare, Hugging Face
 ```
 
 ---
@@ -183,7 +183,7 @@ GENERATOR POWER SYSTEMS CLUSTER
 └── Layer 3 Research & Citation Targets
     ├── IEEE Industry Applications Society (IAS) / IEEE Orange Book (IEEE 446)
     ├── Electrical Generating Systems Association (EGSA)
-    └── Academic Repositories: Harvard Dataverse, Zenodo
+    └── Academic Repositories: Figshare, Hugging Face
 ```
 
 ---

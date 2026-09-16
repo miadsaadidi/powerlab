@@ -135,7 +135,7 @@ POWLAB distributes and builds authority through three distinct, coordinated laye
 │ • Academia.edu (Preprints)      │   │ • IEEE / IEEE Spectrum          │   │ • IEEE Xplore / Research Gate   │
 │ • Figshare (DOIs / CSVs)        │   │ • Energy Central / Energy Stg   │   │ • Springer / Wiley / Elsevier   │
 │ • MERLOT (Higher-Ed Labs)       │   │ • PV Magazine / EE Times        │   │ • University Repositories / OER │
-│ • DEV.to (Code / Engineering)   │   │ • Engineering.com / Power Eng   │   │ • Zenodo / Dataverse / HuggingF │
+│ • DEV.to (Code / Engineering)   │   │ • Engineering.com / Power Eng   │   │ • Figshare / Hugging Face       │
 │ • Hashnode (Journal Articles)   │   │ • The Electricity Forum         │   │ • Professional Societies        │
 │ • Medium (Accessible Syntheses) │   │ • REGlobal / AZoM               │   │ • Peer Researchers & Professors │
 ├─────────────────────────────────┤   ├─────────────────────────────────┤   ├─────────────────────────────────┤
@@ -161,7 +161,7 @@ Do not use a simplistic one-size-fits-all rule such as *"All external copies mus
 | **1** | **Original POWLAB Research** | POWLAB `/research/[slug]` | POWLAB | **Canonical: Self-referencing POWLAB URL** | Intellectual SSOT. Embeds full metadata & DOI. |
 | **2** | **Adapted Technical Article** | Implementation/Code deep dives | DEV.to, Hashnode | **Cross-domain `canonical_url` in frontmatter pointing to POWLAB** | In-body contextual link to companion calculator/paper. |
 | **3** | **Research Paper / Preprint** | PDF/Preprint Working Papers | Academia.edu, TechRxiv, Archive.org | **Preprint metadata cites POWLAB technical report URL** | Paper header references POWLAB institution & report ID. |
-| **4** | **Benchmark Dataset Record** | CSV / Open Matrices | Figshare, Hugging Face, Zenodo | **DataCite DOI as identifier; `sameAs` array on POWLAB dataset landing page** | Repository cites canonical `/datasets/[slug]` landing page. |
+| **4** | **Benchmark Dataset Record** | CSV / Open Matrices | Figshare, Hugging Face | **DataCite DOI as identifier; `sameAs` array on POWLAB dataset landing page** | Repository cites canonical `/datasets/[slug]` landing page. |
 | **5** | **Educational / OER Resource** | Student Lab Exercises | MERLOT, OER Commons | **Self-referencing OER record pointing to POWLAB `/datasets/*` or `/battery/*`** | Dofollow direct material URL to POWLAB tool/lab. |
 | **6** | **Accessible Industry Synthesis** | High-level summary / "What the data means" | Medium | **Cross-domain canonical to POWLAB research paper OR self-canonical if rewritten** | In-text citation linking to canonical study & data. |
 | **7** | **Scholarly Citation / Index Record** | BibTeX / Reference Entries | ORCID, BibSonomy, Google Scholar | **Persistent DOI / Crossref URL pointing to POWLAB** | Standard scholarly metadata attribution. |

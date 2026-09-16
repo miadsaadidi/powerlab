@@ -423,7 +423,7 @@ export interface DatasetVariable {
 export interface BenchmarkDataset {
   id: string;
   slug: string;
-  repository: "Figshare" | "Hugging Face" | "Zenodo";
+  repository: "Figshare" | "Hugging Face";
   doi?: string;
   huggingFaceUrl?: string;
   huggingFaceDoi?: string;
