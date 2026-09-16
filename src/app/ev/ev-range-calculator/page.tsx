@@ -151,6 +151,16 @@ export default function EvRangePage() {
         </div>
       </section>
 
+      {/* Dataset & Research Cross-Link Callout */}
+      <section style={{ margin: "2rem 0", padding: "1.25rem 1.5rem", borderRadius: "0.75rem", background: "rgba(16, 185, 129, 0.06)", border: "1px solid rgba(16, 185, 129, 0.25)" }}>
+        <h3 style={{ margin: "0 0 0.5rem", fontSize: "1.1rem", color: "#065f46" }}>
+          📊 Open Empirical Benchmark Data &amp; EV Infrastructure Research
+        </h3>
+        <p style={{ margin: "0 0 0.75rem", fontSize: "0.92rem", color: "var(--ink)", lineHeight: 1.6 }}>
+          Need empirical data on EV branch circuit thermal limits and continuous-load conductor temperatures under NEC 625? Explore our open <Link href="/datasets/continuous-duty-evse-terminal-temperature-benchmark" style={{ fontWeight: 700, color: "#059669", textDecoration: "underline" }}>Level 2 EVSE Conductor &amp; Terminal Temperature Benchmark Dataset (PL-DS-EVSE-01)</Link> and companion whitepaper on <Link href="/research/continuous-duty-thermal-sizing-evse-ampacity" style={{ fontWeight: 700, color: "#059669", textDecoration: "underline" }}>Continuous-Duty Thermal Sizing &amp; Terminal Limits (PL-TR-2026-EVSE01)</Link>.
+        </p>
+      </section>
+
       <div id="formula-math">
         <FormulaCard
           title="EV Driving Range Formulas"
@@ -166,6 +176,7 @@ export default function EvRangePage() {
           notes={[
             "Metric Range: Range (km) = (Available_kWh ÷ kWh_per_100km) × 100.",
             "Efficiency conversion: mi/kWh = 62.1371 ÷ (kWh/100 km).",
+            "Aerodynamic drag scales quadratically with speed: F_drag = 0.5 × rho × Cd × A × v^2.",
           ]}
         />
       </div>

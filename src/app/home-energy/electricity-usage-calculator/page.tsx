@@ -13,8 +13,8 @@ import { DirectAnswerCard } from "@/components/seo/direct-answer-card";
 const isPublished = isCalculatorPublished("electricity-usage");
 
 export const metadata: Metadata = buildPageMetadata({
-  title: "Electricity Usage Calculator — Daily kWh & Cost",
-  description: "Calculate how much electricity (kWh) your appliances consume per day, month, and year. Features built-in appliance wattage catalog and power cost modeling.",
+  title: "Electricity Usage Calculator — Instant Daily kWh & Appliance Cost",
+  description: "Calculate daily, monthly, and annual electricity usage (kWh) and operating cost ($) for any home appliance. Features EIA-calibrated wattage presets and NEC load math.",
   canonicalPath: "/home-energy/electricity-usage-calculator",
   category: "home-energy",
 });

@@ -13,8 +13,8 @@ import { DirectAnswerCard } from "@/components/seo/direct-answer-card";
 const isPublished = isCalculatorPublished("solar-panel-output");
 
 export const metadata: Metadata = buildPageMetadata({
-  title: "Solar Panel Output Calculator — kWh Yield",
-  description: "Calculate monthly and annual solar panel output and energy yield (kWh) from system size, location, tilt, azimuth, and NREL PVWatts V8 production modeling.",
+  title: "Solar Panel Output Calculator — Accurate kWh Yield (NREL PVWatts V8)",
+  description: "Calculate monthly and annual solar panel electricity output (kWh yield) based on array wattage, tilt, azimuth, location, and NREL PVWatts V8 solar irradiance modeling.",
   canonicalPath: "/solar/solar-panel-output-calculator",
   category: "solar",
 });

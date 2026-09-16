@@ -153,6 +153,16 @@ export default function HomeBatterySizePage() {
         </div>
       </section>
 
+      {/* Dataset & Research Cross-Link Callout */}
+      <section style={{ margin: "2rem 0", padding: "1.25rem 1.5rem", borderRadius: "0.75rem", background: "rgba(16, 185, 129, 0.06)", border: "1px solid rgba(16, 185, 129, 0.25)" }}>
+        <h3 style={{ margin: "0 0 0.5rem", fontSize: "1.1rem", color: "#065f46" }}>
+          📊 Open Empirical Benchmark Data &amp; Battery Storage Research
+        </h3>
+        <p style={{ margin: "0 0 0.75rem", fontSize: "0.92rem", color: "var(--ink)", lineHeight: 1.6 }}>
+          Need empirical discharge curves and Peukert derating coefficients for residential lithium iron phosphate (LiFePO4) storage systems? Explore our open <Link href="/datasets/residential-bess-peukert-derating-benchmark" style={{ fontWeight: 700, color: "#059669", textDecoration: "underline" }}>Residential BESS Peukert Derating Benchmark Dataset (PL-DS-BESS-05)</Link> and companion whitepaper on <Link href="/research/peukert-c-rate-derating-residential-bess" style={{ fontWeight: 700, color: "#059669", textDecoration: "underline" }}>High-Discharge C-Rate Capacity Derating in Residential BESS (PL-TR-2026-BESS01)</Link>.
+        </p>
+      </section>
+
       <div id="formula-math">
         <FormulaCard
           title="Home Battery Backup Capacity Formulas"
