@@ -7,6 +7,34 @@
 
 ## Daily Master Loop Record
 
+### 2026-09-18 (Session 29) — Daily kWh Guide Search-Intent & Benchmark Tables Expansion
+* **Session Lead:** AI/SEO Agent (User Approved Single Objective)
+* **Step 1 (Search-Intent Audit & Reference Tables Implementation):**
+  - Audited `src/app/guides/how-many-kwh-does-a-house-use-per-day/page.tsx` against verified GSC strike-distance queries (`how many kwh does a house use per day` Pos 30.7, `9 kwh per day` Pos 15.0, `12 kwh per day` Pos 23.7, 1,470 total impressions).
+  - Added dedicated Table 1: *"Household Appliance Configurations Across Common Daily kWh Tiers"* mapping itemized load profiles for 9 kWh/day (efficient 1-bed/off-grid cabin), 12 kWh/day (condo/townhouse with gas heating), 20 kWh/day (small single-family), 29–30 kWh/day (US national average), 45–50 kWh/day (large home with high summer AC), and 65–75+ kWh/day (all-electric + EV + heat pump).
+  - Added dedicated Table 2: *"Estimated Daily kWh Usage by Square Footage and Regional Climate Zone"* mapping <1,000 to 3,000+ sq ft across Moderate, Hot, and Cold climates with corresponding solar array sizing recommendations.
+  - Added dedicated Table 3: *"Appliance Power Ratings, Operating Hours, and Daily Kilowatt-Hour Demands"* breaking down 11 core residential electrical loads with duty cycles and % contribution to a standard 30 kWh/day budget.
+  - Expanded FAQs covering 9/12 kWh baseline norms and electric bill cost calculations for 30 kWh/day.
+  - Preserved metadata helper, canonical URL, structured data builder, and interactive calculator component 100% intact.
+* **Step 2 (Validation):**
+  - TypeScript typecheck: **0 compilation errors** (`tsc --noEmit`).
+  - Unit tests: **58/58 test files passed** (265 tests passed).
+  - Production build: **84/84 static pages generated successfully** (`next build`).
+* **Next SEO Objective / Action Required:** ACTIVE OBJECTIVE: DAILY KWH GUIDE SEARCH-INTENT EXPANSION COMPLETE — asset placed in measurement mode; awaiting next objective selection.
+
+### 2026-09-18 (Session 28) — GA4 Export Baseline & Engagement Signal Logging
+* **Session Lead:** AI/SEO Agent (Analytics Baseline Audit)
+* **Step 1 (Verified GA4 Performance Baseline & Acquisition Breakdown):**
+  - *Reporting Period:* 2026-08-21 → 2026-09-17
+  - *Core Metrics:* 408 active users, 430 new users, 29.79s average engagement time per active user, 2,398 total events.
+  - *Acquisition Breakdown:* Direct (306 users), Bing organic (41 users), ChatGPT (21 users), Google organic (16 users), DuckDuckGo (5 users), Yahoo (3 users), small volumes across other referral/social channels.
+  - *Calculator Interaction Signals:* `calculator_view` (247 events / 167 users), `calculator_preset_click` (78 events / 21 users), `calculator_calculate` (73 events / 17 users), `form_start` (21 events / 17 users), `file_download` (4 events / 1 user).
+* **Step 2 (Data-Quality Observation & Measurement Hierarchy):**
+  - *Data-Quality Observation:* Geographic distribution shows heavy concentration in cloud datacenter hubs / specific municipal clusters (Singapore, Council Bluffs, Glenview, Ashburn, Moses Lake, San Jose). Recorded strictly as **ANALYTICS DATA QUALITY WATCH** (not asserted as confirmed bot traffic without additional forensic verification).
+  - *Measurement Hierarchy Standard:* **GSC = primary SEO source**; **GA4 = supporting behavioral/engagement source**. GA4 active-user totals are not used as primary SEO KPIs.
+  - Preserved site code, tracking code, GA4 configurations, and calculator logic 100% untouched.
+* **Next SEO Objective / Action Required:** No new SEO objective activated. Current operating state: **POWERLAB: GSC MEASUREMENT + INDEXATION WATCH + GA4 DATA-QUALITY WATCH + EV RANGE OBJECTIVE PENDING APPROVAL**.
+
 ### 2026-09-18 (Session 27) — EV Range Search-Intent Optimization & Model Alignment
 * **Session Lead:** AI/SEO Agent (User Approved Single Objective)
 * **Step 1 (Model Audit & Search-Intent Alignment):**

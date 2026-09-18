@@ -51,6 +51,7 @@ When prompted with *"SEO plan this week"* or *"SEO plan today"*, return strictly
 4. **Indexation Watch Track:** Maintain indexation issues (17 indexed, 55 non-indexed, 34 crawled-not-indexed, 13 discovered-not-indexed, 5 redirect errors, 3 redirected) in a separate diagnostic track; do not launch bulk indexation remediation automatically.
 5. **Measurement Mode:** Keep recently optimized pages in measurement mode without auto-activating the next backlog item.
 6. **Technical Integrity:** Only add physics, temperature, aerodynamic, or electrical tables supported by deterministic calculation engines or authoritative engineering standards. Always preserve calculation engine, canonical URL, robots, and sitemap.
+7. **GA4 Supporting Behavioral Source & Data Quality Watch:** Maintain GSC as primary SEO source and GA4 strictly as a supporting behavioral/engagement source (do not use GA4 active-user totals as primary SEO KPIs). Maintain `ANALYTICS DATA QUALITY WATCH` on geographic traffic concentrations (Singapore, Council Bluffs, Glenview, Ashburn, Moses Lake, San Jose) without asserting confirmed bot traffic without forensic verification.
 
 ---
 
@@ -59,12 +60,12 @@ When prompted with *"SEO plan this week"* or *"SEO plan today"*, return strictly
 Candidate opportunities from this backlog are activated ONLY when justified by empirical diagnosis:
 
 ### Tier 1 & 3: Core Search Asset & Search-Intent Upgrades (GSC Strike-Distance Priorities)
-* **Candidate T1-01 — EV Range Calculator Search-Intent & Aerodynamic Physics Upgrade:**  
+* **Candidate T1-01 — EV Range Calculator Search-Intent & Aerodynamic Physics Upgrade (COMPLETED in Sessions 26–27):**  
   *Evidence:* **1,309 GSC Impressions** at **Position 16.53** (Page 2 strike distance on queries `how to calculate ev range` Pos 15.5, `ev range calculation formula` Pos 20.0).  
-  *Action:* Upgrade `/ev/ev-range-calculator` with speed drag table ($F_d = \frac{1}{2}\rho C_d A v^2$ at 55/65/75/80 mph), sub-zero cold temperature penalty matrix, and 4-step manual math walkthrough.
-* **Candidate T1-02 — Household Daily kWh Benchmark Guide Intent Expansion:**  
+  *Action:* Upgraded `/ev/ev-range-calculator` with speed drag table ($F_d = \frac{1}{2}\rho C_d A v^2$ at 55/65/75/80 mph), sub-zero cold temperature penalty matrix, and 4-step manual math walkthrough. Asset placed in measurement mode.
+* **Candidate T1-02 — Household Daily kWh Benchmark Guide Intent Expansion (COMPLETED in Session 29):**  
   *Evidence:* **1,470 GSC Impressions** (queries `how many kwh does a house use per day` Pos 30.7, `9 kwh per day` Pos 15.0, `12 kwh per day` Pos 23.7).  
-  *Action:* Upgrade `/guides/how-many-kwh-does-a-house-use-per-day` with appliance breakdown tables, square footage benchmarks, and bidirectional links to `/home-energy/electricity-usage-calculator`.
+  *Action:* Upgraded `/guides/how-many-kwh-does-a-house-use-per-day` with 9/12/30 kWh daily consumption archetypes table, square footage vs climate zone matrix, comprehensive appliance load budget, and expanded FAQs. Asset placed in measurement mode.
 * **Candidate T1-03 — Battery Capacity & Ah/kWh Formula Workbench Upgrade:**  
   *Evidence:* **1,686 GSC Impressions** (queries `battery capacity in kwh` Pos 44.0, `battery capacity formula` Pos 47.0, `mah to kwh` Pos 58.3).  
   *Action:* Enhance `/battery/battery-capacity-calculator` with full chemistry DoD bounds, cycle health degradation, and conversion formula cards.
