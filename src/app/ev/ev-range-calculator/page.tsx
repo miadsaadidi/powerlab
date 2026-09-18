@@ -96,12 +96,146 @@ export default function EvRangePage() {
 
       <section id="how-to-guide" style={{ marginTop: "3rem" }}>
         <h2>How to Calculate Real-World EV Driving Range</h2>
-        <ol>
-          <li><strong>Enter Battery Capacity (kWh):</strong> Input usable battery pack size (e.g. 60 kWh, 75 kWh, 100 kWh).</li>
-          <li><strong>Set Current &amp; Target Reserve Charge (%):</strong> Input current battery level and desired arrival buffer (e.g. 10% reserve).</li>
-          <li><strong>Select Vehicle Efficiency:</strong> Choose your economy rating (typical EV average is 3.3–3.8 mi/kWh or 16–19 kWh/100km).</li>
-          <li><strong>Review Range Projection:</strong> Compare highway, city, and winter cold weather driving distances.</li>
-        </ol>
+        <p>
+          Calculating real-world EV range requires determining your net usable battery energy in kilowatt-hours and multiplying by your vehicle&apos;s real-time consumption efficiency:
+        </p>
+        <div style={{ padding: "1.25rem 1.5rem", borderRadius: "0.75rem", background: "var(--surface)", border: "1px solid var(--line)", margin: "1.5rem 0" }}>
+          <h3 style={{ margin: "0 0 0.75rem", fontSize: "1.05rem", color: "var(--ink)" }}>4-Step Manual EV Range Calculation:</h3>
+          <ol style={{ margin: 0, paddingLeft: "1.25rem", lineHeight: 1.7 }}>
+            <li><strong>Determine Usable Battery Capacity:</strong> Check your vehicle&apos;s net usable battery size (e.g. 75 kWh on a standard long-range EV).</li>
+            <li><strong>Calculate Usable State of Charge (SoC) Window:</strong> Subtract your arrival buffer (e.g. 10% reserve) from current charge (e.g. 80%): &Delta;SoC = 0.80 &minus; 0.10 = 0.70.</li>
+            <li><strong>Compute Available Driving Energy:</strong> Multiply usable capacity by the SoC window: Available kWh = 75 &times; 0.70 = 52.5 kWh.</li>
+            <li><strong>Multiply by Vehicle Efficiency:</strong> Multiply available energy by real-world efficiency (e.g. 3.4 mi/kWh): Range = 52.5 kWh &times; 3.4 mi/kWh = 178.5 miles (287 km).</li>
+          </ol>
+        </div>
+      </section>
+
+      <section id="speed-aerodynamics">
+        <h2>Highway Speed &amp; Aerodynamic Drag Range Impact</h2>
+        <p>
+          Aerodynamic drag force increases with the square of speed (F_drag = 0.5 &times; &rho; &times; C_d &times; A &times; v&sup2;), while power required to overcome drag scales with the cube of speed (P_drag &prop; v&sup3;). Driving at 75–80 mph increases energy consumption significantly compared to 55–65 mph:
+        </p>
+        <div className="scenario-table" role="region" aria-label="Highway speed and aerodynamic drag impact table">
+          <table>
+            <caption>Aerodynamic drag &amp; real-world consumption derating across highway cruising speeds</caption>
+            <thead>
+              <tr>
+                <th scope="col">Cruising Speed</th>
+                <th scope="col">Aerodynamic Drag Power</th>
+                <th scope="col">Typical Consumption</th>
+                <th scope="col">Efficiency (mi/kWh)</th>
+                <th scope="col">75 kWh Pack Range</th>
+                <th scope="col">Range vs 55 mph</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>55 mph</strong> (88 km/h)</td>
+                <td>~6.2 kW</td>
+                <td>~240 Wh/mi (14.9 kWh/100km)</td>
+                <td>4.17 mi/kWh</td>
+                <td>~312 miles (502 km)</td>
+                <td><span style={{ color: "#059669", fontWeight: 700 }}>Baseline (100%)</span></td>
+              </tr>
+              <tr>
+                <td><strong>65 mph</strong> (105 km/h)</td>
+                <td>~10.1 kW</td>
+                <td>~285 Wh/mi (17.7 kWh/100km)</td>
+                <td>3.51 mi/kWh</td>
+                <td>~263 miles (423 km)</td>
+                <td><span style={{ color: "#d97706", fontWeight: 700 }}>-15.7%</span></td>
+              </tr>
+              <tr>
+                <td><strong>70 mph</strong> (113 km/h)</td>
+                <td>~12.6 kW</td>
+                <td>~315 Wh/mi (19.6 kWh/100km)</td>
+                <td>3.17 mi/kWh</td>
+                <td>~238 miles (383 km)</td>
+                <td><span style={{ color: "#d97706", fontWeight: 700 }}>-23.7%</span></td>
+              </tr>
+              <tr>
+                <td><strong>75 mph</strong> (121 km/h)</td>
+                <td>~15.5 kW</td>
+                <td>~350 Wh/mi (21.7 kWh/100km)</td>
+                <td>2.86 mi/kWh</td>
+                <td>~214 miles (344 km)</td>
+                <td><span style={{ color: "#dc2626", fontWeight: 700 }}>-31.4%</span></td>
+              </tr>
+              <tr>
+                <td><strong>80 mph</strong> (129 km/h)</td>
+                <td>~18.8 kW</td>
+                <td>~390 Wh/mi (24.2 kWh/100km)</td>
+                <td>2.56 mi/kWh</td>
+                <td>~192 miles (309 km)</td>
+                <td><span style={{ color: "#dc2626", fontWeight: 700 }}>-38.5%</span></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <section id="winter-subzero">
+        <h2>Cold Weather &amp; Sub-Zero Temperature Range Derating</h2>
+        <p>
+          Low ambient temperatures derate EV range through three simultaneous physical mechanisms: increased electrochemical internal cell resistance (R_i), higher ambient air density increasing aerodynamic drag, and thermal HVAC energy demand for cabin and battery pack thermal management:
+        </p>
+        <div className="scenario-table" role="region" aria-label="Winter sub-zero temperature derating table">
+          <table>
+            <caption>Winter temperature derating &amp; HVAC impact on 75 kWh battery pack (100% to 10% SoC window)</caption>
+            <thead>
+              <tr>
+                <th scope="col">Ambient Temperature</th>
+                <th scope="col">HVAC Heating System</th>
+                <th scope="col">Heating Power Draw</th>
+                <th scope="col">Effective Consumption</th>
+                <th scope="col">Real-World Range</th>
+                <th scope="col">Range Retention</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>70°F (21°C)</strong> — Ideal</td>
+                <td>None / Fan Only</td>
+                <td>~0.3 kW</td>
+                <td>~290 Wh/mi (3.45 mi/kWh)</td>
+                <td>~233 miles (375 km)</td>
+                <td><span style={{ color: "#059669", fontWeight: 700 }}>100% (Baseline)</span></td>
+              </tr>
+              <tr>
+                <td><strong>45°F (7°C)</strong> — Chilly</td>
+                <td>Heat Pump Active</td>
+                <td>~1.2 kW</td>
+                <td>~325 Wh/mi (3.08 mi/kWh)</td>
+                <td>~208 miles (335 km)</td>
+                <td><span style={{ color: "#d97706", fontWeight: 700 }}>89.3%</span></td>
+              </tr>
+              <tr>
+                <td><strong>32°F (0°C)</strong> — Freezing</td>
+                <td>Heat Pump Active</td>
+                <td>~2.2 kW</td>
+                <td>~365 Wh/mi (2.74 mi/kWh)</td>
+                <td>~185 miles (298 km)</td>
+                <td><span style={{ color: "#d97706", fontWeight: 700 }}>79.4%</span></td>
+              </tr>
+              <tr>
+                <td><strong>15°F (-9°C)</strong> — Deep Winter</td>
+                <td>Heat Pump + Resistive</td>
+                <td>~3.8 kW</td>
+                <td>~420 Wh/mi (2.38 mi/kWh)</td>
+                <td>~161 miles (259 km)</td>
+                <td><span style={{ color: "#dc2626", fontWeight: 700 }}>69.1%</span></td>
+              </tr>
+              <tr>
+                <td><strong>-5°F (-21°C)</strong> — Sub-Zero</td>
+                <td>PTC Resistive Heater (COP 1.0)</td>
+                <td>~5.5 kW</td>
+                <td>~495 Wh/mi (2.02 mi/kWh)</td>
+                <td>~136 miles (219 km)</td>
+                <td><span style={{ color: "#dc2626", fontWeight: 700 }}>58.4%</span></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
       </section>
 
       <section id="sizing-matrix">
