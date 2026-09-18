@@ -15,7 +15,7 @@ import { StandardsBadge } from "@/components/calculator/standards-badge";
 import { track } from "@/lib/analytics/analytics";
 
 type SourceMode = ApplianceSource["sourceMode"];
-type StartupMode = "unknown" | "explicit-watts" | "user-multiplier";
+type StartupMode = "unknown" | "explicit-watts" | "user-multiplier" | "lra-amps";
 type Draft = {
   sourceMode: SourceMode;
   presetId: string;
@@ -30,6 +30,8 @@ type Draft = {
   startupMode: StartupMode;
   startupWatts: string;
   startupMultiplier: string;
+  lraAmps: string;
+  lraVolts: string;
   costEnabled: boolean;
   pricePerKWh: string;
 };
@@ -48,6 +50,8 @@ const initialDraft: Draft = {
   startupMode: "unknown",
   startupWatts: "",
   startupMultiplier: "2",
+  lraAmps: "",
+  lraVolts: "120",
   costEnabled: false,
   pricePerKWh: "0.20",
 };
@@ -79,6 +83,8 @@ function buildInput(draft: Draft) {
     startupSource: draft.startupMode,
     startupWatts: parseOptional(draft.startupWatts),
     startupMultiplier: parseOptional(draft.startupMultiplier),
+    lraAmps: parseOptional(draft.lraAmps),
+    lraVolts: parseOptional(draft.lraVolts),
     costEnabled: draft.costEnabled,
     pricePerKWh: parseOptional(draft.pricePerKWh),
   };
@@ -212,13 +218,18 @@ export function ApplianceWattageCalculator() {
           <label>Runtime (hours/day)<input type="number" min="0" max="24" step="0.25" value={draft.runtimeHours} placeholder="Optional" onChange={(event) => update({ runtimeHours: event.target.value })} /><span className="helper-text">Leave blank for wattage only.</span></label>
         </div>
 
-        <details open={advancedOpen} onToggle={(event) => setAdvancedOpen(event.currentTarget.open)}><summary>Advanced settings</summary>
+        <details open={advancedOpen} onToggle={(event) => setAdvancedOpen(event.currentTarget.open)}><summary>Advanced settings &amp; motor starting surge</summary>
           <label>Duty cycle (%)<input type="number" min="1" max="100" step="1" value={draft.dutyPercent} onChange={(event) => update({ dutyPercent: event.target.value })} /><span className="helper-text">Planning estimate. It changes energy use, not connected running watts.</span></label>
-          <fieldset className="mode-choice"><legend>Startup estimate</legend>
+          <fieldset className="mode-choice"><legend>Startup surge method</legend>
             <label><input type="radio" checked={draft.startupMode === "unknown"} onChange={() => update({ startupMode: "unknown" })} />Unknown</label>
+            <label><input type="radio" checked={draft.startupMode === "lra-amps"} onChange={() => update({ startupMode: "lra-amps" })} />Nameplate LRA (Locked Rotor Amps)</label>
             <label><input type="radio" checked={draft.startupMode === "explicit-watts"} onChange={() => update({ startupMode: "explicit-watts" })} />Startup watts</label>
             <label><input type="radio" checked={draft.startupMode === "user-multiplier"} onChange={() => update({ startupMode: "user-multiplier" })} />Multiplier</label>
           </fieldset>
+          {draft.startupMode === "lra-amps" && <div className="input-grid">
+            <label>Locked Rotor Amps (LRA)<input type="number" min="0" step="any" value={draft.lraAmps} placeholder="e.g. 50" onChange={(event) => update({ lraAmps: event.target.value })} /><span className="input-unit">A</span></label>
+            <label>Rated Voltage<select value={draft.lraVolts} onChange={(event) => update({ lraVolts: event.target.value })}><option value="120">120 V (Standard Branch)</option><option value="240">240 V (HVAC / Well Pump)</option><option value="230">230 V (European / UK)</option></select></label>
+          </div>}
           {draft.startupMode === "explicit-watts" && <label>Startup watts per appliance<input type="number" min="0" step="any" value={draft.startupWatts} onChange={(event) => update({ startupWatts: event.target.value })} /></label>}
           {draft.startupMode === "user-multiplier" && <label>User-entered startup multiplier<input type="number" min="1" step="0.1" value={draft.startupMultiplier} onChange={(event) => update({ startupMultiplier: event.target.value })} /></label>}
           <label><input type="checkbox" checked={draft.costEnabled} onChange={(event) => update({ costEnabled: event.target.checked })} /> Include estimated cost</label>
@@ -244,12 +255,36 @@ function Result({ result, draft, currency, stale, preset, handoffs, sourceLabel 
   return <>
     {stale && <p className="validation-message" role="status">This result is from the previous inputs. Recalculate to update it.</p>}
     <div className="result-primary">{formatNumber(result.totalRunningWatts)} W</div>
-    <StandardsBadge standards={["UL 1026", "IEC 60335", "ANSI C84.1"]} />
+    <StandardsBadge standards={["UL 1026", "IEC 60335", "NEMA MG 1", "ANSI C84.1"]} />
     <p className="helper-text">{result.quantity > 1 ? "Total connected running load" : "Estimated running power"} · {formatNumber(result.totalRunningKilowatts, 3)} kW</p>
     {result.quantity > 1 && <dl className="result-breakdown"><div><dt>Running power per appliance</dt><dd>{formatNumber(result.unitRunningWatts)} W</dd></div><div><dt>Quantity</dt><dd>{result.quantity}</dd></div><div><dt>Total connected running load</dt><dd>{formatNumber(result.totalRunningWatts)} W</dd></div></dl>}
     {result.apparentVA !== null && <dl className="result-breakdown"><div><dt>Apparent power</dt><dd>{formatNumber(result.apparentVA)} VA</dd></div><div><dt>Power factor</dt><dd>{result.powerFactor?.toFixed(2)}</dd></div><div><dt>Estimated real power</dt><dd>{formatNumber(result.unitRunningWatts)} W</dd></div></dl>}
     {result.energyKWh === null ? <p className="helper-text">{draft.costEnabled ? "Enter runtime to estimate energy and cost." : "Enter runtime to estimate energy use."}</p> : <dl className="result-breakdown"><div><dt>Energy for selected daily runtime</dt><dd>{formatNumber(result.energyWh ?? 0)} Wh · {formatNumber(result.energyKWh, 3)} kWh</dd></div>{result.optionalCost !== null && <div><dt>Estimated cost for selected daily runtime</dt><dd>{money(result.optionalCost, currency)}</dd></div>}</dl>}
-    {result.startupDataSource === "unknown" ? <p className="helper-text">Startup demand not estimated.</p> : <dl className="result-breakdown"><div><dt>Startup watts per appliance</dt><dd>{formatNumber(result.unitStartupWatts ?? 0)} W</dd></div><div><dt>Total startup estimate</dt><dd>{formatNumber(result.totalStartupWatts ?? 0)} W</dd></div></dl>}
+    
+    {result.startupDataSource === "lra-amps" && (
+      <dl className="result-breakdown" style={{ borderLeft: "3px solid #f59e0b", paddingLeft: "0.75rem", backgroundColor: "#fffbeb", borderRadius: "0.25rem" }}>
+        <div><dt>Starting Inrush (Locked Rotor Amps)</dt><dd>{draft.lraAmps} A</dd></div>
+        <div><dt>Starting Apparent Surge Demand</dt><dd><strong>{formatNumber(result.totalStartupVA ?? 0)} VA</strong> ({formatNumber((result.totalStartupVA ?? 0) / 1000, 2)} kVA)</dd></div>
+        <div><dt>Estimated Real Starting Power (~0.50 PF)</dt><dd>{formatNumber(result.totalStartupWatts ?? 0)} W</dd></div>
+        <div><dt>Generator / Inverter Sizing Rule</dt><dd style={{ fontSize: "0.82rem", color: "#92400e" }}>Backup power must support at least {formatNumber((result.totalStartupVA ?? 0) / 1000, 2)} kVA instantaneous surge without dropping below 108V.</dd></div>
+      </dl>
+    )}
+
+    {result.startupDataSource === "explicit-watts" && (
+      <dl className="result-breakdown">
+        <div><dt>Startup watts per appliance</dt><dd>{formatNumber(result.unitStartupWatts ?? 0)} W</dd></div>
+        <div><dt>Total startup estimate</dt><dd>{formatNumber(result.totalStartupWatts ?? 0)} W</dd></div>
+      </dl>
+    )}
+
+    {result.startupDataSource === "user-multiplier" && (
+      <dl className="result-breakdown">
+        <div><dt>Startup multiplier</dt><dd>{draft.startupMultiplier}×</dd></div>
+        <div><dt>Estimated startup demand</dt><dd>{formatNumber(result.totalStartupWatts ?? 0)} W</dd></div>
+      </dl>
+    )}
+
+    {result.startupDataSource === "unknown" && <p className="helper-text">Startup demand not estimated.</p>}
     {comparison && <div className="scenario"><h3>Typical wattage range</h3><p className="helper-text">Comparison values are per-appliance planning estimates.</p>{comparison.map(([label, watts]) => <div className="contributor-label" key={label}><span>{label} · {watts} W per appliance</span><strong>{formatNumber(Number(watts) * result.quantity * (result.runtimeHours ?? 0) * result.dutyCycle)} Wh</strong></div>)}</div>}
     <p className="helper-text">Source: {sourceLabel}. Presets and duty cycles are editable estimates; device labels or measured values should replace them when available.</p>
 

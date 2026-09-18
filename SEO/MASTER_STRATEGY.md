@@ -1,316 +1,458 @@
-# POWLAB — MASTER SEO STRATEGY & DAILY EXECUTION PLAN
+# POWLAB — MASTER SEO STRATEGY & OPERATING SYSTEM
 
 **Domain:** `https://www.powelab.org/`  
-**Status:** Authoritative Single Source of Truth (SSOT) for all POWLAB SEO, content, distribution, authority outreach, and research citation workflows.
+**Status:** Authoritative Single Source of Truth (SSOT) for all PowerLab SEO, on-site architecture, topic clustering, content optimization, technical SEO, and external distribution.
 
 ---
 
-## 1. CRITICAL INSTRUCTION & EVIDENCE-DRIVEN OPERATING SYSTEM
+## 1. THE SEO NORTH STAR
+
+> **Increase PowerLab's visibility and rankings in Google Search for high-value engineering, clean-energy, electrical, computational-engineering, and research-related search intents.**
+
+PowerLab is a database-free, deterministic energy planning and computational engineering platform. The strategic center of gravity is:
+
+$$\text{PowerLab's Own Pages} \longrightarrow \text{Indexability} \longrightarrow \text{Search Intent} \longrightarrow \text{Topical Coverage} \longrightarrow \text{Original Technical Value} \longrightarrow \text{Internal Linking} \longrightarrow \text{Technical SEO} \longrightarrow \text{Search Console Measurement} \longrightarrow \text{Iterative Improvement}$$
+
+External publishing on platforms like Dev.to, Hashnode, Medium, Academia.edu, Figshare, MERLOT, and BibSonomy is a **supporting distribution, audience discovery, entity reinforcement, and reputation layer**, NOT the primary foundation of the ranking strategy.
+
+Success is defined as:
+> **Building, improving, indexing, connecting, and measuring high-value PowerLab pages that satisfy identifiable Google search intents.**
+
+---
+
+## 2. THE 5-TIER SEO PRIORITY HIERARCHY
+
+Adopt this priority hierarchy across all strategy files, roadmaps, rules, and operations:
+
+```text
+┌─────────────────────────────────────────────────────────────────────────┐
+│ TIER 1: Core Google Search Assets (Calculators, Guides, Research, Data) │
+├─────────────────────────────────────────────────────────────────────────┤
+│ TIER 2: Supporting Internal Architecture & Topic Cluster Graphs         │
+├─────────────────────────────────────────────────────────────────────────┤
+│ TIER 3: Search-Intent & On-Page Technical Substance Optimization        │
+├─────────────────────────────────────────────────────────────────────────┤
+│ TIER 4: Technical SEO, Indexability, Schema & Crawl Health              │
+├─────────────────────────────────────────────────────────────────────────┤
+│ TIER 5: Supporting External Distribution, Discovery & Citation Layer    │
+└─────────────────────────────────────────────────────────────────────────┘
+```
+
+### Tier 1 — Core Google Search Assets (Highest Priority)
+* **Calculators & Computational Engines:** Interactive tools acting as high-intent functional search landing pages.
+* **Technical Engineering Guides:** In-depth, practical guides explaining calculation methodology, NEC/IEEE/ASHRAE code compliance, and real-world trade-offs.
+* **Research Whitepapers:** Rigorous technical reports solving concrete industry and physics problems.
+* **Benchmark Datasets:** Structured empirical datasets providing transparent variables, formulas, and baseline values.
+* **Methodology & Documentation Pages:** Transparent derivation of mathematical formulations and physical constants.
+* **Category & Topic Hub Landing Pages:** Structured hubs organizing cluster relationships.
+
+### Tier 2 — Supporting Internal Architecture
+Build crawlable, bidirectional internal links with descriptive anchor text across every topic cluster:
+$$\text{Technical Guide} \longleftrightarrow \text{Interactive Calculator} \longleftrightarrow \text{Benchmark Dataset} \longleftrightarrow \text{Research Paper} \longleftrightarrow \text{Methodology}$$
+Help search engine crawlers and users recognize that related pages form coherent, authoritative engineering topic clusters.
+
+### Tier 3 — Search-Intent Optimization
+Every primary PowerLab page must satisfy a distinct, identifiable user problem:
+* **Primary Topic & Intent:** What specific calculation, code requirement, or sizing decision is the searcher solving?
+* **Query Family:** What terms, synonyms, and engineering terminology do practitioners search for?
+* **Page Type & Technical Substance:** Does the page provide working formulas, input definitions, default assumptions, worked examples, and standards citations?
+* **Internal Graph Placement:** What pages link into it, and what related resources does it link out to?
+
+### Tier 4 — Technical SEO & Crawlability
+Maintain high technical integrity:
+* HTTP status correctness (200 OK, zero broken internal links, zero redirect chains).
+* Canonical tag consistency (`https://www.powelab.org/...`).
+* Dynamic XML sitemap freshness with accurate `lastmod` and priority.
+* Robots.txt correctness and clean crawl paths.
+* Valid Schema.org structured data (`WebApplication`, `ScholarlyArticle`, `Dataset`, `BreadcrumbList`) matching actual content.
+* Fast Core Web Vitals (LCP, INP, CLS) and responsive mobile usability.
+
+### Tier 5 — Supporting External Distribution
+External platforms (Dev.to, Hashnode, Medium, Academia, Figshare, Hugging Face, MERLOT, BibSonomy) serve as:
+* Content distribution and audience reach.
+* Engineering community discovery.
+* Author entity reinforcement (Knowledge Graph).
+* Referral traffic sources.
+* Natural scholarly citation channels.
+
+**Rules for Tier 5:**
+* External publishing volume is NEVER an SEO KPI.
+* External articles are NEVER described as guaranteed ranking signals.
+* Nofollow links are valuable for discovery and brand traffic; dofollow links are not guaranteed ranking boosts.
+
+---
+
+## 3. THE CORE OPERATING ARCHITECTURE
+
+```text
+       ┌───────────────────────────────┐
+       │     IDENTIFIED SEARCH INTENT  │
+       └───────────────┬───────────────┘
+                       ▼
+       ┌───────────────────────────────┐
+       │     POWERLAB PRIMARY PAGE     │
+       └───────────────┬───────────────┘
+                       ▼
+       ┌───────────────────────────────┐
+       │ SUPPORTING TECHNICAL CONTENT  │
+       │ Calculator / Data / Research  │
+       └───────────────┬───────────────┘
+                       ▼
+       ┌───────────────────────────────┐
+       │   TOPIC CLUSTER INTERNAL LINKS│
+       └───────────────┬───────────────┘
+                       ▼
+       ┌───────────────────────────────┐
+       │    GOOGLE CRAWL & INDEXING    │
+       └───────────────┬───────────────┘
+                       ▼
+       ┌───────────────────────────────┐
+       │   SEARCH CONSOLE IMPRESSIONS  │
+       └───────────────┬───────────────┘
+                       ▼
+       ┌───────────────────────────────┐
+       │    QUERY / CTR / POS DATA     │
+       └───────────────┬───────────────┘
+                       ▼
+       ┌───────────────────────────────┐
+       │    ON-PAGE IMPROVEMENT LOOP   │
+       └───────────────┬───────────────┘
+                       ▼
+       ┌───────────────────────────────┐
+       │ RANKING & ORGANIC GROWTH      │
+       └───────────────────────────────┘
+```
+
+**Parallel Supporting External Distribution:**
+$$\text{PowerLab Core Asset} \longrightarrow \text{Distinct Technical Angle} \longrightarrow \text{External Channel (Dev.to / Hashnode / etc.)} \longrightarrow \text{Audience Discovery \& Citation}$$
+
+Never reverse this hierarchy. PowerLab is always the primary, canonical source.
+
+---
+
+## 4. TOPIC CLUSTERS & ASSET ARCHITECTURE
+
+PowerLab organizes its core search assets around coherent engineering topic clusters:
+
+```text
+1. Battery Energy Storage Systems (BESS)
+   ├── Primary Hub: /battery
+   ├── Core Calculators: /battery/battery-capacity-calculator, /battery/battery-runtime-calculator, /battery/inverter-size-calculator, /battery/voltage-drop-calculator
+   ├── Datasets: /datasets/bess-peukert-capacity-derating-tare-loss-benchmark
+   ├── Research: /research/electrochemical-peukert-derating-bess
+   └── Guides: /guides/battery-storage-sizing-guide, /guides/voltage-drop-and-wire-size-calculation-guide
+
+2. Solar Photovoltaics (PV)
+   ├── Primary Hub: /solar
+   ├── Core Calculators: /solar/solar-panel-output-calculator, /solar/solar-panel-tilt-calculator, /solar/solar-charge-controller-calculator, /solar/solar-angle-calculator
+   ├── Datasets: /datasets/50-state-solar-insolation-climatic-benchmark
+   ├── Research: /solar/regional-climate-data
+   └── Guides: /guides/solar-panel-angle-and-tilt-guide
+
+3. Electric Vehicle Supply Equipment (EVSE)
+   ├── Primary Hub: /ev
+   ├── Core Calculators: /ev/ev-charging-time-calculator, /ev/ev-charger-breaker-size-calculator, /ev/ev-range-calculator, /ev/ev-charging-cost-calculator
+   ├── Datasets: /datasets/continuous-duty-evse-terminal-temperature-benchmark
+   ├── Research: /research/continuous-duty-thermal-sizing-evse-ampacity (SSRN #7446361)
+   └── Guides: /guides/ev-charger-circuit-sizing-guide
+
+4. Home Electrification & HVAC Engineering
+   ├── Primary Hub: /home-energy
+   ├── Core Calculators: /home-energy/heat-pump-cost-calculator, /home-energy/air-conditioner-cost-calculator, /home-energy/electricity-usage-calculator, /home-energy/space-heater-cost-calculator
+   ├── Datasets: /datasets/cold-climate-heat-pump-cop-degradation-benchmark, /datasets/central-air-conditioner-seer2-cooling-degree-day-benchmark
+   ├── Research: /research/heat-pump-cop-degradation-and-auxiliary-heat-kinetics
+   └── Guides: /guides/heat-pump-operating-cost-guide
+
+5. Power Systems & Emergency Generation
+   ├── Primary Hub: /home-energy
+   ├── Core Calculators: /home-energy/generator-size-calculator, /home-energy/home-battery-size-calculator
+   ├── Datasets: /datasets/standby-generator-motor-inrush-voltage-sag-benchmark
+   └── Research: PL-TR-2026-GEN02 (Locked Rotor Amperes & Inrush Transients)
+```
+
+---
+
+## 5. CONTENT OPTIMIZATION STANDARDS
+
+### A. Existing Asset Upgrade Rule
+Before proposing or creating new content, ask:
+> **"Is there already an existing PowerLab page that could satisfy this search intent if improved?"**
+
+If yes, **upgrade the existing page first**. Optimize headings, technical substance, equations, worked examples, and internal links before creating new URLs.
+
+### B. Calculators as Search Assets
+Every calculator page must provide:
+1. Interactive calculation engine with transparent inputs, editable defaults, and input provenance.
+2. Clear explanation of what the tool calculates and who it is for.
+3. Mathematical formulas, physical models, and derivation.
+4. Input definitions, unit specifications, and default assumptions.
+5. Concrete worked engineering example.
+6. Governing standards (NEC, IEEE, NEMA, ASHRAE, AHRI, DOE).
+7. Limitations and boundary conditions.
+8. Contextual links to related calculators, datasets, research papers, and guides.
+
+### C. Datasets as First-Class Search Assets
+Dataset landing pages must never be download-only stubs. They must document:
+1. What physical phenomenon the dataset measures and why it exists.
+2. Methodology, test conditions, and simulation parameters.
+3. Field-by-field variable dictionary with units and data types.
+4. Summary table preview of benchmark values.
+5. Engineering use cases and application examples.
+6. DataCite DOI citation block and BibTeX export.
+7. Contextual links to companion calculators, research papers, and technical guides.
+
+### D. Research Pages Bridging Search Intent
+Academic research pages must bridge scientific rigor and real search queries:
+1. Retain formal research title and report number.
+2. Search-optimized metadata title and H1.
+3. Executive summary explaining the practical engineering problem solved.
+4. Methodological formulation and numerical findings.
+5. Links to interactive calculator tools implementing the formulas.
+6. External preprint / DOI citations (SSRN, Academia, Figshare).
+
+---
+
+## 6. PAGE PRIORITY MODEL (P1 TO P4)
+
+* **P1 — Strategic Search Assets:** Flagship calculators, primary research papers, high-volume search intent landing pages (e.g., `/battery/battery-runtime-calculator`, `/ev/ev-charger-breaker-size-calculator`, `/solar/solar-panel-output-calculator`, `/home-energy/heat-pump-cost-calculator`).
+* **P2 — Supporting Topic Assets:** Topic hubs, specialized calculators, benchmark dataset landing pages, technical guides.
+* **P3 — Reference & Methodology Assets:** Underlying equation reference pages, dataset download manifests, secondary whitepapers.
+* **P4 — Maintenance Pages:** Legal, privacy, about, contact, and structural utility routes.
+
+---
+
+## 7. SEARCH CONSOLE AS THE PRIMARY FEEDBACK LOOP
+
+Search Console data is the authoritative signal for on-page optimization:
+* **High Impressions, Low CTR:** Refine meta titles, descriptions, and intro copy to match search intent.
+* **Strike-Distance Queries (Positions 8–20):** Deepen technical substance, add worked examples, expand internal link anchor text.
+* **Unexpected Query Associations:** Add dedicated sections or FAQs answering emerging user search intents.
+* **Zero-Impression Pages:** Diagnose indexation, sitemap status, internal link depth, and keyword relevance.
 
 > [!IMPORTANT]
-> **RETIREMENT OF FIXED CALENDAR:**  
-> The old fixed daily/weekly publication calendar is **OFFICIALLY RETIRED** as an execution schedule. It is preserved strictly as a **LEGACY / BACKLOG / NON-AUTHORITATIVE REFERENCE** (`docs/16-master-authority-and-syndication-calendar.md`).  
-> **Never execute an SEO task merely because it was scheduled.** Current SEO evidence determines the work.
-
-### The Evidence-Driven Operating System
-Every SEO cycle operates strictly according to:
-```text
-DIAGNOSE → PRIORITIZE → PLAN → APPROVAL → EXECUTE → VALIDATE → LOG → MEASURE → REASSESS
-```
-
-A scheduled task from the legacy backlog may only be executed if current evidence independently determines that task is the single highest-value objective.
-
-### Universal Rules of Engagement
-1. **Evidence-Driven Diagnosis:** Independently audit all available data (Search Console, technical crawlability, on-site architecture, content/keyword system, external ecosystem, and persistent logs).
-2. **Exactly ONE Objective:** After diagnosis, select exactly ONE highest-value objective. Never present a menu of options or generic checklists.
-3. **Mandatory Approval Gate:** Present the diagnosis, evidence, and 4-step execution plan, then **STOP IMMEDIATELY**. Never execute mutating actions prior to explicit user approval.
-4. **Targeted Execution:** Upon approval, execute the full cycle (Audit → Implement → Validate → Log), leave the repository in a verified compiling state, and stop.
-5. **No Blind Publishing:** Content creation, dataset releases, whitepapers, and outreach are never done to maintain an arbitrary cadence; they occur only when justified by evidence.
-
-If an instruction conflicts with this master strategy, stop and identify the conflict before executing. Do not silently replace or weaken an established SEO rule.
+> Never fabricate Search Console impressions, clicks, rankings, or crawl stats. When live GSC data is unavailable, state the audit as a technical inspection or research hypothesis.
 
 ---
 
-## 2. POWLAB SEO PHILOSOPHY
-
-POWLAB is not a generic content or affiliate website. POWLAB produces:
-* Original technical research & whitepapers
-* Open benchmark datasets
-* Peer-grade engineering articles & lab manuals
-* Deterministic computational calculators & engines
-* Educational/laboratory open resources
-* Reproducible engineering methodologies
-
-Therefore, the SEO strategy exploits POWLAB's strongest asset: **ORIGINAL TECHNICAL KNOWLEDGE**.
-
-### The Permanent Growth Model
-```text
-Original research → Authoritative POWLAB page → Dataset / Tool / Resource 
-   → Multi-Layer External Distribution & Outreach → Citations & Editorial References 
-   → Relevant Verified Backlinks → Topical Authority → Google Rankings 
-   → High-Intent Organic Traffic → Secondary Citations → Sustained Compounding Growth
-```
-
-Do NOT reduce the strategy to: *publish article → get backlink → repeat*.
-
----
-
-## 3. WHAT SEO SUCCESS MEANS
-
-Track distinct outcome categories separately:
-
-### Primary SEO Outcomes
-* Google organic impressions
-* Google organic clicks
-* Non-branded organic search traffic
-* Number of ranking keywords (Positions 1–3, 4–10, 11–20)
-* Organic traffic to research whitepapers (`/research/*`)
-* Organic traffic to calculators/tools (`/battery/*`, `/solar/*`, `/home-energy/*`, `/ev/*`)
-* Organic traffic to datasets
-
-### Authority Outcomes
-* Relevant referring domains in engineering, energy, and academia
-* High-authority referring domains (IEEE, CSU/MERLOT, DOE, Universities)
-* Dofollow referring domains (verified via HTML inspection)
-* Editorial backlinks and research citations
-* Brand and technical entity mentions
-* Moz DA / Ahrefs DR (used as secondary benchmark metrics, not primary targets)
-
-> [!IMPORTANT]
-> DA and DR are measurement metrics, not Google ranking factors. Never optimize solely for DA. A highly relevant engineering domain with moderate DA is infinitely more valuable than a generic high-DA aggregator.
-
----
-
-## 4. CORE TOPICAL CLUSTERS
-
-POWLAB concentrates strictly around its core engineering research areas:
-
-### A. Battery Energy Storage / BESS
-* BESS runtime modeling & Peukert capacity derating
-* Depth of discharge (DoD) boundaries & cycling kinetics
-* Inverter quiescent tare losses & standby dissipation
-* Battery degradation modeling & C-rate thermal effects
-* LiFePO4 vs. Lead-Acid / AGM comparative kinetics
-
-### B. Solar / Photovoltaics
-* Solar PV string sizing & MPPT voltage matching
-* Sub-zero open-circuit voltage ($V_{oc}$) expansion (NEC 690.7)
-* Perez anisotropic sky diffuse & snow albedo ground transposition
-* State-by-state solar insolation & peak sun hour (PSH) modeling
-
-### C. HVAC / Building Energy
-* Cold-climate air-source heat pump (ccASHP) non-linear COP degradation
-* Auxiliary electric resistance strip heat staging kinetics
-* SEER2 vs. legacy SEER DOE M1 static pressure transitions
-* Thermal envelope heat loss & cooling degree day (CDD) modeling
-
-### D. Generator / Power Engineering
-* Emergency generator sizing under NEC 702 & ISO 8528-5
-* Inductive motor Locked Rotor Amperage (LRA) inrush surges
-* Alternator sub-transient reactance ($X''_d$) and voltage dip recovery
-* Non-coincident load stacking & multi-fuel derating factors
-
-### E. EV Charging / EVSE
-* Continuous-duty 125% ampacity rules under NEC 625.42
-* Terminal temperature limits ($60^\circ\text{C}$ vs. $75^\circ\text{C}$ under NEC 110.14(C))
-* Conductor Joule heating ($I^2R$) and voltage drop mitigation
-* Level 1 vs. Level 2 efficiency penalties & onboard charger losses
-
-### F. General Electrical / Energy Engineering
-* Conductor sizing & allowable ampacity (NEC Table 310.16)
-* Pure deterministic TypeScript calculation engines
-* Open scientific datasets and reproducible computation
-
----
-
-## 5. THE THREE-LAYER EXTERNAL ECOSYSTEM
-
-POWLAB distributes and builds authority through three distinct, coordinated layers:
+## 8. REVISED KPI FRAMEWORK
 
 ```text
-                               ┌────────────────────────────────────────────────┐
-                               │       CANONICAL POWLAB ASSET (SSOT)            │
-                               │  Research Paper | Dataset | Calculator | Guide │
-                               └───────────────────────┬────────────────────────┘
-                                                       │
-         ┌─────────────────────────────────────────────┼─────────────────────────────────────────────┐
-         ▼                                             ▼                                             ▼
-┌─────────────────────────────────┐   ┌─────────────────────────────────┐   ┌─────────────────────────────────┐
-│     LAYER 1: DISTRIBUTION       │   │  LAYER 2: AUTHORITY / EDITORIAL │   │  LAYER 3: RESEARCH / CITATION   │
-├─────────────────────────────────┤   ├─────────────────────────────────┤   ├─────────────────────────────────┤
-│ • Academia.edu (Preprints)      │   │ • IEEE / IEEE Spectrum          │   │ • IEEE Xplore / Research Gate   │
-│ • Figshare (DOIs / CSVs)        │   │ • Energy Central / Energy Stg   │   │ • Springer / Wiley / Elsevier   │
-│ • MERLOT (Higher-Ed Labs)       │   │ • PV Magazine / EE Times        │   │ • University Repositories / OER │
-│ • DEV.to (Code / Engineering)   │   │ • Engineering.com / Power Eng   │   │ • Figshare / Hugging Face       │
-│ • Hashnode (Journal Articles)   │   │ • The Electricity Forum         │   │ • Professional Societies        │
-│ • Medium (Accessible Syntheses) │   │ • REGlobal / AZoM               │   │ • Peer Researchers & Professors │
-├─────────────────────────────────┤   ├─────────────────────────────────┤   ├─────────────────────────────────┤
-│ PURPOSE: Wide dissemination,    │   │ PURPOSE: Selective editorial    │   │ PURPOSE: Citations, academic    │
-│ reproducible assets, student    │   │ pitches, expert contributions,  │   │ credibility, research datasets, │
-│ labs, developer reach.          │   │ industry citations.             │   │ secondary scholarly backlinks.  │
-│ CADENCE: Standard syndication.  │   │ CADENCE: Selective outreach.    │   │ CADENCE: Targeted academic PR.  │
-└─────────────────────────────────┘   └─────────────────────────────────┘   └─────────────────────────────────┘
-```
+PRIMARY SEARCH KPIS (Authoritative):
+├── Valid Indexed URLs in Google Search
+├── Total Google Search Impressions & Growth
+├── Total Google Search Clicks & Organic Traffic
+├── Query Coverage (Number of distinct engineering queries ranking)
+├── Average Position across Strategic Target Keywords
+├── Impression & Click Growth within Target Topic Clusters
+└── Number of Unique Landing Pages Generating Search Traffic
 
-> [!WARNING]
-> **CRITICAL RULE ON AUTHORITY TARGETS:**  
-> Layer 2 targets (IEEE, PV Magazine, Energy Central, etc.) are **NEVER** treated as daily syndication queues. They are **strictly selective editorial pitching targets**. Never publish automated mass content to authority platforms.
+SECONDARY TECHNICAL KPIS (Supporting Health):
+├── Internal Link Coverage & Zero Orphan Pages
+├── XML Sitemap Freshness & Status Code Correctness (100% 200 OK)
+├── Schema.org Structured Data Validity (Zero Search Console warnings)
+├── Core Web Vitals (LCP < 2.5s, INP < 200ms, CLS < 0.1)
+└── Legitimate Referral Traffic from External Platforms
 
----
-
-## 6. CANONICAL & SYNDICATION GOVERNANCE MATRIX
-
-Do not use a simplistic one-size-fits-all rule such as *"All external copies must canonicalize to POWLAB."* Canonicalization and syndication treatments are strictly governed by content type and platform purpose:
-
-| Category # | Content / Publication Type | Primary Host / Format | Target Platform | Canonical Treatment | Link & Attribution Rule |
-| :---: | :--- | :--- | :--- | :--- | :--- |
-| **1** | **Original POWLAB Research** | POWLAB `/research/[slug]` | POWLAB | **Canonical: Self-referencing POWLAB URL** | Intellectual SSOT. Embeds full metadata & DOI. |
-| **2** | **Adapted Technical Article** | Implementation/Code deep dives | DEV.to, Hashnode | **Cross-domain `canonical_url` in frontmatter pointing to POWLAB** | In-body contextual link to companion calculator/paper. |
-| **3** | **Research Paper / Preprint** | PDF/Preprint Working Papers | Academia.edu, TechRxiv, Archive.org | **Preprint metadata cites POWLAB technical report URL** | Paper header references POWLAB institution & report ID. |
-| **4** | **Benchmark Dataset Record** | CSV / Open Matrices | Figshare, Hugging Face | **DataCite DOI as identifier; `sameAs` array on POWLAB dataset landing page** | Repository cites canonical `/datasets/[slug]` landing page. |
-| **5** | **Educational / OER Resource** | Student Lab Exercises | MERLOT, OER Commons | **Self-referencing OER record pointing to POWLAB `/datasets/*` or `/battery/*`** | Dofollow direct material URL to POWLAB tool/lab. |
-| **6** | **Accessible Industry Synthesis** | High-level summary / "What the data means" | Medium | **Cross-domain canonical to POWLAB research paper OR self-canonical if rewritten** | In-text citation linking to canonical study & data. |
-| **7** | **Scholarly Citation / Index Record** | BibTeX / Reference Entries | ORCID, BibSonomy, Google Scholar | **Persistent DOI / Crossref URL pointing to POWLAB** | Standard scholarly metadata attribution. |
-| **8** | **Independent Editorial Contribution** | Exclusive guest column / invited commentary | IEEE Spectrum, PV Magazine, Energy Central | **Publication's self-canonical (their original URL)** | Author bio & contextual editorial links pointing to POWLAB research/tools. |
-
-### Canonical Conflict Prevention Rules
-1. **Never create identical duplicates:** Always adapt the tone, depth, and angle to match the platform audience (e.g., TypeScript code on DEV.to vs. industry policy implications on Energy Central).
-2. **Never syndicate before POWLAB publication:** Always publish the canonical POWLAB asset first and ensure it is live and indexed before distributing downstream adaptations.
-3. **Inspect platform canonical support:** For platforms that ignore cross-domain canonicals, provide substantially differentiated content rather than syndicated copy.
-
----
-
-## 7. BACKLINK VERIFICATION STANDARD
-
-Never claim a backlink is dofollow without verifying the live HTML:
-1. Inspect the published DOM element (`<a href="...">`).
-2. Verify `rel` attributes (ensure absence of `nofollow`, `ugc`, `sponsored` if claiming dofollow).
-3. Confirm link is indexable by crawlers (not hidden in JS modals or non-rendered iframes).
-4. Record strictly under standard statuses: `DOFOLLOW VERIFIED`, `NOFOLLOW VERIFIED`, `SPONSORED`, `UGC`, `NOT A LINK`, or `UNKNOWN`.
-
----
-
-## 8. EVIDENCE-DRIVEN DAILY OPERATING MODEL & OUTPUT FORMAT
-
-When asked *"What should we do today?"*, *"Check SEO"*, *"What is next?"*, or *"What is in SEO today?"*, perform an autonomous forensic diagnosis across all available evidence:
-
-1. **Search performance:** GSC impressions, clicks, CTR, average position, queries, pages, indexation, sitemap status, emerging queries, declining pages, cannibalization, strike-distance opportunities (positions 4–20).
-2. **Technical SEO:** Crawlability, indexability, canonical tags, sitemap integrity, robots directives, redirects, HTTP errors, structured JSON-LD data, Core Web Vitals, and route health.
-3. **On-site architecture:** Topical hubs, calculators, research whitepapers, datasets, guides, internal link graph, and orphan/weak pages.
-4. **Content / keyword system:** Keyword coverage, search intent alignment, cannibalization, content gaps, pages with high upside, underperforming pages.
-5. **External ecosystem:** Verified live publications, authority targets, backlinks, research citations, distribution status, and pending external opportunities.
-6. **Persistent SEO records:** Track status in `/SEO/` files as evidence, but verify actual implementation state before concluding.
-
-### Mandatory Diagnostic Output Format (Text Only, Then STOP)
-Every SEO diagnosis must return strictly in this format:
-
-```text
-## CURRENT STATE
-[What is actually happening now on the site and external footprint.]
-
-## EVIDENCE
-[Specific verified evidence supporting the diagnosis. Clearly state when critical data like Search Console is unavailable.]
-
-## ONE PRIORITY
-[Exactly one single objective. No menus, no multiple choices, no generic lists.]
-
-## EXACT EXECUTION STEPS
-
-### Step 1 — Audit
-* File/system:
-* Action:
-* Evidence:
-* Done when:
-
-### Step 2 — Implement
-* File/system:
-* Action:
-* Evidence:
-* Done when:
-
-### Step 3 — Validate
-* Command/test:
-* Expected result:
-* Done when:
-
-### Step 4 — Log
-* File:
-* Update:
-* Done when:
-
-## EXPECTED SEO MECHANISM
-[Current problem → Action → Search/discovery mechanism → Expected improvement. No fabricated ranking guarantees.]
-
-## DEPENDENCIES
-* Actions Gemini can execute:
-* Actions requiring user approval:
-* External account requirements:
-* Third-party approval:
-* Unavailable data:
-
-## VALIDATION
-[Exact checks/tests to run: e.g. npm test, npm run typecheck, npm run build, HTML schema audit.]
-
-## FILES / SYSTEMS AFFECTED
-[Exact file paths and system routes.]
-
-## APPROVAL REQUIRED
-STOP. (Waiting for explicit user approval to proceed)
+DIAGNOSTIC-ONLY METRICS (Never Primary KPIs):
+├── Ahrefs / Moz Domain Rating (DR/DA)
+├── Raw Backlink Count
+├── Volume of External Articles Published
+└── Social Media Mentions
 ```
 
 ---
 
-## 9. PRIORITY HIERARCHY RULES
+## 9. GOVERNANCE & OPERATING LOOP
 
-Use these evidence-based decision principles to rank candidates (evidence always overrides assumptions):
+Every SEO cycle strictly follows the 9-step governance loop:
 
-1. **Highest Priority:** A verified technical or indexation problem affecting important indexable pages.
-2. **Next:** A strong measurable search-performance opportunity (e.g. high-impression low-CTR queries, strike-distance positions 4–20).
-3. **Next:** A meaningful internal architecture or content opportunity supported by evidence (topical gap, missing calculation engine, internal link equity leak).
-4. **Next:** A strong research, dataset, or distribution opportunity (Layer 1 / Layer 3 open-science deposit).
-5. **Next:** External authority editorial opportunities (Layer 2) when genuinely justified with custom research assets.
-6. **Lowest Priority:** Routine activity with no evidence of meaningful value.
+$$\text{DIAGNOSE} \longrightarrow \text{ONE OBJECTIVE} \longrightarrow \text{PLAN} \longrightarrow \text{STOP} \longrightarrow \text{USER APPROVAL} \longrightarrow \text{EXECUTE} \longrightarrow \text{VALIDATE} \longrightarrow \text{LOG} \longrightarrow \text{MEASURE} \longrightarrow \text{RE-DIAGNOSE}$$
 
----
-
-## 10. WEEKLY PLANNING & MONTHLY STRATEGIC AUDIT
-
-### Weekly Planning Protocol (Evidence-Generated, Not Calendar-Generated)
-Do NOT generate a fixed weekly calendar. Instead, at the beginning of each weekly review:
-1. Analyze previous period performance.
-2. Review search and performance evidence (GSC impressions, CTR, queries).
-3. Review technical changes and crawl stability.
-4. Review content/query opportunities and coverage gaps.
-5. Review authority and distribution status.
-6. Review unfinished approved work.
-7. Determine the single highest-value objective.
-8. Produce an execution-ready plan and **STOP for approval**.
-
-### Monthly Strategic Review Protocol
-Once per month, perform a holistic audit covering:
-* Technical crawlability, indexation & CWV
-* Information architecture & topic hub equity flow
-* Keyword coverage, search intent & content gaps
-* Calculator engines, research papers & open datasets
-* External distribution footprint, backlinks & citations
-* Comparison of actual results against permanent strategy goals
-
-Do not create busywork merely because a monthly audit occurs.
+1. **Diagnose First:** Inspect on-site pages, Search Console data, indexability, topical coverage, and internal links.
+2. **One Active Objective = One Coherent SEO Outcome:** Select exactly ONE evidence-backed objective at a time (governed by Section 10).
+3. **Approval Gate:** Present the diagnosis, plan, and files affected, then **STOP IMMEDIATELY**.
+4. **Targeted Execution:** Execute only the approved objective.
+5. **Validate:** Test code, build, and verify actual search/page improvements.
+6. **Log:** Record changes in `SEO/DAILY_LOG.md` and `SEO/CHANGELOG.md`.
+7. **Measure & Re-Diagnose:** Measure real data and re-evaluate before proposing the next objective.
 
 ---
 
-## 11. CONTENT PRODUCTION & SEARCH CONSOLE LIMITATIONS
+## 10. OBJECTIVE SIZING & CLASSIFICATION STANDARD
 
-### Search Console Limitation Protocol
-When live Search Console data is unavailable:
-* Explicitly state the limitation in the diagnosis.
-* Do not invent search metrics, CTRs, or impression numbers.
-* Do not claim a page is underperforming based on absent data.
-* Rely on verified codebase, structural, schema, and on-page evidence.
-* Reduce confidence levels appropriately.
+> **CORE RULE: ONE ACTIVE OBJECTIVE = ONE COHERENT SEO OUTCOME.**  
+> *"Exactly ONE Active Objective"* means **exactly one coherent outcome — NOT exactly one URL**.
 
-### Content & External Publishing Rules
-* **No Artificial Cadence:** Do not publish content or outreach simply to maintain a calendar.
-* **Justified Creation:** Content, whitepapers, datasets, and pitches must have a documented search-intent opportunity, technical gap, research utility, or authority reason.
-* **Legacy Backlog Status:** Items in `docs/16-master-authority-and-syndication-calendar.md` are backlog reference ideas only, executed only when current evidence promotes them to #1 priority.
+An objective is NOT limited to one URL. It may cover one page, several related pages, a topic cluster, a new core publication, or a systemic technical issue.
+
+### A. Objective Classes
+Every active objective must be explicitly classified into one of:
+1. **`SINGLE ASSET`** — one page/calculator/guide
+2. **`CLUSTER UPGRADE`** — multiple closely related existing pages
+3. **`CORE PUBLICATION`** — one new Layer 1 asset
+4. **`CLUSTER PUBLICATION`** — multiple tightly related new assets
+5. **`SYSTEMIC TECHNICAL REMEDIATION`** — one site-wide technical problem
+6. **`DIAGNOSTIC / MEASUREMENT`** — investigation only, no implementation
+
+### B. Objective Sizing Rules
+The size of an objective is determined by 5 coherence invariants:
+1. **Search Problem Coherence:** All affected URLs must address the same search-intent/topic problem.
+2. **Implementation-Pattern Coherence:** The work should use a repeatable or clearly related implementation pattern.
+3. **Validation Coherence:** The affected scope must be testable and validated as one controlled unit.
+4. **Measurement Coherence:** The objective must have one primary SEO hypothesis and measurable evidence.
+5. **Execution Controllability:** The scope must be large enough to create meaningful progress but small enough to establish what changed and validate it reliably.
+
+### C. Examples of Valid vs. Invalid Sizing
+* **Valid:** *Optimize 1 calculator for a high-confidence strike-distance query cluster.* (`SINGLE ASSET`)
+* **Valid:** *Upgrade 6 related battery calculators using the same Ah/kWh, DoD, formula, and internal-link framework.* (`CLUSTER UPGRADE`)
+* **Valid:** *Upgrade 10 HVAC calculators affected by the same missing methodology section.* (`CLUSTER UPGRADE`)
+* **Valid:** *Create one new Layer 1 guide for a clearly identified search-intent gap.* (`CORE PUBLICATION`)
+* **Invalid:** *Optimize 2 battery calculators + 2 solar calculators + publish 3 articles + fix redirects.* (Multiple unrelated objectives).
+
+### D. Required Pre-Execution Objective Metadata
+Before execution, every objective must state:
+* **Objective Class**
+* **Scope / affected URLs**
+* **Search problem**
+* **Evidence**
+* **Expected outcome**
+* **Validation method**
+* **Measurement method**
+
+Do not artificially shrink a coherent cluster objective to one URL merely to satisfy the one-objective rule. Do not artificially combine unrelated work into one objective merely to increase scope. Sizing must always reflect the smallest scope capable of producing a meaningful, measurable SEO outcome.
+
+---
+
+## 11. RESEARCH-DRIVEN, EVIDENCE-DRIVEN SEO PRODUCTION SYSTEM
+
+The PowerLab SEO operating system is a **research-driven, evidence-driven asset production engine**. The weekly workflow operates as an active intelligence and production cycle, not a passive monitoring schedule.
+
+```text
+┌─────────────────────────────────────────────────────────────────────────────┐
+│ DAY 1: FULL SEO INTELLIGENCE + OPPORTUNITY MAPPING                          │
+│ • Owned-Site Evidence (GSC, GA4, Indexation, CWV, Graph Health)             │
+│ • SERP Evidence (Competitor tools, missing data, intent gaps, query families)│
+│ • External Research Radar (ASHRAE, ACCA, DOE, NREL, PNNL, LBNL, ORNL, NIST) │
+│ ──► Output: Weekly Evidence-Backed Opportunity Map (Categories A–F)         │
+├─────────────────────────────────────────────────────────────────────────────┤
+│ DAY 2: CORE PRODUCTION + EXISTING ASSET EXECUTION                           │
+│ • Initiate highest-value Core assets & execute immediate high-impact quick  │
+│   wins and existing-page optimizations supported by empirical data          │
+├─────────────────────────────────────────────────────────────────────────────┤
+│ DAYS 3–6: CORE + LAYER 1 + CLUSTER + EXISTING ASSET EXECUTION               │
+│ • Core publications & Layer 1 supporting pages                              │
+│ • Calculator/tool optimizations & topic cluster mesh linking                │
+│ • Continuous Research Radar running parallel across all execution days      │
+│ • Technical distribution via Dev.to / Hashnode where appropriate            │
+├─────────────────────────────────────────────────────────────────────────────┤
+│ DAY 7: VALIDATION + MEASUREMENT + OPPORTUNITY HARVESTING                    │
+│ • Typecheck, unit tests, static builds, schema/canonical verification       │
+│ • Measure GSC/indexing progress & harvest new findings for next Day 1 loop  │
+└─────────────────────────────────────────────────────────────────────────────┘
+```
+
+### Integrated 3-Tier Diagnostic on Day 1
+1. **Owned-Site Evidence:** GSC pages/queries, impressions, clicks, CTR, average positions, query/page movement, emerging query families, high-impression / low-CTR opportunities, striking-distance rankings (Pos 8–40), existing calculators/tools, existing guides/research, internal linking graph, indexation status, and technical health.
+2. **SERP Evidence:** Current ranking competitor pages, SERP snippet formats, competing calculators/tools, missing tables, datasets, formulas, references, or explanations, weak/fragmented search results, search-intent gaps, and industry terminology variants.
+3. **External Research / Authority Radar:** Continuous inspection of authoritative technical sources, national laboratories, standards organizations, open datasets, and scientific repositories (e.g., ASHRAE, ACCA, DOE, NREL, PNNL, LBNL, ORNL, NIST, EIA, IEEE, NFPA, and open academic repositories).  
+   *Goal:* Discover emerging search topics, empirical datasets, unsolved engineering questions, research gaps, calculation opportunities, and new Core asset candidates.
+
+### Day 1 Output: Weekly Opportunity Map
+Day 1 produces an actionable, evidence-backed Opportunity Map categorized into 6 distinct tracks:
+* **A. Existing Asset Optimization:** Pages/calculators with existing search impressions that can be expanded or refined.
+* **B. Cluster Upgrade:** Cohesive multi-asset upgrades solving a shared search problem.
+* **C. Technical / Architecture Fixes:** Evidenced crawl, indexation, schema, canonical, or performance issues.
+* **D. Core Publication Candidates:** Major new search assets (datasets, whitepapers, engineering research, technical references, major guides, calculator-backed research).
+* **E. Layer 1 Candidates:** Specific supporting search intents designed to strengthen a Core asset.
+* **F. External Technical Distribution:** Deep-dive technical explanations for Dev.to / Hashnode derived from original PowerLab work.
+
+---
+
+## 12. CORE ASSETS AS A PRIMARY SEO PRODUCTION PILLAR & TOPIC ARCHITECTURE
+
+### Persistent Search-Asset Creation & Research Mining
+Content production is strictly defined as **Persistent Search-Asset Creation & Research Mining**, not generic blog publishing.
+* **Core Asset Archetypes:** Structured Datasets, Technical Whitepapers, Computational Engineering Research, Comprehensive Standards References (NEC/IEEE/ASHRAE), In-Depth Technical Guides, and Calculator-Backed Research.
+* **Substance Standard:** Core assets must be substantial, original, useful, and technically defensible.
+* **Planning Target vs. Mandatory Quota:** A target of 3–5 Core opportunities per week serves as a planning benchmark, **NOT** a mandatory production quota. If evidence justifies 5, produce 5; if evidence justifies 2, produce 2; if no genuine gap exists, do not manufacture filler content.
+
+### Core → Layer 1 Content Architecture
+When a Core asset is created, map and produce supporting Layer 1 search intents:
+
+```text
+┌─────────────────────────────────────────────────────────────┐
+│                         CORE ASSET                          │
+│  Technical Engineering Reference / Dataset / Whitepaper     │
+└──────────────────────────────┬──────────────────────────────┘
+                               │ (Bidirectional Topic Links)
+                               ▼
+┌─────────────────────────────────────────────────────────────┐
+│                    LAYER 1 INTENT PAGES                     │
+│        Narrow, Highly Specific Target Search Queries        │
+└──────────────────────────────┬──────────────────────────────┘
+                               │ (Interactive Embeds & Links)
+                               ▼
+┌─────────────────────────────────────────────────────────────┐
+│               CALCULATORS / TOOLS / DATASETS                │
+│    Deterministic Interactive Engines & Structured Tables    │
+└──────────────────────────────┬──────────────────────────────┘
+                               │ (Graph Equity Mesh)
+                               ▼
+┌─────────────────────────────────────────────────────────────┐
+│                   INTERNAL LINK GRAPH                       │
+│    Crawlable, Contextual Navigation Across All Topic Hubs   │
+└─────────────────────────────────────────────────────────────┘
+```
+
+Layer 1 pages exist exclusively because they satisfy distinct, identifiable search intents, never to fulfill an arbitrary article count.
+
+### Continuous Research Radar (Days 2–7)
+Research is not confined to Day 1. The **Continuous Research Radar** runs actively during Days 2–7. While implementing page upgrades or Core publications, continuously log new GSC query families, SERP gaps, lab datasets, and engineering questions directly into the backlog for prioritization.
+
+### External Technical Distribution (Dev.to / Hashnode)
+* Dev.to and Hashnode function as **technical distribution and research interpretation channels**.
+* They do not substitute for on-site PowerLab assets.
+* Acceptable formats: Implementation walkthroughs, engineering methodology explanations, dataset creation mechanics, and research findings.
+* The authoritative, canonical Core asset remains permanently on PowerLab.
+
+---
+
+## 13. OBJECTIVE GOVERNANCE & SIZING DISCIPLINE
+
+### Objective Governance Standards
+* **Core Invariant:** `ONE ACTIVE OBJECTIVE = ONE COHERENT SEO OUTCOME`.
+* **Execution Containers:**
+  - **Objective:** The fundamental unit of SEO work.
+  - **Session / Day:** The execution container (multiple independent objectives may execute in the same session post-approval).
+  - **Week:** The dynamic planning, execution, validation, and measurement window.
+* **Objective Sizing Scope:** Small objectives execute immediately; large cluster upgrades or Core publications may span multiple days. No artificial one-objective-per-week constraint.
+
+### Objective Priority Hierarchy
+1. **Existing page with clear GSC opportunity** (strike-distance queries, high-impression/low-CTR pages)
+2. **Existing cluster with multiple related opportunities** (multi-page topical mesh)
+3. **Evidence-backed technical issue** (proven crawl, indexation, schema, canonical, or performance flaws)
+4. **Genuine search/content gap** (identifiable search demand unsatisfied by existing URLs)
+5. **Core Publication** (major new search asset / reference dataset / whitepaper)
+6. **Layer 1 supporting publication** (narrow supporting intent page)
+
+*(Note: This is an evidence-weighted hierarchy, not an inflexible queue. A high-value Core dataset supported by strong external and SERP evidence may take precedence over a minor existing-page tweak).*
+
+---
+
+## 14. NORTH STAR & CONTENT QUALITY STANDARDS
+
+### The North Star Decision Criterion
+Every proposed objective must answer:
+> **"What evidence shows that this change can improve Google's understanding, coverage, relevance, discoverability, or usefulness of the site's search assets?"**
+
+$$\text{EVALUATE EVIDENCE} \longrightarrow \text{EXECUTE} \longrightarrow \text{VALIDATE} \longrightarrow \text{LOG} \longrightarrow \text{MEASURE} \longrightarrow \text{RE-DIAGNOSE}$$
+
+### Content Quality Rules (Anti-Volume Mandate)
+* The goal is the **continuous creation of valuable, differentiated, technically useful search assets** — not volume-based publishing.
+* Strictly prohibited:
+  - Keyword-volume quotas or arbitrary word-count targets
+  - Thin supporting pages lacking calculation engines, empirical data, or engineering derivations
+  - Duplicate or near-duplicate syndications
+  - Content manufactured merely because an arbitrary calendar schedule suggests publishing
+
 

@@ -13,8 +13,8 @@ import { DirectAnswerCard } from "@/components/seo/direct-answer-card";
 const isPublished = isCalculatorPublished("electricity-usage");
 
 export const metadata: Metadata = buildPageMetadata({
-  title: "Electricity Usage Calculator — Instant Daily kWh & Appliance Cost",
-  description: "Calculate daily, monthly, and annual electricity usage (kWh) and operating cost ($) for any home appliance. Features EIA-calibrated wattage presets and NEC load math.",
+  title: "Electricity Usage Calculator — Daily kWh & Cost",
+  description: "Calculate daily, monthly, and annual electricity usage (kWh) and operating cost ($) for any appliance with EIA wattage presets and NEC load math.",
   canonicalPath: "/home-energy/electricity-usage-calculator",
   category: "home-energy",
 });
@@ -90,6 +90,47 @@ export default function ElectricityUsagePage() {
         standardExample="A 1,500W space heater run for 8 hours consumes 12 kWh/day (approx. $1.92/day at the national average rate of $0.16/kWh)."
         sourceAuthority="U.S. Department of Energy (DOE) & EIA Benchmarks"
       />
+
+      {/* Next-Step Planning Pathways */}
+      <section style={{ margin: "2rem 0", padding: "1.25rem 1.5rem", borderRadius: "0.85rem", background: "var(--surface)", border: "1px solid var(--line)" }}>
+        <h2 style={{ fontSize: "1.15rem", margin: "0 0 0.5rem", color: "var(--brand-strong)" }}>
+          🧭 Next Steps in Your Home Energy Planning
+        </h2>
+        <p style={{ fontSize: "0.88rem", color: "var(--muted)", margin: "0 0 1rem", lineHeight: 1.5 }}>
+          Once you have audited your appliance kilowatt-hours, continue your energy optimization workflow across these related tools:
+        </p>
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(min(100%, 250px), 1fr))", gap: "1rem" }}>
+          <div style={{ padding: "1rem", borderRadius: "0.5rem", background: "var(--surface-subtle, #fafafa)", border: "1px solid var(--line)" }}>
+            <h3 style={{ margin: "0 0 0.35rem", fontSize: "0.95rem", color: "var(--brand-strong)" }}>📊 Compare to Household Benchmarks</h3>
+            <p style={{ fontSize: "0.83rem", color: "var(--muted)", margin: "0 0 0.75rem", lineHeight: 1.5 }}>
+              Benchmark your daily total against the official EIA US national average of 29–30 kWh/day (~900 kWh/mo).
+            </p>
+            <Link href="/guides/how-many-kwh-does-a-house-use-per-day" className="button secondary-button" style={{ width: "100%", textAlign: "center", display: "block", fontSize: "0.82rem" }}>
+              Daily kWh Usage Guide →
+            </Link>
+          </div>
+
+          <div style={{ padding: "1rem", borderRadius: "0.5rem", background: "var(--surface-subtle, #fafafa)", border: "1px solid var(--line)" }}>
+            <h3 style={{ margin: "0 0 0.35rem", fontSize: "0.95rem", color: "var(--brand-strong)" }}>💡 Model Total Utility Power Bills</h3>
+            <p style={{ fontSize: "0.83rem", color: "var(--muted)", margin: "0 0 0.75rem", lineHeight: 1.5 }}>
+              Incorporate monthly fixed customer fees, daily standing grid charges, and local sales tax into your cost forecast.
+            </p>
+            <Link href="/home-energy/energy-bill-calculator" className="button secondary-button" style={{ width: "100%", textAlign: "center", display: "block", fontSize: "0.82rem" }}>
+              Energy Bill Calculator →
+            </Link>
+          </div>
+
+          <div style={{ padding: "1rem", borderRadius: "0.5rem", background: "var(--surface-subtle, #fafafa)", border: "1px solid var(--line)" }}>
+            <h3 style={{ margin: "0 0 0.35rem", fontSize: "0.95rem", color: "var(--brand-strong)" }}>🔋 Size Home Battery Backup</h3>
+            <p style={{ fontSize: "0.83rem", color: "var(--muted)", margin: "0 0 0.75rem", lineHeight: 1.5 }}>
+              Calculate battery capacity in kWh needed to sustain these critical loads during power grid outages.
+            </p>
+            <Link href="/home-energy/home-battery-size-calculator" className="button secondary-button" style={{ width: "100%", textAlign: "center", display: "block", fontSize: "0.82rem" }}>
+              Home Battery Size Calculator →
+            </Link>
+          </div>
+        </div>
+      </section>
 
       <PageJumpNav />
 
@@ -208,7 +249,7 @@ export default function ElectricityUsagePage() {
       <section id="related-tools">
         <h2>Related Home Energy Planning Tools &amp; Guides</h2>
         <p>
-          Calculate total utility bills with the <Link href="/home-energy/energy-bill-calculator">Energy Bill Calculator</Link>, model cooling expenses with the <Link href="/home-energy/air-conditioner-cost-calculator">Air Conditioner Cost Calculator</Link>, size blackout backup with the <Link href="/home-energy/generator-size-calculator">Generator Size Calculator</Link>, or size a solar array with the <Link href="/solar/solar-panel-size-calculator">Solar Panel Size Calculator</Link>.
+          Calculate total utility bills with the <Link href="/home-energy/energy-bill-calculator">Energy Bill Calculator</Link>, size whole-home blackout battery storage with the <Link href="/home-energy/home-battery-size-calculator">Home Battery Size Calculator</Link>, model cooling expenses with the <Link href="/home-energy/air-conditioner-cost-calculator">Air Conditioner Cost Calculator</Link>, size standby power with the <Link href="/home-energy/generator-size-calculator">Generator Size Calculator</Link>, or size a solar array with the <Link href="/solar/solar-panel-size-calculator">Solar Panel Size Calculator</Link>.
         </p>
         <p style={{ marginTop: "0.75rem" }}>
           📖 <strong>In-Depth Technical Guides:</strong> Read our empirical benchmark breakdown in the <Link href="/guides/how-many-kwh-does-a-house-use-per-day" style={{ fontWeight: 600, color: "var(--accent)" }}>Daily Household kWh Usage Guide</Link> or examine HVAC cooling formulas in our <Link href="/guides/central-ac-and-heat-pump-electricity-cost-guide" style={{ fontWeight: 600, color: "var(--accent)" }}>Central AC &amp; Heat Pump Cost Guide</Link>.

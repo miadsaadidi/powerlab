@@ -61,12 +61,26 @@ describe("Appliance Wattage Calculator engine", () => {
     expect(multiplied.unitStartupWatts).toBe(200);
     expect(multiplied.totalStartupWatts).toBe(200);
     expect(multiplied.startupDataSource).toBe("user-multiplier");
+
+    const lraTest = calculateApplianceWattage(base({
+      quantity: 1,
+      startupSource: "lra-amps",
+      lraAmps: 60,
+      lraVolts: 240,
+      lraPowerFactor: 0.50,
+    }));
+    expect(lraTest.unitStartupVA).toBe(14400); // 60A * 240V
+    expect(lraTest.unitStartupWatts).toBe(7200); // 14400VA * 0.50 PF
+    expect(lraTest.totalStartupVA).toBe(14400);
+    expect(lraTest.startupDataSource).toBe("lra-amps");
   });
 
   it("returns unknown startup values when startup is not estimated", () => {
     const result = calculateApplianceWattage(base());
     expect(result.unitStartupWatts).toBeNull();
     expect(result.totalStartupWatts).toBeNull();
+    expect(result.unitStartupVA).toBeNull();
+    expect(result.totalStartupVA).toBeNull();
     expect(result.startupDataSource).toBe("unknown");
   });
 

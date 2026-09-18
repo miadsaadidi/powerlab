@@ -69,23 +69,38 @@
 
 ---
 
-## 3. Live Search Console Indexation Baseline (Export Date: 2026-09-16)
+## 3. Live Search Console Baseline (28-Day Performance & Indexation Watch)
 
-### Status Summary
-* **Indexed Pages:** 17
-* **Non-Indexed Pages:** 55
-* **Peak Impressions:** 2,074/day (2026-08-29)
-* **Current Impressions:** 3–9/day (2026-09-05 to 2026-09-14)
+### Performance Baseline (Last 28 Days)
+* **Total Search Impressions:** 18,595
+* **Total Clicks:** 19
+* **Average CTR:** ~0.10%
+* **United States Segment:** 12 clicks / 7,182 impressions
+* **Device Aggregates (Site-Wide):**
+  * Mobile: 4,209 impressions / average position 13.77
+  * Desktop: 14,300 impressions / average position 64.56
 
-### Error & Non-Indexed Breakdown
-1. **Crawled - Currently Not Indexed (34 pages):** Status `Échec / Failed`. Remediated by upgrading dynamic sitemap priority signals, updating `lastModified` to `2026-09-16`, and deploying rich `WebApplication` + `Offer` + `Dataset` schemas across all 24 calculators.
-2. **Redirect Errors (5 pages):** Status `Non commencé`. Verified clean single-hop 308 redirects in `next.config.mjs` with 0 circular loops.
-3. **Page with Redirect (3 pages):** Status `Non commencé`. Verified zero redirected paths in `src/app/sitemap.ts`.
-4. **Discovered - Currently Not Indexed (13 pages):** Status `Non commencé`. Provided direct crawl paths from topic hubs and footer navigation.
+### Verified High-Opportunity Pages & Position Benchmarks
+* `/home-energy/air-conditioner-cost-calculator` — 2,000 impressions, average position 16.45
+* `/battery/battery-capacity-calculator` — 1,686 impressions, average position 61.38
+* `/guides/how-many-kwh-does-a-house-use-per-day` — 1,470 impressions, average position 48.42
+* `/solar/solar-panel-output-calculator` — 1,351 impressions, average position 56.75
+* `/ev/ev-range-calculator` — 1,309 impressions, average position 16.53
 
-### User Action Required in GSC
-1. Navigate to **Google Search Console $\rightarrow$ Indexation $\rightarrow$ Pages**.
-2. Click on **"Explorée, actuellement non indexée"** and click the blue **"Valider la correction" (Validate Fix)** button.
-3. Click on **"Erreur liée à des redirections"** and click **"Valider la correction"**.
-4. Re-submit sitemap: `https://www.powelab.org/sitemap.xml`.
+### Verified GSC Query Observations
+* `how to calculate ev range` — position 15.50
+* `ev range calculation formula` — position 20.00
+* `ac cost calculator` — position 31.48
+* `central ac energy cost` — position 42.05
+* `battery capacity in kwh` — position 44.00
+
+### Indexation Watch Track (Separate Diagnostic Candidate)
+* **Indexed URLs:** 17
+* **Non-Indexed URLs:** 55
+  * **Crawled — currently not indexed:** 34 pages
+  * **Discovered — currently not indexed:** 13 pages
+  * **Redirect-related errors:** 5 pages (monitored as a distinct diagnostic candidate)
+  * **Page with redirect:** 3 pages
+* **Policy:** No automatic bulk indexation remediation. Indexation status is monitored on a separate diagnostic track while optimization focuses sequentially on high-intent search assets.
+
 

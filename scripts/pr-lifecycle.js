@@ -10,6 +10,8 @@
  */
 
 const cp = require('child_process');
+const fs = require('fs');
+const path = require('path');
 
 function getGitPassword() {
   return new Promise((resolve, reject) => {
@@ -23,6 +25,63 @@ function getGitPassword() {
       else reject(new Error('GitHub token not found in git credential helper'));
     });
   });
+}
+
+function getVercelToken() {
+  const accessKeysPath = path.resolve(__dirname, '../accesskeys.txt');
+  if (fs.existsSync(accessKeysPath)) {
+    const content = fs.readFileSync(accessKeysPath, 'utf8');
+    const match = content.match(/vercel_token=([^\r\n]+)/);
+    if (match && match[1]) return match[1].trim();
+  }
+  return process.env.VERCEL_TOKEN || null;
+}
+
+async function purgeVercelDeployments(targetBranch = null) {
+  const token = getVercelToken();
+  if (!token) {
+    console.warn('⚠️ Notice: Vercel token not found in accesskeys.txt or process.env. Skipping Vercel deployment purge.');
+    return;
+  }
+
+  try {
+    const res = await fetch('https://api.vercel.com/v6/deployments?limit=50', {
+      headers: { Authorization: `Bearer ${token}` }
+    });
+    const data = await res.json();
+    if (!data.deployments || !Array.isArray(data.deployments)) {
+      console.warn('⚠️ Notice: Could not fetch Vercel deployments:', data);
+      return;
+    }
+
+    const powerlabDeploys = data.deployments.filter(d => d.name === 'powerlab');
+    let purgedCount = 0;
+
+    for (const d of powerlabDeploys) {
+      const branch = d.meta && (d.meta.githubCommitRef || d.meta.gitBranch);
+      const isTarget = targetBranch ? branch === targetBranch : (branch && branch !== 'main');
+      if (isTarget) {
+        console.log(`   🧹 Purging stale Vercel deployment ${d.uid} (branch: ${branch || 'preview'})...`);
+        const delRes = await fetch(`https://api.vercel.com/v13/deployments/${d.uid}`, {
+          method: 'DELETE',
+          headers: { Authorization: `Bearer ${token}` }
+        });
+        const delData = await delRes.json();
+        if (delData.state === 'DELETED') {
+          console.log(`   ✅ Vercel preview deployment ${d.uid} purged.`);
+          purgedCount++;
+        }
+      }
+    }
+
+    if (purgedCount === 0) {
+      console.log('   ✅ No lingering preview deployments found on Vercel.');
+    } else {
+      console.log(`   🎉 Successfully purged ${purgedCount} Vercel preview deployment(s).`);
+    }
+  } catch (err) {
+    console.warn('⚠️ Notice during Vercel deployment purge:', err.message);
+  }
 }
 
 async function githubRequest(path, method = 'GET', body = null) {
@@ -112,7 +171,10 @@ async function mergePR(prNumber) {
     console.warn(`⚠️ Warning: Could not delete remote branch (HTTP ${delRes.status}):`, delRes.data);
   }
 
-  console.log('\n🔄 Step 3: Synchronizing local repository...');
+  console.log(`\n🧹 Step 3: Purging Vercel preview deployment for branch "${branchName}"...`);
+  await purgeVercelDeployments(branchName);
+
+  console.log('\n🔄 Step 4: Synchronizing local repository...');
   try {
     cp.execSync('git checkout main', { stdio: 'inherit' });
     cp.execSync('git pull origin main', { stdio: 'inherit' });
@@ -127,10 +189,16 @@ async function mergePR(prNumber) {
     console.warn('⚠️ Local sync notice:', err.message);
   }
 
-  console.log('\n📡 Step 4: GitHub Actions Post-Merge Watchdog is running...');
+  console.log('\n📡 Step 5: GitHub Actions Post-Merge Watchdog is running...');
   console.log('   Watch workflow: https://github.com/miadsaadidi/powerlab/actions');
   console.log('   Production domain: https://powelab.org');
   console.log('\n🎉 PR merge lifecycle complete!\n');
+}
+
+async function cleanVercel() {
+  console.log('\n🧹 Sweeping and purging all non-main Vercel preview deployments for PowerLab...\n');
+  await purgeVercelDeployments(null);
+  console.log('\n✨ Vercel preview sweep complete!\n');
 }
 
 const action = process.argv[2];
@@ -138,6 +206,11 @@ const arg = process.argv[3];
 
 if (action === 'merge') {
   mergePR(arg).catch(err => {
+    console.error('Fatal error:', err);
+    process.exit(1);
+  });
+} else if (action === 'clean-vercel' || action === 'clean') {
+  cleanVercel().catch(err => {
     console.error('Fatal error:', err);
     process.exit(1);
   });

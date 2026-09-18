@@ -64,7 +64,25 @@ $$\text{Priority Score} = \text{Business Relevance} \times \text{Search Intent} 
 
 ---
 
-## 6. Keyword Cannibalization Prevention Rules
+## 6. Verified GSC Strike-Distance Queries (28-Day Empirical Data)
+
+| Query / Search Intent | GSC Impressions (28d) | GSC Clicks | GSC CTR | GSC Position | Target Asset URL | Priority / Action |
+| :--- | :---: | :---: | :---: | :---: | :--- | :---: |
+| `how to calculate ev range` | Verified Query | 0 | 0% | **15.50** | `/ev/ev-range-calculator` | **P1 (Page 2 Strike)** |
+| `ev range calculation formula` | Verified Query | 0 | 0% | **20.00** | `/ev/ev-range-calculator` | **P1 (Page 2 Strike)** |
+| `how many kwh does a house use per day` | 14 | 0 | 0% | **30.71** | `/guides/how-many-kwh-does-a-house-use-per-day` | **P1 (High Demand)** |
+| `9 kwh per day` / `12 kwh per day` | Verified Queries | 0 | 0% | **15.00 – 23.67** | `/guides/how-many-kwh-does-a-house-use-per-day` | **P1 (High Demand)** |
+| `ac cost calculator` / `cost to run ac calculator` | 25 | 0 | 0% | **31.48 – 35.00** | `/home-energy/air-conditioner-cost-calculator` | **P1 (High Intent)** |
+| `central ac energy cost` | 37 | 0 | 0% | **42.05** | `/home-energy/air-conditioner-cost-calculator` | **P1 (High Intent)** |
+| `battery capacity in kwh` / `battery capacity formula` | Verified Queries | 0 | 0% | **44.00 – 47.00** | `/battery/battery-capacity-calculator` | **P1 (Technical)** |
+| `what size breaker for 48 amp ev charger` | Verified Query | 0 | 0% | **38.00** | `/ev/ev-charger-breaker-size-calculator` | **P2 (High Intent)** |
+| `how to size mppt charge controller` | Verified Query | 0 | 0% | **36.00** | `/solar/solar-charge-controller-calculator` | **P2 (Technical)** |
+| `solar panel angle calculator` | 115 | 0 | 0% | **74.47** | `/solar/solar-panel-tilt-calculator` | **P2 (High Volume)** |
+| `battery capacity calculator` | 14 | 1 | 7.14% | **73.21** | `/battery/battery-capacity-calculator` | **P1 (Conversion)** |
+
+---
+
+## 7. Keyword Cannibalization Prevention Rules
 
 1. **One Intent = One Canonical URL:** Never create separate thin pages for slight synonym variants (e.g., `battery runtime calculator` and `battery backup runtime calculator` are resolved exclusively by `/battery/battery-runtime-calculator`).
 2. **Cluster Hub Consolidation:** Broad category queries (e.g., `battery calculators`, `solar planning tools`) map to topic hubs (`/battery`, `/solar`, `/home-energy`, `/ev`), while specific calculational queries map directly to specific calculator routes.
