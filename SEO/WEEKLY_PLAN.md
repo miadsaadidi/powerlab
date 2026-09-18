@@ -42,24 +42,35 @@ When the user asks for the weekly plan:
 
 ---
 
-## 3. Qualified Strategic Backlog (Categorized by 5-Tier Hierarchy)
+## 3. Qualified Strategic Backlog (Ranked by GSC Empirical Search Evidence)
 
 Candidate opportunities from this backlog are activated ONLY when justified by empirical diagnosis:
 
-### Tier 1 & 3: Core Search Asset & Search-Intent Upgrades (P1/P2 Pages)
-* **Candidate T1-01 — Heat Pump Cost & COP Sizing Hub Upgrade:** Enhance `/home-energy/heat-pump-cost-calculator` and `/research/heat-pump-cop-degradation-and-auxiliary-heat-kinetics` with dual-fuel heating balance point tables, cold-climate derating curves, and worked sizing examples.
-* **Candidate T1-02 — EVSE Branch Circuit & Breaker Sizing Upgrade:** Expand `/ev/ev-charger-breaker-size-calculator` with NEC Table 310.16 copper/aluminum ampacity tables, continuous-duty 125% derivations, and direct link to companion SSRN preprint #7446361.
-* **Candidate T1-03 — BESS Peukert & Runtime Workbench Upgrade:** Integrate empirical tare loss curves and Peukert exponent definitions into `/battery/battery-runtime-calculator` and `/battery/battery-capacity-calculator`.
-* **Candidate T1-04 — 50-State Solar Climate & Insolation Search Landing:** Optimize `/datasets/50-state-solar-insolation-climatic-benchmark` with state-by-state peak sun hour search tables and sub-zero Voc expansion factors.
+### Tier 1 & 3: Core Search Asset & Search-Intent Upgrades (GSC Strike-Distance Priorities)
+* **Candidate T1-01 — EV Range Calculator Search-Intent & Aerodynamic Physics Upgrade:**  
+  *Evidence:* **1,309 GSC Impressions** at **Position 16.53** (Page 2 strike distance on queries `how to calculate ev range` Pos 15.5, `ev range calculation formula` Pos 20.0).  
+  *Action:* Upgrade `/ev/ev-range-calculator` with speed drag table ($F_d = \frac{1}{2}\rho C_d A v^2$ at 55/65/75/80 mph), sub-zero cold temperature penalty matrix, and 4-step manual math walkthrough.
+* **Candidate T1-02 — Household Daily kWh Benchmark Guide Intent Expansion:**  
+  *Evidence:* **1,470 GSC Impressions** (queries `how many kwh does a house use per day` Pos 30.7, `9 kwh per day` Pos 15.0, `12 kwh per day` Pos 23.7).  
+  *Action:* Upgrade `/guides/how-many-kwh-does-a-house-use-per-day` with appliance breakdown tables, square footage benchmarks, and bidirectional links to `/home-energy/electricity-usage-calculator`.
+* **Candidate T1-03 — Battery Capacity & Ah/kWh Formula Workbench Upgrade:**  
+  *Evidence:* **1,686 GSC Impressions** (queries `battery capacity in kwh` Pos 44.0, `battery capacity formula` Pos 47.0, `mah to kwh` Pos 58.3).  
+  *Action:* Enhance `/battery/battery-capacity-calculator` with full chemistry DoD bounds, cycle health degradation, and conversion formula cards.
+* **Candidate T1-04 — Central AC Cost Calculator Monitoring & Evaluation:**  
+  *Evidence:* **2,000 GSC Impressions** at **Position 16.45** (queries `ac cost calculator` Pos 31.5, `central ac energy cost` Pos 42.0).  
+  *Action:* Monitor organic rankings post-deployment of Session 22 search-intent upgrades (in PR #12).
+* **Candidate T1-05 — Solar Panel Output Calculator High-Volume Tuning:**  
+  *Evidence:* **1,351 GSC Impressions** (queries `solar panel output calculator`, `solar production calculator`).  
+  *Action:* Add seasonal PVWatts V8 insolation yield comparison table to `/solar/solar-panel-output-calculator`.
 
 ### Tier 2: Topic Cluster Internal Linking Architecture
-* **Candidate T2-01 — Solar Topic Cluster Mesh:** Build bidirectional contextual links: `/guides/solar-panel-angle-and-tilt-guide` $\longleftrightarrow$ `/solar/solar-panel-tilt-calculator` $\longleftrightarrow$ `/datasets/50-state-solar-insolation-climatic-benchmark` $\longleftrightarrow$ `/solar/solar-charge-controller-calculator`.
-* **Candidate T2-02 — HVAC & Home Electrification Cluster Mesh:** Connect `/guides/heat-pump-operating-cost-guide` $\longleftrightarrow$ `/home-energy/heat-pump-cost-calculator` $\longleftrightarrow$ `/datasets/cold-climate-heat-pump-cop-degradation-benchmark` $\longleftrightarrow$ `/home-energy/air-conditioner-cost-calculator`.
-* **Candidate T2-03 — BESS & Inverter Storage Cluster Mesh:** Connect `/guides/battery-storage-sizing-guide` $\longleftrightarrow$ `/battery/battery-capacity-calculator` $\longleftrightarrow$ `/battery/inverter-size-calculator` $\longleftrightarrow$ `/datasets/bess-peukert-capacity-derating-tare-loss-benchmark`.
+* **Candidate T2-01 — EV Topic Cluster Mesh:** Build bidirectional contextual links: `/guides/how-to-calculate-ev-driving-range-and-efficiency-guide` $\longleftrightarrow$ `/ev/ev-range-calculator` $\longleftrightarrow$ `/ev/ev-charging-time-calculator` $\longleftrightarrow$ `/datasets/continuous-duty-evse-terminal-temperature-benchmark`.
+* **Candidate T2-02 — Home Electrification & Daily Load Cluster Mesh:** Connect `/guides/how-many-kwh-does-a-house-use-per-day` $\longleftrightarrow$ `/home-energy/electricity-usage-calculator` $\longleftrightarrow$ `/home-energy/energy-bill-calculator` $\longleftrightarrow$ `/home-energy/home-battery-size-calculator`.
+* **Candidate T2-03 — Solar PV & Climate Cluster Mesh:** Connect `/guides/solar-panel-tilt-angle-by-latitude-and-season-guide` $\longleftrightarrow$ `/solar/solar-panel-tilt-calculator` $\longleftrightarrow$ `/datasets/50-state-solar-insolation-climatic-benchmark` $\longleftrightarrow$ `/solar/solar-charge-controller-calculator`.
 
 ### Tier 4: Technical SEO, Indexation & Crawl Health
-* **Candidate T4-01 — Google Search Console Crawled-Not-Indexed Remediation:** Diagnose 34 URLs marked crawled-not-indexed; verify internal link depth, canonical fidelity, and substantive on-page content.
-* **Candidate T4-02 — Schema.org Rich Result & Validation Audit:** Validate `WebApplication`, `ScholarlyArticle`, and `Dataset` JSON-LD schemas across all 84 routes for 100% Google Rich Results compliance.
+* **Candidate T4-01 — Ahrefs Site Audit Remediation (COMPLETED in PR #12):** Remediated 14 broken 404 links, calibrated 9 SERP titles, trimmed 8 meta descriptions, and upgraded Dataset JSON-LD schema.
+* **Candidate T4-02 — Vercel Preview Deployment Purge Automation (COMPLETED in PR #12):** Automated Vercel preview retirement via REST API and added `npm run vercel:clean`.
 
 ### Tier 5: Supporting External Distribution & Scientific Citation (Secondary)
 * **Candidate T5-01 — MERLOT Higher-Ed Courseware Submissions:** Catalog calculation engines in California State University MERLOT OER system (DA 75) for verified academic citations.
