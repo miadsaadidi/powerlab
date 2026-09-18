@@ -8,9 +8,12 @@ export interface ApplianceWattageInput {
   quantity: number;
   runtimeHours?: number;
   dutyCycle: number;
-  startupSource: "unknown" | "explicit-watts" | "user-multiplier";
+  startupSource: "unknown" | "explicit-watts" | "user-multiplier" | "lra-amps";
   startupWatts?: number;
   startupMultiplier?: number;
+  lraAmps?: number;
+  lraVolts?: number;
+  lraPowerFactor?: number;
   costEnabled: boolean;
   pricePerKWh?: number;
 }
@@ -31,7 +34,9 @@ export interface ApplianceWattageResult {
   optionalCost: number | null;
   unitStartupWatts: number | null;
   totalStartupWatts: number | null;
-  startupDataSource: "explicit-watts" | "user-multiplier" | "unknown";
+  unitStartupVA: number | null;
+  totalStartupVA: number | null;
+  startupDataSource: "explicit-watts" | "user-multiplier" | "lra-amps" | "unknown";
 }
 
 const finite = (value: unknown): value is number => typeof value === "number" && Number.isFinite(value);
@@ -73,7 +78,10 @@ export function calculateApplianceWattage(input: ApplianceWattageInput): Applian
 
   let unitStartupWatts: number | null = null;
   let totalStartupWatts: number | null = null;
+  let unitStartupVA: number | null = null;
+  let totalStartupVA: number | null = null;
   let startupDataSource: ApplianceWattageResult["startupDataSource"] = "unknown";
+
   if (input.startupSource === "explicit-watts") {
     if (!finite(input.startupWatts) || input.startupWatts < unitRunningWatts) throw new Error("Startup watts must be at least the running watts per appliance.");
     unitStartupWatts = input.startupWatts;
@@ -84,6 +92,20 @@ export function calculateApplianceWattage(input: ApplianceWattageInput): Applian
     unitStartupWatts = unitRunningWatts * input.startupMultiplier;
     totalStartupWatts = unitStartupWatts * input.quantity;
     startupDataSource = "user-multiplier";
+  } else if (input.startupSource === "lra-amps") {
+    if (!finite(input.lraAmps) || input.lraAmps <= 0) throw new Error("Locked Rotor Amps (LRA) must be greater than zero.");
+    const voltage = input.source.sourceMode === "label-volts-amps" 
+      ? input.source.volts 
+      : (input.lraVolts && finite(input.lraVolts) && input.lraVolts > 0 ? input.lraVolts : (unitRunningWatts >= 2000 ? 240 : 120));
+    const startingPF = input.lraPowerFactor && finite(input.lraPowerFactor) && input.lraPowerFactor > 0 && input.lraPowerFactor <= 1
+      ? input.lraPowerFactor
+      : 0.50; // Standard NEMA locked-rotor inductive power factor (~0.40–0.55)
+    
+    unitStartupVA = input.lraAmps * voltage;
+    totalStartupVA = unitStartupVA * input.quantity;
+    unitStartupWatts = unitStartupVA * startingPF;
+    totalStartupWatts = unitStartupWatts * input.quantity;
+    startupDataSource = "lra-amps";
   }
 
   return {
@@ -102,6 +124,8 @@ export function calculateApplianceWattage(input: ApplianceWattageInput): Applian
     optionalCost,
     unitStartupWatts,
     totalStartupWatts,
+    unitStartupVA,
+    totalStartupVA,
     startupDataSource,
   };
 }

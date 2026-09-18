@@ -90,6 +90,47 @@ export default function EnergyBillCalculatorPage() {
         sourceAuthority="US Energy Information Administration (EIA) Electricity Data"
       />
 
+      {/* Next-Step Planning Pathways */}
+      <section style={{ margin: "2rem 0", padding: "1.25rem 1.5rem", borderRadius: "0.85rem", background: "var(--surface)", border: "1px solid var(--line)" }}>
+        <h2 style={{ fontSize: "1.15rem", margin: "0 0 0.5rem", color: "var(--brand-strong)" }}>
+          🧭 Connected Home Energy Planning Pathways
+        </h2>
+        <p style={{ fontSize: "0.88rem", color: "var(--muted)", margin: "0 0 1rem", lineHeight: 1.5 }}>
+          Explore what is driving your power bill and evaluate storage and efficiency solutions:
+        </p>
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(min(100%, 250px), 1fr))", gap: "1rem" }}>
+          <div style={{ padding: "1rem", borderRadius: "0.5rem", background: "var(--surface-subtle, #fafafa)", border: "1px solid var(--line)" }}>
+            <h3 style={{ margin: "0 0 0.35rem", fontSize: "0.95rem", color: "var(--brand-strong)" }}>⚡ Audit Individual Appliance Loads</h3>
+            <p style={{ fontSize: "0.83rem", color: "var(--muted)", margin: "0 0 0.75rem", lineHeight: 1.5 }}>
+              Discover which specific appliances (HVAC, water heater, refrigeration) are driving your kilowatt-hour totals.
+            </p>
+            <Link href="/home-energy/electricity-usage-calculator" className="button secondary-button" style={{ width: "100%", textAlign: "center", display: "block", fontSize: "0.82rem" }}>
+              Electricity Usage Calculator →
+            </Link>
+          </div>
+
+          <div style={{ padding: "1rem", borderRadius: "0.5rem", background: "var(--surface-subtle, #fafafa)", border: "1px solid var(--line)" }}>
+            <h3 style={{ margin: "0 0 0.35rem", fontSize: "0.95rem", color: "var(--brand-strong)" }}>📊 Benchmark Monthly Consumption</h3>
+            <p style={{ fontSize: "0.83rem", color: "var(--muted)", margin: "0 0 0.75rem", lineHeight: 1.5 }}>
+              Compare your monthly kWh against the U.S. EIA national baseline of ~880–900 kWh/mo (29–30 kWh/day).
+            </p>
+            <Link href="/guides/how-many-kwh-does-a-house-use-per-day" className="button secondary-button" style={{ width: "100%", textAlign: "center", display: "block", fontSize: "0.82rem" }}>
+              Daily kWh Usage Guide →
+            </Link>
+          </div>
+
+          <div style={{ padding: "1rem", borderRadius: "0.5rem", background: "var(--surface-subtle, #fafafa)", border: "1px solid var(--line)" }}>
+            <h3 style={{ margin: "0 0 0.35rem", fontSize: "0.95rem", color: "var(--brand-strong)" }}>🔋 Size Battery Storage for Backup</h3>
+            <p style={{ fontSize: "0.83rem", color: "var(--muted)", margin: "0 0 0.75rem", lineHeight: 1.5 }}>
+              Calculate home battery storage capacity (kWh) to protect against blackouts and shift power from peak tariff windows.
+            </p>
+            <Link href="/home-energy/home-battery-size-calculator" className="button secondary-button" style={{ width: "100%", textAlign: "center", display: "block", fontSize: "0.82rem" }}>
+              Home Battery Size Calculator →
+            </Link>
+          </div>
+        </div>
+      </section>
+
       <PageJumpNav />
 
       <section id="how-to-guide" style={{ marginTop: "3rem" }}>
@@ -185,7 +226,7 @@ export default function EnergyBillCalculatorPage() {
       <section id="related-tools">
         <h2>Related Energy &amp; Utility Calculators</h2>
         <p>
-          Audit high-draw appliances with the <Link href="/home-energy/electricity-usage-calculator">Electricity Usage Calculator</Link>, check solar investment return with the <Link href="/solar/solar-payback-calculator">Solar Payback Calculator</Link>, or compare EV charging costs with the <Link href="/ev/ev-savings-calculator">EV Savings Calculator</Link>.
+          Audit high-draw appliances with the <Link href="/home-energy/electricity-usage-calculator">Electricity Usage Calculator</Link>, understand baseline consumption benchmarks in the <Link href="/guides/how-many-kwh-does-a-house-use-per-day">Daily kWh Usage Guide</Link>, evaluate backup storage with the <Link href="/home-energy/home-battery-size-calculator">Home Battery Size Calculator</Link>, or check solar investment return with the <Link href="/solar/solar-payback-calculator">Solar Payback Calculator</Link>.
         </p>
       </section>
     </article>

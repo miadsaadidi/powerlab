@@ -93,6 +93,47 @@ export default function HowManyKwhDoesAHouseUsePerDayPage() {
 
       <PageJumpNav />
 
+      {/* Planning Pathway: Daily kWh to Bill & Battery Sizing */}
+      <section style={{ margin: "2rem 0", padding: "1.25rem 1.5rem", borderRadius: "0.85rem", background: "var(--surface)", border: "1px solid var(--line)" }}>
+        <h2 style={{ fontSize: "1.2rem", margin: "0 0 0.5rem", color: "var(--brand-strong)" }}>
+          🧭 Household Energy Planning Pathway: From Daily kWh to Bills &amp; Backup
+        </h2>
+        <p style={{ fontSize: "0.9rem", color: "var(--muted)", margin: "0 0 1rem", lineHeight: 1.55 }}>
+          Your daily electrical consumption (kWh/day) is the foundational variable for your utility bills and home backup sizing. Follow this continuous planning path across PowerLab&apos;s interactive tools:
+        </p>
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(min(100%, 260px), 1fr))", gap: "1rem" }}>
+          <div style={{ padding: "1rem", borderRadius: "0.5rem", background: "var(--surface-subtle, #fafafa)", border: "1px solid var(--line)" }}>
+            <h3 style={{ margin: "0 0 0.35rem", fontSize: "0.98rem", color: "var(--brand-strong)" }}>1. Itemize Appliance Loads</h3>
+            <p style={{ fontSize: "0.84rem", color: "var(--muted)", margin: "0 0 0.75rem", lineHeight: 1.5 }}>
+              Audit cycling compressors, water heaters, and continuous plug loads to determine exact daily kilowatt-hours.
+            </p>
+            <Link href="/home-energy/electricity-usage-calculator" className="button secondary-button" style={{ width: "100%", textAlign: "center", display: "block", fontSize: "0.82rem" }}>
+              Electricity Usage Calculator →
+            </Link>
+          </div>
+
+          <div style={{ padding: "1rem", borderRadius: "0.5rem", background: "var(--surface-subtle, #fafafa)", border: "1px solid var(--line)" }}>
+            <h3 style={{ margin: "0 0 0.35rem", fontSize: "0.98rem", color: "var(--brand-strong)" }}>2. Project Utility Bill Impact</h3>
+            <p style={{ fontSize: "0.84rem", color: "var(--muted)", margin: "0 0 0.75rem", lineHeight: 1.5 }}>
+              Convert daily kWh to monthly power bills factoring in tiered volumetric tariffs and fixed standing charges.
+            </p>
+            <Link href="/home-energy/energy-bill-calculator" className="button secondary-button" style={{ width: "100%", textAlign: "center", display: "block", fontSize: "0.82rem" }}>
+              Energy Bill Calculator →
+            </Link>
+          </div>
+
+          <div style={{ padding: "1rem", borderRadius: "0.5rem", background: "var(--surface-subtle, #fafafa)", border: "1px solid var(--line)" }}>
+            <h3 style={{ margin: "0 0 0.35rem", fontSize: "0.98rem", color: "var(--brand-strong)" }}>3. Size Battery Storage (kWh)</h3>
+            <p style={{ fontSize: "0.84rem", color: "var(--muted)", margin: "0 0 0.75rem", lineHeight: 1.5 }}>
+              Size whole-home or critical-circuit battery backup (e.g. 10–13.5 kWh vs 27–40 kWh) based on your daily demand.
+            </p>
+            <Link href="/home-energy/home-battery-size-calculator" className="button secondary-button" style={{ width: "100%", textAlign: "center", display: "block", fontSize: "0.82rem" }}>
+              Home Battery Size Calculator →
+            </Link>
+          </div>
+        </div>
+      </section>
+
       {/* Interactive Tool Section */}
       <section id="calculator-tool" className="calculator-wrapper" style={{ marginTop: "2rem" }}>
         <div style={{ marginBottom: "1rem" }}>
@@ -108,12 +149,12 @@ export default function HowManyKwhDoesAHouseUsePerDayPage() {
       <section id="daily-kwh-archetypes" style={{ marginTop: "2.5rem" }}>
         <h2>What Does 9 kWh, 12 kWh, 20 kWh, 30 kWh, or 50 kWh Per Day Look Like?</h2>
         <p>
-          Home electricity consumption varies dramatically depending on whether thermal loads (space heating, air conditioning, and water heating) are powered by electricity or natural gas. The table below illustrates the typical appliance configuration for common daily kilowatt-hour tiers:
+          Home electricity consumption varies dramatically depending on whether thermal loads (space heating, air conditioning, and water heating) are powered by electricity or natural gas. The table below compares the <strong>official U.S. EIA national average</strong> against representative <strong>modeled engineering benchmark scenarios</strong>:
         </p>
 
         <div className="scenario-table" style={{ overflowX: "auto", margin: "1.25rem 0" }}>
           <table style={{ width: "100%", borderCollapse: "collapse" }}>
-            <caption>Table 1: Household Appliance Configurations Across Common Daily kWh Tiers</caption>
+            <caption>Table 1: EIA Statistical Benchmark vs. Representative Modeled Household Energy Scenarios</caption>
             <thead>
               <tr>
                 <th scope="col">Daily kWh Tier</th>

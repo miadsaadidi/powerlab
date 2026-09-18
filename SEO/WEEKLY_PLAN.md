@@ -1,109 +1,110 @@
-# POWLAB SEO — Tactical Roadmap & Planning System
+# POWLAB SEO — Tactical Roadmap & Opportunity Production System
 
-**Document Role:** Adaptive Tactical Roadmap & Evidence-Driven Prioritization System  
+**Document Role:** Research-Driven, Evidence-Driven Opportunity Roadmap & Prioritization System  
 **SSOT Reference:** [SEO/MASTER_STRATEGY.md](file:///D:/powerlab/SEO/MASTER_STRATEGY.md)  
 **Hub Target:** `https://www.powelab.org/`
 
 ---
 
-## 1. Core Operating Principles
+## 1. Research-Driven SEO Production Framework
 
 ```text
-WEEKLY ROADMAP = DYNAMIC MULTI-OBJECTIVE PIPELINE
-ACTIVE EXECUTION = ONE OBJECTIVE AT A TIME
-AFTER EACH OBJECTIVE = RE-DIAGNOSE AND RE-PLAN
+WEEKLY OPERATING RHYTHM:
+Day 1: Full SEO Intelligence + Opportunity Mapping (Owned-site + SERP + External Research Radar)
+Day 2: Core Production + Existing Asset Execution (Highest-value Core assets & immediate quick wins)
+Days 3–6: Core + Layer 1 + Cluster + Existing Asset Execution (Continuous Research Radar in parallel)
+Day 7: Validation + Measurement + Opportunity Harvesting (Builds, tests, schemas, GSC evidence harvest)
 ```
 
-1. **Evidence-Driven Dynamic Roadmap:** The weekly plan is an adaptive roadmap of candidate opportunities, NOT a rigid publishing calendar or a queue that must all be completed.
-2. **Zero Quotas:** No mandatory quotas for external articles, backlinks, datasets, or outreach.
-3. **One Active Objective at a Time:** Only ONE objective is active at a time, executed through its complete lifecycle:
-   $$\text{DIAGNOSE} \longrightarrow \text{ONE OBJECTIVE} \longrightarrow \text{PLAN} \longrightarrow \text{APPROVAL} \longrightarrow \text{EXECUTE} \longrightarrow \text{VALIDATE} \longrightarrow \text{LOG} \longrightarrow \text{MEASURE} \longrightarrow \text{RE-DIAGNOSE}$$
-4. **On-Site First Focus:** The primary optimization unit is the **individual PowerLab page and its surrounding topical cluster**. External distribution is a supporting layer.
-5. **No Outcome Guarantees:** Treat indexing, citations, backlinks, rankings, and traffic strictly as potential outcomes, never guarantees.
-6. **Adaptive Re-Planning:** Upon completion of an objective, re-diagnose live evidence (Search Console, crawl health, indexation) to select the next highest-value objective.
-
----
+1. **Active Intelligence & Production (Not Passive Monitoring):** The weekly plan is an active research, intelligence, and persistent search-asset creation pipeline.
+2. **Core Assets as Primary Production Pillar:** Sizing datasets, whitepapers, engineering research, technical references, major guides, and calculator-backed research assets. A planning benchmark of 3–5 Core opportunities per week guides production without becoming an arbitrary publishing quota.
+3. **Core → Layer 1 Content Architecture:** Core assets anchor primary engineering topics $\rightarrow$ Layer 1 pages satisfy distinct, narrow search intents $\rightarrow$ interactive calculators/datasets provide structured execution $\rightarrow$ bidirectional mesh linking distributes crawl equity.
+4. **Continuous Research Radar (Days 2–7):** Parallel discovery runs continuously during all execution phases, actively mining ASHRAE, ACCA, DOE, NREL, PNNL, LBNL, ORNL, NIST, EIA, IEEE, and open scientific repositories for new datasets, formulas, and topic gaps.
+5. **One Active Objective = One Coherent SEO Outcome:** Sizing is governed by 5 coherence standards (Search Problem, Implementation-Pattern, Validation, Measurement, and Execution Controllability). Multiple independent objectives may execute in the same session post-approval.
+6. **Dev.to / Hashnode as Technical Distribution:** Used strictly for research interpretation, dataset methodology, and engineering walkthroughs derived from original PowerLab work; authoritative Core assets remain on-site.
 
 ---
 
 ## 2. Weekly & Daily Planning Output Protocol
 
-When prompted with *"SEO plan this week"* or *"SEO plan today"*, return strictly the 4-part standard format:
+When prompted with *"SEO plan this week"* or *"SEO plan today"*, return strictly the standard format:
 
 ```markdown
 ### CURRENT STATE
-(3–5 concise bullets)
+(3–5 concise bullets reflecting GSC/GA4/Crawl evidence)
 
 ### PLAN
 (Maximum 5–6 short steps)
 
 ### ACTIVE OBJECTIVE
-(One line)
+* **Objective Class:** (SINGLE ASSET | CLUSTER UPGRADE | CORE PUBLICATION | CLUSTER PUBLICATION | SYSTEMIC TECHNICAL REMEDIATION | DIAGNOSTIC / MEASUREMENT)
+* **Scope / Affected URLs:** (Exact target paths)
+* **Search Problem & Evidence:** (Core intent / GSC metrics / SERP gaps)
+* **Expected Outcome:** Improve search-intent coverage, engineering usefulness, and potential organic visibility for [topic] queries.
 
 ### APPROVAL
-(One line)
+(One line confirmation gate)
 ```
 
-### Evidentiary Guardrails & Reporting Standards
-1. **Device Aggregate vs. Page Position:** Never claim site-wide device positions (e.g. Mobile 13.77, Desktop 64.56) belong to individual pages.
-2. **Query→Page Verifications:** Never claim a query maps to a specific URL unless verified directly in GSC exports.
-3. **Zero Ranking Guarantees:** Never claim an optimization will reach Top 5, guarantee a ranking increase, or guarantee CTR improvements.
-4. **Indexation Watch Track:** Maintain indexation issues (17 indexed, 55 non-indexed, 34 crawled-not-indexed, 13 discovered-not-indexed, 5 redirect errors, 3 redirected) in a separate diagnostic track; do not launch bulk indexation remediation automatically.
-5. **Measurement Mode:** Keep recently optimized pages in measurement mode without auto-activating the next backlog item.
-6. **Technical Integrity:** Only add physics, temperature, aerodynamic, or electrical tables supported by deterministic calculation engines or authoritative engineering standards. Always preserve calculation engine, canonical URL, robots, and sitemap.
-7. **GA4 Supporting Behavioral Source & Data Quality Watch:** Maintain GSC as primary SEO source and GA4 strictly as a supporting behavioral/engagement source (do not use GA4 active-user totals as primary SEO KPIs). Maintain `ANALYTICS DATA QUALITY WATCH` on geographic traffic concentrations (Singapore, Council Bluffs, Glenview, Ashburn, Moses Lake, San Jose) without asserting confirmed bot traffic without forensic verification.
+### Evidentiary Guardrails
+1. **Device Aggregate vs. Page Position:** Never claim site-wide device positions belong to individual pages.
+2. **Query→Page Verifications:** Only cite queries verified in Search Console exports.
+3. **Zero Ranking Guarantees:** Never claim an optimization guarantees Top 5 rankings, specific CTR gains, or dwell-time increases.
+4. **Measurement Mode:** Keep recently optimized assets in measurement mode while selecting fresh candidate objectives.
+5. **Deterministic Integrity:** Only add physics, thermodynamic, aerodynamic, or electrical tables backed by calculation engines or authoritative engineering standards.
 
 ---
 
-## 3. Qualified Strategic Backlog (Ranked by GSC Empirical Search Evidence)
+## 3. Weekly Opportunity Map (Candidate Backlog by Track)
 
-Candidate opportunities from this backlog are activated ONLY when justified by empirical diagnosis:
+### Track A: Existing Asset Optimization (GSC Strike-Distance Priorities)
+* **Candidate T1-01 — EV Range Calculator Physics Upgrade:** COMPLETED (Session 26) $\rightarrow$ **Measurement Mode**.
+* **Candidate T1-02 — Household Daily kWh Benchmark Guide Expansion:** COMPLETED (Session 29) $\rightarrow$ **Measurement Mode**.
+* **Candidate T1-03 — Battery Capacity & Ah/kWh Formula Workbench:** COMPLETED (Session 32) $\rightarrow$ **Measurement Mode**.
+* **Candidate T1-04 — Central AC Cost Calculator Monitoring:** COMPLETED (Session 22) $\rightarrow$ **Measurement Mode**.
+* **Candidate T1-05 — Solar Panel Output Calculator PVWatts Loss Tuning:** COMPLETED (Session 33) $\rightarrow$ **Measurement Mode**.
+* **Candidate T1-06 — Appliance Wattage Calculator Strike-Distance Tuning:**  
+  *Evidence:* High impression volume on home appliance power draw queries (`refrigerator wattage`, `space heater power`).  
+  *Action:* Add standard running vs surge wattage reference table (LRA inrush) and hourly kWh cost matrix.
 
-### Tier 1 & 3: Core Search Asset & Search-Intent Upgrades (GSC Strike-Distance Priorities)
-* **Candidate T1-01 — EV Range Calculator Search-Intent & Aerodynamic Physics Upgrade (COMPLETED in Sessions 26–27):**  
-  *Evidence:* **1,309 GSC Impressions** at **Position 16.53** (Page 2 strike distance on queries `how to calculate ev range` Pos 15.5, `ev range calculation formula` Pos 20.0).  
-  *Action:* Upgraded `/ev/ev-range-calculator` with speed drag table ($F_d = \frac{1}{2}\rho C_d A v^2$ at 55/65/75/80 mph), sub-zero cold temperature penalty matrix, and 4-step manual math walkthrough. Asset placed in measurement mode.
-* **Candidate T1-02 — Household Daily kWh Benchmark Guide Intent Expansion (COMPLETED in Session 29):**  
-  *Evidence:* **1,470 GSC Impressions** (queries `how many kwh does a house use per day` Pos 30.7, `9 kwh per day` Pos 15.0, `12 kwh per day` Pos 23.7).  
-  *Action:* Upgraded `/guides/how-many-kwh-does-a-house-use-per-day` with 9/12/30 kWh daily consumption archetypes table, square footage vs climate zone matrix, comprehensive appliance load budget, and expanded FAQs. Asset placed in measurement mode.
-* **Candidate T1-03 — Battery Capacity & Ah/kWh Formula Workbench Upgrade:**  
-  *Evidence:* **1,686 GSC Impressions** (queries `battery capacity in kwh` Pos 44.0, `battery capacity formula` Pos 47.0, `mah to kwh` Pos 58.3).  
-  *Action:* Enhance `/battery/battery-capacity-calculator` with full chemistry DoD bounds, cycle health degradation, and conversion formula cards.
-* **Candidate T1-04 — Central AC Cost Calculator Monitoring & Evaluation:**  
-  *Evidence:* **2,000 GSC Impressions** at **Position 16.45** (queries `ac cost calculator` Pos 31.5, `central ac energy cost` Pos 42.0).  
-  *Action:* Monitor organic rankings post-deployment of Session 22 search-intent upgrades (in PR #12).
-* **Candidate T1-05 — Solar Panel Output Calculator High-Volume Tuning:**  
-  *Evidence:* **1,351 GSC Impressions** (queries `solar panel output calculator`, `solar production calculator`).  
-  *Action:* Add seasonal PVWatts V8 insolation yield comparison table to `/solar/solar-panel-output-calculator`.
-
-### Tier 2: Topic Cluster Internal Linking Architecture
-* **Candidate T2-01 — EV Topic Cluster Mesh:** Build bidirectional contextual links: `/guides/how-to-calculate-ev-driving-range-and-efficiency-guide` $\longleftrightarrow$ `/ev/ev-range-calculator` $\longleftrightarrow$ `/ev/ev-charging-time-calculator` $\longleftrightarrow$ `/datasets/continuous-duty-evse-terminal-temperature-benchmark`.
+### Track B: Cluster Upgrades (Multi-Asset Mesh Enhancements)
+* **Candidate T2-01 — EV Charging & Infrastructure Cluster Mesh:** Connect `/guides/how-to-calculate-ev-driving-range-and-efficiency-guide` $\longleftrightarrow$ `/ev/ev-range-calculator` $\longleftrightarrow$ `/ev/ev-charging-time-calculator` $\longleftrightarrow$ `/datasets/continuous-duty-evse-terminal-temperature-benchmark`.
 * **Candidate T2-02 — Home Electrification & Daily Load Cluster Mesh:** Connect `/guides/how-many-kwh-does-a-house-use-per-day` $\longleftrightarrow$ `/home-energy/electricity-usage-calculator` $\longleftrightarrow$ `/home-energy/energy-bill-calculator` $\longleftrightarrow$ `/home-energy/home-battery-size-calculator`.
 * **Candidate T2-03 — Solar PV & Climate Cluster Mesh:** Connect `/guides/solar-panel-tilt-angle-by-latitude-and-season-guide` $\longleftrightarrow$ `/solar/solar-panel-tilt-calculator` $\longleftrightarrow$ `/datasets/50-state-solar-insolation-climatic-benchmark` $\longleftrightarrow$ `/solar/solar-charge-controller-calculator`.
 
-### Tier 4: Technical SEO, Indexation & Crawl Health
-* **Candidate T4-01 — Ahrefs Site Audit Remediation (COMPLETED in PR #12):** Remediated 14 broken 404 links, calibrated 9 SERP titles, trimmed 8 meta descriptions, and upgraded Dataset JSON-LD schema.
-* **Candidate T4-02 — Vercel Preview Deployment Purge Automation (COMPLETED in PR #12):** Automated Vercel preview retirement via REST API and added `npm run vercel:clean`.
+### Track C: Technical & Architecture Fixes
+* **Candidate T4-01 — Ahrefs Crawl & Link Remediation:** COMPLETED (PR #12).
+* **Candidate T4-02 — Vercel Preview Deployment Purge:** COMPLETED (PR #12).
+* **Candidate T4-03 — Indexation Diagnostic Watch:** Monitor 34 crawled-not-indexed URLs following sitemap timestamp synchronization.
 
-### Tier 5: Supporting External Distribution & Scientific Citation (Secondary)
-* **Candidate T5-01 — MERLOT Higher-Ed Courseware Submissions:** Catalog calculation engines in California State University MERLOT OER system (DA 75) for verified academic citations.
-* **Candidate T5-02 — Open Energy Data Initiative (OEDI / NREL / DOE):** Deposit benchmark dataset packages to government open data portals.
-* **Candidate T5-03 — Editorial Technical Pitching:** Pitch non-promotional engineering case studies citing PowerLab open datasets to industry journals (`Power Engineering`, `EEP`, `Energy Central`).
+### Track D: Core Publication Candidates (Research & Benchmark Datasets)
+* **Candidate CD-01 — Residential Battery Energy Storage Degradation & Thermal Loss Dataset (PL-DS-BESS-06):**  
+  *Evidence:* SERP intent gap around empirical LiFePO4 vs NMC cycle-life degradation and ambient temperature capacity loss models.  
+  *Scope:* Structured dataset, methodology whitepaper, and bidirectional calculator links.
+* **Candidate CD-02 — Heat Pump Sub-Zero Heating Seasonal Performance Factor (HSPF2) Benchmark (PL-DS-HVAC-04):**  
+  *Evidence:* High search interest in cold-climate heat pump COP degradation below 17°F (-8.3°C) vs auxiliary electric strip staging.  
+  *Scope:* Comprehensive empirical reference dataset and technical guide.
+
+### Track E: Layer 1 Supporting Intent Candidates
+* **Candidate L1-01 — Level 2 EVSE Continuous Duty 125% Ampacity Sizing Guide:** Narrow technical intent targeting NEC 625.42 and 80% continuous breaker loading.
+* **Candidate L1-02 — Solar Inverter DC-to-AC Ratio & Clipping Loss Guide:** Focused guide explaining 1.15 to 1.30 DC/AC ratios and Sandia inverter efficiency curves.
+
+### Track F: External Technical Distribution (Dev.to / Hashnode)
+* **Candidate F-01 — Dev.to Engineering Post:** *"Deterministic Solar PV AC Yield Modeling in Pure TypeScript via NREL PVWatts V8"*.
+* **Candidate F-02 — Hashnode Engineering Post:** *"Mathematical Formulation of Continuous-Duty Thermal Ampacity in Residential EVSE Systems"*.
 
 ---
 
-## 4. Legacy Calendar Archive (NON-AUTHORITATIVE REFERENCE)
+## 4. Priority Hierarchy & North Star Decision Criterion
 
-> [!NOTE]
-> The fixed 7-day schedule below is preserved strictly as a **historical reference and candidate pool**. It does **NOT** govern daily operations and imposes no mandatory publication schedule.
+### Priority Hierarchy
+1. Existing page with clear GSC opportunity
+2. Existing cluster with multiple related opportunities
+3. Evidence-backed technical issue
+4. Genuine search/content gap
+5. Core Publication
+6. Layer 1 supporting publication
 
-```text
-LEGACY / BACKLOG / NON-AUTHORITATIVE SCHEDULE:
-Day 1: DEV.to Technical Post (EVSE Sizing in TypeScript)
-Day 2: Harvard Dataverse / Zenodo Dataset Deposit (BESS Peukert Matrix)
-Day 3: IEEE TechRxiv Preprint (Continuous-Duty EVSE Sizing)
-Day 4: University Faculty Outreach (Battery Lab Unit 01)
-Day 5: Hashnode Technical Post (Solar MPPT vs PWM Sizing)
-Day 6: AlternativeTo Tool Profile (PowerLab Workbench)
-Day 7: BibSonomy / ORCID Indexing Sweep (5 Technical Reports)
-```
+### North Star Decision Criterion
+> **"What evidence shows that this change can improve Google's understanding, coverage, relevance, discoverability, or usefulness of the site's search assets?"**
+

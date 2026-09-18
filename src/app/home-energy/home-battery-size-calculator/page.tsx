@@ -94,6 +94,47 @@ export default function HomeBatterySizePage() {
         sourceAuthority="NEC Article 706 & IEEE Std 2030.5 (Energy Storage Systems)"
       />
 
+      {/* Next-Step Planning Pathways */}
+      <section style={{ margin: "2rem 0", padding: "1.25rem 1.5rem", borderRadius: "0.85rem", background: "var(--surface)", border: "1px solid var(--line)" }}>
+        <h2 style={{ fontSize: "1.15rem", margin: "0 0 0.5rem", color: "var(--brand-strong)" }}>
+          🧭 Connected Home Energy Planning Pathways
+        </h2>
+        <p style={{ fontSize: "0.88rem", color: "var(--muted)", margin: "0 0 1rem", lineHeight: 1.5 }}>
+          Integrate your battery storage sizing with appliance load audits and utility bill analysis:
+        </p>
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(min(100%, 250px), 1fr))", gap: "1rem" }}>
+          <div style={{ padding: "1rem", borderRadius: "0.5rem", background: "var(--surface-subtle, #fafafa)", border: "1px solid var(--line)" }}>
+            <h3 style={{ margin: "0 0 0.35rem", fontSize: "0.95rem", color: "var(--brand-strong)" }}>⚡ Itemize Appliance Running &amp; Surge Loads</h3>
+            <p style={{ fontSize: "0.83rem", color: "var(--muted)", margin: "0 0 0.75rem", lineHeight: 1.5 }}>
+              Audit specific watts and starting surge (LRA) to verify your inverter and battery continuous kW ratings.
+            </p>
+            <Link href="/home-energy/electricity-usage-calculator" className="button secondary-button" style={{ width: "100%", textAlign: "center", display: "block", fontSize: "0.82rem" }}>
+              Electricity Usage Calculator →
+            </Link>
+          </div>
+
+          <div style={{ padding: "1rem", borderRadius: "0.5rem", background: "var(--surface-subtle, #fafafa)", border: "1px solid var(--line)" }}>
+            <h3 style={{ margin: "0 0 0.35rem", fontSize: "0.95rem", color: "var(--brand-strong)" }}>📊 Benchmark Daily kWh Baseline</h3>
+            <p style={{ fontSize: "0.83rem", color: "var(--muted)", margin: "0 0 0.75rem", lineHeight: 1.5 }}>
+              Compare your baseline consumption against U.S. EIA national averages (~29–30 kWh/day) and seasonal demand profiles.
+            </p>
+            <Link href="/guides/how-many-kwh-does-a-house-use-per-day" className="button secondary-button" style={{ width: "100%", textAlign: "center", display: "block", fontSize: "0.82rem" }}>
+              Daily kWh Usage Guide →
+            </Link>
+          </div>
+
+          <div style={{ padding: "1rem", borderRadius: "0.5rem", background: "var(--surface-subtle, #fafafa)", border: "1px solid var(--line)" }}>
+            <h3 style={{ margin: "0 0 0.35rem", fontSize: "0.95rem", color: "var(--brand-strong)" }}>💵 Project Electric Bill &amp; TOU Savings</h3>
+            <p style={{ fontSize: "0.83rem", color: "var(--muted)", margin: "0 0 0.75rem", lineHeight: 1.5 }}>
+              Model utility cost savings from rate arbitrage, peak shaving, and solar self-consumption during peak tariff periods.
+            </p>
+            <Link href="/home-energy/energy-bill-calculator" className="button secondary-button" style={{ width: "100%", textAlign: "center", display: "block", fontSize: "0.82rem" }}>
+              Energy Bill Calculator →
+            </Link>
+          </div>
+        </div>
+      </section>
+
       <PageJumpNav />
 
       <section id="how-to-guide" style={{ marginTop: "3rem" }}>
@@ -153,6 +194,9 @@ export default function HomeBatterySizePage() {
             </tbody>
           </table>
         </div>
+        <p style={{ fontSize: "0.85rem", color: "var(--muted)", marginTop: "0.75rem" }}>
+          *Note: The 30 kWh/day baseline reflects the U.S. EIA national average for residential utility customers (~880–900 kWh/month). Other usage tiers represent illustrative modeled engineering scenarios to demonstrate storage scaling under varying electrification levels.*
+        </p>
       </section>
 
       {/* Dataset & Research Cross-Link Callout */}
@@ -200,10 +244,10 @@ export default function HomeBatterySizePage() {
       <section id="related-tools">
         <h2>Related Energy &amp; Storage Calculators &amp; Guides</h2>
         <p>
-          Size an emergency standby generator with the <Link href="/home-energy/generator-size-calculator">Generator Size Calculator</Link>, size off-grid solar storage with the <Link href="/solar/solar-battery-bank-size-calculator">Solar Battery Bank Size Calculator</Link>, or calculate solar panel capacity with the <Link href="/solar/solar-panel-size-calculator">Solar Panel Size Calculator</Link>.
+          Audit your high-draw appliances and starting currents with the <Link href="/home-energy/electricity-usage-calculator">Electricity Usage Calculator</Link>, model utility bill impacts with the <Link href="/home-energy/energy-bill-calculator">Energy Bill Calculator</Link>, size an emergency standby generator with the <Link href="/home-energy/generator-size-calculator">Generator Size Calculator</Link>, or calculate solar panel capacity with the <Link href="/solar/solar-panel-size-calculator">Solar Panel Size Calculator</Link>.
         </p>
         <p style={{ marginTop: "0.75rem" }}>
-          📖 <strong>In-Depth Technical Guides:</strong> Learn how HVAC loads impact battery runtime in our <Link href="/guides/central-ac-and-heat-pump-electricity-cost-guide" style={{ fontWeight: 600, color: "var(--accent)" }}>Central AC &amp; Heat Pump Cost Guide</Link> or benchmark your home&apos;s total electricity demand with our <Link href="/guides/how-many-kwh-does-a-house-use-per-day" style={{ fontWeight: 600, color: "var(--accent)" }}>Daily Household kWh Usage Guide</Link>.
+          📖 <strong>In-Depth Technical Guides:</strong> Benchmark your home&apos;s daily baseline consumption with our <Link href="/guides/how-many-kwh-does-a-house-use-per-day" style={{ fontWeight: 600, color: "var(--accent)" }}>Daily Household kWh Usage Guide</Link> or evaluate how cooling loads affect battery autonomy in our <Link href="/guides/central-ac-and-heat-pump-electricity-cost-guide" style={{ fontWeight: 600, color: "var(--accent)" }}>Central AC &amp; Heat Pump Cost Guide</Link>.
         </p>
       </section>
     </article>

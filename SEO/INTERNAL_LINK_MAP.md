@@ -97,11 +97,13 @@
   * `/home-energy/generator-size-calculator`
   * `/home-energy/electricity-usage-calculator`
   * `/home-energy/energy-bill-calculator`
+  * `/home-energy/home-battery-size-calculator`
   * `/home-energy/appliance-wattage-calculator`
 * **Technical Guides:**
   * `/guides/central-ac-and-heat-pump-electricity-cost-guide`
   * `/guides/how-many-kwh-does-a-house-use-per-day`
   * `/guides/emergency-generator-sizing-and-inrush-load-guide`
+* **Cluster Planning Mesh:** Direct bidirectional pathway connects `/guides/how-many-kwh-does-a-house-use-per-day` $\longleftrightarrow$ `/home-energy/electricity-usage-calculator` $\longleftrightarrow$ `/home-energy/energy-bill-calculator` $\longleftrightarrow$ `/home-energy/home-battery-size-calculator`.
 * **Cross-Cluster Link:** Connects to `/battery/inverter-size-calculator` and `/ev/ev-charging-time-calculator`.
 
 ### D. EV Charging & Infrastructure Cluster (`/ev`)
