@@ -106,15 +106,16 @@ To physically enforce this protocol and prevent accidental local merges:
    - Active automatically via `git config core.hooksPath .githooks` (or `npm run prepare`).
 2. **Lifecycle CLI Scripts:**
    - `npm run pr:list`: Inspect all open and closed PRs with their live branch and review statuses.
-   - `npm run pr:merge <number>`: Executes the complete GitHub API merge, verifies remote branch deletion, prunes references, and synchronizes the local workspace cleanly.
+   - `npm run pr:merge <number>`: Executes the complete GitHub API merge, verifies remote branch deletion, purges Vercel preview deployments, and synchronizes the local workspace cleanly.
+   - `npm run vercel:clean`: Sweeps the Vercel API and deletes all non-main preview deployments across the project.
    - `npm run git:sync`: One-command checkout, pull, and remote prune on `main`.
 
 ### Standard Operating Procedure for "merge pr"
 Whenever "merge pr" is requested:
 1. `npm test && npm run typecheck` (pre-merge gate)
-2. `npm run pr:merge <number>` (merge via GitHub API)
+2. `npm run pr:merge <number>` (merge via GitHub API, auto-delete remote branch, and purge Vercel preview)
 3. `npm run git:sync` (local repository synchronization)
-4. Confirm Vercel production deployment reaches `READY` on `https://powelab.org` (monitored by GitHub Actions watchdog).
+4. Confirm Vercel production deployment reaches `READY` on `https://powelab.org`.
 
 ---
 

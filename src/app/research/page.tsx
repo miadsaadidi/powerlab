@@ -325,6 +325,31 @@ export default function ResearchHubPage() {
                     <span style={{ fontSize: "0.65rem", opacity: 0.8 }}>↗</span>
                   </a>
                 )}
+
+                {paper.ssrnUrl && (
+                  <a
+                    href={paper.ssrnUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    style={{
+                      display: "inline-flex",
+                      alignItems: "center",
+                      gap: "0.25rem",
+                      background: "rgba(234, 88, 12, 0.08)",
+                      color: "#c2410c",
+                      border: "1px solid rgba(234, 88, 12, 0.25)",
+                      fontWeight: 600,
+                      fontSize: "0.75rem",
+                      padding: "0.32rem 0.65rem",
+                      borderRadius: "0.35rem",
+                      textDecoration: "none",
+                    }}
+                    title="Read on SSRN (Elsevier)"
+                  >
+                    <span>📑 SSRN</span>
+                    <span style={{ fontSize: "0.65rem", opacity: 0.8 }}>↗</span>
+                  </a>
+                )}
               </div>
             </article>
           ))}

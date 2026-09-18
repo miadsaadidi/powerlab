@@ -28,7 +28,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   }
 
   const baseMeta = buildPageMetadata({
-    title: `${ds.shortTitle || ds.title} — Open Benchmark Dataset`,
+    title: ds.shortTitle || ds.title,
     description: ds.metaDescription || ds.description,
     canonicalPath: `/datasets/${ds.slug}`,
     category: ds.categorySlug,
@@ -66,7 +66,6 @@ export default async function DatasetDetailPage({ params }: PageProps) {
     "@context": "https://schema.org",
     "@type": "Dataset",
     name: ds.title,
-    headline: ds.title,
     description: ds.abstract || ds.description,
     url: `${siteConfig.url}/datasets/${ds.slug}`,
     identifier: ds.doi ? `https://doi.org/${ds.doi}` : `${siteConfig.url}/datasets/${ds.slug}`,
@@ -88,7 +87,18 @@ export default async function DatasetDetailPage({ params }: PageProps) {
         url: `${siteConfig.url}/powerlab-publisher-logo-1000x1000.png`,
       },
     },
+    includedInDataCatalog: {
+      "@type": "DataCatalog",
+      name: "PowerLab Open Benchmark Data Repository",
+      url: `${siteConfig.url}/datasets`,
+    },
     keywords: ds.keywords,
+    variableMeasured: ds.variables.map((v) => ({
+      "@type": "PropertyValue",
+      name: v.name,
+      unitText: v.unit,
+      description: v.description,
+    })),
     distribution: [
       {
         "@type": "DataDownload",

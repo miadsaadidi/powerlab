@@ -26,6 +26,7 @@ export interface ResearchPaper {
   htmlUrl?: string;
   dataverseUrl?: string;
   academiaUrl?: string;
+  ssrnUrl?: string;
   datasetStatus?: "published" | "accession_pending" | "none";
   datasetRepository?: string;
   category: "Electric Vehicles" | "Home Energy" | "Solar Photovoltaics" | "Battery Storage";
@@ -57,6 +58,7 @@ export const RESEARCH_PAPERS: ResearchPaper[] = [
     doi: "10.6084/m9.figshare.33321774",
     pdfUrl: "/whitepapers/evse-continuous-duty-thermal-sizing.pdf",
     academiaUrl: "https://www.academia.edu/173621969/Continuous_Duty_Thermal_Sizing_Conductor_Terminal_Limits_and_Branch_Circuit_Ampacity_Requirements_for_Residential_Level_2_Electric_Vehicle_Supply_Equipment_EVSE_",
+    ssrnUrl: "https://papers.ssrn.com/sol3/papers.cfm?abstract_id=7446361",
     datasetStatus: "published",
     datasetRepository: "Figshare",
     category: "Electric Vehicles",
@@ -395,8 +397,8 @@ export const RESEARCH_PAPERS: ResearchPaper[] = [
       { name: "Inverter Size Calculator", route: "/battery/inverter-size-calculator" },
     ],
     relatedGuides: [
-      { name: "How to Calculate Battery Runtime & Backup Hours", route: "/guides/how-to-calculate-battery-runtime-and-backup-hours" },
-      { name: "Battery Capacity Ah to kWh Conversion Guide", route: "/guides/battery-capacity-ah-to-kwh-conversion-guide" },
+      { name: "Battery Backup Runtime Formula & Calculation Guide", route: "/guides/battery-backup-runtime-calculation-guide" },
+      { name: "Voltage Drop & Wire Size Calculation Guide", route: "/guides/voltage-drop-and-wire-size-calculation-guide" },
     ],
     bibtex: `@techreport{powerlab_2026_bess_peukert,
   author      = {{PowerLab Clean Energy Engineering Group}},
@@ -473,7 +475,7 @@ export const BENCHMARK_DATASETS: BenchmarkDataset[] = [
     shortTitle: "EVSE Continuous-Duty Terminal Benchmark",
     subtitle: "Continuous-duty Joule heating (I²R), conductor temperature rise, and 60°C vs 75°C terminal temperature envelopes under NEC 625.42.",
     description: "Benchmark matrix tabulating 120 continuous load runs (16A to 80A), wire gauge thermal limits (14 AWG to 2 AWG Cu/Al), conduit fill ampacity derating, and contact resistance thermal runaway thresholds.",
-    metaDescription: "Empirical benchmark dataset measuring Level 2 EVSE continuous-duty terminal temperatures, conductor Joule heating (I²R), and 60°C vs 75°C ampacity limits under NEC 625.",
+    metaDescription: "Empirical benchmark dataset of Level 2 EVSE continuous-duty terminal temperatures, conductor Joule heating (I²R), and 60°C vs 75°C limits under NEC 625.",
     abstract: "This dataset provides experimental and deterministic simulation records measuring conductor temperature rise, terminal lug heating, and contact resistance degradation across continuous-duty residential and commercial EVSE branch circuits. Evaluates compliance with NEC Article 625.42 and terminal temperature limitations under NEC 110.14(C).",
     version: "1.2.0",
     datePublished: "2026-08-26",
@@ -538,7 +540,7 @@ export const BENCHMARK_DATASETS: BenchmarkDataset[] = [
     shortTitle: "Heat Pump COP Degradation Benchmark",
     subtitle: "Sub-freezing ambient temperature spectra (-20°C to +10°C) COP degradation, flash-injection capacity curves, and auxiliary resistive staging economics under AHRI 210/240.",
     description: "Empirical thermodynamic performance matrix for variable-speed inverter vapor scroll heat pumps across outdoor temperatures, evaluating sensible heating capacity, electrical power draw, and balance point transition curves.",
-    metaDescription: "Benchmark dataset tabulating cold-climate air-source heat pump COP collapse, sensible heating capacity retention, and electric strip heat staging costs from -20°C to +10°C.",
+    metaDescription: "Empirical dataset tabulating cold-climate heat pump COP collapse, sensible capacity retention, and electric strip heat staging costs from -20°C to +10°C.",
     abstract: "Provides empirical thermodynamic matrices measuring Coefficient of Performance (COP), delivered thermal capacity (BTU/hr and kW), and electrical input power across 240 ambient temperature and compressor modulation bins under AHRI 210/240-2023 and DOE Appendix M1 test conditions.",
     version: "1.1.0",
     datePublished: "2026-08-28",
@@ -603,7 +605,7 @@ export const BENCHMARK_DATASETS: BenchmarkDataset[] = [
     shortTitle: "50-State Solar Insolation & Climate Matrix",
     subtitle: "Harmonized state-by-state meteorological, solar resource, and residential electricity tariff database across all 50 US states.",
     description: "Benchmark empirical matrix tabulating NREL NSRDB peak sun hours, optimal tilt angles, ASHRAE 99% winter / 1% summer design dry-bulb temperatures, and EIA electricity rates.",
-    metaDescription: "Harmonized 50-state solar dataset combining NREL NSRDB peak sun hours, optimal tilt angles, ASHRAE extreme design temperatures, and EIA residential electric tariffs.",
+    metaDescription: "50-state solar dataset combining NREL NSRDB peak sun hours, optimal tilt angles, ASHRAE design temperatures, and EIA residential electricity rates.",
     abstract: "A standardized multi-dimensional dataset unifying state-level solar irradiance metrics from NREL NSRDB, ASHRAE Climatic Design Conditions (extreme minimum and maximum design dry-bulb temperatures), seasonal ground albedo constants, and residential electricity rates published by the U.S. Energy Information Administration (EIA).",
     version: "2.0.0",
     datePublished: "2026-08-30",
@@ -667,7 +669,7 @@ export const BENCHMARK_DATASETS: BenchmarkDataset[] = [
     shortTitle: "Central AC SEER2 Energy Benchmark",
     subtitle: "Steady-state electrical power draw (Watts at 95°F), annual kilowatt-hour operational demands, and DOE M1 static pressure metrics across 1.5 to 5.0 nominal cooling tons under AHRI 210/240.",
     description: "Benchmark empirical matrix resolving the 2023 DOE Appendix M1 transition from legacy SEER (0.10–0.20 in. w.g.) to modern SEER2 (0.50 in. w.g.), evaluating sensible cooling capacities, hourly full-load energy draw, and regional cooling degree day operational expense.",
-    metaDescription: "Benchmark dataset comparing legacy SEER vs modern SEER2 energy efficiency metrics, external static pressures, and annual cooling kWh across 1.5 to 5.0 tons under AHRI 210/240.",
+    metaDescription: "Benchmark dataset comparing SEER vs SEER2 energy metrics, static pressure losses, and annual cooling kWh across 1.5 to 5.0 tons under AHRI 210/240.",
     abstract: "Provides empirical energy consumption and electrical demand profiles across 1.5-ton to 5.0-ton residential central air conditioning split systems. Resolves static pressure deratings between legacy SEER (0.10–0.20 in. w.g.) and modern SEER2 (0.50 in. w.g. under DOE Appendix M1).",
     version: "1.0.0",
     datePublished: "2026-09-02",
@@ -733,7 +735,7 @@ export const BENCHMARK_DATASETS: BenchmarkDataset[] = [
     shortTitle: "Generator Motor Inrush & Voltage Sag Benchmark",
     subtitle: "Locked Rotor Amperage (LRA) sub-transient reactance (X''d) voltage dip envelopes and fuel derating factors (Gasoline vs Propane vs Natural Gas) under ISO 8528-5.",
     description: "Transient response benchmark tracking 0.1s to 0.5s instantaneous voltage sag and frequency recovery curves across single-phase induction motor compressor starts with and without solid-state soft starters.",
-    metaDescription: "Empirical dataset measuring induction motor locked rotor amperage (LRA), generator alternator sub-transient voltage sag (X''d), and soft-starter surge reductions under ISO 8528-5.",
+    metaDescription: "Empirical dataset measuring motor locked rotor amperage (LRA), alternator sub-transient voltage sag (X''d), and soft-starter surge drop under ISO 8528-5.",
     abstract: "A high-resolution transient performance dataset recording starting surge apparent power, peak instantaneous locked-rotor amperes, alternator sub-transient voltage dips, and engine governor recovery times during residential motor starting events (air conditioners, heat pumps, well pumps) under ISO 8528-5 and NEMA MG-1.",
     version: "1.2.0",
     datePublished: "2026-09-05",

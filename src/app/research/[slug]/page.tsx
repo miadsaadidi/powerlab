@@ -83,6 +83,7 @@ export default async function ResearchPaperPage({ params }: PageProps) {
           paper.doi ? `https://doi.org/${paper.doi}` : null,
           paper.academiaUrl || null,
           paper.dataverseUrl || null,
+          paper.ssrnUrl || null,
         ].filter(Boolean),
         author: paper.authors.map((author) => ({
           "@type": "Organization",
@@ -237,6 +238,32 @@ export default async function ResearchPaperPage({ params }: PageProps) {
             >
               <span>🎓</span>
               <span>Read on Academia</span>
+              <span style={{ fontSize: "0.72rem", opacity: 0.8 }}>↗</span>
+            </a>
+          )}
+          {paper.ssrnUrl && (
+            <a
+              href={paper.ssrnUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              style={{
+                fontSize: "0.85rem",
+                padding: "0.5rem 0.95rem",
+                minHeight: "40px",
+                display: "inline-flex",
+                alignItems: "center",
+                gap: "0.35rem",
+                background: "rgba(234, 88, 12, 0.08)",
+                color: "#c2410c",
+                border: "1px solid rgba(234, 88, 12, 0.25)",
+                fontWeight: 600,
+                borderRadius: "0.45rem",
+                textDecoration: "none",
+              }}
+              title="Read Working Paper on SSRN (Elsevier)"
+            >
+              <span>📑</span>
+              <span>Read on SSRN</span>
               <span style={{ fontSize: "0.72rem", opacity: 0.8 }}>↗</span>
             </a>
           )}

@@ -235,7 +235,7 @@ export default function HomeEnergyHub() {
       <p>Explore our empirical reference guides, open benchmark datasets, and peer-reviewed technical whitepapers for residential electricity audits, heat pump thermodynamics, and emergency generator sizing:</p>
       <div className="supporting-links" style={{ display: "flex", flexWrap: "wrap", gap: "0.85rem", marginTop: "0.75rem" }}>
         <Link href="/datasets/central-air-conditioner-seer2-cooling-degree-day-benchmark" className="footer-link">📊 Dataset: Central AC &amp; Heat Pump SEER2 Benchmark (PL-DS-AC-04)</Link>
-        <Link href="/datasets/inductive-motor-starting-surge-generator-benchmark" className="footer-link">📊 Dataset: Motor Starting Surge &amp; Inrush Benchmark (PL-DS-GEN-04)</Link>
+        <Link href="/datasets/standby-generator-motor-inrush-voltage-sag-benchmark" className="footer-link">📊 Dataset: Motor Starting Surge &amp; Inrush Benchmark (PL-DS-GEN-04)</Link>
         <Link href="/research/heat-pump-cop-degradation-and-auxiliary-heat-kinetics" className="footer-link">🔬 Research: Heat Pump COP Degradation &amp; Aux Heat Kinetics</Link>
         <Link href="/research/deterministic-inrush-load-stacking-generator-sizing" className="footer-link">🔬 Research: Motor Inrush Load Stacking &amp; Generator Sizing</Link>
         <Link href="/guides/central-ac-and-heat-pump-electricity-cost-guide" className="footer-link">❄️ Central AC &amp; Heat Pump Cost (SEER2) Guide</Link>

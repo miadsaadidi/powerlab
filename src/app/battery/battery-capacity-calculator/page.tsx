@@ -12,8 +12,8 @@ import { DirectAnswerCard } from "@/components/seo/direct-answer-card";
 const isPublished = isCalculatorPublished("battery-capacity");
 
 export const metadata: Metadata = buildPageMetadata({
-  title: "Battery Capacity Calculator — Convert Ah to kWh & Wh by Voltage",
-  description: "Convert battery capacity between Ah, mAh, Wh, and kWh across 12V, 24V, and 48V systems. Calculate true usable battery storage with chemistry DoD and cycle health.",
+  title: "Battery Capacity Calculator — Ah to kWh & Wh",
+  description: "Convert battery capacity between Ah, mAh, Wh, and kWh across 12V, 24V, and 48V. Calculate usable storage with chemistry DoD and battery health.",
   canonicalPath: "/battery/battery-capacity-calculator",
   category: "battery",
 });

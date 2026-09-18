@@ -101,75 +101,197 @@ export default function AcCostPage() {
 
       <section id="how-to-guide" style={{ marginTop: "3rem" }}>
         <h2>How to Calculate Air Conditioner Electricity Cost</h2>
+        <p>
+          Calculating air conditioner operating cost requires four variables: cooling capacity (BTUs or tons), seasonal efficiency rating (SEER2), compressor duty cycle, and your local electricity rate ($/kWh).
+        </p>
         <ol>
-          <li><strong>Select AC System Type &amp; BTU Size:</strong> Choose window AC, portable unit, mini-split, or central air (5,000 to 60,000 BTU/hr).</li>
-          <li><strong>Check Seasonal Efficiency (SEER2 / EER):</strong> Higher SEER2 ratings (16 to 24+) use significantly less electricity for the same cooling output.</li>
-          <li><strong>Set Daily Usage &amp; Thermostat Duty Cycle:</strong> Adjust daily operating hours and compressor cycling percentage (typically 50% to 70% during peak heat).</li>
-          <li><strong>Input Utility Electricity Rate ($/kWh):</strong> Review the hourly, daily, monthly, and full summer cooling season electric bill impact.</li>
+          <li><strong>Select AC System Type &amp; BTU Size:</strong> Choose window AC, portable unit, mini-split, or central air (5,000 to 60,000 BTU/hr). Note that 1 ton of cooling equals 12,000 BTU/hr.</li>
+          <li><strong>Check Seasonal Efficiency (SEER2 / EER):</strong> Higher SEER2 ratings (14.3 to 22+) consume fewer electrical watts for the same heat removal capacity.</li>
+          <li><strong>Set Daily Usage &amp; Thermostat Duty Cycle:</strong> Adjust daily operating hours and compressor cycling percentage (typically 50% to 70% during standard summer weather).</li>
+          <li><strong>Input Utility Electricity Rate ($/kWh):</strong> Calculate the exact hourly, daily, monthly, and full summer cooling season electric bill impact.</li>
         </ol>
       </section>
 
-      <section id="sizing-matrix">
-        <h2>Typical AC Power Consumption &amp; Running Costs</h2>
-        <p>Representative running costs across common cooling systems at $0.18/kWh utility rate:</p>
-        <div className="scenario-table" role="region" aria-label="Typical AC power consumption and operating costs">
+      {/* Central AC Sizing Matrix by Tonnage */}
+      <section id="central-ac-tonnage-matrix">
+        <h2>Cost to Run Central Air Conditioning per Hour by Tonnage</h2>
+        <p>
+          Central air conditioning operating costs scale directly with tonnage (BTU capacity) and compressor cycling. Below is a reference benchmark for standard residential central air systems (15.0 SEER2 baseline under DOE Appendix M1 test standards) at the U.S. average electricity rate of $0.18/kWh:
+        </p>
+        <div className="scenario-table" role="region" aria-label="Central AC running cost per hour by tonnage">
           <table>
-            <caption>Residential air conditioning energy consumption and operating cost benchmarks</caption>
+            <caption>Central air conditioner electricity consumption and operating cost by tonnage (15.0 SEER2 @ $0.18/kWh)</caption>
             <thead>
               <tr>
-                <th scope="col">AC System Type</th>
+                <th scope="col">Capacity (Tons / BTU)</th>
+                <th scope="col">Typical Home Size</th>
+                <th scope="col">Electric Power Draw</th>
+                <th scope="col">Cost / Clock Hour (60% Duty)</th>
+                <th scope="col">Cost / Active Hour (100% Run)</th>
+                <th scope="col">Monthly Cost (8 hrs/day)</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>1.5 Ton (18,000 BTU)</strong></td>
+                <td>800–1,100 sq ft</td>
+                <td>1,200 W (1.20 kW)</td>
+                <td>$0.13 / hr</td>
+                <td>$0.22 / hr</td>
+                <td>$31.10 / mo</td>
+              </tr>
+              <tr>
+                <td><strong>2.0 Ton (24,000 BTU)</strong></td>
+                <td>1,100–1,400 sq ft</td>
+                <td>1,600 W (1.60 kW)</td>
+                <td>$0.17 / hr</td>
+                <td>$0.29 / hr</td>
+                <td>$41.47 / mo</td>
+              </tr>
+              <tr>
+                <td><strong>2.5 Ton (30,000 BTU)</strong></td>
+                <td>1,400–1,700 sq ft</td>
+                <td>2,000 W (2.00 kW)</td>
+                <td>$0.22 / hr</td>
+                <td>$0.36 / hr</td>
+                <td>$51.84 / mo</td>
+              </tr>
+              <tr>
+                <td><strong>3.0 Ton (36,000 BTU)</strong></td>
+                <td>1,700–2,100 sq ft</td>
+                <td>2,400 W (2.40 kW)</td>
+                <td>$0.26 / hr</td>
+                <td>$0.43 / hr</td>
+                <td>$62.21 / mo</td>
+              </tr>
+              <tr>
+                <td><strong>3.5 Ton (42,000 BTU)</strong></td>
+                <td>2,100–2,500 sq ft</td>
+                <td>2,800 W (2.80 kW)</td>
+                <td>$0.30 / hr</td>
+                <td>$0.50 / hr</td>
+                <td>$72.58 / mo</td>
+              </tr>
+              <tr>
+                <td><strong>4.0 Ton (48,000 BTU)</strong></td>
+                <td>2,500–3,000 sq ft</td>
+                <td>3,200 W (3.20 kW)</td>
+                <td>$0.35 / hr</td>
+                <td>$0.58 / hr</td>
+                <td>$82.94 / mo</td>
+              </tr>
+              <tr>
+                <td><strong>5.0 Ton (60,000 BTU)</strong></td>
+                <td>3,000–3,800 sq ft</td>
+                <td>4,000 W (4.00 kW)</td>
+                <td>$0.43 / hr</td>
+                <td>$0.72 / hr</td>
+                <td>$103.68 / mo</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      {/* Window AC vs Mini-Split Sizing Matrix */}
+      <section id="sizing-matrix">
+        <h2>Window AC vs. Ductless Mini-Split Running Costs</h2>
+        <p>
+          Small room air conditioners and high-efficiency inverter mini-splits operate at distinct wattage profiles compared to whole-home ducted systems:
+        </p>
+        <div className="scenario-table" role="region" aria-label="Window AC and mini-split running cost reference">
+          <table>
+            <caption>Room air conditioner energy consumption benchmarks (@ $0.18/kWh utility rate)</caption>
+            <thead>
+              <tr>
+                <th scope="col">Unit Type</th>
                 <th scope="col">Cooling Capacity</th>
+                <th scope="col">Efficiency Rating</th>
                 <th scope="col">Avg. Power (Watts)</th>
-                <th scope="col">Cost / Hour (@ $0.18)</th>
+                <th scope="col">Cost / Hour (60% Duty)</th>
                 <th scope="col">Monthly (8h/day)</th>
               </tr>
             </thead>
             <tbody>
               <tr>
-                <td><strong>Small Window Unit (100–150 sq ft)</strong></td>
+                <td><strong>Small Window Unit (Bedrooms)</strong></td>
                 <td>5,000 BTU</td>
+                <td>11.0 CEER</td>
                 <td>450 W</td>
                 <td>$0.05 / hr</td>
-                <td>$12.96 / mo</td>
+                <td>$11.66 / mo</td>
               </tr>
               <tr>
-                <td><strong>Large Window / Wall Unit (350–550 sq ft)</strong></td>
+                <td><strong>Medium Window Unit (Living Rooms)</strong></td>
+                <td>8,000 BTU</td>
+                <td>11.4 CEER</td>
+                <td>700 W</td>
+                <td>$0.08 / hr</td>
+                <td>$18.14 / mo</td>
+              </tr>
+              <tr>
+                <td><strong>Large Window / Wall Unit</strong></td>
                 <td>12,000 BTU</td>
-                <td>1,100 W</td>
+                <td>11.0 CEER</td>
+                <td>1,090 W</td>
                 <td>$0.12 / hr</td>
-                <td>$28.50 / mo</td>
+                <td>$28.25 / mo</td>
               </tr>
               <tr>
                 <td><strong>High-Efficiency Inverter Mini-Split</strong></td>
-                <td>12,000 BTU (22 SEER2)</td>
-                <td>650 W</td>
-                <td>$0.07 / hr</td>
-                <td>$16.80 / mo</td>
+                <td>12,000 BTU (1 Ton)</td>
+                <td>22.0 SEER2</td>
+                <td>545 W</td>
+                <td>$0.06 / hr</td>
+                <td>$14.13 / mo</td>
               </tr>
               <tr>
-                <td><strong>Central AC (2.5 Ton / 1,500 sq ft)</strong></td>
-                <td>30,000 BTU (15 SEER2)</td>
-                <td>2,000 W</td>
-                <td>$0.22 / hr</td>
-                <td>$52.80 / mo</td>
-              </tr>
-              <tr>
-                <td><strong>Central AC (3.0 Ton / 1,800–2,200 sq ft)</strong></td>
-                <td>36,000 BTU</td>
-                <td>2,500 W</td>
-                <td>$0.27 / hr</td>
-                <td>$65.70 / mo</td>
-              </tr>
-              <tr>
-                <td><strong>Central AC (4.0 Ton / 2,400–2,800 sq ft)</strong></td>
-                <td>48,000 BTU</td>
-                <td>3,400 W</td>
-                <td>$0.37 / hr</td>
-                <td>$88.80 / mo</td>
+                <td><strong>Multi-Zone Mini-Split (2-3 Rooms)</strong></td>
+                <td>24,000 BTU (2 Ton)</td>
+                <td>20.0 SEER2</td>
+                <td>1,200 W</td>
+                <td>$0.13 / hr</td>
+                <td>$31.10 / mo</td>
               </tr>
             </tbody>
           </table>
         </div>
+      </section>
+
+      {/* Worked Step-by-Step Calculation Example */}
+      <section id="worked-example" style={{ margin: "2rem 0", padding: "1.5rem", borderRadius: "0.75rem", background: "var(--card-bg, #f8fafc)", border: "1px solid var(--border-color, #e2e8f0)" }}>
+        <h2 style={{ marginTop: 0 }}>Step-by-Step Worked Calculation Example</h2>
+        <p>
+          Here is how to manually calculate the hourly and monthly electricity cost for a typical residential central air conditioner:
+        </p>
+        <div style={{ background: "rgba(0, 0, 0, 0.03)", padding: "1rem 1.25rem", borderRadius: "0.5rem", marginBottom: "1rem" }}>
+          <p style={{ margin: "0 0 0.5rem", fontWeight: 600 }}>Example Parameters:</p>
+          <ul style={{ margin: 0, paddingLeft: "1.25rem", fontSize: "0.95rem" }}>
+            <li><strong>Unit Size:</strong> 3-Ton Central AC = 36,000 BTU/hr</li>
+            <li><strong>Seasonal Efficiency:</strong> 15.0 SEER2</li>
+            <li><strong>Thermostat Duty Cycle:</strong> 60% active compressor run time (0.60)</li>
+            <li><strong>Daily Usage:</strong> 8 clock hours per day</li>
+            <li><strong>Electricity Rate:</strong> $0.18 per kWh</li>
+          </ul>
+        </div>
+        <ol style={{ lineHeight: 1.8, fontSize: "0.95rem" }}>
+          <li>
+            <strong>Step 1: Calculate Effective Electrical Power Draw:</strong><br />
+            <code>Electrical Watts = Cooling Capacity (BTU/hr) ÷ SEER2 Rating = 36,000 ÷ 15.0 = 2,400 Watts (2.40 kW)</code>
+          </li>
+          <li>
+            <strong>Step 2: Calculate Hourly Energy Consumption with Compressor Cycling:</strong><br />
+            <code>Hourly Energy = (2.40 kW × 0.60 duty cycle) = 1.44 kWh per clock hour</code>
+          </li>
+          <li>
+            <strong>Step 3: Calculate Operating Cost per Clock Hour:</strong><br />
+            <code>Cost per Hour = 1.44 kWh × $0.18/kWh = $0.2592 ≈ $0.26 / hr</code>
+          </li>
+          <li>
+            <strong>Step 4: Calculate Monthly Electric Bill Contribution:</strong><br />
+            <code>Monthly Cost = 1.44 kWh/hr × 8 hrs/day × 30.4 days × $0.18/kWh = $63.04 / month</code>
+          </li>
+        </ol>
       </section>
 
       {/* Dataset & Research Cross-Link Callout */}
@@ -215,7 +337,10 @@ export default function AcCostPage() {
       <section id="related-tools">
         <h2>Related Cooling &amp; Home Energy Planning</h2>
         <p>
-          Need a complete engineering breakdown of SEER2 formulas, tonnage sizing, and compressor inrush? Read our in-depth <Link href="/guides/central-ac-and-heat-pump-electricity-cost-guide" style={{ fontWeight: 600, color: "var(--accent)" }}>Central AC &amp; Heat Pump Electricity Cost Guide</Link> or examine total household power in our <Link href="/guides/how-many-kwh-does-a-house-use-per-day">Household Daily kWh Usage Guide</Link>. You can also size emergency generator backup for your AC with the <Link href="/home-energy/generator-size-calculator">Generator Size Calculator</Link>, compare winter heating with the <Link href="/home-energy/heat-pump-cost-calculator">Heat Pump Cost Calculator</Link>, or model whole-home consumption with the <Link href="/home-energy/electricity-usage-calculator">Electricity Usage Calculator</Link>.
+          Need a complete engineering breakdown of SEER2 formulas, tonnage sizing, and compressor inrush? Read our in-depth <Link href="/guides/central-ac-and-heat-pump-electricity-cost-guide" style={{ fontWeight: 600, color: "var(--accent)" }}>Central AC &amp; Heat Pump Electricity Cost Guide</Link> or examine total household power in our <Link href="/guides/how-many-kwh-does-a-house-use-per-day">Household Daily kWh Usage Guide</Link>.
+        </p>
+        <p>
+          When planning emergency backup power during summer grid outages, central AC compressors draw 5x to 7x their running power in instantaneous inductive inrush current (Locked Rotor Amperes). Size an emergency generator or soft-starter using our <Link href="/home-energy/generator-size-calculator" style={{ fontWeight: 600, color: "var(--accent)" }}>Emergency Generator Sizing Calculator</Link>. You can also compare winter heating economics in the <Link href="/home-energy/heat-pump-cost-calculator">Heat Pump Cost Calculator</Link> or model whole-home baseline appliances with the <Link href="/home-energy/electricity-usage-calculator">Electricity Usage Calculator</Link>.
         </p>
       </section>
 
