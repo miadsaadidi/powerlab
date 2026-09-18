@@ -55,8 +55,6 @@ export default function EvRangePage() {
       "SAE J1634 (Electric Vehicle Energy Consumption and Range Test Procedure)",
       "WLTP (Worldwide Harmonised Light Vehicles Test Procedure)",
     ],
-    companionDatasetUrl: "https://doi.org/10.6084/m9.figshare.33321774",
-    companionPaperUrl: "https://www.powelab.org/research/continuous-duty-thermal-sizing-evse-ampacity",
     faqs: FAQS,
   });
 
@@ -285,15 +283,8 @@ export default function EvRangePage() {
             </tbody>
           </table>
         </div>
-      </section>
-
-      {/* Dataset & Research Cross-Link Callout */}
-      <section style={{ margin: "2rem 0", padding: "1.25rem 1.5rem", borderRadius: "0.75rem", background: "rgba(16, 185, 129, 0.06)", border: "1px solid rgba(16, 185, 129, 0.25)" }}>
-        <h3 style={{ margin: "0 0 0.5rem", fontSize: "1.1rem", color: "#065f46" }}>
-          📊 Open Empirical Benchmark Data &amp; EV Infrastructure Research
-        </h3>
-        <p style={{ margin: "0 0 0.75rem", fontSize: "0.92rem", color: "var(--ink)", lineHeight: 1.6 }}>
-          Need empirical data on EV branch circuit thermal limits and continuous-load conductor temperatures under NEC 625? Explore our open <Link href="/datasets/continuous-duty-evse-terminal-temperature-benchmark" style={{ fontWeight: 700, color: "#059669", textDecoration: "underline" }}>Level 2 EVSE Conductor &amp; Terminal Temperature Benchmark Dataset (PL-DS-EVSE-01)</Link> and companion whitepaper on <Link href="/research/continuous-duty-thermal-sizing-evse-ampacity" style={{ fontWeight: 700, color: "#059669", textDecoration: "underline" }}>Continuous-Duty Thermal Sizing &amp; Terminal Limits (PL-TR-2026-EVSE01)</Link>.
+        <p style={{ fontSize: "0.85rem", color: "var(--muted)", marginTop: "0.75rem" }}>
+          <em>Data Sources: Derived from EPA Light-Duty Vehicle Test Cycles, SAE J1634 EV Energy Consumption Standards, and Idaho National Laboratory (INL) Advanced Vehicle Fleet Testing.</em>
         </p>
       </section>
 
