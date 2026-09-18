@@ -24,21 +24,33 @@ AFTER EACH OBJECTIVE = RE-DIAGNOSE AND RE-PLAN
 
 ---
 
-## 2. Weekly Planning Output Protocol (Trigger: *"What is Week 1 plan?"*)
+---
 
-When the user asks for the weekly plan:
-1. **Audit Live Evidence:** GSC performance, technical crawlability/indexation, pure engines, whitepapers, datasets, internal links, authority records.
-2. **Rank Proposed Objectives Dynamically:** Evaluate candidate opportunities against live search evidence across the 5-Tier Hierarchy.
-3. **Return Standard Weekly Plan Layout:**
-   - `## WEEK 1 CURRENT STATE`
-   - `## WEEK 1 EVIDENCE`
-   - `## WEEK 1 ROADMAP` (Table with Priority 1 ACTIVE, Priority 2..N PROPOSED)
-   - `## ACTIVE OBJECTIVE` (Exactly ONE)
-   - `## ACTIVE OBJECTIVE FLOW`
-   - `## ACTION-BY-ACTION PLAN` (Active objective only)
-   - `## DEPENDENCIES`
-   - `## MEASUREMENT`
-   - `## APPROVAL REQUIRED` $\rightarrow$ STOP.
+## 2. Weekly & Daily Planning Output Protocol
+
+When prompted with *"SEO plan this week"* or *"SEO plan today"*, return strictly the 4-part standard format:
+
+```markdown
+### CURRENT STATE
+(3–5 concise bullets)
+
+### PLAN
+(Maximum 5–6 short steps)
+
+### ACTIVE OBJECTIVE
+(One line)
+
+### APPROVAL
+(One line)
+```
+
+### Evidentiary Guardrails & Reporting Standards
+1. **Device Aggregate vs. Page Position:** Never claim site-wide device positions (e.g. Mobile 13.77, Desktop 64.56) belong to individual pages.
+2. **Query→Page Verifications:** Never claim a query maps to a specific URL unless verified directly in GSC exports.
+3. **Zero Ranking Guarantees:** Never claim an optimization will reach Top 5, guarantee a ranking increase, or guarantee CTR improvements.
+4. **Indexation Watch Track:** Maintain indexation issues (17 indexed, 55 non-indexed, 34 crawled-not-indexed, 13 discovered-not-indexed, 5 redirect errors, 3 redirected) in a separate diagnostic track; do not launch bulk indexation remediation automatically.
+5. **Measurement Mode:** Keep recently optimized pages in measurement mode without auto-activating the next backlog item.
+6. **Technical Integrity:** Only add physics, temperature, aerodynamic, or electrical tables supported by deterministic calculation engines or authoritative engineering standards. Always preserve calculation engine, canonical URL, robots, and sitemap.
 
 ---
 
