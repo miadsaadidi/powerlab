@@ -44,6 +44,10 @@ const FAQS = [
     question: "How does cabin climate control (AC vs Heat) affect EV efficiency?",
     answer: "Air conditioning during summer draws 1.0 kW to 2.0 kW, reducing driving range by only 4% to 8%. In contrast, winter heating requires warming ambient sub-zero air to 70°F. Resistive PTC heaters consume 4.0 kW to 6.0 kW (reducing range by 25% to 35%), whereas modern heat pumps operate at COP 2.0–3.0, cutting heating energy penalties in half.",
   },
+  {
+    question: "How do you convert EV driving range and miles driven into home charging time?",
+    answer: "Divide the energy consumed (Distance in miles × Consumption in Wh/mi ÷ 1,000) by your home charger's effective power output, factoring in approximately 90% onboard AC-to-DC rectifier efficiency: Charging Time (hours) = Energy Needed (kWh) ÷ (EVSE Power kW × 0.90). For example, a 40-mile daily commute in a crossover EV consuming 300 Wh/mi uses 12.0 kWh. On a 7.7 kW (32A @ 240V) Level 2 home charger delivering 6.93 kW net to the battery, replenishment requires: 12.0 kWh ÷ 6.93 kW = 1.73 hours (approximately 1 hour and 44 minutes).",
+  },
 ];
 
 export default function HowToCalculateEvRangeGuidePage() {
@@ -348,9 +352,125 @@ export default function HowToCalculateEvRangeGuidePage() {
         </div>
       </section>
 
-      {/* Section 6: Rules of Thumb */}
+      {/* Section 6: Connecting Driving Range to Home Charging Replenishment */}
+      <section id="range-to-charging" style={{ marginTop: "2.5rem" }}>
+        <h2>6. Connecting EV Driving Range to Home Charging: Energy Replenishment &amp; EVSE Sizing</h2>
+        <p>
+          Calculating driving range is only the first half of the electric vehicle planning equation. Once you determine how much battery energy your trip consumes, you must translate that energy demand into home charging hours and electrical branch-circuit infrastructure.
+        </p>
+
+        <div style={{ background: "var(--surface)", border: "1px solid var(--line)", borderRadius: "0.75rem", padding: "1.5rem", margin: "1.25rem 0" }}>
+          <h3 style={{ margin: "0 0 0.75rem", color: "var(--brand-strong)", fontSize: "1.1rem" }}>
+            The Mathematical Bridge: Driving Consumption to Charging Duration
+          </h3>
+          <p style={{ fontSize: "0.92rem", lineHeight: 1.6, margin: "0 0 0.75rem" }}>
+            The net electrical energy required directly from your vehicle&apos;s battery pack to complete a trip is calculated by multiplying distance by your vehicle&apos;s real-world consumption rate:
+          </p>
+          <div style={{ fontFamily: "var(--font-mono, monospace)", background: "var(--soft, #f8fafc)", border: "1px solid var(--line)", padding: "0.75rem 1rem", borderRadius: "0.5rem", margin: "0.5rem 0 1rem", fontSize: "0.88rem", overflowX: "auto" }}>
+            Vehicle Energy Required (kWh DC) = [ Trip Distance (miles) &times; Vehicle Consumption (Wh/mi) ] &divide; 1,000<br />
+            Grid Energy Draw (kWh AC) = Vehicle Energy Required (kWh DC) &divide; &eta;_rectifier<br />
+            Level 2 Charge Time (hours) = Vehicle Energy Required (kWh DC) &divide; [ EVSE Power (kW) &times; &eta;_rectifier ]
+          </div>
+          <p style={{ fontSize: "0.85rem", color: "var(--muted)", margin: 0, lineHeight: 1.55 }}>
+            <em>EPA Consumption vs. Wall-Side Grid Energy:</em> Vehicle onboard trip computers report net DC electricity discharged from the battery while driving. However, official EPA window-sticker consumption ratings and electric utility meters measure total wall-side AC electricity drawn from the grid. Because AC-to-DC rectification and thermal cooling incur an illustrative ~10% conversion loss (modeled using an illustrative 90% onboard rectification efficiency assumption), grid electricity consumed (E_grid = E_battery &divide; 0.90) is roughly 11% higher than the net DC energy required to move the vehicle.
+          </p>
+        </div>
+
+        <div className="scenario-table" role="region" aria-label="EV driving consumption and charging replenishment matrix">
+          <table>
+            <caption>Table 3: Illustrative EV driving consumption scenarios to Level 2 home charging replenishment durations (Modeled EPA baselines)</caption>
+            <thead>
+              <tr>
+                <th scope="col">Vehicle Category &amp; Representative Models</th>
+                <th scope="col">Modeled Consumption Rate (Wh/mi)*</th>
+                <th scope="col">40-Mile Commute (kWh)</th>
+                <th scope="col">150-Mile Trip (kWh)</th>
+                <th scope="col">32A Level 2 Charge Time (7.7 kW)*</th>
+                <th scope="col">48A Level 2 Charge Time (11.5 kW)*</th>
+                <th scope="col">Dedicated Breaker (NEC 125%)</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Aerodynamic Sedan</strong> (e.g., Model 3 RWD, Ioniq 6)</td>
+                <td>~250 Wh/mi (4.0 mi/kWh)</td>
+                <td>10.0 kWh</td>
+                <td>37.5 kWh</td>
+                <td>~1.4 hrs (commute) / ~5.4 hrs (trip)</td>
+                <td>~1.0 hr (commute) / ~3.6 hrs (trip)</td>
+                <td>40A Breaker (32A) or 60A Breaker (48A)</td>
+              </tr>
+              <tr>
+                <td><strong>Compact Crossover / SUV</strong> (e.g., Model Y, ID.4, EV6)</td>
+                <td>~300 Wh/mi (3.3 mi/kWh)</td>
+                <td>12.0 kWh</td>
+                <td>45.0 kWh</td>
+                <td>~1.7 hrs (commute) / ~6.5 hrs (trip)</td>
+                <td>~1.2 hrs (commute) / ~4.3 hrs (trip)</td>
+                <td>40A Breaker (32A) or 60A Breaker (48A)</td>
+              </tr>
+              <tr>
+                <td><strong>Dual-Motor Performance SUV</strong> (e.g., Mach-E AWD, Q8 e-tron)</td>
+                <td>~370 Wh/mi (2.7 mi/kWh)</td>
+                <td>14.8 kWh</td>
+                <td>55.5 kWh</td>
+                <td>~2.1 hrs (commute) / ~8.0 hrs (trip)</td>
+                <td>~1.4 hrs (commute) / ~5.3 hrs (trip)</td>
+                <td>40A Breaker (32A) or 60A Breaker (48A)</td>
+              </tr>
+              <tr>
+                <td><strong>Full-Size Electric Truck</strong> (e.g., F-150 Lightning, Rivian R1T)</td>
+                <td>~480 Wh/mi (2.1 mi/kWh)</td>
+                <td>19.2 kWh</td>
+                <td>72.0 kWh</td>
+                <td>~2.8 hrs (commute) / ~10.4 hrs (trip)</td>
+                <td>~1.8 hrs (commute) / ~6.9 hrs (trip)</td>
+                <td>40A Breaker (32A) or 60A Breaker (48A)</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <p style={{ fontSize: "0.85rem", color: "var(--muted)", marginTop: "0.75rem", lineHeight: 1.6 }}>
+          <em>*Data Classification &amp; Sourcing: Baseline consumption rates reflect representative EPA Combined Fuel Economy ratings and illustrative modeled engineering scenarios across vehicle classes; they do not represent universal industry constants. Daily 40-mile commutes and 150-mile trip segments are modeled examples. Charge times assume nominal 240V single-phase supply with an illustrative 90% onboard rectifier efficiency. Actual vehicle consumption varies with cruising speed, temperature, topography, and tire inflation; manufacturer documentation and onboard telemetry take precedence.</em>
+        </p>
+
+        {/* Contextual Planning Pathways */}
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(min(100%, 260px), 1fr))", gap: "1rem", margin: "1.5rem 0" }}>
+          <div style={{ padding: "1.25rem", borderRadius: "0.75rem", background: "var(--surface-subtle, #fafafa)", border: "1px solid var(--line)" }}>
+            <h3 style={{ margin: "0 0 0.35rem", fontSize: "1rem", color: "var(--brand-strong)" }}>⏱️ Calculate Exact Recharge Hours</h3>
+            <p style={{ fontSize: "0.84rem", color: "var(--muted)", margin: "0 0 0.75rem", lineHeight: 1.5 }}>
+              Model custom battery capacities (50 to 130+ kWh), charge taper profiles, and starting-to-target State of Charge windows.
+            </p>
+            <Link href="/ev/ev-charging-time-calculator" className="button secondary-button" style={{ width: "100%", textAlign: "center", display: "block", fontSize: "0.85rem" }}>
+              EV Charging Time Calculator →
+            </Link>
+          </div>
+
+          <div style={{ padding: "1.25rem", borderRadius: "0.75rem", background: "var(--surface-subtle, #fafafa)", border: "1px solid var(--line)" }}>
+            <h3 style={{ margin: "0 0 0.35rem", fontSize: "1rem", color: "var(--brand-strong)" }}>⚡ Size Breaker &amp; Conductor Gauge</h3>
+            <p style={{ fontSize: "0.84rem", color: "var(--muted)", margin: "0 0 0.75rem", lineHeight: 1.5 }}>
+              Determine NEC Article 625 (Section 625.41) 125% continuous duty overcurrent breaker ratings and 60°C Romex vs 75°C THHN copper wire gauges.
+            </p>
+            <Link href="/ev/ev-charger-breaker-size-calculator" className="button secondary-button" style={{ width: "100%", textAlign: "center", display: "block", fontSize: "0.85rem" }}>
+              EV Breaker Size Calculator →
+            </Link>
+          </div>
+
+          <div style={{ padding: "1.25rem", borderRadius: "0.75rem", background: "var(--surface-subtle, #fafafa)", border: "1px solid var(--line)" }}>
+            <h3 style={{ margin: "0 0 0.35rem", fontSize: "1rem", color: "var(--brand-strong)" }}>📊 Empirical EVSE Thermal Benchmark</h3>
+            <p style={{ fontSize: "0.84rem", color: "var(--muted)", margin: "0 0 0.75rem", lineHeight: 1.5 }}>
+              Review open research dataset (PL-DS-EVSE-04) evaluating continuous-duty thermal rise across NEMA 14-50 receptacles vs hardwired terminals.
+            </p>
+            <Link href="/datasets/continuous-duty-evse-terminal-temperature-benchmark" className="button secondary-button" style={{ width: "100%", textAlign: "center", display: "block", fontSize: "0.85rem" }}>
+              View Thermal Benchmark Dataset →
+            </Link>
+          </div>
+        </div>
+      </section>
+
+      {/* Section 7: Rules of Thumb */}
       <section id="rules-of-thumb" style={{ marginTop: "2.5rem" }}>
-        <h2>6. Engineering Rules of Thumb for Maximizing Real-World EV Range</h2>
+        <h2>7. Engineering Rules of Thumb for Maximizing Real-World EV Range</h2>
         <ul style={{ lineHeight: 1.65, color: "var(--ink)", paddingLeft: "1.25rem" }}>
           <li><strong>Precondition While Plugged Into Level 2 EVSE:</strong> Always use your vehicle app to warm the battery pack and cabin to 70°F 20 minutes before departure while connected to grid power. This saves 4 to 6 kWh of battery capacity for the road. (See our <Link href="/guides/level-2-ev-charging-speed-and-breaker-sizing-guide">Level 2 EV Charging Speed Guide</Link>).</li>
           <li><strong>The 65 mph Sweet Spot:</strong> Dropping interstate speed from 75 mph to 68 mph recovers <strong>12% to 15% more range</strong> with minimal trip time penalty (arriving just 5 minutes later per 60 miles driven).</li>
@@ -362,9 +482,9 @@ export default function HowToCalculateEvRangeGuidePage() {
         <StandardsBadge category="ev" />
       </section>
 
-      {/* Section 7: FAQs */}
+      {/* Section 8: FAQs */}
       <section id="faqs" style={{ marginTop: "3rem" }}>
-        <h2>Frequently Asked Questions About EV Driving Range &amp; Efficiency</h2>
+        <h2>8. Frequently Asked Questions About EV Driving Range &amp; Efficiency</h2>
         <div style={{ display: "grid", gap: "1rem", marginTop: "1rem" }}>
           {FAQS.map((faq, idx) => (
             <details key={idx} style={{ padding: "1rem", borderRadius: "0.65rem", background: "var(--surface)", border: "1px solid var(--line)" }}>
@@ -379,9 +499,9 @@ export default function HowToCalculateEvRangeGuidePage() {
         </div>
       </section>
 
-      {/* Section 8: Connected Calculators & Planning Tools */}
+      {/* Section 9: Connected Calculators & Planning Tools */}
       <section id="related-tools" style={{ marginTop: "3rem", padding: "1.75rem", borderRadius: "0.85rem", background: "var(--surface)", border: "1px solid var(--line)" }}>
-        <h2 style={{ marginTop: 0, fontSize: "1.35rem", color: "var(--brand-strong)" }}>Connected Electric Vehicle Planning &amp; Charging Calculators</h2>
+        <h2 style={{ marginTop: 0, fontSize: "1.35rem", color: "var(--brand-strong)" }}>9. Connected Electric Vehicle Planning &amp; Charging Calculators</h2>
         <p style={{ marginBottom: "1.25rem", color: "var(--muted)", lineHeight: 1.55 }}>
           Integrate range calculations with home charging infrastructure and energy storage planning:
         </p>

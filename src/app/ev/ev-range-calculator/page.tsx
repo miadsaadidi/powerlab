@@ -341,6 +341,28 @@ export default function EvRangePage() {
           </Link>
         </div>
 
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(min(100%, 250px), 1fr))", gap: "1rem", marginBottom: "1.25rem" }}>
+          <div style={{ padding: "1rem", borderRadius: "0.5rem", background: "var(--surface-subtle, #fafafa)", border: "1px solid var(--line)" }}>
+            <h4 style={{ margin: "0 0 0.35rem", fontSize: "0.95rem", color: "var(--brand-strong)" }}>⏱️ Level 2 Home Recharge Time</h4>
+            <p style={{ fontSize: "0.82rem", color: "var(--muted)", margin: "0 0 0.75rem", lineHeight: 1.5 }}>
+              Calculate hours required to replenish your battery across 3.8 kW to 11.5 kW Level 2 wallboxes.
+            </p>
+            <Link href="/ev/ev-charging-time-calculator" className="button secondary-button" style={{ width: "100%", textAlign: "center", display: "block", fontSize: "0.82rem" }}>
+              EV Charging Time Calculator →
+            </Link>
+          </div>
+
+          <div style={{ padding: "1rem", borderRadius: "0.5rem", background: "var(--surface-subtle, #fafafa)", border: "1px solid var(--line)" }}>
+            <h4 style={{ margin: "0 0 0.35rem", fontSize: "0.95rem", color: "var(--brand-strong)" }}>⚡ Size Dedicated Breaker &amp; Wire</h4>
+            <p style={{ fontSize: "0.82rem", color: "var(--muted)", margin: "0 0 0.75rem", lineHeight: 1.5 }}>
+              Size 40A, 50A, or 60A double-pole breakers and copper wire under the NEC 125% continuous duty rule.
+            </p>
+            <Link href="/ev/ev-charger-breaker-size-calculator" className="button secondary-button" style={{ width: "100%", textAlign: "center", display: "block", fontSize: "0.82rem" }}>
+              EV Breaker Size Calculator →
+            </Link>
+          </div>
+        </div>
+
         <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))", gap: "0.75rem" }}>
           <Link href="/ev/ev-charging-time-calculator" className="button secondary-button">EV Charging Time Calculator</Link>
           <Link href="/ev/ev-charging-cost-calculator" className="button secondary-button">EV Charging Cost Calculator</Link>

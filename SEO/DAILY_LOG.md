@@ -7,6 +7,72 @@
 
 ## Daily Master Loop Record
 
+### 2026-09-19 (Session 43) — Central AC Cost Calculator SEER2 & Cooling Load Upgrade (Track A Single Asset)
+* **Session Lead:** AI/SEO Agent (User Approved Single Objective Execution)
+* **Target URL:** [`/home-energy/air-conditioner-cost-calculator`](file:///D:/powerlab/src/app/home-energy/air-conditioner-cost-calculator/page.tsx)
+* **Step 1 (Substance, SEER vs. SEER2, CDD Climate Scenarios & Cluster Mesh Implementation):**
+  - **Preserved Pure Calculation Engine:** Kept `src/lib/calculators/ac-cost/*` 100% untouched with zero changes to formulas, calculation behavior, or defaults.
+  - **SEER vs. SEER2 Comparative Reference Matrix:** Added dedicated technical section and table explaining the transition under DOE 10 CFR Part 430 Appendix M1. Documented that external static pressure (ESP) was raised from 0.10–0.20 in. WG (legacy Appendix M) to 0.50 in. WG (Appendix M1) to realistically reflect ducted systems. Explained that the resulting ~4.5% numerical derate is an approximate screening/comparison aid rather than a universal mathematical conversion, and cited AHRI Standard 210/240-2023 for model-specific certified ratings.
+  - **EIA June 2026 Electricity Cost Benchmark:** Standardized baseline hourly and monthly cooling costs against the verified U.S. EIA *Electric Power Monthly* June 2026 residential benchmark of 18.34¢/kWh ($0.1834/kWh), explicitly noting that it represents a national average reference and that user-entered utility rates remain authoritative.
+  - **Regional Climate & CDD Operating Hour Scenarios:** Added explicit distinctions between Cooling Degree Days (CDD, base 65°F), modeled full-load equivalent operating hours (FLH), and physical equipment runtime. Labeled all climate zone runtime tables as **Illustrative engineering scenario** (ranging from 600–900 hrs/yr in Cool/Northern regions to 2,100–2,600 hrs/yr in Hot Arid Southwest).
+  - **Tonnage Sizing & Power Draw Benchmark:** Refined 1.5-ton to 5.0-ton central AC reference table, clearly identifying nominal electrical power draw as calculated from stated efficiency assumptions (Nominal BTU ÷ 15.0 SEER2 ÷ 1,000) under standard rating conditions, with clear notes on single-stage vs two-stage vs variable-speed inverter compressor variations.
+  - **Step-by-Step Worked Derivation:** Expanded 5-step worked manual math example for a 3-ton 15.0 SEER2 unit with 60% compressor duty cycle at 18.34¢/kWh ($0.26/clock hour, $2.11/day, $64.22/mo).
+  - **Connected Energy Planning Mesh Pathways:** Integrated 4 contextual navigation pathway cards directly connecting AC cooling load $\rightarrow$ operating cost $\rightarrow$ `/home-energy/heat-pump-cost-calculator` (heating comparison) $\rightarrow$ `/home-energy/energy-bill-calculator` (tier & tariff analysis) $\rightarrow$ `/home-energy/generator-size-calculator` (compressor LRA starting inrush) $\rightarrow$ `/home-energy/electricity-usage-calculator` (appliance load audit).
+  - **Schema & Metadata Standardization:** Aligned title and meta description, updated FAQs, and cited verified standards: AHRI Standard 210/240-2023, DOE 10 CFR Part 430 Appendix M1, ASHRAE Standard 90.1, and U.S. EIA June 2026 benchmark.
+* **Step 2 (Validation):**
+  - TypeScript typecheck: **0 compilation errors** (`tsc --noEmit`).
+  - Unit tests: **58/58 test files passed** (265 tests passed).
+  - Production build: **84/84 static pages generated successfully** (`next build`).
+* **SEO Asset Status:** `COMPLETED — MEASUREMENT MODE` (Asset frozen; observe future impressions, clicks, CTR, and position on `ac cost calculator` and `central ac energy cost`).
+* **Next SEO Objective / Action Required:** Candidate CD-01 (Residential Battery Degradation & Thermal Loss Dataset PL-DS-BESS-06 Research / Provenance Gate) remains scheduled for Day 3 according to `SEO/WEEKLY_PLAN.md`.
+
+### 2026-09-19 (Session 42) — EV Charging Journey Cluster Upgrade (Track B Cluster Upgrade) — Final Closure Pass
+* **Session Lead:** AI/SEO Agent (User Approved Cluster Upgrade & Final Closure Pass)
+* **Target URLs:**
+  * [`/guides/how-to-calculate-ev-driving-range-and-efficiency-guide`](file:///D:/powerlab/src/app/guides/how-to-calculate-ev-driving-range-and-efficiency-guide/page.tsx)
+  * [`/ev/ev-charging-time-calculator`](file:///D:/powerlab/src/app/ev/ev-charging-time-calculator/page.tsx)
+  * [`/ev/ev-charger-breaker-size-calculator`](file:///D:/powerlab/src/app/ev/ev-charger-breaker-size-calculator/page.tsx)
+  * [`/ev/ev-range-calculator`](file:///D:/powerlab/src/app/ev/ev-range-calculator/page.tsx) *(Contextual upstream handoff only; remains in measurement mode)*
+  * [`/datasets/continuous-duty-evse-terminal-temperature-benchmark`](file:///D:/powerlab/src/app/datasets/%5Bslug%5D/page.tsx) *(Contextual supporting benchmark node)*
+* **Step 1 (Cluster Mesh & Journey Implementation):**
+  - **Preserved Pure Engines:** Kept all calculation engines (`src/lib/calculators/ev-range/*`, `ev-charging-time/*`, and `ev-breaker-size/*`) 100% untouched.
+  - **EV Range & Efficiency Guide:** Added dedicated Section 6 (*Connecting EV Driving Range to Home Charging: Energy Replenishment & EVSE Sizing*) explaining the mathematical bridge between trip distance, vehicle consumption (Wh/mi or kWh/100km), energy replenishment (kWh), and Level 2 charging hours ($t = E / [P \times \eta_{\text{rectifier}}]$). Added Table 3 (*Illustrative EV Driving Consumption Scenarios to Level 2 Home Charging Replenishment Durations*) across 4 vehicle classes with representative EPA ratings and clear modeling caveats.
+  - **EV Charging Time Calculator:** Deployed top-level *Connected EV Planning Journey* pathway cards connecting upstream driving energy demands (`/ev/ev-range-calculator` and guide) to charging duration and downstream electrical infrastructure (`/ev/ev-charger-breaker-size-calculator`). Clarified commuting replenishment formula in the step-by-step how-to guide.
+  - **EV Charger Breaker Size Calculator:** Integrated 3-card next-step grid connecting feeder run voltage drop, charging duration, and upstream vehicle consumption / daily commuting demand. Contextualized terminal temperature dataset link.
+  - **EV Range Calculator (Measurement Mode Upstream Anchor):** Added contextual Level 2 home recharge time and breaker sizing pathway cards above general tools without altering core engineering content.
+* **Step 2 (Final Closure Pass — Standards & Factual Precision Review):**
+  - **Illustrative 90% Onboard Rectifier Efficiency Assumption:** Replaced unsupported 85%–93% efficiency range with a clearly labeled illustrative 90% onboard rectifier efficiency modeling assumption across all guide and calculator cards. Clarified that AC-to-DC conversion losses mean wall-side grid energy draw ($E_{\text{grid}} = E_{\text{battery}} / 0.90$) is ~11% higher than net DC battery energy.
+  - **SAE J1772 / SAE J3400 Claims:** Rigorously separated coupler standards from vehicle onboard rectification efficiency. In `ev-charging-time-calculator`, separated `sourceAuthority` to cite SAE J1772 / SAE J3400 for physical coupler interface and AC power signaling limits, while attributing rectification efficiency to vehicle power electronics modeling.
+  - **EV Consumption Matrix Review:** Reviewed Wh/mi baselines across the 4 vehicle categories (sedan: ~250 Wh/mi; crossover: ~300 Wh/mi; performance SUV: ~370 Wh/mi; full-size truck: ~480 Wh/mi). Explicitly labeled all numbers in Table 3 as illustrative modeled scenarios reflecting representative EPA Combined Fuel Economy ratings, avoiding universal benchmark claims.
+  - **EPA / Energy Relationship:** Clarified in Section 6 that EPA window-sticker values and vehicle onboard trip computers track net DC battery consumption while driving ($E_{\text{battery}} = \text{Distance} \times \text{Wh/mi} / 1,000$). Wall-side AC electricity drawn from the grid is adjusted separately by conversion efficiency ($E_{\text{grid}} = E_{\text{battery}} / \eta_{\text{rectifier}}$).
+  - **NFPA 70-2026 NEC Section Citations:** Verified and updated citations in `ev-charger-breaker-size-calculator` to explicitly reference NFPA 70-2026 NEC Article 625 (specifically Section 625.41 *Overcurrent Protection* mandating $\ge 125\%$ continuous duty sizing and Section 625.42 *Rating*) alongside Section 210.20(A) and Table 310.16.
+  - **Measurement Mode Upstream Anchor Protection:** Confirmed `/ev/ev-range-calculator` received only non-intrusive contextual downstream cards; no formulas, tables, or Session 38 calculations were reopened.
+* **Step 3 (Validation Suite Execution):**
+  - TypeScript typecheck: **0 compilation errors** (`tsc --noEmit`).
+  - Unit tests: **58/58 test files passed** (265 tests passed).
+  - Production build: **84/84 static pages generated successfully** (`next build`).
+* **SEO Asset Status:** `COMPLETED — MEASUREMENT MODE` (All EV cluster assets placed in measurement mode).
+* **Next SEO Objective / Action Required:** `DAY 1 — FULL SEO INTELLIGENCE & OPPORTUNITY MAPPING` (Execution locked; wait for empirical search console data before starting next objective).
+
+### 2026-09-19 (Session 41) — Appliance Running Watts, Starting Surge & Operating Cost Enhancement (Track A Single Asset) — Final Closure Pass
+* **Session Lead:** AI/SEO Agent (User Approved Bounded Single Objective Final Closure)
+* **Target URL:** [`/home-energy/appliance-wattage-calculator`](file:///D:/powerlab/src/app/home-energy/appliance-wattage-calculator/page.tsx)
+* **Step 1 (Substance, Sizing Tables, Worked Example & Cluster Mesh Implementation):**
+  - **Preserved Pure Engine:** Kept calculation engine (`src/lib/calculators/appliance-wattage/*`) 100% untouched with zero modifications to formulas, inputs, defaults, or outputs.
+  - **Substance & Benchmark Table:** Deployed comprehensive *Appliance Wattage, Starting Surge & Hourly Operating Cost Benchmark Table* covering 12 common residential appliance categories (standard fridge, inverter fridge, well pump, sump pump, central AC, soft-start AC, mini-split, space heater, water heater, microwave, clothes dryer, washing machine) detailing nominal voltage/current, operating power factor (cos φ), continuous running watts, starting surge demand (VA / LRA), duty cycles, hourly kWh, and hourly electricity costs.
+  - **Final Closure Review & Material Corrections:** Corrected resistive appliance surge column entries (space heater and electric storage water heater) to `N/A (Resistive — No motor LRA; continuous VA)` to avoid implying motor locked rotor characteristics. Explicitly qualified DOE 10 CFR Part 430 reference as federal annual efficiency test procedures rather than motor inrush ratings. Clarified table footnotes that June 2026 EIA 18.34¢/kWh is an illustrative national average benchmark, not an individual utility tariff.
+  - **EIA June 2026 Electricity Cost Baseline:** Standardized hourly running cost projections using official U.S. EIA *Electric Power Monthly* June 2026 residential average rate of 18.34¢/kWh ($0.1834/kWh; Jan–Jun 2026 YTD average: 18.16¢/kWh) with clear disclaimers that user inputs remain authoritative and local utility tariffs vary.
+  - **Running Energy vs. Starting Surge Electrical Distinction:** Added technical analysis distinguishing continuous real active energy ($E = P \times t$, billed in kWh) from instantaneous electromechanical motor starting transients ($S = V \times \text{LRA}$, lasting 50–300 ms). Documented sizing criteria for standby generators (subtransient kVA at ≤30% voltage dip), battery inverters (5–10s surge rating), and inverse-time breakers (NEC 430.52).
+  - **Step-by-Step Worked Engineering Walkthrough:** Detailed a 5-step worked calculation for a 120V 0.5 HP residential sump pump (7.2A run, 0.82 PF, 709W running power vs. 38A nameplate LRA, 4.56 kVA starting inrush, 0.1418 kWh/hr at 20% duty cycle, $0.026/hr cost).
+  - **Connected Home Energy Planning Pathways:** Deployed contextual navigation cards connecting appliance load auditing directly to [`/home-energy/electricity-usage-calculator`](file:///D:/powerlab/src/app/home-energy/electricity-usage-calculator/page.tsx), [`/home-energy/energy-bill-calculator`](file:///D:/powerlab/src/app/home-energy/energy-bill-calculator/page.tsx), [`/home-energy/generator-size-calculator`](file:///D:/powerlab/src/app/home-energy/generator-size-calculator/page.tsx), and [`/home-energy/home-battery-size-calculator`](file:///D:/powerlab/src/app/home-energy/home-battery-size-calculator/page.tsx).
+  - **Standards & Schema Alignment:** Cited verified active standards: ANSI/NEMA MG 1-2021, IEEE 1459-2025, NFPA 70-2026 (NEC Articles 430 & 440), DOE 10 CFR Part 430, and ANSI C84.1-2020 in visible references and Schema.org JSON-LD structured data.
+* **Step 2 (Final Validation):**
+  - TypeScript typecheck: **0 compilation errors** (`tsc --noEmit`).
+  - Unit tests: **58/58 test files passed** (265 tests passed).
+  - Production build: **84/84 static pages generated successfully** (`next build`).
+* **SEO Asset Status:** `COMPLETED — MEASUREMENT MODE` (Asset locked; observe query impressions, CTR, position, and long-tail inrush terms).
+* **Next SEO Objective / Action Required:** `DAY 1 — FULL SEO INTELLIGENCE & OPPORTUNITY MAPPING` (Execution locked; re-diagnose GSC, indexation, SERP intent gaps, and research radar before activating next candidate).
+
 ### 2026-09-18 (Session 40) — Home Electrification & Daily Load Cluster Mesh Upgrade (Track B Cluster Upgrade)
 * **Session Lead:** AI/SEO Agent (User Approved Cluster Upgrade)
 * **Step 1 (Pre-Implementation Audit & Planning Pathways Mesh):**
