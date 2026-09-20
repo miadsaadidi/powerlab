@@ -94,7 +94,7 @@ export default function EvBreakerSizePage() {
         answer="Under NEC Article 625, EV charging is a continuous electrical load requiring circuit breakers and wiring to be sized for 125% of the charger's continuous current draw. A standard 48-Amp Level 2 charger requires a 60-Amp double-pole circuit breaker and 6 AWG copper wire (in conduit) or 4 AWG Romex (NM-B), delivering up to 11.5 kW of power."
         formula="Breaker Size (Amps) = Charger Continuous Current (Amps) × 1.25 (NEC Continuous Load Multiplier)"
         standardExample="48A Charger: 48A × 1.25 = 60A Breaker (6 AWG THHN Copper in Conduit) · 40A Charger: 40A × 1.25 = 50A Breaker (NEMA 14-50)"
-        sourceAuthority="NEC Article 625 (EV Power Transfer) & NEC Table 310.16"
+        sourceAuthority="NFPA 70-2026 / NEC Article 625 (Sections 625.41 & 625.42) & Table 310.16"
       />
 
       {/* Interactive Next-Step Planning Cards to reduce bounce rate */}
@@ -117,6 +117,21 @@ export default function EvBreakerSizePage() {
           <Link href="/ev/ev-charging-time-calculator" className="button secondary-button" style={{ width: "100%", textAlign: "center", display: "block", fontSize: "0.85rem" }}>
             Calculate EV Charging Time →
           </Link>
+        </div>
+
+        <div style={{ padding: "1.25rem", borderRadius: "0.75rem", background: "var(--surface)", border: "1px solid var(--line)", borderLeft: "4px solid #8b5cf6" }}>
+          <h3 style={{ margin: "0 0 0.35rem", fontSize: "1.05rem", color: "var(--brand-strong)" }}>🚗 Daily Commute to Circuit Load?</h3>
+          <p style={{ fontSize: "0.88rem", color: "var(--muted)", margin: "0 0 0.75rem", lineHeight: 1.5 }}>
+            Model your vehicle&apos;s real-world efficiency (Wh/mi) and daily commuting kWh demand with our EV driving range tools.
+          </p>
+          <div style={{ display: "flex", gap: "0.5rem", flexWrap: "wrap" }}>
+            <Link href="/ev/ev-range-calculator" className="button secondary-button" style={{ flex: 1, textAlign: "center", fontSize: "0.82rem" }}>
+              EV Range Calculator →
+            </Link>
+            <Link href="/guides/how-to-calculate-ev-driving-range-and-efficiency-guide" className="button secondary-button" style={{ flex: 1, textAlign: "center", fontSize: "0.82rem" }}>
+              Wh/mi Range Guide →
+            </Link>
+          </div>
         </div>
       </div>
 
@@ -356,7 +371,7 @@ export default function EvBreakerSizePage() {
       <section>
         <h2>Methodology and Standards</h2>
         <p>
-          Circuit breaker and conductor sizing adhere strictly to NFPA 70 / National Electrical Code (NEC) Article 625 (Electric Vehicle Power Transfer Systems), NEC Article 210.20, and Table 310.16. See our <Link href="/methodology">methodology</Link> and <Link href="/sources">sources</Link>.
+          Circuit breaker and conductor sizing adhere strictly to NFPA 70-2026 / National Electrical Code (NEC) Article 625 (Electric Vehicle Power Transfer Systems, specifically Section 625.41 Overcurrent Protection and Section 625.42 Rating), NEC Section 210.20(A), and Table 310.16. See our <Link href="/methodology">methodology</Link> and <Link href="/sources">sources</Link>.
         </p>
       </section>
 

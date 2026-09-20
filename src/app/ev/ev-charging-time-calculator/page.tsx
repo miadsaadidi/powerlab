@@ -86,21 +86,49 @@ export default function EvChargingTimePage() {
 
       <DirectAnswerCard
         keyword="ev charging time calculator"
-        answer="To calculate EV charging time, divide the energy needed (kWh) by the effective charging power (kW) delivered to the battery, accounting for approximately 90% AC charging efficiency."
+        answer="To calculate EV charging time, divide the energy needed (kWh) by the effective charging power (kW) delivered to the battery cells, incorporating a clearly labeled illustrative 90% AC-to-DC onboard rectification efficiency modeling assumption."
         formula="Charging Time (Hours) = (Battery Size kWh × % Charge Needed) ÷ (Charger Power kW × 0.90 Efficiency)"
         standardExample="A 60 kWh EV battery adding 50% charge (30 kWh) on a 9.6 kW Level 2 home charger takes approximately 3.5 hours."
-        sourceAuthority="SAE J1772 / J3400 (NACS) Charging Standards"
+        sourceAuthority="SAE J1772 / SAE J3400 (Coupler & Power Limits) & Automotive Onboard Rectification Modeling"
       />
+
+      {/* Connected EV Planning Journey Pathways */}
+      <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(min(100%, 300px), 1fr))", gap: "1rem", margin: "1.5rem 0" }}>
+        <div style={{ padding: "1.25rem", borderRadius: "0.75rem", background: "var(--surface)", border: "1px solid var(--line)", borderLeft: "4px solid var(--accent)" }}>
+          <h3 style={{ margin: "0 0 0.35rem", fontSize: "1.05rem", color: "var(--brand-strong)" }}>🚗 Daily Commute to Energy Needed?</h3>
+          <p style={{ fontSize: "0.88rem", color: "var(--muted)", margin: "0 0 0.75rem", lineHeight: 1.5 }}>
+            Calculate your vehicle&apos;s real-world highway efficiency (Wh/mi or mi/kWh) and trip energy consumption with our driving range tools.
+          </p>
+          <div style={{ display: "flex", gap: "0.5rem", flexWrap: "wrap" }}>
+            <Link href="/ev/ev-range-calculator" className="button secondary-button" style={{ flex: 1, textAlign: "center", fontSize: "0.82rem" }}>
+              EV Range Calculator →
+            </Link>
+            <Link href="/guides/how-to-calculate-ev-driving-range-and-efficiency-guide" className="button secondary-button" style={{ flex: 1, textAlign: "center", fontSize: "0.82rem" }}>
+              Range &amp; Wh/mi Guide →
+            </Link>
+          </div>
+        </div>
+
+        <div style={{ padding: "1.25rem", borderRadius: "0.75rem", background: "var(--surface)", border: "1px solid var(--line)", borderLeft: "4px solid #10b981" }}>
+          <h3 style={{ margin: "0 0 0.35rem", fontSize: "1.05rem", color: "var(--brand-strong)" }}>⚡ Sizing Your Home Electrical Circuit?</h3>
+          <p style={{ fontSize: "0.88rem", color: "var(--muted)", margin: "0 0 0.75rem", lineHeight: 1.5 }}>
+            Size double-pole circuit breakers (40A vs 50A vs 60A) and copper wire gauge under the NEC Article 625 125% continuous duty rule.
+          </p>
+          <Link href="/ev/ev-charger-breaker-size-calculator" className="button secondary-button" style={{ width: "100%", textAlign: "center", display: "block", fontSize: "0.85rem" }}>
+            Size EV Charger Breaker &amp; Wire →
+          </Link>
+        </div>
+      </div>
 
       <PageJumpNav />
 
       <section id="how-to-guide" style={{ marginTop: "3rem" }}>
-        <h2>How to Calculate EV Charging Time and Energy Requirements</h2>
+        <h2>How to Calculate EV Charging Time and Energy Replenishment</h2>
         <ol>
-          <li><strong>Enter EV Battery Capacity (kWh):</strong> Input total usable battery pack capacity (e.g., 60 kWh for compact sedans, 75–85 kWh for crossovers, 100–130+ kWh for full-size electric trucks).</li>
-          <li><strong>Set Starting and Target State of Charge (%):</strong> Standard daily charging cycles run from 20% to 80% to preserve lithium-ion battery health and prevent high internal resistance degradation.</li>
+          <li><strong>Determine Battery Energy to Replenish (kWh):</strong> Multiply usable pack capacity by the charge window: <code>Energy = Capacity &times; (&Delta;SoC)</code>. For daily commuting replenishment, multiply daily miles by vehicle consumption: <code>Energy (kWh) = (Miles &times; Wh/mi) &divide; 1,000</code>.</li>
+          <li><strong>Set Starting and Target State of Charge (%):</strong> Standard daily charging runs from 20% to 80% to preserve lithium-ion battery health and prevent high internal resistance degradation.</li>
           <li><strong>Select Charger Speed &amp; Power Rating:</strong> Choose Level 1 (1.4 kW @ 120V), Level 2 Wallbox (3.8 kW to 11.5 kW @ 240V), or DC Fast Charging (50 kW to 350 kW).</li>
-          <li><strong>Factor in Inverter &amp; Onboard Rectifier Efficiency:</strong> Level 1/Level 2 AC charging operates at approximately 88%–92% efficiency due to onboard AC-to-DC conversion and active thermal battery conditioning.</li>
+          <li><strong>Factor in Onboard Rectifier Efficiency:</strong> Level 1/Level 2 AC charging incurs conversion losses inside the vehicle&apos;s onboard rectifier and thermal management system, modeled using an illustrative 90% rectification efficiency assumption. Note that coupler standards (SAE J1772 / SAE J3400) specify conductive interface geometry and signaling, while actual AC-to-DC rectification efficiency is determined by vehicle onboard power electronics.</li>
         </ol>
 
         <SystemFlowDiagram category="ev" title="Electric Vehicle Charging Power Path & Onboard Rectification" />
@@ -256,10 +284,10 @@ export default function EvChargingTimePage() {
             { symbol: "Start_SOC", label: "Starting State of Charge", description: "Battery percentage at the beginning of the charging session (0.0–1.0).", unit: "%" },
             { symbol: "Target_SOC", label: "Target State of Charge", description: "Desired final battery percentage (0.0–1.0).", unit: "%" },
             { symbol: "P_effective", label: "Effective Charging Power", description: "min(EVSE Supply Power, Onboard Charger Limit) in kilowatts.", unit: "kW" },
-            { symbol: "η_conversion", label: "Charging System Efficiency", description: "Onboard AC-to-DC rectifier and thermal conditioning efficiency (nominally 0.88–0.92).", unit: "dimensionless" },
+            { symbol: "η_conversion", label: "Charging System Efficiency", description: "Onboard AC-to-DC rectifier and thermal conditioning efficiency (illustrative modeling default: 0.90).", unit: "dimensionless" },
           ]}
           notes={[
-            "Level 1 and Level 2 AC charging incurs ~8% to 12% loss due to onboard rectification, coolant pump circulation, and battery heating/cooling.",
+            "Level 1 and Level 2 AC charging incurs ~10% conversion loss under the illustrative 90% rectification modeling assumption.",
             "DC Fast Charging bypasses the vehicle onboard AC rectifier, feeding high-voltage DC directly to the battery with 92%–95% system efficiency, but tapers heavily above 80% SOC.",
           ]}
         />

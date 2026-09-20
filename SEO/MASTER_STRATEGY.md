@@ -351,13 +351,68 @@ The PowerLab SEO operating system is a **research-driven, evidence-driven asset 
 └─────────────────────────────────────────────────────────────────────────────┘
 ```
 
-### Integrated 3-Tier Diagnostic on Day 1
-1. **Owned-Site Evidence:** GSC pages/queries, impressions, clicks, CTR, average positions, query/page movement, emerging query families, high-impression / low-CTR opportunities, striking-distance rankings (Pos 8–40), existing calculators/tools, existing guides/research, internal linking graph, indexation status, and technical health.
-2. **SERP Evidence:** Current ranking competitor pages, SERP snippet formats, competing calculators/tools, missing tables, datasets, formulas, references, or explanations, weak/fragmented search results, search-intent gaps, and industry terminology variants.
-3. **External Research / Authority Radar:** Continuous inspection of authoritative technical sources, national laboratories, standards organizations, open datasets, and scientific repositories (e.g., ASHRAE, ACCA, DOE, NREL, PNNL, LBNL, ORNL, NIST, EIA, IEEE, NFPA, and open academic repositories).  
-   *Goal:* Discover emerging search topics, empirical datasets, unsolved engineering questions, research gaps, calculation opportunities, and new Core asset candidates.
+### Day 1 Multi-Engine Search-Gap Intelligence System
+Day 1 intelligence operates as a four-engine discovery system designed to identify both internal optimization opportunities and unfulfilled external search intents:
 
-### Day 1 Output: Weekly Opportunity Map
+#### 1. Engine A — Owned-Site Search Gap
+* **Core Question:** *What does PowerLab's existing search data show that its current assets do not satisfy completely?*
+* **Evidentiary Basis:** Google Search Console query logs, impressions, clicks, CTR, average positions, query-to-page mismatches, striking-distance queries (positions 4–40), emerging query clusters, declining assets, and pages ranking for unintended or partially addressed intents.
+* **Analysis Focus:** Recurring queries lacking dedicated calculations; calculators ranking for related queries without exact computational inputs; next-step calculations users search for; single pages overloaded with multiple distinct tasks.
+* **Output:** *Owned-Site Search Gaps* (directed primarily to Track A Existing Asset Optimization or Track B Cluster Upgrades).
+
+#### 2. Engine B — SERP Search-Intent Gap
+* **Core Question:** *What are users searching for that the current competitive SERP does not fully solve?*
+* **Methodology:** For promising topics, inspect live top-ranking competitor results and classify the unfulfilled user intent into one of 10 structural gap types:
+  * **A. Uncovered Intent:** Top results barely answer what the searcher is actually attempting to accomplish.
+  * **B. Partially Covered Intent:** Basic theoretical questions are answered, but critical technical components are omitted.
+  * **C. Fragmented Intent:** Searchers must navigate across 3–4 separate websites to complete one coherent workflow.
+  * **D. Tool Gap:** Results explain the underlying formula in prose but offer no interactive, deterministic calculator.
+  * **E. Data Gap:** Results lack structured reference datasets, empirical benchmarks, or engineering constants.
+  * **F. Technical-Depth Gap:** Results provide generic consumer-level surface overviews when the query demands rigorous engineering depth.
+  * **G. Freshness Gap:** Results rely on obsolete electrical codes, outdated building standards, or expired utility tariffs.
+  * **H. Evidence Gap:** Results make unsupported numerical claims without citation, measurement provenance, or methodology.
+  * **I. Workflow Gap:** Results solve an isolated calculation step but fail to connect to the next electrical/sizing decision.
+  * **J. Implementation Gap:** The search intent demands a computational model, simulation, or interactive visualization that the SERP lacks.
+* **SERP Gap Evaluation Template:** Search Intent $\rightarrow$ Existing SERP Coverage $\rightarrow$ Missing Component $\rightarrow$ Coverage Level (*Fully / Mostly / Partially / Poorly / Uncovered*) $\rightarrow$ PowerLab Opportunity $\rightarrow$ Best Asset Type.
+* **Output:** *SERP Search Gaps*.
+
+#### 3. Engine C — Research / Engineering Gap
+* **Core Question:** *What important technical problems could PowerLab solve that are not currently represented well in search?*
+* **Evidentiary Basis:** Active intelligence mining across national laboratories and standards bodies (DOE, NREL, EIA, PNNL, LBNL, ORNL, Sandia, NIST, ASHRAE, ACCA, IEEE, NFPA, and open research repositories).
+* **Analysis Focus:** Changing regulatory codes (e.g., NFPA 70-2026, DOE M1 SEER2), emerging clean-energy technologies, open scientific datasets, empirical degradation studies, and practitioner pain points.
+* **Output:** *Research / Engineering Gaps* (does not require pre-existing GSC impressions for genuinely novel Core assets).
+
+#### 4. Engine D — Site Architecture / Product Gap
+* **Core Question:** *Where does the current PowerLab product/content architecture fail to complete a user's task?*
+* **Evidentiary Basis:** On-site routing graph, calculator registry (`src/lib/calculator-registry.ts`), internal link graph, and user navigation paths.
+* **Analysis Focus:** Disconnected calculations, missing workflow handoffs between upstream sizing and downstream protection, weak Core $\rightarrow$ Layer 1 relationships, or isolated datasets.
+* **Output:** *Architecture / Product Gaps*.
+
+### The Four-Gap Distinction & Strict Evidence Separation
+PowerLab strictly separates and independently classifies these four distinct concepts:
+* **Owned-Site Gap:** Users are demonstrating via GSC telemetry what PowerLab's current assets do not satisfy well.
+* **SERP Search Gap:** Users are searching Google for intents that competing search results fail to resolve completely.
+* **Research / Engineering Gap:** Scientific research and engineering codes reveal an important problem that search results have not yet operationalized.
+* **Architecture / Product Gap:** PowerLab's internal asset graph lacks the connective tissue needed to complete a practitioner's workflow.
+
+**Evidence Labeling Protocol:**
+Every identified opportunity must explicitly declare its evidence type:
+* `GSC Evidence` | `GA4 Evidence` | `SERP Evidence` | `Research / Authority Evidence` | `External Search-Volume Evidence` | `Site Architecture Evidence` | `Engineering Inference / Hypothesis`
+* Never conflate impression volume with search volume; never infer high search demand solely from competitor weakness; never assume user search volume simply because academic research exists. All inferences must be labeled as `HYPOTHESIS`.
+
+### Additive Opportunity Backlog Rule
+* **Non-Destructive Invariant:** Newly discovered search gaps **DO NOT replace, reorder, or delete existing scheduled objectives**.
+* The current weekly production plan remains the authoritative baseline execution schedule.
+* Newly discovered search gaps enter the Weekly Opportunity Map as **ADDITIONAL OPPORTUNITIES** in the backlog alongside existing candidates:
+  $$\text{Existing Planned Roadmap} + \text{Additive Search-Gap Backlog} \longrightarrow \text{Evidence Evaluation} \longrightarrow \text{Stop for Approval}$$
+* Opportunity statuses: `DISCOVERED`, `RESEARCH NEEDED`, `PROPOSED`, `PROVENANCE GATE`, `BACKLOG`, `READY FOR APPROVAL`, `MEASUREMENT MODE`, `COMPLETED`.
+
+### Opportunity-to-Objective Conversion & Anti-Content Bias
+* Every discovered gap is converted into the **minimum effective SEO objective** (`SINGLE ASSET`, `CLUSTER UPGRADE`, `CORE PUBLICATION`, `LAYER 1 SUPPORTING`, `NEW FEATURE`, `DATASET`, or `TECHNICAL`).
+* **Anti-Content Bias:** The discovery of a search gap never automatically mandates writing an article. Solutions must match the task:
+  $$\text{Calculator} > \text{Interactive Feature} > \text{Benchmark Dataset} > \text{Original Research} > \text{Technical Guide} > \text{Generic Article}$$
+
+### Day 1 Output: Weekly Opportunity Map & Triaged Deliverables
 Day 1 produces an actionable, evidence-backed Opportunity Map categorized into 6 distinct tracks:
 * **A. Existing Asset Optimization:** Pages/calculators with existing search impressions that can be expanded or refined.
 * **B. Cluster Upgrade:** Cohesive multi-asset upgrades solving a shared search problem.
@@ -365,6 +420,12 @@ Day 1 produces an actionable, evidence-backed Opportunity Map categorized into 6
 * **D. Core Publication Candidates:** Major new search assets (datasets, whitepapers, engineering research, technical references, major guides, calculator-backed research).
 * **E. Layer 1 Candidates:** Specific supporting search intents designed to strengthen a Core asset.
 * **F. External Technical Distribution:** Deep-dive technical explanations for Dev.to / Hashnode derived from original PowerLab work.
+
+**Day 1 Three-Part Deliverable:**
+1. **Part A — Existing-Plan Opportunities:** Status and prioritization of baseline scheduled assets.
+2. **Part B — New SERP / Search-Intent Gaps:** Itemized gap analyses across candidate search queries.
+3. **Part C — Research / Engineering Opportunities:** Emerging technical standards and open data pipelines.
+$\rightarrow$ **Selection of Exactly ONE Active Objective (Existing or Additive) $\rightarrow$ Stop for Approval.**
 
 ---
 
