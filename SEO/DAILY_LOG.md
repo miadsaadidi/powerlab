@@ -26,8 +26,12 @@
   - Vitest test suite: **58/58 test files passed** (265/265 unit tests).
   - TypeScript typecheck: **0 compilation errors** (`tsc --noEmit`).
   - Static SSG build: **84/84 pages generated successfully** (`next build`).
+* **Step 3 (Layer 1 External Academic Distribution — BibSonomy Sync):**
+  - Registered and verified `BIB-04` bookmark on BibSonomy (`@miadinside`, DA 74 / DR 76 — Univ. of Kassel & L3S Research Center) pointing to `/solar/solar-panel-tilt-calculator` with strict space-separated tagging format (`DOFOLLOW VERIFIED`). Synchronized `SEO/BACKLINK_LOG.csv` and `SEO/EXTERNAL_DISTRIBUTION.md`.
+* **Step 4 (Layer 1 External Academic Distribution — MERLOT OER Simulation):**
+  - Cataloged and published `MER-05` on MERLOT (California State University System, DA 75 / DR 79) under Material [#824240251](https://www.merlot.org/merlot/viewMaterial.htm?id=824240251) for *PowerLab: Solar Panel Output and NREL PVWatts V8 AC Yield Simulation Workbench* pointing to `/solar/solar-panel-output-calculator` (`DOFOLLOW VERIFIED`). Synchronized `SEO/BACKLINK_LOG.csv` and `SEO/EXTERNAL_DISTRIBUTION.md`.
 * **SEO Asset Status:** `COMPLETED — MEASUREMENT MODE` (All solar cluster assets placed in measurement mode).
-* **Next SEO Objective / Action Required:** Track D Core Publication / Provenance Gates (Candidate CD-01 or CD-02) or Additive Search-Gap Backlog evaluation upon next user review.
+* **Next SEO Objective / Action Required:** Track D Core Publication Provenance Gates (Candidate CD-01 or CD-02) or Additive Search-Gap Backlog evaluation upon next user review.
 
 ### 2026-09-19 (Session 43) — Central AC Cost Calculator SEER2 & Cooling Load Upgrade (Track A Single Asset)
 * **Session Lead:** AI/SEO Agent (User Approved Single Objective Execution)
