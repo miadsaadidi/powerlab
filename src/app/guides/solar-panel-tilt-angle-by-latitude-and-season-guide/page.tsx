@@ -280,18 +280,56 @@ export default function SolarTiltGuidePage() {
 
       {/* Section 5: Connected Tools Navigation */}
       <section style={{ marginTop: "2.5rem", padding: "1.5rem", borderRadius: "0.85rem", background: "var(--surface)", border: "1px solid var(--line)" }}>
-        <h2 style={{ marginTop: 0, fontSize: "1.3rem" }}>Connected Solar Planning Calculators</h2>
+        <h2 style={{ marginTop: 0, fontSize: "1.3rem" }}>Connected Solar Planning &amp; Engineering Cluster</h2>
         <p style={{ color: "var(--muted)", fontSize: "0.92rem", marginBottom: "1rem" }}>
-          Explore our complete suite of deterministic solar photovoltaic sizing and engineering tools:
+          Solar array geometry directly impacts real-world generation, string voltage boundaries, and clean energy storage sizing:
         </p>
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))", gap: "0.75rem" }}>
-          <Link href="/solar/solar-panel-tilt-calculator" className="button secondary-button">Solar Panel Tilt Calculator</Link>
-          <Link href="/solar/solar-panel-output-calculator" className="button secondary-button">Solar Panel Output Calculator (PVWatts)</Link>
-          <Link href="/solar/solar-panel-size-calculator" className="button secondary-button">Solar Panel System Size Calculator</Link>
-          <Link href="/solar/solar-battery-bank-size-calculator" className="button secondary-button">Solar Battery Bank Sizing</Link>
-          <Link href="/solar/solar-charge-controller-calculator" className="button secondary-button">Solar Charge Controller Calculator</Link>
-          <Link href="/solar/solar-payback-calculator" className="button secondary-button">Solar Payback &amp; ROI Calculator</Link>
+
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(260px, 1fr))", gap: "1rem", marginBottom: "1.5rem" }}>
+          <div style={{ padding: "1.25rem", borderRadius: "0.5rem", border: "1px solid var(--line)", background: "var(--surface-subtle, #f8fafc)" }}>
+            <h3 style={{ margin: "0 0 0.5rem", fontSize: "1.05rem" }}>📐 Solar Panel Tilt Calculator</h3>
+            <p style={{ margin: "0 0 0.75rem", fontSize: "0.88rem", lineHeight: 1.5, color: "var(--muted)" }}>
+              Calculate precise year-round, winter steep, and summer shallow angles for your coordinate, and test production variance against your actual roof pitch.
+            </p>
+            <Link href="/solar/solar-panel-tilt-calculator" style={{ fontWeight: 600, color: "var(--accent)", fontSize: "0.9rem" }}>
+              Launch Tilt Calculator →
+            </Link>
+          </div>
+
+          <div style={{ padding: "1.25rem", borderRadius: "0.5rem", border: "1px solid var(--line)", background: "var(--surface-subtle, #f8fafc)" }}>
+            <h3 style={{ margin: "0 0 0.5rem", fontSize: "1.05rem" }}>☀️ Solar Panel Output Calculator</h3>
+            <p style={{ margin: "0 0 0.75rem", fontSize: "0.88rem", lineHeight: 1.5, color: "var(--muted)" }}>
+              Run full NREL PVWatts V8 hourly simulations. Quantify the exact annual kilowatt-hour loss when panels are installed flush on a sub-optimal roof pitch.
+            </p>
+            <Link href="/solar/solar-panel-output-calculator" style={{ fontWeight: 600, color: "var(--accent)", fontSize: "0.9rem" }}>
+              Simulate PVWatts AC Yield →
+            </Link>
+          </div>
+
+          <div style={{ padding: "1.25rem", borderRadius: "0.5rem", border: "1px solid var(--line)", background: "var(--surface-subtle, #f8fafc)" }}>
+            <h3 style={{ margin: "0 0 0.5rem", fontSize: "1.05rem" }}>🗺️ 50-State Solar &amp; Climate Matrix</h3>
+            <p style={{ margin: "0 0 0.75rem", fontSize: "0.88rem", lineHeight: 1.5, color: "var(--muted)" }}>
+              Access standardized NREL NSRDB peak sun hours (PSH), annual optimal tilt benchmarks, and ASHRAE design temperatures across all 50 states.
+            </p>
+            <Link href="/datasets/50-state-solar-insolation-climatic-benchmark" style={{ fontWeight: 600, color: "var(--accent)", fontSize: "0.9rem" }}>
+              50-State Insolation Benchmark Dataset →
+            </Link>
+          </div>
+
+          <div style={{ padding: "1.25rem", borderRadius: "0.5rem", border: "1px solid var(--line)", background: "var(--surface-subtle, #f8fafc)" }}>
+            <h3 style={{ margin: "0 0 0.5rem", fontSize: "1.05rem" }}>📄 Ground View &amp; Snow Albedo Research</h3>
+            <p style={{ margin: "0 0 0.75rem", fontSize: "0.88rem", lineHeight: 1.5, color: "var(--muted)" }}>
+              Read our peer-reviewed technical whitepaper analyzing Perez diffuse transposition models, snow albedo boost (+15% to +40%), and sub-zero Voc expansion.
+            </p>
+            <Link href="/research/ground-view-factor-snow-albedo-pv-tilt" style={{ fontWeight: 600, color: "var(--accent)", fontSize: "0.9rem" }}>
+              Read Research Report (PL-TR-2026-SOL03) →
+            </Link>
+          </div>
         </div>
+
+        <p style={{ fontSize: "0.88rem", color: "var(--muted)", margin: 0 }}>
+          Additional solar engineering tools: <Link href="/solar/solar-panel-size-calculator">System Size Calculator</Link> • <Link href="/solar/solar-battery-bank-size-calculator">Battery Bank Sizing</Link> • <Link href="/solar/solar-charge-controller-calculator">Charge Controller Sizing</Link> • <Link href="/solar/solar-payback-calculator">Payback &amp; ROI Calculator</Link>.
+        </p>
       </section>
 
       {/* Section 6: FAQs */}
@@ -326,6 +364,9 @@ export default function SolarTiltGuidePage() {
           Calculations implement mathematical algorithms from the <strong>National Renewable Energy Laboratory (NREL PVWatts V8 &amp; SPA)</strong>, <strong>IEC 61724</strong> photovoltaic monitoring standards, and <strong>ASHRAE</strong> clear-sky solar irradiance formulas. For snow albedo diffuse boost and sub-zero <em>V<sub>oc</sub></em> expansion formulas under NEC 690.7, read our technical report: <Link href="/research/ground-view-factor-snow-albedo-pv-tilt" style={{ color: "var(--brand-strong)", fontWeight: 700, textDecoration: "underline" }}>Ground View Factor Transposition &amp; Snow Albedo (PL-TR-2026-SOL03)</Link>.
         </p>
         <div style={{ display: "flex", flexWrap: "wrap", gap: "1rem", marginTop: "1rem" }}>
+          <Link href="/datasets/50-state-solar-insolation-climatic-benchmark" style={{ fontSize: "0.9rem", fontWeight: 600, color: "var(--accent)" }}>
+            50-State Solar Insolation Climatic Benchmark (PL-DS-SOL-03) →
+          </Link>
           <Link href="/solar/regional-climate-data" style={{ fontSize: "0.9rem", fontWeight: 600, color: "var(--accent)" }}>
             50-State NREL Solar &amp; Climate Database →
           </Link>

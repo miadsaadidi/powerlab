@@ -396,24 +396,56 @@ export default function SolarOutputPage() {
       </section>
 
       <section id="related-tools">
-        <h2>Related Solar &amp; Clean Energy Planning Tools</h2>
+        <h2>Connected Solar Planning &amp; Engineering Cluster</h2>
         <p>
-          Optimize your clean energy architecture with related PowerLab engineering workbenches:
+          Accurate solar PV generation modeling requires integrating mounting geometry, climatic insolation baselines, and energy storage engineering:
         </p>
-        <ul style={{ paddingLeft: "1.25rem", marginTop: "0.5rem" }}>
-          <li>
-            Calculate seasonal tilt optimization angles with the <Link href="/solar/solar-panel-tilt-calculator">Solar Panel Tilt Calculator</Link> or consult our engineering guide on <Link href="/guides/solar-panel-tilt-angle-by-latitude-and-season-guide">Solar Panel Tilt Angle by Latitude &amp; Season</Link>.
-          </li>
-          <li>
-            Size standalone battery storage for off-grid or hybrid solar with the <Link href="/solar/solar-battery-bank-size-calculator">Solar Battery Bank Size Calculator</Link> and <Link href="/solar/solar-charge-controller-calculator">Solar Charge Controller Calculator</Link>.
-          </li>
-          <li>
-            Evaluate project return on investment and simple payback periods with the <Link href="/solar/solar-payback-calculator">Solar Payback Calculator</Link> and <Link href="/guides/solar-payback-and-roi-calculation-guide">Solar Payback &amp; ROI Calculation Guide</Link>.
-          </li>
-          <li>
-            Access open climatic solar benchmarks across all 50 US states via our <Link href="/datasets/50-state-solar-insolation-climatic-benchmark">50-State Solar Insolation Climatic Benchmark Dataset</Link>.
-          </li>
-        </ul>
+
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(260px, 1fr))", gap: "1rem", marginTop: "1.25rem", marginBottom: "1.5rem" }}>
+          <div style={{ padding: "1.25rem", borderRadius: "0.5rem", border: "1px solid var(--border-color, #e2e8f0)", background: "var(--card-bg, #ffffff)" }}>
+            <h3 style={{ margin: "0 0 0.5rem", fontSize: "1.05rem" }}>📐 Optimize Tilt &amp; Azimuth</h3>
+            <p style={{ margin: "0 0 0.75rem", fontSize: "0.88rem", lineHeight: 1.5, color: "var(--text-muted)" }}>
+              Calculate precise year-round, steep winter, and shallow summer angles for your latitude to minimize cosine optical losses before locking in racking pitch.
+            </p>
+            <Link href="/solar/solar-panel-tilt-calculator" style={{ fontWeight: 600, color: "var(--accent)", fontSize: "0.9rem" }}>
+              Solar Panel Tilt Calculator →
+            </Link>
+          </div>
+
+          <div style={{ padding: "1.25rem", borderRadius: "0.5rem", border: "1px solid var(--border-color, #e2e8f0)", background: "var(--card-bg, #ffffff)" }}>
+            <h3 style={{ margin: "0 0 0.5rem", fontSize: "1.05rem" }}>🗺️ 50-State Solar &amp; Climate Matrix</h3>
+            <p style={{ margin: "0 0 0.75rem", fontSize: "0.88rem", lineHeight: 1.5, color: "var(--text-muted)" }}>
+              Access standardized NREL NSRDB peak sun hours, ASHRAE climatic design temperatures, and EIA residential electricity rates across all 50 U.S. states.
+            </p>
+            <Link href="/datasets/50-state-solar-insolation-climatic-benchmark" style={{ fontWeight: 600, color: "var(--accent)", fontSize: "0.9rem" }}>
+              50-State Insolation Benchmark Dataset →
+            </Link>
+          </div>
+
+          <div style={{ padding: "1.25rem", borderRadius: "0.5rem", border: "1px solid var(--border-color, #e2e8f0)", background: "var(--card-bg, #ffffff)" }}>
+            <h3 style={{ margin: "0 0 0.5rem", fontSize: "1.05rem" }}>📖 Solar Tilt &amp; Season Guide</h3>
+            <p style={{ margin: "0 0 0.75rem", fontSize: "0.88rem", lineHeight: 1.5, color: "var(--text-muted)" }}>
+              Explore mathematical models, 23.45° axial declination, global latitude matrices, and Perez snow albedo transposition boosts (+15% winter diffuse gain).
+            </p>
+            <Link href="/guides/solar-panel-tilt-angle-by-latitude-and-season-guide" style={{ fontWeight: 600, color: "var(--accent)", fontSize: "0.9rem" }}>
+              Solar Panel Tilt Angle Guide →
+            </Link>
+          </div>
+
+          <div style={{ padding: "1.25rem", borderRadius: "0.5rem", border: "1px solid var(--border-color, #e2e8f0)", background: "var(--card-bg, #ffffff)" }}>
+            <h3 style={{ margin: "0 0 0.5rem", fontSize: "1.05rem" }}>🔋 Storage Sizing &amp; Payback</h3>
+            <p style={{ margin: "0 0 0.75rem", fontSize: "0.88rem", lineHeight: 1.5, color: "var(--text-muted)" }}>
+              Convert modeled daily AC generation into battery bank capacity for critical backup, or evaluate project payback and ROI with local utility pricing.
+            </p>
+            <Link href="/solar/solar-battery-bank-size-calculator" style={{ fontWeight: 600, color: "var(--accent)", fontSize: "0.9rem" }}>
+              Battery Bank Sizing Calculator →
+            </Link>
+          </div>
+        </div>
+
+        <p style={{ fontSize: "0.9rem", color: "var(--text-muted)" }}>
+          Also explore regional meteorological tables in our <Link href="/solar/regional-climate-data" style={{ fontWeight: 600, color: "var(--accent)" }}>U.S. Regional Solar Insolation &amp; Climate Database</Link>, evaluate economics with our <Link href="/solar/solar-payback-calculator" style={{ fontWeight: 600, color: "var(--accent)" }}>Solar Payback Calculator</Link>, or inspect sub-zero voltage expansion under NEC 690.7 in research paper <Link href="/research/ground-view-factor-snow-albedo-pv-tilt" style={{ fontWeight: 600, color: "var(--accent)" }}>PL-TR-2026-SOL03</Link>.
+        </p>
       </section>
     </article>
   );

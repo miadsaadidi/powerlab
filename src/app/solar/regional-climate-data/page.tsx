@@ -261,6 +261,18 @@ export default function RegionalClimateDataPage() {
             <div style={{ fontSize: "0.82rem", color: "var(--text-muted, #64748b)" }}>Evaluates SEER2 cooling electricity expenses using ASHRAE 1% summer temperature bins.</div>
           </Link>
         </div>
+
+        <div style={{ marginTop: "1.25rem", paddingTop: "1rem", borderTop: "1px solid var(--line, #e2e8f0)", display: "flex", flexWrap: "wrap", gap: "1.25rem", fontSize: "0.88rem" }}>
+          <Link href="/datasets/50-state-solar-insolation-climatic-benchmark" style={{ fontWeight: 600, color: "var(--primary, #0284c7)" }}>
+            📦 50-State Solar Insolation Climatic Benchmark Dataset (PL-DS-SOL-03) →
+          </Link>
+          <Link href="/guides/solar-panel-tilt-angle-by-latitude-and-season-guide" style={{ fontWeight: 600, color: "var(--primary, #0284c7)" }}>
+            📖 Solar Panel Tilt Angle by Latitude Guide →
+          </Link>
+          <Link href="/research/ground-view-factor-snow-albedo-pv-tilt" style={{ fontWeight: 600, color: "var(--primary, #0284c7)" }}>
+            📄 Snow Albedo Transposition Research (PL-TR-2026-SOL03) →
+          </Link>
+        </div>
       </section>
     </div>
   );
