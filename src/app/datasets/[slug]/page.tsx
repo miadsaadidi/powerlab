@@ -457,6 +457,31 @@ export default async function DatasetDetailPage({ params }: PageProps) {
                 </span>
               </Link>
             ))}
+
+            {ds.relatedGuides?.map((guide, gIdx) => (
+              <Link
+                key={gIdx}
+                href={guide.route}
+                style={{
+                  display: "block",
+                  padding: "1.25rem",
+                  background: "var(--surface-subtle, #f8fafc)",
+                  border: "1px solid var(--line)",
+                  borderRadius: "0.5rem",
+                  textDecoration: "none",
+                }}
+              >
+                <div style={{ fontSize: "0.75rem", fontWeight: 700, color: "#d97706", textTransform: "uppercase", marginBottom: "0.25rem" }}>
+                  Authoritative Engineering Guide
+                </div>
+                <h3 style={{ fontSize: "0.98rem", fontWeight: 700, color: "var(--brand-strong)", margin: "0 0 0.35rem" }}>
+                  {guide.name}
+                </h3>
+                <span style={{ fontSize: "0.82rem", color: "#d97706", fontWeight: 600 }}>
+                  Read Technical Guide →
+                </span>
+              </Link>
+            ))}
           </div>
         </section>
 

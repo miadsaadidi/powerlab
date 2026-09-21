@@ -459,6 +459,7 @@ export interface BenchmarkDataset {
     reportNumber: string;
   };
   relatedCalculators: RelatedLink[];
+  relatedGuides?: RelatedLink[];
   bibtex: string;
   apaCitation: string;
   ieeeCitation: string;
@@ -517,6 +518,10 @@ export const BENCHMARK_DATASETS: BenchmarkDataset[] = [
       { name: "EV Charger Breaker Size Calculator", route: "/ev/ev-charger-breaker-size-calculator" },
       { name: "EV Charging Time Calculator", route: "/ev/ev-charging-time-calculator" },
       { name: "Voltage Drop & Wire Size Calculator", route: "/battery/voltage-drop-calculator" },
+    ],
+    relatedGuides: [
+      { name: "How to Calculate EV Driving Range & Efficiency Guide", route: "/guides/how-to-calculate-ev-driving-range-and-efficiency-guide" },
+      { name: "Voltage Drop & Wire Size Calculation Guide", route: "/guides/voltage-drop-and-wire-size-calculation-guide" },
     ],
     bibtex: `@dataset{powerlab_2026_evse_dataset,
   author       = {{PowerLab Clean Energy Engineering Group}},
@@ -583,6 +588,10 @@ export const BENCHMARK_DATASETS: BenchmarkDataset[] = [
       { name: "Air Conditioner Running Cost Calculator", route: "/home-energy/air-conditioner-cost-calculator" },
       { name: "Electricity Usage Calculator", route: "/home-energy/electricity-usage-calculator" },
     ],
+    relatedGuides: [
+      { name: "Central AC & Heat Pump Electricity Cost Guide", route: "/guides/central-ac-and-heat-pump-electricity-cost-guide" },
+      { name: "Daily Household Electricity Consumption Guide", route: "/guides/how-many-kwh-does-a-house-use-per-day" },
+    ],
     bibtex: `@dataset{powerlab_2026_heatpump_dataset,
   author       = {{PowerLab Clean Energy Engineering Group}},
   title        = {Cold-Climate Air-Source Heat Pump COP Degradation & Balance Point Dataset},
@@ -646,6 +655,10 @@ export const BENCHMARK_DATASETS: BenchmarkDataset[] = [
       { name: "Solar Panel Tilt Calculator", route: "/solar/solar-panel-tilt-calculator" },
       { name: "Solar Panel Output Calculator", route: "/solar/solar-panel-output-calculator" },
       { name: "Solar Payback Calculator", route: "/solar/solar-payback-calculator" },
+    ],
+    relatedGuides: [
+      { name: "Solar Panel Tilt Angle by Latitude & Season Guide", route: "/guides/solar-panel-tilt-angle-by-latitude-and-season-guide" },
+      { name: "Solar Payback Period & ROI Calculation Guide", route: "/guides/solar-payback-and-roi-calculation-guide" },
     ],
     bibtex: `@dataset{powerlab_2026_solar_50state,
   author       = {{PowerLab Clean Energy Engineering Group}},
