@@ -100,7 +100,7 @@ When prompted with *"SEO plan this week"* or *"SEO plan today"*, return strictly
 
 ### Track F: External Technical Distribution (Dev.to / Hashnode)
 * **Candidate F-01 — Dev.to Engineering Post:** *"Deterministic Solar PV AC Yield Modeling in Pure TypeScript via NREL PVWatts V8"*.
-* **Candidate F-02 — Hashnode Engineering Post:** *"Mathematical Formulation of Continuous-Duty Thermal Ampacity in Residential EVSE Systems"*.
+* **Candidate F-02 — DEV.to Engineering Post:** *"Mathematical Formulation of Continuous-Duty Thermal Ampacity in Residential EVSE Systems"*: COMPLETED (Session 45 via `DEV-06`, verified canonical pointing to `PL-TR-2026-EVSE01`).
 
 ---
 
