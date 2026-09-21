@@ -78,6 +78,8 @@ When prompted with *"SEO plan this week"* or *"SEO plan today"*, return strictly
 * **Candidate T2-02 — Home Electrification & Daily Load Cluster Mesh:** COMPLETED (Session 40) $\rightarrow$ **Measurement Mode**.
 * **Candidate T2-03 — Solar PV Yield, Tilt & Climate Cluster Mesh:** COMPLETED (Session 44) $\rightarrow$ **Measurement Mode**.  
   *Delivered:* Interconnected `/guides/solar-panel-tilt-angle-by-latitude-and-season-guide` $\longleftrightarrow$ `/solar/solar-panel-tilt-calculator` $\longleftrightarrow$ `/solar/solar-panel-output-calculator` $\longleftrightarrow$ `/datasets/50-state-solar-insolation-climatic-benchmark` and `/solar/regional-climate-data` with responsive 4-way cluster planning mesh cards; added companion engineering guides to benchmark dataset schema; all pure calculation engines kept 100% untouched.
+* **Candidate T2-04 / L1-01 — EV Infrastructure Breaker Sizing & Continuous-Duty Thermal Cluster Mesh:** COMPLETED (Session 45) $\rightarrow$ **Measurement Mode**.  
+  *Delivered:* Interconnected `/ev/ev-charger-breaker-size-calculator` $\longleftrightarrow$ `/guides/level-2-ev-charging-speed-and-breaker-sizing-guide` $\longleftrightarrow$ `/datasets/continuous-duty-evse-terminal-temperature-benchmark` (`PL-DS-EVSE-01`) $\longleftrightarrow$ `/ev/ev-charging-time-calculator` $\longleftrightarrow$ `/battery/voltage-drop-calculator` with responsive 4-way planning mesh cards; corrected dataset ID label; synchronized `relatedGuides` array in dataset schema; all pure calculation engines kept 100% untouched.
 
 ### Track C: Technical & Architecture Fixes
 * **Candidate T4-01 — Ahrefs Crawl & Link Remediation:** COMPLETED (PR #12).
@@ -93,7 +95,7 @@ When prompted with *"SEO plan this week"* or *"SEO plan today"*, return strictly
   *Status:* **RESEARCH / PROVENANCE GATE** (Validating PNNL field study open distribution rights).
 
 ### Track E: Layer 1 Supporting Intent Candidates
-* **Candidate L1-01 — Level 2 EVSE Continuous Duty 125% Ampacity Sizing Guide:** Narrow technical intent targeting NEC Article 625.42 and 80% continuous breaker loading.
+* **Candidate L1-01 — Level 2 EVSE Continuous Duty 125% Ampacity Sizing Guide:** COMPLETED (Session 45 via Candidate T2-04 Cluster Mesh) $\rightarrow$ **Measurement Mode**.
 * **Candidate L1-02 — Solar Inverter DC-to-AC Ratio & Clipping Loss Guide:** Focused guide explaining 1.15 to 1.30 DC/AC ratios and Sandia inverter efficiency curves.
 
 ### Track F: External Technical Distribution (Dev.to / Hashnode)

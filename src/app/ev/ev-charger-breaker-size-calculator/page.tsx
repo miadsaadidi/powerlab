@@ -356,15 +356,55 @@ export default function EvBreakerSizePage() {
       </section>
 
       <section id="related-tools">
-        <h2>Related EV Charging &amp; Electrical Planning</h2>
+        <h2>Connected EV Infrastructure &amp; Electrical Planning Cluster</h2>
         <p>
-          Calculate full battery charge durations with our <Link href="/ev/ev-charging-time-calculator">EV Charging Time Calculator</Link>, check feeder run length and cable loss with the <Link href="/battery/voltage-drop-calculator">Voltage Drop Calculator</Link>, assess battery driving range with the <Link href="/ev/ev-range-calculator">EV Range Calculator</Link>, or project home charging electricity expenses with the <Link href="/ev/ev-charging-cost-calculator">EV Charging Cost Calculator</Link>.
+          Determining the minimum circuit breaker rating is one component of residential EV charging design. PowerLab interconnects branch circuit overcurrent protection with charge duration simulation, feeder run voltage drop, and open research data:
         </p>
-        <p style={{ marginTop: "0.75rem" }}>
-          📖 <strong>In-Depth Technical Guide:</strong> Read our comprehensive <Link href="/guides/level-2-ev-charging-speed-and-breaker-sizing-guide" style={{ fontWeight: 600, color: "var(--accent)" }}>Level 2 EV Charging Speed, Amperage &amp; Breaker Sizing Guide</Link> for detailed continuous load calculations, NEC 80% rule charts, and hardwired vs. plug-in comparisons.
-        </p>
-        <p style={{ marginTop: "0.5rem" }}>
-          📊 <strong>Empirical Benchmark Dataset:</strong> Review our open research benchmark <Link href="/datasets/continuous-duty-evse-terminal-temperature-benchmark" style={{ fontWeight: 600, color: "var(--brand-strong)" }}>Continuous Duty EVSE Terminal Temperature Benchmark (PL-DS-EVSE-04)</Link> for thermal rise data across NEMA 14-50 receptacles vs hardwired lugs.
+
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(260px, 1fr))", gap: "1rem", marginTop: "1.25rem", marginBottom: "1.5rem" }}>
+          <div style={{ padding: "1.25rem", borderRadius: "0.5rem", border: "1px solid var(--border-color, #e2e8f0)", background: "var(--card-bg, #ffffff)" }}>
+            <h3 style={{ margin: "0 0 0.5rem", fontSize: "1.05rem" }}>⚡ EV Charging Time Simulator</h3>
+            <p style={{ margin: "0 0 0.75rem", fontSize: "0.88rem", lineHeight: 1.5, color: "var(--text-muted)" }}>
+              Model full and partial battery replenishment hours across Level 1 and Level 2 charging rates (1.4 kW to 19.2 kW) factoring in onboard AC converter limits.
+            </p>
+            <Link href="/ev/ev-charging-time-calculator" style={{ fontWeight: 600, color: "var(--accent)", fontSize: "0.9rem" }}>
+              EV Charging Time Calculator →
+            </Link>
+          </div>
+
+          <div style={{ padding: "1.25rem", borderRadius: "0.5rem", border: "1px solid var(--border-color, #e2e8f0)", background: "var(--card-bg, #ffffff)" }}>
+            <h3 style={{ margin: "0 0 0.5rem", fontSize: "1.05rem" }}>📐 Feeder Wire Gauge &amp; Voltage Drop</h3>
+            <p style={{ margin: "0 0 0.75rem", fontSize: "0.88rem", lineHeight: 1.5, color: "var(--text-muted)" }}>
+              Verify copper/aluminum conductor resistance over long cable distances (50–200 ft) to ensure branch circuit voltage drop remains safely below the 3% NEC limit.
+            </p>
+            <Link href="/battery/voltage-drop-calculator" style={{ fontWeight: 600, color: "var(--accent)", fontSize: "0.9rem" }}>
+              Voltage Drop &amp; Wire Size Calculator →
+            </Link>
+          </div>
+
+          <div style={{ padding: "1.25rem", borderRadius: "0.5rem", border: "1px solid var(--border-color, #e2e8f0)", background: "var(--card-bg, #ffffff)" }}>
+            <h3 style={{ margin: "0 0 0.5rem", fontSize: "1.05rem" }}>📖 Level 2 Breaker &amp; Ampacity Guide</h3>
+            <p style={{ margin: "0 0 0.75rem", fontSize: "0.88rem", lineHeight: 1.5, color: "var(--text-muted)" }}>
+              Explore deep engineering math behind the NEC 80% continuous load rule, 60°C vs 75°C terminal temperature envelopes, and hardwired vs NEMA 14-50 trade-offs.
+            </p>
+            <Link href="/guides/level-2-ev-charging-speed-and-breaker-sizing-guide" style={{ fontWeight: 600, color: "var(--accent)", fontSize: "0.9rem" }}>
+              Level 2 Charging Speed &amp; Breaker Guide →
+            </Link>
+          </div>
+
+          <div style={{ padding: "1.25rem", borderRadius: "0.5rem", border: "1px solid var(--border-color, #e2e8f0)", background: "var(--card-bg, #ffffff)" }}>
+            <h3 style={{ margin: "0 0 0.5rem", fontSize: "1.05rem" }}>📊 EVSE Terminal Temperature Benchmark</h3>
+            <p style={{ margin: "0 0 0.75rem", fontSize: "0.88rem", lineHeight: 1.5, color: "var(--text-muted)" }}>
+              Access 120 continuous load empirical test records measuring conductor temperature rise, terminal lug heat dissipation, and contact resistance under NEC 625.42.
+            </p>
+            <Link href="/datasets/continuous-duty-evse-terminal-temperature-benchmark" style={{ fontWeight: 600, color: "var(--accent)", fontSize: "0.9rem" }}>
+              EVSE Terminal Benchmark Dataset (PL-DS-EVSE-01) →
+            </Link>
+          </div>
+        </div>
+
+        <p style={{ fontSize: "0.9rem", color: "var(--text-muted)" }}>
+          Also evaluate real-world range efficiency in our <Link href="/ev/ev-range-calculator" style={{ fontWeight: 600, color: "var(--accent)" }}>EV Real-World Range Calculator</Link>, model home charging electricity tariffs with the <Link href="/ev/ev-charging-cost-calculator" style={{ fontWeight: 600, color: "var(--accent)" }}>EV Charging Cost Calculator</Link>, or read the peer-reviewed research whitepaper <Link href="/research/continuous-duty-thermal-sizing-evse-ampacity" style={{ fontWeight: 600, color: "var(--accent)" }}>PL-TR-2026-EVSE01</Link>.
         </p>
       </section>
 
