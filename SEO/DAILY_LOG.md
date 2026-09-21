@@ -24,6 +24,8 @@
   - Static SSG build: **84/84 pages generated successfully** (`next build`).
 * **Step 3 (External Technical Distribution — DEV.to Publication Sync):**
   - Published and verified `DEV-06` on DEV.to ([Article Link](https://dev.to/miad_ea7faef80e5125861119/mathematical-formulation-of-continuous-duty-thermal-ampacity-in-residential-evse-systems-459c), DA 91 / DR 89) titled *"Mathematical Formulation of Continuous-Duty Thermal Ampacity in Residential EVSE Systems"* with verified `rel="canonical"` tag pointing to `/research/continuous-duty-thermal-sizing-evse-ampacity`. In-body links interconnect to benchmark dataset `PL-DS-EVSE-01`, `/ev/ev-charger-breaker-size-calculator`, and `/guides/level-2-ev-charging-speed-and-breaker-sizing-guide`. Synchronized `SEO/BACKLINK_LOG.csv` and `SEO/EXTERNAL_DISTRIBUTION.md`.
+* **Step 4 (Layer 1 External Academic Distribution — BibSonomy Sync):**
+  - Registered and verified `BIB-05` bookmark on BibSonomy (`@miadinside`, DA 74 / DR 76 — Univ. of Kassel & L3S Research Center) pointing to `/ev/ev-charger-breaker-size-calculator` with strict space-separated tagging format (`DOFOLLOW VERIFIED`). Synchronized `SEO/BACKLINK_LOG.csv` and `SEO/EXTERNAL_DISTRIBUTION.md`.
 * **SEO Asset Status:** `COMPLETED — MEASUREMENT MODE` (All EV infrastructure cluster assets placed in measurement mode).
 * **Next SEO Objective / Action Required:** Track D Core Publication Provenance Gates (Candidate CD-01 or CD-02) or Additive Search-Gap Backlog evaluation upon next user review.
 
