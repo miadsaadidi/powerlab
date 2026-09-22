@@ -43,6 +43,38 @@ Where:
 - $\eta_{\text{inverter}}$: Inverter conversion efficiency under load ($0.90 - 0.96$)
 - $P_{\text{tare}}$: Inverter idle / no-load standby power dissipation ($15\text{W} - 60\text{W}$)
 
+### 1.3 Residential BESS Cycle-Life Degradation & Arrhenius Aging Kinetics (IEEE Std 1561 & UL 1973)
+Usable capacity fade in stationary Lithium Iron Phosphate (LiFePO4) and NMC storage combines cycle throughput loss and square-root calendar aging:
+
+```latex
+Q_{\text{retention}}(t, N) = 1 - \left[ Q_{\text{cycle}}(N, T, \text{DoD}) + Q_{\text{calendar}}(t, T, \text{SoC}) \right]
+```
+
+Where cycle degradation follows power-law Arrhenius kinetics:
+
+```latex
+Q_{\text{cycle}} = A_{\text{cycle}} \cdot \exp\left( -\frac{E_{a,\text{cycle}}}{R \cdot T_K} \right) \cdot \left( \frac{\text{DoD}}{1.0} \right)^\beta \cdot N^z
+```
+
+And calendar aging follows temperature- and SoC-dependent diffusion kinetics:
+
+```latex
+Q_{\text{calendar}} = B_{\text{cal}} \cdot \exp\left( -\frac{E_{a,\text{cal}}}{R \cdot T_K} \right) \cdot \exp(\gamma_{\text{soc}} \cdot \text{SoC}) \cdot \sqrt{t_{\text{years}}}
+```
+
+Internal resistance growth $R_{\text{growth}}$ expands ohmic Joule heating ($P_{\text{loss}} = I^2 R$) and reduces round-trip efficiency:
+
+```latex
+R_{\text{internal}}(N) = R_0 \cdot \left[ 1 + \alpha_{\text{sei}} \cdot \sqrt{N} \right]
+```
+
+Governing Parameters:
+- $N$: Cumulative Equivalent Full Cycles (EFC)
+- $T_K$: Operating cell temperature in Kelvin ($T_K = T_{\text{celsius}} + 273.15$)
+- $E_a$: SEI layer activation energy ($~30 - 35\text{ kJ/mol}$)
+- $z$: Diffusion-limited degradation exponent ($z \approx 0.50 - 0.60$)
+- Warranty End-of-Life (EOL): Reaching $70\% - 80\%$ retained capacity ($Q_{\text{retention}} \le 0.70 - 0.80$)
+
 ---
 
 ## 2. Solar Photovoltaic Sizing & Irradiance Transposition

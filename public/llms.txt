@@ -76,6 +76,7 @@ Home Energy & HVAC ⟷ Battery Storage ⟷ Solar Photovoltaics ⟷ Electric Vehi
 8. **[Central AC & Heat Pump Electricity Cost Guide](https://www.powelab.org/guides/central-ac-and-heat-pump-electricity-cost-guide)**: SEER2 vs SEER conversions, AHRI 210/240 heating seasonal performance factor (HSPF2), and ASHRAE temperature bin modeling.
 9. **[Solar Payback Period & Net Metering ROI Financial Guide](https://www.powelab.org/guides/solar-payback-and-roi-calculation-guide)**: Simple payback vs dynamic discounted cash flows, 30% Federal ITC (IRC Section 25D), panel degradation, and NEM 3.0 net billing tariffs.
 10. **[Space Heater vs Central Heating Electricity Cost Guide](https://www.powelab.org/guides/space-heater-electricity-cost-and-wattage-guide)**: Joule heating thermodynamics ($P = I^2 R$), 1,500W continuous circuit limits (NEC 210.19), thermostat duty cycles, and zone heating vs heat pump COP economics.
+11. **[Residential Battery Storage Lifespan, Calendar Aging & Thermal Derating Guide](https://www.powelab.org/guides/residential-battery-storage-lifespan-and-degradation-guide)**: LiFePO4 vs NMC degradation kinetics, cycle life fade (1,000–6,000 EFC), square-root calendar aging, -10°C to +45°C ambient thermal derating, internal resistance growth, and warranty 70%–80% EOL thresholds (IEEE Std 1561, UL 1973, IEC 62619).
 
 ---
 
@@ -88,17 +89,24 @@ Home Energy & HVAC ⟷ Battery Storage ⟷ Solar Photovoltaics ⟷ Electric Vehi
 
 ---
 
-## 5. Regional Meteorological & Solar Datasets
+## 5. Open Scientific Benchmark Datasets & Data Packages (`/datasets`)
 
-- **[U.S. Solar Insolation & ASHRAE Climatic Database](https://www.powelab.org/solar/regional-climate-data)**: Comprehensive 50-state database indexing NREL Peak Sun Hours (PSH), ASHRAE 99% winter / 1% summer dry-bulb temperatures, and EIA residential electricity rates.
+- **[Residential BESS Cycle-Life Degradation & Thermal Loss Benchmark](https://www.powelab.org/datasets/residential-battery-storage-degradation-and-thermal-loss-benchmark)** (ID: `PL-DS-BESS-06` | DataCite DOI: [`10.6084/m9.figshare.33968602`](https://doi.org/10.6084/m9.figshare.33968602)): 160-configuration matrix compiling empirical capacity retention, impedance growth, and calendar fade across LiFePO4 and NMC storage.
+- **[Stationary BESS Peukert Derating & Tare Loss Benchmark](https://www.powelab.org/datasets/bess-peukert-capacity-derating-tare-loss-benchmark)** (ID: `PL-DS-BESS-05` | DataCite DOI: [`10.6084/m9.figshare.33821940`](https://doi.org/10.6084/m9.figshare.33821940)): Multi-cell LiFePO4 vs AGM discharge rate capacity retention and inverter standby dissipation matrix.
+- **[Level 2 EVSE Continuous-Duty Conductor & Terminal Temperature Benchmark](https://www.powelab.org/datasets/continuous-duty-evse-terminal-temperature-benchmark)** (ID: `PL-DS-EVSE-01` | DataCite DOI: [`10.6084/m9.figshare.33321774`](https://doi.org/10.6084/m9.figshare.33321774)): 120-run empirical matrix evaluating Joule heating, 60°C vs 75°C terminal limits under NEC 625.42.
+- **[50-State Solar Insolation, Peak Sun Hours & Climatic Design Matrix](https://www.powelab.org/datasets/50-state-solar-insolation-climatic-benchmark)** (ID: `PL-DS-SOL-03` | DataCite DOI: [`10.6084/m9.figshare.33618778`](https://doi.org/10.6084/m9.figshare.33618778)): Standardized NREL NSRDB peak sun hours, optimal tilt angles, ASHRAE design temperatures, and EIA electricity rates across all 50 states.
+- **[Central AC SEER2 vs SEER Energy Consumption & CDD Benchmark](https://www.powelab.org/datasets/central-air-conditioner-seer2-cooling-degree-day-benchmark)** (ID: `PL-DS-AC-04` | DataCite DOI: [`10.6084/m9.figshare.33678514`](https://doi.org/10.6084/m9.figshare.33678514)): DOE Appendix M1 static pressure deratings (0.50 in. w.g.) and annual kWh operational demands across 1.5 to 5.0 tons.
+- **[Residential Standby Generator Motor Inrush & Voltage Sag Benchmark](https://www.powelab.org/datasets/standby-generator-motor-inrush-voltage-sag-benchmark)** (ID: `PL-DS-GEN-04` | DataCite DOI: [`10.6084/m9.figshare.33753856`](https://doi.org/10.6084/m9.figshare.33753856) | Hugging Face: `10.57967/hf/10419`): Transient LRA inrush apparent power, sub-transient reactance (X''d), and soft-starter surge reductions under ISO 8528-5.
+- **[Cold-Climate Heat Pump COP Degradation & Balance Point Dataset](https://www.powelab.org/datasets/cold-climate-heat-pump-cop-degradation-benchmark)** (ID: `PL-DS-HP-02` | DataCite DOI: [`10.6084/m9.figshare.33470950`](https://doi.org/10.6084/m9.figshare.33470950)): Thermodynamic matrices of COP collapse and auxiliary electric resistance staging from -20°C to +10°C under AHRI 210/240.
 
 ---
 
-## 5. Verified External Entity & Publication Links
+## 6. Verified External Entity & Academic Links
 
+- **Figshare Open Research Repository:** https://figshare.com/authors/Miad_Saadidi/24671005
 - **Academia.edu Research Hub:** https://independent.academia.edu/PowerLabEngineering
+- **BibSonomy Scholarly Index:** https://www.bibsonomy.org/user/miadinside
 - **Harvard Dataverse Research Repository:** https://dataverse.harvard.edu/dataverse/powerlab
 - **Google Search Preferences Entity:** https://www.google.com/preferences/source?q=powelab.org
-- **Trustpilot Review Hub:** https://www.trustpilot.com/review/powelab.org
 
 For full mathematical specifications, raw LaTeX equation definitions, and code algorithms, see: **https://www.powelab.org/llms-full.txt**
