@@ -569,192 +569,82 @@ export default function ResearchHubPage() {
         </div>
       </section>
 
-      {/* Section 3: Open Benchmark Datasets Grid */}
+      {/* Section 3: Open Benchmark Datasets Portal */}
       <section style={{ marginBottom: "3rem" }}>
-        <div style={{ display: "flex", alignItems: "center", gap: "0.5rem", marginBottom: "0.5rem" }}>
-          <span style={{ fontSize: "1.25rem" }}>📊</span>
-          <h2 style={{ fontSize: "1.45rem", fontWeight: 800, color: "var(--brand-strong)", margin: 0 }}>
-            Open Benchmark Datasets &amp; Hugging Face Repositories
-          </h2>
-          <span style={{ fontSize: "0.8rem", fontWeight: 700, background: "rgba(16, 185, 129, 0.1)", color: "#10b981", padding: "0.15rem 0.5rem", borderRadius: "9999px", border: "1px solid rgba(16, 185, 129, 0.25)", marginLeft: "0.25rem" }}>
-            {BENCHMARK_DATASETS.length} Repositories
-          </span>
-        </div>
-        <p style={{ fontSize: "0.9rem", color: "var(--muted)", maxWidth: "900px", lineHeight: 1.5, marginBottom: "1.25rem" }}>
-          Empirical matrices and reproducible packages registered with persistent DataCite DOIs across Figshare and Hugging Face.
-        </p>
-
         <div
           style={{
-            display: "grid",
-            gridTemplateColumns: "repeat(auto-fill, minmax(min(100%, 350px), 1fr))",
+            border: "1px solid rgba(16, 185, 129, 0.3)",
+            borderRadius: "0.75rem",
+            background: "linear-gradient(135deg, rgba(16, 185, 129, 0.04) 0%, rgba(2, 132, 199, 0.04) 100%)",
+            padding: "2rem",
+            display: "flex",
+            flexDirection: "column",
             gap: "1.25rem",
           }}
         >
-          {BENCHMARK_DATASETS.map((ds) => (
-            <div
-              key={ds.id}
+          <div style={{ display: "flex", flexWrap: "wrap", alignItems: "center", justifyContent: "space-between", gap: "1rem" }}>
+            <div>
+              <div style={{ display: "flex", alignItems: "center", gap: "0.5rem", marginBottom: "0.35rem" }}>
+                <span style={{ fontSize: "1.3rem" }}>📊</span>
+                <h2 style={{ fontSize: "1.35rem", fontWeight: 800, color: "var(--brand-strong)", margin: 0 }}>
+                  Open Scientific Benchmark Datasets &amp; Data Packages
+                </h2>
+                <span style={{ fontSize: "0.76rem", fontWeight: 700, background: "rgba(16, 185, 129, 0.12)", color: "#059669", padding: "0.15rem 0.55rem", borderRadius: "9999px", border: "1px solid rgba(16, 185, 129, 0.25)" }}>
+                  {BENCHMARK_DATASETS.length} Datasets
+                </span>
+              </div>
+              <p style={{ fontSize: "0.92rem", color: "var(--ink)", maxWidth: "820px", lineHeight: 1.55, margin: 0 }}>
+                Looking for raw empirical data? PowerLab maintains a dedicated, open-access repository of reproducible benchmark datasets for solar insolation, battery degradation kinetics, EVSE terminal thermal heating, motor inrush currents, and heat pump COPs.
+              </p>
+            </div>
+            <Link
+              href="/datasets"
+              className="button primary-button"
               style={{
-                background: "var(--surface)",
-                border: "1px solid var(--line)",
-                borderTop: "3px solid #10b981",
-                borderRadius: "0.65rem",
-                padding: "1.25rem",
-                boxShadow: "0 2px 6px rgba(0,0,0,0.02)",
-                display: "flex",
-                flexDirection: "column",
-                justifyContent: "space-between",
+                display: "inline-flex",
+                alignItems: "center",
+                gap: "0.45rem",
+                background: "#059669",
+                color: "#ffffff",
+                padding: "0.75rem 1.35rem",
+                borderRadius: "0.5rem",
+                fontWeight: 700,
+                fontSize: "0.92rem",
+                textDecoration: "none",
+                whiteSpace: "nowrap",
+                boxShadow: "0 2px 8px rgba(5, 150, 105, 0.25)",
               }}
             >
-              <div>
-                <div style={{ display: "flex", flexWrap: "wrap", alignItems: "center", gap: "0.4rem", marginBottom: "0.65rem" }}>
-                  <span style={{ background: "rgba(16, 185, 129, 0.1)", color: "#10b981", fontSize: "0.72rem", fontWeight: 700, padding: "0.15rem 0.45rem", borderRadius: "4px", textTransform: "uppercase" }}>
-                    📊 {ds.repository}
-                  </span>
-                  {ds.doi && (
-                    <a
-                      href={`https://doi.org/${ds.doi}`}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      style={{
-                        background: "var(--surface-subtle, #f1f5f9)",
-                        color: "var(--ink-secondary)",
-                        fontSize: "0.7rem",
-                        fontWeight: 600,
-                        padding: "0.15rem 0.45rem",
-                        borderRadius: "4px",
-                        border: "1px solid var(--line)",
-                        fontFamily: "monospace",
-                        textDecoration: "none",
-                      }}
-                    >
-                      DOI: {ds.doi}
-                    </a>
-                  )}
-                  <span style={{ fontSize: "0.72rem", color: "var(--muted)", marginLeft: "auto" }}>
-                    {ds.recordCount}
-                  </span>
-                </div>
+              Explore Open Datasets Catalog ({BENCHMARK_DATASETS.length}) →
+            </Link>
+          </div>
 
-                <h3
-                  style={{
-                    fontSize: "1.08rem",
-                    fontWeight: 700,
-                    color: "var(--brand-strong)",
-                    marginBottom: "0.35rem",
-                    lineHeight: 1.35,
-                    display: "-webkit-box",
-                    WebkitLineClamp: 2,
-                    WebkitBoxOrient: "vertical",
-                    overflow: "hidden",
-                    minHeight: "2.7rem",
-                  }}
-                >
-                  <Link href={`/datasets/${ds.slug}`} style={{ color: "inherit", textDecoration: "none" }} title={ds.title}>
-                    {ds.title}
-                  </Link>
-                </h3>
-
-                <p
-                  style={{
-                    fontSize: "0.84rem",
-                    color: "var(--ink)",
-                    lineHeight: 1.45,
-                    marginBottom: "0.45rem",
-                    display: "-webkit-box",
-                    WebkitLineClamp: 3,
-                    WebkitBoxOrient: "vertical",
-                    overflow: "hidden",
-                    minHeight: "3.65rem",
-                  }}
-                  title={ds.description}
-                >
-                  {ds.description}
-                </p>
-
-                {/* Read Paper Inline Link */}
-                <div style={{ marginBottom: "0.75rem" }}>
-                  <Link
-                    href={`/research/${ds.paperSlug}`}
-                    style={{
-                      fontSize: "0.82rem",
-                      fontWeight: 700,
-                      color: "var(--accent, #0284c7)",
-                      textDecoration: "underline",
-                      textUnderlineOffset: "3px",
-                      display: "inline-flex",
-                      alignItems: "center",
-                      gap: "0.2rem",
-                    }}
-                  >
-                    Read companion paper &rarr;
-                  </Link>
-                </div>
-              </div>
-
-              {/* Dataset Action Bar: Dedicated Figshare & Hugging Face Buttons */}
-              <div
+          {/* Quick-links strip to featured datasets */}
+          <div style={{ display: "flex", flexWrap: "wrap", gap: "0.6rem", paddingTop: "0.75rem", borderTop: "1px solid rgba(0,0,0,0.06)" }}>
+            <span style={{ fontSize: "0.78rem", fontWeight: 700, color: "var(--muted)", alignSelf: "center", textTransform: "uppercase" }}>Featured:</span>
+            {BENCHMARK_DATASETS.slice(0, 4).map((ds) => (
+              <Link
+                key={ds.id}
+                href={`/datasets/${ds.slug}`}
                 style={{
-                  display: "flex",
-                  flexWrap: "wrap",
+                  fontSize: "0.8rem",
+                  padding: "0.25rem 0.65rem",
+                  borderRadius: "0.35rem",
+                  background: "var(--surface)",
+                  border: "1px solid var(--line)",
+                  color: "var(--brand-strong)",
+                  textDecoration: "none",
+                  fontWeight: 600,
+                  display: "inline-flex",
                   alignItems: "center",
-                  gap: "0.4rem",
-                  paddingTop: "0.75rem",
-                  borderTop: "1px solid var(--line)",
+                  gap: "0.25rem",
                 }}
               >
-                {ds.doi && (
-                  <a
-                    href={`https://doi.org/${ds.doi}`}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    style={{
-                      display: "inline-flex",
-                      alignItems: "center",
-                      gap: "0.25rem",
-                      background: "rgba(147, 51, 234, 0.08)",
-                      color: "#9333ea",
-                      border: "1px solid rgba(147, 51, 234, 0.25)",
-                      fontWeight: 600,
-                      fontSize: "0.75rem",
-                      padding: "0.32rem 0.65rem",
-                      borderRadius: "0.35rem",
-                      textDecoration: "none",
-                    }}
-                    title={`DataCite Figshare DOI: ${ds.doi}`}
-                  >
-                    <span>📊 Figshare</span>
-                    <span style={{ fontSize: "0.65rem", opacity: 0.8 }}>↗</span>
-                  </a>
-                )}
-
-                {(ds.huggingFaceDoi || ds.huggingFaceUrl) && (
-                  <a
-                    href={ds.huggingFaceDoi ? `https://doi.org/${ds.huggingFaceDoi}` : ds.huggingFaceUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    style={{
-                      display: "inline-flex",
-                      alignItems: "center",
-                      gap: "0.25rem",
-                      background: "rgba(234, 179, 8, 0.08)",
-                      color: "#b45309",
-                      border: "1px solid rgba(234, 179, 8, 0.3)",
-                      fontWeight: 600,
-                      fontSize: "0.75rem",
-                      padding: "0.32rem 0.65rem",
-                      borderRadius: "0.35rem",
-                      textDecoration: "none",
-                    }}
-                    title="Open on Hugging Face"
-                  >
-                    <span>🤗 Hugging Face</span>
-                    <span style={{ fontSize: "0.65rem", opacity: 0.8 }}>↗</span>
-                  </a>
-                )}
-              </div>
-            </div>
-          ))}
+                <span>📊 {ds.shortTitle || ds.title}</span>
+                <span style={{ fontSize: "0.7rem", opacity: 0.7 }}>→</span>
+              </Link>
+            ))}
+          </div>
         </div>
       </section>
 

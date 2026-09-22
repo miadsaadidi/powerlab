@@ -173,9 +173,28 @@ export default async function DatasetDetailPage({ params }: PageProps) {
             CC BY 4.0 Open Access
           </span>
           {ds.doi && (
-            <span style={{ fontFamily: "monospace", fontSize: "0.76rem", color: "var(--ink-secondary)", background: "var(--surface-subtle, #f1f5f9)", padding: "0.2rem 0.6rem", borderRadius: "9999px", border: "1px solid var(--line)" }}>
-              DOI: {ds.doi}
-            </span>
+            <a
+              href={`https://doi.org/${ds.doi}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              style={{
+                fontFamily: "monospace",
+                fontSize: "0.76rem",
+                color: "var(--ink-secondary)",
+                background: "var(--surface-subtle, #f1f5f9)",
+                padding: "0.2rem 0.6rem",
+                borderRadius: "9999px",
+                border: "1px solid var(--line)",
+                textDecoration: "none",
+                display: "inline-flex",
+                alignItems: "center",
+                gap: "0.25rem",
+              }}
+              title={`Inspect persistent DOI on ${ds.repository}`}
+            >
+              <span>DOI: {ds.doi}</span>
+              <span style={{ fontSize: "0.65rem", opacity: 0.7 }}>↗</span>
+            </a>
           )}
         </div>
 
@@ -194,7 +213,7 @@ export default async function DatasetDetailPage({ params }: PageProps) {
             <strong style={{ fontSize: "0.95rem", color: "var(--brand-strong)" }}>{ds.recordCount}</strong>
           </div>
           <div>
-            <span style={{ display: "block", fontSize: "0.72rem", color: "var(--muted)", textTransform: "uppercase", fontWeight: 700 }}>File Format &amp; Size</span>
+            <span style={{ display: "block", fontSize: "0.72rem", color: "var(--muted)", textTransform: "uppercase", fontWeight: 700 }}>Format / Size</span>
             <strong style={{ fontSize: "0.95rem", color: "var(--brand-strong)" }}>{ds.format} ({ds.fileSize})</strong>
           </div>
           <div>
@@ -212,8 +231,7 @@ export default async function DatasetDetailPage({ params }: PageProps) {
           {ds.downloadUrl && (
             <a
               href={ds.downloadUrl}
-              target="_blank"
-              rel="noopener noreferrer"
+              download
               style={{
                 display: "inline-flex",
                 alignItems: "center",
@@ -228,7 +246,30 @@ export default async function DatasetDetailPage({ params }: PageProps) {
                 boxShadow: "0 2px 6px rgba(5, 150, 105, 0.3)",
               }}
             >
-              📥 Download CSV Dataset (Direct DOI)
+              📥 Download CSV Dataset
+            </a>
+          )}
+          {ds.doi && (
+            <a
+              href={`https://doi.org/${ds.doi}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              style={{
+                display: "inline-flex",
+                alignItems: "center",
+                gap: "0.4rem",
+                background: "rgba(147, 51, 234, 0.08)",
+                color: "#9333ea",
+                border: "1px solid rgba(147, 51, 234, 0.25)",
+                padding: "0.65rem 1.25rem",
+                borderRadius: "0.4rem",
+                fontWeight: 600,
+                fontSize: "0.92rem",
+                textDecoration: "none",
+              }}
+              title={`Preview DOI on ${ds.repository}: ${ds.doi}`}
+            >
+              📊 View on Figshare ↗
             </a>
           )}
           {ds.huggingFaceUrl && (

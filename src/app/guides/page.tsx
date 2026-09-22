@@ -184,6 +184,20 @@ const FEATURED_GUIDES: GuideItem[] = [
     updatedDate: "Updated August 2026",
     standards: ["NREL PVWatts V8", "IEC 61724 Monitoring", "ASHRAE Solar Tables"],
   },
+  {
+    name: "Residential Battery Storage Lifespan, Cycle-Life Degradation & Thermal Loss Guide",
+    route: "/guides/residential-battery-storage-lifespan-and-degradation-guide",
+    category: "Battery Storage",
+    categoryIcon: "🔋",
+    categoryColor: "#10b981",
+    categoryBg: "rgba(16, 185, 129, 0.1)",
+    badge: "🔥 New Engineering Guide",
+    badgeType: "new",
+    description: "Calculate home battery lifespan, cycle-life degradation mechanics, calendar aging kinetics, and ambient temperature derating. Compare LiFePO4 vs NMC capacity retention under IEEE 485.",
+    readTime: "9 min read",
+    updatedDate: "Published September 22, 2026",
+    standards: ["IEEE Std 485", "UL 1973", "IEC 62619", "NREL BLAST"],
+  },
 ];
 
 export default function GuidesHubPage() {
