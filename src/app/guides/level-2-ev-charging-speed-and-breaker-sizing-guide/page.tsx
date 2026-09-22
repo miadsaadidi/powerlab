@@ -287,19 +287,57 @@ export default function EvChargingGuidePage() {
       </section>
 
       {/* Section 5: Connected Tools Navigation */}
-      <section style={{ marginTop: "2.5rem", padding: "1.5rem", borderRadius: "0.85rem", background: "var(--surface)", border: "1px solid var(--line)" }}>
-        <h2 style={{ marginTop: 0, fontSize: "1.3rem" }}>Connected EV Planning Calculators</h2>
-        <p style={{ color: "var(--muted)", fontSize: "0.92rem", marginBottom: "1rem" }}>
-          Explore our suite of deterministic EV charging, electrical infrastructure, and savings tools:
+      <section id="cluster-mesh" style={{ marginTop: "2.5rem" }}>
+        <h2>Connected EV Infrastructure &amp; Electrical Planning Cluster</h2>
+        <p style={{ color: "var(--muted)", fontSize: "0.95rem" }}>
+          Safe and efficient Level 2 charging requires harmonizing branch circuit overcurrent protection, wire resistance over distance, and vehicle onboard converter limits:
         </p>
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))", gap: "0.75rem" }}>
-          <Link href="/ev/ev-charging-time-calculator" className="button secondary-button">EV Charging Time Calculator</Link>
-          <Link href="/ev/ev-charger-breaker-size-calculator" className="button secondary-button">EV Charger Breaker Size Calculator</Link>
-          <Link href="/ev/ev-charging-cost-calculator" className="button secondary-button">EV Charging Cost Calculator</Link>
-          <Link href="/ev/ev-range-calculator" className="button secondary-button">EV Real-World Range Calculator</Link>
-          <Link href="/ev/ev-savings-calculator" className="button secondary-button">EV vs Gas Savings Calculator</Link>
-          <Link href="/ev/v2l-runtime-calculator" className="button secondary-button">Vehicle-to-Load (V2L) Runtime Calculator</Link>
+
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(260px, 1fr))", gap: "1rem", marginTop: "1.25rem", marginBottom: "1.5rem" }}>
+          <div style={{ padding: "1.25rem", borderRadius: "0.5rem", border: "1px solid var(--border-color, #e2e8f0)", background: "var(--card-bg, #ffffff)" }}>
+            <h3 style={{ margin: "0 0 0.5rem", fontSize: "1.05rem" }}>🔌 EV Charger Breaker Size Calculator</h3>
+            <p style={{ margin: "0 0 0.75rem", fontSize: "0.88rem", lineHeight: 1.5, color: "var(--text-muted)" }}>
+              Calculate the required OCPD breaker rating and copper wire gauge for any home charger amperage following the NEC 125% continuous duty multiplier.
+            </p>
+            <Link href="/ev/ev-charger-breaker-size-calculator" style={{ fontWeight: 600, color: "var(--accent)", fontSize: "0.9rem" }}>
+              EV Charger Breaker Calculator →
+            </Link>
+          </div>
+
+          <div style={{ padding: "1.25rem", borderRadius: "0.5rem", border: "1px solid var(--border-color, #e2e8f0)", background: "var(--card-bg, #ffffff)" }}>
+            <h3 style={{ margin: "0 0 0.5rem", fontSize: "1.05rem" }}>⏱️ EV Charging Time Simulator</h3>
+            <p style={{ margin: "0 0 0.75rem", fontSize: "0.88rem", lineHeight: 1.5, color: "var(--text-muted)" }}>
+              Model recharge duration from 20% to 80% daily windows across battery capacities (40 to 135 kWh) and realistic 88%–92% AC charging efficiencies.
+            </p>
+            <Link href="/ev/ev-charging-time-calculator" style={{ fontWeight: 600, color: "var(--accent)", fontSize: "0.9rem" }}>
+              EV Charging Time Calculator →
+            </Link>
+          </div>
+
+          <div style={{ padding: "1.25rem", borderRadius: "0.5rem", border: "1px solid var(--border-color, #e2e8f0)", background: "var(--card-bg, #ffffff)" }}>
+            <h3 style={{ margin: "0 0 0.5rem", fontSize: "1.05rem" }}>📏 Feeder Run &amp; Voltage Drop</h3>
+            <p style={{ margin: "0 0 0.75rem", fontSize: "0.88rem", lineHeight: 1.5, color: "var(--text-muted)" }}>
+              Size long garage or detached shed feeder runs (50–150 ft) to ensure conductor voltage drop remains strictly under the recommended 3% NEC limit.
+            </p>
+            <Link href="/battery/voltage-drop-calculator" style={{ fontWeight: 600, color: "var(--accent)", fontSize: "0.9rem" }}>
+              Voltage Drop &amp; Wire Size Calculator →
+            </Link>
+          </div>
+
+          <div style={{ padding: "1.25rem", borderRadius: "0.5rem", border: "1px solid var(--border-color, #e2e8f0)", background: "var(--card-bg, #ffffff)" }}>
+            <h3 style={{ margin: "0 0 0.5rem", fontSize: "1.05rem" }}>📊 EVSE Terminal Temperature Benchmark</h3>
+            <p style={{ margin: "0 0 0.75rem", fontSize: "0.88rem", lineHeight: 1.5, color: "var(--text-muted)" }}>
+              Access 120 continuous load empirical simulation records evaluating conductor heating, 60°C vs 75°C terminal limits, and breaker lug dissipation.
+            </p>
+            <Link href="/datasets/continuous-duty-evse-terminal-temperature-benchmark" style={{ fontWeight: 600, color: "var(--accent)", fontSize: "0.9rem" }}>
+              EVSE Terminal Benchmark Dataset (PL-DS-EVSE-01) →
+            </Link>
+          </div>
         </div>
+
+        <p style={{ fontSize: "0.9rem", color: "var(--text-muted)" }}>
+          Also evaluate driving range in the <Link href="/ev/ev-range-calculator" style={{ fontWeight: 600, color: "var(--accent)" }}>EV Real-World Range Calculator</Link>, model utility bills with the <Link href="/ev/ev-charging-cost-calculator" style={{ fontWeight: 600, color: "var(--accent)" }}>EV Charging Cost Calculator</Link>, or examine vehicle-to-home backup in the <Link href="/ev/v2l-runtime-calculator" style={{ fontWeight: 600, color: "var(--accent)" }}>V2L Runtime Calculator</Link>.
+        </p>
       </section>
 
       {/* Section 6: FAQs */}
@@ -331,11 +369,14 @@ export default function EvChargingGuidePage() {
       <section id="sources-methodology" style={{ marginTop: "2.5rem", padding: "1.5rem", borderRadius: "0.85rem", background: "var(--surface)", border: "1px solid var(--line)" }}>
         <h2 style={{ marginTop: 0 }}>Methodology &amp; Standards Citations</h2>
         <p style={{ fontSize: "0.95rem", lineHeight: 1.6, color: "var(--muted)" }}>
-          Calculations adhere to <strong>NFPA 70 / NEC Article 625</strong> (Electric Vehicle Power Transfer Systems), <strong>SAE J1772</strong> / <strong>SAE J3400 (NACS)</strong> protocol standards, <strong>UL 2594</strong>, and <strong>IEEE 2030.1.1</strong> EV electrical infrastructure requirements. For continuous load thermal mechanics and terminal temperature derating, read our technical report: <Link href="/research/continuous-duty-thermal-sizing-evse-ampacity" style={{ color: "var(--brand-strong)", fontWeight: 700, textDecoration: "underline" }}>Continuous-Duty Thermal Sizing &amp; Ampacity (PL-TR-2026-EVSE01)</Link>.
+          Calculations adhere to <strong>NFPA 70 / NEC Article 625</strong> (Electric Vehicle Power Transfer Systems), <strong>SAE J1772</strong> / <strong>SAE J3400 (NACS)</strong> protocol standards, <strong>UL 2594</strong>, and <strong>IEEE 2030.1.1</strong> EV electrical infrastructure requirements. For continuous load thermal mechanics, terminal temperature derating (NEC 110.14(C) 60°C vs 75°C limits), and empirical test data, review our companion publications:
         </p>
         <div style={{ display: "flex", flexWrap: "wrap", gap: "1rem", marginTop: "1rem" }}>
           <Link href="/research/continuous-duty-thermal-sizing-evse-ampacity" style={{ fontSize: "0.9rem", fontWeight: 600, color: "var(--accent)" }}>
-            Read EVSE Research Report (DOI: 10.6084) →
+            📄 Read Research Report PL-TR-2026-EVSE01 →
+          </Link>
+          <Link href="/datasets/continuous-duty-evse-terminal-temperature-benchmark" style={{ fontSize: "0.9rem", fontWeight: 600, color: "var(--accent)" }}>
+            📊 Download Benchmark Dataset PL-DS-EVSE-01 →
           </Link>
           <Link href="/methodology" style={{ fontSize: "0.9rem", fontWeight: 600, color: "var(--accent)" }}>
             Full PowerLab Calculation Methodology →

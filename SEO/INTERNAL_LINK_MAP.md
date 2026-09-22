@@ -117,6 +117,7 @@
 * **Technical Guides:**
   * `/guides/level-2-ev-charging-speed-and-breaker-sizing-guide`
   * `/guides/voltage-drop-and-wire-size-calculation-guide`
+* **Cluster Planning Mesh:** Direct bidirectional pathway connects `/ev/ev-charger-breaker-size-calculator` $\longleftrightarrow$ `/guides/level-2-ev-charging-speed-and-breaker-sizing-guide` $\longleftrightarrow$ `/datasets/continuous-duty-evse-terminal-temperature-benchmark` (`PL-DS-EVSE-01`) $\longleftrightarrow$ `/ev/ev-charging-time-calculator` $\longleftrightarrow$ `/battery/voltage-drop-calculator`.
 * **Cross-Cluster Link:** Connects to `/battery/voltage-drop-calculator` and `/home-energy/energy-bill-calculator`.
 
 ---

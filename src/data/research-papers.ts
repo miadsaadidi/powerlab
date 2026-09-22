@@ -520,6 +520,7 @@ export const BENCHMARK_DATASETS: BenchmarkDataset[] = [
       { name: "Voltage Drop & Wire Size Calculator", route: "/battery/voltage-drop-calculator" },
     ],
     relatedGuides: [
+      { name: "Level 2 EV Charging Speed & Breaker Sizing Guide", route: "/guides/level-2-ev-charging-speed-and-breaker-sizing-guide" },
       { name: "How to Calculate EV Driving Range & Efficiency Guide", route: "/guides/how-to-calculate-ev-driving-range-and-efficiency-guide" },
       { name: "Voltage Drop & Wire Size Calculation Guide", route: "/guides/voltage-drop-and-wire-size-calculation-guide" },
     ],
