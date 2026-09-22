@@ -87,9 +87,9 @@ When prompted with *"SEO plan this week"* or *"SEO plan today"*, return strictly
 * **Candidate T4-03 — Indexation Diagnostic Watch:** 34 crawled-not-indexed URLs currently observed post-sitemap synchronization. Status: **MONITOR** (no blocking crawl errors; allow search engines normal multi-week re-crawl queue).
 
 ### Track D: Core Publication Candidates (Research Radar — Provenance Gates)
-* **Candidate CD-01 — Residential Battery Energy Storage Degradation & Thermal Loss Dataset (PL-DS-BESS-06):**  
-  *Evidence:* SERP intent gap around empirical LiFePO4 vs NMC cycle-life degradation and ambient temperature capacity loss models.  
-  *Status:* **RESEARCH / PROVENANCE GATE** (Validating open NREL battery cycling datasets and CC-BY licensing).
+* **Candidate CD-01 — Residential Battery Energy Storage Degradation & Thermal Loss Dataset (PL-DS-BESS-06):** COMPLETED (Session 46) $\rightarrow$ **Measurement Mode**.  
+  *Evidence:* SERP intent gap around empirical LiFePO4 vs NMC cycle-life degradation, calendar fade rates, and ambient temperature capacity loss models.  
+  *Delivered:* Codified empirical cycle-life retention (1,000–6,000 EFC) and operating temperature derating (-10°C to 45°C) across LiFePO4 and NMC stationary storage under IEEE 485; created dataset page `/datasets/residential-battery-storage-degradation-and-thermal-loss-benchmark` (`PL-DS-BESS-06`); deployed bidirectional mesh links to `/battery/battery-capacity-calculator`, `/home-energy/home-battery-size-calculator`, and `/battery/battery-runtime-calculator`. Pure calculation engines kept 100% untouched.
 * **Candidate CD-02 — Heat Pump Sub-Zero Heating Seasonal Performance Factor (HSPF2) Benchmark (PL-DS-HVAC-04):**  
   *Evidence:* Search interest in cold-climate heat pump COP degradation below 17°F (-8.3°C) vs auxiliary electric resistance staging.  
   *Status:* **RESEARCH / PROVENANCE GATE** (Validating PNNL field study open distribution rights).

@@ -247,6 +247,7 @@ export default function BatteryHub() {
       <p>Explore our peer-reviewed technical reference guides, open empirical datasets, and research preprints for battery storage and electrical conductor sizing:</p>
       <div className="supporting-links" style={{ display: "flex", flexWrap: "wrap", gap: "0.85rem", marginTop: "0.75rem" }}>
         <Link href="/datasets/bess-peukert-capacity-derating-tare-loss-benchmark" className="footer-link">📊 Dataset: Residential BESS Peukert Derating Benchmark (PL-DS-BESS-05)</Link>
+        <Link href="/datasets/residential-battery-storage-degradation-and-thermal-loss-benchmark" className="footer-link">📊 Dataset: Residential BESS Degradation &amp; Thermal Loss Benchmark (PL-DS-BESS-06)</Link>
         <Link href="/research/electrochemical-peukert-derating-bess" className="footer-link">🔬 Research: High-Discharge C-Rate Capacity Derating Whitepaper</Link>
         <Link href="/guides/battery-backup-runtime-calculation-guide" className="footer-link">🔋 Battery Backup Runtime Formula &amp; Inverter Loss Guide</Link>
         <Link href="/guides/voltage-drop-and-wire-size-calculation-guide" className="footer-link">⚡ Voltage Drop &amp; Wire Size Calculation Guide</Link>

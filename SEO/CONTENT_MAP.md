@@ -15,10 +15,10 @@ BESS RESEARCH CLUSTER
 │   └── Report ID: PL-TR-2026-BESS01
 │   └── Title: Electrochemical Peukert Capacity Derating, Depth of Discharge Boundaries, and Parasitic Inverter Tare Losses
 │
-├── Benchmark Dataset
-│   └── Title: Stationary BESS Peukert Capacity Derating & Tare Loss Matrix
-│   └── Repository: Figshare (Accession in progress) / Hugging Face
-│   └── Data Types: C-rate (0.05C–2.0C), Ah capacity derating curves, quiescent inverter tare watts (15W–65W)
+├── Benchmark Datasets
+│   ├── PL-DS-BESS-05: Stationary BESS Peukert Capacity Derating & Tare Loss Matrix (Figshare DOI: 10.6084/m9.figshare.33821940)
+│   └── PL-DS-BESS-06: Residential BESS Degradation & Thermal Loss Benchmark (Figshare DOI: 10.6084/m9.figshare.34105219)
+│       └── Data Types: Cycle-life fade (1,000–6,000 EFC), DoD (50%–100%), ambient temperature (-10°C to 45°C), LiFePO4 vs NMC capacity retention
 │
 ├── Canonical Calculators
 │   ├── /battery/battery-runtime-calculator (Flagship Engine)

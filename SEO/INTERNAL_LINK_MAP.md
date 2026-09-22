@@ -53,7 +53,9 @@
 ### A. Battery Cluster (`/battery`)
 * **Hub Page:** `/battery`
 * **Governing Whitepaper:** `/research/electrochemical-peukert-derating-bess`
-* **Benchmark Dataset:** `/datasets/bess-peukert-capacity-derating-tare-loss-benchmark`
+* **Benchmark Datasets:**
+  * `/datasets/bess-peukert-capacity-derating-tare-loss-benchmark` (`PL-DS-BESS-05`)
+  * `/datasets/residential-battery-storage-degradation-and-thermal-loss-benchmark` (`PL-DS-BESS-06`)
 * **Calculators:**
   * `/battery/battery-runtime-calculator`
   * `/battery/battery-size-calculator`
