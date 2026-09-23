@@ -1,0 +1,8 @@
+charging_current_a,breaker_rating_a,conductor_gauge,conductor_material,terminal_temp_rating,terminal_temp_c,voltage_drop_pct_50ft,power_loss_w_50ft,nec_compliant
+16.0,20,12 AWG,Copper,60C/75C,41.2,1.32,24.8,YES
+24.0,30,10 AWG,Copper,60C/75C,48.6,1.25,39.5,YES
+32.0,40,8 AWG,Copper,60C/75C,56.1,1.05,62.4,YES
+40.0,50,8 AWG,Copper,75C THHN,67.8,1.31,97.5,YES
+48.0,60,6 AWG,Copper,75C THHN,68.4,0.98,113.1,YES
+48.0,60,6 AWG,Copper,60C NM-B,79.5,0.98,113.1,NO (Exceeds 60C rating)
+80.0,100,3 AWG,Copper,75C THHN,72.1,0.85,198.6,YES

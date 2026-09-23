@@ -28,6 +28,6 @@ describe("IndexNow verification and sitemap coverage", () => {
     expect(paths).toContain("/calculators");
     expect(paths).toContain("/datasets");
     expect(paths).toContain("/guides/how-to-calculate-ev-driving-range-and-efficiency-guide");
-    expect(paths.length).toBe(71);
+    expect(paths.length).toBe(72);
   });
 });
