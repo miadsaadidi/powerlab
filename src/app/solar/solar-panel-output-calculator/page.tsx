@@ -444,7 +444,7 @@ export default function SolarOutputPage() {
         </div>
 
         <p style={{ fontSize: "0.9rem", color: "var(--text-muted)" }}>
-          Also explore regional meteorological tables in our <Link href="/solar/regional-climate-data" style={{ fontWeight: 600, color: "var(--accent)" }}>U.S. Regional Solar Insolation &amp; Climate Database</Link>, evaluate economics with our <Link href="/solar/solar-payback-calculator" style={{ fontWeight: 600, color: "var(--accent)" }}>Solar Payback Calculator</Link>, or inspect sub-zero voltage expansion under NEC 690.7 in research paper <Link href="/research/ground-view-factor-snow-albedo-pv-tilt" style={{ fontWeight: 600, color: "var(--accent)" }}>PL-TR-2026-SOL03</Link>.
+          Also explore our deep-dive <Link href="/guides/solar-inverter-clipping-and-dc-ac-ratio-guide" style={{ fontWeight: 600, color: "var(--accent)" }}>Solar Inverter Clipping &amp; DC-to-AC Ratio Sizing Guide</Link>, consult regional meteorological tables in our <Link href="/solar/regional-climate-data" style={{ fontWeight: 600, color: "var(--accent)" }}>U.S. Regional Solar Insolation &amp; Climate Database</Link>, evaluate economics with our <Link href="/solar/solar-payback-calculator" style={{ fontWeight: 600, color: "var(--accent)" }}>Solar Payback Calculator</Link>, or inspect sub-zero voltage expansion under NEC 690.7 in research paper <Link href="/research/ground-view-factor-snow-albedo-pv-tilt" style={{ fontWeight: 600, color: "var(--accent)" }}>PL-TR-2026-SOL03</Link>.
         </p>
       </section>
     </article>

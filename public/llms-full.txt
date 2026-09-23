@@ -251,3 +251,43 @@ Where:
 | SEER2 / HSPF2 to COP Factor | - | 0.293071 | W/BTU/hr | AHRI 210/240 |
 | Peukert Exponent (LiFePO4) | $k_{\text{LFP}}$ | 1.02 | dimensionless | IEEE Std 485 |
 | Peukert Exponent (AGM Lead) | $k_{\text{AGM}}$ | 1.12 | dimensionless | Peukert (1897) |
+
+---
+
+## 8. Solar Inverter Clipping, Loading Ratio (ILR) & NEC 705.12 Busbar Limits
+
+### 8.1 Inverter Loading Ratio (ILR) & Clipping Saturation Formulation
+The ratio of DC array nameplate capacity under Standard Test Conditions to the inverter's maximum continuous AC output rating is defined as:
+
+```latex
+\text{ILR} = \frac{P_{dc,\text{STC}}}{P_{ac,\text{rated}}}
+```
+
+The instantaneous AC power output $P_{ac}(t)$ and clipped surplus power $P_{\text{clipped}}(t)$ under dynamic solar irradiance and inverter conversion efficiency $\eta_{\text{inv}}(P_{dc})$ are:
+
+```latex
+P_{ac}(t) = \min\left(P_{ac,\text{max}},\; P_{dc}(t) \cdot \eta_{\text{inv}}(P_{dc})\right)
+```
+
+```latex
+P_{\text{clipped}}(t) = \max\left(0,\; P_{dc}(t) \cdot \eta_{\text{inv}}(P_{dc}) - P_{ac,\text{max}}\right)
+```
+
+Where the inverter's Maximum Power Point Tracker (MPPT) limits input current $I_{dc}$ by shifting operating voltage $V_{\text{dc}}$ along the module I-V curve toward open-circuit voltage $V_{oc}$:
+
+```latex
+P_{dc,\text{absorbed}} = V_{\text{mppt\_shifted}} \cdot I_{\text{throttled}} = \frac{P_{ac,\text{max}}}{\eta_{\text{inv}}}
+```
+
+### 8.2 NEC 705.12(B) 120% Busbar Interconnection Rule
+Under National Electrical Code Article 705.12(B), utility interconnection and backfeed circuit breaker sizing are governed strictly by the inverter's maximum continuous AC output amperage:
+
+```latex
+I_{\text{bus}} \cdot 1.20 \ge I_{\text{main}} + \left(I_{ac,\text{inv\_max}} \cdot 1.25\right)
+```
+
+Where:
+- $I_{\text{bus}}$: Main service panel busbar ampacity rating (A)
+- $I_{\text{main}}$: Main service disconnect circuit breaker rating (A)
+- $I_{ac,\text{inv\_max}}$: Inverter continuous rated AC output current ($P_{ac,\text{rated}} / V_{\text{line}}$)
+- $1.25$: Continuous load safety factor mandated by NEC 705.12 and NEC 690.8

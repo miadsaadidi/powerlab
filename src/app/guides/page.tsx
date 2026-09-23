@@ -198,6 +198,20 @@ const FEATURED_GUIDES: GuideItem[] = [
     updatedDate: "Published September 22, 2026",
     standards: ["IEEE Std 485", "UL 1973", "IEC 62619", "NREL BLAST"],
   },
+  {
+    name: "Solar Inverter Clipping & DC-to-AC Ratio Sizing Guide (ILR, Saturation & Economics)",
+    route: "/guides/solar-inverter-clipping-and-dc-ac-ratio-guide",
+    category: "Solar Photovoltaics",
+    categoryIcon: "☀️",
+    categoryColor: "#f59e0b",
+    categoryBg: "rgba(245, 158, 11, 0.1)",
+    badge: "🔥 New Engineering Guide",
+    badgeType: "new",
+    description: "Master solar inverter clipping, DC-to-AC Inverter Loading Ratio (ILR), Sandia inverter saturation curves, clipping loss economics, and NEC 705.12 120% busbar interconnection rules.",
+    readTime: "9 min read",
+    updatedDate: "Published September 23, 2026",
+    standards: ["NREL SAM Model", "Sandia SAND2004-5601", "NEC 705.12(B)", "IEC 61724"],
+  },
 ];
 
 export default function GuidesHubPage() {
