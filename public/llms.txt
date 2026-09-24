@@ -77,6 +77,7 @@ Home Energy & HVAC ⟷ Battery Storage ⟷ Solar Photovoltaics ⟷ Electric Vehi
 9. **[Solar Payback Period & Net Metering ROI Financial Guide](https://www.powelab.org/guides/solar-payback-and-roi-calculation-guide)**: Simple payback vs dynamic discounted cash flows, 30% Federal ITC (IRC Section 25D), panel degradation, and NEM 3.0 net billing tariffs.
 10. **[Space Heater vs Central Heating Electricity Cost Guide](https://www.powelab.org/guides/space-heater-electricity-cost-and-wattage-guide)**: Joule heating thermodynamics ($P = I^2 R$), 1,500W continuous circuit limits (NEC 210.19), thermostat duty cycles, and zone heating vs heat pump COP economics.
 11. **[Residential Battery Storage Lifespan, Calendar Aging & Thermal Derating Guide](https://www.powelab.org/guides/residential-battery-storage-lifespan-and-degradation-guide)**: LiFePO4 vs NMC degradation kinetics, cycle life fade (1,000–6,000 EFC), square-root calendar aging, -10°C to +45°C ambient thermal derating, internal resistance growth, and warranty 70%–80% EOL thresholds (IEEE Std 1561, UL 1973, IEC 62619).
+12. **[Solar Inverter Clipping & DC-to-AC Ratio Sizing Guide](https://www.powelab.org/guides/solar-inverter-clipping-and-dc-ac-ratio-guide)**: Inverter Loading Ratio (ILR 1.15–1.35) economics, Sandia inverter saturation curves (SAND2004-5601), MPPT voltage shifting along the I-V curve, sub-hourly clipping dynamics, and NEC 705.12(B) 120% busbar interconnection rule compliance.
 
 ---
 

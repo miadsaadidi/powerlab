@@ -96,7 +96,8 @@ When prompted with *"SEO plan this week"* or *"SEO plan today"*, return strictly
 
 ### Track E: Layer 1 Supporting Intent Candidates
 * **Candidate L1-01 — Level 2 EVSE Continuous Duty 125% Ampacity Sizing Guide:** COMPLETED (Session 45 via Candidate T2-04 Cluster Mesh) $\rightarrow$ **Measurement Mode**.
-* **Candidate L1-02 — Solar Inverter DC-to-AC Ratio & Clipping Loss Guide:** Focused guide explaining 1.15 to 1.30 DC/AC ratios and Sandia inverter efficiency curves.
+* **Candidate L1-02 — Solar Inverter DC-to-AC Ratio & Clipping Loss Guide:** COMPLETED (Session 47) $\rightarrow$ **Measurement Mode**.  
+  *Delivered:* Created Layer 1 guide `/guides/solar-inverter-clipping-and-dc-ac-ratio-guide` with empirical NREL SAM / Sandia SAND2004-5601 benchmark matrix (1.00 to 1.50 ILR), MPPT voltage shifting physics, microinverter vs string economics, DC-coupled storage zero-clipping recapture, and NEC 705.12(B) 120% busbar formulas; added planning mesh links on `/solar/solar-panel-output-calculator` and `/solar/solar-charge-controller-calculator`. All calculation engines kept 100% untouched.
 
 ### Track F: External Technical Distribution (Dev.to / Hashnode)
 * **Candidate F-01 — Dev.to Engineering Post:** *"Deterministic Solar PV AC Yield Modeling in Pure TypeScript via NREL PVWatts V8"*.

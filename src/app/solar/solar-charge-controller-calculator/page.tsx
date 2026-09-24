@@ -361,7 +361,7 @@ export default function SolarChargeControllerPage() {
       <section id="related-tools">
         <h2>Related Off-Grid Solar &amp; Battery Planning</h2>
         <p>
-          Size your off-grid battery bank capacity with our <Link href="/solar/solar-battery-bank-size-calculator">Solar Battery Bank Size Calculator</Link>, check DC cable gauge and line voltage drop with the <Link href="/battery/voltage-drop-calculator">Voltage Drop Calculator</Link>, simulate monthly PV energy harvest with the <Link href="/solar/solar-panel-output-calculator">Solar Panel Output Calculator</Link>, or read our comprehensive <Link href="/guides/mppt-solar-charge-controller-sizing-guide">MPPT vs PWM Solar Charge Controller Sizing Guide</Link>.
+          Size your off-grid battery bank capacity with our <Link href="/solar/solar-battery-bank-size-calculator">Solar Battery Bank Size Calculator</Link>, check DC cable gauge and line voltage drop with the <Link href="/battery/voltage-drop-calculator">Voltage Drop Calculator</Link>, simulate monthly PV energy harvest with the <Link href="/solar/solar-panel-output-calculator">Solar Panel Output Calculator</Link>, learn grid-tie array oversizing with our <Link href="/guides/solar-inverter-clipping-and-dc-ac-ratio-guide">Solar Inverter Clipping &amp; DC-to-AC Ratio Guide</Link>, or read our comprehensive <Link href="/guides/mppt-solar-charge-controller-sizing-guide">MPPT vs PWM Solar Charge Controller Sizing Guide</Link>.
         </p>
       </section>
     </article>
