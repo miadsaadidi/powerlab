@@ -258,7 +258,7 @@ P_electrical (kW) = (Tonnage × 12,000) ÷ (SEER2 × 1,000)`}</code>
           <code>{`Break-Even COP = (0.16 × 29.3) ÷ (1.50 ÷ 0.95) = 4.69 ÷ 1.58 = 2.97`}</code>
         </pre>
         <p>
-          Whenever outdoor temperatures allow the heat pump to operate at a COP above 2.97 (typically above 32°F / 0°C for modern cold-climate heat pumps with vapor-injection compressors), heating with the heat pump is cheaper than burning natural gas.
+          Whenever outdoor temperatures allow the heat pump to operate at a COP above 2.97 (typically above 32°F / 0°C for modern cold-climate heat pumps with vapor-injection compressors), heating with the heat pump is cheaper than burning natural gas. Model your exact seasonal heating demand, fuel pricing, and DOE Appendix M1 HSPF2 performance in our interactive <Link href="/home-energy/heat-pump-cost-calculator" style={{ fontWeight: 600, color: "var(--brand-strong)" }}>Heat Pump Running Cost Calculator</Link>.
         </p>
       </section>
 
