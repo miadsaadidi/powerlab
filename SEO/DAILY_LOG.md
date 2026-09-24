@@ -26,6 +26,7 @@
 * **Step 3 (Cluster Planning Mesh & Governance Synchronization):**
   - Implemented 4-way responsive planning mesh cards connecting Heat Pump $\longleftrightarrow$ Air Conditioner Cost Calculator $\longleftrightarrow$ Energy Bill Calculator $\longleftrightarrow$ Generator Size Calculator $\longleftrightarrow$ Electricity Usage Calculator.
   - Connected contextual links to flagship engineering guide [`/guides/central-ac-and-heat-pump-electricity-cost-guide`](file:///d:/powerlab/src/app/guides/central-ac-and-heat-pump-electricity-cost-guide/page.tsx) and published research paper [`/research/heat-pump-cop-degradation-and-auxiliary-heat-kinetics`](file:///d:/powerlab/src/app/research/%5Bslug%5D/page.tsx) (`PL-TR-2026-HVAC01`).
+  - Registered scholarly bookmark `BIB-07` on BibSonomy (`@miadinside`, DA 74 / DR 76 — Univ. of Kassel & L3S Research Center) pointing to `/home-energy/heat-pump-cost-calculator` with strict space-separated tagging format (`DOFOLLOW VERIFIED`). Synchronized `SEO/BACKLINK_LOG.csv` and `SEO/EXTERNAL_DISTRIBUTION.md`.
   - Added Section 9 to `public/llms-full.txt` documenting LaTeX formulations for HSPF2 to COP conversion, break-even fuel pricing, and cold-climate COP decay.
 * **Step 4 (Validation Suite Execution):**
   - Vitest test suite: **58/58 test files passed** (265/265 unit tests).
