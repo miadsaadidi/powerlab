@@ -183,6 +183,21 @@ export default function V2lRuntimePage() {
         </div>
       </section>
 
+      <section id="companion-guide" style={{ margin: "2.5rem 0", padding: "1.5rem", borderRadius: "0.85rem", background: "linear-gradient(135deg, rgba(139, 92, 246, 0.08) 0%, rgba(14, 165, 233, 0.08) 100%)", border: "1px solid rgba(139, 92, 246, 0.25)" }}>
+        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", gap: "1rem", flexWrap: "wrap" }}>
+          <div>
+            <span style={{ fontSize: "0.8rem", fontWeight: "bold", textTransform: "uppercase", color: "#8b5cf6", letterSpacing: "0.05em" }}>Companion Engineering Guide</span>
+            <h3 style={{ margin: "0.35rem 0 0.5rem", fontSize: "1.2rem", color: "var(--brand-strong)" }}>EV V2L &amp; V2H Home Backup Power Guide</h3>
+            <p style={{ margin: 0, fontSize: "0.925rem", color: "var(--muted)", maxWidth: "700px", lineHeight: 1.5 }}>
+              Learn how to wire manual transfer switches, resolve neutral-ground bonding under NEC 250 (3-pole vs 2-pole), compare V2L vs V2H vs V2G systems, and calculate blackout runtimes.
+            </p>
+          </div>
+          <Link href="/guides/ev-v2l-v2h-home-backup-power-guide" className="button primary-button" style={{ whiteSpace: "nowrap", alignSelf: "center" }}>
+            Read Electrical Guide →
+          </Link>
+        </div>
+      </section>
+
       <section id="related-tools" style={{ marginTop: "3rem", padding: "1.75rem", borderRadius: "0.85rem", background: "var(--surface)", border: "1px solid var(--line)" }}>
         <h2 style={{ marginTop: 0, fontSize: "1.35rem", color: "var(--brand-strong)" }}>Related Electric Vehicle &amp; Energy Planning Tools</h2>
         <p style={{ marginBottom: "1.25rem", color: "var(--muted)", lineHeight: 1.55 }}>
@@ -232,8 +247,9 @@ export default function V2lRuntimePage() {
         </div>
 
         <div style={{ marginTop: "1rem", display: "flex", gap: "0.5rem", flexWrap: "wrap" }}>
+          <Link href="/guides/ev-v2l-v2h-home-backup-power-guide" className="button secondary-button" style={{ fontSize: "0.85rem", borderColor: "#8b5cf6", color: "#8b5cf6" }}>EV V2L &amp; V2H Backup Guide</Link>
           <Link href="/home-energy/home-battery-size-calculator" className="button secondary-button" style={{ fontSize: "0.85rem" }}>Home Battery Size Calculator</Link>
-          <Link href="/ev/ev-savings-calculator" className="button secondary-button" style={{ fontSize: "0.85rem" }}>EV vs Gas Savings Calculator</Link>
+          <Link href="/battery/battery-runtime-calculator" className="button secondary-button" style={{ fontSize: "0.85rem" }}>Battery Runtime Calculator</Link>
           <Link href="/guides/level-2-ev-charging-speed-and-breaker-sizing-guide" className="button secondary-button" style={{ fontSize: "0.85rem" }}>EV Charging Speed Guide</Link>
         </div>
       </section>

@@ -321,3 +321,44 @@ Where:
 - Fuel Oil #2: $\text{HHV}_{\text{oil}} = 138{,}500\text{ BTU/gal}$
 - $\eta_{\text{furnace}}$: Annual Fuel Utilization Efficiency (AFUE, e.g. 0.80 or 0.96)
 - $\text{COP}_{\text{hp}}$: Operating heat pump Coefficient of Performance at target ambient temperature
+
+---
+
+## 10. EV Bidirectional V2L & V2H Emergency Backup Power Formulations
+
+### 10.1 Net Available Stored Energy with Emergency Reserve Protection
+The net deliverable AC energy $E_{\text{net,AC}}$ (kWh) available to power home circuits while safeguarding a mandatory driving reserve is governed by:
+
+```latex
+E_{\text{net,AC}} = C_{\text{pack}} \cdot \left(\text{SoC}_{\text{start}} - \text{SoC}_{\text{reserve}}\right) \cdot \eta_{\text{inv}}
+```
+
+Where:
+- $C_{\text{pack}}$: Usable high-voltage traction battery pack capacity (kWh)
+- $\text{SoC}_{\text{start}}$: Starting battery state of charge fraction ($0.0 \le \text{SoC} \le 1.0$)
+- $\text{SoC}_{\text{reserve}}$: Protected emergency evacuation driving reserve fraction (typically $0.20 \le \text{SoC}_{\text{reserve}} \le 0.30$)
+- $\eta_{\text{inv}}$: Bidirectional DC-to-AC inverter conversion efficiency (typically $0.88 \le \eta_{\text{inv}} \le 0.93$)
+
+### 10.2 Total Emergency Backup Duration with Parasitic Vehicle Tare Loss
+The continuous backup runtime $T_{\text{backup}}$ (hours) accounting for both household load and high-voltage vehicle standby electronics (BMS, contactors, DC-DC converter, coolant loop) is:
+
+```latex
+T_{\text{backup}} = \frac{E_{\text{net,AC}}}{P_{\text{load,avg}} + P_{\text{tare}}}
+```
+
+Where:
+- $P_{\text{load,avg}}$: Aggregate continuous household load demand (kW)
+- $P_{\text{tare}}$: Parasitic standby vehicle tare consumption ($0.03\text{ kW} \le P_{\text{tare}} \le 0.08\text{ kW}$)
+
+### 10.3 Inverter Continuous Ampacity & Motor Inrush Limits (NEC 210.19 & 702)
+To prevent inverter thermal shutdown or OCPD trip during continuous home backup:
+
+```latex
+P_{\text{continuous}} \le 0.80 \cdot P_{\text{inv,rated}} \quad \text{and} \quad I_{\text{LRA,compressor}} \le I_{\text{surge,inv}}
+```
+
+Where:
+- $P_{\text{inv,rated}}$: Nameplate continuous AC inverter rating (kW)
+- $I_{\text{LRA,compressor}}$: Motor starting locked rotor current (A)
+- $I_{\text{surge,inv}}$: Instantaneous peak surge current capacity of the EV bidirectional inverter (A)
+

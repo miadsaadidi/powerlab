@@ -212,6 +212,20 @@ const FEATURED_GUIDES: GuideItem[] = [
     updatedDate: "Published September 23, 2026",
     standards: ["NREL SAM Model", "Sandia SAND2004-5601", "NEC 705.12(B)", "IEC 61724"],
   },
+  {
+    name: "EV V2L & V2H Home Backup Power Guide (Wiring, Inverters & Blackout Sizing)",
+    route: "/guides/ev-v2l-v2h-home-backup-power-guide",
+    category: "Electric Vehicles",
+    categoryIcon: "⚡",
+    categoryColor: "#8b5cf6",
+    categoryBg: "rgba(139, 92, 246, 0.1)",
+    badge: "🔥 New Engineering Guide",
+    badgeType: "new",
+    description: "Master powering a home with EV bidirectional energy. Calculate essential blackout runtimes, compare V2L vs V2H vs V2G, wire manual transfer switches, and resolve neutral-ground bonding under NEC 250 & 702.",
+    readTime: "9 min read",
+    updatedDate: "Published September 25, 2026",
+    standards: ["SAE J3072", "ISO 15118-20", "NEC Article 702", "NEC Article 250"],
+  },
 ];
 
 export default function GuidesHubPage() {
