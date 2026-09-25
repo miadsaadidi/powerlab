@@ -72,6 +72,9 @@ When prompted with *"SEO plan this week"* or *"SEO plan today"*, return strictly
 * **Candidate T1-07 — Central AC Cost Calculator SEER2 & Cooling Load Upgrade:** COMPLETED (Session 43) $\rightarrow$ **Measurement Mode**.  
   *Evidence:* #1 highest-impression asset site-wide (2,000 impressions, avg pos 16.45). Queries: `ac cost calculator` (pos 31.48), `central ac energy cost` (pos 42.05).  
   *Delivered:* Added DOE Appendix M1 SEER vs SEER2 comparison matrix (~4.5% ESP derate screening aid), EIA June 2026 18.34¢/kWh national benchmark, regional CDD and illustrative seasonal run-hour scenarios, 1.5 to 5.0 ton power draw reference table, and 4-way cluster planning pathways (Heat Pump, Energy Bill, Generator Sizing, Electricity Usage). Calculation engine kept 100% untouched.
+* **Candidate T1-08 — Heat Pump Cost Calculator HSPF2, Cold-Climate COP & HVAC Cluster Upgrade:** COMPLETED (Session 48) $\rightarrow$ **Measurement Mode**.  
+  *Evidence:* High-demand heating queries (`heat pump running cost calculator` 4,800/mo, `heat pump electricity cost per hour` 1,200/mo, `heat pump vs gas furnace cost` 3,600/mo) complementing PowerLab's #1 cooling tool.  
+  *Delivered:* Added DOE Appendix M1 HSPF vs HSPF2 transition matrix (0.50 in. w.c. ESP derating ~15% on Region IV), empirical ambient outdoor temperature COP decay matrix (+47°F to -15°F) with cold-climate inverter (ccASHP with Enhanced Vapor Injection) vs electric heat strip staging, 1.5 to 5.0 ton hourly power draw benchmarks @ EIA 18.34¢/kWh, 4-way responsive planning mesh cards, companion research link to `PL-TR-2026-HVAC01`, and `public/llms-full.txt` mathematical documentation. Pure calculation engine kept 100% untouched.
 
 ### Track B: Cluster Upgrades (Multi-Asset Mesh Enhancements)
 * **Candidate T2-01 — EV Driving Range, Charging Speed & Infrastructure Cluster Mesh:** COMPLETED (Session 42) $\rightarrow$ **Measurement Mode**.

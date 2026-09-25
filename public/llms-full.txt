@@ -291,3 +291,33 @@ Where:
 - $I_{\text{main}}$: Main service disconnect circuit breaker rating (A)
 - $I_{ac,\text{inv\_max}}$: Inverter continuous rated AC output current ($P_{ac,\text{rated}} / V_{\text{line}}$)
 - $1.25$: Continuous load safety factor mandated by NEC 705.12 and NEC 690.8
+
+---
+
+## 9. Heat Pump Seasonal HSPF2 Conversion, Cold-Climate COP Degradation & Fuel Parity
+
+### 9.1 DOE Appendix M1 HSPF2 to Seasonal COP Equivalence
+Under DOE 10 CFR Part 430 Appendix M1 testing at 0.50 in. w.c. external static pressure (ESP), heating seasonal efficiency is expressed in BTU per watt-hour (HSPF2). The dimensionless seasonal Coefficient of Performance $\text{COP}_{\text{seasonal}}$ is:
+
+```latex
+\text{COP}_{\text{seasonal}} = \frac{\text{HSPF2}}{3.412142}
+```
+
+Where in Region IV (standard rating climate):
+```latex
+\text{HSPF2} \approx 0.85 \cdot \text{HSPF}_{\text{legacy}}
+```
+
+### 9.2 Thermodynamic Fuel Parity & Break-Even Electricity Rate
+The break-even retail electricity price $P_{\text{elec,break-even}}$ ($/kWh) where operating an electric heat pump equals the operating cost of a combustion furnace is derived from normalized higher heating values (HHV):
+
+```latex
+P_{\text{elec,break-even}} = \left(\frac{P_{\text{fuel}}}{\text{HHV}_{\text{fuel}}}\right) \cdot 3412.142 \cdot \left(\frac{\text{COP}_{\text{hp}}}{\eta_{\text{furnace}}}\right)
+```
+
+Where:
+- Natural Gas: $\text{HHV}_{\text{gas}} = 100{,}000\text{ BTU/therm}$
+- Propane: $\text{HHV}_{\text{propane}} = 91{,}500\text{ BTU/gal}$
+- Fuel Oil #2: $\text{HHV}_{\text{oil}} = 138{,}500\text{ BTU/gal}$
+- $\eta_{\text{furnace}}$: Annual Fuel Utilization Efficiency (AFUE, e.g. 0.80 or 0.96)
+- $\text{COP}_{\text{hp}}$: Operating heat pump Coefficient of Performance at target ambient temperature
