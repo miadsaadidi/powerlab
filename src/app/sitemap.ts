@@ -10,6 +10,7 @@ const staticPaths = [
   "/guides/battery-backup-runtime-calculation-guide",
   "/guides/central-ac-and-heat-pump-electricity-cost-guide",
   "/guides/emergency-generator-sizing-and-inrush-load-guide",
+  "/guides/ev-v2l-v2h-home-backup-power-guide",
   "/guides/how-many-kwh-does-a-house-use-per-day",
   "/guides/how-to-calculate-ev-driving-range-and-efficiency-guide",
   "/guides/level-2-ev-charging-speed-and-breaker-sizing-guide",

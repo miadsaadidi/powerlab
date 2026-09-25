@@ -7,6 +7,38 @@
 
 ## Daily Master Loop Record
 
+### 2026-09-25 (Session 49) — EV V2L & V2H Home Backup Power Guide & Cluster Mesh Integration (Track E Layer 1 Supporting Publication)
+* **Session Lead:** AI/SEO Agent (User Approved Step-by-Step Execution)
+* **Target URLs:**
+  * [`/guides/ev-v2l-v2h-home-backup-power-guide`](file:///d:/powerlab/src/app/guides/ev-v2l-v2h-home-backup-power-guide/page.tsx) (New Layer 1 Flagship Guide)
+  * [`/ev/v2l-runtime-calculator`](file:///d:/powerlab/src/app/ev/v2l-runtime-calculator/page.tsx) (Cluster Mesh Integration)
+  * [`/guides`](file:///d:/powerlab/src/app/guides/page.tsx)
+  * [`src/app/sitemap.ts`](file:///d:/powerlab/src/app/sitemap.ts)
+  * [`public/llms.txt`](file:///d:/powerlab/public/llms.txt)
+  * [`public/llms-full.txt`](file:///d:/powerlab/public/llms-full.txt)
+  * [`SEO/WEEKLY_PLAN.md`](file:///d:/powerlab/SEO/WEEKLY_PLAN.md)
+  * [`SEO/DAILY_LOG.md`](file:///d:/powerlab/SEO/DAILY_LOG.md)
+* **Step 1 (Provenance & Standards Research):**
+  - Sourced SAE J3072 / SAE J3068 (Interoperability of Electric Vehicle Power Export) and ISO 15118-20 (Bidirectional charging protocols).
+  - Sourced National Electrical Code requirements under NFPA 70 / NEC Article 702 (Optional Standby Systems), NEC 250.30 & 250.34 (Separately Derived Systems and neutral-ground bonding), and continuous load deratings under NEC 210.19.
+  - Sourced OEM bidirectional specifications: Hyundai/Kia E-GMP (1.9 kW 120V floating neutral), Ford F-150 Lightning Pro Power (9.6 kW 120V/240V bonded neutral), Tesla Cybertruck Powershare (11.5 kW 240V), GM Ultium (10.2 kW / 19.2 kW), and Rivian R1T/R1S (1.5 kW).
+* **Step 2 (Flagship Layer 1 Guide Authoring):**
+  - Created `/guides/ev-v2l-v2h-home-backup-power-guide` featuring Schema.org `TechArticle`/`HowTo` JSON-LD, DirectAnswerCard, PageJumpNav, FormulaCard instances, and embedded interactive `<V2lRuntimeCalculator />`.
+  - Structured Table 1: Bidirectional Architecture Comparison across V2L vs V2H vs V2G.
+  - Structured Table 2: OEM Production EV Bidirectional Specifications Matrix across 5 major automaker platforms.
+  - Structured Table 3: Blackout Load Profiles & EV Runtime Benchmarks across 4 household tiers (Tiers 1–4 from 120W to 3,800W) modeled on 77 kWh and 131 kWh battery packs with 20% protected emergency driving reserve.
+  - Formulated Section 4: Deep-dive on Neutral-Ground Bonding and resolving onboard GFCI nuisance tripping (3-pole switched neutral transfer switch for bonded neutral inverters vs 2-pole interlocks for floating neutral inverters).
+* **Step 3 (Bidirectional Cluster Mesh & Governance Synchronization):**
+  - Deployed companion guide banner and mesh links on [`/ev/v2l-runtime-calculator`](file:///d:/powerlab/src/app/ev/v2l-runtime-calculator/page.tsx) pointing to the guide.
+  - Added new guide to `FEATURED_GUIDES` registry on `/guides` hub with standards badges.
+  - Updated `src/app/sitemap.ts`, `src/app/api/indexnow/indexnow.test.ts`, `public/llms.txt`, and Section 10 of `public/llms-full.txt`.
+* **Step 4 (Validation Suite Execution):**
+  - Vitest test suite: **58/58 test files passed** (265/265 unit tests).
+  - TypeScript typecheck: **0 compilation errors** (`tsc --noEmit`).
+  - Static SSG build: **88/88 static pages generated successfully** (`next build`).
+* **SEO Asset Status:** `COMPLETED — MEASUREMENT MODE`.
+* **Next SEO Objective / Action Required:** Fresh re-diagnosis of empirical Search Console data and Candidate Backlog evaluation upon next user prompt.
+
 ### 2026-09-24 (Session 48) — Heat Pump Cost Calculator HSPF2, Cold-Climate COP & HVAC Cluster Mesh Upgrade (Track A / Track B Optimization)
 * **Session Lead:** AI/SEO Agent (User Approved Step-by-Step Execution)
 * **Target URLs:**

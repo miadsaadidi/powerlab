@@ -28,6 +28,7 @@ describe("IndexNow verification and sitemap coverage", () => {
     expect(paths).toContain("/calculators");
     expect(paths).toContain("/datasets");
     expect(paths).toContain("/guides/solar-inverter-clipping-and-dc-ac-ratio-guide");
-    expect(paths.length).toBe(73);
+    expect(paths).toContain("/guides/ev-v2l-v2h-home-backup-power-guide");
+    expect(paths.length).toBe(74);
   });
 });
