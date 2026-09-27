@@ -25,6 +25,8 @@
 * **Step 3 (Home Battery Size & Battery Capacity Planning Meshes):**
   - Deployed 4-way responsive planning mesh cards on `/home-energy/home-battery-size-calculator` connecting to appliance load auditing, Ah/kWh capacity conversion, runtime modeling, and EV V2L/V2H bidirectional backup.
   - Integrated appliance audit cards and guide links on `/battery/battery-capacity-calculator` and updated interactive toolbar buttons on `/guides/how-many-kwh-does-a-house-use-per-day`.
+  - Registered scholarly bookmark `BIB-09` on BibSonomy (`@miadinside`, DA 74 / DR 76 — Univ. of Kassel & L3S Research Center) pointing to `/home-energy/home-battery-size-calculator` (`DOFOLLOW VERIFIED`).
+  - Published and verified MERLOT OER higher-education simulation material entry `MER-08` on California State University System ([Material #824240313](https://www.merlot.org/merlot/viewMaterial.htm?id=824240313), DA 75 / DR 79, `DOFOLLOW VERIFIED`) for `/home-energy/home-battery-size-calculator` with full pedagogical breakdown and CC BY-NC 4.0 license metadata.
   - All deterministic calculation engines (`src/lib/calculators/*`) kept 100% untouched.
 * **Step 4 (Validation Suite Execution):**
   - Vitest test suite: **58/58 test files passed** (265/265 unit tests).
@@ -36,7 +38,7 @@
   - **Technical Syndication Backlinks:** Discovered on `worldprogramming.org` (WPS, DR 5) pointing to `/battery/battery-runtime-calculator` (anchor `PowerLab Battery Backup Runtime Model`) and `/developers`.
   - **Academic Entity Crawl Recognition:** Verified Ahrefs discovery of CSU MERLOT profile citations (`merlot.org`, DR 74 / 125K traffic) pointing to 4 PowerLab research papers (`heat-pump-cop-degradation`, `ground-view-factor-snow-albedo-pv-tilt`, `deterministic-inrush-load-stacking`, `continuous-duty-thermal-sizing-evse-ampacity`).
   - **Canonical Tag Indexation:** Verified Ahrefs recognized `rel="canonical"` tag on `powerlab.hashnode.dev` (DR 83) correctly transmitting canonical authority to `https://powelab.org/battery/battery-runtime-calculator`.
-  - Updated `SEO/BACKLINK_LOG.csv` with newly verified records.
+  - Updated `SEO/BACKLINK_LOG.csv` and `SEO/EXTERNAL_DISTRIBUTION.md` with newly verified records.
 * **SEO Asset Status:** `COMPLETED — MEASUREMENT MODE` (Appliance to Battery Storage Cluster placed in measurement mode).
 * **Next SEO Objective / Action Required:** Fresh re-diagnosis of empirical Search Console data and Candidate Backlog evaluation upon next user prompt.
 
