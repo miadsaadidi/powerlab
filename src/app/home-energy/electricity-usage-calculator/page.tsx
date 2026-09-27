@@ -246,13 +246,129 @@ export default function ElectricityUsagePage() {
         </div>
       </section>
 
-      <section id="related-tools">
-        <h2>Related Home Energy Planning Tools &amp; Guides</h2>
+      <section id="battery-sizing-handoff" style={{ marginTop: "2.5rem" }}>
+        <h2>Translating Appliance Audits to Battery Storage &amp; Backup Inverter Sizing</h2>
         <p>
-          Calculate total utility bills with the <Link href="/home-energy/energy-bill-calculator">Energy Bill Calculator</Link>, size whole-home blackout battery storage with the <Link href="/home-energy/home-battery-size-calculator">Home Battery Size Calculator</Link>, model cooling expenses with the <Link href="/home-energy/air-conditioner-cost-calculator">Air Conditioner Cost Calculator</Link>, size standby power with the <Link href="/home-energy/generator-size-calculator">Generator Size Calculator</Link>, or size a solar array with the <Link href="/solar/solar-panel-size-calculator">Solar Panel Size Calculator</Link>.
+          A common objective when calculating appliance electricity usage is sizing backup battery storage for emergency power outages. Sizing requires two distinct electrical metrics: <strong>continuous/surge power (Watts)</strong> to size the inverter, and <strong>24-hour energy consumption (Watt-hours)</strong> to size battery capacity.
         </p>
-        <p style={{ marginTop: "0.75rem" }}>
-          📖 <strong>In-Depth Technical Guides:</strong> Read our empirical benchmark breakdown in the <Link href="/guides/how-many-kwh-does-a-house-use-per-day" style={{ fontWeight: 600, color: "var(--accent)" }}>Daily Household kWh Usage Guide</Link> or examine HVAC cooling formulas in our <Link href="/guides/central-ac-and-heat-pump-electricity-cost-guide" style={{ fontWeight: 600, color: "var(--accent)" }}>Central AC &amp; Heat Pump Cost Guide</Link>.
+        <p>
+          Under National Electrical Code (NEC) Article 702 and IEEE 485 sizing principles, battery storage calculations must account for inverter conversion efficiency (~90%) and usable Depth of Discharge (typically 80% to 90% for Lithium Iron Phosphate / LiFePO4 cells to preserve 6,000+ cycle life):
+        </p>
+
+        <div className="scenario-table" role="region" aria-label="Appliance to Battery Sizing Reference Table">
+          <table style={{ width: "100%", borderCollapse: "collapse" }}>
+            <caption>Table 2: Critical Home Appliance Audit to Battery Storage &amp; Inverter Sizing Benchmarks</caption>
+            <thead>
+              <tr>
+                <th scope="col">Critical Appliance</th>
+                <th scope="col">Running Power &amp; Duty Cycle</th>
+                <th scope="col">Daily Energy (Wh/day)</th>
+                <th scope="col">24-Hr Battery Needed (LiFePO4 @ 85% DoD)</th>
+                <th scope="col">Inverter Sizing (Continuous / Peak LRA)</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Full-Size Refrigerator / Freezer</strong></td>
+                <td>150W running (35% duty cycle)</td>
+                <td>~1,260 Wh/day</td>
+                <td>~1.65 kWh nominal (137 Ah @ 12V / 34 Ah @ 48V)</td>
+                <td>600W cont. / 1,500W surge (motor startup LRA)</td>
+              </tr>
+              <tr>
+                <td><strong>Home Internet (Fiber ONT + Wi-Fi 6 Router)</strong></td>
+                <td>30W continuous (100% duty cycle)</td>
+                <td>~720 Wh/day</td>
+                <td>~0.94 kWh nominal (78 Ah @ 12V / 20 Ah @ 48V)</td>
+                <td>100W cont. (pure sine wave recommended)</td>
+              </tr>
+              <tr>
+                <td><strong>Gas Furnace Heating (Blower Motor + Control Board)</strong></td>
+                <td>400W running (50% winter duty cycle)</td>
+                <td>~4,800 Wh/day</td>
+                <td>~6.27 kWh nominal (523 Ah @ 12V / 131 Ah @ 48V)</td>
+                <td>1,000W cont. / 2,200W surge (inductive blower motor)</td>
+              </tr>
+              <tr>
+                <td><strong>Medical CPAP Machine (with Heated Humidifier)</strong></td>
+                <td>60W average (8 hours/night)</td>
+                <td>~480 Wh/night</td>
+                <td>~0.63 kWh nominal (52 Ah @ 12V / 13 Ah @ 48V)</td>
+                <td>200W cont. (or 12V/24V native DC cable)</td>
+              </tr>
+              <tr>
+                <td><strong>Sump Pump (1/2 HP Submersible)</strong></td>
+                <td>1,050W running (10 min/hr during rain storm)</td>
+                <td>~4,200 Wh/day</td>
+                <td>~5.49 kWh nominal (458 Ah @ 12V / 114 Ah @ 48V)</td>
+                <td>1,500W cont. / 3,500W surge (high inductive LRA)</td>
+              </tr>
+              <tr>
+                <td><strong>Essentials Circuit Hub (Fridge + Wi-Fi + LED Lights + CPAP)</strong></td>
+                <td>Combined ~320W average continuous</td>
+                <td>~7,680 Wh/day</td>
+                <td>~10.04 kWh nominal (1× 10 kWh residential battery unit)</td>
+                <td>3,000W cont. / 6,000W peak hybrid inverter</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <p style={{ fontSize: "0.85rem", color: "var(--muted)", marginTop: "0.75rem" }}>
+          *Note: Battery sizing incorporates a 90% hybrid inverter DC-to-AC conversion efficiency and an 85% maximum Depth of Discharge (DoD) cutoff. Inductive loads (compressors and motors) require peak surge allowance to prevent inverter overload trips.*
+        </p>
+      </section>
+
+      {/* 4-Way Planning Mesh Cards */}
+      <section id="related-tools" style={{ marginTop: "3rem" }}>
+        <h2>Related Home Energy, Storage &amp; Electrical Planning</h2>
+        <p>
+          Translating appliance wattage audits into whole-home resilience requires coordinating continuous power, battery bank autonomy, and utility billing:
+        </p>
+
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(260px, 1fr))", gap: "1rem", marginTop: "1.25rem", marginBottom: "1.5rem" }}>
+          <div style={{ padding: "1.25rem", borderRadius: "0.5rem", border: "1px solid var(--border-color, #e2e8f0)", background: "var(--card-bg, #ffffff)" }}>
+            <h3 style={{ margin: "0 0 0.5rem", fontSize: "1.05rem" }}>🔋 Size Whole-Home Battery Storage</h3>
+            <p style={{ margin: "0 0 0.75rem", fontSize: "0.88rem", lineHeight: 1.5, color: "var(--text-muted)" }}>
+              Scale nominal battery capacity (kWh) for 1 to 3 days of outage backup across critical circuits or whole-home load profiles.
+            </p>
+            <Link href="/home-energy/home-battery-size-calculator" style={{ fontWeight: 600, color: "var(--accent)", fontSize: "0.9rem" }}>
+              Home Battery Size Calculator →
+            </Link>
+          </div>
+
+          <div style={{ padding: "1.25rem", borderRadius: "0.5rem", border: "1px solid var(--border-color, #e2e8f0)", background: "var(--card-bg, #ffffff)" }}>
+            <h3 style={{ margin: "0 0 0.5rem", fontSize: "1.05rem" }}>⚡ Convert kWh to Amp-Hours (Ah)</h3>
+            <p style={{ margin: "0 0 0.75rem", fontSize: "0.88rem", lineHeight: 1.5, color: "var(--text-muted)" }}>
+              Translate appliance daily Watt-hours into Amp-Hours (Ah) across 12V, 24V, and 48V battery bank chemistries.
+            </p>
+            <Link href="/battery/battery-capacity-calculator" style={{ fontWeight: 600, color: "var(--accent)", fontSize: "0.9rem" }}>
+              Battery Capacity Calculator →
+            </Link>
+          </div>
+
+          <div style={{ padding: "1.25rem", borderRadius: "0.5rem", border: "1px solid var(--border-color, #e2e8f0)", background: "var(--card-bg, #ffffff)" }}>
+            <h3 style={{ margin: "0 0 0.5rem", fontSize: "1.05rem" }}>⏱️ Model Battery Outage Runtime</h3>
+            <p style={{ margin: "0 0 0.75rem", fontSize: "0.88rem", lineHeight: 1.5, color: "var(--text-muted)" }}>
+              Simulate how long an existing battery bank will last under real appliance load curves with Peukert and inverter tare losses.
+            </p>
+            <Link href="/battery/battery-runtime-calculator" style={{ fontWeight: 600, color: "var(--accent)", fontSize: "0.9rem" }}>
+              Battery Runtime Calculator →
+            </Link>
+          </div>
+
+          <div style={{ padding: "1.25rem", borderRadius: "0.5rem", border: "1px solid var(--border-color, #e2e8f0)", background: "var(--card-bg, #ffffff)" }}>
+            <h3 style={{ margin: "0 0 0.5rem", fontSize: "1.05rem" }}>⚡ Size Standby Generator &amp; Inrush</h3>
+            <p style={{ margin: "0 0 0.75rem", fontSize: "0.88rem", lineHeight: 1.5, color: "var(--text-muted)" }}>
+              Calculate starting generator wattage and motor surge capacity (LRA) to keep large heating and refrigeration equipment running.
+            </p>
+            <Link href="/home-energy/generator-size-calculator" style={{ fontWeight: 600, color: "var(--accent)", fontSize: "0.9rem" }}>
+              Generator Size Calculator →
+            </Link>
+          </div>
+        </div>
+
+        <p style={{ marginTop: "1rem" }}>
+          📖 <strong>In-Depth Technical Guides &amp; Research:</strong> Benchmark baseline consumption with our <Link href="/guides/how-many-kwh-does-a-house-use-per-day" style={{ fontWeight: 600, color: "var(--accent)" }}>Daily Household kWh Usage Guide</Link>, learn battery autonomy math in the <Link href="/guides/battery-backup-runtime-calculation-guide" style={{ fontWeight: 600, color: "var(--accent)" }}>Battery Runtime Guide</Link>, or inspect empirical Peukert derating in our open <Link href="/datasets/bess-peukert-capacity-derating-tare-loss-benchmark" style={{ fontWeight: 600, color: "var(--accent)" }}>Residential BESS Peukert Benchmark (PL-DS-BESS-05)</Link>.
         </p>
       </section>
     </article>
