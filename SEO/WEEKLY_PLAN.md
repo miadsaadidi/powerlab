@@ -95,9 +95,9 @@ When prompted with *"SEO plan this week"* or *"SEO plan today"*, return strictly
 * **Candidate CD-01 — Residential Battery Energy Storage Degradation & Thermal Loss Dataset (PL-DS-BESS-06):** COMPLETED (Session 46) $\rightarrow$ **Measurement Mode**.  
   *Evidence:* SERP intent gap around empirical LiFePO4 vs NMC cycle-life degradation, calendar fade rates, and ambient temperature capacity loss models.  
   *Delivered:* Codified empirical cycle-life retention (1,000–6,000 EFC) and operating temperature derating (-10°C to 45°C) across LiFePO4 and NMC stationary storage under IEEE 485; created dataset page `/datasets/residential-battery-storage-degradation-and-thermal-loss-benchmark` (`PL-DS-BESS-06`); deployed bidirectional mesh links to `/battery/battery-capacity-calculator`, `/home-energy/home-battery-size-calculator`, and `/battery/battery-runtime-calculator`. Pure calculation engines kept 100% untouched.
-* **Candidate CD-02 — Heat Pump Sub-Zero Heating Seasonal Performance Factor (HSPF2) Benchmark (PL-DS-HVAC-04):**  
+* **Candidate CD-02 — Heat Pump Sub-Zero Heating Seasonal Performance Factor (HSPF2) Benchmark (PL-DS-HVAC-04):** COMPLETED (Session 51) $\rightarrow$ **Measurement Mode**.  
   *Evidence:* Search interest in cold-climate heat pump COP degradation below 17°F (-8.3°C) vs auxiliary electric resistance staging.  
-  *Status:* **RESEARCH / PROVENANCE GATE** (Validating PNNL field study open distribution rights).
+  *Delivered:* Codified empirical COP decay curves (+47°F down to -15°F), heating capacity retention (1.5 to 5.0 tons), and auxiliary strip heat staging thresholds under AHRI 210/240-2023 and DOE Appendix M1 across standard inverters vs cold-climate EVI platforms; created dataset page `/datasets/heat-pump-sub-zero-cop-degradation-benchmark` (`PL-DS-HVAC-04`); deployed bidirectional planning mesh links to `/home-energy/heat-pump-cost-calculator`, `/home-energy/air-conditioner-cost-calculator`, and `/guides/central-ac-and-heat-pump-electricity-cost-guide`. Pure calculation engines kept 100% untouched.
 
 ### Track E: Layer 1 Supporting Intent Candidates
 * **Candidate L1-01 — Level 2 EVSE Continuous Duty 125% Ampacity Sizing Guide:** COMPLETED (Session 45 via Candidate T2-04 Cluster Mesh) $\rightarrow$ **Measurement Mode**.

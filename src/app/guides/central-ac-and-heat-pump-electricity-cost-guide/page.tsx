@@ -340,6 +340,9 @@ P_electrical (kW) = (Tonnage × 12,000) ÷ (SEER2 × 1,000)`}</code>
             <Link href="/guides/emergency-generator-sizing-and-inrush-load-guide"><strong>Emergency Generator Sizing &amp; Motor Inrush Guide</strong></Link> — Master inductive motor inrush physics and soft-starter sizing for AC compressors.
           </li>
           <li>
+            <Link href="/datasets/heat-pump-sub-zero-cop-degradation-benchmark"><strong>Benchmark Dataset: Heat Pump Sub-Zero COP Degradation (PL-DS-HVAC-04)</strong></Link> — Open empirical dataset tabulating sub-zero COP retention, compressor power draw, and electric strip heat staging from 47°F down to -15°F.
+          </li>
+          <li>
             <Link href="/research/heat-pump-cop-degradation-and-auxiliary-heat-kinetics"><strong>Research Report: Heat Pump COP Degradation &amp; Strip Heat Dynamics (PL-TR-2026-HVAC01)</strong></Link> — Open engineering preprint analyzing sub-zero vapor compression kinetics and auxiliary staging costs.
           </li>
         </ul>
