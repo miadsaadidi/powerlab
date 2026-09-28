@@ -957,7 +957,8 @@ export const BENCHMARK_DATASETS: BenchmarkDataset[] = [
     id: "PL-DS-HVAC-04",
     slug: "heat-pump-sub-zero-cop-degradation-benchmark",
     repository: "Figshare",
-    status: "accession_pending",
+    status: "published",
+    doi: "10.6084/m9.figshare.34018341",
     title: "Heat Pump Sub-Zero HSPF2 & Ambient COP Degradation Benchmark Matrix",
     shortTitle: "Heat Pump Sub-Zero COP Benchmark",
     subtitle: "Empirical COP decay curves (+47°F down to -15°F), compressor capacity retention, and electric auxiliary strip staging kinetics under AHRI 210/240 and DOE Appendix M1.",
@@ -985,7 +986,7 @@ export const BENCHMARK_DATASETS: BenchmarkDataset[] = [
     fileSize: "188 KB",
     format: "CSV / Tabular Matrix",
     downloadUrl: "/datasets/heat-pump-sub-zero-cop-degradation-matrix.csv",
-    repositoryUrl: "https://figshare.com/search?q=PL-DS-HVAC-04",
+    repositoryUrl: "https://doi.org/10.6084/m9.figshare.34018341",
     paperSlug: "heat-pump-cop-degradation-and-auxiliary-heat-kinetics",
     methodology: "Synthesized from empirical PNNL field monitoring studies, NEEP Cold Climate Air Source Heat Pump (ccASHP) specification listings, AHRI 210/240-2023 certified laboratory performance data across 5 outdoor test points (47°F, 35°F with defrost penalty, 17°F, 5°F, and -15°F), and DOE 10 CFR Part 430 Appendix M1 seasonal derate standards.",
     variables: [
@@ -1029,10 +1030,11 @@ export const BENCHMARK_DATASETS: BenchmarkDataset[] = [
   year         = {2026},
   publisher    = {Figshare},
   version      = {1.0.0},
+  doi          = {10.6084/m9.figshare.34018341},
   url          = {https://www.powelab.org/datasets/heat-pump-sub-zero-cop-degradation-benchmark}
 }`,
-    apaCitation: "PowerLab Clean Energy Engineering Group. (2026). Heat Pump Sub-Zero HSPF2 & Ambient COP Degradation Benchmark Matrix (Version 1.0.0) [Data set]. Figshare. https://www.powelab.org/datasets/heat-pump-sub-zero-cop-degradation-benchmark",
-    ieeeCitation: "PowerLab Clean Energy Engineering Group, \"Heat Pump Sub-Zero HSPF2 & Ambient COP Degradation Benchmark Matrix,\" Figshare, 2026.",
+    apaCitation: "PowerLab Clean Energy Engineering Group. (2026). Heat Pump Sub-Zero HSPF2 & Ambient COP Degradation Benchmark Matrix (Version 1.0.0) [Data set]. Figshare. https://doi.org/10.6084/m9.figshare.34018341",
+    ieeeCitation: "PowerLab Clean Energy Engineering Group, \"Heat Pump Sub-Zero HSPF2 & Ambient COP Degradation Benchmark Matrix,\" Figshare, 2026, doi: 10.6084/m9.figshare.34018341.",
   },
 ];
 
