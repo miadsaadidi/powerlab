@@ -562,7 +562,7 @@ export default function AcCostPage() {
         </div>
 
         <p>
-          For a comprehensive technical breakdown of SEER vs SEER2 testing, heat-load kinetics, and compressor electrical characteristics, consult our <Link href="/guides/central-ac-and-heat-pump-electricity-cost-guide" style={{ fontWeight: 600, color: "var(--accent)" }}>Central AC &amp; Heat Pump Electricity Cost Guide</Link> or reference national household consumption norms in the <Link href="/guides/how-many-kwh-does-a-house-use-per-day">Daily Household kWh Guide</Link>.
+          For a comprehensive technical breakdown of SEER vs SEER2 testing, heat-load kinetics, and compressor electrical characteristics, consult our <Link href="/guides/central-ac-and-heat-pump-electricity-cost-guide" style={{ fontWeight: 600, color: "var(--accent)" }}>Central AC &amp; Heat Pump Electricity Cost Guide</Link>, explore the empirical <Link href="/datasets/heat-pump-sub-zero-cop-degradation-benchmark" style={{ fontWeight: 600, color: "#059669" }}>Heat Pump Sub-Zero COP Degradation Dataset (PL-DS-HVAC-04)</Link>, or reference national household consumption norms in the <Link href="/guides/how-many-kwh-does-a-house-use-per-day">Daily Household kWh Guide</Link>.
         </p>
       </section>
 

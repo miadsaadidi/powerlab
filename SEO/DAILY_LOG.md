@@ -7,6 +7,38 @@
 
 ## Daily Master Loop Record
 
+### 2026-09-28 (Session 51) — Heat Pump Sub-Zero HSPF2 & Ambient COP Degradation Benchmark (Track D Core Publication & HVAC Cluster Mesh)
+* **Session Lead:** AI/SEO Agent (User Approved Single Objective Execution)
+* **Target URLs:**
+  * [`/datasets/heat-pump-sub-zero-cop-degradation-benchmark`](file:///d:/powerlab/src/app/datasets/%5Bslug%5D/page.tsx) (`PL-DS-HVAC-04`)
+  * [`/home-energy/heat-pump-cost-calculator`](file:///d:/powerlab/src/app/home-energy/heat-pump-cost-calculator/page.tsx)
+  * [`/home-energy/air-conditioner-cost-calculator`](file:///d:/powerlab/src/app/home-energy/air-conditioner-cost-calculator/page.tsx)
+  * [`/guides/central-ac-and-heat-pump-electricity-cost-guide`](file:///d:/powerlab/src/app/guides/central-ac-and-heat-pump-electricity-cost-guide/page.tsx)
+  * [`src/data/research-papers.ts`](file:///d:/powerlab/src/data/research-papers.ts)
+  * [`src/app/api/indexnow/indexnow.test.ts`](file:///d:/powerlab/src/app/api/indexnow/indexnow.test.ts)
+  * [`public/llms.txt`](file:///d:/powerlab/public/llms.txt)
+  * [`SEO/WEEKLY_PLAN.md`](file:///d:/powerlab/SEO/WEEKLY_PLAN.md)
+  * [`SEO/DAILY_LOG.md`](file:///d:/powerlab/SEO/DAILY_LOG.md)
+* **Step 1 (Provenance & Data Modeling):**
+  - Sourced empirical sub-zero COP retention curves (+47°F down to -15°F) from DOE/PNNL cold-climate field monitoring, NEEP ccASHP specifications, and AHRI 210/240-2023 certified laboratory performance test standards.
+  - Derived thermodynamic relationships between dry-bulb ambient temperature, refrigerant suction volume, compressor vapor-injection modulation (EVI), heating capacity retention (Cap/Cap47), and electric resistance auxiliary heat staging thresholds.
+* **Step 2 (Deterministic Benchmark Publication):**
+  - Codified benchmark dataset `PL-DS-HVAC-04` (*Heat Pump Sub-Zero HSPF2 & Ambient COP Degradation Benchmark Matrix*) in `src/data/research-papers.ts`.
+  - Structured 7 variables (`T_amb`, `Arch`, `COP`, `Cap_ret`, `P_comp`, `Aux_kw`, `Cost_hr`) and sample data covering standard inverters vs cold-climate EVI platforms.
+  - Linked companion research whitepaper `PL-TR-2026-HVAC01` (`/research/heat-pump-cop-degradation-and-auxiliary-heat-kinetics`) and related HVAC calculators.
+  - Set status to `accession_pending` adhering strictly to zero-guessing of external DOIs.
+* **Step 3 (Bidirectional Cluster Planning Pathways & Governance):**
+  - Connected contextual dataset links on `/home-energy/heat-pump-cost-calculator`, `/home-energy/air-conditioner-cost-calculator`, and `/guides/central-ac-and-heat-pump-electricity-cost-guide`.
+  - Updated `src/app/api/indexnow/indexnow.test.ts` canonical path assertion (75 routes).
+  - Updated `public/llms.txt` Section 5 with `PL-DS-HVAC-04`.
+  - All deterministic calculation engines (`src/lib/calculators/*`) kept 100% untouched.
+* **Step 4 (Validation Suite Execution):**
+  - Vitest test suite: **58/58 test files passed** (265/265 unit tests).
+  - TypeScript typecheck: **0 compilation errors** (`tsc --noEmit`).
+  - Static SSG build: **89/89 static pages generated successfully** (`next build`).
+* **SEO Asset Status:** `COMPLETED — MEASUREMENT MODE` (`PL-DS-HVAC-04` placed in measurement mode).
+* **Next SEO Objective / Action Required:** Candidate Backlog re-diagnosis and next candidate evaluation upon user confirmation.
+
 ### 2026-09-27 (Session 50) — Appliance Audit to Battery Storage & Backup Sizing Cluster Mesh Upgrade (Track B / Candidate AG-01)
 * **Session Lead:** AI/SEO Agent (User Approved Step-by-Step Execution)
 * **Target URLs:**

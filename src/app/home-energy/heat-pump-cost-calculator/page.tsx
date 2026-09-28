@@ -66,7 +66,7 @@ export default function HeatPumpCostPage() {
       "ASHRAE Standard 90.1 (Energy Standard for Buildings)",
       "ENERGY STAR Program Requirements for Air-Source Heat Pumps (v6.1 Cold Climate Specification)",
     ],
-    companionDatasetUrl: "https://www.powelab.org/datasets/central-air-conditioner-seer2-cooling-degree-day-benchmark",
+    companionDatasetUrl: "https://www.powelab.org/datasets/heat-pump-sub-zero-cop-degradation-benchmark",
     companionPaperUrl: "https://www.powelab.org/research/heat-pump-cop-degradation-and-auxiliary-heat-kinetics",
     faqs: FAQS,
   });
@@ -498,7 +498,7 @@ export default function HeatPumpCostPage() {
         </div>
 
         <p>
-          For comprehensive thermodynamic analysis of SEER2/HSPF2 standards, building heat-loss curves, and compressor cycling physics, consult our <Link href="/guides/central-ac-and-heat-pump-electricity-cost-guide" style={{ fontWeight: 600, color: "var(--accent)" }}>Central AC &amp; Heat Pump Electricity Cost Guide</Link> or inspect our open engineering study on <Link href="/research/heat-pump-cop-degradation-and-auxiliary-heat-kinetics" style={{ fontWeight: 600, color: "var(--accent)" }}>Heat Pump Sub-Zero COP Degradation &amp; Strip Heat Staging (PL-TR-2026-HVAC01)</Link>.
+          For comprehensive thermodynamic analysis of SEER2/HSPF2 standards, building heat-loss curves, and compressor cycling physics, consult our <Link href="/guides/central-ac-and-heat-pump-electricity-cost-guide" style={{ fontWeight: 600, color: "var(--accent)" }}>Central AC &amp; Heat Pump Electricity Cost Guide</Link>, explore our open benchmark dataset on <Link href="/datasets/heat-pump-sub-zero-cop-degradation-benchmark" style={{ fontWeight: 600, color: "#059669" }}>Heat Pump Sub-Zero COP Degradation (PL-DS-HVAC-04)</Link>, or inspect our research report on <Link href="/research/heat-pump-cop-degradation-and-auxiliary-heat-kinetics" style={{ fontWeight: 600, color: "var(--accent)" }}>Heat Pump Sub-Zero COP Degradation &amp; Strip Heat Staging (PL-TR-2026-HVAC01)</Link>.
         </p>
       </section>
 

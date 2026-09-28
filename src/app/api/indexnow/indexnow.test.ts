@@ -29,6 +29,7 @@ describe("IndexNow verification and sitemap coverage", () => {
     expect(paths).toContain("/datasets");
     expect(paths).toContain("/guides/solar-inverter-clipping-and-dc-ac-ratio-guide");
     expect(paths).toContain("/guides/ev-v2l-v2h-home-backup-power-guide");
-    expect(paths.length).toBe(74);
+    expect(paths).toContain("/datasets/heat-pump-sub-zero-cop-degradation-benchmark");
+    expect(paths.length).toBe(75);
   });
 });
