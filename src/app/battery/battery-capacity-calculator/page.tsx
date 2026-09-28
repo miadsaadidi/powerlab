@@ -416,6 +416,16 @@ export default function BatteryCapacityPage() {
 
         <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(260px, 1fr))", gap: "1rem" }}>
           <div style={{ padding: "1.25rem", borderRadius: "0.75rem", background: "var(--surface-subtle, #fafafa)", border: "1px solid var(--line)" }}>
+            <h3 style={{ margin: "0 0 0.5rem", fontSize: "1.05rem", color: "var(--brand-strong)" }}>🔌 Appliance Electricity Usage Audit</h3>
+            <p style={{ fontSize: "0.88rem", color: "var(--muted)", margin: "0 0 0.75rem", lineHeight: 1.5 }}>
+              Audit individual device wattages, active operating hours, and cycling duty cycles to establish your continuous backup load.
+            </p>
+            <Link href="/home-energy/electricity-usage-calculator" className="button secondary-button" style={{ width: "100%", textAlign: "center", display: "block" }}>
+              Electricity Usage Calculator →
+            </Link>
+          </div>
+
+          <div style={{ padding: "1.25rem", borderRadius: "0.75rem", background: "var(--surface-subtle, #fafafa)", border: "1px solid var(--line)" }}>
             <h3 style={{ margin: "0 0 0.5rem", fontSize: "1.05rem", color: "var(--brand-strong)" }}>⏱️ Battery Runtime Calculator</h3>
             <p style={{ fontSize: "0.88rem", color: "var(--muted)", margin: "0 0 0.75rem", lineHeight: 1.5 }}>
               Model continuous &amp; surge electrical loads with dynamic Peukert derating and inverter tare losses.
@@ -454,9 +464,22 @@ export default function BatteryCapacityPage() {
               Battery Charging Time Calculator →
             </Link>
           </div>
+
+          <div style={{ padding: "1.25rem", borderRadius: "0.75rem", background: "var(--surface-subtle, #fafafa)", border: "1px solid var(--line)" }}>
+            <h3 style={{ margin: "0 0 0.5rem", fontSize: "1.05rem", color: "var(--brand-strong)" }}>🚗 EV V2L / V2H Home Backup</h3>
+            <p style={{ fontSize: "0.88rem", color: "var(--muted)", margin: "0 0 0.75rem", lineHeight: 1.5 }}>
+              Leverage your electric vehicle&apos;s 77–131 kWh high-voltage battery to power essential 120V/240V circuits during blackouts.
+            </p>
+            <Link href="/guides/ev-v2l-v2h-home-backup-power-guide" className="button secondary-button" style={{ width: "100%", textAlign: "center", display: "block" }}>
+              EV V2L &amp; V2H Guide →
+            </Link>
+          </div>
         </div>
 
-        <div style={{ marginTop: "1rem", display: "flex", gap: "0.75rem", flexWrap: "wrap", fontSize: "0.9rem" }}>
+        <div style={{ marginTop: "1.25rem", display: "flex", gap: "0.75rem", flexWrap: "wrap", fontSize: "0.9rem" }}>
+          <Link href="/guides/how-many-kwh-does-a-house-use-per-day" style={{ fontWeight: 600, color: "var(--accent)" }}>
+            📖 Daily Household kWh Usage Guide →
+          </Link>
           <Link href="/guides/battery-backup-runtime-calculation-guide" style={{ fontWeight: 600, color: "var(--accent)" }}>
             📖 Read Battery Runtime Math Guide →
           </Link>

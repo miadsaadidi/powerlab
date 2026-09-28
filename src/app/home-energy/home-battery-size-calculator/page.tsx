@@ -241,13 +241,56 @@ export default function HomeBatterySizePage() {
         </div>
       </section>
 
-      <section id="related-tools">
-        <h2>Related Energy &amp; Storage Calculators &amp; Guides</h2>
+      <section id="related-tools" style={{ marginTop: "3rem" }}>
+        <h2>Related Energy Storage, Appliance Auditing &amp; Resilience Planning</h2>
         <p>
-          Audit your high-draw appliances and starting currents with the <Link href="/home-energy/electricity-usage-calculator">Electricity Usage Calculator</Link>, model utility bill impacts with the <Link href="/home-energy/energy-bill-calculator">Energy Bill Calculator</Link>, size an emergency standby generator with the <Link href="/home-energy/generator-size-calculator">Generator Size Calculator</Link>, or calculate solar panel capacity with the <Link href="/solar/solar-panel-size-calculator">Solar Panel Size Calculator</Link>.
+          Sizing whole-house energy storage is one step in a complete residential energy resilience plan. PowerLab connects battery sizing directly into appliance auditing, Amp-Hour conversion, and alternative backup generation:
         </p>
-        <p style={{ marginTop: "0.75rem" }}>
-          📖 <strong>In-Depth Technical Guides:</strong> Benchmark your home&apos;s daily baseline consumption with our <Link href="/guides/how-many-kwh-does-a-house-use-per-day" style={{ fontWeight: 600, color: "var(--accent)" }}>Daily Household kWh Usage Guide</Link> or evaluate how cooling loads affect battery autonomy in our <Link href="/guides/central-ac-and-heat-pump-electricity-cost-guide" style={{ fontWeight: 600, color: "var(--accent)" }}>Central AC &amp; Heat Pump Cost Guide</Link>.
+
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(260px, 1fr))", gap: "1rem", marginTop: "1.25rem", marginBottom: "1.5rem" }}>
+          <div style={{ padding: "1.25rem", borderRadius: "0.5rem", border: "1px solid var(--border-color, #e2e8f0)", background: "var(--card-bg, #ffffff)" }}>
+            <h3 style={{ margin: "0 0 0.5rem", fontSize: "1.05rem" }}>🔌 Audit Appliance Loads &amp; Duty Cycles</h3>
+            <p style={{ margin: "0 0 0.75rem", fontSize: "0.88rem", lineHeight: 1.5, color: "var(--text-muted)" }}>
+              Audit specific household devices (refrigerators, well pumps, Wi-Fi, HVAC) to tally exact continuous watts and duty cycles before sizing a battery bank.
+            </p>
+            <Link href="/home-energy/electricity-usage-calculator" style={{ fontWeight: 600, color: "var(--accent)", fontSize: "0.9rem" }}>
+              Electricity Usage Calculator →
+            </Link>
+          </div>
+
+          <div style={{ padding: "1.25rem", borderRadius: "0.5rem", border: "1px solid var(--border-color, #e2e8f0)", background: "var(--card-bg, #ffffff)" }}>
+            <h3 style={{ margin: "0 0 0.5rem", fontSize: "1.05rem" }}>⚡ Convert kWh to Amp-Hours (Ah)</h3>
+            <p style={{ margin: "0 0 0.75rem", fontSize: "0.88rem", lineHeight: 1.5, color: "var(--text-muted)" }}>
+              Translate your target battery kWh requirement into Amp-Hours (Ah) across 12V, 24V, and 48V stationary lithium battery systems.
+            </p>
+            <Link href="/battery/battery-capacity-calculator" style={{ fontWeight: 600, color: "var(--accent)", fontSize: "0.9rem" }}>
+              Battery Capacity Calculator →
+            </Link>
+          </div>
+
+          <div style={{ padding: "1.25rem", borderRadius: "0.5rem", border: "1px solid var(--border-color, #e2e8f0)", background: "var(--card-bg, #ffffff)" }}>
+            <h3 style={{ margin: "0 0 0.5rem", fontSize: "1.05rem" }}>⏱️ Model Battery Outage Runtime</h3>
+            <p style={{ margin: "0 0 0.75rem", fontSize: "0.88rem", lineHeight: 1.5, color: "var(--text-muted)" }}>
+              Calculate precise discharge hours under active loads with electrochemical Peukert derating and continuous inverter tare draw.
+            </p>
+            <Link href="/battery/battery-runtime-calculator" style={{ fontWeight: 600, color: "var(--accent)", fontSize: "0.9rem" }}>
+              Battery Runtime Calculator →
+            </Link>
+          </div>
+
+          <div style={{ padding: "1.25rem", borderRadius: "0.5rem", border: "1px solid var(--border-color, #e2e8f0)", background: "var(--card-bg, #ffffff)" }}>
+            <h3 style={{ margin: "0 0 0.5rem", fontSize: "1.05rem" }}>🚗 EV Bidirectional V2L / V2H Backup</h3>
+            <p style={{ margin: "0 0 0.75rem", fontSize: "0.88rem", lineHeight: 1.5, color: "var(--text-muted)" }}>
+              Explore using your electric vehicle&apos;s 77–131 kWh battery pack as a whole-home backup generator via manual or automatic transfer switches.
+            </p>
+            <Link href="/guides/ev-v2l-v2h-home-backup-power-guide" style={{ fontWeight: 600, color: "var(--accent)", fontSize: "0.9rem" }}>
+              EV V2L &amp; V2H Home Backup Guide →
+            </Link>
+          </div>
+        </div>
+
+        <p style={{ marginTop: "1rem" }}>
+          📖 <strong>In-Depth Technical Guides &amp; Research:</strong> Benchmark your home&apos;s baseline with our <Link href="/guides/how-many-kwh-does-a-house-use-per-day" style={{ fontWeight: 600, color: "var(--accent)" }}>Daily Household kWh Usage Guide</Link>, learn battery runtime formulas in the <Link href="/guides/battery-backup-runtime-calculation-guide" style={{ fontWeight: 600, color: "var(--accent)" }}>Battery Runtime Guide</Link>, or inspect empirical Peukert discharge data in our open <Link href="/datasets/bess-peukert-capacity-derating-tare-loss-benchmark" style={{ fontWeight: 600, color: "var(--accent)" }}>Residential BESS Peukert Benchmark (PL-DS-BESS-05)</Link>.
         </p>
       </section>
     </article>
