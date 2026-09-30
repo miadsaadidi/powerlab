@@ -166,6 +166,114 @@ export default function CalculatorsHubPage() {
         </div>
       </section>
 
+      {/* Featured Specialized Calculation Tools & Sizing Guides */}
+      <section aria-labelledby="featured-tools-heading" style={{ marginBottom: "3rem" }}>
+        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "baseline", marginBottom: "1rem" }}>
+          <h2 id="featured-tools-heading" style={{ fontSize: "1.35rem", margin: 0 }}>
+            Specialized NEC Sizing Engines &amp; Technical Tools
+          </h2>
+          <Link href="/guides" style={{ fontSize: "0.85rem", color: "var(--accent)", textDecoration: "none", fontWeight: 600 }}>
+            View all guides &amp; tools →
+          </Link>
+        </div>
+
+        <div
+          style={{
+            display: "grid",
+            gridTemplateColumns: "repeat(auto-fit, minmax(min(100%, 320px), 1fr))",
+            gap: "1.25rem",
+          }}
+        >
+          {/* NEC 705.12 Busbar Calculator & Guide */}
+          <div
+            style={{
+              padding: "1.25rem",
+              borderRadius: "0.75rem",
+              background: "var(--surface)",
+              border: "1px solid var(--border)",
+              display: "flex",
+              flexDirection: "column",
+              justifyContent: "space-between",
+            }}
+          >
+            <div>
+              <div style={{ display: "flex", alignItems: "center", gap: "0.5rem", marginBottom: "0.5rem" }}>
+                <span style={{ fontSize: "1.25rem" }}>⚡</span>
+                <span style={{ fontSize: "0.75rem", fontWeight: 700, textTransform: "uppercase", color: "#38bdf8", background: "rgba(56, 189, 248, 0.12)", padding: "0.15rem 0.5rem", borderRadius: "4px" }}>
+                  Interactive Calculator + NEC 2023 Guide
+                </span>
+              </div>
+              <h3 style={{ fontSize: "1.1rem", margin: "0 0 0.5rem" }}>
+                NEC 705.12 120% Busbar &amp; Main Breaker Derating Calculator
+              </h3>
+              <p style={{ fontSize: "0.85rem", color: "var(--muted)", margin: "0 0 1rem", lineHeight: 1.45 }}>
+                Calculate solar and battery backfeed allowances, simulate 1-click main breaker derating scenarios, and inspect physical busbar opposite-end layouts under NFPA 70 / NEC 705.12(B).
+              </p>
+            </div>
+            <Link
+              href="/guides/nec-705-12-120-percent-rule-solar-busbar-sizing-guide"
+              style={{
+                display: "inline-block",
+                padding: "0.5rem 1rem",
+                borderRadius: "6px",
+                background: "var(--brand-strong, #0284c7)",
+                color: "#ffffff",
+                textDecoration: "none",
+                fontWeight: 600,
+                fontSize: "0.85rem",
+                textAlign: "center",
+              }}
+            >
+              Launch Busbar Calculator &amp; Guide →
+            </Link>
+          </div>
+
+          {/* Inverter Clipping Guide & Sizing Tool */}
+          <div
+            style={{
+              padding: "1.25rem",
+              borderRadius: "0.75rem",
+              background: "var(--surface)",
+              border: "1px solid var(--border)",
+              display: "flex",
+              flexDirection: "column",
+              justifyContent: "space-between",
+            }}
+          >
+            <div>
+              <div style={{ display: "flex", alignItems: "center", gap: "0.5rem", marginBottom: "0.5rem" }}>
+                <span style={{ fontSize: "1.25rem" }}>☀️</span>
+                <span style={{ fontSize: "0.75rem", fontWeight: 700, textTransform: "uppercase", color: "#4ade80", background: "rgba(74, 222, 128, 0.12)", padding: "0.15rem 0.5rem", borderRadius: "4px" }}>
+                  Engineering Reference Guide
+                </span>
+              </div>
+              <h3 style={{ fontSize: "1.1rem", margin: "0 0 0.5rem" }}>
+                Solar Inverter Clipping &amp; DC-to-AC Ratio Sizing Guide
+              </h3>
+              <p style={{ fontSize: "0.85rem", color: "var(--muted)", margin: "0 0 1rem", lineHeight: 1.45 }}>
+                Evaluate inverter clipping losses, optimal 1.15–1.35 DC/AC oversizing ratios across warm vs cold climates, and inverter warranty boundaries under IEEE 1547.
+              </p>
+            </div>
+            <Link
+              href="/guides/solar-inverter-clipping-and-dc-ac-ratio-guide"
+              style={{
+                display: "inline-block",
+                padding: "0.5rem 1rem",
+                borderRadius: "6px",
+                background: "var(--brand-strong, #0284c7)",
+                color: "#ffffff",
+                textDecoration: "none",
+                fontWeight: 600,
+                fontSize: "0.85rem",
+                textAlign: "center",
+              }}
+            >
+              Read Inverter Clipping Guide →
+            </Link>
+          </div>
+        </div>
+      </section>
+
       {/* Engineering Trust Badges */}
       <TrustBadges />
     </div>

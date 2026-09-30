@@ -205,6 +205,36 @@ export default function HomePage() {
         <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(min(100%, 360px), 1fr))", gap: "1.25rem" }}>
           <article style={{ padding: "1.35rem", borderRadius: "0.75rem", border: "1px solid var(--line)", background: "var(--surface)", display: "flex", flexDirection: "column", gap: "0.6rem" }}>
             <div style={{ display: "flex", alignItems: "center", gap: "0.4rem" }}>
+              <span style={{ fontSize: "0.74rem", fontWeight: 700, color: "#f59e0b", background: "rgba(245, 158, 11, 0.1)", padding: "0.15rem 0.5rem", borderRadius: "0.3rem" }}>
+                ⚡ Electrical &amp; Solar
+              </span>
+              <span style={{ fontSize: "0.74rem", color: "var(--muted)" }}>9 min read</span>
+            </div>
+            <h3 style={{ margin: "0.2rem 0", fontSize: "1.15rem", lineHeight: 1.3 }}>
+              <Link href="/guides/nec-705-12-120-percent-rule-solar-busbar-sizing-guide" style={{ color: "var(--brand-strong)", textDecoration: "none" }}>
+                NEC 705.12 120% Rule: Solar &amp; Battery Busbar Sizing Guide
+              </Link>
+            </h3>
+            <p style={{ margin: 0, fontSize: "0.88rem", color: "var(--ink)", lineHeight: 1.5, flexGrow: 1 }}>
+              Deterministic service panel backfeed calculations under NFPA 70-2023. Includes 100A–400A busbar derating tables, continuous duty 125% math, and interactive simulator.
+            </p>
+            <Link
+              href="/guides/nec-705-12-120-percent-rule-solar-busbar-sizing-guide"
+              className="button"
+              style={{
+                alignSelf: "flex-start",
+                padding: "0.45rem 1rem",
+                fontSize: "0.84rem",
+                marginTop: "0.35rem",
+              }}
+            >
+              <span>Calculate &amp; Read Guide</span>
+              <span>→</span>
+            </Link>
+          </article>
+
+          <article style={{ padding: "1.35rem", borderRadius: "0.75rem", border: "1px solid var(--line)", background: "var(--surface)", display: "flex", flexDirection: "column", gap: "0.6rem" }}>
+            <div style={{ display: "flex", alignItems: "center", gap: "0.4rem" }}>
               <span style={{ fontSize: "0.74rem", fontWeight: 700, color: "#0284c7", background: "rgba(2, 132, 199, 0.1)", padding: "0.15rem 0.5rem", borderRadius: "0.3rem" }}>
                 ⚡ Home Energy
               </span>

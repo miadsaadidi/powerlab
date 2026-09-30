@@ -404,7 +404,7 @@ export default function EvBreakerSizePage() {
         </div>
 
         <p style={{ fontSize: "0.9rem", color: "var(--text-muted)" }}>
-          Also evaluate real-world range efficiency in our <Link href="/ev/ev-range-calculator" style={{ fontWeight: 600, color: "var(--accent)" }}>EV Real-World Range Calculator</Link>, model home charging electricity tariffs with the <Link href="/ev/ev-charging-cost-calculator" style={{ fontWeight: 600, color: "var(--accent)" }}>EV Charging Cost Calculator</Link>, or read the peer-reviewed research whitepaper <Link href="/research/continuous-duty-thermal-sizing-evse-ampacity" style={{ fontWeight: 600, color: "var(--accent)" }}>PL-TR-2026-EVSE01</Link>.
+          Also evaluate main service panel busbar limits with our <Link href="/guides/nec-705-12-120-percent-rule-solar-busbar-sizing-guide" style={{ fontWeight: 600, color: "var(--accent)" }}>NEC 705.12 120% Busbar Sizing Guide</Link>, evaluate real-world range efficiency in our <Link href="/ev/ev-range-calculator" style={{ fontWeight: 600, color: "var(--accent)" }}>EV Real-World Range Calculator</Link>, model home charging electricity tariffs with the <Link href="/ev/ev-charging-cost-calculator" style={{ fontWeight: 600, color: "var(--accent)" }}>EV Charging Cost Calculator</Link>, or read the peer-reviewed research whitepaper <Link href="/research/continuous-duty-thermal-sizing-evse-ampacity" style={{ fontWeight: 600, color: "var(--accent)" }}>PL-TR-2026-EVSE01</Link>.
         </p>
       </section>
 

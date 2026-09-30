@@ -7,6 +7,59 @@
 
 ## Daily Master Loop Record
 
+### 2026-09-30 (Session 53) — NEC 705.12 Calculator & Guide Review Patch & Math Display Component Architecture
+* **Session Lead:** AI/SEO Agent (User Requested Review & Precision Corrections)
+* **Target URLs & Components:**
+  * [`src/components/common/math-display.tsx`](file:///d:/powerlab/src/components/common/math-display.tsx) (Reusable Centralized Mathematical Typography & Formula Component Architecture)
+  * [`src/components/calculator/nec-busbar-calculator.tsx`](file:///d:/powerlab/src/components/calculator/nec-busbar-calculator.tsx) (Synchronized Numeric Inputs, 50A–800A Range, Extended OCPD List)
+  * [`src/components/calculator/nec-busbar-calculator.test.ts`](file:///d:/powerlab/src/components/calculator/nec-busbar-calculator.test.ts) (Extended Unit Tests to 800A Bounds)
+  * [`src/app/guides/nec-705-12-120-percent-rule-solar-busbar-sizing-guide/page.tsx`](file:///d:/powerlab/src/app/guides/nec-705-12-120-percent-rule-solar-busbar-sizing-guide/page.tsx) (Technical Corrections: Table 2 OCPD Terminology, Opposite-End Heading & Conservative NEC Wording, Table 3 Single-Phase Wording, Neutral Derating FAQs)
+  * All 15 Guide Pages, Calculators, Derivations, and Research Pages (Standardized Formula Typography)
+* **Step 1 (Technical Precision Corrections):**
+  - **Table 2 OCPD Terminology:** Corrected `"60 A (or 65A)"` to `"60 A illustrative source OCPD"`, clearly preserving the distinct 65 A calculation allowance, 52 A continuous current limit, and 60 A standard illustrative OCPD without claiming 65 A as a standard breaker.
+  - **Opposite-End Heading & Scope:** Changed heading to *"Why opposite-end placement matters for this calculation method"* with neutral, technically conservative NEC wording without claiming simplified diagrams prove all bus configurations.
+  - **Input Range & Synchronized Controls:** Restored busbar and main breaker range to `50 A–800 A` (adding 450A, 500A, 600A, 700A, 800A standard OCPDs) and added synchronized exact numeric `<input type="number">` controls alongside range sliders.
+  - **Table 3 Single-Phase Wording:** Changed universal description to `(Example: 32 A continuous source at 240 V single-phase = 7.68 kW)`.
+  - **Neutral Main-Breaker Derating FAQ:** Updated FAQs 4 & 5 to neutral engineering formulations noting that derating requires an NEC Article 220 load calculation plus service/equipment verification.
+* **Step 2 (Centralized Reusable Math Architecture):**
+  - Created [`src/components/common/math-display.tsx`](file:///d:/powerlab/src/components/common/math-display.tsx) with `<MathDisplay>`, `<MathFraction>`, and `formatMathString()` utilities.
+  - Upgraded `<DirectAnswerCard>`, `<FormulaCard>`, `<CalculationWalkthrough>`, and `<MathDerivationInspector>` to automatically format all mathematical notation with 1-click clean raw LaTeX/text copy.
+* **Step 3 (Validation Suite Execution):**
+  - Vitest test suite: **59/59 test files passed** (279/279 tests).
+  - TypeScript typecheck: **0 compilation errors** (`tsc --noEmit`).
+  - Static SSG build: **90/90 static routes generated successfully** (`next build`).
+* **SEO Asset Status:** `COMPLETED — VERIFIED & LIVE IN CODEBASE`.
+
+### 2026-09-30 (Session 52) — NEC 705.12 120% Rule Solar & Battery Busbar Sizing Guide & Calculator (Candidate L1-04)
+* **Session Lead:** AI/SEO Agent (User Approved Single Objective Execution)
+* **Target URLs:**
+  * [`/guides/nec-705-12-120-percent-rule-solar-busbar-sizing-guide`](file:///d:/powerlab/src/app/guides/nec-705-12-120-percent-rule-solar-busbar-sizing-guide/page.tsx) (Flagship Layer 1 Guide + Embedded Calculator)
+  * [`src/components/calculator/nec-busbar-calculator.tsx`](file:///d:/powerlab/src/components/calculator/nec-busbar-calculator.tsx) (Interactive NEC 705.12 Calculator Component + Visual Busbar Schematic)
+  * [`src/components/calculator/nec-busbar-calculator.test.ts`](file:///d:/powerlab/src/components/calculator/nec-busbar-calculator.test.ts) (Automated Unit Tests)
+  * [`/solar/solar-panel-output-calculator`](file:///d:/powerlab/src/app/solar/solar-panel-output-calculator/page.tsx)
+  * [`/solar/solar-charge-controller-calculator`](file:///d:/powerlab/src/app/solar/solar-charge-controller-calculator/page.tsx)
+  * [`/ev/ev-charger-breaker-size-calculator`](file:///d:/powerlab/src/app/ev/ev-charger-breaker-size-calculator/page.tsx)
+  * [`/battery/voltage-drop-calculator`](file:///d:/powerlab/src/app/battery/voltage-drop-calculator/page.tsx)
+  * [`/calculators`](file:///d:/powerlab/src/app/calculators/page.tsx) (Specialized Sizing Engines Directory Card)
+  * [`/page.tsx`](file:///d:/powerlab/src/app/page.tsx) (Homepage Featured Section)
+  * [`/guides`](file:///d:/powerlab/src/app/guides/page.tsx) (Guides Directory Hub)
+  * [`src/app/sitemap.ts`](file:///d:/powerlab/src/app/sitemap.ts) & [`src/app/api/indexnow/indexnow.test.ts`](file:///d:/powerlab/src/app/api/indexnow/indexnow.test.ts)
+* **Step 1 (Calculator Engineering & Busbar Schematic Implementation):**
+  - Implemented deterministic NEC 705.12(B) 120% rule backfeed allowance math ($I_{\text{allowance}} = 1.20 \times I_{\text{bus}} - I_{\text{main}}$) and continuous 125% inverter duty factor ($I_{\text{source,max}} = I_{\text{allowance}} / 1.25$).
+  - Implemented phase-aware continuous AC power math (240V split-phase, 208V 3-phase $\sqrt{3}$, 120V single-leg).
+  - Built interactive single-line busbar layout schematic visualizing grid feed at top, branch circuits in middle, and solar/ESS dedicated backfeed breaker at the opposite end per NEC 705.12(B)(3)(2).
+  - Deployed 1-click dynamic Main-Breaker Derate comparison simulator and dual-unit planned input (kW / Amps) with dynamic shortfall indicators.
+* **Step 2 (Flagship Layer 1 Guide Deployment):**
+  - Created authoritative guide with Code Basis Notice (NEC 2023 / 2020 / 2026), Table 1 (100A–400A busbar matrix), Table 2 (Main breaker derate scenarios + NEC 220 load calculation rule), Table 3 (Interconnection method comparison: Load-side vs Supply-side tap vs PCS/EMS), Center-Fed panel engineering rules, and 7 technical FAQs.
+  - Deployed `TechArticle` structured data JSON-LD.
+* **Step 3 (Cluster Mesh, Directory Hubs & Validation):**
+  - Embedded bidirectional contextual cards on 4 core calculators (`solar-panel-output`, `solar-charge-controller`, `ev-charger-breaker-size`, `voltage-drop`).
+  - Added featured cards on Homepage (`/`) and Calculators Directory Hub (`/calculators`).
+  - Vitest test suite: **59/59 test files passed** (276/276 tests passed).
+  - Static SSG build: **All 76 static routes generated successfully** (`next build`).
+* **SEO Asset Status:** `COMPLETED — MEASUREMENT MODE` (Track B / Candidate L1-04 placed in measurement mode).
+* **Next SEO Objective / Action Required:** Fresh empirical re-diagnosis and next objective proposal upon user review.
+
 ### 2026-09-28 (Session 51) — Heat Pump Sub-Zero HSPF2 & Ambient COP Degradation Benchmark (Track D Core Publication & HVAC Cluster Mesh)
 * **Session Lead:** AI/SEO Agent (User Approved Single Objective Execution)
 * **Target URLs:**

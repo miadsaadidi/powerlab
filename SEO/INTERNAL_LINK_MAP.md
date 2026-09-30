@@ -79,9 +79,12 @@
   * `/solar/solar-payback-calculator`
   * `/solar/solar-battery-bank-size-calculator`
 * **Technical Guides:**
+  * `/guides/nec-705-12-120-percent-rule-solar-busbar-sizing-guide` (Interactive Calculator & Guide)
+  * `/guides/solar-inverter-clipping-and-dc-ac-ratio-guide`
   * `/guides/solar-panel-tilt-angle-by-latitude-and-season-guide`
   * `/guides/mppt-solar-charge-controller-sizing-guide`
   * `/guides/solar-payback-and-roi-calculation-guide`
+* **Cluster Planning Mesh:** Direct bidirectional pathways connect `/guides/nec-705-12-120-percent-rule-solar-busbar-sizing-guide` $\longleftrightarrow$ `/solar/solar-panel-output-calculator` $\longleftrightarrow$ `/solar/solar-charge-controller-calculator` $\longleftrightarrow$ `/guides/solar-inverter-clipping-and-dc-ac-ratio-guide` $\longleftrightarrow$ `/ev/ev-charger-breaker-size-calculator` $\longleftrightarrow$ `/guides/level-2-ev-charging-speed-and-breaker-sizing-guide` $\longleftrightarrow$ `/guides/ev-v2l-v2h-home-backup-power-guide` $\longleftrightarrow$ `/home-energy/generator-size-calculator` $\longleftrightarrow$ `/battery/voltage-drop-calculator`.
 * **Cross-Cluster Link:** Connects to `/battery/battery-size-calculator` and `/home-energy/electricity-usage-calculator`.
 
 ### C. Home Energy & HVAC Cluster (`/home-energy`)

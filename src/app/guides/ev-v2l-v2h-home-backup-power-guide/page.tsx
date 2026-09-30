@@ -104,7 +104,8 @@ export default function EvV2lV2hHomeBackupGuidePage() {
       <DirectAnswerCard
         keyword="How to power a home with an EV (V2L / V2H)"
         answer="To power a home during a blackout using an EV: (1) Connect the vehicle's onboard AC inverter (120V or 240V) to a manual transfer switch subpanel or interlock-protected inlet box; (2) Verify neutral-ground bonding compatibility (use a 3-pole switched-neutral transfer switch for bonded-neutral EVs like the Ford F-150 Lightning to prevent GFCI tripping, or a standard 2-pole interlock for floating-neutral EVs like Hyundai E-GMP); (3) Limit total electrical load to 80% of the EV's continuous AC inverter rating; and (4) Protect a 20% to 30% state-of-charge reserve for emergency driving."
-        formula="V2L Backup Runtime (Hours) = {[Usable Pack Capacity (kWh) × (Current SoC − Reserve SoC)] × Inverter Efficiency (0.88–0.93)} ÷ [Average Load (kW) + Parasitic Vehicle Tare (0.05 kW)]"
+        formula="t_backup = (E_usable * (SoC_start - SoC_reserve) * η_inv) / (P_load + P_tare)"
+        condition="P_continuous ≤ 0.80 × P_inverter_rated"
         standardExample="77.4 kWh EV pack at 90% SoC with 20% driving reserve (54.18 kWh usable) running 450W essential home load: [54.18 × 0.90] ÷ (0.45 + 0.05) = 48.76 ÷ 0.50 = 97.5 Hours (4.06 Days of continuous backup power)"
         sourceAuthority="SAE J3072 / NFPA 70 (NEC Articles 702 & 250) / UL 9741"
       />
@@ -335,7 +336,8 @@ export default function EvV2lV2hHomeBackupGuidePage() {
 
         <FormulaCard
           title="Inverter Runtime &amp; Inrush Sizing Equation"
-          formula="P_{\text{continuous}} \le 0.80 \times P_{\text{inverter, rated}} \quad \text{and} \quad I_{\text{LRA, compressor}} \le I_{\text{surge, inverter}}"
+          formula="P_continuous <= 0.80 * P_inverter_rated  and  I_LRA <= I_surge_inverter"
+          latexFormula="P_{\text{continuous}} \le 0.80 \times P_{\text{inverter, rated}} \quad \text{and} \quad I_{\text{LRA}} \le I_{\text{surge, inverter}}"
           variables={[
             { symbol: "P_continuous", label: "Continuous Load", description: "Aggregate continuous operating load across active circuits", unit: "W" },
             { symbol: "P_inverter, rated", label: "Inverter Rating", description: "Nameplate continuous AC output rating of the EV inverter (e.g. 1,900W for E-GMP; 7,200W for Pro Power 240V)", unit: "W" },
@@ -470,6 +472,27 @@ export default function EvV2lV2hHomeBackupGuidePage() {
             <strong style={{ fontSize: "1.05rem" }}>EV Charger Breaker Size Calculator</strong>
             <span style={{ fontSize: "0.9rem", color: "var(--color-text-muted, #64748b)" }}>
               Size continuous-duty charging circuits (16A to 80A) under NEC 625 with copper AWG conductor sizing.
+            </span>
+          </Link>
+
+          <Link
+            href="/guides/nec-705-12-120-percent-rule-solar-busbar-sizing-guide"
+            style={{
+              padding: "1.25rem",
+              border: "1px solid var(--color-border, #e2e8f0)",
+              borderRadius: "8px",
+              background: "var(--color-bg-subtle, #f8fafc)",
+              textDecoration: "none",
+              color: "inherit",
+              display: "flex",
+              flexDirection: "column",
+              gap: "0.5rem",
+            }}
+          >
+            <span style={{ fontSize: "0.85rem", fontWeight: "bold", color: "var(--color-primary, #0f766e)", textTransform: "uppercase" }}>Service Panel Rules</span>
+            <strong style={{ fontSize: "1.05rem" }}>NEC 705.12 120% Busbar Guide</strong>
+            <span style={{ fontSize: "0.9rem", color: "var(--color-text-muted, #64748b)" }}>
+              Calculate panel busbar ampacity limits and main breaker derate options for backfeeding power into home service panels.
             </span>
           </Link>
         </div>

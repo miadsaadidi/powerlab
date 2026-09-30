@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { siteConfig } from "@/lib/site-config";
+import { formatMathString } from "@/components/common/math-display";
 
 export interface DerivationStep {
   stepNumber: number;
@@ -149,16 +150,38 @@ export function MathDerivationInspector({
                   )}
                 </div>
 
-                <div style={{ display: "grid", gap: "0.35rem", margin: "0.5rem 0" }}>
+                <div style={{ display: "grid", gap: "0.5rem", margin: "0.5rem 0" }}>
                   <div style={{ fontSize: "0.8rem", color: "var(--muted)" }}>Formula:</div>
-                  <pre className="math-block" style={{ padding: "0.5rem 0.75rem", background: "var(--surface)", borderRadius: "0.4rem", border: "1px solid var(--line)", overflowX: "auto", margin: 0, fontSize: "0.88rem" }}>
-                    <code>{step.formulaLatex}</code>
-                  </pre>
+                  <div
+                    style={{
+                      padding: "0.5rem 0.75rem",
+                      background: "#0f172a",
+                      color: "#38bdf8",
+                      borderRadius: "0.4rem",
+                      border: "1px solid #1e293b",
+                      fontFamily: '"STIX Two Math", "Cambria Math", "Times New Roman", serif',
+                      fontSize: "0.98rem",
+                      overflowX: "auto",
+                    }}
+                  >
+                    {formatMathString(step.formulaLatex)}
+                  </div>
 
                   <div style={{ fontSize: "0.8rem", color: "var(--muted)", marginTop: "0.25rem" }}>Substituted Values:</div>
-                  <pre className="math-block" style={{ padding: "0.5rem 0.75rem", background: "var(--surface)", borderRadius: "0.4rem", border: "1px solid var(--line)", overflowX: "auto", margin: 0, fontSize: "0.88rem" }}>
-                    <code>{step.substitutedLatex}</code>
-                  </pre>
+                  <div
+                    style={{
+                      padding: "0.5rem 0.75rem",
+                      background: "#0f172a",
+                      color: "#38bdf8",
+                      borderRadius: "0.4rem",
+                      border: "1px solid #1e293b",
+                      fontFamily: '"STIX Two Math", "Cambria Math", "Times New Roman", serif',
+                      fontSize: "0.98rem",
+                      overflowX: "auto",
+                    }}
+                  >
+                    {formatMathString(step.substitutedLatex)}
+                  </div>
                 </div>
 
                 <p style={{ margin: "0.5rem 0 0", fontSize: "0.85rem", color: "var(--ink)", lineHeight: 1.5 }}>

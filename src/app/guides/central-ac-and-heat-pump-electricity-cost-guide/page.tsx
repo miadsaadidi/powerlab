@@ -8,6 +8,7 @@ import { PageJumpNav } from "@/components/seo/page-jump-nav";
 import { FormulaCard } from "@/components/seo/formula-card";
 import { StandardsBadge } from "@/components/seo/standards-badge";
 import { AcademicCitationModal } from "@/components/seo/academic-citation-modal";
+import { MathDisplay } from "@/components/common/math-display";
 import { buildPageMetadata } from "@/lib/seo/metadata-helper";
 
 export const metadata: Metadata = buildPageMetadata({
@@ -116,18 +117,25 @@ export default function CentralAcAndHeatPumpGuidePage() {
         <p>
           Residential cooling capacity is measured in <strong>British Thermal Units per hour (BTU/hr)</strong> or <strong>Tons of Refrigeration</strong>. By definition, <strong>1 Ton of cooling equals 12,000 BTU/hr</strong>—the rate of heat transfer required to freeze or melt one short ton (2,000 lbs) of pure water ice at 32°F over a 24-hour period:
         </p>
-        <pre className="math-block" style={{ padding: "1rem", background: "var(--surface)", borderRadius: "0.5rem", border: "1px solid var(--line)", overflowX: "auto" }}>
-          <code>{`1 Ton of Cooling = 12,000 BTU/hr = 3.517 kW of Thermal Heat Removal`}</code>
-        </pre>
+        <MathDisplay
+          title="Cooling Tonnage Thermal Definition"
+          copyText="1 Ton = 12000 BTU/hr = 3.517 kW"
+          benchmark="1 Ton = 12,000 BTU/hr = 3.517 kW of thermal heat extraction"
+        >
+          1 Ton = 12,000 BTU/hr = 3.517 kW
+        </MathDisplay>
 
         <h3>SEER2, EER, and Electrical Power Draw</h3>
         <p>
           The electrical power demand of an air conditioner is dictated by its efficiency ratio. The seasonal performance is governed by <strong>SEER2 (Seasonal Energy Efficiency Ratio 2)</strong>, defined under AHRI 210/240 as total cooling output in BTUs divided by total electrical energy input in watt-hours over a standardized cooling season:
         </p>
-        <pre className="math-block" style={{ padding: "1rem", background: "var(--surface)", borderRadius: "0.5rem", border: "1px solid var(--line)", overflowX: "auto" }}>
-          <code>{`P_electrical (Watts) = Cooling Capacity (BTU/hr) ÷ SEER2 (or EER)
-P_electrical (kW) = (Tonnage × 12,000) ÷ (SEER2 × 1,000)`}</code>
-        </pre>
+        <MathDisplay
+          title="SEER2 Power Draw Formula"
+          copyText="P_electrical_kW = (Tonnage * 12000) / (SEER2 * 1000)"
+          benchmark="3 Tons @ 15 SEER2 = (3 × 12,000) ÷ 15,000 = 2.40 kW electrical draw"
+        >
+          P_electrical_kW = (Tonnage × 12000) / (SEER2 × 1000)
+        </MathDisplay>
         <p>
           For instantaneous peak summer demand during extreme heat waves (95°F / 35°C outdoor ambient), the system operates closer to its steady-state <strong>EER (Energy Efficiency Ratio)</strong>, which is typically 15% to 20% lower than the seasonal SEER2 number.
         </p>
@@ -229,9 +237,13 @@ P_electrical (kW) = (Tonnage × 12,000) ÷ (SEER2 × 1,000)`}</code>
         <p>
           Many homeowners operate legacy 10 SEER or 12 SEER air conditioning systems installed in the early 2000s. Because power draw is inversely proportional to the efficiency rating, upgrading to modern equipment yields substantial compounding savings:
         </p>
-        <pre className="math-block" style={{ padding: "1rem", background: "var(--surface)", borderRadius: "0.5rem", border: "1px solid var(--line)", overflowX: "auto" }}>
-          <code>{`Percentage Energy Savings (%) = 1 - (Old SEER ÷ New SEER2)`}</code>
-        </pre>
+        <MathDisplay
+          title="Equipment Upgrade Energy Reduction Ratio"
+          copyText="Savings_percent = 1 - (SEER_old / SEER2_new)"
+          benchmark="10 SEER upgraded to 15.2 SEER2 = 1 - (10 / 15.2) = 34.2% energy reduction"
+        >
+          Savings_percent = 1 - (SEER_old / SEER2_new)
+        </MathDisplay>
         <ul>
           <li><strong>Upgrading from 10 SEER to 15.2 SEER2:</strong> Reduces cooling electrical consumption by <strong>36.8%</strong> (saving ~$65 to $110 per peak summer month on a 3-ton unit).</li>
           <li><strong>Upgrading from 10 SEER to 18 SEER2 (Inverter Variable-Speed):</strong> Reduces electricity usage by <strong>46.7%</strong> while improving humidity removal and eliminating on/off temperature swings.</li>
@@ -248,15 +260,13 @@ P_electrical (kW) = (Tonnage × 12,000) ÷ (SEER2 × 1,000)`}</code>
         <p>
           To determine whether heating with a heat pump is cheaper than a high-efficiency natural gas furnace, calculate the <strong>Break-Even COP</strong> based on your local utility rates:
         </p>
-        <pre className="math-block" style={{ padding: "1rem", background: "var(--surface)", borderRadius: "0.5rem", border: "1px solid var(--line)", overflowX: "auto" }}>
-          <code>{`Break-Even COP = (Electricity Rate in $/kWh × 29.3) ÷ (Natural Gas Rate in $/therm ÷ η_furnace)`}</code>
-        </pre>
-        <p>
-          <em>Example:</em> At an electricity price of $0.16/kWh and natural gas at $1.50/therm with a 95% efficient furnace (<code>η = 0.95</code>):
-        </p>
-        <pre className="math-block" style={{ padding: "1rem", background: "var(--surface)", borderRadius: "0.5rem", border: "1px solid var(--line)", overflowX: "auto" }}>
-          <code>{`Break-Even COP = (0.16 × 29.3) ÷ (1.50 ÷ 0.95) = 4.69 ÷ 1.58 = 2.97`}</code>
-        </pre>
+        <MathDisplay
+          title="Heat Pump vs. Natural Gas Parity COP"
+          copyText="COP_breakeven = (Rate_elec * 29.3) / (Rate_gas / eta_furnace)"
+          benchmark="At $0.16/kWh and $1.50/therm @ 95% furnace: Break-Even COP = 2.97"
+        >
+          COP_breakeven = (Rate_elec × 29.3) / (Rate_gas / η_furnace) = 2.97
+        </MathDisplay>
         <p>
           Whenever outdoor temperatures allow the heat pump to operate at a COP above 2.97 (typically above 32°F / 0°C for modern cold-climate heat pumps with vapor-injection compressors), heating with the heat pump is cheaper than burning natural gas. Model your exact seasonal heating demand, fuel pricing, and DOE Appendix M1 HSPF2 performance in our interactive <Link href="/home-energy/heat-pump-cost-calculator" style={{ fontWeight: 600, color: "var(--brand-strong)" }}>Heat Pump Running Cost Calculator</Link>.
         </p>
