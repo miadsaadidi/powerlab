@@ -54,7 +54,7 @@ describe("structured-data", () => {
     expect(webApp.about).toBeDefined();
     expect(Array.isArray(webApp.about)).toBe(true);
     const aboutNames = webApp.about.map((e: any) => e.name);
-    expect(aboutNames).toContain("Peukert's law");
+    expect(aboutNames).toContain("Energy storage");
     expect(aboutNames).toContain("Lithium-ion battery");
 
     // Authority sameAs links

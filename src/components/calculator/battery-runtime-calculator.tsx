@@ -11,7 +11,6 @@ import { MobileResultBar } from "@/components/calculator/mobile-result-bar";
 import { BatterySocGauge } from "@/components/calculator/battery-soc-gauge";
 import { ShareButton } from "@/components/calculator/share-button";
 import { PrintSpecButton } from "@/components/calculator/print-spec-button";
-import { GooglePreferredBanner } from "@/components/calculator/google-preferred-banner";
 import { CalculatorTrustPill } from "@/components/calculator/calculator-trust-pill";
 import { StandardsBadge } from "@/components/calculator/standards-badge";
 import { EmbedModal } from "@/components/calculator/embed-modal";
@@ -321,7 +320,7 @@ export function BatteryRuntimeCalculator() {
           <p className="result-value">{formatRuntime(visibleResult.result.runtimeHours)}</p>
           <p className="result-decimal">≈ {visibleResult.result.runtimeHours.toFixed(1)} hours</p>
           <p className="result-lede">A planning estimate based on your battery energy and average device load.</p>
-          <StandardsBadge standards={["IEEE 485", "Peukert Physics", "IEC 60896"]} />
+          <StandardsBadge standards={["IEEE 485 Ref", "IEC 60896 Ref", "Energy Planning Model"]} />
 
           <BatterySocGauge
             startingSoc={startingSoc}
@@ -368,8 +367,6 @@ export function BatteryRuntimeCalculator() {
           {visibleResult.warnings.map((warning) => <p className={warning.severity === "caution" ? "warning" : "form-hint"} key={warning.code}>{warning.message}</p>)}
           <p className="sensitivity-note">If your actual load is 10% higher, runtime is about 9% shorter.</p>
 
-          <GooglePreferredBanner />
-
           <div className="button-row" style={{ marginTop: "0.85rem", display: "flex", gap: "0.5rem", flexWrap: "wrap" }}>
             <button className="button secondary-button" type="button" onClick={saveProfile}>Save to Profile</button>
             <ShareButton getShareUrl={getShareUrl} />
@@ -383,8 +380,8 @@ export function BatteryRuntimeCalculator() {
 
     {/* Quick-Reference Lookup Matrix (Google Position 0 Table Snippet Magnet) */}
     <QuickReferenceTable
-      title="Battery Backup Runtime Quick Lookup Matrix (12V LiFePO4 / 90% DoD)"
-      subtitle="Estimated runtimes across standard battery capacities under continuous AC appliance loads (92% inverter efficiency)."
+      title="Battery Backup Runtime Quick Lookup Matrix (12.8V LiFePO4 / 90% DoD)"
+      subtitle="Estimated runtimes across standard battery capacities under continuous AC appliance loads (92% inverter efficiency, no standby tare)."
       columns={[
         { key: "load", header: "Continuous AC Load", isPrimary: true },
         { key: "b50", header: "50 Ah (640 Wh)", align: "right" },
@@ -398,40 +395,40 @@ export function BatteryRuntimeCalculator() {
         { load: "250 W (Desktop PC + Monitor)", b50: "2.1 hrs", b100: "4.2 hrs", b200: "8.5 hrs", b300: "12.7 hrs" },
         { load: "500 W (Sump pump / Refrigerator)", b50: "1.1 hrs", b100: "2.1 hrs", b200: "4.2 hrs", b300: "6.4 hrs" },
         { load: "1,000 W (Microwave / Power tools)", b50: "0.5 hrs", b100: "1.1 hrs", b200: "2.1 hrs", b300: "3.2 hrs" },
-        { load: "1,500 W (Space heater / Kettle)", b50: "0.3 hrs", b100: "0.7 hrs", b200: "1.4 hrs", b300: "2.1 hrs" },
+        { load: "1,500 W (Space heater / Kettle)", b50: "0.4 hrs", b100: "0.7 hrs", b200: "1.4 hrs", b300: "2.1 hrs" },
       ]}
-      footerNote="Assumes 12.8V nominal LiFePO4 chemistry with 90% DoD and 25W inverter tare dissipation."
-      standardReference="IEEE Std 485 / Peukert Equation (k = 1.02)"
+      footerNote="Assumes 12.8V nominal LiFePO4 chemistry with 90% usable DoD and 92% inverter conversion efficiency (excluding tare standby draw)."
+      standardReference="Planning Model: Nominal Wh × DoD × Inverter Efficiency ÷ AC Load W"
     />
 
     {/* Step-by-Step Engineering Calculation Walkthrough */}
     <CalculationWalkthrough
       calculatorName="Battery Backup Runtime"
-      overview="How to calculate battery discharge duration step-by-step using Peukert's law, depth of discharge windows, and power conversion efficiencies."
+      overview="How to estimate battery discharge duration step-by-step using usable capacity windows, inverter conversion efficiency, and continuous load requirements."
       steps={[
         {
           stepNumber: 1,
           title: "Calculate Effective Battery-Side Load Current",
-          description: "Divide the AC load wattage by nominal battery voltage and inverter efficiency to find the total DC Amperes drawn from the battery bank.",
+          description: "Divide the AC load wattage by nominal battery voltage and inverter efficiency to find the estimated DC Amperes drawn from the battery bank.",
           formula: "I = \\frac{P_{\\text{load}}}{V_{\\text{nominal}} \\times \\eta_{\\text{inverter}}}",
-          exampleValue: "100W load at 12V with 92% inverter efficiency draws: 100 / (12 × 0.92) = 9.06 Amps DC",
+          exampleValue: "100W load at 12V nominal with 90% inverter efficiency draws: 100 / (12 × 0.90) = 9.26 Amps DC",
         },
         {
           stepNumber: 2,
-          title: "Determine Usable Amp-Hour Capacity",
-          description: "Multiply rated manufacturer Amp-hour capacity by maximum safe Depth of Discharge (0.80–0.90 for LiFePO4; 0.50 for Lead-Acid) and battery state of health.",
-          formula: "C_{\\text{usable}} = C_{\\text{rated}} \\times \\text{DoD}_{\\text{max}} \\times \\text{Health}",
-          exampleValue: "100Ah LiFePO4 battery at 90% DoD and 100% Health provides: 100 × 0.90 × 1.0 = 90 Usable Ah",
+          title: "Determine Usable Energy & Amp-Hour Capacity",
+          description: "Multiply rated nominal capacity by the planned usable Depth of Discharge window (e.g. 0.80–0.90 for LiFePO4; ~0.50 for Lead-Acid) and battery state of health.",
+          formula: "E_{\\text{usable}} = E_{\\text{nominal}} \\times \\text{DoD} \\times \\text{Health}",
+          exampleValue: "100Ah 12.8V LiFePO4 (1,280Wh) at 90% DoD and 100% Health provides: 1,280 × 0.90 × 1.0 = 1,152 Usable Wh",
         },
         {
           stepNumber: 3,
-          title: "Solve for Runtime Duration via Peukert Equation",
-          description: "Apply Peukert's Law to account for high-current capacity degradation under heavier loads.",
-          formula: "t = H \\cdot \\left( \\frac{C_{\\text{usable}}}{I \\cdot H} \\right)^k",
-          exampleValue: "90 usable Ah / 9.06A continuous current = ~9.9 hours of continuous runtime",
+          title: "Solve for Estimated Runtime Duration",
+          description: "Divide usable delivered energy by the AC appliance load (or divide usable Ah by battery-side DC current). Note: lead-acid batteries can experience additional capacity loss at high discharge rates (Peukert effect).",
+          formula: "T_{\\text{runtime}} = \\frac{E_{\\text{usable}} \\times \\eta_{\\text{inv}}}{P_{\\text{load}}}",
+          exampleValue: "(1,152 Wh × 0.90 η_inv) ÷ 100W = 1,036.8 Wh ÷ 100W = 10.37 hours of estimated runtime",
         },
       ]}
-      standardCitation="IEEE Std 485 / Peukert (1897)"
+      standardCitation="Planning Model: Usable Delivered Energy ÷ Average Load"
     />
 
     {visibleResult && (
@@ -445,4 +442,5 @@ export function BatteryRuntimeCalculator() {
     <p className="sr-only" role="status" aria-live="polite" aria-atomic="true">{announcement}</p>
   </section>;
 }
+
 
