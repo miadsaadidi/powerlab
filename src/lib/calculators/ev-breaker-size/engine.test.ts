@@ -46,6 +46,27 @@ describe("calculateEvBreakerSize Engine", () => {
     expect(res.result.milesPerHourAdded).toBeGreaterThan(25);
   });
 
+  it("sizes 80A high-power charger (100A breaker, 3 AWG THHN, 1 AWG NM-B, 19.2 kW) accurately", () => {
+    const resThhn = calculateEvBreakerSize({
+      chargingAmps: 80,
+      voltage: 240,
+      conductorType: "thhn_conduit",
+    });
+    expect(resThhn.result.minimumContinuousBreakerAmps).toBe(100);
+    expect(resThhn.result.recommendedBreakerAmps).toBe(100);
+    expect(resThhn.result.minimumWireGaugeAwg).toBe("3 AWG");
+    expect(resThhn.result.chargingPowerKw).toBe(19.2);
+
+    const resNmb = calculateEvBreakerSize({
+      chargingAmps: 80,
+      voltage: 240,
+      conductorType: "romex_nmb",
+    });
+    expect(resNmb.result.minimumContinuousBreakerAmps).toBe(100);
+    expect(resNmb.result.recommendedBreakerAmps).toBe(100);
+    expect(resNmb.result.minimumWireGaugeAwg).toBe("1 AWG");
+  });
+
   it("throws error for zero or negative charging amps", () => {
     expect(() =>
       calculateEvBreakerSize({

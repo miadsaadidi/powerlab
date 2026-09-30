@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import { buildPageMetadata } from "@/lib/seo/metadata-helper";
 import Link from "next/link";
-import { siteConfig } from "@/lib/site-config";
 import { isCalculatorPublished } from "@/lib/calculator-registry";
 import { buildCalculatorStructuredData } from "@/lib/seo/structured-data";
 import { SpaceHeaterCostCalculator } from "@/components/calculator/space-heater-cost-calculator";
@@ -13,9 +12,9 @@ import { DirectAnswerCard } from "@/components/seo/direct-answer-card";
 const isPublished = isCalculatorPublished("space-heater-cost");
 
 export const metadata: Metadata = buildPageMetadata({
-  title: "Space Heater Cost Calculator — Watts & $/Hour",
+  title: "Space Heater Cost Calculator — Power & Operating Cost",
   description:
-    "Calculate space heater electricity costs per hour, night & month for 500W, 1000W & 1500W heaters. Model thermostat duty cycle vs central heating.",
+    "Estimate electricity use and operating cost for electric space heaters using rated power, scheduled hours, thermostat duty cycle, and electricity rate.",
   canonicalPath: "/home-energy/space-heater-cost-calculator",
   category: "home-energy",
 });
@@ -23,34 +22,40 @@ export const metadata: Metadata = buildPageMetadata({
 const FAQS = [
   {
     question: "How much electricity does a 1,500 Watt space heater use, and what does it cost per hour?",
-    answer: "A 1,500 Watt space heater uses exactly 1.5 kilowatt-hours (kWh) of electricity per hour of continuous operation. At the U.S. national average electric rate of $0.16/kWh, it costs $0.24 per continuous hour ($0.36/hr in regions with $0.24/kWh rates). When regulated by an internal thermostat cycling at a typical 65% to 70% duty cycle, effective consumption drops to approximately 1.0 kWh per hour ($0.16/hr).",
+    answer:
+      "A 1,500 Watt space heater draws 1.5 kW of power while energized. At an illustrative reference rate of $0.18/kWh, running continuously costs $0.27 per hour (1.5 kW × $0.18). Under an illustrative 70% thermostat duty cycle, average power is 1.05 kW (1,050 W), resulting in an estimated cost of $0.19 per hour ($0.189/hr).",
   },
   {
-    question: "How much does a space heater cost to run all night (8 hours)?",
-    answer: "Running a 1,500W heater on high with a 70% thermostat cycle overnight for 8 hours costs approximately $1.51 per night (or about $45.36 per month). Running a 750W heater on low costs approximately $0.76 per night (or about $22.68 per month).",
+    question: "How much does a space heater cost to run for an 8-hour period?",
+    answer:
+      "At $0.18/kWh, running a 1,500W heater with an assumed 70% thermostat duty cycle for 8 scheduled hours costs approximately $1.51 per 8-hour period (8.4 kWh × $0.18), or about $45.36 per 30-day month. Running a 750W heater at a 70% duty cycle for 8 hours costs approximately $0.76 per period (about $22.68 per 30-day month).",
   },
   {
     question: "Is it cheaper to use a space heater or central heating?",
-    answer: "It is cheaper to use a space heater only if you practice 'zone heating'—turning down your central thermostat for the whole house (e.g. to 62°F) and heating only the single room you are occupying. If you run multiple space heaters in different rooms, it is usually far more expensive than modern natural gas central heating or an inverter heat pump.",
+    answer:
+      "Whether a space heater costs less depends on the central system's fuel or electricity price, efficiency/COP, the area being heated, and how much of the home is conditioned. A space heater can reduce total energy use when it allows a smaller occupied zone to be heated instead of the whole home, but the actual savings require comparing both systems' inputs and operating conditions.",
   },
   {
     question: "Are ceramic space heaters more energy efficient than oil-filled radiators?",
-    answer: "All electric resistance space heaters are 100% thermally efficient—converting 1 Watt of electricity into exactly 3.412 BTUs of heat. Ceramic heaters blow hot air immediately for fast personal warming, while oil-filled radiators take longer to heat up but provide steady, silent radiant heat that lingers after the thermostat turns off.",
+    answer:
+      "Electric resistance heating converts essentially all electrical input into heat at the point of use (1 W = 3.412 BTU/h). Ceramic fan heaters blow heated air quickly for rapid directional warming, while oil-filled radiators use thermal mass to provide steadier heat output and may cycle differently. Their electrical energy consumption is still determined by rated power and the fraction of time the heating element operates.",
   },
 ];
 
 export default function SpaceHeaterCostPage() {
   const structuredData = buildCalculatorStructuredData({
     name: "Space Heater Running Cost Calculator",
-    description: "Calculate operating costs per hour, per 8-hour night, and per winter month for electric space heaters and radiators.",
+    description: "Estimate electricity use and operating cost for electric space heaters using rated power, scheduled hours, thermostat duty cycle, and electricity rate.",
     route: "/home-energy/space-heater-cost-calculator",
     categoryName: "Home Energy",
     categoryRoute: "/home-energy",
+    applicationCategory: "UtilitiesApplication",
     features: [
-      "Exact Watt-to-kWh resistance heating thermodynamic conversion",
-      "Overnight 8-hour sleep duration cost calculations",
-      "Thermostatic active cycling model (50% to 100% element duty)",
-      "Multi-horizon cost modeling: hourly, overnight, 30-day month, and full winter season",
+      "Estimated electricity consumption and average power modeling",
+      "Hourly, 8-hour scheduled, 30-day monthly, and winter season cost projections",
+      "Adjustable thermostat duty-cycle assumptions (50% to 100%)",
+      "User-entered electricity tariff ($/kWh) and power ratings",
+      "Zone heating operating cost comparison framework",
     ],
     standards: [
       "UL 1278 (Standard for Movable and Wall- or Ceiling-Hung Electric Room Heaters)",
@@ -76,7 +81,7 @@ export default function SpaceHeaterCostPage() {
         <p className="eyebrow">Winter Heating &amp; Electricity Usage</p>
         <h1>Space Heater Electricity Cost Calculator</h1>
         <p className="intro">
-          Calculate the exact cost per hour, per 8-hour night, and per winter month to run electric space heaters, ceramic heaters, and oil-filled radiators.
+          Estimate electricity use and operating cost for electric space heaters using rated power, scheduled hours, thermostat duty cycle, and electricity rate.
         </p>
       </div>
 
@@ -86,10 +91,10 @@ export default function SpaceHeaterCostPage() {
 
       <DirectAnswerCard
         keyword="space heater electricity cost calculation"
-        answer="Running a standard 1,500 Watt electric space heater continuously costs $0.27 per hour at the US average electricity rate of $0.18/kWh. With a thermostatic cycling duty cycle of 70%, operating cost is approximately $0.19 per hour, $1.51 for an 8-hour night, and about $45.30 per winter month."
-        formula="Hourly Cost ($/hr) = (Heater Watts ÷ 1,000) × Thermostat Duty Cycle × Electricity Rate ($/kWh)"
-        standardExample="1,500W heater @ 70% duty cycle, $0.18/kWh: (1.5 kW × 0.70) × $0.18 = $0.189/hr · $1.51 per 8-hour night"
-        sourceAuthority="US Department of Energy (Energy Saver) & EIA Average Residential Rates"
+        answer="Running a standard 1,500 Watt electric space heater continuously costs $0.27 per hour at an illustrative electricity rate of $0.18/kWh. With an assumed moderate thermostat duty cycle of 70%, the average power draw is 1.05 kW, resulting in an estimated operating cost of $0.19 per hour ($0.189/hr), $1.51 for an 8-hour scheduled period ($1.512), $45.36 per 30-day month, and $136.08 for a 3-month winter season."
+        formula="Hourly Cost ($/hr) = (Rated Watts ÷ 1,000) × Duty Cycle × Electricity Rate ($/kWh)"
+        standardExample="1,500W heater @ 70% duty cycle, $0.18/kWh: (1.5 kW × 0.70) × $0.18 = $0.189/hr · $1.512 per 8-hour period · $45.36 per 30-day month"
+        sourceAuthority="Technical reference: Joulean resistance heating conversion & user-entered utility tariff"
       />
 
       <PageJumpNav />
@@ -97,55 +102,55 @@ export default function SpaceHeaterCostPage() {
       <section id="how-to-guide" style={{ marginTop: "3rem" }}>
         <h2>How to Calculate Space Heater Electricity Cost</h2>
         <ol>
-          <li><strong>Check Heater Wattage Rating:</strong> Standard North American plug-in heaters draw 1,500 Watts on high, 1,000 Watts on medium, or 500 to 750 Watts on low.</li>
-          <li><strong>Set Daily &amp; Overnight Usage:</strong> Enter how many hours the unit runs per day or during typical 8-hour sleeping periods.</li>
-          <li><strong>Adjust Thermostat Duty Cycle:</strong> Units with adjustable thermostats automatically cycle on and off once ambient room temperature is reached (typically 60% to 75% on-time).</li>
-          <li><strong>Calculate Cost vs Central Heating:</strong> Compare targeted single-room zone heating against whole-house central furnace costs.</li>
+          <li><strong>Identify Heater Rated Power:</strong> Standard North American plug-in heaters draw 1,500 Watts on high, 1,000 Watts on medium, or 500 to 750 Watts on low.</li>
+          <li><strong>Define Scheduled Operating Hours:</strong> Enter total daily scheduled usage hours (e.g. 8 hours overnight or during a work shift).</li>
+          <li><strong>Select Thermostat Duty-Cycle Assumption:</strong> Units with adjustable thermostats automatically cycle on and off once ambient room temperature is reached (e.g. 50%, 70%, or 85% duty cycle).</li>
+          <li><strong>Evaluate Operating Costs:</strong> Review projected hourly, scheduled, monthly (30-day), and full seasonal electricity costs based on your local utility tariff ($/kWh).</li>
         </ol>
       </section>
 
       <section id="sizing-matrix">
-        <h2>Comparison of Space Heater Wattages &amp; Running Costs</h2>
-        <p>Representative running costs across space heater power settings at $0.18/kWh utility rate:</p>
+        <h2>Comparison of Space Heater Wattages &amp; Operating Costs</h2>
+        <p>Representative running costs across space heater power settings at an illustrative $0.18/kWh utility rate and 8 hours/day (30-day month):</p>
         <div className="scenario-table" role="region" aria-label="Comparison of space heater power settings and electricity costs">
           <table>
             <caption>Electric space heater power ratings, hourly costs, and monthly electric bill impact</caption>
             <thead>
               <tr>
                 <th scope="col">Heater Type / Setting</th>
-                <th scope="col">Power (Watts)</th>
+                <th scope="col">Power (Watts) &amp; Duty</th>
                 <th scope="col">Cost / Hour (@ $0.18)</th>
-                <th scope="col">Overnight (8h Sleep)</th>
-                <th scope="col">Monthly (8h/day)</th>
+                <th scope="col">Scheduled 8h Period</th>
+                <th scope="col">Monthly Cost (8h/day, 30 days)</th>
               </tr>
             </thead>
             <tbody>
               <tr>
                 <td><strong>Low / Eco Mode (Under-Desk)</strong></td>
-                <td>500 W</td>
-                <td>$0.06 / hr</td>
-                <td>$0.50 / night</td>
-                <td>$15.12 / mo</td>
+                <td>500 W (100% continuous)</td>
+                <td>$0.09 / hr</td>
+                <td>$0.72 / 8h</td>
+                <td>$21.60 / mo</td>
               </tr>
               <tr>
                 <td><strong>Medium Ceramic Fan Heater</strong></td>
-                <td>1,000 W</td>
+                <td>1,000 W (70% duty)</td>
                 <td>$0.13 / hr</td>
-                <td>$1.01 / night</td>
+                <td>$1.01 / 8h</td>
                 <td>$30.24 / mo</td>
               </tr>
               <tr>
                 <td><strong>High Setting (With Thermostat Cycling)</strong></td>
                 <td>1,500 W (70% duty)</td>
                 <td>$0.19 / hr</td>
-                <td>$1.51 / night</td>
+                <td>$1.51 / 8h</td>
                 <td>$45.36 / mo</td>
               </tr>
               <tr>
                 <td><strong>High Setting (Continuous Max Run)</strong></td>
-                <td>1,500 W (100% duty)</td>
+                <td>1,500 W (100% continuous)</td>
                 <td>$0.27 / hr</td>
-                <td>$2.16 / night</td>
+                <td>$2.16 / 8h</td>
                 <td>$64.80 / mo</td>
               </tr>
             </tbody>
@@ -156,17 +161,18 @@ export default function SpaceHeaterCostPage() {
       <div id="formula-math">
         <FormulaCard
           title="Space Heater Power &amp; Operating Cost Formulas"
-          formula="Hourly_Cost = (Heater_Watts / 1000) × Thermostat_Duty_Cycle × Electricity_Rate"
-          formulaDescription="Joulean electric resistance thermal conversion modeling active thermostat cycling duration."
+          formula="Average_Power = Rated_Power × Duty_Cycle | Cost = Average_Power × Operating_Hours × Electricity_Rate"
+          formulaDescription="Deterministic electrical energy and cost estimation modeling rated wattage, assumed duty cycle, and scheduled operating hours."
           variables={[
-            { symbol: "Heater_Watts", label: "Rated Heating Element Power", description: "Nominal wattage rating on high, medium, or eco heat settings", unit: "Watts" },
-            { symbol: "Thermostat_Duty_Cycle", label: "Active Thermostat Cycling", description: "Percentage of time heater elements actively glow (typically 60%–75%)", unit: "%" },
-            { symbol: "Overnight_Hours", label: "Nightly Sleep Duration", description: "Number of continuous heating hours overnight (standard 8 hours)", unit: "Hours" },
-            { symbol: "Electricity_Rate", label: "Utility Electricity Tariff", description: "Marginal cost per kilowatt-hour of electric grid power", unit: "$/kWh" },
+            { symbol: "Rated_Power", label: "Rated Heating Element Power", description: "Nominal wattage rating on high, medium, or eco heat settings", unit: "Watts" },
+            { symbol: "Duty_Cycle", label: "Thermostat Duty Cycle", description: "Fraction of the scheduled period during which the heating element is energized at rated power", unit: "%" },
+            { symbol: "Operating_Hours", label: "Scheduled Operating Hours", description: "Total scheduled usage period (e.g. 8 hours daily/overnight)", unit: "Hours" },
+            { symbol: "Electricity_Rate", label: "Electricity Tariff", description: "User-entered cost per kilowatt-hour of electric grid energy", unit: "$/kWh" },
           ]}
           notes={[
-            "All electric resistance heaters operate at 100% thermal efficiency (1 Watt = 3.412 BTU/hr of heat).",
-            "Oil-filled radiant heaters retain heat longer between cycles, providing steadier temperature control with fewer power spikes.",
+            "Electric resistance heating converts essentially all electrical input into heat at the point of use. The unit conversion is 1 W = 3.412 BTU/h.",
+            "Oil-filled radiators use thermal mass to provide steadier heat output and may cycle differently than fan heaters. Their electrical energy consumption is still determined by rated power and the fraction of time the heating element operates.",
+            "Actual thermostat duty cycles depend on room insulation, outdoor temperature, thermostat setpoint, heater control logic, room size, heat loss, and ventilation.",
           ]}
         />
       </div>
@@ -191,9 +197,9 @@ export default function SpaceHeaterCostPage() {
       </section>
 
       <section id="methodology">
-        <h2>Methodology and Standards</h2>
+        <h2>Technical References &amp; Model Basis</h2>
         <p>
-          Space heater energy calculations use pure Joulean thermal conversions (3,412.14 BTU per kWh) and typical thermostatic duty cycles. See our <Link href="/methodology">methodology</Link> and <Link href="/sources">sources</Link>.
+          Space heater energy estimations use deterministic Joulean thermal conversions (3,412.14 BTU per kWh), rated electrical power, and user-entered duty cycle and tariff inputs. See our <Link href="/methodology">methodology</Link> and <Link href="/sources">sources</Link>.
         </p>
       </section>
 

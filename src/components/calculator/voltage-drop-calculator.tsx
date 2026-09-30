@@ -8,7 +8,6 @@ import { track } from "@/lib/analytics/analytics";
 import { MobileResultBar } from "@/components/calculator/mobile-result-bar";
 import { ShareButton } from "@/components/calculator/share-button";
 import { PrintSpecButton } from "@/components/calculator/print-spec-button";
-import { GooglePreferredBanner } from "@/components/calculator/google-preferred-banner";
 import { CalculatorTrustPill } from "@/components/calculator/calculator-trust-pill";
 import { StandardsBadge } from "@/components/calculator/standards-badge";
 import { VoltageDropVisualizer } from "@/components/calculator/voltage-drop-visualizer";
@@ -298,19 +297,19 @@ export function VoltageDropCalculator() {
         </div>
 
         <aside id="calculator-result" className="result-panel" aria-live="polite">
-          <p className="eyebrow">Electrical Wire Recommendation</p>
+          <p className="eyebrow">Voltage-Drop Sizing Summary</p>
           {!calculated ? (
-            <p>Enter your circuit specs to see wire recommendations.</p>
+            <p>Enter your circuit specs to see conductor calculations.</p>
           ) : (
             <>
-              <p className="result-lede">Recommended Minimum Conductor</p>
+              <p className="result-lede">Minimum Conductor for Voltage-Drop Target</p>
               <p className="result-value" style={{ color: getStatusColor(calculated.result.necComplianceStatus) }}>
                 {calculated.result.recommendedGauge.awg}
               </p>
               <p className="result-subtext" style={{ fontWeight: 600, marginTop: "-0.25rem", marginBottom: "0.5rem" }}>
-                {calculated.result.recommendedGauge.metricMm2} mm² Cross-Section · {calculated.result.conductorMaterial === "copper" ? "Copper" : "Aluminum"}
+                {calculated.result.recommendedGauge.metricMm2} mm² Cross-Section · {calculated.result.conductorMaterial === "copper" ? "Copper" : "Aluminum"} · {calculated.result.necComplianceStatus === "pass" ? "Voltage-Drop Target Met" : calculated.result.necComplianceStatus === "marginal" ? "Marginal Voltage Drop (3%–5%)" : "Target Exceeded / Ampacity Limit"}
               </p>
-              <StandardsBadge standards={["NEC 2023 Table 8", "IEEE Std 141", "NFPA 70"]} />
+              <StandardsBadge standards={["NEC Table 8 (Conductor Properties)", "IEEE Std 141"]} />
 
               {stale && <p className="warning">Inputs changed — recalculate to refresh results.</p>}
 
@@ -338,10 +337,13 @@ export function VoltageDropCalculator() {
                   <dd>{calculated.result.powerLostWatts} W</dd>
                 </div>
                 <div>
-                  <dt>Conductor Safe Ampacity</dt>
+                  <dt>Reference 75°C Ampacity</dt>
                   <dd>{calculated.result.conductorMaterial === "aluminum" ? calculated.result.recommendedGauge.maxAmpacityAluminum75C : calculated.result.recommendedGauge.maxAmpacityCopper75C} A</dd>
                 </div>
               </dl>
+              <p className="form-hint" style={{ fontSize: "0.78rem", margin: "0.4rem 0 0.8rem", color: "var(--text-muted, #64748b)" }}>
+                *Reference ampacity shown for 75°C conductor column; actual allowable ampacity depends on conductor insulation, terminals, ambient temperature, adjustment/correction factors, installation method and applicable code requirements.
+              </p>
 
               {/* Gauge Evaluation Matrix */}
               <section className="comparison" style={{ marginTop: "1.25rem" }}>
@@ -373,11 +375,11 @@ export function VoltageDropCalculator() {
                           <td style={{ padding: "0.4rem 0.5rem" }}>{ev.endVoltage} V</td>
                           <td style={{ padding: "0.4rem 0.5rem" }}>
                             {!ev.isAmpacitySafe ? (
-                              <span style={{ color: "#ef4444" }}>Overcurrent</span>
+                              <span style={{ color: "#ef4444" }}>Ampacity Exceeded</span>
                             ) : ev.meetsTargetDrop ? (
-                              <span style={{ color: "#10b981" }}>Pass</span>
+                              <span style={{ color: "#10b981" }}>Target Met</span>
                             ) : (
-                              <span style={{ color: "#f59e0b" }}>High Drop</span>
+                              <span style={{ color: "#f59e0b" }}>Above Target</span>
                             )}
                           </td>
                         </tr>
@@ -386,8 +388,6 @@ export function VoltageDropCalculator() {
                   </table>
                 </div>
               </section>
-
-              <GooglePreferredBanner />
 
               <div className="button-row" style={{ marginTop: "0.85rem", display: "flex", gap: "0.5rem", flexWrap: "wrap" }}>
                 <ShareButton getShareUrl={getShareUrl} />
@@ -398,17 +398,17 @@ export function VoltageDropCalculator() {
         </aside>
       </div>
 
-      {/* Quick Reference Voltage Drop Matrix (Google Position 0 Table Snippet Magnet) */}
+      {/* Quick Reference Voltage Drop Matrix */}
       <QuickReferenceTable
         title="Copper Conductor Voltage Drop &amp; Distance Matrix (120V &amp; 240V AC)"
-        subtitle="Calculated percentage voltage drop across standard run lengths using NEC Chapter 9 Table 8 conductor resistances."
+        subtitle="Calculated percentage voltage drop across standard run lengths using NEC Chapter 9 Table 8 conductor resistances (resistive approximation)."
         columns={[
           { key: "circuit", header: "Circuit Load & Voltage", isPrimary: true },
           { key: "d25", header: "25 Feet", align: "center" },
           { key: "d50", header: "50 Feet", align: "center" },
           { key: "d100", header: "100 Feet", align: "center" },
           { key: "d150", header: "150 Feet", align: "center" },
-          { key: "maxLimit", header: "Max Run (3% Limit)", align: "right" },
+          { key: "maxLimit", header: "Max Run (3% Target)", align: "right" },
         ]}
         rows={[
           { circuit: "15A @ 120V (14 AWG)", d25: "1.6%", d50: "3.2% ⚠️", d100: "6.5% ❌", d150: "9.7% ❌", maxLimit: "46 Feet" },
@@ -417,8 +417,8 @@ export function VoltageDropCalculator() {
           { circuit: "40A @ 240V (8 AWG)", d25: "0.5%", d50: "1.0%", d100: "2.1%", d150: "3.1% ⚠️", maxLimit: "144 Feet" },
           { circuit: "50A @ 240V (6 AWG)", d25: "0.4%", d50: "0.8%", d100: "1.6%", d150: "2.5%", maxLimit: "181 Feet", isHighlighted: true, badge: "EV Charger" },
         ]}
-        footerNote="NEC 210.19 Informational Note No. 4 recommends a maximum voltage drop of 3% on branch circuits."
-        standardReference="NFPA 70 (NEC 210.19) / ASTM B258 Copper (K = 12.9 Ω·cmil/ft)"
+        footerNote="NEC 210.19(A) Informational Note No. 2 recommends a design target of ≤ 3% voltage drop on branch circuits."
+        standardReference="NFPA 70 (NEC 210.19 Informational Note) / ASTM B258 Copper (K = 12.9 Ω·cmil/ft)"
       />
 
       {/* Step-by-Step Engineering Calculation Walkthrough */}
@@ -429,29 +429,29 @@ export function VoltageDropCalculator() {
           {
             stepNumber: 1,
             title: "Identify Circuit Load, Voltage & One-Way Distance",
-            description: "Determine the continuous amperage drawn by the appliance (I), the supply line voltage (V), and the one-way distance in feet (L) from the distribution panel to the load.",
+            description: "Determine the continuous amperage drawn by the load (I), the supply line voltage (V), and the one-way distance in feet (L) from the distribution panel to the load.",
             formula: "P = V × I",
             exampleValue: "A 20-Amp continuous load on a 120V branch circuit running 50 feet away.",
           },
           {
             stepNumber: 2,
             title: "Lookup Conductor Resistivity & Circular Mils",
-            description: "Retrieve conductor material resistivity (K = 12.9 for Copper at 75°C) and cross-sectional area in circular mils (A_cmil) from NEC Chapter 9 Table 8.",
-            formula: "VD_volts = (2 × K × I × L) / A_cmil",
+            description: "Retrieve conductor material resistivity (K = 12.9 for Copper at 75°C) and cross-sectional area in circular mils (Cmil) from NEC Chapter 9 Table 8.",
+            formula: "VD_volts = (2 × K × I × L) / Cmil",
             exampleValue: "12 AWG copper wire has 6,530 circular mils: VD = (2 × 12.9 × 20 × 50) / 6,530 = 3.95 Volts.",
           },
           {
             stepNumber: 3,
-            title: "Calculate Percentage Drop & Verify NEC 3% Compliance",
-            description: "Divide the dropped voltage by nominal line voltage to calculate percentage loss. If drop exceeds 3%, upsize conductor gauge by one increment.",
+            title: "Calculate Percentage Drop & Evaluate Design Target",
+            description: "Divide the dropped voltage by nominal line voltage to calculate percentage loss. If drop exceeds target (e.g. 3%), upsize conductor gauge by one increment.",
             formula: "VD_% = (VD_volts / V_nominal) × 100%",
-            exampleValue: "(3.95V / 120V) × 100 = 3.29%. Upsize to 10 AWG to achieve a compliant 2.07% drop.",
+            exampleValue: "(3.95V / 120V) × 100 = 3.29%. Upsize to 10 AWG to achieve a 2.07% drop.",
           },
         ]}
-        standardCitation="NFPA 70 (NEC 210.19 & Chapter 9 Table 8)"
+        standardCitation="NFPA 70 (NEC 210.19 Informational Note & Chapter 9 Table 8)"
       />
 
-      {calculated && <MobileResultBar label="Recommended Wire Gauge" value={calculated.result.recommendedGauge.awg} targetId="calculator-result" />}
+      {calculated && <MobileResultBar label="Calculated Minimum Wire Gauge" value={calculated.result.recommendedGauge.awg} targetId="calculator-result" />}
     </section>
   );
 }

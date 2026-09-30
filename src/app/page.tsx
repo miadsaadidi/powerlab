@@ -82,14 +82,6 @@ export default function HomePage() {
         name: siteConfig.name,
         url: siteConfig.url,
         description: siteConfig.description,
-        potentialAction: {
-          "@type": "SearchAction",
-          target: {
-            "@type": "EntryPoint",
-            urlTemplate: `${siteConfig.url}/?q={search_term_string}`,
-          },
-          "query-input": "required name=search_term_string",
-        },
       },
       {
         "@type": "ItemList",
@@ -149,7 +141,7 @@ export default function HomePage() {
             textAlign: "center",
           }}
         >
-          Transparent physical loss models built on <Link href="/standards" style={{ textDecoration: "underline", color: "inherit" }}>IEEE, NFPA 70 (NEC), NREL &amp; SAE standards</Link>. Zero database tracking.
+          Transparent physical loss models built on <Link href="/standards" style={{ textDecoration: "underline", color: "inherit" }}>applicable IEEE and NFPA 70 (NEC) requirements, plus NREL and SAE technical references</Link>. Calculation inputs are processed in your browser.
         </p>
       </section>
 

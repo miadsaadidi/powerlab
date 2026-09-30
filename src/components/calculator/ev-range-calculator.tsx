@@ -8,7 +8,6 @@ import { calculateEvRange, formatConsumptionValue, normalizeConsumption, type Ev
 import { track } from "@/lib/analytics/analytics";
 import { ShareButton } from "@/components/calculator/share-button";
 import { PrintSpecButton } from "@/components/calculator/print-spec-button";
-import { GooglePreferredBanner } from "@/components/calculator/google-preferred-banner";
 import { CalculatorTrustPill } from "@/components/calculator/calculator-trust-pill";
 import { EvChargingVisualizer } from "@/components/calculator/ev-charging-visualizer";
 
@@ -129,7 +128,7 @@ export function EvRangeCalculator() {
         <CalculatorTrustPill />
 
         <form onSubmit={(event) => { event.preventDefault(); calculate(); }} noValidate>
-          <fieldset className="input-group"><legend>Battery and consumption</legend><label>Usable battery capacity (kWh)<input type="number" min="0.01" step="any" inputMode="decimal" value={capacity} onChange={(event) => { setCapacity(event.target.value); markStale(); }} /><span className="form-hint">Use the vehicle&apos;s usable/net battery capacity when known.</span></label><label>Current SOC (%)<input type="number" min="0" max="100" step="any" inputMode="decimal" value={currentSoc} onChange={(event) => { setCurrentSoc(event.target.value); markStale(); }} /></label><label>Battery consumption<span className="input-with-unit"><input type="number" min="0.0001" step="any" inputMode="decimal" value={consumption} onChange={(event) => updateConsumption(event.target.value)} /><select aria-label="Consumption unit" value={consumptionUnit} onChange={(event) => changeConsumptionUnit(event.target.value as EvRangeConsumptionUnit)}>{Object.entries(unitLabel).map(([value, label]) => <option key={value} value={value}>{label}</option>)}</select></span><span className="form-hint">Battery-side vehicle consumption before charging losses.</span></label></fieldset>
+          <fieldset className="input-group"><legend>Battery and consumption</legend><label>Usable battery capacity at 100% SoH (kWh)<input type="number" min="0.01" step="any" inputMode="decimal" value={capacity} onChange={(event) => { setCapacity(event.target.value); markStale(); }} /><span className="form-hint">Enter the vehicle&apos;s original/new usable (net) battery capacity when known. Battery health is applied separately below.</span></label><label>Current SOC (%)<input type="number" min="0" max="100" step="any" inputMode="decimal" value={currentSoc} onChange={(event) => { setCurrentSoc(event.target.value); markStale(); }} /></label><label>Battery consumption<span className="input-with-unit"><input type="number" min="0.0001" step="any" inputMode="decimal" value={consumption} onChange={(event) => updateConsumption(event.target.value)} /><select aria-label="Consumption unit" value={consumptionUnit} onChange={(event) => changeConsumptionUnit(event.target.value as EvRangeConsumptionUnit)}>{Object.entries(unitLabel).map(([value, label]) => <option key={value} value={value}>{label}</option>)}</select></span><span className="form-hint">Battery-side vehicle consumption before charging losses.</span></label></fieldset>
           <fieldset className="input-group"><legend>Result display</legend><label>Primary distance unit<select value={distanceUnit} onChange={(event) => setDistanceUnit(event.target.value as EvRangeDistanceUnit)}><option value="km">Kilometers</option><option value="mi">Miles</option></select></label></fieldset>
           <button className="text-button" type="button" aria-expanded={advancedOpen} onClick={() => setAdvancedOpen((open) => !open)}>{advancedOpen ? "Hide" : "Show"} advanced assumptions</button>
           {advancedOpen && <fieldset className="input-group advanced-settings"><legend>Advanced assumptions</legend><label>Reserve SOC (%)<input type="number" min="0" max="100" step="any" inputMode="decimal" value={reserveSoc} onChange={(event) => { setReserveSoc(event.target.value); markStale(); }} /><span className="form-hint">Range is planned only above this reserve.</span></label><label>Battery health / available capacity (%)<input type="number" min="0.01" max="100" step="any" inputMode="decimal" value={health} onChange={(event) => { setHealth(event.target.value); markStale(); }} /><span className="form-hint">Planning derating, not measured state of health or degradation prediction.</span></label></fieldset>}
@@ -155,12 +154,12 @@ function RangeResult({ result, stale, distanceUnit, consumptionUnit }: { result:
   return <><p className="result-lede">Estimated EV range</p><p className="result-value">{primary}</p>{stale && <p className="warning" role="status">Inputs changed — recalculate to update this estimate.</p>}
     <div style={{ background: "var(--surface, rgba(14, 165, 233, 0.04))", border: "1px solid var(--border-color, #cbd5e1)", borderRadius: "0.75rem", padding: "0.875rem 1rem", margin: "0.875rem 0" }}>
       <div style={{ display: "flex", justifyContent: "space-between", fontSize: "0.8rem", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.05em", color: "var(--text-muted, #64748b)", marginBottom: "0.5rem" }}>
-        <span>🌡️ Real-World Seasonal Range Comparison</span>
+        <span>🌡️ Illustrative Seasonal Scenarios</span>
       </div>
       <div style={{ display: "flex", flexDirection: "column", gap: "0.5rem" }}>
         <div>
           <div style={{ display: "flex", justifyContent: "space-between", fontSize: "0.85rem", marginBottom: "0.2rem" }}>
-            <span>☀️ <strong>Ideal Summer</strong> (70°F / 21°C)</span>
+            <span>☀️ <strong>Mild Weather Benchmark</strong> (70°F / 21°C)</span>
             <strong style={{ color: "#16a34a" }}>{number(summerRange, 1)} {distanceUnit} (100%)</strong>
           </div>
           <div style={{ height: "8px", width: "100%", background: "#e2e8f0", borderRadius: "9999px", overflow: "hidden" }}>
@@ -169,13 +168,13 @@ function RangeResult({ result, stale, distanceUnit, consumptionUnit }: { result:
         </div>
         <div>
           <div style={{ display: "flex", justifyContent: "space-between", fontSize: "0.85rem", marginBottom: "0.2rem" }}>
-            <span>❄️ <strong>Freezing Winter</strong> (20°F / -7°C)</span>
+            <span>❄️ <strong>Cold Weather Scenario</strong> (20°F / -7°C)</span>
             <strong style={{ color: "#0284c7" }}>{number(winterRange, 1)} {distanceUnit} (72%)</strong>
           </div>
           <div style={{ height: "8px", width: "100%", background: "#e2e8f0", borderRadius: "9999px", overflow: "hidden" }}>
             <div style={{ height: "100%", width: "72%", background: "#0284c7", borderRadius: "9999px" }}></div>
           </div>
-          <p style={{ fontSize: "0.75rem", color: "var(--text-muted, #64748b)", margin: "0.3rem 0 0 0" }}>*Accounts for cabin heating HVAC draw &amp; cold battery chemical resistance.</p>
+          <p style={{ fontSize: "0.75rem", color: "var(--text-muted, #64748b)", margin: "0.3rem 0 0 0" }}>*Illustrative scenario (~28% derating). Actual winter range varies with cabin heating, battery temp, speed, tires, precipitation and preconditioning.</p>
         </div>
       </div>
     </div>
@@ -189,8 +188,7 @@ function RangeResult({ result, stale, distanceUnit, consumptionUnit }: { result:
       rangeAddedKm={data.rangeKm}
     />
     {result.warnings.map((warning) => <p className={warning.severity === "caution" ? "warning" : "form-hint"} role={warning.severity === "caution" ? "alert" : undefined} key={warning.code}>{warning.message}</p>)}<dl className="result-breakdown"><div><dt>Range in kilometers</dt><dd>{number(data.rangeKm, 1)} km</dd></div><div><dt>Range in miles</dt><dd>{number(data.rangeMiles, 1)} mi</dd></div><div><dt>Energy available above reserve</dt><dd>{number(data.energyAvailableKWh, 2)} kWh</dd></div><div><dt>Normalized consumption</dt><dd>{number(data.consumptionKWhPerKm, 4)} kWh/km</dd></div></dl>
-<section className="comparison"><h3>Standard consumption comparisons</h3>{data.standardScenarios.map((scenario) => <div className="contributor-label" key={scenario.label}><span>{scenario.label}</span><strong>{number(distanceUnit === "km" ? scenario.rangeKm : scenario.rangeMiles, 1)} {distanceUnit}</strong></div>)}</section><section className="comparison"><h3>Consumption scenarios</h3>{data.sensitivityScenarios.map((scenario) => <div className="contributor-label" key={scenario.label}><span>{scenario.label}<small> ({number(formatConsumptionValue(scenario.consumptionKWhPerKm, consumptionUnit), 3)} {unitLabel[consumptionUnit]})</small></span><strong>{number(distanceUnit === "km" ? scenario.rangeKm : scenario.rangeMiles, 1)} {distanceUnit}</strong></div>)}</section><section className="assumption-summary"><h3>Assumptions used</h3><dl><div><dt>Usable battery capacity</dt><dd>{number(data.batteryCapacityKWh)} kWh</dd></div><div><dt>Current SOC</dt><dd>{number(data.currentSoc, 1)}%</dd></div><div><dt>Reserve SOC</dt><dd>{number(data.reserveSoc, 1)}%</dd></div><div><dt>Battery health</dt><dd>{number(data.batteryHealth, 1)}%</dd></div></dl></section>
-  <GooglePreferredBanner />
+<section className="comparison"><h3>Standard consumption comparisons</h3>{data.standardScenarios.map((scenario) => <div className="contributor-label" key={scenario.label}><span>{scenario.label}</span><strong>{number(distanceUnit === "km" ? scenario.rangeKm : scenario.rangeMiles, 1)} {distanceUnit}</strong></div>)}</section><section className="comparison"><h3>Consumption scenarios</h3>{data.sensitivityScenarios.map((scenario) => <div className="contributor-label" key={scenario.label}><span>{scenario.label}<small> ({number(formatConsumptionValue(scenario.consumptionKWhPerKm, consumptionUnit), 3)} {unitLabel[consumptionUnit]})</small></span><strong>{number(distanceUnit === "km" ? scenario.rangeKm : scenario.rangeMiles, 1)} {distanceUnit}</strong></div>)}</section><section className="assumption-summary"><h3>Assumptions used</h3><dl><div><dt>Usable battery capacity (100% SoH)</dt><dd>{number(data.batteryCapacityKWh)} kWh</dd></div><div><dt>Current SOC</dt><dd>{number(data.currentSoc, 1)}%</dd></div><div><dt>Reserve SOC</dt><dd>{number(data.reserveSoc, 1)}%</dd></div><div><dt>Battery health (SoH)</dt><dd>{number(data.batteryHealth, 1)}%</dd></div></dl></section>
   <div className="button-row" style={{ marginTop: "0.85rem", display: "flex", gap: "0.5rem", flexWrap: "wrap" }}>
     <ShareButton title="EV Range Calculation" />
     <PrintSpecButton />

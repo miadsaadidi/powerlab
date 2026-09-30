@@ -1,10 +1,10 @@
 /**
- * Comprehensive Regional Climatic, Solar Resource & Electricity Rate Database
+ * Regional Climatic, Solar Resource & Electricity Rate Reference Dataset
  * 
- * Sources:
- * - ASHRAE Handbook — Fundamentals (Chapter 14: Climatic Design Information, 99% Winter DB & 1% Summer DB)
- * - NREL National Solar Radiation Database (NSRDB) & PVWatts V8 (Annual Average Peak Sun Hours kWh/m²/day)
- * - U.S. Energy Information Administration (EIA) Electric Power Monthly (Average Residential Electricity Rate $/kWh)
+ * Data Sources & Provenance:
+ * - Solar Resource: Derived from NREL National Solar Radiation Database (NSRDB) multi-year solar irradiance data & PVWatts V8 reference calculations (Annual Average Peak Sun Hours, h/day on south-facing reference tilt).
+ * - Climatic Design Conditions: ASHRAE Handbook — Fundamentals (Chapter 14: Climatic Design Information, 99% Annual Winter DB & 1% Annual Summer DB/WB for representative meteorological stations).
+ * - Electricity Pricing: U.S. Energy Information Administration (EIA) Electric Power Monthly (Table 5.6.A, Average Residential Electricity Rates, $/kWh).
  */
 
 export interface RegionalClimateData {
@@ -14,12 +14,12 @@ export interface RegionalClimateData {
   latitude: number;
   longitude: number;
   ashraeClimateZone: string;
-  winterDesignTempF: number; // ASHRAE 99% Winter Design Dry-Bulb Temperature (°F)
-  summerDesignTempF: number; // ASHRAE 1% Summer Design Dry-Bulb Temperature (°F)
-  summerDesignWbTempF: number; // ASHRAE 1% Summer Design Wet-Bulb Temperature (°F)
-  peakSunHours: number; // NREL Annual Average Peak Sun Hours (kWh/m²/day on optimal tilt)
-  optimalTiltDeg: number; // Optimal annual fixed solar tilt angle (degrees)
-  electricityRateKwh: number; // EIA average residential electricity rate ($/kWh)
+  winterDesignTempF: number; // ASHRAE 99% Annual Winter Design Dry-Bulb Temperature (°F, representative station)
+  summerDesignTempF: number; // ASHRAE 1% Annual Summer Design Dry-Bulb Temperature (°F, representative station)
+  summerDesignWbTempF: number; // ASHRAE 1% Annual Summer Design Wet-Bulb Temperature (°F, representative station)
+  peakSunHours: number; // Annual Average Peak Sun Hours (equivalent h/day at 1,000 W/m² irradiance on reference south-facing fixed tilt)
+  optimalTiltDeg: number; // Reference annual fixed solar tilt angle (degrees from horizontal)
+  electricityRateKwh: number; // U.S. EIA state average residential electricity rate ($/kWh)
 }
 
 export const US_REGIONAL_CLIMATE_DATA: RegionalClimateData[] = [

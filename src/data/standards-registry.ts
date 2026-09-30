@@ -18,6 +18,13 @@ export interface StandardRef {
   clauseSummary?: string;
 }
 
+export type StandardCategory =
+  | "Adopted Code"
+  | "Standard"
+  | "Recommended Practice"
+  | "Modeling Tool"
+  | "Technical Reference";
+
 export interface GoverningClause {
   clauseNumber: string;
   title: string;
@@ -34,10 +41,11 @@ export interface StandardDefinition {
   id: string;
   code: string;
   authority: StandardAuthority;
+  category: StandardCategory;
   edition: string;
   title: string;
   scope: string;
-  regulatoryAuthority: string;
+  context: string;
   color: string;
   clauses: GoverningClause[];
 }
@@ -186,14 +194,15 @@ export const COMPREHENSIVE_STANDARDS_LIST: StandardDefinition[] = [
     id: "nrel-pvwatts",
     code: "NREL PVWatts® V8",
     authority: "NREL",
+    category: "Modeling Tool",
     edition: "Version 8 (2024–2026 Engine)",
     title: "Photovoltaic System Performance & Physical Loss Modeling",
-    scope: "Defines empirical solar insolation transposition, plane-of-array irradiance, cell temperature NOCT adjustment, and comprehensive 14.08% default system loss derating.",
-    regulatoryAuthority: "National Renewable Energy Laboratory (NREL) and US Department of Energy (DOE) benchmark for solar production estimates.",
+    scope: "Defines solar insolation transposition, plane-of-array irradiance, cell temperature NOCT adjustment, and comprehensive 14.08% default system loss derating.",
+    context: "Computational modeling tool and solar resource technical reference developed by the National Renewable Energy Laboratory (NREL).",
     color: "#f59e0b",
     clauses: [
       {
-        clauseNumber: "Section 2.1",
+        clauseNumber: "POA Transposition Model",
         title: "Plane-of-Array (POA) Beam & Diffuse Irradiance Transposition",
         description: "Models incident radiation on tilted surfaces combining direct normal irradiance (DNI), diffuse horizontal irradiance (DHI), and ground albedo reflection.",
         latexFormula: "I_{\\text{poa}} = I_{\\text{beam}} \\cos(\\theta) + I_{\\text{sky diffuse}} + I_{\\text{ground diffuse}} \\times \\left(\\frac{1 - \\cos(\\beta)}{2}\\right) \\times \\rho_{\\text{albedo}}",
@@ -203,9 +212,9 @@ export const COMPREHENSIVE_STANDARDS_LIST: StandardDefinition[] = [
         ],
       },
       {
-        clauseNumber: "Section 3.4",
+        clauseNumber: "NOCT Cell Model",
         title: "Cell Temperature NOCT Thermal Voltage Degradation",
-        description: "Calculates instantaneous solar cell temperature based on ambient temperature, wind velocity, and Nominal Operating Cell Temperature (NOCT).",
+        description: "Calculates instantaneous solar cell operating temperature based on ambient temperature, wind velocity, and Nominal Operating Cell Temperature (NOCT).",
         latexFormula: "T_{\\text{cell}} = T_{\\text{amb}} + \\left(\\frac{\\text{NOCT} - 20}{800}\\right) \\times I_{\\text{poa}} \\times \\left(1 - \\frac{\\eta_{\\text{STC}}}{0.9}\\right)",
         enforcingCalculators: [
           { id: "solar-panel-output", name: "Solar Panel Output Calculator", route: "/solar/solar-panel-output-calculator" },
@@ -218,27 +227,28 @@ export const COMPREHENSIVE_STANDARDS_LIST: StandardDefinition[] = [
     id: "nec-690",
     code: "NFPA 70 (NEC) Article 690",
     authority: "NEC",
+    category: "Adopted Code",
     edition: "2023 National Electrical Code",
-    title: "Solar Photovoltaic (PV) Systems Safety & Sizing",
-    scope: "Prescribes mandatory safety factors for conductor ampacity, string maximum voltage calculations, overcurrent protection, and rapid shutdown requirements for PV systems.",
-    regulatoryAuthority: "Enacted into law across state and municipal building codes in the United States and international jurisdictions.",
+    title: "Solar Photovoltaic (PV) Systems Sizing & Safety Provisions",
+    scope: "Prescribes requirements for maximum DC voltage calculation, continuous current multipliers, overcurrent protection, and conductor sizing in PV systems.",
+    context: "Model electrical code adopted into law across state and municipal building authorities in the United States.",
     color: "#d97706",
     clauses: [
       {
-        clauseNumber: "Section 690.7(A)",
-        title: "Sub-Zero Open-Circuit Voltage (Voc) Temperature Correction",
-        description: "Mandates adjusting the module manufacturer's rated Voc using lowest expected ambient temperature to prevent destroying inverters and charge controllers.",
-        latexFormula: "V_{\\text{max}} = N_{\\text{series}} \\times V_{oc} \\times \\left[1 + \\left(\\frac{\\gamma_{Voc}}{100}\\right) \\times (T_{\\text{min}} - 25^\\circ\\text{C})\\right]",
+        clauseNumber: "NEC 690.7(A)",
+        title: "Sub-Zero Open-Circuit Voltage (Voc) Temperature Correction Model",
+        description: "Adjusts module manufacturer rated Voc using lowest historical ambient temperature to prevent voltage overages on inverters and charge controllers.",
+        latexFormula: "V_{\\text{max}} = N_{\\text{series}} \\times V_{\\text{oc}} \\times \\left[1 + \\left(\\frac{\\alpha_{\\text{Voc}}}{100}\\right) \\times (T_{\\text{min}} - 25^\\circ\\text{C})\\right]",
         enforcingCalculators: [
           { id: "solar-charge-controller", name: "Solar Charge Controller Calculator", route: "/solar/solar-charge-controller-calculator" },
           { id: "solar-panel-size", name: "Solar Panel Size Calculator", route: "/solar/solar-panel-size-calculator" },
         ],
       },
       {
-        clauseNumber: "Section 690.8(B)",
-        title: "Continuous Duty Current Multipliers for PV Circuits",
-        description: "Requires sizing circuit conductors and overcurrent protective devices (OCPD) to carry a minimum of 125% of the continuous rated solar maximum power amperage.",
-        latexFormula: "I_{\\text{design}} = I_{\\text{sc}} \\times 1.25 \\times 1.25 = 1.56 \\times I_{\\text{sc}}",
+        clauseNumber: "NEC 690.8(A) & (B)",
+        title: "Maximum Circuit Current & Continuous Sizing Factor",
+        description: "NEC 690.8(A)(1) defines maximum circuit current as 125% of rated short-circuit current (I_max = 1.25 × I_sc). NEC 690.8(B)(1) applies a continuous-load factor (1.25 × I_max = 1.56 × I_sc) for conductor ampacity before temperature or conduit adjustment.",
+        latexFormula: "I_{\\text{max}} = 1.25 \\times I_{\\text{sc}}, \\quad I_{\\text{conductor, min}} \\ge 1.25 \\times I_{\\text{max}} = 1.56 \\times I_{\\text{sc}}",
         enforcingCalculators: [
           { id: "solar-charge-controller", name: "Solar Charge Controller Calculator", route: "/solar/solar-charge-controller-calculator" },
           { id: "voltage-drop", name: "Wire Voltage Drop Calculator", route: "/battery/voltage-drop-calculator" },
@@ -250,16 +260,17 @@ export const COMPREHENSIVE_STANDARDS_LIST: StandardDefinition[] = [
     id: "ieee-485",
     code: "IEEE Standard 485",
     authority: "IEEE",
+    category: "Recommended Practice",
     edition: "IEEE 485-2020",
     title: "Recommended Practice for Sizing Lead-Acid & Stationary Storage Batteries",
-    scope: "Provides standard engineering formulations for defining battery capacity, design margins, aging factors, temperature derating, and minimum voltage limits under dynamic load cycles.",
-    regulatoryAuthority: "The global electrical engineering benchmark cited by utilities, data centers, and off-grid microgrid installations.",
+    scope: "Provides recommended sizing methodology for stationary batteries, duty cycles, design margins, aging factors, temperature derating, and minimum voltage criteria.",
+    context: "Voluntary electrical engineering recommended practice published by the Institute of Electrical and Electronics Engineers (IEEE).",
     color: "#10b981",
     clauses: [
       {
-        clauseNumber: "Clause 6.2",
-        title: "Battery Usable Energy & Depth of Discharge (DoD) Derating",
-        description: "Calculates net delivered energy from nominal amp-hour capacity factoring in allowable cycle depth, cell temperature, and end-of-life aging reserve.",
+        clauseNumber: "Battery Sizing Framework",
+        title: "Battery Usable Energy & Depth of Discharge Sizing Model",
+        description: "Calculates net delivered energy from nominal amp-hour capacity factoring in allowable cycle depth, cell temperature, and end-of-life aging reserve based on stationary storage practice.",
         latexFormula: "E_{\\text{usable}} = V_{\\text{nominal}} \\times C_{\\text{Ah}} \\times \\text{DoD}_{\\text{max}} \\times \\eta_{\\text{Coulombic}} \\times K_{\\text{aging}}",
         enforcingCalculators: [
           { id: "battery-size", name: "Battery Size Calculator", route: "/battery/battery-size-calculator" },
@@ -268,9 +279,9 @@ export const COMPREHENSIVE_STANDARDS_LIST: StandardDefinition[] = [
         ],
       },
       {
-        clauseNumber: "Clause 7.1",
-        title: "Peukert Electrochemical Capacity Derating Kinetics",
-        description: "Adjusts available battery capacity when discharge rates exceed the standard 20-hour (C/20) manufacturer benchmark rating.",
+        clauseNumber: "Peukert Rate Kinetics",
+        title: "Electrochemical High-Rate Discharge Derating (Peukert Reference)",
+        description: "Empirical model describing capacity reduction when discharge current exceeds reference benchmark rates. Maintained as a separate electrochemical discharge reference.",
         latexFormula: "t = H \\times \\left(\\frac{C}{I \\times H}\\right)^k, \\quad C_{\\text{eff}} = I \\times t",
         enforcingCalculators: [
           { id: "battery-runtime", name: "Battery Backup Runtime Calculator", route: "/battery/battery-runtime-calculator" },
@@ -281,29 +292,30 @@ export const COMPREHENSIVE_STANDARDS_LIST: StandardDefinition[] = [
   },
   {
     id: "nec-625",
-    code: "NFPA 70 (NEC) Article 625",
+    code: "NFPA 70 (NEC) Article 625 & Article 110",
     authority: "NEC",
+    category: "Adopted Code",
     edition: "2023 National Electrical Code",
-    title: "Electric Vehicle Power Transfer Systems (EVSE)",
-    scope: "Covers electrical branch circuits, feeder conductors, breaker sizing, and disconnect requirements for Level 1, Level 2, and DC fast-charging installations.",
-    regulatoryAuthority: "Mandatory statutory compliance required by local electrical inspectors (AHJ) for residential and commercial EV charger installations.",
+    title: "Electric Vehicle Power Transfer Systems (EVSE) & Terminal Ratings",
+    scope: "Covers branch circuits, continuous load overcurrent protection, and conductor terminal limitations for EV charging equipment.",
+    context: "Model electrical code adopted into law across state and municipal building jurisdictions.",
     color: "#8b5cf6",
     clauses: [
       {
-        clauseNumber: "Section 625.42",
+        clauseNumber: "NEC 625.42",
         title: "Continuous Duty 125% Overcurrent Protection Sizing",
         description: "Classifies EV charging loads as continuous (operating for 3 hours or more), requiring branch circuit conductors and breakers to be sized at 125% of rated charger amperage.",
-        latexFormula: "\\text{Breaker Ampacity} \\ge I_{\\text{charger}} \\times 1.25",
+        latexFormula: "\\text{Breaker Ampacity} \\ge I_{\\text{continuous}} \\times 1.25",
         enforcingCalculators: [
           { id: "ev-breaker-size", name: "EV Charger Breaker Size Calculator", route: "/ev/ev-charger-breaker-size-calculator" },
           { id: "ev-charging-time", name: "EV Charging Time Calculator", route: "/ev/ev-charging-time-calculator" },
         ],
       },
       {
-        clauseNumber: "Section 110.14(C)",
+        clauseNumber: "NEC 110.14(C)",
         title: "Terminal Temperature Limitation & Conductor Derating",
-        description: "Restricts allowable wire ampacity based on terminal ratings (60°C for circuits under 100A vs 75°C standard equipment terminals).",
-        latexFormula: "I_{\\text{allowable}} = I_{\\text{Table 310.16}} \\times K_{\\text{ambient}} \\times K_{\\text{conduit fill}}",
+        description: "Governs conductor temperature column selection based on equipment terminal ratings (60°C or 75°C per listing and conductor size) and applicable operating conditions.",
+        latexFormula: "I_{\\text{allowable}} = I_{\\text{Table 310.16}} \\times K_{\\text{temp}} \\times K_{\\text{fill}}",
         enforcingCalculators: [
           { id: "ev-breaker-size", name: "EV Charger Breaker Size Calculator", route: "/ev/ev-charger-breaker-size-calculator" },
           { id: "voltage-drop", name: "Wire Voltage Drop Calculator", route: "/battery/voltage-drop-calculator" },
@@ -315,17 +327,18 @@ export const COMPREHENSIVE_STANDARDS_LIST: StandardDefinition[] = [
     id: "nec-210-19",
     code: "NFPA 70 (NEC) Section 210.19",
     authority: "NEC",
+    category: "Technical Reference",
     edition: "2023 National Electrical Code",
-    title: "Conductor Sizing & Permissible Voltage Drop",
-    scope: "Recommends maximum voltage drop limits across branch circuits and feeders to ensure electrical equipment efficiency, thermal safety, and proper motor operation.",
-    regulatoryAuthority: "Industry standard referenced in NEC Informational Note No. 4 and enforced in many jurisdictional commercial building energy codes.",
+    title: "Conductor Sizing & Voltage Drop Guidance",
+    scope: "Provides informational recommendations for branch-circuit and feeder voltage drop to promote operating efficiency and equipment performance.",
+    context: "Informational Note No. 4 in NEC 210.19 provides engineering recommendations (not mandatory universal statutory limits).",
     color: "#0284c7",
     clauses: [
       {
-        clauseNumber: "Informational Note 4",
-        title: "3% Maximum Branch Circuit Voltage Drop Criterion",
-        description: "Recommends that total voltage drop on branch-circuit conductors not exceed 3%, and total combined feeder + branch drop not exceed 5%.",
-        latexFormula: "\\text{VD}\\% = \\frac{2 \\times K \\times I \\times L}{A_{\\text{cmil}} \\times V_{\\text{source}}} \\times 100 \\le 3.0\\%",
+        clauseNumber: "NEC 210.19 Informational Note 4",
+        title: "Branch Circuit Voltage Drop Recommendation (3% / 5% Guidance)",
+        description: "Informational Note recommending that branch-circuit voltage drop not exceed 3%, and total combined feeder plus branch drop not exceed 5% for reasonable operating efficiency.",
+        latexFormula: "\\text{VD}\\% = \\frac{2 \\times K \\times I \\times L}{A_{\\text{cmil}} \\times V_{\\text{source}}} \\times 100 \\le 3.0\\% \\text{ (recommended)}",
         enforcingCalculators: [
           { id: "voltage-drop", name: "Wire Voltage Drop Calculator", route: "/battery/voltage-drop-calculator" },
           { id: "ev-breaker-size", name: "EV Charger Breaker Size Calculator", route: "/ev/ev-charger-breaker-size-calculator" },
@@ -337,17 +350,18 @@ export const COMPREHENSIVE_STANDARDS_LIST: StandardDefinition[] = [
     id: "nema-mg1",
     code: "NEMA MG-1 & ISO 8528-5",
     authority: "NEMA",
+    category: "Standard",
     edition: "NEMA MG-1-2021 / ISO 8528-5:2018",
-    title: "Motors, Generators, and Standby Generating Sets Load Acceptance",
-    scope: "Establishes Locked Rotor Amps (LRA) code letter multipliers (A through V) for inductive electric motor startup inrush, and engine-generator transient voltage dip recovery.",
-    regulatoryAuthority: "The international benchmark for emergency electrical sizing, transfer switch ratings, and generator capacity verification.",
+    title: "Motor Inrush Starting Codes & Generator Transient Load Acceptance",
+    scope: "NEMA MG-1 establishes Locked Rotor Amps (LRA) code letters for induction motor starting apparent power; ISO 8528-5 defines transient voltage dip recovery classes for generator sets.",
+    context: "Voluntary engineering standards defining motor starting characteristics (NEMA) and reciprocating generator set performance (ISO).",
     color: "#059669",
     clauses: [
       {
-        clauseNumber: "Part 10.37",
-        title: "Motor Locked Rotor Current Inrush (LRA Multipliers)",
-        description: "Calculates instantaneous starting kVA based on NEMA code letters (Code G: 5.6–6.29 kVA/HP) for compressors, heat pumps, and well pumps.",
-        latexFormula: "\\text{Starting Watts} = \\text{HP} \\times \\text{kVA/HP}_{\\text{code}} \\times 1000 \\times \\text{PF}",
+        clauseNumber: "NEMA MG-1 Part 10.37",
+        title: "Motor Locked Rotor Current Inrush Apparent Power & Starting Watts",
+        description: "Calculates instantaneous starting apparent power (kVA) based on NEMA code letters (Code G: 5.6–6.29 kVA/HP). PowerLab converts apparent kVA to estimated starting watts using estimated power factor.",
+        latexFormula: "S_{\\text{start}} = \\text{HP} \\times \\text{kVA/HP}_{\\text{code}}, \\quad P_{\\text{start, watts}} = S_{\\text{start}} \\times 1000 \\times \\text{PF}",
         enforcingCalculators: [
           { id: "generator-size", name: "Emergency Generator Sizing Calculator", route: "/home-energy/generator-size-calculator" },
           { id: "inverter-size", name: "Inverter Sizing Calculator", route: "/battery/inverter-size-calculator" },
@@ -359,17 +373,18 @@ export const COMPREHENSIVE_STANDARDS_LIST: StandardDefinition[] = [
     id: "ahri-210-240",
     code: "AHRI Standard 210/240 & ASHRAE 90.1",
     authority: "AHRI",
-    edition: "2023 Standard (SEER2 / HSPF2 / EER2)",
-    title: "Unitary Air-Conditioning & Air-Source Heat Pump Equipment Performance",
-    scope: "Prescribes seasonal energy efficiency rating metrics under M1 test procedures (with elevated 0.50 in. w.g. external static pressure) to calculate hourly kWh cooling costs.",
-    regulatoryAuthority: "Mandated by the US Department of Energy (10 CFR Part 430) for all residential cooling and heat pump equipment sold in the United States.",
+    category: "Standard",
+    edition: "2023 Performance Rating Standard",
+    title: "Unitary Air-Conditioning & Air-Source Heat Pump Performance Ratings",
+    scope: "Establishes laboratory test procedures and seasonal efficiency metrics (SEER2, EER2, HSPF2) under DOE Appendix M1 external static pressure baselines.",
+    context: "Industry rating standards referenced by the US Department of Energy (10 CFR Part 430) for equipment efficiency compliance.",
     color: "#0ea5e9",
     clauses: [
       {
-        clauseNumber: "Section 6.1",
-        title: "SEER2 to Running Electrical Wattage Conversion",
-        description: "Calculates hourly electrical consumption by dividing cooling capacity (BTU/h) by the seasonal efficiency rating under typical operating temperature bins.",
-        latexFormula: "P_{\\text{watts}} = \\frac{\\text{Cooling Capacity (BTU/h)}}{\\text{SEER2}}, \\quad \\text{Daily kWh} = \\frac{P_{\\text{watts}} \\times \\text{DutyCycle} \\times \\text{Hours}}{1000}",
+        clauseNumber: "Seasonal Energy Consumption Model",
+        title: "Seasonal Efficiency & Average Energy Consumption Estimation",
+        description: "SEER2 measures seasonal cooling efficiency over standard temperature bins. PowerLab uses SEER2 as an engineering index to estimate average seasonal electrical consumption and operating costs, not instantaneous compressor draw.",
+        latexFormula: "P_{\\text{avg, watts}} \\approx \\frac{\\text{Cooling Capacity (BTU/h)}}{\\text{SEER2}}, \\quad \\text{Daily kWh} \\approx \\frac{P_{\\text{avg}} \\times \\text{DutyCycle} \\times \\text{Hours}}{1000}",
         enforcingCalculators: [
           { id: "ac-cost", name: "Air Conditioner Cost Calculator", route: "/home-energy/air-conditioner-cost-calculator" },
           { id: "heat-pump-cost", name: "Heat Pump Cost Calculator", route: "/home-energy/heat-pump-cost-calculator" },

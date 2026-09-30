@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { calculateSeasonalTilts } from "@/lib/calculators/solar-tilt/engine";
 
 interface SolarTiltVisualizerProps {
   tiltAngle: number;
@@ -13,19 +14,21 @@ export function SolarTiltVisualizer({
   latitude,
 }: SolarTiltVisualizerProps) {
   const [selectedSeason, setSelectedSeason] = useState<"year-round" | "summer" | "winter" | "custom">("year-round");
-  const [customAngle, setCustomAngle] = useState<number>(Math.round(tiltAngle));
+  const [customAngle, setCustomAngle] = useState<number>(Number(tiltAngle.toFixed(1)));
 
-  const absLat = Math.min(90, Math.max(0, Math.abs(Number.isFinite(latitude) ? latitude : 34)));
+  const validLat = Number.isFinite(latitude) ? latitude : 34;
+  const absLat = Math.min(90, Math.max(0, Math.abs(validLat)));
 
-  // Approximate solar noon elevations
+  // Canonical seasonal tilt angles from engine
+  const seasonalTilts = calculateSeasonalTilts(validLat);
+  const summerTilt = seasonalTilts.summer;
+  const winterTilt = seasonalTilts.winter;
+  const yearRoundTilt = seasonalTilts.yearRound;
+
+  // Solar noon elevations
   const equinoxElevation = Math.max(5, Math.min(88, 90 - absLat));
   const summerElevation = Math.min(88, Math.max(10, equinoxElevation + 23.45));
   const winterElevation = Math.max(5, Math.min(80, equinoxElevation - 23.45));
-
-  // Calculate seasonal recommendations
-  const summerTilt = Math.max(0, Math.round(absLat * 0.93 - 21));
-  const winterTilt = Math.max(0, Math.min(90, Math.round(absLat * 0.875 + 19.2)));
-  const yearRoundTilt = Math.max(0, Math.min(90, Math.round(absLat * 0.76 + 3.1)));
 
   const activeTilt = selectedSeason === "summer" 
     ? summerTilt 
@@ -33,7 +36,7 @@ export function SolarTiltVisualizer({
       ? winterTilt 
       : selectedSeason === "custom" 
         ? customAngle 
-        : Math.round(tiltAngle || yearRoundTilt);
+        : (tiltAngle || yearRoundTilt);
 
   const activeSunElevation = selectedSeason === "summer" 
     ? summerElevation 
@@ -41,11 +44,12 @@ export function SolarTiltVisualizer({
       ? winterElevation 
       : equinoxElevation;
 
-  // Real-time solar ray incidence angle: optimal capture is when panel normal points directly at sun
-  // In 2D profile: Sun altitude angle from horizon + Panel tilt angle from horizon = 90° for perfect perpendicular incidence
+  // Real-time solar ray incidence angle at solar noon:
+  // Sun altitude angle from horizon + Panel tilt angle from horizon = 90° for perpendicular incidence
   const totalAngle = activeSunElevation + activeTilt;
   const angularDeviation = Math.abs(totalAngle - 90);
-  const captureEfficiency = Math.max(0, Math.round(Math.cos((angularDeviation * Math.PI) / 180) * 100));
+  const captureEfficiency = Math.max(0, Math.min(100, Math.round(Math.cos((angularDeviation * Math.PI) / 180) * 100)));
+
 
   // Geometry calculations for SVG
   // Pivot point on ground: (180, 160)

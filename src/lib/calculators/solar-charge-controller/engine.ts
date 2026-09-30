@@ -19,7 +19,8 @@ export interface SolarChargeControllerResultData {
   nominalBatteryVoltage: number;
   
   // Output Current (Amps into battery)
-  requiredChargeCurrentAmps: number;
+  operatingChargeCurrentAmps: number; // Calculated electrical operating current (P_array / V_battery for MPPT)
+  requiredChargeCurrentAmps: number;  // Code-sized continuous design current (with 1.25 continuous factor)
   recommendedControllerAmps: number;
   
   // Array Voltages
@@ -74,29 +75,31 @@ export function calculateSolarChargeController(input: SolarChargeControllerInput
   const nominalArrayVoc25C = Number((panelVoc * seriesCount).toFixed(1));
   const arrayTotalIscAmps = Number((panelIsc * parallelCount).toFixed(1));
 
-  // Cold Weather Voc Rise Calculation (STC standard is 25°C)
-  const tempDelta = 25 - minWinterTempCelsius;
+  // Canonical temperature-corrected Voc equation:
+  // Voc_cold = N_series * Voc_STC * [1 + (|βVoc| / 100) * (25 - T_min)]
   const absTempCoeff = Math.abs(tempCoeffPercentPerCelsius) / 100;
-  const coldMultiplier = 1 + tempDelta * absTempCoeff;
-  const worstCaseColdVoc = Number((nominalArrayVoc25C * coldMultiplier).toFixed(1));
+  const coldMultiplier = 1 + absTempCoeff * (25 - minWinterTempCelsius);
+  const worstCaseColdVoc = Number((seriesCount * panelVoc * coldMultiplier).toFixed(1));
 
-  // Charging Current (Amps into Battery Bank)
-  let requiredChargeCurrentAmps = 0;
+  // 1. Calculated electrical operating charging current
+  let rawOperatingCurrent = 0;
   if (technology === "mppt") {
-    // MPPT converts high PV voltage down to battery voltage at ~98% conversion efficiency
-    // Add NEC 1.25 continuous safety factor
-    const nominalCurrent = totalArrayWatts / batteryVoltage;
-    requiredChargeCurrentAmps = Number((nominalCurrent * 1.25).toFixed(1));
+    // MPPT conversion: I_charge = P_array / V_battery
+    rawOperatingCurrent = totalArrayWatts / batteryVoltage;
   } else {
-    // PWM does not convert voltage, current into battery equals array Isc * parallel strings * 1.25
-    requiredChargeCurrentAmps = Number((arrayTotalIscAmps * 1.25).toFixed(1));
+    // PWM: current into battery approximates array operating current / Isc
+    rawOperatingCurrent = arrayTotalIscAmps;
   }
+  const operatingChargeCurrentAmps = Number(rawOperatingCurrent.toFixed(1));
 
-  // Standard Commercial Hardware Brackets
+  // 2. Code continuous design current (e.g. 125% continuous circuit factor)
+  const requiredChargeCurrentAmps = Number((rawOperatingCurrent * 1.25).toFixed(1));
+
+  // Standard Commercial Hardware Brackets for Max PV Input Voltage (75V, 100V, 150V, 250V)
   let recommendedMaxVoltageRating = 75;
-  if (worstCaseColdVoc > 190) {
+  if (worstCaseColdVoc > 150) {
     recommendedMaxVoltageRating = 250;
-  } else if (worstCaseColdVoc > 120) {
+  } else if (worstCaseColdVoc > 100) {
     recommendedMaxVoltageRating = 150;
   } else if (worstCaseColdVoc > 75) {
     recommendedMaxVoltageRating = 100;
@@ -116,13 +119,13 @@ export function calculateSolarChargeController(input: SolarChargeControllerInput
       key: "temp_coeff",
       value: `${tempCoeffPercentPerCelsius}%/°C`,
       provenance: "preset",
-      description: "Standard silicon PV panel temperature coefficient for cold weather voltage rise",
+      description: "PV module temperature coefficient of open-circuit voltage (βVoc)",
     },
     {
-      key: "nec_continuous_factor",
+      key: "code_continuous_factor",
       value: 1.25,
       provenance: "preset",
-      description: "NEC 125% continuous output safety margin for charge controllers",
+      description: "Continuous circuit sizing factor (e.g. NEC Article 690.8 continuous rating multiplier)",
     },
   ];
 
@@ -131,7 +134,7 @@ export function calculateSolarChargeController(input: SolarChargeControllerInput
     warnings.push({
       code: "PWM_VOLTAGE_MISMATCH",
       severity: "caution",
-      message: "High panel voltage with a PWM controller results in massive power loss (up to 50%). Switch to MPPT technology to harvest full solar wattage.",
+      message: "High panel voltage with a PWM controller results in substantial power loss because PWM pulls module voltage down to battery voltage. Consider MPPT technology to harvest full solar wattage.",
     });
   }
 
@@ -139,16 +142,17 @@ export function calculateSolarChargeController(input: SolarChargeControllerInput
     warnings.push({
       code: "LOW_VOLTAGE_HEADROOM",
       severity: "caution",
-      message: `Array cold-weather voltage (${worstCaseColdVoc}V) is dangerously close to the controller's ${recommendedMaxVoltageRating}V limit. Consider stepping up to a 150V controller to avoid hardware failure.`,
+      message: `Array cold-weather voltage (${worstCaseColdVoc}V) is close to the controller's ${recommendedMaxVoltageRating}V maximum PV input limit. Verify that the calculated cold-weather Voc does not exceed the controller rating, or consider a higher voltage class.`,
     });
   }
 
   return {
-    formulaVersion: "1.0.0",
+    formulaVersion: "1.1.0",
     result: {
       technology,
       totalArrayWatts,
       nominalBatteryVoltage: batteryVoltage,
+      operatingChargeCurrentAmps,
       requiredChargeCurrentAmps,
       recommendedControllerAmps,
       nominalArrayVoc25C,

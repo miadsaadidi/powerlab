@@ -7,7 +7,6 @@ import { track } from "@/lib/analytics/analytics";
 import { MobileResultBar } from "@/components/calculator/mobile-result-bar";
 import { ShareButton } from "@/components/calculator/share-button";
 import { PrintSpecButton } from "@/components/calculator/print-spec-button";
-import { GooglePreferredBanner } from "@/components/calculator/google-preferred-banner";
 import { CalculatorTrustPill } from "@/components/calculator/calculator-trust-pill";
 import { StandardsBadge } from "@/components/calculator/standards-badge";
 import { RegionalClimateSelector } from "@/components/calculator/regional-climate-selector";
@@ -48,17 +47,26 @@ export function HeatPumpCostCalculator() {
     track("calculator_view", { calculator_id: "heat-pump-cost", category: "home-energy", phase: 5 });
   }, []);
 
-  const calculate = () => {
+  const calculate = (
+    demand = heatingDemandMmbtu,
+    efficiency = scop,
+    elec = electricityRate,
+    fuel = existingFuel,
+    af = afue,
+    gas = gasRate,
+    lp = propaneRate,
+    oil = oilRate
+  ) => {
     try {
       const res = calculateHeatPumpCost({
-        annualHeatingDemandMmbtu: heatingDemandMmbtu,
-        heatPumpScop: scop,
-        electricityRate,
-        existingFuelType: existingFuel,
-        furnaceAfuePercent: afue,
-        gasPricePerTherm: gasRate,
-        propanePricePerGallon: propaneRate,
-        oilPricePerGallon: oilRate,
+        annualHeatingDemandMmbtu: demand,
+        heatPumpScop: efficiency,
+        electricityRate: elec,
+        existingFuelType: fuel,
+        furnaceAfuePercent: af,
+        gasPricePerTherm: gas,
+        propanePricePerGallon: lp,
+        oilPricePerGallon: oil,
       });
       setCalculated(res);
       setError(null);
@@ -83,62 +91,73 @@ export function HeatPumpCostCalculator() {
     <section className="calculator" aria-labelledby="calculator-heading">
       <div className="calculator-grid">
         <div className="calculator-inputs">
-          <h2 id="calculator-heading">Compare Heat Pump vs. Fossil Fuel Heating Costs</h2>
+          <h2 id="calculator-heading">Compare Heat Pump vs. Combustion Heating Costs</h2>
 
           <div className="preset-chips-container" role="region" aria-label="Quick Climate Presets">
-            <span className="preset-chips-label">⚡ 1-Click Autofill: Top 5 Heating Scenarios</span>
+            <span className="preset-chips-label">⚡ 1-Click Autofill: Illustrative Scenarios</span>
             <div className="preset-chips-row">
-              {QUICK_HEAT_PUMP_PRESETS.map((p) => (
-                <button
-                  key={p.label}
-                  type="button"
-                  className={`preset-chip-btn ${heatingDemandMmbtu === p.mmbtu && existingFuel === p.fuel ? "active" : ""}`}
-                  onClick={() => {
-                    setHeatingDemandMmbtu(p.mmbtu);
-                    setScop(p.scop);
-                    setExistingFuel(p.fuel);
-                    setAfue(p.afue);
-                    if (p.gasRate) setGasRate(p.gasRate);
-                    if (p.propaneRate) setPropaneRate(p.propaneRate);
-                    if (p.oilRate) setOilRate(p.oilRate);
-                    setElectricityRate(p.elecrate);
-                    try {
-                      const res = calculateHeatPumpCost({
-                        annualHeatingDemandMmbtu: p.mmbtu,
-                        heatPumpScop: p.scop,
-                        electricityRate: p.elecrate,
-                        existingFuelType: p.fuel,
-                        furnaceAfuePercent: p.afue,
-                        gasPricePerTherm: p.gasRate || gasRate,
-                        propanePricePerGallon: p.propaneRate || propaneRate,
-                        oilPricePerGallon: p.oilRate || oilRate,
-                      });
-                      setCalculated(res);
-                      setStale(false);
-                      setError(null);
-                    } catch {
-                      if (calculated) setStale(true);
-                    }
-                    track("calculator_preset_click", { calculator_id: "heat-pump-cost", preset: p.label });
-                  }}
-                >
-                  {p.label}
-                </button>
-              ))}
+              {QUICK_HEAT_PUMP_PRESETS.map((p) => {
+                const isActive =
+                  heatingDemandMmbtu === p.mmbtu &&
+                  existingFuel === p.fuel &&
+                  scop === p.scop &&
+                  afue === p.afue;
+
+                return (
+                  <button
+                    key={p.label}
+                    type="button"
+                    className={`preset-chip-btn ${isActive ? "active" : ""}`}
+                    onClick={() => {
+                      setHeatingDemandMmbtu(p.mmbtu);
+                      setScop(p.scop);
+                      setExistingFuel(p.fuel);
+                      setAfue(p.afue);
+                      const nextGas = p.gasRate || gasRate;
+                      const nextLp = p.propaneRate || propaneRate;
+                      const nextOil = p.oilRate || oilRate;
+                      if (p.gasRate) setGasRate(p.gasRate);
+                      if (p.propaneRate) setPropaneRate(p.propaneRate);
+                      if (p.oilRate) setOilRate(p.oilRate);
+                      setElectricityRate(p.elecrate);
+
+                      try {
+                        const res = calculateHeatPumpCost({
+                          annualHeatingDemandMmbtu: p.mmbtu,
+                          heatPumpScop: p.scop,
+                          electricityRate: p.elecrate,
+                          existingFuelType: p.fuel,
+                          furnaceAfuePercent: p.afue,
+                          gasPricePerTherm: nextGas,
+                          propanePricePerGallon: nextLp,
+                          oilPricePerGallon: nextOil,
+                        });
+                        setCalculated(res);
+                        setStale(false);
+                        setError(null);
+                      } catch {
+                        if (calculated) setStale(true);
+                      }
+                      track("calculator_preset_click", { calculator_id: "heat-pump-cost", preset: p.label });
+                    }}
+                  >
+                    {p.label}
+                  </button>
+                );
+              })}
             </div>
           </div>
 
           <RegionalClimateSelector
             applyTarget="hvac"
-            title="📍 Regional ASHRAE Climate & EIA Grid Rates"
-            description="Select your state to load official ASHRAE 99% winter design temperatures and EIA electricity rates."
+            title="📍 Regional Climate &amp; Reference Energy Rates"
+            description="Select your state to load representative ASHRAE 99% winter design temperatures and illustrative EIA residential electricity rates."
             onSelectRegion={(region: RegionalClimateData) => {
               setElectricityRate(region.electricityRateKwh);
-              // Adjust demand based on climate zone if appropriate
               const isCold = region.winterDesignTempF < 15;
               const isVeryCold = region.winterDesignTempF < 0;
-              const nextMmbtu = isVeryCold ? 65 : isCold ? 50 : 30;
-              const nextScop = isVeryCold ? 2.6 : isCold ? 2.9 : 3.4;
+              const nextMmbtu = isVeryCold ? 70 : isCold ? 50 : 30;
+              const nextScop = isVeryCold ? 2.8 : isCold ? 3.0 : 3.5;
               setHeatingDemandMmbtu(nextMmbtu);
               setScop(nextScop);
               try {
@@ -172,39 +191,43 @@ export function HeatPumpCostCalculator() {
             noValidate
           >
             <fieldset className="input-group">
-              <legend>Home Heating Demand &amp; Heat Pump Efficiency</legend>
+              <legend>Heating Demand &amp; Heat Pump Seasonal Efficiency</legend>
               <div className="field-pair">
                 <label htmlFor="hp-demand">
-                  Annual Heating Demand
+                  Annual Heating Demand Scenario
                   <select
                     id="hp-demand"
                     value={heatingDemandMmbtu}
                     onChange={(e) => {
-                      setHeatingDemandMmbtu(Number(e.target.value));
-                      if (calculated) setStale(true);
+                      const val = Number(e.target.value);
+                      setHeatingDemandMmbtu(val);
+                      calculate(val, scop, electricityRate, existingFuel, afue, gasRate, propaneRate, oilRate);
                     }}
                   >
-                    <option value="30">30 MMBTU (Mild Sunbelt Home / Apartment)</option>
-                    <option value="50">50 MMBTU (Average Suburban Home · 1,800 sq ft)</option>
-                    <option value="70">70 MMBTU (Cold Northern Climate · 2,400 sq ft)</option>
-                    <option value="90">90 MMBTU (Large Cold Homestead · 3,200+ sq ft)</option>
+                    <option value="30">30 MMBTU (Mild Sunbelt Scenario)</option>
+                    <option value="50">50 MMBTU (50 MMBTU Illustrative Demand Scenario)</option>
+                    <option value="70">70 MMBTU (Cold Northern Scenario)</option>
+                    <option value="90">90 MMBTU (Large Cold Homestead Scenario)</option>
                   </select>
                 </label>
 
                 <label htmlFor="hp-scop">
-                  Heat Pump Seasonal Efficiency (COP / HSPF2)
+                  Heat Pump Seasonal Efficiency (COP)
                   <select
                     id="hp-scop"
                     value={scop}
                     onChange={(e) => {
-                      setScop(Number(e.target.value));
-                      if (calculated) setStale(true);
+                      const val = Number(e.target.value);
+                      setScop(val);
+                      calculate(heatingDemandMmbtu, val, electricityRate, existingFuel, afue, gasRate, propaneRate, oilRate);
                     }}
                   >
-                    <option value="2.5">2.5 COP / 8.0 HSPF2 (Older / Very Cold Climate)</option>
-                    <option value="3.0">3.0 COP / 8.8 HSPF2 (Standard Inverter Heat Pump)</option>
-                    <option value="3.5">3.5 COP / 10.0 HSPF2 (High Efficiency Cold Climate)</option>
-                    <option value="4.0">4.0+ COP / 12.0 HSPF2 (Ultra High-Efficiency Geothermal)</option>
+                    <option value="2.5">2.5 COP (Simplified Seasonal COP · Approx. 8.0 HSPF2)</option>
+                    <option value="2.8">2.8 COP (Simplified Seasonal COP · Cold-Climate Baseline)</option>
+                    <option value="3.0">3.0 COP (Simplified Seasonal COP · Standard Inverter)</option>
+                    <option value="3.2">3.2 COP (Simplified Seasonal COP · High Efficiency Inverter)</option>
+                    <option value="3.5">3.5 COP (Simplified Seasonal COP · Cold-Climate Optimized)</option>
+                    <option value="4.0">4.0 COP (Simplified Seasonal COP · Geothermal Tier)</option>
                   </select>
                 </label>
               </div>
@@ -216,19 +239,23 @@ export function HeatPumpCostCalculator() {
                     id="hp-elec-rate"
                     type="number"
                     min="0.01"
-                    step="0.01"
+                    step="0.0001"
                     value={electricityRate}
                     onChange={(e) => {
-                      setElectricityRate(Number(e.target.value));
-                      if (calculated) setStale(true);
+                      const val = Number(e.target.value);
+                      setElectricityRate(val);
+                      calculate(heatingDemandMmbtu, scop, val, existingFuel, afue, gasRate, propaneRate, oilRate);
                     }}
                   />
                 </label>
               </div>
+              <p style={{ fontSize: "0.76rem", color: "var(--text-muted, #64748b)", margin: "0.25rem 0 0 0", lineHeight: 1.4 }}>
+                *Simplified seasonal COP used for planning. Actual operating COP varies with outdoor dry-bulb temperatures and auxiliary heat engagement.
+              </p>
             </fieldset>
 
             <fieldset className="input-group">
-              <legend>Existing Heating System &amp; Fuel Price</legend>
+              <legend>Baseline Heating System &amp; Fuel Price</legend>
               <div className="field-pair">
                 <label htmlFor="hp-existing-fuel">
                   Current Heating Fuel
@@ -236,14 +263,15 @@ export function HeatPumpCostCalculator() {
                     id="hp-existing-fuel"
                     value={existingFuel}
                     onChange={(e) => {
-                      setExistingFuel(e.target.value as HeatingFuelType);
-                      if (calculated) setStale(true);
+                      const val = e.target.value as HeatingFuelType;
+                      setExistingFuel(val);
+                      calculate(heatingDemandMmbtu, scop, electricityRate, val, afue, gasRate, propaneRate, oilRate);
                     }}
                   >
-                    <option value="natural_gas">Natural Gas (Utility NG)</option>
-                    <option value="propane">Propane (LP Tank Delivery)</option>
-                    <option value="heating_oil">Heating Oil (Fuel Oil #2)</option>
-                    <option value="electric_baseboard">Electric Baseboard (100% Resistance)</option>
+                    <option value="natural_gas">Natural Gas (Utility NG · Therms)</option>
+                    <option value="propane">Propane (LP Tank Delivery · Gallons)</option>
+                    <option value="heating_oil">Heating Oil (Fuel Oil #2 · Gallons)</option>
+                    <option value="electric_baseboard">Electric Resistance Baseboard (100% Resistance · kWh)</option>
                   </select>
                 </label>
 
@@ -253,11 +281,12 @@ export function HeatPumpCostCalculator() {
                     id="hp-afue"
                     value={afue}
                     onChange={(e) => {
-                      setAfue(Number(e.target.value));
-                      if (calculated) setStale(true);
+                      const val = Number(e.target.value);
+                      setAfue(val);
+                      calculate(heatingDemandMmbtu, scop, electricityRate, existingFuel, val, gasRate, propaneRate, oilRate);
                     }}
                   >
-                    <option value="70">70% AFUE (Old Gravity / Atmospheric Furnace)</option>
+                    <option value="70">70% AFUE (Older Atmospheric Furnace)</option>
                     <option value="80">80% AFUE (Standard Mid-Efficiency Furnace)</option>
                     <option value="96">96% AFUE (High-Efficiency Condensing Furnace)</option>
                   </select>
@@ -272,11 +301,12 @@ export function HeatPumpCostCalculator() {
                       id="hp-gas-rate"
                       type="number"
                       min="0.10"
-                      step="0.05"
+                      step="0.01"
                       value={gasRate}
                       onChange={(e) => {
-                        setGasRate(Number(e.target.value));
-                        if (calculated) setStale(true);
+                        const val = Number(e.target.value);
+                        setGasRate(val);
+                        calculate(heatingDemandMmbtu, scop, electricityRate, existingFuel, afue, val, propaneRate, oilRate);
                       }}
                     />
                   </label>
@@ -291,11 +321,12 @@ export function HeatPumpCostCalculator() {
                       id="hp-propane-rate"
                       type="number"
                       min="0.50"
-                      step="0.10"
+                      step="0.05"
                       value={propaneRate}
                       onChange={(e) => {
-                        setPropaneRate(Number(e.target.value));
-                        if (calculated) setStale(true);
+                        const val = Number(e.target.value);
+                        setPropaneRate(val);
+                        calculate(heatingDemandMmbtu, scop, electricityRate, existingFuel, afue, gasRate, val, oilRate);
                       }}
                     />
                   </label>
@@ -310,11 +341,12 @@ export function HeatPumpCostCalculator() {
                       id="hp-oil-rate"
                       type="number"
                       min="1.00"
-                      step="0.10"
+                      step="0.05"
                       value={oilRate}
                       onChange={(e) => {
-                        setOilRate(Number(e.target.value));
-                        if (calculated) setStale(true);
+                        const val = Number(e.target.value);
+                        setOilRate(val);
+                        calculate(heatingDemandMmbtu, scop, electricityRate, existingFuel, afue, gasRate, propaneRate, val);
                       }}
                     />
                   </label>
@@ -339,12 +371,14 @@ export function HeatPumpCostCalculator() {
             <p>Enter heating specifications to compare annual operating costs.</p>
           ) : (
             <>
-              <p className="result-lede">Annual Operating Cost Difference</p>
+              <p className="result-lede">Estimated Annual Operating Cost Difference</p>
               <p className="result-value" style={{ color: calculated.result.isHeatPumpCheaper ? "#10b981" : "#f59e0b" }}>
-                {calculated.result.isHeatPumpCheaper ? `Save $${calculated.result.annualCostDifference.toFixed(0)} / year` : `+$${Math.abs(calculated.result.annualCostDifference).toFixed(0)} / year`}
+                {calculated.result.isHeatPumpCheaper
+                  ? `Save $${calculated.result.annualCostDifference.toFixed(0)} / year`
+                  : `+$${Math.abs(calculated.result.annualCostDifference).toFixed(0)} / year`}
               </p>
               <p className="result-subtext" style={{ fontWeight: 600, marginTop: "-0.25rem", marginBottom: "0.5rem" }}>
-                {calculated.result.isHeatPumpCheaper ? "🟢 Heat Pump is Cheaper to Run" : "🟡 Near Price Parity with Utility Gas"}
+                {calculated.result.isHeatPumpCheaper ? "🟢 Heat Pump Estimated Lower Annual Cost" : "🟡 Baseline Fuel Estimated Lower Annual Cost"}
               </p>
               <StandardsBadge standards={["AHRI 210/240", "DOE 10 CFR 430", "ASHRAE 90.1"]} />
 
@@ -357,12 +391,14 @@ export function HeatPumpCostCalculator() {
                   <strong style={{ color: "#0284c7" }}>${calculated.result.heatPumpAnnualCost.toFixed(0)} / yr</strong>
                 </div>
                 <div style={{ display: "flex", justifyContent: "space-between", marginBottom: "0.4rem" }}>
-                  <span>Existing {calculated.result.existingFuelType.replace("_", " ").toUpperCase()} Cost:</span>
+                  <span>Baseline {calculated.result.existingFuelType.replace("_", " ").toUpperCase()} Cost:</span>
                   <strong>${calculated.result.existingSystemAnnualCost.toFixed(0)} / yr</strong>
                 </div>
                 <div style={{ display: "flex", justifyContent: "space-between", fontSize: "0.85rem", color: "var(--text-muted, #64748b)" }}>
-                  <span>Break-Even Electric Rate:</span>
-                  <span>${calculated.result.breakEvenElectricityRate.toFixed(2)} / kWh</span>
+                  <span>Estimated Break-Even Electric Rate:</span>
+                  <span>
+                    ${calculated.result.breakEvenElectricityRate.toFixed(3)} / kWh ({(calculated.result.breakEvenElectricityRate * 100).toFixed(1)}¢/kWh)
+                  </span>
                 </div>
               </div>
 
@@ -372,20 +408,20 @@ export function HeatPumpCostCalculator() {
                   <dd>{calculated.result.heatPumpTotalKwh.toLocaleString()} kWh / year</dd>
                 </div>
                 <div>
-                  <dt>Fossil Fuel Consumed</dt>
-                  <dd>{calculated.result.existingFuelUnitsConsumed.toLocaleString()} {calculated.result.existingFuelUnitLabel} / year</dd>
+                  <dt>Baseline Fuel Consumed</dt>
+                  <dd>
+                    {calculated.result.existingFuelUnitsConsumed.toLocaleString()} {calculated.result.existingFuelUnitLabel} / year
+                  </dd>
                 </div>
                 <div>
                   <dt>Heat Pump Efficiency</dt>
-                  <dd>{scop * 100}% Delivered Thermal Yield</dd>
+                  <dd>{scop} COP ({scop} units heat per 1 unit electricity)</dd>
                 </div>
                 <div>
-                  <dt>Annual Heating Demand</dt>
-                  <dd>{calculated.result.annualHeatingDemandMmbtu} MMBTU (Delivered)</dd>
+                  <dt>Delivered Heat Demand</dt>
+                  <dd>{calculated.result.annualHeatingDemandMmbtu} MMBTU / year</dd>
                 </div>
               </dl>
-
-              <GooglePreferredBanner />
 
               <div className="button-row" style={{ marginTop: "0.85rem", display: "flex", gap: "0.5rem", flexWrap: "wrap" }}>
                 <ShareButton getShareUrl={getShareUrl} />
@@ -396,7 +432,14 @@ export function HeatPumpCostCalculator() {
         </aside>
       </div>
 
-      {calculated && <MobileResultBar label="Heat Pump vs Gas Difference" value={calculated.result.isHeatPumpCheaper ? `Save $${calculated.result.annualCostDifference.toFixed(0)}/yr` : `+$${Math.abs(calculated.result.annualCostDifference).toFixed(0)}/yr`} targetId="calculator-result" />}
+      {calculated && (
+        <MobileResultBar
+          label="Heat Pump vs Fuel Difference"
+          value={calculated.result.isHeatPumpCheaper ? `Save $${calculated.result.annualCostDifference.toFixed(0)}/yr` : `+$${Math.abs(calculated.result.annualCostDifference).toFixed(0)}/yr`}
+          targetId="calculator-result"
+        />
+      )}
     </section>
   );
 }
+

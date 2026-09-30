@@ -142,7 +142,7 @@ export function PageJumpNav({
             transition: "all 140ms ease",
           }}
         >
-          <span style={{ fontSize: "0.75rem" }}>📐</span> Governing Formulas
+          <span style={{ fontSize: "0.75rem" }}>📐</span> Calculation Formulas
         </a>
       )}
 

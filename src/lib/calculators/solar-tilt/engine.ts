@@ -2,6 +2,7 @@ export interface SeasonalTilts {
   summer: number;
   yearRound: number;
   winter: number;
+  springFall: number;
 }
 
 export interface OrientationSuggestion {
@@ -23,16 +24,23 @@ export function validateLatitude(value: number): string | null {
   return null;
 }
 
-export function calculateAnnualTilt(latitude: number) {
-  return clampTilt(Math.abs(latitude));
+export function calculateAnnualTilt(latitude: number): number {
+  const absLat = Math.abs(latitude);
+  return clampTilt(Number((absLat * 0.87).toFixed(1)));
 }
 
 export function calculateSeasonalTilts(latitude: number): SeasonalTilts {
-  const annual = calculateAnnualTilt(latitude);
+  const absLat = Math.abs(latitude);
+  const yearRound = clampTilt(Number((absLat * 0.87).toFixed(1)));
+  const summer = clampTilt(Number((absLat * 0.93 - 21).toFixed(1)));
+  const winter = clampTilt(Number((absLat * 0.89 + 24).toFixed(1)));
+  const springFall = clampTilt(Number((absLat - 2.5).toFixed(1)));
+
   return {
-    summer: clampTilt(annual - 15),
-    yearRound: annual,
-    winter: clampTilt(annual + 15),
+    yearRound,
+    summer,
+    winter,
+    springFall,
   };
 }
 
@@ -60,3 +68,4 @@ export function getEquatorFacingAzimuth(latitude: number): OrientationSuggestion
   if (latitude < 0) return { label: "North", degrees: 0 };
   return { label: "Equator", degrees: null };
 }
+

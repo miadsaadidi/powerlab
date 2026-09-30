@@ -16,9 +16,10 @@ export interface YearlyCashFlowRow {
   year: number;
   solarYieldKwh: number;
   utilityRate: number;
-  annualSavings: number;
-  inverterExpense: number;
-  cumulativeNetSavings: number;
+  annualSavings: number; // Gross electricity bill savings ($)
+  inverterExpense: number; // Mid-life inverter replacement or maintenance ($)
+  netAnnualSavings: number; // annualSavings - inverterExpense ($)
+  cumulativeNetSavings: number; // Running net cumulative cash flow ($)
   gridElectricityCostWithoutSolar: number;
 }
 
@@ -28,9 +29,12 @@ export interface SolarPaybackResultData {
   taxCreditSavings: number;
   paybackYears: number; // e.g. 7.4 years
   paybackMonths: number;
-  lifetime25YearSavings: number;
-  lifetimeNetProfit: number;
-  roiPercent: number;
+  lifetime25YearGrossSavings: number; // Gross 25-year electric bill savings ($)
+  lifetime25YearInverterCost: number; // Total inverter replacement expense ($)
+  lifetime25YearSavings: number; // Net cumulative 25-year savings after inverter ($)
+  lifetimeNetBenefit: number; // Net savings minus net capital cost ($)
+  lifetimeNetProfit: number; // Alias for backwards compatibility
+  roiPercent: number; // (lifetimeNetBenefit / netSystemCost) * 100
   annualAverageSavings: number;
   yearlyCashFlows: YearlyCashFlowRow[];
 }
@@ -69,6 +73,8 @@ export function calculateSolarPayback(input: SolarPaybackInput): SolarPaybackRes
   const yearlyCashFlows: YearlyCashFlowRow[] = [];
   let cumulativeSavings = 0;
   let cumulativeGridCost = 0;
+  let totalGrossSavings = 0;
+  let totalInverterCost = 0;
   let exactPaybackFractionalYear: number | null = null;
 
   for (let yr = 1; yr <= analysisYears; yr++) {
@@ -77,6 +83,9 @@ export function calculateSolarPayback(input: SolarPaybackInput): SolarPaybackRes
     const annualSavings = Math.round(solarYieldKwh * currentUtilityRate);
     const inverterExpense = yr === inverterReplacementYear ? inverterReplacementCost : 0;
     const netYearlySavings = annualSavings - inverterExpense;
+
+    totalGrossSavings += annualSavings;
+    totalInverterCost += inverterExpense;
 
     const previousCumulative = cumulativeSavings;
     cumulativeSavings += netYearlySavings;
@@ -96,6 +105,7 @@ export function calculateSolarPayback(input: SolarPaybackInput): SolarPaybackRes
       utilityRate: currentUtilityRate,
       annualSavings,
       inverterExpense,
+      netAnnualSavings: netYearlySavings,
       cumulativeNetSavings: cumulativeSavings,
       gridElectricityCostWithoutSolar: cumulativeGridCost,
     });
@@ -106,8 +116,8 @@ export function calculateSolarPayback(input: SolarPaybackInput): SolarPaybackRes
   const paybackMonthsInt = Math.round((finalPayback - paybackYearsInt) * 12);
 
   const lifetime25YearSavings = cumulativeSavings;
-  const lifetimeNetProfit = Math.round(lifetime25YearSavings - netSystemCost);
-  const roiPercent = netSystemCost > 0 ? Math.round((lifetimeNetProfit / netSystemCost) * 100) : 0;
+  const lifetimeNetBenefit = Math.round(lifetime25YearSavings - netSystemCost);
+  const roiPercent = netSystemCost > 0 ? Math.round((lifetimeNetBenefit / netSystemCost) * 100) : 0;
   const annualAverageSavings = Math.round(lifetime25YearSavings / analysisYears);
 
   const assumptions: AssumptionUsed[] = [
@@ -116,21 +126,21 @@ export function calculateSolarPayback(input: SolarPaybackInput): SolarPaybackRes
       value: incentivePercent,
       unit: "%",
       provenance: "user-entered",
-      description: "Federal Investment Tax Credit (ITC) / local solar rebate deduction",
+      description: "Federal Investment Tax Credit (IRC Section 25D) / local rebate assumption",
     },
     {
       key: "utility_escalation",
       value: utilityInflationPercent,
       unit: "%/yr",
       provenance: "preset",
-      description: "Historical annual utility electricity price inflation rate",
+      description: "Projected annual utility electricity tariff compound growth rate",
     },
     {
       key: "panel_degradation",
       value: panelDegradationPercent,
       unit: "%/yr",
       provenance: "preset",
-      description: "Tier 1 silicon solar panel annual efficiency derating",
+      description: "Estimated annual photovoltaic module degradation rate",
     },
   ];
 
@@ -139,20 +149,23 @@ export function calculateSolarPayback(input: SolarPaybackInput): SolarPaybackRes
     warnings.push({
       code: "LONG_PAYBACK",
       severity: "info",
-      message: "Estimated payback period is 15+ years. Consider checking for local utility rebates or verifying your local electricity price.",
+      message: "Estimated payback period is 15+ years. Review local utility rate structures, export credit policies, and potential state/utility rebates.",
     });
   }
 
   return {
-    formulaVersion: "1.0.0",
+    formulaVersion: "1.1.0",
     result: {
       grossCost,
       netSystemCost,
       taxCreditSavings,
       paybackYears: finalPayback,
       paybackMonths: paybackMonthsInt,
+      lifetime25YearGrossSavings: totalGrossSavings,
+      lifetime25YearInverterCost: totalInverterCost,
       lifetime25YearSavings,
-      lifetimeNetProfit,
+      lifetimeNetBenefit,
+      lifetimeNetProfit: lifetimeNetBenefit,
       roiPercent,
       annualAverageSavings,
       yearlyCashFlows,
@@ -162,3 +175,4 @@ export function calculateSolarPayback(input: SolarPaybackInput): SolarPaybackRes
     qualityLabel: "specific-inputs",
   };
 }
+

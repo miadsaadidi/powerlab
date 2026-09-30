@@ -7,7 +7,6 @@ import { track } from "@/lib/analytics/analytics";
 import { MobileResultBar } from "@/components/calculator/mobile-result-bar";
 import { ShareButton } from "@/components/calculator/share-button";
 import { PrintSpecButton } from "@/components/calculator/print-spec-button";
-import { GooglePreferredBanner } from "@/components/calculator/google-preferred-banner";
 import { CalculatorTrustPill } from "@/components/calculator/calculator-trust-pill";
 import { StandardsBadge } from "@/components/calculator/standards-badge";
 import { RegionalClimateSelector } from "@/components/calculator/regional-climate-selector";
@@ -81,10 +80,10 @@ export function SolarPaybackCalculator() {
     <section className="calculator" aria-labelledby="calculator-heading">
       <div className="calculator-grid">
         <div className="calculator-inputs">
-          <h2 id="calculator-heading">Calculate Solar Break-Even &amp; 25-Year ROI</h2>
+          <h2 id="calculator-heading">Project Solar Payback &amp; 25-Year Financial Return</h2>
 
           <div className="preset-chips-container" role="region" aria-label="Quick Sizing Presets">
-            <span className="preset-chips-label">⚡ 1-Click Autofill: Top 5 Solar Systems</span>
+            <span className="preset-chips-label">⚡ Representative System Presets</span>
             <div className="preset-chips-row">
               {QUICK_PAYBACK_PRESETS.map((p) => (
                 <button
@@ -124,8 +123,8 @@ export function SolarPaybackCalculator() {
 
           <RegionalClimateSelector
             applyTarget="solar"
-            title="📍 Regional Solar Yield & EIA Electricity Rates"
-            description="Select your state to load official NREL annual peak sun hours, calculated 8kW array kWh yield, and EIA utility rates."
+            title="📍 Representative Regional Sunlight &amp; Utility Rates"
+            description="Select a state to load representative NREL peak sun hours, modeled 8 kW annual kWh yield, and U.S. EIA residential electricity rates."
             onSelectRegion={(region: RegionalClimateData) => {
               setElectricityRate(region.electricityRateKwh);
               // Annual production for standard 8kW system = 8kW * PSH * 365 * 0.84 derate
@@ -162,7 +161,7 @@ export function SolarPaybackCalculator() {
             noValidate
           >
             <fieldset className="input-group">
-              <legend>System Cost &amp; Tax Credits</legend>
+              <legend>System Cost &amp; Tax Incentives</legend>
               <div className="field-pair">
                 <label htmlFor="sp-gross-cost">
                   Gross Installation Cost ($)
@@ -179,7 +178,7 @@ export function SolarPaybackCalculator() {
                   />
                 </label>
                 <label htmlFor="sp-itc">
-                  Incentives / Tax Credit (%)
+                  Federal Tax Credit / Incentives (%)
                   <input
                     id="sp-itc"
                     type="number"
@@ -196,10 +195,10 @@ export function SolarPaybackCalculator() {
             </fieldset>
 
             <fieldset className="input-group">
-              <legend>Solar Production &amp; Utility Rates</legend>
+              <legend>Solar Generation &amp; Grid Rates</legend>
               <div className="field-pair">
                 <label htmlFor="sp-production">
-                  Estimated Annual Solar Yield (kWh/yr)
+                  Estimated Year 1 Solar Yield (kWh/yr)
                   <input
                     id="sp-production"
                     type="number"
@@ -213,7 +212,7 @@ export function SolarPaybackCalculator() {
                   />
                 </label>
                 <label htmlFor="sp-rate">
-                  Current Electricity Rate ($/kWh)
+                  Current Electricity Tariff ($/kWh)
                   <input
                     id="sp-rate"
                     type="number"
@@ -238,7 +237,7 @@ export function SolarPaybackCalculator() {
                 <legend>Economic &amp; Equipment Assumptions</legend>
                 <div className="field-pair">
                   <label htmlFor="sp-inflation">
-                    Utility Rate Annual Inflation (%)
+                    Utility Rate Annual Escalation (%)
                     <input
                       id="sp-inflation"
                       type="number"
@@ -271,7 +270,7 @@ export function SolarPaybackCalculator() {
 
                 <div className="field-pair">
                   <label htmlFor="sp-inverter-cost">
-                    Inverter Replacement Cost ($)
+                    Inverter Replacement Reserve ($)
                     <input
                       id="sp-inverter-cost"
                       type="number"
@@ -314,34 +313,34 @@ export function SolarPaybackCalculator() {
         </div>
 
         <aside id="calculator-result" className="result-panel" aria-live="polite">
-          <p className="eyebrow">Financial Return Recommendation</p>
+          <p className="eyebrow">Financial Screening Summary</p>
           {!calculated ? (
             <p>Enter your system specifications to see financial projections.</p>
           ) : (
             <>
-              <p className="result-lede">Estimated Break-Even Payback Period</p>
+              <p className="result-lede">Modeled Payback Period</p>
               <p className="result-value" style={{ color: "#f59e0b" }}>
                 {calculated.result.paybackYears.toFixed(1)} Years
               </p>
               <p className="result-subtext" style={{ fontWeight: 600, marginTop: "-0.25rem", marginBottom: "0.5rem" }}>
                 {Math.floor(calculated.result.paybackYears)} Years, {calculated.result.paybackMonths} Months
               </p>
-              <StandardsBadge standards={["NREL SAM Financial Models", "IRS Section 25D ITC", "DSIRE Policy Metrics"]} />
+              <StandardsBadge standards={["NREL SAM Benchmark Models", "IRC §25D Tax Credit Model", "U.S. EIA Electricity Rates"]} />
 
               {stale && <p className="warning">Inputs changed — recalculate to refresh financial metrics.</p>}
 
               {/* 25-Year ROI Summary Card */}
               <div style={{ margin: "1rem 0", padding: "1rem", borderRadius: "0.5rem", background: "var(--card-bg, #f8fafc)", border: "1px solid var(--border-color, #e2e8f0)" }}>
                 <div style={{ display: "flex", justifyContent: "space-between", marginBottom: "0.5rem" }}>
-                  <span>25-Year Net Profit:</span>
-                  <strong style={{ color: "#10b981", fontSize: "1.1rem" }}>+${calculated.result.lifetimeNetProfit.toLocaleString()}</strong>
+                  <span>25-Year Net Benefit:</span>
+                  <strong style={{ color: "#10b981", fontSize: "1.1rem" }}>+${calculated.result.lifetimeNetBenefit.toLocaleString()}</strong>
                 </div>
                 <div style={{ display: "flex", justifyContent: "space-between", marginBottom: "0.5rem" }}>
-                  <span>Lifetime Return on Investment:</span>
+                  <span>Simple ROI on Net Outlay:</span>
                   <strong style={{ color: "#0284c7" }}>{calculated.result.roiPercent}% ROI</strong>
                 </div>
                 <div style={{ display: "flex", justifyContent: "space-between" }}>
-                  <span>Average Annual Savings:</span>
+                  <span>Average Net Annual Savings:</span>
                   <strong>${calculated.result.annualAverageSavings.toLocaleString()} / year</strong>
                 </div>
               </div>
@@ -352,30 +351,30 @@ export function SolarPaybackCalculator() {
                   <dd>${calculated.result.grossCost.toLocaleString()}</dd>
                 </div>
                 <div>
-                  <dt>Tax Credit / Rebate Savings</dt>
+                  <dt>Modeled Tax Credit Basis</dt>
                   <dd style={{ color: "#10b981" }}>-${calculated.result.taxCreditSavings.toLocaleString()}</dd>
                 </div>
                 <div>
-                  <dt>Net Out-of-Pocket Cost</dt>
+                  <dt>Net Capital Outlay</dt>
                   <dd><strong>${calculated.result.netSystemCost.toLocaleString()}</strong></dd>
                 </div>
                 <div>
-                  <dt>25-Year Total Electric Savings</dt>
+                  <dt>25-Year Net Savings (After Inverter)</dt>
                   <dd>${calculated.result.lifetime25YearSavings.toLocaleString()}</dd>
                 </div>
               </dl>
 
               {/* Cash Flow Timeline Table */}
               <section className="comparison" style={{ marginTop: "1.25rem" }}>
-                <h3>25-Year Cash Flow Timeline</h3>
-                <div style={{ overflowX: "auto", fontSize: "0.85rem", maxHeight: "250px" }}>
+                <h3>25-Year Modeled Cash Flow Timeline</h3>
+                <div style={{ overflowX: "auto", fontSize: "0.85rem", maxHeight: "260px" }}>
                   <table style={{ width: "100%", textAlign: "left", borderCollapse: "collapse" }}>
                     <thead>
                       <tr style={{ borderBottom: "2px solid var(--border-color, #cbd5e1)" }}>
                         <th style={{ padding: "0.4rem" }}>Year</th>
                         <th style={{ padding: "0.4rem" }}>Rate</th>
-                        <th style={{ padding: "0.4rem" }}>Savings</th>
-                        <th style={{ padding: "0.4rem" }}>Cumulative</th>
+                        <th style={{ padding: "0.4rem" }}>Net Annual</th>
+                        <th style={{ padding: "0.4rem" }}>Cumulative Net</th>
                       </tr>
                     </thead>
                     <tbody>
@@ -388,9 +387,18 @@ export function SolarPaybackCalculator() {
                             fontWeight: row.cumulativeNetSavings >= calculated.result.netSystemCost && (row.year === Math.ceil(calculated.result.paybackYears)) ? 700 : 400,
                           }}
                         >
-                          <td style={{ padding: "0.35rem 0.4rem" }}>Yr {row.year} {row.year === Math.ceil(calculated.result.paybackYears) && "🎯"}</td>
+                          <td style={{ padding: "0.35rem 0.4rem" }}>
+                            Yr {row.year} {row.year === Math.ceil(calculated.result.paybackYears) && "🎯"}
+                          </td>
                           <td style={{ padding: "0.35rem 0.4rem" }}>${row.utilityRate.toFixed(2)}</td>
-                          <td style={{ padding: "0.35rem 0.4rem" }}>${row.annualSavings.toLocaleString()}</td>
+                          <td style={{ padding: "0.35rem 0.4rem" }}>
+                            ${row.netAnnualSavings.toLocaleString()}
+                            {row.inverterExpense > 0 && (
+                              <span style={{ display: "block", fontSize: "0.72rem", color: "#dc2626" }}>
+                                (-${row.inverterExpense.toLocaleString()} inverter)
+                              </span>
+                            )}
+                          </td>
                           <td style={{ padding: "0.35rem 0.4rem", color: row.cumulativeNetSavings >= calculated.result.netSystemCost ? "#10b981" : "inherit" }}>
                             ${row.cumulativeNetSavings.toLocaleString()}
                           </td>
@@ -399,9 +407,10 @@ export function SolarPaybackCalculator() {
                     </tbody>
                   </table>
                 </div>
+                <p style={{ fontSize: "0.78rem", color: "var(--muted)", margin: "0.5rem 0 0" }}>
+                  *Cumulative net savings reflect annual electricity savings minus the Year {inverterReplacementYear} inverter replacement reserve (${inverterReplacementCost.toLocaleString()}).
+                </p>
               </section>
-
-              <GooglePreferredBanner />
 
               <div className="button-row" style={{ marginTop: "0.85rem", display: "flex", gap: "0.5rem", flexWrap: "wrap" }}>
                 <ShareButton getShareUrl={getShareUrl} />
@@ -416,3 +425,4 @@ export function SolarPaybackCalculator() {
     </section>
   );
 }
+

@@ -7,7 +7,6 @@ import { track } from "@/lib/analytics/analytics";
 import { MobileResultBar } from "@/components/calculator/mobile-result-bar";
 import { ShareButton } from "@/components/calculator/share-button";
 import { PrintSpecButton } from "@/components/calculator/print-spec-button";
-import { GooglePreferredBanner } from "@/components/calculator/google-preferred-banner";
 import { CalculatorTrustPill } from "@/components/calculator/calculator-trust-pill";
 import { StandardsBadge } from "@/components/calculator/standards-badge";
 
@@ -329,30 +328,37 @@ export function SolarChargeControllerCalculator() {
               <p className="result-subtext" style={{ fontWeight: 600, marginTop: "-0.25rem", marginBottom: "0.5rem" }}>
                 {calculated.result.totalArrayWatts}W Array on {calculated.result.nominalBatteryVoltage}V Battery Bank
               </p>
-              <StandardsBadge standards={["NEC 2023 Article 690.7", "IEC 62109-1", "UL 1741"]} />
+              <StandardsBadge standards={["NEC 2023 Article 690.7(A)", "NEC 2023 Article 690.8", "IEC 62548-1:2023", "UL 1741"]} />
 
               {stale && <p className="warning">Inputs changed — recalculate to refresh recommendation.</p>}
 
               {/* Cold Voc Safety Headroom Card */}
               <div style={{ margin: "1rem 0", padding: "1rem", borderRadius: "0.5rem", background: "var(--card-bg, #f8fafc)", border: "1px solid var(--border-color, #e2e8f0)" }}>
                 <div style={{ display: "flex", justifyContent: "space-between", marginBottom: "0.35rem" }}>
-                  <span>Max Cold-Weather Voltage:</span>
-                  <strong style={{ color: "#f59e0b" }}>{calculated.result.worstCaseColdVoc} V (Voc)</strong>
+                  <span>Max Cold-Weather Voltage (Voc_cold):</span>
+                  <strong style={{ color: "#f59e0b" }}>{calculated.result.worstCaseColdVoc} V</strong>
                 </div>
                 <div style={{ display: "flex", justifyContent: "space-between", marginBottom: "0.35rem" }}>
                   <span>Controller Max PV Input Limit:</span>
                   <strong>{calculated.result.recommendedMaxVoltageRating} V Max</strong>
                 </div>
                 <div style={{ display: "flex", justifyContent: "space-between", color: "#10b981", fontWeight: 600, fontSize: "0.85rem" }}>
-                  <span>Voltage Safety Headroom:</span>
-                  <span>+{calculated.result.voltageSafetyHeadroomVolts} V Safe Margin</span>
+                  <span>Voltage Headroom:</span>
+                  <span>+{calculated.result.voltageSafetyHeadroomVolts} V</span>
                 </div>
+                <p style={{ margin: "0.5rem 0 0", fontSize: "0.75rem", color: "var(--text-muted, #64748b)", lineHeight: 1.4 }}>
+                  Check that the calculated maximum cold-weather array Voc does not exceed the charge controller&apos;s maximum PV input voltage rating. Exceeding the equipment rating can damage the controller.
+                </p>
               </div>
 
               <dl className="result-breakdown">
                 <div>
-                  <dt>Charging Current to Battery</dt>
-                  <dd><strong>{calculated.result.requiredChargeCurrentAmps} A</strong> (with 125% safety margin)</dd>
+                  <dt>Calculated Charging Current</dt>
+                  <dd><strong>{calculated.result.operatingChargeCurrentAmps} A</strong> (Array Power ÷ Battery Voltage)</dd>
+                </div>
+                <div>
+                  <dt>Code-Sized Continuous Rating (125% Factor)</dt>
+                  <dd><strong>{calculated.result.requiredChargeCurrentAmps} A</strong> (e.g. NEC 690.8 continuous design factor)</dd>
                 </div>
                 <div>
                   <dt>Nominal Array Voltage (25°C)</dt>
@@ -363,12 +369,14 @@ export function SolarChargeControllerCalculator() {
                   <dd>{calculated.result.arrayTotalIscAmps} A</dd>
                 </div>
                 <div>
-                  <dt>Recommended Fuse on Battery Line</dt>
+                  <dt>Recommended Battery-Line Fuse</dt>
                   <dd>{Math.ceil(calculated.result.recommendedControllerAmps * 1.25)} A DC Fuse</dd>
                 </div>
               </dl>
 
-              <GooglePreferredBanner />
+              <p style={{ fontSize: "0.75rem", color: "var(--text-muted, #64748b)", margin: "0.5rem 0 0.75rem", lineHeight: 1.4 }}>
+                Code sizing may require additional continuous-current factors depending on the applicable electrical code, equipment rating and installation.
+              </p>
 
               <div className="button-row" style={{ marginTop: "0.85rem", display: "flex", gap: "0.5rem", flexWrap: "wrap" }}>
                 <ShareButton getShareUrl={getShareUrl} />

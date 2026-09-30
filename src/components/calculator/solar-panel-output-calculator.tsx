@@ -204,10 +204,10 @@ export function SolarPanelOutputCalculator() {
       <p className="sr-only" role="status" aria-live="polite" aria-atomic="true">{announcement || message}</p>
     </div>
 
-    {/* Quick-Reference Solar Production Matrix (Google Position 0 Table Snippet Magnet) */}
+    {/* Quick-Reference Solar Production Matrix (Simplified Analytical Estimate) */}
     <QuickReferenceTable
-      title="Solar Panel Daily &amp; Annual AC kWh Yield Matrix (by Peak Sun Hours)"
-      subtitle="Estimated AC electricity generated across standard DC array capacities factoring in 14% NREL PVWatts system losses."
+      title="Solar Panel Daily & Annual AC kWh Yield Matrix (by Peak Sun Hours)"
+      subtitle="Simplified reference estimate of daily and annual AC generation using E_daily = P_dc × PSH × 0.86 composite derate. (For hourly weather-driven simulations including sun angle, temperature, and clipping, use the interactive PVWatts engine above)."
       columns={[
         { key: "system", header: "DC Array Capacity", isPrimary: true },
         { key: "psh35", header: "3.5 PSH (Pacific NW)", align: "center" },
@@ -217,21 +217,21 @@ export function SolarPanelOutputCalculator() {
         { key: "annual", header: "Est. Annual (4.5 PSH)", align: "right" },
       ]}
       rows={[
-        { system: "400 W (1x Residential Module)", psh35: "1.2 kWh/day", psh45: "1.5 kWh/day", psh55: "1.9 kWh/day", psh65: "2.2 kWh/day", annual: "551 kWh/yr" },
-        { system: "1.2 kW (3x Modules / RV / Shed)", psh35: "3.5 kWh/day", psh45: "4.5 kWh/day", psh55: "5.5 kWh/day", psh65: "6.6 kWh/day", annual: "1,657 kWh/yr" },
-        { system: "4.0 kW (10x Modules / Townhouse)", psh35: "11.8 kWh/day", psh45: "15.1 kWh/day", psh55: "18.5 kWh/day", psh65: "21.8 kWh/day", annual: "5,518 kWh/yr" },
-        { system: "6.0 kW (15x Modules / Mid Home)", psh35: "17.6 kWh/day", psh45: "22.7 kWh/day", psh55: "27.7 kWh/day", psh65: "32.8 kWh/day", annual: "8,278 kWh/yr", isHighlighted: true, badge: "Most Common" },
-        { system: "10.0 kW (25x Modules / All-Electric)", psh35: "29.4 kWh/day", psh45: "37.8 kWh/day", psh55: "46.2 kWh/day", psh65: "54.6 kWh/day", annual: "13,797 kWh/yr" },
-        { system: "15.0 kW (38x Modules / Estate & EV)", psh35: "44.1 kWh/day", psh45: "56.7 kWh/day", psh55: "69.3 kWh/day", psh65: "81.9 kWh/day", annual: "20,695 kWh/yr" },
+        { system: "400 W (1x Residential Module)", psh35: "1.2 kWh/day", psh45: "1.5 kWh/day", psh55: "1.9 kWh/day", psh65: "2.2 kWh/day", annual: "565 kWh/yr" },
+        { system: "1.2 kW (3x Modules / RV / Shed)", psh35: "3.6 kWh/day", psh45: "4.6 kWh/day", psh55: "5.7 kWh/day", psh65: "6.7 kWh/day", annual: "1,695 kWh/yr" },
+        { system: "4.0 kW (10x Modules / Townhouse)", psh35: "12.0 kWh/day", psh45: "15.5 kWh/day", psh55: "18.9 kWh/day", psh65: "22.4 kWh/day", annual: "5,650 kWh/yr" },
+        { system: "6.0 kW (15x Modules / Mid Home)", psh35: "18.1 kWh/day", psh45: "23.2 kWh/day", psh55: "28.4 kWh/day", psh65: "33.5 kWh/day", annual: "8,475 kWh/yr", isHighlighted: true, badge: "Most Common" },
+        { system: "10.0 kW (25x Modules / All-Electric)", psh35: "30.1 kWh/day", psh45: "38.7 kWh/day", psh55: "47.3 kWh/day", psh65: "55.9 kWh/day", annual: "14,126 kWh/yr" },
+        { system: "15.0 kW (38x Modules / Estate & EV)", psh35: "45.2 kWh/day", psh45: "58.1 kWh/day", psh55: "71.0 kWh/day", psh65: "83.9 kWh/day", annual: "21,188 kWh/yr" },
       ]}
-      footerNote="Assumes fixed equator-facing tilt matching regional latitude, 0.86 composite derate factor (soiling, inverter, wiring), and -0.35%/°C temperature coefficient."
-      standardReference="NREL PVWatts V8 / IEC 61724"
+      footerNote="Values calculated directly as E_daily = P_dc × PSH × 0.86, where 0.86 is an aggregate all-in composite system derate factor (accounting for typical operating temperature losses, soiling, wiring resistance, and inverter conversion efficiency). Annual kWh is calculated as E_daily(4.5 PSH) × 365 days."
+      standardReference="Simplified Planning Model (P_dc × PSH × η_system) / IEC 61724 Reference Method"
     />
 
     {/* Step-by-Step Engineering Calculation Walkthrough */}
     <CalculationWalkthrough
       calculatorName="Solar Panel AC Electricity Output"
-      overview="How to calculate hourly, daily, and annual photovoltaic AC energy production step-by-step using NREL PVWatts standards."
+      overview="How to calculate hourly, daily, and annual photovoltaic AC energy production step-by-step using standard solar engineering methods."
       steps={[
         {
           stepNumber: 1,
@@ -243,16 +243,16 @@ export function SolarPanelOutputCalculator() {
         {
           stepNumber: 2,
           title: "Lookup Regional Solar Insolation (Peak Sun Hours)",
-          description: "Retrieve local annual average Peak Sun Hours (PSH) from NREL National Solar Radiation Database (NSRDB) representing 1,000 W/m² equivalent hours.",
-          formula: "PSH = Daily Solar Irradiation (Wh/m²) / 1000 W/m²",
-          exampleValue: "Austin, Texas receives an annual average of 5.15 Peak Sun Hours per day.",
+          description: "Retrieve local annual average Peak Sun Hours (PSH) representing 1.0 kW/m² (1,000 W/m²) standard irradiance equivalent hours per day.",
+          formula: "PSH (h/day) = Daily Solar Irradiation (kWh/m²/day) / 1.0 kW/m²",
+          exampleValue: "Austin, Texas receives an annual average of 5.15 Peak Sun Hours per day (5.15 kWh/m²/day).",
         },
         {
           stepNumber: 3,
           title: "Apply System Derate Factors & Inverter Efficiency",
-          description: "Multiply DC nameplate capacity by regional PSH and the composite system derating factor (typically 0.84 to 0.86 accounting for thermal degradation, soiling, wiring losses, and DC-to-AC conversion).",
+          description: "Multiply DC nameplate capacity by regional PSH and the composite system derating factor (typically 0.84 to 0.86 accounting for temperature losses, soiling, wiring losses, and DC-to-AC conversion).",
           formula: "E_daily_kWh = P_dc × PSH × η_system",
-          exampleValue: "6.0 kW × 5.15 PSH × 0.86 = 26.57 kWh per day (~9,699 kWh per year).",
+          exampleValue: "6.0 kW × 5.15 PSH × 0.86 = 26.57 kWh per day (~9,700 kWh per year).",
         },
       ]}
       standardCitation="NREL PVWatts V8 / IEC 61724"

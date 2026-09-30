@@ -154,7 +154,7 @@ export function RegionalClimateSelector({
               marginBottom: "0.25rem",
             }}
           >
-            State / Metro Weather Station
+            Representative State / Metro Station
           </label>
           <select
             id="regional-state-select"
@@ -174,7 +174,7 @@ export function RegionalClimateSelector({
           >
             {US_REGIONAL_CLIMATE_DATA.map((item) => (
               <option key={item.stateCode} value={item.stateCode}>
-                {item.state} ({item.metro}) — Zone {item.ashraeClimateZone}
+                {item.state} (Representative: {item.metro}) — Zone {item.ashraeClimateZone}
               </option>
             ))}
           </select>
@@ -228,7 +228,7 @@ export function RegionalClimateSelector({
                   ☀️ Peak Sun Hours
                 </div>
                 <div style={{ fontSize: "0.92rem", fontWeight: 700, color: "var(--text-main, #0f172a)" }}>
-                  {activeRegion.peakSunHours} <span style={{ fontSize: "0.72rem", fontWeight: 500 }}>kWh/m²/d</span>
+                  {activeRegion.peakSunHours} <span style={{ fontSize: "0.72rem", fontWeight: 500 }}>h/day</span>
                 </div>
               </div>
 

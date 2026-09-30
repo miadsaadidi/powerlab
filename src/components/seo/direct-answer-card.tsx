@@ -63,7 +63,7 @@ export function DirectAnswerCard({
       {(formula || formulaNode || standardExample) && (
         <MathDisplay
           copyText={formula}
-          title="Governing Formula &amp; Sizing Principle"
+          title="Calculation Formula &amp; Sizing Principle"
           condition={condition}
           benchmark={standardExample}
         >
@@ -84,7 +84,7 @@ export function DirectAnswerCard({
         }}
       >
         <span>🏛️</span>
-        <span>Governing Standard: {sourceAuthority}</span>
+        <span>Technical References &amp; Model Basis: {sourceAuthority}</span>
       </div>
     </aside>
   );

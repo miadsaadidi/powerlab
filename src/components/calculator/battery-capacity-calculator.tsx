@@ -8,7 +8,6 @@ import { resolveBatteryCapacityInitialization } from "@/lib/calculators/battery-
 import { createEnergyProfileStore } from "@/lib/energy-profile/store";
 import { isCalculatorPublished } from "@/lib/calculator-registry";
 import Link from "next/link";
-import { GooglePreferredBanner } from "@/components/calculator/google-preferred-banner";
 import { CalculatorTrustPill } from "@/components/calculator/calculator-trust-pill";
 import { ShareButton } from "@/components/calculator/share-button";
 import { PrintSpecButton } from "@/components/calculator/print-spec-button";
@@ -238,8 +237,6 @@ export function BatteryCapacityCalculator() {
               </div>
             </section>
           )}
-
-          <GooglePreferredBanner />
 
           <div className="button-row" style={{ marginTop: "0.85rem", display: "flex", gap: "0.5rem", flexWrap: "wrap" }}>
             <ShareButton title="Battery Capacity Calculation" />

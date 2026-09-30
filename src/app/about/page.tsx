@@ -4,14 +4,33 @@ import { EnergyLogo } from "@/components/energy-logo";
 import { buildPageMetadata } from "@/lib/seo/metadata-helper";
 
 export const metadata = buildPageMetadata({
-  title: "About PowerLab — Transparent Planning",
-  description: "Learn about PowerLab: deterministic, first-principles engineering calculators for solar, battery storage, home energy, and electric vehicles.",
+  title: "About PowerLab — Transparent Planning Tools",
+  description: "Learn about PowerLab: transparent, deterministic engineering calculation tools for solar PV, battery storage, home energy, and electric vehicles.",
   canonicalPath: "/about",
 });
 
 export default function AboutPage() {
+  const structuredData = {
+    "@context": "https://schema.org",
+    "@type": "AboutPage",
+    name: "About PowerLab",
+    url: `${siteConfig.url}/about`,
+    description: "Learn about PowerLab: transparent, deterministic engineering calculation tools for solar PV, battery storage, home energy, and electric vehicles.",
+    mainEntity: {
+      "@type": "Organization",
+      name: siteConfig.name,
+      url: siteConfig.url,
+      description: siteConfig.description,
+      logo: `${siteConfig.url}/icon.svg`,
+    },
+  };
+
   return (
     <article className="page reading-page">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
+      />
       <nav className="breadcrumb" aria-label="Breadcrumb">
         <Link href="/">Home</Link>
         <span aria-hidden="true">/</span>
@@ -25,7 +44,7 @@ export default function AboutPage() {
 
       <h1>About PowerLab</h1>
       <p className="intro">
-        PowerLab was created to replace black-box marketing calculators with <strong>transparent, deterministic engineering tools</strong>. We believe anyone planning an off-grid cabin, home battery backup, rooftop solar array, or EV charging setup deserves accurate math with visible physical losses.
+        PowerLab was created to provide <strong>transparent, deterministic engineering calculation tools</strong> for clean energy planning. We believe anyone planning an off-grid cabin, home battery backup, rooftop solar array, or EV charging setup benefits from reproducible calculations with visible physical loss models.
       </p>
 
       {/* Core Pillars Grid */}
@@ -55,7 +74,7 @@ export default function AboutPage() {
             </div>
             <strong style={{ display: "block", marginBottom: "0.35rem", color: "var(--brand-strong)" }}>Solar Photovoltaics</strong>
             <p style={{ margin: "0 0 1rem", fontSize: "0.85rem", color: "var(--text-muted)", lineHeight: 1.45 }}>
-              Model location-aware solar insolation with NREL PVWatts V8, optimize roof pitch and seasonal tilt angles, and size array capacities.
+              Model location-aware solar insolation using NSRDB solar climate data and NREL PVWatts V8 proxy methodology, optimize roof pitch and seasonal tilt angles, and size array capacities.
             </p>
             <Link href="/solar" className="button secondary-button" style={{ fontSize: "0.82rem", padding: "0.45rem 0.75rem" }}>
               Explore Solar Tools →
@@ -138,16 +157,16 @@ export default function AboutPage() {
         <h2>Our Engineering Philosophy</h2>
         <ul>
           <li>
-            <strong>Deterministic Pure TypeScript Engines:</strong> No stochastic AI hallucinations or random estimates. Every formula produces identical, verifiable outputs for given inputs.
+            <strong>Deterministic Pure TypeScript Engines:</strong> No stochastic AI hallucinations or unrepeatable estimates. Every engine produces deterministic, verifiable outputs for given calculation inputs.
           </li>
           <li>
-            <strong>Visible Physical Loss Models:</strong> We explicitly model real-world inefficiencies: inverter tare idle draw (15–50W), AC/DC conversion losses (85–95%), DC wiring voltage drops (2–3%), and chemistry-specific depth-of-discharge thresholds.
+            <strong>Visible Physical Loss Models:</strong> We explicitly model representative physical losses and operational parameters (such as inverter standby tare draw, AC/DC conversion efficiencies, conductor voltage drop, and chemistry-specific depth-of-discharge design thresholds). Actual losses vary with equipment specifications, operating temperature, system voltage, and conductor sizing.
           </li>
           <li>
-            <strong>Zero Database Tracking:</strong> We operate completely free of user databases. There are no accounts, no logins, no advertising tracking pixels, and no utility bill harvesting.
+            <strong>No User Account Database:</strong> PowerLab does not require user accounts, logins, or server database storage for calculation inputs. Website usage and performance metrics are measured via Google Analytics.
           </li>
           <li>
-            <strong>100% Client-Side Computation:</strong> All calculations execute in your browser. Your Energy Profile and scenarios are stored locally in your device&apos;s <code>localStorage</code>.
+            <strong>Client-Side Calculation Processing:</strong> Core calculation logic executes directly in your browser. Your Energy Profile and scenarios remain stored locally on your device in <code>localStorage</code>.
           </li>
         </ul>
       </section>
@@ -180,7 +199,7 @@ export default function AboutPage() {
           <div style={{ padding: "1rem", borderRadius: "0.65rem", background: "var(--bg-secondary, #f8fafc)", border: "1px solid var(--border-color, #e2e8f0)" }}>
             <strong style={{ color: "var(--ink)", display: "block", marginBottom: "0.25rem" }}>⚡ Electricians &amp; Solar Installers</strong>
             <p style={{ margin: 0, fontSize: "0.85rem", color: "var(--text-muted)" }}>
-              Rapid benchmark validation for seasonal tilt angles, NEC continuous load sizing, inverter clipping, and battery capacity conversions.
+              Rapid screening and benchmark calculations for seasonal tilt angles, NEC continuous load sizing references, inverter clipping, and battery capacity conversions. (Calculations assist with engineering estimates; permitted construction designs require applicable local codes and qualified professionals.)
             </p>
           </div>
 
@@ -197,14 +216,15 @@ export default function AboutPage() {
       <section>
         <h2>Transparency &amp; Governance</h2>
         <p>
-          PowerLab maintains open scientific governance. Review our complete formulas on the <Link href="/methodology">Engineering Methodology</Link> page, inspect reference codes on our <Link href="/standards">Standards Matrix</Link>, browse terminology in our <Link href="/glossary">Engineering Glossary</Link>, consult our <Link href="/terms">Terms of Service</Link>, or read our architecture-backed <Link href="/privacy">Zero-Database Privacy Policy</Link>.
+          PowerLab provides transparent methodology, engineering references, and open documentation. Review calculation methods on our <Link href="/methodology">Engineering Methodology</Link> page, inspect reference standards on our <Link href="/standards">Standards Matrix</Link>, browse definitions in our <Link href="/glossary">Engineering Glossary</Link>, consult our <Link href="/terms">Terms of Service</Link>, or read our <Link href="/privacy">Privacy Policy</Link>.
         </p>
-        <p style={{ marginTop: "1rem" }}>
-          Community &amp; user verified: <a href="https://www.trustpilot.com/review/powelab.org" target="_blank" rel="noopener noreferrer" style={{ color: "#00b67a", fontWeight: 600 }}>Review PowerLab on Trustpilot ★★★★★</a>
+        <p style={{ marginTop: "1rem", fontSize: "0.85rem", color: "var(--text-muted, #64748b)" }}>
+          External profiles &amp; reviews:{" "}
+          <a href="https://www.trustpilot.com/review/powelab.org" target="_blank" rel="noopener noreferrer" style={{ color: "var(--primary, #0284c7)", fontWeight: 500 }}>Trustpilot Review Page</a>
           {" • "}
-          <a href="https://www.saashub.com/powerlab" target="_blank" rel="noopener noreferrer" style={{ color: "var(--text-muted, #64748b)", fontWeight: 500 }}>Verified on SaaSHub</a>
+          <a href="https://www.saashub.com/powerlab" target="_blank" rel="noopener noreferrer" style={{ color: "var(--primary, #0284c7)", fontWeight: 500 }}>SaaSHub Profile</a>
           {" • "}
-          <a href="https://sourceforge.net/projects/powerlab/" target="_blank" rel="noopener noreferrer" style={{ color: "var(--text-muted, #64748b)", fontWeight: 500 }}>SourceForge Project</a>
+          <a href="https://sourceforge.net/projects/powerlab/" target="_blank" rel="noopener noreferrer" style={{ color: "var(--primary, #0284c7)", fontWeight: 500 }}>SourceForge Project</a>
         </p>
       </section>
     </article>

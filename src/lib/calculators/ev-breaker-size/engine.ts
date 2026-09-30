@@ -68,14 +68,15 @@ export function calculateEvBreakerSize(input: EvBreakerSizeInput): EvBreakerSize
     else if (recommendedBreakerAmps <= 100) minimumWireGaugeAwg = "3 AWG";
     else minimumWireGaugeAwg = "2 AWG";
   } else {
-    // 60°C Column for Romex NM-B
+    // 60°C Column for Romex NM-B (NEC Table 310.16)
     if (recommendedBreakerAmps <= 20) minimumWireGaugeAwg = "12 AWG";
     else if (recommendedBreakerAmps <= 30) minimumWireGaugeAwg = "10 AWG";
     else if (recommendedBreakerAmps <= 40) minimumWireGaugeAwg = "8 AWG";
     else if (recommendedBreakerAmps <= 55) minimumWireGaugeAwg = "6 AWG";
     else if (recommendedBreakerAmps <= 70) minimumWireGaugeAwg = "4 AWG";
     else if (recommendedBreakerAmps <= 85) minimumWireGaugeAwg = "3 AWG";
-    else minimumWireGaugeAwg = "2 AWG";
+    else if (recommendedBreakerAmps <= 95) minimumWireGaugeAwg = "2 AWG";
+    else minimumWireGaugeAwg = "1 AWG";
   }
 
   // Voltage Drop Estimation for the run (assuming 2-wire 240V single phase)
@@ -87,6 +88,7 @@ export function calculateEvBreakerSize(input: EvBreakerSizeInput): EvBreakerSize
     "4 AWG": 41740,
     "3 AWG": 52620,
     "2 AWG": 66360,
+    "1 AWG": 83690,
   };
   const cMils = circularMilsMap[minimumWireGaugeAwg] || 26240;
   const kConstant = conductorMaterial === "aluminum" ? 21.2 : 12.9;
@@ -98,7 +100,7 @@ export function calculateEvBreakerSize(input: EvBreakerSizeInput): EvBreakerSize
       key: "nec_continuous_rule",
       value: "125% (Article 625)",
       provenance: "preset",
-      description: "NEC requirement that EV charging branch circuits must be sized for 125% of continuous current",
+      description: "NEC continuous-load sizing requirement that EV branch circuits must be sized for at least 125% of rated continuous current (Articles 625 & 210)",
     },
     {
       key: "ev_efficiency_mph",
@@ -113,7 +115,7 @@ export function calculateEvBreakerSize(input: EvBreakerSizeInput): EvBreakerSize
     warnings.push({
       code: "ROMEX_60A_RESTRICTION",
       severity: "caution",
-      message: "For a 48A charger requiring a 60A breaker, Romex (NM-B) requires 4 AWG wire (60°C rated at 70A). 6 AWG Romex is only rated for 55A and violates NEC code on a 60A breaker. THHN in conduit allows 6 AWG.",
+      message: "For a 48A charger requiring a 60A breaker, Romex (NM-B) base-case requires 4 AWG copper wire (60°C rated at 70A). 6 AWG Romex is rated for 55A (below 60A breaker rating). THHN in conduit (75°C) base-case allows 6 AWG copper (65A).",
     });
   }
 
@@ -121,7 +123,7 @@ export function calculateEvBreakerSize(input: EvBreakerSizeInput): EvBreakerSize
     warnings.push({
       code: "DISTANCE_VOLTAGE_DROP",
       severity: "info",
-      message: `Voltage drop over ${distanceFeet} ft run is ${voltageDropPercentAtDistance}%. Consider stepping up one wire gauge size for runs over 60 feet.`,
+      message: `Estimated voltage drop over ${distanceFeet} ft run is ${voltageDropPercentAtDistance}%, exceeding the commonly used 3% branch-circuit planning target. Consider stepping up one conductor gauge size for longer runs.`,
     });
   }
 

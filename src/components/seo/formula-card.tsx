@@ -313,7 +313,7 @@ export function FormulaCard({
 
       {notes && notes.length > 0 && (
         <div className="formula-notes">
-          <h4>Engineering Notes &amp; Standards</h4>
+          <h4>Calculation Notes</h4>
           <ul>
             {notes.map((note, i) => (
               <li key={i}>{note}</li>

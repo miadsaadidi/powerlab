@@ -10,6 +10,11 @@ describe("electricity usage engine", () => {
     expect(result.monthlyKWh).toBeCloseTo(12.175);
   });
 
+  it("calculates cycling appliance energy using decimal duty cycle (e.g. 180W * 24h * 0.35 / 1000 = 1.512 kWh/day)", () => {
+    const result = calculateUsage({ mode: "watts-time", watts: 180, quantity: 1, hoursPerDay: 24, daysPerWeek: 7, dutyCycle: 0.35 });
+    expect(result.averageDailyKWh).toBeCloseTo(1.512);
+  });
+
   it("reduces watts and time usage when days per week is five", () => {
     const result = calculateUsage({ mode: "watts-time", watts: 100, quantity: 1, hoursPerDay: 4, daysPerWeek: 5, dutyCycle: 1 });
     expect(result.weeklyKWh).toBeCloseTo(2);

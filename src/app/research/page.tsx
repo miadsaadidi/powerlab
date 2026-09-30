@@ -7,7 +7,7 @@ import { buildPageMetadata } from "@/lib/seo/metadata-helper";
 export const metadata: Metadata = {
   ...buildPageMetadata({
     title: "Engineering Research & Technical Whitepapers",
-    description: "Open access technical whitepapers, empirical benchmark datasets, and mathematical models for solar PV, BESS storage, EVSE infrastructure, and heat pumps.",
+    description: "Open-access technical whitepapers, computational modeling frameworks, and benchmark datasets for solar PV, battery storage, EVSE infrastructure, and heat pumps.",
     canonicalPath: "/research",
     ogImageUrlOverride: `${siteConfig.url}/clean_energy_educational_model.jpg`,
     ogImageAlt: "PowerLab Engineering Research & Technical Whitepapers",
@@ -19,7 +19,7 @@ export const metadata: Metadata = {
     "citation_language": "en",
     "DC.Publisher": "PowerLab Open Energy Research",
     "DC.Type": "Technical Report",
-    "DC.Rights": "Creative Commons Attribution 4.0 International (CC BY 4.0)",
+    "DC.Rights": "Open Access Research Resources",
   },
 };
 
@@ -31,7 +31,7 @@ export default function ResearchHubPage() {
     "@context": "https://schema.org",
     "@type": "CollectionPage",
     name: "PowerLab Open Energy Engineering Research & Technical Whitepapers",
-    description: "Peer-referenced open access research papers, preprints, and mathematical models for distributed energy resources.",
+    description: "Technical reports, preprints, mathematical modeling frameworks, and open engineering courseware for distributed energy resources.",
     url: `${siteConfig.url}/research`,
     publisher: {
       "@type": "Organization",
@@ -85,13 +85,13 @@ export default function ResearchHubPage() {
       >
         <div style={{ display: "flex", flexWrap: "wrap", gap: "0.4rem", marginBottom: "0.65rem" }}>
           <div style={{ display: "inline-flex", alignItems: "center", gap: "0.35rem", padding: "0.2rem 0.6rem", borderRadius: "9999px", background: "rgba(2, 132, 199, 0.1)", border: "1px solid rgba(2, 132, 199, 0.25)", color: "var(--accent)", fontSize: "0.74rem", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.03em" }}>
-            <span>🎓</span><span>Academic Preprints &amp; OER Lab</span>
+            <span>🎓</span><span>Technical Reports &amp; OER Lab</span>
           </div>
           <div style={{ display: "inline-flex", alignItems: "center", gap: "0.35rem", padding: "0.2rem 0.6rem", borderRadius: "9999px", background: "rgba(16, 185, 129, 0.1)", border: "1px solid rgba(16, 185, 129, 0.25)", color: "#10b981", fontSize: "0.74rem", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.03em" }}>
-            <span>🛡️</span><span>CC BY 4.0 Open Access</span>
+            <span>🛡️</span><span>Open Access Research</span>
           </div>
           <div style={{ display: "inline-flex", alignItems: "center", gap: "0.35rem", padding: "0.2rem 0.6rem", borderRadius: "9999px", background: "rgba(167, 139, 250, 0.1)", border: "1px solid rgba(167, 139, 250, 0.25)", color: "#9333ea", fontSize: "0.74rem", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.03em" }}>
-            <span>📊</span><span>DataCite &amp; Hugging Face DOIs</span>
+            <span>📊</span><span>Open Access Research &amp; DOI-Archived Papers</span>
           </div>
         </div>
 
@@ -99,7 +99,7 @@ export default function ResearchHubPage() {
           Engineering Research &amp; Technical Whitepapers
         </h1>
         <p className="intro" style={{ margin: 0, fontSize: "0.96rem", color: "var(--ink)", lineHeight: 1.55, maxWidth: "980px" }}>
-          Peer-referenced technical reports, mathematical modeling frameworks, and continuous-duty electrical engineering preprints published by the PowerLab Open Energy Research Group. Open-access under <strong>Creative Commons CC BY 4.0</strong> and registered with persistent DOIs for academic courseware, syllabus citation, and laboratory benchmarking.
+          Technical reports, preprints, mathematical modeling frameworks, and open engineering courseware published by the PowerLab Open Energy Research Group. Open-access research resources registered with persistent DOIs for engineering courseware, syllabus citation, and laboratory benchmarking.
         </p>
       </header>
 
@@ -658,15 +658,15 @@ export default function ResearchHubPage() {
         }}
       >
         <h2 style={{ marginTop: 0, fontSize: "1.25rem", color: "var(--brand-strong)", marginBottom: "0.5rem" }}>
-          Academic Courseware Adoption &amp; Syllabus Integration
+          Engineering Courseware Adoption &amp; Syllabus Integration
         </h2>
         <p style={{ color: "var(--ink)", lineHeight: 1.55, fontSize: "0.9rem", margin: "0 0 0.75rem" }}>
-          PowerLab whitepapers and computational models are specifically designed for direct adoption into undergraduate engineering curricula, vocational electrical apprenticeship training (IBEW/NECA/NJATC), and graduate research:
+          PowerLab technical reports and computational models are designed for direct adoption into undergraduate engineering curricula, vocational electrical apprenticeship training (IBEW/NECA/NJATC), and applied research:
         </p>
         <ul style={{ color: "var(--ink)", lineHeight: 1.55, fontSize: "0.88rem", paddingLeft: "1.25rem", margin: "0.5rem 0 1rem" }}>
-          <li><strong>Zero Paywalls or Student Logins:</strong> All formulas, source code, and whitepaper datasets are accessible without registration or paywall gating.</li>
-          <li><strong>Permanent DOI Archiving:</strong> Preprints and benchmark datasets are mirrored across Harvard Dataverse, Figshare, and Hugging Face with permanent Digital Object Identifiers.</li>
-          <li><strong>Interactive Syllabus Companion:</strong> Every technical report links directly to its companion browser-local simulation engine for class assignments and lab exercises.</li>
+          <li><strong>Zero Paywalls or Student Logins:</strong> Research papers, open datasets, and laboratory modules are available openly without registration or paywall gating.</li>
+          <li><strong>Permanent DOI Archiving:</strong> Research papers and supporting benchmark datasets are archived on open repositories with persistent Digital Object Identifiers (DOIs).</li>
+          <li><strong>Interactive Syllabus Companion:</strong> Technical reports and student lab exercises connect directly with browser-local simulation engines for classroom modeling and calculation exercises.</li>
         </ul>
         <div style={{ display: "flex", gap: "0.6rem", flexWrap: "wrap" }}>
           <Link href="/guides" className="button secondary-button" style={{ fontSize: "0.82rem", padding: "0.4rem 0.8rem" }}>Explore Educational Guides</Link>

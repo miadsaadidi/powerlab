@@ -53,7 +53,7 @@ const GOAL_OPTIONS: GoalOption[] = [
   {
     icon: "📐",
     title: "Solar Roof Pitch & Tilt",
-    subtitle: "Find the optimal tilt angle for your latitude and roof pitch.",
+    subtitle: "Find a recommended starting tilt angle for your latitude and roof pitch.",
     href: "/solar/solar-panel-tilt-calculator",
     badge: "Solar Geometry",
     categoryColor: "#eab308",

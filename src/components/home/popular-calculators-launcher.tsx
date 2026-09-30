@@ -46,7 +46,7 @@ const POPULAR_TOOLS: PopularTool[] = [
     categoryLabel: "Battery Storage",
     color: "#10b981",
     title: "Battery Backup Runtime",
-    description: "Exact backup duration in hours for home loads, LiFePO4, AGM, and Peukert derating.",
+    description: "Estimated backup duration for home loads, LiFePO4, AGM, and applicable Peukert derating.",
     standards: ["IEEE 485", "Peukert's Law"],
     metric: "Hours • Peukert Law • Inverter",
     icon: "🔋",
