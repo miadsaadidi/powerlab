@@ -118,15 +118,12 @@ export function calculateBatteryRuntime(input: BatteryRuntimeInput): BatteryRunt
   if (input.dutyCycle < 1 || appliances.some((appliance) => appliance.dutyCycle < 1)) {
     warnings.push({ code: "DUTY_CYCLE", severity: "info", message: "Runtime uses the entered average duty cycle." });
   }
-  if (input.peukertEnabled) {
-    warnings.push({ code: "PEUKERT_NOT_APPLIED", severity: "info", message: "Peukert correction is not applied because a precise correction needs the battery's rated discharge current or time." });
-  }
   if (usableBatteryWh / batterySideLoadWatts < 0.5) {
     warnings.push({ code: "HIGH_LOAD", severity: "caution", message: "High loads reduce battery runtime quickly." });
   }
 
   return {
-    formulaVersion: "2.0.0",
+    formulaVersion: "2.1.0",
     result: {
       nominalEnergyWh,
       usableBatteryWh,
@@ -140,7 +137,7 @@ export function calculateBatteryRuntime(input: BatteryRuntimeInput): BatteryRunt
       { key: "batteryChemistry", value: input.batteryChemistry ?? "LiFePO4 / LFP", provenance: input.batteryChemistry ? "user-entered" : "preset", description: "Battery type" },
       { key: "startingSoc", value: input.startingSoc, unit: "%", provenance: "user-entered", description: "Starting charge" },
       { key: "reserveSoc", value: input.reserveSoc, unit: "%", provenance: "user-entered", description: "Minimum remaining charge" },
-      { key: "batteryHealth", value: input.batteryHealth, unit: "%", provenance: "user-entered", description: "Battery health" },
+      { key: "batteryHealth", value: input.batteryHealth, unit: "%", provenance: "user-entered", description: "State of Health (SOH)" },
       { key: "acInverterEfficiency", value: acInverterEfficiency, unit: "%", provenance: "user-entered", description: "AC inverter efficiency" },
       { key: "dcConversionEfficiency", value: dcConversionEfficiency, unit: "%", provenance: "user-entered", description: "DC conversion efficiency" },
     ],

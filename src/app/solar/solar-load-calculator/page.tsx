@@ -12,8 +12,8 @@ import { DirectAnswerCard } from "@/components/seo/direct-answer-card";
 const isPublished = isCalculatorPublished("solar-load");
 
 export const metadata: Metadata = buildPageMetadata({
-  title: "Solar Load Calculator — Daily Wh & Load Sizing",
-  description: "Calculate your total daily electrical load (Wh/day and kWh/day) to accurately size off-grid solar panels, battery banks, and inverter wattage.",
+  title: "Solar Load Calculator — Daily Wh & Connected Running Watts",
+  description: "Calculate total daily electrical energy load (Wh/day and kWh/day) and connected running watts to plan off-grid solar panels and battery storage capacity.",
   canonicalPath: "/solar/solar-load-calculator",
   category: "solar",
 });
@@ -21,39 +21,42 @@ export const metadata: Metadata = buildPageMetadata({
 const FAQS = [
   {
     question: "How do you calculate total solar electrical load?",
-    answer: "Multiply each appliance's running wattage by its operating hours per day, quantity, and duty cycle (percentage of time actively drawing power). Sum all appliances to find your total daily energy requirement in Watt-hours (Wh) or kilowatt-hours (kWh).",
+    answer: "Multiply each appliance's running wattage by its unit quantity, daily operating window (hours/day), and duty cycle (the fraction of time actively drawing power). Sum all appliances to find total daily energy in Watt-hours (Wh) or kilowatt-hours (kWh). This daily energy figure serves as the baseline input for downstream solar panel and battery bank sizing; complete system sizing also requires solar resource (peak sun hours), conversion losses, battery DoD, and autonomy margins.",
   },
   {
-    question: "What is the difference between daily energy load (Wh) and peak wattage (W)?",
-    answer: "Daily energy load (Watt-hours) measures total electricity consumed over 24 hours and determines how many solar panels and battery amp-hours you need. Peak wattage (Watts) is the maximum instantaneous power drawn if all appliances run simultaneously, which determines the size of your AC power inverter.",
+    question: "What is the difference between daily energy load (Wh) and connected running watts (W)?",
+    answer: "Daily energy load (Watt-hours or kWh) measures total energy consumed over 24 hours and serves as the baseline input for solar array and battery storage sizing. Connected running watts (Watts) is the sum of listed running wattages if all selected appliances operate simultaneously. It does not measure actual peak demand, does not account for motor or compressor startup surge, and does not determine final inverter capacity on its own.",
   },
   {
     question: "Why do cycling appliances like refrigerators use duty cycles?",
-    answer: "A refrigerator rated at 150 Watts does not draw 150W for 24 continuous hours. Once the interior reaches the set temperature, the compressor cycles off. In typical room temperatures, a refrigerator has an active duty cycle of approximately 30% to 40% (~8 to 10 hours of active compressor run time per day).",
+    answer: "A refrigerator rated at 150 Watts does not draw 150W continuously for 24 hours. Once the interior reaches set temperature, the compressor cycles off. In typical room temperatures, a refrigerator has an active duty cycle of roughly 30% to 40% (~7 to 10 hours of active compressor run time per 24-hour window, yielding 150 W × 24 h × 35% = 1,260 Wh/day). Preset duty cycles are editable planning estimates, as actual energy consumption depends on ambient temperature, age, thermostat settings, and door openings. Plug-in meter measurements should be used whenever available.",
   },
   {
     question: "What is an essential versus non-essential load in solar planning?",
-    answer: "Essential loads are critical devices that must remain powered during an extended blackout or cloudy period (refrigeration, medical devices, Wi-Fi router, LED lighting, water well pump). Non-essential loads (air conditioning, clothes dryer, dishwasher) can be turned off to conserve battery storage.",
+    answer: "Essential loads are specific appliances you designate to keep powered during grid outages or cloudy periods (e.g., refrigeration, medical devices, Wi-Fi router, LED lighting, water well pump). Non-essential loads (such as discretionary air conditioning, clothes dryers, or dishwashers) can be turned off to reduce the required battery storage and solar array capacity.",
+  },
+  {
+    question: "How does connected running watts relate to inverter sizing?",
+    answer: "Connected running watts indicates total simultaneous running power if all appliances run at once. Actual inverter selection also depends on startup inrush surge currents (e.g., inductive motor/compressor starting loads that can draw 3× to 6× rated watts for several seconds), power factor, continuous output derating at elevated ambient temperatures, and manufacturer surge specifications.",
   },
 ];
 
 export default function SolarLoadPage() {
   const structuredData = buildCalculatorStructuredData({
     name: "Solar Load Calculator",
-    description: "Estimate daily appliance energy in Watt-hours and peak power in Watts for off-grid solar and battery storage sizing.",
+    description: "Estimate daily appliance energy in Watt-hours and connected running watts in Watts for off-grid solar and battery storage planning.",
     route: "/solar/solar-load-calculator",
     categoryName: "Solar",
     categoryRoute: "/solar",
     features: [
       "Calculates daily energy consumption in Wh/day and kWh/day",
-      "Calculates total connected running watts for inverter sizing",
-      "Built-in appliance catalog with realistic duty-cycle estimates",
-      "One-click handoff to solar panel sizing and battery bank sizing",
+      "Calculates total connected running watts for simultaneous load planning",
+      "Appliance catalog with editable operating hours and cycling duty cycles",
+      "One-click handoff to solar battery bank sizing",
     ],
     standards: [
-      "NFPA 70 / NEC Article 220 (Branch-Circuit, Feeder, and Service Load Calculations)",
-      "IEEE Std 1013 (Sizing Stand-Alone Photovoltaic Systems)",
-      "IEC 62548 (Design Requirements for Photovoltaic Arrays)",
+      "IEEE Std 1562 (Array Sizing for Stand-Alone Photovoltaic Systems)",
+      "NFPA 70 / NEC Article 220 (Branch-Circuit, Feeder, and Service Load Calculations Context)",
     ],
     faqs: FAQS,
   });
@@ -74,7 +77,7 @@ export default function SolarLoadPage() {
         <p className="eyebrow">Solar system sizing</p>
         <h1>Solar Load Calculator</h1>
         <p className="intro">
-          Estimate your total daily appliance electrical energy consumption (Wh/day and kWh/day) and connected peak power to size off-grid solar arrays, battery banks, and inverters.
+          Estimate your total daily appliance electrical energy consumption (Wh/day and kWh/day) and connected running watts to plan off-grid solar arrays and battery storage.
         </p>
       </div>
 
@@ -84,10 +87,10 @@ export default function SolarLoadPage() {
 
       <DirectAnswerCard
         keyword="solar load profile calculation"
-        answer="Total daily solar load is the sum of every appliance's power draw multiplied by its operating hours and duty cycle: Daily Energy (Wh) = Σ (Watts × Hours/Day × Duty Cycle). For example, a refrigerator (150W × 24h × 35% duty = 1,260 Wh) + LED lighting (100W × 5h = 500 Wh) + Wi-Fi router (20W × 24h = 480 Wh) totals 2,240 Wh/day (2.24 kWh/day)."
-        formula="Daily Solar Load (Wh/day) = Σ (Appliance Watts × Quantity × Daily Hours × Duty Cycle)"
-        standardExample="Essential load (Fridge + Wi-Fi + Lights + TV): ~3.5 kWh/day · requires ~1.0 kW solar array & 5 kWh battery"
-        sourceAuthority="IEEE Std 1562 (Array Sizing for Stand-Alone PV Systems)"
+        answer="Total daily solar load is the sum of every appliance's power draw multiplied by its unit quantity, operating hours per day, and duty cycle: Daily Energy (Wh/day) = Σ (Watts × Quantity × Hours/Day × Duty Cycle). For example, a refrigerator (150W × 1 × 24h × 35% = 1,260 Wh) + Wi-Fi router (12W × 1 × 24h × 100% = 288 Wh) + LED lighting (10W × 4 × 5h × 100% = 200 Wh) + TV (100W × 1 × 4h × 100% = 400 Wh) totals 2,148 Wh/day (2.148 kWh/day) with 302 W connected running watts."
+        formula="Daily Energy (Wh/day) = Σ (Appliance Watts × Quantity × Daily Hours × Duty Cycle)"
+        standardExample="Default Starter Load: Refrigerator (1.26 kWh) + Router (0.288 kWh) + Lights (0.20 kWh) + TV (0.40 kWh) = 2.148 kWh/day (302 W connected running watts)"
+        sourceAuthority="Technical Reference / Model Basis: IEEE Std 1562 & NFPA 70 / NEC Article 220 Context"
       />
 
       <PageJumpNav />
@@ -96,24 +99,24 @@ export default function SolarLoadPage() {
         <h2>How to Calculate Your Solar Load</h2>
         <ol>
           <li><strong>Select or Add Appliances:</strong> Choose common household appliances from the pre-populated catalog or enter custom wattages.</li>
-          <li><strong>Set Daily Run Hours &amp; Quantity:</strong> Enter how many hours each device operates per day.</li>
+          <li><strong>Set Daily Run Hours &amp; Quantity:</strong> Enter how many hours each device operates per day across its scheduled operating window.</li>
           <li><strong>Check Duty Cycles:</strong> Thermostatically cycled appliances (refrigerators, freezers) default to realistic 30%–40% duty cycles.</li>
-          <li><strong>Filter Essential vs Total Load:</strong> Distinguish critical blackout loads from heavy discretionary appliances.</li>
+          <li><strong>Filter Essential vs Total Load:</strong> Designate critical blackout loads to evaluate essential-only backup requirements.</li>
         </ol>
       </section>
 
       <section id="sizing-matrix">
-        <h2>Solar System Load Profiles &amp; Inverter Sizing Guide</h2>
-        <p>Typical daily watt-hour energy consumption profiles and continuous inverter power requirements for off-grid and backup solar applications:</p>
+        <h2>Solar System Load Profiles &amp; Inverter Planning Guide</h2>
+        <p>Illustrative daily watt-hour energy consumption profiles and continuous inverter power ranges for common off-grid and backup solar scenarios:</p>
         <div className="scenario-table" role="region" aria-label="Solar daily load sizing matrix">
           <table>
-            <caption>Typical solar load profiles and recommended inverter capacities</caption>
+            <caption>Typical solar load profiles and illustrative continuous inverter power ranges</caption>
             <thead>
               <tr>
-                <th scope="col">Application Type</th>
-                <th scope="col">Key Appliances Included</th>
+                <th scope="col">Application Scenario</th>
+                <th scope="col">Representative Appliance Mix</th>
                 <th scope="col">Daily Energy (Wh/day)</th>
-                <th scope="col">Continuous Inverter Size</th>
+                <th scope="col">Illustrative Continuous Inverter Range</th>
               </tr>
             </thead>
             <tbody>
@@ -144,26 +147,51 @@ export default function SolarLoadPage() {
             </tbody>
           </table>
         </div>
+        <p className="form-hint" style={{ marginTop: "0.5rem" }}>
+          Inverter ranges are illustrative estimates. Final inverter sizing requires evaluating motor/compressor starting surge currents, power factor, and continuous power ratings.
+        </p>
       </section>
 
       <div id="formula-math">
         <FormulaCard
           title="Daily Solar Load &amp; Energy Demand Formulas"
-          formula="Daily_Wh = ∑ (Watts_i × Quantity_i × Hours_i × (Days_i / 7) × Duty_Cycle_i)  |  Peak_Watts = ∑ (Watts_i × Quantity_i)"
-          formulaDescription="Calculates cumulative daily energy requirement (Wh/day) and connected peak power demand (Watts) across all AC and DC household appliances."
+          formula="Daily_Wh = ∑ (Watts_i * Quantity_i * Hours_i * Duty_Cycle_i)  |  Connected_Running_Watts = ∑ (Watts_i * Quantity_i)"
+          formulaDescription="Calculates cumulative daily energy requirement (Wh/day) and connected running wattage (Watts) across all household AC/DC appliances."
           variables={[
-            { symbol: "Watts_i", label: "Appliance Running Wattage", description: "Nominal electrical power consumed by device i.", unit: "W" },
+            { symbol: "Watts_i", label: "Appliance Running Wattage", description: "Nominal electrical power drawn by appliance i.", unit: "W" },
             { symbol: "Quantity_i", label: "Unit Count", description: "Number of identical active appliances.", unit: "count" },
-            { symbol: "Hours_i", label: "Operating Duration", description: "Active operating hours per run day.", unit: "hours/day" },
-            { symbol: "Duty_Cycle_i", label: "Cycling Factor", description: "Percentage of active runtime drawing power (e.g., 35% for refrigerators, 100% for lighting).", unit: "fraction" },
-            { symbol: "Peak_Watts", label: "Total Connected Power", description: "Simultaneous running wattage sum determining inverter size.", unit: "W" },
+            { symbol: "Hours_i", label: "Operating Window", description: "Scheduled duration per day during which the appliance operates.", unit: "hours/day" },
+            { symbol: "Duty_Cycle_i", label: "Duty Cycle Factor", description: "Fraction of the operating window during which the appliance actively draws rated power (e.g. 0.35 for refrigeration, 1.00 for lighting).", unit: "fraction" },
+            { symbol: "Connected_Running_Watts", label: "Connected Running Watts", description: "Sum of listed running wattages if all selected appliances operate simultaneously (not a measured peak or surge calculation).", unit: "W" },
           ]}
           notes={[
-            "Daily energy (Wh/day) determines solar array and battery storage capacity.",
-            "Peak connected load (Watts) determines required AC inverter continuous power and breaker ratings.",
+            "Daily energy (Wh/day or kWh/day) is the baseline energy input for sizing solar arrays and battery banks.",
+            "Connected running watts indicates simultaneous operating load; actual inverter sizing requires evaluating motor/compressor startup surge, continuous power ratings, power factor, and safety margins.",
+            "Do not enter an already-derated runtime into Hours/day when a duty cycle is applied, to avoid double-counting the reduction.",
           ]}
         />
       </div>
+
+      <section id="technical-basis" style={{ marginTop: "2.5rem" }}>
+        <h2>Technical References &amp; Model Basis</h2>
+        <p>
+          PowerLab implements a deterministic appliance load aggregation model for pre-engineering solar planning. The following technical references provide context for array sizing and electrical load principles:
+        </p>
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(260px, 1fr))", gap: "1rem", marginTop: "1rem" }}>
+          <div style={{ padding: "1rem", borderRadius: "0.5rem", border: "1px solid var(--border-color, #cbd5e1)", background: "var(--surface, #ffffff)" }}>
+            <strong style={{ display: "block", color: "var(--brand-strong, #0284c7)", marginBottom: "0.25rem" }}>IEEE Std 1562</strong>
+            <p style={{ fontSize: "0.85rem", color: "var(--text-muted, #64748b)", margin: 0 }}>
+              IEEE Guide for Array and Battery Sizing in Stand-Alone Photovoltaic (PV) Systems, establishing the methodology of daily load profile summation as the foundation for system sizing.
+            </p>
+          </div>
+          <div style={{ padding: "1rem", borderRadius: "0.5rem", border: "1px solid var(--border-color, #cbd5e1)", background: "var(--surface, #ffffff)" }}>
+            <strong style={{ display: "block", color: "var(--brand-strong, #0284c7)", marginBottom: "0.25rem" }}>NFPA 70 / NEC Article 220 Context</strong>
+            <p style={{ fontSize: "0.85rem", color: "var(--text-muted, #64748b)", margin: 0 }}>
+              National Electrical Code standards for branch-circuit and feeder load calculations, providing engineering background on continuous versus non-continuous load classifications.
+            </p>
+          </div>
+        </div>
+      </section>
 
       <section id="faq-section" className="faq-section">
         <h2>Frequently Asked Questions (FAQ)</h2>

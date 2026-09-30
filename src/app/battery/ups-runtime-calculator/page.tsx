@@ -2,19 +2,15 @@ import type { Metadata } from "next";
 import { buildPageMetadata } from "@/lib/seo/metadata-helper";
 import Link from "next/link";
 import { UpsRuntimeCalculator } from "@/components/calculator/ups-runtime-calculator";
-import { isCalculatorPublished } from "@/lib/calculator-registry";
 import { siteConfig } from "@/lib/site-config";
 import { buildCalculatorStructuredData } from "@/lib/seo/structured-data";
 import { FormulaCard } from "@/components/seo/formula-card";
 import { PageJumpNav } from "@/components/seo/page-jump-nav";
 import { DirectAnswerCard } from "@/components/seo/direct-answer-card";
 
-
-const published = isCalculatorPublished("ups-runtime");
-
 export const metadata: Metadata = buildPageMetadata({
   title: "UPS Runtime Calculator — Estimate Backup Time",
-  description: "Estimate UPS backup runtime from battery energy, load watts, usable energy, battery health and UPS efficiency.",
+  description: "Estimate UPS backup runtime from internal battery Wh, load watts, usable capacity fraction, battery health and UPS efficiency.",
   canonicalPath: "/battery/ups-runtime-calculator",
   category: "battery",
 });
@@ -22,19 +18,19 @@ export const metadata: Metadata = buildPageMetadata({
 const FAQS = [
   {
     question: "How long will a 1500VA UPS run a desktop computer?",
-    answer: "A standard 1500VA / 900W UPS (containing two 12V 9Ah batteries = 216 Wh) will power a typical 100W desktop PC and monitor setup for approximately 50 to 58 minutes. Under high-demand gaming or 3D rendering (350W), runtime drops to roughly 14 to 16 minutes.",
+    answer: "An illustrative 1500VA / 900W UPS configuration (containing two 12V 9Ah batteries = 216 Wh) will power a typical 100W desktop PC and monitor setup for approximately 58 minutes (216 Wh × 50% usable fraction × 90% efficiency ÷ 100W × 60 = 58.3 min). Under high-demand gaming or rendering loads (~350W), runtime is approximately 17 minutes.",
   },
   {
     question: "What is the difference between UPS VA and Watts?",
-    answer: "Volt-Amperes (VA) measures apparent electrical power, while Watts (W) measures real power consumed by your electronics. The ratio is the Power Factor (PF = Watts ÷ VA), typically 0.6 for basic consumer UPS units and 0.9 to 1.0 for enterprise sine-wave units.",
+    answer: "Volt-Amperes (VA) measures apparent electrical power, while Watts (W) measures real power consumed by electronics. The ratio is the Power Factor (PF = Watts ÷ VA), which varies by device power supply and UPS topology (typically 0.6 to 0.8 for basic desktop supplies and 0.9 to 1.0 for active PFC supplies).",
   },
   {
-    question: "Why do UPS batteries only last 3 to 5 years?",
-    answer: "Most consumer UPS units use Sealed Lead-Acid (SLA) batteries kept continuously on float charge at elevated internal temperatures. Over 3 to 5 years, electrolyte dry-out and internal grid corrosion reduce available capacity to under 50% of new condition.",
+    question: "Why do UPS batteries typically have a 3 to 5 year service life?",
+    answer: "Most consumer UPS units use Sealed Lead-Acid (SLA) batteries kept continuously on float charge. Actual service life and available capacity retention depend on operating temperature, float voltage regulation, discharge frequency, depth of discharge, battery manufacturing quality, and maintenance conditions.",
   },
   {
     question: "Can I replace my UPS lead-acid battery with a LiFePO4 battery?",
-    answer: "Yes, drop-in 12V LiFePO4 replacement batteries designed with matching BMS charge profiles can increase usable runtime by up to 80% and extend operational service life to 8–10 years.",
+    answer: "LiFePO4 replacement is only appropriate when the battery is explicitly designed, tested, and listed for UPS applications with compatible nominal voltage, charging profiles, BMS current thresholds, and low-voltage cutoff parameters. While lithium chemistry provides higher usable capacity fraction and longer cycle life under suitable conditions, compatibility must be verified with the UPS manufacturer.",
   },
 ];
 
@@ -46,10 +42,10 @@ export default function UpsRuntimePage() {
     categoryName: "Battery",
     categoryRoute: "/battery",
     features: [
-      "Calculates backup runtime in minutes and hours",
-      "Converts UPS VA rating to real watts using power factor",
+      "Calculates backup runtime in minutes and hours using canonical energy equations",
+      "Converts UPS VA rating to real watts using selectable power factors",
       "Customizable internal battery capacity presets (12V 7Ah, 12V 9Ah)",
-      "Accounts for inverter efficiency and lead-acid degradation",
+      "Accounts for user-defined battery health/capacity factor and UPS efficiency",
     ],
     standards: [
       "IEEE Std 1184 (Guide for Sizing Batteries for UPS Systems)",
@@ -85,10 +81,9 @@ export default function UpsRuntimePage() {
 
       <DirectAnswerCard
         keyword="UPS runtime calculation"
-        answer="A standard 1500VA / 900W desktop UPS (216Wh internal battery) provides approximately 50 to 60 minutes of backup for a 100W PC and monitor, or 15 minutes for a 350W gaming/workstation load. Runtime is determined by battery watt-hours multiplied by inverter efficiency (85%) divided by active equipment wattage."
-        formula="UPS Runtime (Hours) = (Internal Battery Wh × DoD × Inverter Efficiency) ÷ Total Load (Watts)"
-        standardExample="1500VA UPS (216Wh) at 150W load: (216Wh × 0.85 × 0.85) ÷ 150W = 1.04 hours (62 minutes)"
-        sourceAuthority="IEEE Std 1184 (UPS Battery Sizing) & IEC 62040-3 Standards"
+        answer="An illustrative 1500VA / 900W UPS configuration (216Wh internal battery pack) provides approximately 58 minutes of backup runtime for a 100W PC and monitor setup, or ~17 minutes for a 350W workstation load. Runtime is determined by battery watt-hours multiplied by usable capacity fraction (50% for SLA) and UPS efficiency (90%) divided by active equipment load in watts."
+        formula="UPS Runtime (Minutes) = [(Internal Battery Wh × Usable Capacity Fraction × UPS Efficiency) ÷ Total Load (Watts)] × 60"
+        standardExample="1500VA UPS (216Wh) at 100W load: (216Wh × 0.50 × 0.90 ÷ 100W) × 60 = 58.3 minutes (~58 min). At 150W load: (216Wh × 0.50 × 0.90 ÷ 150W) × 60 = 38.9 minutes (~39 min)."
       />
 
       <PageJumpNav />
@@ -96,19 +91,19 @@ export default function UpsRuntimePage() {
       <section id="how-to-guide" style={{ marginTop: "3rem" }}>
         <h2>How to Calculate UPS Battery Backup Duration</h2>
         <ol>
-          <li><strong>Enter UPS Capacity:</strong> Choose standard UPS models (650VA, 1000VA, 1500VA) or input internal battery watt-hours.</li>
+          <li><strong>Enter UPS Capacity:</strong> Choose standard UPS models (650VA, 1000VA, 1500VA) or input internal battery watt-hours directly.</li>
           <li><strong>Input Total Connected Load (Watts):</strong> Enter total real wattage of all plugged-in computers, monitors, and networking devices.</li>
-          <li><strong>Check Power Factor (PF):</strong> Verify power factor (typically 0.6 to 0.9) if calculating from VA ratings.</li>
+          <li><strong>Check Power Factor (PF):</strong> Verify power factor (typically 0.6 to 0.9) when converting from VA ratings.</li>
           <li><strong>Review Backup Minutes:</strong> Note estimated shutdown time to ensure safe data saving during blackouts.</li>
         </ol>
       </section>
 
       <section id="sizing-matrix">
         <h2>UPS Backup Runtime Reference Matrix</h2>
-        <p>Typical uninterruptible power supply backup minutes across standard consumer and enterprise UPS capacity classes and connected IT loads:</p>
+        <p>Estimated backup minutes across illustrative UPS capacity classes and connected IT loads (assumes 50% usable SLA capacity and 90% UPS efficiency):</p>
         <div className="scenario-table" role="region" aria-label="UPS runtime comparison matrix">
           <table>
-            <caption>Estimated runtime minutes (50% usable SLA capacity, 85%–90% inverter efficiency)</caption>
+            <caption>Estimated runtime minutes (Illustrative UPS configurations — actual battery capacity and runtime vary by model; 50% usable SLA capacity, 90% UPS efficiency)</caption>
             <thead>
               <tr>
                 <th scope="col">UPS Capacity Rating</th>
@@ -121,31 +116,31 @@ export default function UpsRuntimePage() {
             <tbody>
               <tr>
                 <td><strong>650 VA / 360 W</strong> (1× 12V 7Ah = 84 Wh)</td>
-                <td>~85 min</td>
-                <td>~21 min</td>
-                <td>~5 min (Load Limit)</td>
-                <td>Overload</td>
+                <td>~91 min</td>
+                <td>~23 min</td>
+                <td>~6 min</td>
+                <td>Overload (exceeds 360W rating)</td>
               </tr>
               <tr>
                 <td><strong>1000 VA / 600 W</strong> (2× 12V 7Ah = 168 Wh)</td>
-                <td>~170 min</td>
-                <td>~43 min</td>
-                <td>~12 min</td>
-                <td>Overload</td>
-              </tr>
-              <tr>
-                <td><strong>1500 VA / 900 W</strong> (2× 12V 9Ah = 216 Wh)</td>
-                <td>~220 min</td>
-                <td>~58 min</td>
-                <td>~16 min</td>
+                <td>~181 min (3.0 hrs)</td>
+                <td>~45 min</td>
+                <td>~13 min</td>
                 <td>~8 min</td>
               </tr>
               <tr>
+                <td><strong>1500 VA / 900 W</strong> (2× 12V 9Ah = 216 Wh)</td>
+                <td>~233 min (3.9 hrs)</td>
+                <td>~58 min</td>
+                <td>~17 min</td>
+                <td>~10 min</td>
+              </tr>
+              <tr>
                 <td><strong>2200 VA / 1980 W</strong> (4× 12V 9Ah = 432 Wh)</td>
-                <td>~440 min (7.3 hrs)</td>
-                <td>~116 min</td>
+                <td>~467 min (7.8 hrs)</td>
+                <td>~117 min (1.9 hrs)</td>
                 <td>~33 min</td>
-                <td>~18 min</td>
+                <td>~19 min</td>
               </tr>
             </tbody>
           </table>
@@ -154,22 +149,41 @@ export default function UpsRuntimePage() {
 
       <div id="formula-math">
         <FormulaCard
-          title="UPS Runtime &amp; Apparent Power Formulas"
-          formula="Runtime (min) = [(Battery_Wh × Usable_Fraction × Health × Efficiency) / Load_Watts] × 60"
-          formulaDescription="Calculates standby operating minutes of an uninterruptible power supply based on internal DC battery energy and AC inverter conversion losses."
+          title="Calculation Formulas"
+          formula="Runtime (min) = [(Battery_Wh × Usable_Capacity_Fraction × Health × Efficiency) / Load_Watts] × 60"
+          formulaDescription="Calculates standby operating minutes of an uninterruptible power supply based on internal DC battery energy, usable capacity fraction, and UPS conversion efficiency."
           variables={[
             { symbol: "Battery_Wh", label: "Internal Battery Energy", description: "Nominal internal battery pack rating (e.g. 2 × 12V 9Ah = 216 Wh).", unit: "Wh" },
-            { symbol: "Usable_Fraction", label: "Usable Capacity Share", description: "Safety cutoff fraction (typically 50% for standard SLA batteries).", unit: "fraction" },
-            { symbol: "Health", label: "SOH Degradation", description: "Available capacity relative to new factory condition.", unit: "fraction" },
-            { symbol: "Efficiency", label: "Inverter DC-AC Efficiency", description: "UPS inverter conversion efficiency (typically 80%–90%).", unit: "fraction" },
-            { symbol: "Load_Watts", label: "Connected Real Load", description: "Active power demand (VA × Power Factor).", unit: "W" },
+            { symbol: "Usable_Capacity_Fraction", label: "Usable Capacity Fraction", description: "Safety cutoff fraction (typically 50% for standard SLA batteries).", unit: "fraction" },
+            { symbol: "Health", label: "Battery Health / SOH", description: "Available capacity factor relative to new factory condition.", unit: "fraction" },
+            { symbol: "Efficiency", label: "UPS Efficiency (η)", description: "UPS DC-to-AC inverter conversion efficiency (typically 85%–93%, default 90%).", unit: "fraction" },
+            { symbol: "Load_Watts", label: "Connected Real Load", description: "Active power demand in watts (VA × Power Factor).", unit: "W" },
           ]}
           notes={[
-            "Real Watts = Apparent VA × Power Factor (typically 0.6 to 0.9 for standard desktop UPS models).",
-            "Lead-acid runtime decreases faster at discharge rates above 0.5C due to internal resistance and Peukert losses.",
+            "Real Watts = Apparent VA × Power Factor. Power factor varies by load type and power supply design (typically 0.6 to 0.9 for standard desktop IT equipment).",
+            "This calculator uses a simplified energy-based runtime model and does not explicitly model Peukert effects, temperature variations, manufacturer-specific discharge curves, or UPS-specific cutoff behavior.",
           ]}
         />
       </div>
+
+      <section id="governing-standards" className="standards-section" style={{ marginTop: "3rem" }}>
+        <h2>Technical References &amp; Model Basis</h2>
+        <p>The calculation principles and energy reserve assumptions in this tool reference established industry standards:</p>
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))", gap: "1rem", marginTop: "1rem" }}>
+          <div style={{ padding: "1.25rem", border: "1px solid var(--border-color)", borderRadius: "var(--radius)", background: "var(--card-bg)" }}>
+            <h3 style={{ fontSize: "1rem", fontWeight: 600, marginBottom: "0.5rem" }}>IEEE Std 1184 &amp; IEC 62040-3</h3>
+            <p style={{ fontSize: "0.875rem", color: "var(--muted)", margin: 0 }}>
+              Guidelines for sizing battery banks in stationary UPS installations, specifying performance methods, and defining battery reserve windows.
+            </p>
+          </div>
+          <div style={{ padding: "1.25rem", border: "1px solid var(--border-color)", borderRadius: "var(--radius)", background: "var(--card-bg)" }}>
+            <h3 style={{ fontSize: "1rem", fontWeight: 600, marginBottom: "0.5rem" }}>UL 1778</h3>
+            <p style={{ fontSize: "0.875rem", color: "var(--muted)", margin: 0 }}>
+              Safety standards for uninterruptible power supply equipment, thermal thresholds, and electrical isolation boundaries.
+            </p>
+          </div>
+        </div>
+      </section>
 
       <section id="faq-section" className="faq-section">
         <h2>Frequently Asked Questions (FAQ)</h2>

@@ -47,12 +47,12 @@ export function CalculatorTrustPill({ className = "" }: CalculatorTrustPillProps
           <rect x="3" y="11" width="18" height="11" rx="2" ry="2" />
           <path d="M7 11V7a5 5 0 0 1 10 0v4" />
         </svg>
-        <span>100% Private &amp; Ad-Free</span>
+        <span>Ad-Free &amp; No Account Required</span>
       </span>
       <span style={{ color: "var(--muted, #68736b)", opacity: 0.6 }}>•</span>
       <span>No Sign-Up or Email Required</span>
       <span style={{ color: "var(--muted, #68736b)", opacity: 0.6 }}>•</span>
-      <span>Instant Browser-Local Computation</span>
+      <span>Calculations Run in Your Browser</span>
     </div>
   );
 }

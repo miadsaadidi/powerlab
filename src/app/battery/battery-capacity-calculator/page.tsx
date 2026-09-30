@@ -3,7 +3,6 @@ import { buildPageMetadata } from "@/lib/seo/metadata-helper";
 import Link from "next/link";
 import { BatteryCapacityCalculator } from "@/components/calculator/battery-capacity-calculator";
 import { isCalculatorPublished } from "@/lib/calculator-registry";
-import { siteConfig } from "@/lib/site-config";
 import { buildCalculatorStructuredData } from "@/lib/seo/structured-data";
 import { FormulaCard } from "@/components/seo/formula-card";
 import { PageJumpNav } from "@/components/seo/page-jump-nav";
@@ -13,7 +12,7 @@ const isPublished = isCalculatorPublished("battery-capacity");
 
 export const metadata: Metadata = buildPageMetadata({
   title: "Battery Capacity Calculator — Ah to kWh & Wh",
-  description: "Convert battery capacity between Ah, mAh, Wh, and kWh across 12V, 24V, and 48V. Calculate usable storage with chemistry DoD and battery health.",
+  description: "Convert battery capacity between Ah, mAh, Wh, and kWh across 12V, 24V, and 48V. Calculate usable storage with chemistry DoD and battery health factor.",
   canonicalPath: "/battery/battery-capacity-calculator",
   category: "battery",
 });
@@ -21,19 +20,19 @@ export const metadata: Metadata = buildPageMetadata({
 const FAQS = [
   {
     question: "How do you convert Amp-hours (Ah) to Kilowatt-hours (kWh)?",
-    answer: "Multiply Amp-hours by nominal system voltage and divide by 1,000: kWh = (Ah × Volts) ÷ 1,000. For example, a 12V 100Ah battery contains (100 × 12) ÷ 1,000 = 1.20 kWh of nominal electrical energy.",
+    answer: "Multiply Amp-hours by nominal system voltage and divide by 1,000: kWh = (Ah × Volts) ÷ 1,000. For example, a 12V 100Ah battery contains (100 × 12) ÷ 1,000 = 1.20 kWh of nominal electrical energy (or 100 Ah × 12.8V = 1.28 kWh for a 12.8V LiFePO4 pack).",
   },
   {
     question: "How many kWh is a 12V 100Ah battery?",
-    answer: "A 12V 100Ah battery stores exactly 1.20 kWh (1,200 Watt-hours) of gross nominal energy. In real-world operation, a LiFePO4 lithium battery delivers ~1.08 kWh of usable energy at 90% Depth of Discharge (DoD), while a sealed AGM or Flooded lead-acid battery delivers ~0.60 kWh at 50% DoD.",
+    answer: "A 12V 100Ah battery stores exactly 1.20 kWh (1,200 Watt-hours) of nominal energy. In real-world operation, usable capacity depends on the operating state-of-charge window and battery condition: an illustrative 90% usable DoD assumption provides ~1.08 kWh usable energy, while an illustrative 50% DoD assumption provides ~0.60 kWh usable energy.",
   },
   {
     question: "How many kWh is a 200Ah battery?",
-    answer: "A 200Ah battery contains: 2.40 kWh at 12 Volts ((200 × 12) ÷ 1,000), 4.80 kWh at 24 Volts ((200 × 24) ÷ 1,000), and 9.60 kWh at 48 Volts ((200 × 48) ÷ 1,000).",
+    answer: "A 200Ah battery contains: 2.40 kWh at 12 Volts ((200 × 12) ÷ 1,000), 4.80 kWh at 24 Volts ((200 × 24) ÷ 1,000), and 9.60 kWh at 48 Volts ((200 × 48) ÷ 1,000). For 12.8V, 25.6V, or 51.2V LiFePO4 packs, the nominal energies are 2.56 kWh, 5.12 kWh, and 10.24 kWh respectively.",
   },
   {
     question: "How do you convert mAh to kWh?",
-    answer: "Multiply milliamp-hours by cell voltage and divide by 1,000,000: kWh = (mAh × Volts) ÷ 1,000,000. For example, a 20,000 mAh smartphone power bank operating at 3.7V nominal contains (20,000 × 3.7) ÷ 1,000,000 = 0.074 kWh (74 Watt-hours).",
+    answer: "Multiply milliamp-hours by cell voltage and divide by 1,000,000: kWh = (mAh × Volts) ÷ 1,000,000. A 20,000 mAh power bank rated at an internal cell voltage of 3.7V represents approximately 74 Wh (0.074 kWh) of nominal internal-cell energy. Actual energy delivered at the USB/output port will be lower because of conversion and other system losses.",
   },
   {
     question: "How do you convert Watt-hours (Wh) to Amp-hours (Ah)?",
@@ -41,7 +40,7 @@ const FAQS = [
   },
   {
     question: "What is the difference between nominal and usable battery capacity?",
-    answer: "Nominal capacity is the theoretical factory maximum energy stored when charged to 100%. Usable capacity is the actual net energy you can safely extract without causing rapid electrochemical degradation or triggering low-voltage BMS cutoff (typically 80%–90% for LiFePO4, 50% for Lead-Acid).",
+    answer: "Nominal capacity is the theoretical factory maximum stored energy based on nameplate voltage and Ah ratings. Usable capacity represents the modeled energy accessible within defined operating boundaries: Usable_Wh = Nominal_Wh × (Start_SOC − Reserve_SOC) × Health. Illustrative planning assumptions (such as 80%–90% for lithium or 50% for lead-acid) provide screening baselines; actual usable capacity depends on manufacturer limits, BMS cutoff settings, temperature, discharge rate, battery condition, and application.",
   },
 ];
 
@@ -56,7 +55,7 @@ export default function BatteryCapacityPage() {
       "Bidirectional conversion between Ah, mAh, Wh, and kWh",
       "Nominal voltage presets (3.7V, 12V, 24V, 36V, 48V)",
       "Usable energy calculations factoring in starting and minimum reserve SOC",
-      "Accounts for battery State of Health (SOH) degradation",
+      "Applies a user-defined battery health/capacity factor",
     ],
     standards: [
       "IEEE Std 485 (Recommended Practice for Sizing Lead-Acid Batteries)",
@@ -83,7 +82,7 @@ export default function BatteryCapacityPage() {
         <p className="eyebrow">Battery Planning &amp; Sizing Engine</p>
         <h1>Battery Capacity Calculator</h1>
         <p className="intro">
-          Convert battery capacity between Amp-Hours (Ah), Milliamp-Hours (mAh), Watt-Hours (Wh), and Kilowatt-Hours (kWh) across DC voltages, and calculate net usable stored energy by chemistry Depth of Discharge (DoD).
+          Convert battery capacity between Amp-Hours (Ah), Milliamp-Hours (mAh), Watt-Hours (Wh), and Kilowatt-Hours (kWh) across DC voltages, and calculate net usable stored energy with customizable State of Charge (SOC) and health factors.
         </p>
       </div>
 
@@ -93,10 +92,10 @@ export default function BatteryCapacityPage() {
 
       <DirectAnswerCard
         keyword="battery capacity Ah to kWh conversion formula"
-        answer="To convert Amp-hours (Ah) to Kilowatt-hours (kWh), multiply capacity by nominal voltage and divide by 1,000: kWh = (Ah × Volts) ÷ 1,000. Net usable energy equals nominal kWh multiplied by the safe Depth of Discharge (DoD) fraction (90% for LiFePO4, 80% for NMC, 50% for Lead-Acid)."
-        formula="Nominal Energy (kWh) = (Capacity_Ah × Voltage_V) ÷ 1,000  |  Usable_kWh = Nominal_kWh × DoD"
-        standardExample="12V 100Ah LiFePO4: (100Ah × 12V) ÷ 1,000 = 1.20 kWh nominal · (1.20 kWh × 0.90 DoD) = 1.08 kWh usable"
-        sourceAuthority="IEC 62619 & IEEE Std 485 Battery Sizing Standards"
+        answer="To convert Amp-hours (Ah) to Kilowatt-hours (kWh), multiply capacity by nominal voltage and divide by 1,000: kWh = (Ah × Volts) ÷ 1,000. Usable energy is calculated using a simplified planning model: Usable_kWh = Nominal_kWh × (Start_SOC − Reserve_SOC) × Battery_Health. Illustrative planning assumptions typically allocate an 80%–90% usable window for lithium and 50% for lead-acid; actual usable capacity depends on manufacturer cutoff limits, temperature, discharge rate, and battery condition."
+        formula="Nominal_kWh = (Capacity_Ah × Voltage_V) ÷ 1,000  |  Usable_kWh = Nominal_kWh × (Start_SOC − Reserve_SOC) × Battery_Health"
+        standardExample="12V 100Ah battery with 90% usable DoD window and 100% health: (100Ah × 12V) ÷ 1,000 = 1.20 kWh nominal · (1.20 kWh × 0.90 × 1.00) = 1.08 kWh usable"
+        sourceAuthority="Technical References & Model Basis: IEEE Std 485, IEC 62619 & UL 1973"
       />
 
       <PageJumpNav />
@@ -105,20 +104,20 @@ export default function BatteryCapacityPage() {
       <section id="chemistry-dod-matrix" style={{ marginTop: "3rem" }}>
         <h2>Battery Chemistry Depth of Discharge (DoD) &amp; Usable Energy Matrix</h2>
         <p>
-          Nominal nameplate capacity does not reflect usable operational capacity. In real-world power system design, recommended Depth of Discharge (DoD) thresholds represent standard engineering operating baselines (governed by manufacturer warranties and standards like IEC 62619 and IEEE Std 485) to maximize cycle life and avoid low-voltage disconnects. The table below compares typical design baselines across primary battery chemistries:
+          Nominal nameplate capacity does not reflect usable operational capacity. In battery power planning, Depth of Discharge (DoD) thresholds represent illustrative planning baselines to define modeled usable energy windows. The table below compares typical planning baselines across primary battery chemistries:
         </p>
 
         <div className="scenario-table" role="region" aria-label="Battery chemistry DoD and usable energy comparison table">
           <table style={{ width: "100%", borderCollapse: "collapse" }}>
-            <caption>Table 1: Benchmark Battery Chemistry Design DoD Windows, Usable Capacity, and Typical Operating Metrics</caption>
+            <caption>Table 1: Illustrative Battery Chemistry Design DoD Windows, Usable Capacity, and Operating Baselines</caption>
             <thead>
               <tr>
                 <th scope="col">Battery Chemistry</th>
                 <th scope="col">Nominal Cell Voltage</th>
-                <th scope="col">Recommended Design DoD</th>
+                <th scope="col">Illustrative Planning DoD</th>
                 <th scope="col">Usable Energy from 12V 100Ah (1.20 kWh Nominal)</th>
                 <th scope="col">Usable Energy from 48V 100Ah (4.80 kWh Nominal)</th>
-                <th scope="col">Typical Cycle Life (@ Design DoD, 0.2C / 25°C)</th>
+                <th scope="col">Typical Published Cycle Life (@ Baseline DoD, 0.2C / 25°C)</th>
                 <th scope="col">Typical Round-Trip Efficiency</th>
               </tr>
             </thead>
@@ -126,7 +125,7 @@ export default function BatteryCapacityPage() {
               <tr>
                 <td><strong>LiFePO4 (Lithium Iron Phosphate)</strong></td>
                 <td>3.20 V / cell</td>
-                <td><strong>80% – 90%</strong> (Design baseline)</td>
+                <td><strong>80% – 90%</strong> (Planning baseline)</td>
                 <td><strong>0.96 – 1.08 kWh</strong> (960 – 1,080 Wh)</td>
                 <td><strong>3.84 – 4.32 kWh</strong> (3,840 – 4,320 Wh)</td>
                 <td>3,000 – 6,000+ cycles</td>
@@ -135,7 +134,7 @@ export default function BatteryCapacityPage() {
               <tr>
                 <td><strong>NMC Lithium (Nickel Manganese Cobalt)</strong></td>
                 <td>3.65 – 3.70 V / cell</td>
-                <td><strong>70% – 80%</strong> (Design baseline)</td>
+                <td><strong>70% – 80%</strong> (Planning baseline)</td>
                 <td><strong>0.84 – 0.96 kWh</strong> (840 – 960 Wh)</td>
                 <td><strong>3.36 – 3.84 kWh</strong> (3,360 – 3,840 Wh)</td>
                 <td>1,500 – 2,500 cycles</td>
@@ -144,7 +143,7 @@ export default function BatteryCapacityPage() {
               <tr>
                 <td><strong>AGM Sealed Lead-Acid (Deep Cycle)</strong></td>
                 <td>2.00 V / cell</td>
-                <td><strong>50%</strong> (Design baseline)</td>
+                <td><strong>50%</strong> (Planning baseline)</td>
                 <td><strong>0.60 kWh</strong> (600 Wh)</td>
                 <td><strong>2.40 kWh</strong> (2,400 Wh)</td>
                 <td>400 – 700 cycles</td>
@@ -153,7 +152,7 @@ export default function BatteryCapacityPage() {
               <tr>
                 <td><strong>Gel Lead-Acid (Deep Cycle)</strong></td>
                 <td>2.00 V / cell</td>
-                <td><strong>50%</strong> (Design baseline)</td>
+                <td><strong>50%</strong> (Planning baseline)</td>
                 <td><strong>0.60 kWh</strong> (600 Wh)</td>
                 <td><strong>2.40 kWh</strong> (2,400 Wh)</td>
                 <td>500 – 900 cycles</td>
@@ -162,7 +161,7 @@ export default function BatteryCapacityPage() {
               <tr>
                 <td><strong>Flooded Lead-Acid (FLA Deep Cycle)</strong></td>
                 <td>2.00 V / cell</td>
-                <td><strong>50%</strong> (Design baseline)</td>
+                <td><strong>50%</strong> (Planning baseline)</td>
                 <td><strong>0.60 kWh</strong> (600 Wh)</td>
                 <td><strong>2.40 kWh</strong> (2,400 Wh)</td>
                 <td>300 – 600 cycles</td>
@@ -172,7 +171,7 @@ export default function BatteryCapacityPage() {
           </table>
         </div>
         <p style={{ fontSize: "0.88rem", color: "var(--muted)", margin: "0.5rem 0 0" }}>
-          *Note: Cycle life and round-trip efficiency figures represent typical published manufacturer benchmark ranges under nominal laboratory test conditions (25°C ambient, C/5 rate). Actual field lifespans vary depending on operating temperature, charge/discharge C-rates, and depth of cycling.
+          *Note: Illustrative planning assumptions; actual usable capacity depends on manufacturer limits, BMS/cutoff settings, temperature, discharge rate, battery condition, and application. Published cycle life and round-trip efficiency figures represent typical manufacturer benchmark ranges under nominal laboratory test conditions (25°C ambient, C/5 rate). Actual field lifespans vary depending on operating temperature, charge/discharge C-rates, and depth of cycling.
         </p>
       </section>
 
@@ -180,19 +179,19 @@ export default function BatteryCapacityPage() {
       <section id="sizing-matrix" style={{ marginTop: "2.5rem" }}>
         <h2>Amp-Hour (Ah) to Kilowatt-Hour (kWh) Quick Reference Matrix</h2>
         <p>
-          Quick reference table converting common battery bank Amp-Hour (Ah) capacities into gross nominal energy (kWh) and net usable LiFePO4 energy (kWh @ 90% DoD design baseline) across standard DC system voltages:
+          Quick reference table converting common battery bank Amp-Hour (Ah) capacities into gross nominal energy (kWh) and illustrative usable energy (kWh @ 90% DoD planning baseline) across standard DC system voltages:
         </p>
 
         <div className="scenario-table" role="region" aria-label="Battery capacity conversion reference table">
           <table style={{ width: "100%", borderCollapse: "collapse" }}>
-            <caption>Table 2: Energy Equivalent (Nominal &amp; Usable LiFePO4 kWh @ 90% DoD) Across Standard DC Voltages</caption>
+            <caption>Table 2: Energy Equivalent (Nominal &amp; Illustrative Usable kWh @ 90% DoD) Across Standard DC Voltages (12V, 24V, 48V)</caption>
             <thead>
               <tr>
                 <th scope="col">Capacity (Ah)</th>
-                <th scope="col">12V System (Nom / Usable)</th>
-                <th scope="col">24V System (Nom / Usable)</th>
-                <th scope="col">48V System (Nom / Usable)</th>
-                <th scope="col">Typical Sizing Application</th>
+                <th scope="col">12V nominal (Nom / Usable)</th>
+                <th scope="col">24V nominal (Nom / Usable)</th>
+                <th scope="col">48V nominal (Nom / Usable)</th>
+                <th scope="col">Illustrative Example Use Case</th>
               </tr>
             </thead>
             <tbody>
@@ -201,53 +200,56 @@ export default function BatteryCapacityPage() {
                 <td>0.24 kWh / <strong>0.22 kWh</strong></td>
                 <td>0.48 kWh / <strong>0.43 kWh</strong></td>
                 <td>0.96 kWh / <strong>0.86 kWh</strong></td>
-                <td>Small UPS backup, kayak electronics, e-bikes</td>
+                <td>Illustrative example: small backup circuits, lightweight portable gear</td>
               </tr>
               <tr>
                 <td><strong>50 Ah</strong></td>
                 <td>0.60 kWh / <strong>0.54 kWh</strong></td>
                 <td>1.20 kWh / <strong>1.08 kWh</strong></td>
                 <td>2.40 kWh / <strong>2.16 kWh</strong></td>
-                <td>Trolling motors, portable camper power stations</td>
+                <td>Illustrative example: auxiliary portable power kits, mobile setups</td>
               </tr>
               <tr>
                 <td><strong>100 Ah</strong></td>
                 <td>1.20 kWh / <strong>1.08 kWh</strong></td>
                 <td>2.40 kWh / <strong>2.16 kWh</strong></td>
                 <td>4.80 kWh / <strong>4.32 kWh</strong></td>
-                <td>RV house batteries, campervans, marine house banks</td>
+                <td>Illustrative example: RV auxiliary storage, campervans, marine house banks</td>
               </tr>
               <tr>
                 <td><strong>200 Ah</strong></td>
                 <td>2.40 kWh / <strong>2.16 kWh</strong></td>
                 <td>4.80 kWh / <strong>4.32 kWh</strong></td>
                 <td>9.60 kWh / <strong>8.64 kWh</strong></td>
-                <td>Off-grid cabins, liveaboard sailboats, solar workshops</td>
+                <td>Illustrative example: off-grid cabin storage, solar workshops</td>
               </tr>
               <tr>
                 <td><strong>300 Ah</strong></td>
                 <td>3.60 kWh / <strong>3.24 kWh</strong></td>
                 <td>7.20 kWh / <strong>6.48 kWh</strong></td>
                 <td>14.40 kWh / <strong>12.96 kWh</strong></td>
-                <td>High-demand off-grid homesteads, dual-inverter setups</td>
+                <td>Illustrative example: expanded off-grid systems, dual-inverter setups</td>
               </tr>
               <tr>
                 <td><strong>400 Ah</strong></td>
                 <td>4.80 kWh / <strong>4.32 kWh</strong></td>
                 <td>9.60 kWh / <strong>8.64 kWh</strong></td>
                 <td>19.20 kWh / <strong>17.28 kWh</strong></td>
-                <td>Whole-home battery backup systems (Tesla Powerwall scale)</td>
+                <td>Illustrative example: whole-home residential battery backup banks</td>
               </tr>
             </tbody>
           </table>
         </div>
+        <p style={{ fontSize: "0.88rem", color: "var(--muted)", margin: "0.5rem 0 0" }}>
+          *Note: Calculations use exact nominal voltages (12V, 24V, 48V). Illustrative example use cases are for general context only; actual battery sizing requires detailed load, runtime, and inverter capacity calculations.
+        </p>
       </section>
 
       {/* Section 3: Milliamp-Hour (mAh) to Watt-Hour (Wh) Small Electronics Table */}
       <section id="mah-conversion" style={{ marginTop: "2.5rem" }}>
         <h2>Milliamp-Hour (mAh) to Watt-Hour (Wh) &amp; kWh Conversion</h2>
         <p>
-          Portable power banks, drones, and smartphone batteries are rated in milliamp-hours (mAh). Because 1 Ah = 1,000 mAh, multiplying mAh by the single-cell lithium voltage (3.7V nominal) yields stored Watt-hours:
+          Portable power banks, drones, and smartphone batteries are rated in milliamp-hours (mAh). Because 1 Ah = 1,000 mAh, multiplying mAh by single-cell nominal lithium voltage (3.7V nominal) yields stored internal cell Watt-hours:
         </p>
 
         <div className="scenario-table" role="region" aria-label="mAh to Wh conversion table">
@@ -257,7 +259,7 @@ export default function BatteryCapacityPage() {
               <tr>
                 <th scope="col">Rating in mAh</th>
                 <th scope="col">Equivalent in Ah</th>
-                <th scope="col">Stored Energy (Wh @ 3.7V)</th>
+                <th scope="col">Stored Internal Energy (Wh @ 3.7V)</th>
                 <th scope="col">Stored Energy (kWh)</th>
                 <th scope="col">FAA Carry-On Status (49 CFR § 175.10(a)(18))</th>
               </tr>
@@ -316,7 +318,7 @@ export default function BatteryCapacityPage() {
           </table>
         </div>
         <p style={{ fontSize: "0.88rem", color: "var(--muted)", margin: "0.5rem 0 0" }}>
-          *Regulatory Citation: Federal Aviation Administration (FAA) PackSafe and U.S. DOT Hazardous Materials Regulations (49 CFR § 175.10(a)(18)). Uninstalled spare lithium batteries are strictly prohibited in checked baggage.
+          *Regulatory Citation: Federal Aviation Administration (FAA) PackSafe and U.S. DOT Hazardous Materials Regulations (49 CFR § 175.10(a)(18)). Delivered energy at the output port will be lower than internal cell Wh due to DC-DC conversion and circuit losses.
         </p>
       </section>
 
@@ -341,7 +343,7 @@ export default function BatteryCapacityPage() {
           <div style={{ padding: "1.25rem", borderRadius: "0.85rem", border: "1px solid var(--line)", background: "var(--surface)" }}>
             <h3 style={{ marginTop: 0, color: "var(--brand-strong)", fontSize: "1.05rem" }}>Step 2: Adjust for Inverter &amp; Wiring Inefficiencies</h3>
             <p style={{ margin: "0.25rem 0 0.5rem", fontSize: "0.95rem", color: "var(--muted)", lineHeight: 1.5 }}>
-              DC-to-AC inverters have tare parasitic losses and conversion efficiencies ranging from 88% to 94%:
+              DC-to-AC inverters have conversion efficiencies typically ranging from 88% to 94%:
             </p>
             <p style={{ fontFamily: "var(--font-mono, monospace)", background: "#eee5d7", padding: "0.5rem 0.75rem", borderRadius: "0.4rem", fontSize: "0.9rem" }}>
               E_required (Wh) = E_load (Wh) ÷ Inverter_Efficiency  |  Example: 4,000 Wh ÷ 0.90 = 4,444.4 Wh
@@ -349,12 +351,12 @@ export default function BatteryCapacityPage() {
           </div>
 
           <div style={{ padding: "1.25rem", borderRadius: "0.85rem", border: "1px solid var(--line)", background: "var(--surface)" }}>
-            <h3 style={{ marginTop: 0, color: "var(--brand-strong)", fontSize: "1.05rem" }}>Step 3: Factor in Chemistry Depth of Discharge (DoD) &amp; Battery Health</h3>
+            <h3 style={{ marginTop: 0, color: "var(--brand-strong)", fontSize: "1.05rem" }}>Step 3: Define the Modeled Usable Energy Window &amp; Battery Health</h3>
             <p style={{ margin: "0.25rem 0 0.5rem", fontSize: "0.95rem", color: "var(--muted)", lineHeight: 1.5 }}>
-              Apply safe discharge design bounds (90% for LiFePO4, 50% for Lead-Acid) and State of Health (SOH):
+              Apply modeled discharge boundaries (e.g. 90% for lithium or 50% for lead-acid planning assumptions) and battery health capacity factor:
             </p>
             <p style={{ fontFamily: "var(--font-mono, monospace)", background: "#eee5d7", padding: "0.5rem 0.75rem", borderRadius: "0.4rem", fontSize: "0.9rem" }}>
-              E_nominal (Wh) = E_required (Wh) ÷ (DoD × SOH)  |  LiFePO4: 4,444.4 Wh ÷ (0.90 × 1.0) = 4,938.3 Wh (~4.94 kWh nominal)
+              E_nominal (Wh) = E_required (Wh) ÷ (DoD × Health_Factor)  |  LiFePO4: 4,444.4 Wh ÷ (0.90 × 1.0) = 4,938.3 Wh (~4.94 kWh nominal)
             </p>
           </div>
 
@@ -367,7 +369,7 @@ export default function BatteryCapacityPage() {
               Capacity (Ah) = (E_nominal_kWh × 1,000) ÷ System_Voltage = E_nominal_Wh ÷ System_Voltage
             </p>
             <p style={{ fontFamily: "var(--font-mono, monospace)", background: "#eee5d7", padding: "0.5rem 0.75rem", borderRadius: "0.4rem", fontSize: "0.9rem", marginTop: "0.35rem" }}>
-              12V Bank: (4.938 kWh × 1,000) ÷ 12V = 4,938.3 Wh ÷ 12V = 411.5 Ah  |  48V Bank: 4,938.3 Wh ÷ 48V = 102.9 Ah
+              12V Bank: 4,938.3 Wh ÷ 12V = 411.5 Ah  |  48V Bank: 4,938.3 Wh ÷ 48V = 102.9 Ah
             </p>
           </div>
         </div>
@@ -376,20 +378,21 @@ export default function BatteryCapacityPage() {
       {/* Section 5: Formula Card */}
       <div id="formula-math" style={{ marginTop: "2.5rem" }}>
         <FormulaCard
-          title="Battery Capacity &amp; Energy Conversion Formulas"
-          formula="Nominal_kWh = (Ah × Voltage_V) ÷ 1,000  |  Capacity_Ah = (Nominal_kWh × 1,000) ÷ Voltage_V  |  Usable_kWh = Nominal_kWh × (Start_SOC - Reserve_SOC) × SOH"
+          title="Calculation Formulas"
+          formula="Nominal_kWh = (Ah × Voltage_V) ÷ 1,000  |  Capacity_Ah = (Nominal_kWh × 1,000) ÷ Voltage_V  |  Usable_kWh = Nominal_kWh × (Start_SOC - Reserve_SOC) × Health"
           formulaDescription="Converts electrical charge capacity (Ah) to stored kilowatt-hours (kWh) and calculates real usable energy based on operating state-of-charge boundaries."
           variables={[
-            { symbol: "Ah", label: "Battery Charge Capacity", description: "Rated charge capacity at standard discharge rate (C/20 or C/5).", unit: "Ah" },
-            { symbol: "Voltage_V", label: "Nominal System Voltage", description: "Nominal terminal voltage (3.7V, 12V, 24V, 48V).", unit: "V" },
+            { symbol: "Ah", label: "Battery Charge Capacity", description: "Rated charge capacity under the manufacturer's specified test and discharge conditions.", unit: "Ah" },
+            { symbol: "Voltage_V", label: "Nominal System Voltage", description: "Nominal terminal voltage (3.7V, 12V, 12.8V, 24V, 48V, 51.2V, etc.).", unit: "V" },
             { symbol: "Nominal_kWh", label: "Gross Rated Energy", description: "Theoretical maximum stored electrical energy.", unit: "kWh" },
-            { symbol: "DoD Window", label: "Depth of Discharge", description: "Operating SOC window (Start_SOC minus minimum reserve cutoff).", unit: "fraction" },
-            { symbol: "SOH", label: "State of Health", description: "Current retention capacity relative to factory original.", unit: "fraction" },
+            { symbol: "DoD Window", label: "Depth of Discharge Window", description: "Modeled usable SOC window (Start_SOC minus minimum reserve cutoff).", unit: "fraction" },
+            { symbol: "Health", label: "Battery Health / Capacity Factor", description: "Available capacity derating factor relative to nominal nameplate (1.00 = 100%).", unit: "fraction" },
           ]}
           notes={[
             "1,000 milliamp-hours (mAh) = 1 Amp-Hour (Ah).",
             "1 Kilowatt-Hour (kWh) = 1,000 Watt-Hours (Wh).",
-            "Lead-Acid batteries exhibit capacity derating at high discharge rates per Peukert's Law (k = 1.15 to 1.30).",
+            "Usable_Wh = Nominal_Wh × (Start_SOC − Reserve_SOC) × Health is a simplified planning model and does not capture all real-world dynamic losses or temperature effects.",
+            "Illustrative planning assumptions: actual usable capacity depends on manufacturer limits, BMS cutoff settings, discharge rate, and temperature.",
           ]}
         />
       </div>
@@ -407,7 +410,18 @@ export default function BatteryCapacityPage() {
         </div>
       </section>
 
-      {/* Section 7: Connected Battery Planning Cluster */}
+      {/* Section 7: Calculation Notes & Technical References */}
+      <section id="technical-references" style={{ marginTop: "3rem" }}>
+        <h2>Calculation Notes &amp; Technical References</h2>
+        <ul>
+          <li><strong>IEEE Std 485:</strong> IEEE Recommended Practice for Sizing Lead-Acid Batteries for Stationary Applications.</li>
+          <li><strong>IEC 62619:</strong> Secondary cells and batteries containing alkaline or other non-acid electrolytes — Safety requirements for secondary lithium cells and batteries.</li>
+          <li><strong>UL 1973:</strong> Standard for Batteries for Use in Stationary and Motive Auxiliary Power Applications.</li>
+          <li><strong>NFPA 70 (NEC Article 706):</strong> National Electrical Code requirements for Energy Storage Systems (ESS).</li>
+        </ul>
+      </section>
+
+      {/* Section 8: Connected Battery Planning Cluster */}
       <section id="related-tools" style={{ marginTop: "3rem", padding: "1.75rem", borderRadius: "0.85rem", background: "var(--surface)", border: "1px solid var(--line)" }}>
         <h2 style={{ marginTop: 0, fontSize: "1.35rem", color: "var(--brand-strong)" }}>Connected Battery Energy Planning Tools &amp; Research</h2>
         <p style={{ marginBottom: "1.25rem", color: "var(--muted)", lineHeight: 1.55 }}>
@@ -428,7 +442,7 @@ export default function BatteryCapacityPage() {
           <div style={{ padding: "1.25rem", borderRadius: "0.75rem", background: "var(--surface-subtle, #fafafa)", border: "1px solid var(--line)" }}>
             <h3 style={{ margin: "0 0 0.5rem", fontSize: "1.05rem", color: "var(--brand-strong)" }}>⏱️ Battery Runtime Calculator</h3>
             <p style={{ fontSize: "0.88rem", color: "var(--muted)", margin: "0 0 0.75rem", lineHeight: 1.5 }}>
-              Model continuous &amp; surge electrical loads with dynamic Peukert derating and inverter tare losses.
+              Model continuous &amp; surge electrical loads with dynamic discharge and inverter efficiency parameters.
             </p>
             <Link href="/battery/battery-runtime-calculator" className="button secondary-button" style={{ width: "100%", textAlign: "center", display: "block" }}>
               Battery Runtime Calculator →

@@ -22,19 +22,19 @@ export const metadata: Metadata = buildPageMetadata({
 const FAQS = [
   {
     question: "How do I calculate what size battery bank I need for solar?",
-    answer: "Multiply your daily electricity load (kWh/day) by your desired days of autonomy (e.g. 1 to 3 sunless days). Then divide by the product of your inverter efficiency (~90%) and usable battery depth of discharge (80% for LiFePO4, 50% for Lead-Acid), plus a 10% design margin.",
+    answer: "Apply the canonical planning formula: Bank_kWh = (Daily_Load_kWh × Autonomy_Days × (1 + Margin)) / (Usable_SOC × Inverter_Eff × Available_Capacity_Factor). For example, a 5 kWh/day load with 1 day of autonomy, 80% usable SOC (LiFePO4), 90% inverter efficiency, 100% available capacity factor, and a 10% design margin requires: (5.0 × 1 × 1.10) / (0.80 × 0.90 × 1.00) = 7.64 kWh (approximately 159.2 Ah at 48V).",
   },
   {
     question: "Why is 48V preferred over 12V or 24V for solar battery banks?",
-    answer: "48V battery systems reduce DC current draw by 75% compared to 12V systems for the same power load. Lower amperage allows for much thinner copper wiring, reduces resistive voltage drop, generates far less heat, and enables large 3,000W to 12,000W inverters.",
+    answer: "Higher-voltage battery systems reduce DC current for a given power level (e.g., a 75% current reduction from 12V to 48V for equivalent wattage), which simplifies conductor sizing, reduces resistive voltage drop, and decreases thermal losses. Actual inverter power output depends on inverter rating, battery chemistry, BMS continuous current limits, protection hardware, wiring gauge, and overall system design.",
   },
   {
     question: "What is autonomy in solar battery sizing?",
-    answer: "Autonomy refers to the number of consecutive days your battery bank can power your electrical loads without any solar generation or grid power (e.g., during severe rainstorms or winter overcast). Most off-grid setups design for 1.5 to 3 days of autonomy.",
+    answer: "Autonomy refers to the duration (in days or hours) a battery storage system can support connected electrical loads without any charging input from solar panels, the grid, or a generator. A common planning exercise is to evaluate roughly 1–3 days of autonomy, but the appropriate target depends on local climate, solar irradiance patterns, backup generation availability, load criticality, and system reliability requirements.",
   },
   {
     question: "What is the difference between LiFePO4 and Lead-Acid for solar storage?",
-    answer: "LiFePO4 (Lithium Iron Phosphate) batteries offer 80% to 90% usable depth of discharge, 4,000+ cycle lifespan (10–15 years), and 95%+ round-trip efficiency. Lead-Acid (AGM/Gel) batteries only allow 50% depth of discharge, last 500 to 1,000 cycles (2–4 years), and suffer from significant Peukert capacity loss.",
+    answer: "In standard planning models, Lithium Iron Phosphate (LiFePO4) commonly permits deeper usable depth of discharge (typically 80%–90% usable SOC) and can provide long service life (often modeled at 3,000–5,000 cycles), with high round-trip efficiency. Deep-cycle Lead-Acid (AGM/Gel/Flooded) is typically planned around 50% depth of discharge, yields 500–1,200 cycles, and experiences Peukert capacity reduction under heavy discharge rates. Actual cycle life, usable capacity, and efficiency depend on manufacturer specifications, cell chemistry, operating temperature, charge/discharge C-rates, operating SOC windows, BMS configuration, maintenance, and installation conditions.",
   },
 ];
 
@@ -49,7 +49,7 @@ export default function SolarBatteryBankSizePage() {
       "Calculates required stored-energy capacity in kWh and Ah (12V, 24V, 48V)",
       "Multi-day autonomy target modeling (1 to 5 days without sun)",
       "Chemistry-aware usable depth of discharge (LiFePO4, Lead-Acid, LTO)",
-      "Accounts for depth-of-discharge reserve, inverter loss, and battery degradation",
+      "Accounts for depth-of-discharge reserve, inverter loss, available-capacity planning derating, and design margin",
     ],
     standards: [
       "IEEE Std 485 (Recommended Practice for Sizing Lead-Acid Batteries)",
@@ -86,10 +86,10 @@ export default function SolarBatteryBankSizePage() {
 
       <DirectAnswerCard
         keyword="solar battery bank sizing calculation"
-        answer="To size an off-grid solar battery bank, multiply daily load (kWh/day) by days of autonomy (typically 1.5 to 2 days) and a 10% design buffer, then divide by inverter efficiency (90%) and usable battery depth of discharge (80% for LiFePO4). A home using 10 kWh/day with 1.5 days autonomy requires approximately 23 kWh of nominal LiFePO4 storage (480 Ah at 48V)."
-        formula="Battery Capacity (kWh) = (Daily kWh × Autonomy Days × 1.10 Buffer) ÷ (Inverter Efficiency × Usable DoD Fraction)"
-        standardExample="10 kWh/day with 1.5 days autonomy on LiFePO4: (10 × 1.5 × 1.10) ÷ (0.90 × 0.80) = 22.9 kWh (~477 Ah at 48V)"
-        sourceAuthority="IEEE Std 1013 (Sizing Lead-Acid Batteries for PV) & NEC Article 706"
+        answer="To size an off-grid solar battery bank, divide the total energy required during autonomy (daily load in kWh/day multiplied by autonomy days and a design margin) by the product of inverter efficiency, usable depth-of-discharge (DoD) fraction, and available capacity factor. A system with a 5 kWh/day load, 1 day of autonomy, 80% usable DoD, 90% inverter efficiency, 100% capacity factor, and a 10% design margin requires 7.64 kWh of nominal storage (~159.2 Ah at 48V)."
+        formula="Bank_kWh = (Daily_Load_kWh × Autonomy_Days × (1 + Margin)) / (Usable_SOC × Inverter_Eff × Available_Capacity_Factor)"
+        standardExample="Default Baseline: (5.0 kWh/day × 1 Day × 1.10 Margin) / (0.80 Usable SOC × 0.90 Inverter Eff × 1.00 Available Capacity) = 7.64 kWh nominal (159.2 Ah at 48V)"
+        sourceAuthority="Technical Reference / Model Basis: IEEE Std 1013 (Sizing Lead-Acid Batteries for PV) & NFPA 70 / NEC Article 706"
       />
 
       <PageJumpNav />
@@ -97,7 +97,7 @@ export default function SolarBatteryBankSizePage() {
       <section id="how-to-guide" style={{ marginTop: "3rem" }}>
         <h2>How to Size an Off-Grid Solar Battery Bank</h2>
         <ol>
-          <li><strong>Determine Daily Appliance Load (kWh/day):</strong> Add up the daily energy consumption of all devices you need to power.</li>
+          <li><strong>Determine Daily Appliance Load (kWh/day):</strong> Daily load energy is the energy delivered to the loads. Inverter losses are modeled separately when inverter efficiency is below 100%.</li>
           <li><strong>Select Days of Autonomy:</strong> Choose how many consecutive sunless/cloudy days the battery must sustain without generator or solar recharge.</li>
           <li><strong>Choose Battery Chemistry:</strong> Select modern LiFePO4 (80%–90% usable DOD) or Lead-Acid/AGM (50% usable DOD).</li>
           <li><strong>Select System Voltage (12V / 24V / 48V):</strong> Review Amp-hour (Ah) requirements across voltage options to choose the right battery wiring layout.</li>
@@ -109,7 +109,7 @@ export default function SolarBatteryBankSizePage() {
         <p>Recommended nominal battery bank capacity (kWh and 48V Ah) based on daily household electrical demand and days of autonomy without sun:</p>
         <div className="scenario-table" role="region" aria-label="Solar battery bank sizing matrix">
           <table>
-            <caption>Recommended nominal LiFePO4 battery capacity (80% usable SOC, 90% inverter efficiency, 10% margin)</caption>
+            <caption>Recommended nominal LiFePO4 battery capacity (80% usable SOC, 90% inverter efficiency, 100% available capacity, 10% margin)</caption>
             <thead>
               <tr>
                 <th scope="col">Daily Household Energy</th>
@@ -121,27 +121,27 @@ export default function SolarBatteryBankSizePage() {
             <tbody>
               <tr>
                 <td><strong>2.5 kWh / day</strong> (Small Off-Grid Cabin / RV)</td>
-                <td>~3.8 kWh (79 Ah @ 48V)</td>
-                <td>~7.6 kWh (158 Ah @ 48V)</td>
-                <td>~11.5 kWh (239 Ah @ 48V)</td>
+                <td>~3.8 kWh (79.6 Ah @ 48V)</td>
+                <td>~7.6 kWh (159.2 Ah @ 48V)</td>
+                <td>~11.5 kWh (238.7 Ah @ 48V)</td>
               </tr>
               <tr>
                 <td><strong>5.0 kWh / day</strong> (Energy-Efficient Off-Grid Home)</td>
-                <td>~7.6 kWh (159 Ah @ 48V)</td>
-                <td>~15.3 kWh (318 Ah @ 48V)</td>
-                <td>~22.9 kWh (477 Ah @ 48V)</td>
+                <td>~7.6 kWh (159.2 Ah @ 48V)</td>
+                <td>~15.3 kWh (318.3 Ah @ 48V)</td>
+                <td>~22.9 kWh (477.5 Ah @ 48V)</td>
               </tr>
               <tr>
                 <td><strong>10.0 kWh / day</strong> (Standard Off-Grid Family Home)</td>
-                <td>~15.3 kWh (318 Ah @ 48V)</td>
-                <td>~30.6 kWh (636 Ah @ 48V)</td>
-                <td>~45.8 kWh (955 Ah @ 48V)</td>
+                <td>~15.3 kWh (318.3 Ah @ 48V)</td>
+                <td>~30.6 kWh (636.7 Ah @ 48V)</td>
+                <td>~45.8 kWh (955.0 Ah @ 48V)</td>
               </tr>
               <tr>
                 <td><strong>20.0 kWh / day</strong> (Large Home + Well Pump + Heat Pump)</td>
-                <td>~30.6 kWh (636 Ah @ 48V)</td>
-                <td>~61.1 kWh (1,273 Ah @ 48V)</td>
-                <td>~91.7 kWh (1,910 Ah @ 48V)</td>
+                <td>~30.6 kWh (636.7 Ah @ 48V)</td>
+                <td>~61.1 kWh (1,273.3 Ah @ 48V)</td>
+                <td>~91.7 kWh (1,910.0 Ah @ 48V)</td>
               </tr>
             </tbody>
           </table>
@@ -150,22 +150,57 @@ export default function SolarBatteryBankSizePage() {
 
       <div id="formula-math">
         <FormulaCard
-          title="Solar Battery Bank Sizing Formulas"
-          formula="Bank_kWh = (Daily_Load_kWh × Autonomy_Days × (1 + Margin)) / (Usable_SOC × Inverter_Eff × Battery_Health)"
-          formulaDescription="Calculates nominal stored-energy capacity required for off-grid autonomy during sunless periods, accounting for Depth-of-Discharge (DOD) reserves and power conversion losses."
+          title="Calculation Formulas & Mathematical Methodology"
+          formula="Bank_kWh = (Daily_Load_kWh * Autonomy_Days * (1 + Margin)) / (Usable_SOC * Inverter_Eff * Available_Capacity_Factor)"
+          formulaDescription="Calculates nominal stored-energy capacity required for off-grid autonomy during sunless periods, accounting for Depth-of-Discharge (DOD) reserves, inverter efficiency, and available capacity factor."
           variables={[
-            { symbol: "Daily_Load_kWh", label: "Load-Side Daily Energy", description: "Total AC/DC electricity required by your household appliances per day.", unit: "kWh/day" },
-            { symbol: "Autonomy_Days", label: "Days of Autonomy", description: "Continuous days of battery support required without meaningful solar recharge.", unit: "days" },
-            { symbol: "Usable_SOC", label: "Usable DOD Window", description: "Nominal minus minimum reserve SOC (e.g. 80% usable for LiFePO4, 50% for Lead-Acid).", unit: "fraction" },
-            { symbol: "Inverter_Eff", label: "Inverter Efficiency (η)", description: "AC inverter DC-to-AC conversion efficiency (typically 88%–93%).", unit: "fraction" },
-            { symbol: "Margin", label: "Design Margin", description: "Planning safety buffer (typically 10%–15%).", unit: "fraction" },
+            { symbol: "Daily_Load_kWh", label: "Load-Side Daily Energy", description: "Total energy delivered to connected AC/DC loads per day. Inverter losses are modeled separately.", unit: "kWh/day" },
+            { symbol: "Autonomy_Days", label: "Days of Autonomy", description: "Continuous days of battery support required without meaningful solar or generator recharge.", unit: "days" },
+            { symbol: "Margin", label: "Design Margin", description: "Planning safety buffer applied to total storage (e.g., 0.10 for 10%).", unit: "fraction" },
+            { symbol: "Usable_SOC", label: "Usable DOD Window", description: "Nominal minus minimum reserve SOC (e.g. 0.80 for LiFePO4, 0.50 for Lead-Acid).", unit: "fraction" },
+            { symbol: "Inverter_Eff", label: "Inverter Efficiency (η)", description: "AC inverter DC-to-AC conversion efficiency (typically 0.88–0.94).", unit: "fraction" },
+            { symbol: "Available_Capacity_Factor", label: "Available Capacity Factor", description: "Planning derating applied to nominal capacity. This is not a battery-aging prediction.", unit: "fraction" },
           ]}
           notes={[
             "Amp-Hour equivalent at nominal voltage V: Ah = (Bank_kWh × 1,000) / V.",
-            "48V battery systems require 1/4 the current (amperage) of 12V systems for the same power, significantly reducing wire gauge and resistive heat losses.",
+            "Higher-voltage battery systems (e.g., 48V vs 12V) reduce DC current by 75% for identical power, simplifying conductor sizing and reducing I²R resistive losses.",
+            "Hardware configurations must arrange individual 12V or 24V battery units into balanced series strings matching nominal system voltage (e.g., 4S for 48V).",
           ]}
         />
       </div>
+
+      <section id="technical-basis" style={{ marginTop: "2.5rem" }}>
+        <h2>Technical References &amp; Model Basis</h2>
+        <p>
+          PowerLab implements a deterministic, simplified sizing model designed for pre-engineering planning. The following technical references provide context for battery depth of discharge, string configuration, and safety criteria:
+        </p>
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(240px, 1fr))", gap: "1rem", marginTop: "1rem" }}>
+          <div style={{ padding: "1rem", borderRadius: "0.5rem", border: "1px solid var(--border-color, #cbd5e1)", background: "var(--surface, #ffffff)" }}>
+            <strong style={{ display: "block", color: "var(--brand-strong, #0284c7)", marginBottom: "0.25rem" }}>IEEE Std 1013</strong>
+            <p style={{ fontSize: "0.85rem", color: "var(--text-muted, #64748b)", margin: 0 }}>
+              Recommended practice for sizing lead-acid batteries in stand-alone photovoltaic (PV) systems, establishing depth-of-discharge and temperature derating methodologies.
+            </p>
+          </div>
+          <div style={{ padding: "1rem", borderRadius: "0.5rem", border: "1px solid var(--border-color, #cbd5e1)", background: "var(--surface, #ffffff)" }}>
+            <strong style={{ display: "block", color: "var(--brand-strong, #0284c7)", marginBottom: "0.25rem" }}>IEEE Std 485</strong>
+            <p style={{ fontSize: "0.85rem", color: "var(--text-muted, #64748b)", margin: 0 }}>
+              Recommended practice for sizing stationary battery installations, addressing duty cycles, design margins, and capacity rating conventions.
+            </p>
+          </div>
+          <div style={{ padding: "1rem", borderRadius: "0.5rem", border: "1px solid var(--border-color, #cbd5e1)", background: "var(--surface, #ffffff)" }}>
+            <strong style={{ display: "block", color: "var(--brand-strong, #0284c7)", marginBottom: "0.25rem" }}>IEC 62619</strong>
+            <p style={{ fontSize: "0.85rem", color: "var(--text-muted, #64748b)", margin: 0 }}>
+              Safety and operational requirements for secondary lithium cells and batteries used in industrial and stationary energy storage systems.
+            </p>
+          </div>
+          <div style={{ padding: "1rem", borderRadius: "0.5rem", border: "1px solid var(--border-color, #cbd5e1)", background: "var(--surface, #ffffff)" }}>
+            <strong style={{ display: "block", color: "var(--brand-strong, #0284c7)", marginBottom: "0.25rem" }}>NFPA 70 / NEC Article 706</strong>
+            <p style={{ fontSize: "0.85rem", color: "var(--text-muted, #64748b)", margin: 0 }}>
+              National Electrical Code safety standards for Energy Storage Systems (ESS), including disconnecting means, overcurrent protection, and conductor sizing.
+            </p>
+          </div>
+        </div>
+      </section>
 
       <section id="faq-section" className="faq-section">
         <h2>Frequently Asked Questions (FAQ)</h2>

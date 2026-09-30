@@ -1,10 +1,10 @@
 import type { Metadata } from "next";
 import { buildPageMetadata } from "@/lib/seo/metadata-helper";
 import Link from "next/link";
-import { siteConfig } from "@/lib/site-config";
 import { isCalculatorPublished } from "@/lib/calculator-registry";
 import { buildCalculatorStructuredData } from "@/lib/seo/structured-data";
 import { SolarPaybackCalculator } from "@/components/calculator/solar-payback-calculator";
+import { calculateSolarPayback } from "@/lib/calculators/solar-payback/engine";
 import { FormulaCard } from "@/components/seo/formula-card";
 import { StandardsBadge } from "@/components/seo/standards-badge";
 import { PageJumpNav } from "@/components/seo/page-jump-nav";
@@ -13,49 +13,78 @@ import { DirectAnswerCard } from "@/components/seo/direct-answer-card";
 const isPublished = isCalculatorPublished("solar-payback");
 
 export const metadata: Metadata = buildPageMetadata({
-  title: "Solar Payback Calculator — ROI & Break-Even",
+  title: "Solar Payback Calculator — ROI & Break-Even Timeline",
   description:
-    "Calculate solar payback period in years, ROI, and 25-year lifetime net savings from system cost, annual solar yield, and electric utility rates.",
+    "Estimate solar payback period, cumulative cash flow, and 25-year net returns from installation cost, annual solar yield, and utility rates.",
   canonicalPath: "/solar/solar-payback-calculator",
   category: "solar",
 });
 
 const FAQS = [
   {
-    question: "What is the average solar payback period in the US?",
-    answer: "For most US homeowners with average sunlight and electricity rates around $0.18/kWh, the average solar payback period ranges from 6.5 to 8.5 years after applying the 30% Federal Residential Clean Energy Credit (ITC). In states with high electric rates like California, New York, or Massachusetts, payback can be as short as 4 to 6 years.",
+    question: "What is the typical residential solar payback period in the US?",
+    answer: "Payback periods vary widely by location, sunlight resource, installation cost, and electricity tariffs. Under representative US electricity rates ($0.18 to $0.28/kWh) and typical turnkey installation costs ($2.80 to $3.20/W), simple payback for a 0% incentive baseline generally ranges from 7 to 12 years. In regions with higher electricity rates ($0.30+/kWh), payback can be shorter, while low-cost electricity regions or reduced export compensation regimes may see longer payback timelines.",
   },
   {
-    question: "How does the 30% Federal Clean Energy Tax Credit (ITC) affect payback?",
-    answer: "The Section 25D Residential Clean Energy Credit allows taxpayers to deduct 30% of the total turnkey solar installation cost directly from their federal taxes. For a typical $24,000 system, this reduces the net capital cost by $7,200 (to $16,800), shortening the break-even timeline by approximately 2.5 to 3.5 years.",
+    question: "How did the 30% Federal Clean Energy Tax Credit (§25D) affect payback?",
+    answer: "Historically, the Section 25D Residential Clean Energy Credit allowed qualifying homeowners to claim a 30% federal tax credit on eligible solar and battery expenditures placed in service through December 31, 2025. For a $24,000 installation, claiming this $7,200 credit reduced net capital cost to $16,800, shortening break-even by approximately 2.5 to 3.5 years. For expenditures after 2025, federal credit availability depends on current statutory authority.",
   },
   {
-    question: "Do solar panels still save money if my utility changes net metering rules?",
-    answer: "Yes, but your self-consumption strategy changes. Under traditional 1-to-1 Net Energy Metering (NEM 1.0/2.0), surplus solar exported to the grid earns full retail value. Under reduced export compensation policies (like California NEM 3.0), pairing solar panels with a home battery allows you to store daytime solar energy to avoid expensive peak evening grid rates, preserving high ROI.",
+    question: "How do utility net metering policies affect solar financial returns?",
+    answer: "Under traditional 1-to-1 retail net energy metering (NEM), exported solar kilowatt-hours earn full retail bill credit. Under modernized tariffs with reduced export compensation (such as California Net Billing / NEM 3.0), solar exported during midday receives wholesale-equivalent credit. In such rate environments, maximizing on-site self-consumption or pairing solar with a battery storage system preserves stronger financial returns.",
   },
   {
-    question: "What is the 25-year return on investment (ROI) for solar?",
-    answer: "Because Tier-1 monocrystalline solar panels are warrantied for 25 years and continue producing power for 30+ years, a typical 8 kW solar installation generates $35,000 to $55,000 in net profit over its lifespan, translating to an Internal Rate of Return (IRR) of 12% to 18% per year.",
+    question: "What is the 25-year financial return on a residential solar system?",
+    answer: "Over a 25-year operating lifespan, Tier-1 solar modules with 0.5%/yr degradation continue generating clean electricity. After recovering initial capital and accounting for an illustrative midpoint inverter replacement (~Year 13), a representative 8 kW system can generate $25,000 to $50,000+ in cumulative net avoided electricity costs, depending on utility rate inflation.",
   },
 ];
 
+// Generate matrix rows dynamically from the engine
+const MATRIX_SCENARIOS = [
+  { sizeKw: 6.0, label: "6.0 kW example", grossCost: 17400, annualKwh: 8400 },
+  { sizeKw: 8.0, label: "8.0 kW example", grossCost: 23200, annualKwh: 11200 },
+  { sizeKw: 10.0, label: "10.0 kW example", grossCost: 29000, annualKwh: 14000 },
+  { sizeKw: 12.0, label: "12.0 kW example", grossCost: 34800, annualKwh: 16800 },
+].map((sc) => {
+  const res = calculateSolarPayback({
+    grossCost: sc.grossCost,
+    incentivePercent: 0,
+    annualProductionKwh: sc.annualKwh,
+    electricityRate: 0.18,
+    utilityInflationPercent: 3.5,
+    panelDegradationPercent: 0.5,
+    annualOmCost: 0,
+    inverterReplacementCost: 1800,
+    inverterReplacementYear: 13,
+    analysisYears: 25,
+  });
+  return {
+    ...sc,
+    netCost: res.result.netSystemCost,
+    year1Avoided: res.result.year1Savings,
+    paybackYears: res.result.paybackYears,
+    lifetimeNetProfit: res.result.lifetimeNetProfit,
+  };
+});
+
 export default function SolarPaybackPage() {
   const structuredData = buildCalculatorStructuredData({
-    name: "Solar Payback & ROI Calculator",
-    description: "Calculate solar break-even timeline in years, 25-year net profit, and return on investment without lead-generation forms.",
+    name: "Solar Payback & Break-Even Calculator",
+    description: "Estimate solar break-even timeline in years, 25-year cumulative cash flow, and simple return on investment without lead-generation forms.",
     route: "/solar/solar-payback-calculator",
     categoryName: "Solar",
     categoryRoute: "/solar",
+    applicationCategory: "UtilitiesApplication",
     features: [
-      "25-year cumulative cash-flow amortization modeling",
-      "US Federal 30% Clean Energy Tax Credit (ITC) calculation",
-      "Compound annual electricity tariff inflation (3.5% historical baseline)",
-      "Tier-1 monocrystalline annual panel degradation (0.5%/yr) and inverter replacement",
+      "25-year cumulative cash-flow and simple payback modeling",
+      "Avoided grid electricity cost calculation with annual tariff escalation",
+      "Panel degradation modeling (0.5%/yr) and midpoint inverter replacement",
+      "Representative regional solar resource and EIA electricity rate presets",
     ],
     standards: [
-      "NREL System Advisor Model (SAM) Financial & LCOE Methodology",
-      "U.S. Internal Revenue Code Section 25D (Residential Clean Energy Credit)",
-      "IEC 61215 / IEC 61730 (Terrestrial Photovoltaic Reliability)",
+      "NREL System Advisor Model (SAM) Financial Methodology",
+      "IEC 61215 / IEC 61730 Photovoltaic Standards",
+      "DSIRE Policy & Incentive Database",
     ],
     faqs: FAQS,
   });
@@ -73,10 +102,10 @@ export default function SolarPaybackPage() {
       </nav>
 
       <div className="calculator-header">
-        <p className="eyebrow">Financial ROI &amp; Investment Economics</p>
-        <h1>Solar Payback &amp; ROI Calculator</h1>
+        <p className="eyebrow">Solar Financial Analysis &amp; Cash Flow</p>
+        <h1>Solar Payback &amp; Break-Even Calculator</h1>
         <p className="intro">
-          Calculate your exact solar break-even timeline in years, 25-year cumulative net profit, and return on investment (ROI) based on your system installation cost, annual solar yield, and local utility rates.
+          Estimate your solar payback timeline in years, 25-year cumulative cash flow, and simple return on investment based on installation costs, annual solar output, and electricity rates.
         </p>
       </div>
 
@@ -85,79 +114,56 @@ export default function SolarPaybackPage() {
       </div>
 
       <DirectAnswerCard
-        keyword="solar payback period and ROI calculation"
-        answer="The average residential solar payback period in the US is 6.5 to 8.5 years after applying the 30% Federal Clean Energy Tax Credit (ITC). Simple payback is calculated by dividing net installation cost by Year-1 electricity bill savings. An 8 kW system costing $22,400 ($15,680 after ITC) generating $2,100 in annual power achieves break-even in approximately 7.1 years."
-        formula="Simple Payback (Years) = Net System Cost (after 30% Tax Credit) ÷ Year-1 Electricity Bill Savings"
-        standardExample="8 kW system @ $2.80/W = $22,400 ($15,680 net) producing 11,600 kWh @ $0.18/kWh: $15,680 ÷ $2,088 = 7.5 years"
-        sourceAuthority="NREL Annual Technology Baseline & US Dept. of Energy Solar Metrics"
+        keyword="solar payback period and break-even calculation"
+        answer="Solar payback represents the timeline required for cumulative avoided electricity costs to equal net initial installation costs. Under a cumulative cash-flow model with representative utility rate inflation and panel degradation, residential solar systems typically reach break-even within 7 to 11 years depending on local electric rates, sunlight availability, and net-metering structures."
+        formula="Payback_Year = min(t : Cumulative_Avoided_Cost(t) ≥ Net_Initial_Cost) · Cumulative_CashFlow(t) = Σ(Gross_Avoided_Cost_i − O&M_i − InverterExpense_i) − Net_Initial_Cost"
+        formulaTitle="Calculation Formulas"
+        standardExample="8 kW example @ $2.90/W ($23,200 gross / 0% credit basis) producing 11,200 kWh/yr @ $0.18/kWh: Year 1 avoided cost = $2,016 → Payback ≈ 9.6 years (or ≈ 7.0 years under historical 30% §25D credit)"
+        sourceAuthority="NREL System Advisor Model (SAM) & Open Energy Modeling Principles"
+        sourceAuthorityLabel="Technical References & Model Basis:"
       />
 
       <PageJumpNav />
 
       <section id="how-to-guide" style={{ marginTop: "3rem" }}>
-        <h2>How to Calculate Your Solar Payback Period</h2>
+        <h2>How to Estimate Your Solar Payback Period</h2>
         <ol>
-          <li><strong>Input System Size (kW):</strong> Enter your planned or installed DC rooftop solar capacity (typical US homes range from 6 kW to 12 kW).</li>
-          <li><strong>Enter Gross Installation Cost:</strong> Input the turnkey cost before incentives (US national average is approximately $2.80 to $3.20 per watt).</li>
-          <li><strong>Apply 30% Federal Tax Credit (ITC):</strong> The calculator automatically deducts the 30% Residential Clean Energy Credit (Section 25D) plus any local utility rebates.</li>
-          <li><strong>Set Electric Rate &amp; Escalation:</strong> Factor in your utility&apos;s $/kWh tariff and historical annual rate inflation (typically 3% to 4% per year).</li>
+          <li><strong>Input System Size &amp; Turnkey Cost:</strong> Enter your installed DC solar array capacity and gross turnkey cost before incentives (US residential installations typically range from $2.80 to $3.20 per watt).</li>
+          <li><strong>Account for Incentives &amp; Rebates:</strong> For expenditures after December 31, 2025, Section 25D is expired unless extending statutory authority applies; enter 0% for baseline or input applicable state, local, or utility rebates.</li>
+          <li><strong>Set Electricity Tariff &amp; Rate Escalation:</strong> Factor in your utility&apos;s current $/kWh electricity rate and historical annual rate inflation (typically 3% to 4% per year).</li>
+          <li><strong>Incorporate PV Degradation &amp; Inverter Replacement:</strong> Account for gradual module efficiency derating (typically ~0.5%/yr) and a planned midpoint string inverter replacement (~Year 12–15).</li>
         </ol>
       </section>
 
       <section id="sizing-matrix">
-        <h2>Solar System Size, Payback Period &amp; 25-Year Profit Matrix</h2>
-        <p>Representative financial return benchmarks for grid-tied rooftop solar systems with 30% Federal Tax Credit at $0.18/kWh:</p>
+        <h2>Solar System Size, Payback Period &amp; 25-Year Cash Flow Matrix</h2>
+        <p>Illustrative scenario examples (0% current federal incentive basis, $0.18/kWh initial rate, 3.5% inflation, 0.5% degradation, $1,800 inverter replacement at Year 13):</p>
         <div className="scenario-table" role="region" aria-label="Solar payback and 25-year financial return matrix">
           <table>
-            <caption>Solar payback timelines, cash flows, and 25-year cumulative return by system size</caption>
+            <caption>Illustrative solar payback timelines, avoided costs, and 25-year cumulative cash flows by system size</caption>
             <thead>
               <tr>
-                <th scope="col">System Size (kW DC)</th>
+                <th scope="col">System Size</th>
                 <th scope="col">Gross Cost ($2.90/W)</th>
-                <th scope="col">Net Cost (after 30% ITC)</th>
+                <th scope="col">Net Cost (0% Credit)</th>
                 <th scope="col">Est. Annual Output</th>
-                <th scope="col">Year 1 Savings</th>
-                <th scope="col">Payback Period</th>
-                <th scope="col">25-Yr Net Profit</th>
+                <th scope="col">Year 1 Avoided Cost</th>
+                <th scope="col">Estimated Payback</th>
+                <th scope="col">25-Yr Net Cash Flow</th>
               </tr>
             </thead>
             <tbody>
-              <tr>
-                <td><strong>6.0 kW</strong> (Small Home)</td>
-                <td>$17,400</td>
-                <td>$12,180</td>
-                <td>~8,400 kWh</td>
-                <td>$1,512</td>
-                <td><strong>7.1 Years</strong></td>
-                <td><strong>+$31,200</strong></td>
-              </tr>
-              <tr>
-                <td><strong>8.0 kW</strong> (Average US Home)</td>
-                <td>$23,200</td>
-                <td>$16,240</td>
-                <td>~11,200 kWh</td>
-                <td>$2,016</td>
-                <td><strong>7.0 Years</strong></td>
-                <td><strong>+$42,100</strong></td>
-              </tr>
-              <tr>
-                <td><strong>10.0 kW</strong> (High Energy Home)</td>
-                <td>$29,000</td>
-                <td>$20,300</td>
-                <td>~14,000 kWh</td>
-                <td>$2,520</td>
-                <td><strong>6.9 Years</strong></td>
-                <td><strong>+$53,400</strong></td>
-              </tr>
-              <tr>
-                <td><strong>12.0 kW</strong> (Solar + EV + Heat Pump)</td>
-                <td>$34,800</td>
-                <td>$24,360</td>
-                <td>~16,800 kWh</td>
-                <td>$3,024</td>
-                <td><strong>6.8 Years</strong></td>
-                <td><strong>+$64,800</strong></td>
-              </tr>
+              {MATRIX_SCENARIOS.map((row) => (
+                <tr key={row.sizeKw}>
+                  <td><strong>{row.label}</strong></td>
+                  <td>${row.grossCost.toLocaleString()}</td>
+                  <td>${row.netCost.toLocaleString()}</td>
+                  <td>~{row.annualKwh.toLocaleString()} kWh</td>
+                  <td>${row.year1Avoided.toLocaleString()}</td>
+                  <td><strong>{row.paybackYears.toFixed(1)} Years</strong></td>
+                  <td><strong>+${row.lifetimeNetProfit.toLocaleString()}</strong></td>
+                </tr>
+              ))}
             </tbody>
           </table>
         </div>
@@ -165,28 +171,30 @@ export default function SolarPaybackPage() {
 
       <div id="formula-math">
         <FormulaCard
-          title="Solar Payback &amp; Cash Flow Formula"
-          formula="Payback_Year = min(t : Cumulative_Savings(t) ≥ Net_Initial_Cost)"
-          formulaDescription="Standard discounted cash flow amortization integrating utility rate escalation, annual panel output degradation, and federal tax incentives."
+          title="Calculation Formulas"
+          formula="Net_CashFlow_t = (Output_1 * (1 - Degradation)^(t-1) * Rate_1 * (1 + Escalation)^(t-1)) - OM_t - Inverter_t ; Payback = min(t : Cumulative_CashFlow_t >= 0)"
+          formulaDescription="Cumulative cash flow and simple payback model integrating annual panel degradation, utility rate escalation, annual O&M, and midpoint inverter replacement."
           variables={[
-            { symbol: "Net_Initial_Cost", label: "Net System Cost", description: "Gross installation cost minus 30% Federal ITC and upfront state rebates", unit: "Currency ($)" },
-            { symbol: "Annual_Savings(t)", label: "Yearly Avoided Electric Cost", description: "Solar Output(t) × Electricity_Rate(t) minus annual O&M maintenance", unit: "$/year" },
-            { symbol: "Degradation_Rate", label: "PV Aging Factor", description: "Standard 0.5% annual loss in panel nameplate efficiency", unit: "%/year" },
-            { symbol: "Rate_Inflation", label: "Utility Rate Escalation", description: "Compounding annual increase in retail grid electricity rates", unit: "%/year" },
+            { symbol: "Net_Initial_Cost", label: "Net Upfront Capital Cost", description: "Gross installation cost minus upfront tax credits and rebates", unit: "Currency ($)" },
+            { symbol: "Output_t", label: "Year-t Solar Output", description: "Annual generation derated by panel degradation: Output_1 × (1 - Degradation)^(t-1)", unit: "kWh/yr" },
+            { symbol: "Electricity_Rate_t", label: "Year-t Electricity Tariff", description: "Retail rate escalating over time: Rate_1 × (1 + Escalation)^(t-1)", unit: "$/kWh" },
+            { symbol: "Net_CashFlow_t", label: "Net Annual Cash Flow", description: "Gross avoided electricity purchase cost minus O&M and inverter replacement expenses", unit: "$/yr" },
+            { symbol: "Cumulative_CashFlow_t", label: "Cumulative Cash Flow Position", description: "Running total of annual net savings minus initial net capital expenditure", unit: "Currency ($)" },
           ]}
           notes={[
-            "Assumes 1-to-1 net energy metering (NEM) or equivalent avoided grid purchase value for consumed solar kWh.",
-            "Net profit over 25 years includes an optional midpoint inverter replacement around year 12–15.",
+            "Model basis: simplified avoided-cost valuation of solar generation. Values all solar production at the retail electricity rate (equivalent to 1-to-1 avoided grid purchases). It does not separately model TOU rate differentials, export compensation tariffs (such as California NEM 3.0), or utility fixed charges.",
+            "The 30% Section 25D Residential Clean Energy Credit applied to qualifying expenditures placed in service through December 31, 2025; verify current statutory incentives for 2026+ installations.",
+            "Illustrative planning assumptions: 0.5%/yr PV module degradation, 3.5%/yr utility tariff inflation, and $1,800 midpoint inverter replacement at Year 13.",
           ]}
         />
       </div>
 
       <section>
-        <h2>Key Factors That Determine Your Solar Break-Even Timeline</h2>
+        <h2>Key Factors That Determine Solar Break-Even Timelines</h2>
         <ol>
-          <li><strong>Local Electricity Rates ($/kWh):</strong> The higher your utility charges for grid power, the faster your solar panels pay for themselves.</li>
-          <li><strong>Net Metering Policies:</strong> Full 1-to-1 retail net metering accelerates payback, while reduced wholesale feed-in tariffs (like California NEM 3.0) encourage pairing solar with battery storage.</li>
-          <li><strong>Sunlight Availability (Peak Sun Hours):</strong> Systems in sunbelt regions generate up to 40% more kilowatt-hours per year per installed kilowatt than northern climates.</li>
+          <li><strong>Local Electricity Rates ($/kWh):</strong> Higher retail electricity rates accelerate avoided-cost accumulation, resulting in shorter payback timelines.</li>
+          <li><strong>Utility Compensation &amp; Export Tariffs:</strong> 1-to-1 net energy metering credits all solar at retail rate, whereas avoided-cost/wholesale export rates benefit from maximizing on-site self-consumption or adding battery storage.</li>
+          <li><strong>Solar Resource (Peak Sun Hours):</strong> Sunbelt locations generate significantly higher annual kilowatt-hour yields per installed kilowatt than cloudy northern latitudes.</li>
         </ol>
       </section>
 
@@ -205,18 +213,35 @@ export default function SolarPaybackPage() {
       <section id="related-tools">
         <h2>Related Solar Sizing &amp; Financial Planning</h2>
         <p>
-          Estimate your exact annual solar production yield with our <Link href="/solar/solar-panel-output-calculator">Solar Panel Output Calculator</Link> (using NREL PVWatts V8), size your roof array with the <Link href="/solar/solar-panel-size-calculator">Solar Panel Size Calculator</Link>, or calculate your current electric bill baseline with the <Link href="/home-energy/energy-bill-calculator">Energy Bill Calculator</Link>.
+          Estimate your annual solar production yield with our <Link href="/solar/solar-panel-output-calculator">Solar Panel Output Calculator</Link> (using NREL PVWatts V8), size your roof array with the <Link href="/solar/solar-panel-size-calculator">Solar Panel Size Calculator</Link>, model battery backup storage with the <Link href="/home-energy/home-battery-size-calculator">Home Battery Size Calculator</Link>, or calculate your current electric bill baseline with the <Link href="/home-energy/energy-bill-calculator">Energy Bill Calculator</Link>.
         </p>
       </section>
 
       <section>
-        <h2>Methodology and Standards</h2>
+        <h2>Technical References &amp; Model Basis</h2>
         <p>
-          Payback timelines incorporate the 30% US Federal Residential Clean Energy Credit (Section 25D), standard NREL PV panel degradation curves, and historical utility rate inflation. See our <Link href="/methodology">methodology</Link> and <Link href="/sources">sources</Link>.
+          Solar payback and cash flow calculations employ annual cash-flow modeling and standard engineering benchmarks. References are organized by role below:
         </p>
+        <div style={{ marginTop: "1rem", display: "flex", flexDirection: "column", gap: "0.85rem" }}>
+          <div>
+            <h3 style={{ fontSize: "1rem", marginBottom: "0.25rem" }}>1. Methodology &amp; Engineering Basis</h3>
+            <ul style={{ margin: 0, paddingLeft: "1.2rem", fontSize: "0.9rem" }}>
+              <li><strong>NREL System Advisor Model (SAM):</strong> Photovoltaic Cash Flow, Degradation &amp; LCOE Methodologies.</li>
+              <li><strong>IEC 61215 / IEC 61730:</strong> Terrestrial Photovoltaic (PV) Modules — Design Qualification and Safety Standards.</li>
+            </ul>
+          </div>
+          <div>
+            <h3 style={{ fontSize: "1rem", marginBottom: "0.25rem" }}>2. Statutory &amp; Policy Context</h3>
+            <ul style={{ margin: 0, paddingLeft: "1.2rem", fontSize: "0.9rem" }}>
+              <li><strong>Internal Revenue Code Section 25D:</strong> Residential Clean Energy Credit (historical expenditures placed in service through December 31, 2025).</li>
+              <li><strong>DSIRE:</strong> Database of State Incentives for Renewables &amp; Efficiency (state and local solar policy tracking).</li>
+            </ul>
+          </div>
+        </div>
       </section>
 
       <StandardsBadge category="solar" />
     </article>
   );
 }
+

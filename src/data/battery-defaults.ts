@@ -66,12 +66,12 @@ export const UPS_BATTERY_SIZE_DEFAULTS = {
 } as const;
 
 export const PORTABLE_POWER_STATION_DEFAULTS = {
-  capacityWh: 1024,
-  continuousOutputW: 1800,
-  directLoadW: 100,
-  acEfficiency: 0.9,
+  capacityWh: 1000,
+  continuousOutputW: 1000,
+  directLoadW: 60,
+  acEfficiency: 0.88,
   batteryHealth: 1,
-  reserveFraction: 0.05,
+  reserveFraction: 0.1,
   desiredRuntimeHours: 8,
 } as const;
 

@@ -15,10 +15,10 @@ import { CalculatorTrustPill } from "@/components/calculator/calculator-trust-pi
 import { StandardsBadge } from "@/components/calculator/standards-badge";
 
 const QUICK_SAVINGS_PRESETS = [
-  { label: "🏙️ City (8,000 mi · 30 MPG)", distance: "8000", distUnit: "mi" as DistanceUnit, mpg: "30", fuelUnit: "us-mpg" as FuelConsumptionUnit, gasPrice: "3.50", gasPriceUnit: "per-us-gallon" as FuelPriceUnit, elecPrice: "0.16", evCons: "28", evUnit: "kwh-per-100-mi" as EvConsumptionUnit },
-  { label: "🚗 Average (12,000 mi · 28 MPG)", distance: "12000", distUnit: "mi" as DistanceUnit, mpg: "28", fuelUnit: "us-mpg" as FuelConsumptionUnit, gasPrice: "3.50", gasPriceUnit: "per-us-gallon" as FuelPriceUnit, elecPrice: "0.16", evCons: "30", evUnit: "kwh-per-100-mi" as EvConsumptionUnit },
-  { label: "🛣️ Long Commute (20,000 mi · 25 MPG)", distance: "20000", distUnit: "mi" as DistanceUnit, mpg: "25", fuelUnit: "us-mpg" as FuelConsumptionUnit, gasPrice: "3.50", gasPriceUnit: "per-us-gallon" as FuelPriceUnit, elecPrice: "0.16", evCons: "32", evUnit: "kwh-per-100-mi" as EvConsumptionUnit },
-  { label: "🛻 Truck / SUV (15,000 mi · 19 MPG)", distance: "15000", distUnit: "mi" as DistanceUnit, mpg: "19", fuelUnit: "us-mpg" as FuelConsumptionUnit, gasPrice: "3.75", gasPriceUnit: "per-us-gallon" as FuelPriceUnit, elecPrice: "0.16", evCons: "45", evUnit: "kwh-per-100-mi" as EvConsumptionUnit },
+  { label: "🏙️ City (8,000 mi · 30 MPG)", distance: "8000", distUnit: "mi" as DistanceUnit, mpg: "30", fuelUnit: "us-mpg" as FuelConsumptionUnit, gasPrice: "3.50", gasPriceUnit: "per-us-gallon" as FuelPriceUnit, elecPrice: "0.16", evCons: "3.6", evUnit: "mi-per-kwh" as EvConsumptionUnit },
+  { label: "🚗 Average (12,000 mi · 28 MPG)", distance: "12000", distUnit: "mi" as DistanceUnit, mpg: "28", fuelUnit: "us-mpg" as FuelConsumptionUnit, gasPrice: "3.50", gasPriceUnit: "per-us-gallon" as FuelPriceUnit, elecPrice: "0.16", evCons: "3.5", evUnit: "mi-per-kwh" as EvConsumptionUnit },
+  { label: "🛣️ Long Commute (20,000 mi · 25 MPG)", distance: "20000", distUnit: "mi" as DistanceUnit, mpg: "25", fuelUnit: "us-mpg" as FuelConsumptionUnit, gasPrice: "3.50", gasPriceUnit: "per-us-gallon" as FuelPriceUnit, elecPrice: "0.16", evCons: "3.1", evUnit: "mi-per-kwh" as EvConsumptionUnit },
+  { label: "🛻 Truck / SUV (15,000 mi · 19 MPG)", distance: "15000", distUnit: "mi" as DistanceUnit, mpg: "19", fuelUnit: "us-mpg" as FuelConsumptionUnit, gasPrice: "3.75", gasPriceUnit: "per-us-gallon" as FuelPriceUnit, elecPrice: "0.16", evCons: "2.2", evUnit: "mi-per-kwh" as EvConsumptionUnit },
   { label: "🇪🇺 European (15,000 km · 6.5 L/100km)", distance: "15000", distUnit: "km" as DistanceUnit, mpg: "6.5", fuelUnit: "l-per-100-km" as FuelConsumptionUnit, gasPrice: "1.75", gasPriceUnit: "per-liter" as FuelPriceUnit, elecPrice: "0.25", evCons: "18", evUnit: "kwh-per-100-km" as EvConsumptionUnit },
 ];
 
@@ -37,8 +37,8 @@ type Draft = {
 const initialDraft: Draft = {
   annualDistance: "12000",
   distanceUnit: "mi",
-  evConsumption: "30",
-  evConsumptionUnit: "kwh-per-100-mi",
+  evConsumption: "3.5",
+  evConsumptionUnit: "mi-per-kwh",
   electricityPrice: "0.16",
   fuelConsumption: "28",
   fuelConsumptionUnit: "us-mpg",
@@ -48,7 +48,6 @@ const initialDraft: Draft = {
 
 const number = (value: number, digits = 2) => value.toLocaleString("en-US", { maximumFractionDigits: digits });
 const money = (value: number, currency: string) => new Intl.NumberFormat(undefined, { style: "currency", currency, maximumFractionDigits: 2 }).format(value);
-const percent = (value: number) => `${number(value * 100, 1)}%`;
 
 function formatFuelConsumption(value: number, unit: FuelConsumptionUnit): number {
   const litersPerKm = fuelConsumptionToLitersPerKm(value, unit);
@@ -72,8 +71,8 @@ export function EvSavingsCalculator() {
       return calculateEvSavings({
         annualDistance: 12000,
         distanceUnit: "mi",
-        evConsumption: 30,
-        evConsumptionUnit: "kwh-per-100-mi",
+        evConsumption: 3.5,
+        evConsumptionUnit: "mi-per-kwh",
         electricityPricePerKWh: 0.16,
         chargingEfficiency: 0.9,
         fuelConsumption: 28,
@@ -136,12 +135,20 @@ export function EvSavingsCalculator() {
     }
     if (key === "evConsumptionUnit") {
       const current = Number(draft.evConsumption);
-      const normalized = draft.evConsumptionUnit === "kwh-per-100-km" ? current / 100 : current / 160.9344;
-      const converted = next === "kwh-per-100-km" ? normalized * 100 : normalized * 160.9344;
+      let normalizedKWhPerKm: number;
+      if (draft.evConsumptionUnit === "kwh-per-100-km") normalizedKWhPerKm = current / 100;
+      else if (draft.evConsumptionUnit === "kwh-per-100-mi") normalizedKWhPerKm = current / 160.9344;
+      else normalizedKWhPerKm = 1 / (current * 1.609344);
+
+      let converted: number;
+      if (next === "kwh-per-100-km") converted = normalizedKWhPerKm * 100;
+      else if (next === "kwh-per-100-mi") converted = normalizedKWhPerKm * 160.9344;
+      else converted = 1 / (normalizedKWhPerKm * 1.609344);
+
       setDraft((currentDraft) => ({
         ...currentDraft,
         evConsumptionUnit: next as EvConsumptionUnit,
-        evConsumption: Number.isFinite(converted) ? String(converted) : currentDraft.evConsumption,
+        evConsumption: Number.isFinite(converted) ? String(number(converted, 2).replace(/,/g, "")) : currentDraft.evConsumption,
       }));
       return;
     }
@@ -247,47 +254,54 @@ export function EvSavingsCalculator() {
             noValidate
           >
             <fieldset className="input-group">
-              <legend>Driving and prices</legend>
+              <legend>Driving distance &amp; vehicle consumption</legend>
               <label>
                 Annual distance
                 <span className="input-with-unit">
-                  <input type="number" min="0" step="any" inputMode="decimal" value={draft.annualDistance} onChange={(event) => updateDraft("annualDistance", event.target.value)} />
+                  <input type="number" min="0.01" step="any" inputMode="decimal" value={draft.annualDistance} onChange={(event) => updateDraft("annualDistance", event.target.value)} />
                   <select aria-label="Distance unit" value={draft.distanceUnit} onChange={(event) => updateUnit("distanceUnit", event.target.value)}>
-                    <option value="km">km/year</option>
                     <option value="mi">mi/year</option>
+                    <option value="km">km/year</option>
                   </select>
                 </span>
               </label>
               <label>
-                EV consumption
+                EV battery consumption
                 <span className="input-with-unit">
                   <input type="number" min="0.0001" step="any" inputMode="decimal" value={draft.evConsumption} onChange={(event) => updateDraft("evConsumption", event.target.value)} />
-                  <select aria-label="EV consumption unit" value={draft.evConsumptionUnit} onChange={(event) => updateUnit("evConsumptionUnit", event.target.value)}>
-                    <option value="kwh-per-100-km">kWh/100 km</option>
+                  <select aria-label="EV battery consumption unit" value={draft.evConsumptionUnit} onChange={(event) => updateUnit("evConsumptionUnit", event.target.value)}>
+                    <option value="mi-per-kwh">mi/kWh</option>
                     <option value="kwh-per-100-mi">kWh/100 mi</option>
+                    <option value="kwh-per-100-km">kWh/100 km</option>
                   </select>
                 </span>
+                <span className="form-hint">Battery-side vehicle energy consumption before charging losses.</span>
               </label>
               <label>
-                Fuel consumption
+                Gasoline vehicle fuel consumption
                 <span className="input-with-unit">
                   <input type="number" min="0.0001" step="any" inputMode="decimal" value={draft.fuelConsumption} onChange={(event) => updateDraft("fuelConsumption", event.target.value)} />
                   <select aria-label="Fuel consumption unit" value={draft.fuelConsumptionUnit} onChange={(event) => updateUnit("fuelConsumptionUnit", event.target.value)}>
+                    <option value="us-mpg">US mpg</option>
                     <option value="l-per-100-km">L/100 km</option>
                     <option value="km-per-l">km/L</option>
-                    <option value="us-mpg">US mpg</option>
                   </select>
                 </span>
               </label>
+            </fieldset>
+
+            <fieldset className="input-group">
+              <legend>Energy prices &amp; currency</legend>
               <label>
-                Currency
-                <select value={currency} onChange={(event) => updateCurrency(event.target.value)}>
+                Calculation currency
+                <select aria-label="Calculation currency" value={currency} onChange={(event) => updateCurrency(event.target.value)}>
                   {DISPLAY_CURRENCIES.map((item) => (
                     <option key={item.code} value={item.code}>
                       {item.code}
                     </option>
                   ))}
                 </select>
+                <span className="form-hint">Enter both electricity and fuel prices in this currency. No currency conversion is performed.</span>
               </label>
               <label>
                 Electricity price
@@ -301,12 +315,13 @@ export function EvSavingsCalculator() {
                 <span className="input-with-unit">
                   <input type="number" min="0" step="any" value={draft.fuelPrice} onChange={(event) => updateDraft("fuelPrice", event.target.value)} />
                   <select aria-label="Fuel price unit" value={draft.fuelPriceUnit} onChange={(event) => updateUnit("fuelPriceUnit", event.target.value)}>
-                    <option value="per-liter">/liter</option>
                     <option value="per-us-gallon">/US gallon</option>
+                    <option value="per-liter">/liter</option>
                   </select>
                 </span>
               </label>
             </fieldset>
+
             <button className="text-button" type="button" aria-expanded={advancedOpen} onClick={() => setAdvancedOpen((open) => !open)}>
               {advancedOpen ? "Hide" : "Show"} advanced assumptions
             </button>
@@ -315,7 +330,7 @@ export function EvSavingsCalculator() {
                 <legend>Advanced assumptions</legend>
                 <div>
                   <label htmlFor="ev-charging-eff-input">
-                    Charging efficiency (%)
+                    Charging efficiency (%) — illustrative grid-to-battery assumption
                   </label>
                   <input
                     id="ev-charging-eff-input"
@@ -338,7 +353,7 @@ export function EvSavingsCalculator() {
                         setEvEfficiency("90");
                         markStale();
                       }}
-                      title="Standard 240V residential AC charging at mild ambient temperatures"
+                      title="Standard 240V residential AC charging (illustrative 90% default)"
                     >
                       ⚡ Level 2 Typical (90%)
                     </button>
@@ -350,7 +365,7 @@ export function EvSavingsCalculator() {
                         setEvEfficiency("81");
                         markStale();
                       }}
-                      title="120V trickle charging (continuous ~250W parasitic BMS/computer overhead)"
+                      title="120V Level 1 trickle charging (parasitic computer overhead)"
                     >
                       🔌 Level 1 Trickle (81%)
                     </button>
@@ -359,28 +374,16 @@ export function EvSavingsCalculator() {
                       className="button secondary-button"
                       style={{ fontSize: "0.72rem", padding: "0.2rem 0.45rem" }}
                       onClick={() => {
-                        setEvEfficiency("83");
+                        setEvEfficiency("100");
                         markStale();
                       }}
-                      title="Sub-zero winter conditions with active PTC battery thermal conditioning"
+                      title="If your consumption figure already represents billed wall energy"
                     >
-                      ❄️ Cold Climate (83%)
-                    </button>
-                    <button
-                      type="button"
-                      className="button secondary-button"
-                      style={{ fontSize: "0.72rem", padding: "0.2rem 0.45rem" }}
-                      onClick={() => {
-                        setEvEfficiency("93");
-                        markStale();
-                      }}
-                      title="Modern Silicon Carbide (SiC) 800V architecture at 48A"
-                    >
-                      🚀 High Efficiency SiC (93%)
+                      🔌 100% (Wall Meter Input)
                     </button>
                   </div>
                   <span className="form-hint" style={{ marginTop: "0.35rem", display: "block" }}>
-                    Models AC-to-DC conversion &amp; thermal losses. Level 1 suffers higher percentage loss due to fixed vehicle computer/BMS draw (~150W–300W), while freezing temperatures divert energy to active pack heating (Archsmith, Kendall, &amp; Rapson, 2015).
+                    Grid-to-battery efficiency used to convert battery-side consumption into electricity purchased from the grid. Default is 90% for AC charging.
                   </span>
                 </div>
                 <label>
@@ -409,7 +412,9 @@ export function EvSavingsCalculator() {
                     }}
                   />
                 </label>
-                <p className="form-hint">Maintenance is compared only when both values are entered. No maintenance, depreciation, insurance or tax estimates are invented.</p>
+                <p className="form-hint">
+                  Maintenance is compared only when both values are entered. No maintenance, depreciation, financing, insurance or vehicle purchase payback are invented.
+                </p>
               </fieldset>
             )}
             {error && (
@@ -452,7 +457,7 @@ function SavingsResult({
     result.primarySavings < 0
       ? `${result.primaryScope === "operating" ? "EV energy cost is higher" : "EV compared costs are higher"} by`
       : result.primaryScope === "operating"
-      ? "Estimated annual EV operating savings"
+      ? "Estimated annual energy/fuel cost savings"
       : "Estimated annual compared savings";
   const rangePublished = isCalculatorPublished("ev-range");
   const costPublished = isCalculatorPublished("ev-charging-cost");
@@ -464,7 +469,7 @@ function SavingsResult({
         {money(Math.abs(result.primarySavings), currency)}
         <small>/year</small>
       </p>
-      <StandardsBadge standards={["EPA Fuel Economy Model", "SAE J1772", "DOE AFDC Metrics"]} />
+      <StandardsBadge standards={["DOE AFDC Model", "EPA Fuel Economy", "SAE J1772"]} />
       {stale && (
         <p className="warning" role="status">
           Inputs changed — recalculate to update this estimate.
@@ -472,15 +477,15 @@ function SavingsResult({
       )}
       <dl className="result-breakdown">
         <div>
-          <dt>EV electricity cost</dt>
+          <dt>Grid electricity cost</dt>
           <dd>{money(result.evEnergyCost, currency)}/year</dd>
         </div>
         <div>
-          <dt>Fuel cost</dt>
+          <dt>Gasoline/fuel cost</dt>
           <dd>{money(result.fuelCost, currency)}/year</dd>
         </div>
         <div>
-          <dt>Operating savings</dt>
+          <dt>Annual energy/fuel cost savings</dt>
           <dd>{money(result.operatingSavings, currency)}/year</dd>
         </div>
         <div>
@@ -491,7 +496,9 @@ function SavingsResult({
         </div>
         <div>
           <dt>Fuel used</dt>
-          <dd>{number(result.fuelLiters)} L/year</dd>
+          <dd>
+            {draft.fuelPriceUnit === "per-us-gallon" ? `${number(result.fuelGallons)} gal/year` : `${number(result.fuelLiters)} L/year`}
+          </dd>
         </div>
         <div>
           <dt>EV cost per 100 km / 100 mi</dt>
@@ -572,7 +579,7 @@ function SavingsResult({
         )}
       </div>
       <p className="form-hint" style={{ marginTop: "0.75rem" }}>
-        This compares energy/fuel operating costs. It does not include live prices, depreciation, insurance, taxes, vehicle models or public charging fee systems.
+        This compares recurring energy/fuel operating costs. It does not model purchase prices, incentives, depreciation, financing, insurance, or taxes.
       </p>
     </>
   );

@@ -22,19 +22,19 @@ export const metadata: Metadata = buildPageMetadata({
 const FAQS = [
   {
     question: "How much electricity does a 400-Watt solar panel produce per day?",
-    answer: "In a region receiving 4.5 peak sun hours (PSH) per day, a 400W panel produces approximately 1.45 to 1.55 kilowatt-hours (kWh) of usable AC electricity per day after accounting for standard DC system losses (~14%) and inverter conversion efficiency (~96%). Over a full year, one 400W panel generates approximately 520 to 620 kWh depending on local climate and tilt orientation.",
+    answer: "Under standard planning assumptions with 4.5 peak sun hours (PSH) per day, a 400W (0.40 kW) DC panel produces approximately 1.49 kilowatt-hours (kWh) of usable AC electricity per day (0.40 kW × 4.5 PSH × 0.86 DC derate × 0.96 inverter efficiency). Over a full year, this equals approximately 543 kWh (1.486 kWh/day × 365.25 days). Actual annual production typically ranges from ~420 kWh in cloudy climates (3.5 PSH) to over ~660 kWh in sunny desert locations (5.5+ PSH) and depends on array tilt, orientation, and shading.",
   },
   {
     question: "How many solar panels do I need to power an average home?",
-    answer: "The average US household consumes approximately 880 to 900 kWh per month (~10,500 kWh annually). In an average solar resource zone (4.0 to 4.5 PSH), offsetting 100% of this annual consumption requires a 7.5 kW to 8.5 kW DC solar array, which corresponds to 19 to 22 modern 400-Watt solar panels.",
+    answer: "As an illustrative U.S. scenario, the average residential household consumes approximately 880 to 900 kWh per month (~10,500 kWh annually). In an average solar resource area (4.0 to 4.5 PSH) with 14% DC losses and 96% inverter efficiency, offsetting 100% of this annual consumption requires an illustrative 7.5 kW to 8.5 kW DC solar array (approximately 19 to 22 modern 400-Watt solar panels). Actual required system capacity depends on your specific annual kWh utility consumption, roof tilt and azimuth, local insolation, tree or architectural shading, and utility net-metering rules.",
   },
   {
     question: "Why does solar production drop in winter?",
     answer: "Winter solar production decreases primarily because of shorter daylight durations, lower solar elevation angles (which increases atmospheric air mass and reduces plane-of-array irradiance), higher cloud frequency, and potential snow cover. In northern US latitudes, December solar yield can be 50% to 70% lower than peak June generation.",
   },
   {
-    question: "What is included in the NREL PVWatts default 14% system loss factor?",
-    answer: "NREL PVWatts V8 defines the default ~14% system losses as a multiplicative product of individual DC subsystem derates: soiling (2.0%), shading (3.0%), module mismatch (2.0%), DC wiring resistance (2.0%), connections/diodes (0.5%), light-induced degradation (1.5%), nameplate tolerance (1.0%), and system availability/outages (3.0%). Inverter efficiency (~96%) and cell temperature dynamics are modeled separately in the simulation engine.",
+    question: "What is included in the default 14% system loss factor?",
+    answer: "The default ~14% DC system loss factor represents the multiplicative product of discrete physical DC subsystem derates: soiling (2.0%), shading (3.0%), module mismatch (2.0%), DC wiring resistance (2.0%), connections and diodes (0.5%), light-induced degradation (1.5%), nameplate rating tolerance (1.0%), and system availability/outages (3.0%). Inverter DC-to-AC conversion efficiency (~96%) and ambient/cell temperature dynamics are evaluated separately in simulation models.",
   },
   {
     question: "How does temperature affect solar panel efficiency?",
@@ -54,15 +54,14 @@ export default function SolarOutputPage() {
       "Automatic coordinates lookup or manual latitude/longitude input",
       "Monthly and annual solar generation breakdowns with seasonal variation",
       "Customizable system losses, module type, and DC-to-AC ratio",
+      "Calculations run locally in your browser with no account required",
     ],
     standards: [
       "NREL PVWatts V8 Photovoltaic Performance Model",
+      "NREL National Solar Radiation Database (NSRDB)",
       "IEC 61724 (Photovoltaic System Performance Monitoring)",
-      "IEEE 1547 (Interconnection and Interoperability of Distributed Energy Resources)",
-      "NFPA 70 / NEC Article 690 (Solar Photovoltaic Systems)",
+      "ASHRAE Handbook of Fundamentals (Solar Heat Gain & Solar Radiation)",
     ],
-    companionDatasetUrl: "https://doi.org/10.6084/m9.figshare.33821937",
-    companionPaperUrl: "https://www.powelab.org/research/photovoltaic-inverter-clipping-efficiency-loss",
     faqs: FAQS,
   });
 
@@ -92,10 +91,10 @@ export default function SolarOutputPage() {
 
       <DirectAnswerCard
         keyword="solar panel output calculator"
-        answer="To estimate daily solar AC output, multiply your DC array rating (kW) by your local daily Peak Sun Hours (PSH), then apply DC subsystem derate (~86%) and inverter AC conversion efficiency (~96%). For location-precise annual yield, an hourly simulation model (NREL PVWatts V8) accounts for dynamic solar geometry, diffuse irradiance, and cell temperature kinetics."
+        answer="To calculate estimated daily AC solar generation, multiply DC array capacity (kW) by your local Peak Sun Hours (PSH), the DC system derate factor (1 - 0.14 = 0.86), and inverter AC efficiency (0.96). For annual location-specific yield, hourly simulation engines like NREL PVWatts V8 model dynamic sun angles, plane-of-array irradiance transposition, and cell temperature kinetics."
         formula="Daily AC Output (kWh) ≈ DC Capacity (kW) × Peak Sun Hours × (1 - DC Losses) × Inverter Efficiency"
-        standardExample="A 400W (0.40 kW) solar panel receiving 4.5 peak sun hours per day produces approximately 1.48 kWh/day (~542 kWh/year) under standard 14% DC losses and 96% inverter efficiency."
-        sourceAuthority="NREL PVWatts V8 Photovoltaic Performance Model"
+        standardExample="A 400W (0.40 kW) panel receiving 4.5 peak sun hours per day produces approximately 1.486 kWh/day (0.40 × 4.5 × 0.86 × 0.96), totaling approximately 543 kWh/year. A 6.0 kW residential system at 5.15 PSH generates ~25.51 kWh/day (~9,318 kWh/year)."
+        sourceAuthority="Technical Reference / Model Basis: NREL PVWatts V8 / NSRDB & IEC 61724"
       />
 
       <PageJumpNav />
@@ -179,14 +178,14 @@ export default function SolarOutputPage() {
           </table>
         </div>
         <p className="table-caption" style={{ fontSize: "0.85rem", color: "var(--text-secondary)", marginTop: "0.5rem" }}>
-          *Note: Peak Sun Hours (PSH) represent daily equivalent hours of standard 1,000 W/m² solar irradiance (1 PSH = 1 kWh/m²/day). Specific Yield reflects total annual AC kilowatt-hours produced per kilowatt of installed DC capacity under standard 14% DC losses.
+          *Note: Peak Sun Hours (PSH) represent daily equivalent hours of standard 1,000 W/m² solar irradiance (1 PSH = 1 h/day at 1,000 W/m² = 1 kWh/m²/day). Specific Yield reflects total annual AC kilowatt-hours produced per kilowatt of installed DC capacity under standard 14% DC losses.
         </p>
       </section>
 
       <section id="system-losses">
         <h2>NREL PVWatts Default System Losses (Derate Factors) Breakdown</h2>
         <p>
-          In the NREL PVWatts performance model, the default <strong>14.08% aggregate DC system loss</strong> is not a single generic estimate; it is calculated as the multiplicative product of multiple discrete physical loss mechanisms:
+          In the NREL PVWatts performance model, the default <strong>14.08% aggregate DC system loss</strong> is calculated as the multiplicative product of discrete physical loss mechanisms:
         </p>
         <div className="scenario-table" role="region" aria-label="NREL PVWatts system losses breakdown">
           <table>
@@ -267,7 +266,7 @@ export default function SolarOutputPage() {
 
       <section id="sizing-matrix">
         <h2>Solar Array Production Reference Matrix</h2>
-        <p>Estimated annual and monthly electricity generation across standard residential system capacities and regional solar resource tiers:</p>
+        <p>Estimated annual and monthly electricity generation across standard residential system capacities and regional solar resource tiers using the canonical simplified formula (DC kW × PSH × 0.86 × 0.96):</p>
         <div className="scenario-table" role="region" aria-label="Solar output reference matrix">
           <table>
             <caption>Estimated annual &amp; monthly AC generation across standard residential system sizes</caption>
@@ -346,7 +345,7 @@ export default function SolarOutputPage() {
             <p>Apply the multiplicative DC derate factor (~14% losses &rarr; 0.86) and nominal inverter efficiency (~96% &rarr; 0.96):</p>
             <code>Daily AC kWh ≈ P_DC (kW) × PSH × (1 - DC_Losses) × Inverter_Efficiency</code>
             <p style={{ marginTop: "0.5rem" }}>
-              <em>Example: 8.0 kW × 4.5 PSH × 0.86 × 0.96 ≈ 29.72 kWh/day (≈ 10,848 kWh/year).</em>
+              <em>Example: 8.0 kW × 4.5 PSH × (1 - 0.14) × 0.96 = 29.72 kWh/day (≈ 10,856 kWh/year).</em>
             </p>
           </div>
 
@@ -367,7 +366,7 @@ export default function SolarOutputPage() {
 
       <div id="formula-math">
         <FormulaCard
-          title="Solar AC Energy Yield &amp; Sizing Formulas"
+          title="Solar AC Energy Yield &amp; Sizing Calculation Formulas"
           formula="E_AC_daily (kWh) ≈ P_DC (kW) × Peak_Sun_Hours × (1 - DC_Losses) × Inverter_Efficiency"
           formulaDescription="First-order engineering approximation for daily AC electricity generation from DC nameplate rating, regional solar insolation, and aggregate system derates."
           variables={[
@@ -377,11 +376,44 @@ export default function SolarOutputPage() {
             { symbol: "Inverter_Efficiency", label: "Inverter AC Efficiency", description: "Nominal DC-to-AC conversion efficiency across operating load profile (~96% default).", unit: "fraction" },
           ]}
           notes={[
-            "Simplified manual equation is for educational first-order estimation; the interactive calculator executes full NREL PVWatts V8 hourly simulations.",
+            "Simplified manual equation provides a first-order educational planning estimate; the interactive calculator executes full NREL PVWatts V8 hourly simulations.",
             "Specific Yield (kWh/kWp/year) quantifies annual generation normalized per kilowatt of installed solar capacity.",
           ]}
         />
       </div>
+
+      <section id="technical-basis" style={{ marginTop: "2.5rem" }}>
+        <h2>Technical References &amp; Model Basis</h2>
+        <p style={{ color: "var(--text-muted)", marginBottom: "1.25rem" }}>
+          This calculator and reference models are grounded in peer-reviewed solar resource databases and photovoltaic modeling standards:
+        </p>
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(260px, 1fr))", gap: "1rem" }}>
+          <div style={{ padding: "1.15rem", borderRadius: "0.5rem", border: "1px solid var(--border-color, #e2e8f0)", background: "var(--card-bg, #ffffff)" }}>
+            <h3 style={{ margin: "0 0 0.4rem", fontSize: "1rem" }}>⚡ NREL PVWatts V8 Engine</h3>
+            <p style={{ margin: 0, fontSize: "0.85rem", lineHeight: 1.5, color: "var(--text-muted)" }}>
+              Hourly AC energy simulation engine implementing Perez/Hay-Davies diffuse transposition, Sandia inverter efficiency curves, and thermal balance kinetics.
+            </p>
+          </div>
+          <div style={{ padding: "1.15rem", borderRadius: "0.5rem", border: "1px solid var(--border-color, #e2e8f0)", background: "var(--card-bg, #ffffff)" }}>
+            <h3 style={{ margin: "0 0 0.4rem", fontSize: "1rem" }}>🗺️ NREL NSRDB &amp; TMY3</h3>
+            <p style={{ margin: 0, fontSize: "0.85rem", lineHeight: 1.5, color: "var(--text-muted)" }}>
+              National Solar Radiation Database providing multi-decade hourly global horizontal, direct normal, and diffuse horizontal solar irradiance data.
+            </p>
+          </div>
+          <div style={{ padding: "1.15rem", borderRadius: "0.5rem", border: "1px solid var(--border-color, #e2e8f0)", background: "var(--card-bg, #ffffff)" }}>
+            <h3 style={{ margin: "0 0 0.4rem", fontSize: "1rem" }}>📊 IEC 61724 Standard</h3>
+            <p style={{ margin: 0, fontSize: "0.85rem", lineHeight: 1.5, color: "var(--text-muted)" }}>
+              International standard for photovoltaic system performance monitoring, defining specific yield (kWh/kWp) and system performance ratio (PR).
+            </p>
+          </div>
+          <div style={{ padding: "1.15rem", borderRadius: "0.5rem", border: "1px solid var(--border-color, #e2e8f0)", background: "var(--card-bg, #ffffff)" }}>
+            <h3 style={{ margin: "0 0 0.4rem", fontSize: "1rem" }}>🌡️ ASHRAE Solar Fundamentals</h3>
+            <p style={{ margin: 0, fontSize: "0.85rem", lineHeight: 1.5, color: "var(--text-muted)" }}>
+              Handbook of Fundamentals guidelines on atmospheric air mass, solar incident angle modifiers, and ambient design dry-bulb temperatures.
+            </p>
+          </div>
+        </div>
+      </section>
 
       <section id="faq-section" className="faq-section">
         <h2>Frequently Asked Questions (FAQ)</h2>

@@ -49,7 +49,7 @@ export function SiteFooter() {
               </Link>
             </div>
             <p style={{ fontSize: "0.8125rem", color: "var(--text-muted, #64748b)", lineHeight: 1.6, marginBottom: "1rem" }}>
-              Engineering-grade calculators, physical loss models, and technical references for solar design engineers, storage technicians, and clean energy planners.
+              Planning calculators using transparent engineering formulas and technical references for solar design engineers, storage technicians, and clean energy planners.
             </p>
             <div style={{ fontSize: "0.75rem", color: "var(--text-muted, #64748b)", marginBottom: "1rem" }}>
               Standards: IEEE • NFPA 70 (NEC) • NREL • SAE

@@ -117,6 +117,28 @@ describe("calculateBatteryCapacity", () => {
     expect(result.result.usableWh).toBe(864);
   });
 
+  it("calculates numerical QA benchmarks across standard and LiFePO4 voltages", () => {
+    const v12 = calculateBatteryCapacity({ mode: "charge-to-energy", charge: 100, chargeUnit: "ah", voltage: 12, ...assumptions }).result;
+    expect(v12.nominalWh).toBe(1_200);
+    expect(v12.usableWh).toBe(960);
+
+    const v12_8 = calculateBatteryCapacity({ mode: "charge-to-energy", charge: 100, chargeUnit: "ah", voltage: 12.8, ...assumptions }).result;
+    expect(v12_8.nominalWh).toBe(1_280);
+    expect(v12_8.usableWh).toBe(1_024);
+
+    const v24 = calculateBatteryCapacity({ mode: "charge-to-energy", charge: 100, chargeUnit: "ah", voltage: 24, ...assumptions }).result;
+    expect(v24.nominalWh).toBe(2_400);
+
+    const v25_6 = calculateBatteryCapacity({ mode: "charge-to-energy", charge: 100, chargeUnit: "ah", voltage: 25.6, ...assumptions }).result;
+    expect(v25_6.nominalWh).toBe(2_560);
+
+    const v48 = calculateBatteryCapacity({ mode: "charge-to-energy", charge: 100, chargeUnit: "ah", voltage: 48, ...assumptions }).result;
+    expect(v48.nominalWh).toBe(4_800);
+
+    const v51_2 = calculateBatteryCapacity({ mode: "charge-to-energy", charge: 100, chargeUnit: "ah", voltage: 51.2, ...assumptions }).result;
+    expect(v51_2.nominalWh).toBe(5_120);
+  });
+
   it("rejects invalid active-mode values and SOC relationships", () => {
     const base: BatteryCapacityInput = {
       mode: "charge-to-energy",

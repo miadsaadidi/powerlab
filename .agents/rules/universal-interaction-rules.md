@@ -214,6 +214,38 @@ $$\text{EVALUATE EVIDENCE} \longrightarrow \text{EXECUTE} \longrightarrow \text{
 4. **Background Task Execution Discipline:**
    - Never poll `manage_task status` in a loop when executing asynchronous builds or test suites. Launch the task and yield execution to allow reactive wakeup notifications.
 
+### 19. TYPESCRIPT CONTRACT INVARIANTS & ZERO-TYPECHECK-REGRESSION STANDARDS
+To eliminate recurring typecheck errors, agents must adhere to the following contract rules:
+1. **Zero-Guessing of Type Unions (SSOT Rule):**
+   - Never invent string literals for assumptions, provenance, or calculator modes.
+   - **`InputProvenance` (in `src/types/calculation.ts`):** Strictly `"user-entered" | "measured" | "device-label" | "preset" | "derived" | "external-model"`. (Do NOT use `"model-assumption"` or `"default"`).
+   - **`DcTaperMode` (in `src/data/ev-charging-defaults.ts`):** Strictly `"generic" | "constant"`. (Do NOT use `"generic-curve"`).
+   - **`CalculationResult<T>` structure:** The calculation data payload is accessed on `.result`, NOT `.data`.
+2. **Pre-Edit Inspection Requirement:**
+   - Before writing or calling a calculator engine or helper, inspect its type definitions in `src/types/calculation.ts`, `src/data/*`, and the local `engine.ts`.
+3. **Mandatory Local Typecheck Sequence:**
+   - Run `npm run typecheck` (`tsc --noEmit`) immediately after any code changes to `.ts` or `.tsx` files before running tests or production builds.
+
+### 20. FAST VALIDATION PROTOCOL DURING ITERATIVE WORK
+1. **Iterative Verification Loop:**
+   - For regular code edits, verify using:
+     1. `npm run typecheck` (`tsc --noEmit`)
+     2. `npm test` (or targeted test files with `npm test <path>`)
+     3. `npm run lint` (`eslint .`)
+2. **Build Optimization:**
+   - Do NOT run full `npm run build` during intermediate iterative edits unless explicitly requested by the user or required for full pre-release sign-off.
+3. **Commit & Push Lock:**
+   - Never commit or push without explicit user instruction.
+
+### 21. HONEST VISUALIZATIONS & METRIC INTEGRITY INVARIANTS
+1. **Zero Disconnected Visual Metrics:**
+   - Visualizers, meters, and progress bars must strictly reflect the actual calculator inputs and calculated outputs.
+   - Never embed child visualizers (e.g. charging power, session time) into a tool (e.g. range calculator) if the underlying inputs do not exist in that tool.
+2. **Clear Separation of Reference Scenarios:**
+   - Illustrative benchmarks (e.g. winter temperature derates, highway speed comparisons) that are not dynamically computed from live user inputs must be explicitly titled:
+     `"Illustrative Reference Scenario — Not Used in Primary Calculation"`
+   - The primary result must remain purely derived from the user's active inputs.
+
 ---
 
 ## General Interaction Standards

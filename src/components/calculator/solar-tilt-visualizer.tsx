@@ -22,9 +22,9 @@ export function SolarTiltVisualizer({
   const summerElevation = Math.min(88, Math.max(10, equinoxElevation + 23.45));
   const winterElevation = Math.max(5, Math.min(80, equinoxElevation - 23.45));
 
-  // Calculate seasonal recommendations
-  const summerTilt = Math.max(0, Math.round(absLat * 0.93 - 21));
-  const winterTilt = Math.max(0, Math.min(90, Math.round(absLat * 0.875 + 19.2)));
+  // Calculate seasonal recommendations matching canonical engine
+  const summerTilt = Math.max(0, Math.min(90, Math.round(absLat - 15)));
+  const winterTilt = Math.max(0, Math.min(90, Math.round(absLat + 15)));
   const yearRoundTilt = Math.max(0, Math.min(90, Math.round(absLat * 0.76 + 3.1)));
 
   const activeTilt = selectedSeason === "summer" 
@@ -41,11 +41,11 @@ export function SolarTiltVisualizer({
       ? winterElevation 
       : equinoxElevation;
 
-  // Real-time solar ray incidence angle: optimal capture is when panel normal points directly at sun
-  // In 2D profile: Sun altitude angle from horizon + Panel tilt angle from horizon = 90° for perfect perpendicular incidence
+  // Geometric solar ray incidence: alignment of panel normal to solar noon vector
+  // In 2D profile: Sun altitude angle from horizon + Panel tilt angle from horizon = 90° for perpendicular noon alignment
   const totalAngle = activeSunElevation + activeTilt;
   const angularDeviation = Math.abs(totalAngle - 90);
-  const captureEfficiency = Math.max(0, Math.round(Math.cos((angularDeviation * Math.PI) / 180) * 100));
+  const geometricAlignmentPct = Math.max(0, Math.round(Math.cos((angularDeviation * Math.PI) / 180) * 100));
 
   // Geometry calculations for SVG
   // Pivot point on ground: (180, 160)
@@ -222,9 +222,12 @@ export function SolarTiltVisualizer({
           <span className="tilt-metric-val">{Math.round(activeSunElevation)}°</span>
         </div>
         <div className="tilt-metric">
-          <span className="tilt-metric-label">Direct Noon Capture</span>
-          <span className={`tilt-metric-val ${captureEfficiency >= 95 ? "optimal" : ""}`}>
-            {captureEfficiency}%
+          <span className="tilt-metric-label">Geometric Noon Alignment</span>
+          <span className={`tilt-metric-val ${geometricAlignmentPct >= 95 ? "optimal" : ""}`}>
+            {geometricAlignmentPct}%
+          </span>
+          <span className="form-hint" style={{ fontSize: "0.68rem", display: "block", marginTop: "2px" }}>
+            Incidence alignment at solar noon (not annual energy yield)
           </span>
         </div>
       </div>

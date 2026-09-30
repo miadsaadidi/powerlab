@@ -28,12 +28,12 @@ describe("home battery size engine", () => {
     expect(calculateHomeBatterySize({ ...base, backupHours: 48 }).backupLoadEnergyKWh).toBeCloseTo(base.dailyKWh * 0.5 * 2);
   });
 
-  it("calculates scope comparisons and avoids duplicate custom reference rows", () => {
+  it("calculates scope comparisons with 30%, 50%, and 100% presets", () => {
     const preset = calculateHomeBatterySize({ ...base, scopeFraction: 0.5 });
     expect(preset.scopeComparisons.filter((row) => row.isSelected)).toHaveLength(1);
     expect(preset.scopeComparisons.find((row) => row.scopeFraction === 0.5)?.label).toContain("Partial home");
     const custom = calculateHomeBatterySize({ ...base, scopeFraction: 0.35 });
-    expect(custom.scopeComparisons.map((row) => row.scopeFraction)).toEqual([0.25, 0.5, 1, 0.35]);
+    expect(custom.scopeComparisons.map((row) => row.scopeFraction)).toEqual([0.3, 0.5, 1, 0.35]);
     expect(custom.scopeComparisons.find((row) => row.scopeFraction === 0.35)?.label).toContain("Your selection");
   });
 
@@ -53,10 +53,60 @@ describe("home battery size engine", () => {
     expect(roundTrip).toBeCloseTo(300, 10);
   });
 
+  it("verifies all reference matrix benchmark values with canonical formula", () => {
+    const matrixRows = [
+      { dailyKWh: 15, critical12h: 3.44, partial24h: 11.46, whole24h: 22.92 },
+      { dailyKWh: 30, critical12h: 6.88, partial24h: 22.92, whole24h: 45.83 },
+      { dailyKWh: 45, critical12h: 10.31, partial24h: 34.38, whole24h: 68.75 },
+      { dailyKWh: 60, critical12h: 13.75, partial24h: 45.83, whole24h: 91.67 },
+    ];
+
+    for (const row of matrixRows) {
+      // Critical 30%, 12h
+      const crit = calculateHomeBatterySize({
+        dailyKWh: row.dailyKWh,
+        scopeFraction: 0.3,
+        backupHours: 12,
+        minimumSoc: 0.2,
+        inverterEfficiency: 0.9,
+        batteryHealth: 1.0,
+        designMargin: 0.1,
+      });
+      expect(Number(crit.recommendedKWh.toFixed(2))).toBeCloseTo(row.critical12h, 1);
+
+      // Partial 50%, 24h
+      const part = calculateHomeBatterySize({
+        dailyKWh: row.dailyKWh,
+        scopeFraction: 0.5,
+        backupHours: 24,
+        minimumSoc: 0.2,
+        inverterEfficiency: 0.9,
+        batteryHealth: 1.0,
+        designMargin: 0.1,
+      });
+      expect(Number(part.recommendedKWh.toFixed(2))).toBeCloseTo(row.partial24h, 1);
+
+      // Whole Home 100%, 24h
+      const whole = calculateHomeBatterySize({
+        dailyKWh: row.dailyKWh,
+        scopeFraction: 1.0,
+        backupHours: 24,
+        minimumSoc: 0.2,
+        inverterEfficiency: 0.9,
+        batteryHealth: 1.0,
+        designMargin: 0.1,
+      });
+      expect(Number(whole.recommendedKWh.toFixed(2))).toBeCloseTo(row.whole24h, 1);
+    }
+  });
+
   it("rejects invalid inputs", () => {
     expect(() => calculateHomeBatterySize({ ...base, dailyKWh: 0 })).toThrow();
     expect(() => calculateHomeBatterySize({ ...base, scopeFraction: 0 })).toThrow();
     expect(() => calculateHomeBatterySize({ ...base, backupHours: 0 })).toThrow();
     expect(() => calculateHomeBatterySize({ ...base, minimumSoc: 1 })).toThrow();
+    expect(() => calculateHomeBatterySize({ ...base, inverterEfficiency: 0 })).toThrow();
+    expect(() => calculateHomeBatterySize({ ...base, batteryHealth: 0 })).toThrow();
+    expect(() => calculateHomeBatterySize({ ...base, designMargin: -0.1 })).toThrow();
   });
 });

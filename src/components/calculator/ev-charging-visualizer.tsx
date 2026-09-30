@@ -95,7 +95,7 @@ export function EvChargingVisualizer({
           <div className="ev-stat-card">
             <span className="ev-stat-label">Energy Delivered</span>
             <span className="ev-stat-val">+{energyAddedKwh.toFixed(1)} kWh</span>
-            <span className="ev-stat-sub">of {batteryCapacityKwh} kWh pack</span>
+            <span className="ev-stat-sub">of {batteryCapacityKwh} kWh usable pack</span>
           </div>
 
           {(rangeAddedMiles !== undefined || rangeAddedKm !== undefined) && (
@@ -106,8 +106,8 @@ export function EvChargingVisualizer({
               </span>
               <span className="ev-stat-sub">
                 {rangeAddedMiles !== undefined && rangeAddedKm !== undefined
-                  ? `≈ +${Math.round(rangeAddedKm)} km`
-                  : "Based on typical efficiency"}
+                  ? `≈ +${Math.round(rangeAddedKm)} km (@ 3.5 mi/kWh assumption)`
+                  : "Based on 3.5 mi/kWh assumption"}
               </span>
             </div>
           )}

@@ -15,12 +15,11 @@ import { LossWaterfall } from "@/components/calculator/loss-waterfall";
 import { ShareButton } from "@/components/calculator/share-button";
 import { PrintSpecButton } from "@/components/calculator/print-spec-button";
 import { EnergyFlowVisualizer } from "@/components/calculator/energy-flow-visualizer";
-import { GooglePreferredBanner } from "@/components/calculator/google-preferred-banner";
 import { CalculatorTrustPill } from "@/components/calculator/calculator-trust-pill";
 import { StandardsBadge } from "@/components/calculator/standards-badge";
 
 const QUICK_HOME_PRESETS = [
-  { label: "⚡ Essential Outage (12h · 25% Load)", energy: 300, scope: "critical" as ScopeMode, duration: "12" as DurationMode },
+  { label: "⚡ Essential Outage (12h · 30% Load)", energy: 300, scope: "critical" as ScopeMode, duration: "12" as DurationMode },
   { label: "🏠 Overnight Storm (24h · 50% Load)", energy: 300, scope: "partial" as ScopeMode, duration: "24" as DurationMode },
   { label: "⛈️ Multi-Day Winter Storm (48h · 50%)", energy: 300, scope: "partial" as ScopeMode, duration: "48" as DurationMode },
   { label: "🏡 Whole-Home Backup (24h · 100%)", energy: 450, scope: "whole" as ScopeMode, duration: "24" as DurationMode },
@@ -49,7 +48,7 @@ const numberOrNaN = (value: string) => Number(value);
 const fraction = (value: string) => Number(value) / 100;
 const formatNumber = (value: number, digits = 2) => value.toLocaleString(undefined, { maximumFractionDigits: digits });
 const percent = (value: number) => `${formatNumber(value * 100, 1)}%`;
-const scopeValues: Record<Exclude<ScopeMode, "custom">, number> = { critical: 0.25, partial: 0.5, whole: 1 };
+const scopeValues: Record<Exclude<ScopeMode, "custom">, number> = { critical: 0.3, partial: 0.5, whole: 1 };
 
 export function HomeBatterySizeCalculator() {
   const [energyValue, setEnergyValue] = useState(300);
@@ -361,7 +360,7 @@ export function HomeBatterySizeCalculator() {
                       }}
                     >
                       {mode === "critical"
-                        ? "Critical loads — 25% estimate"
+                        ? "Critical loads — 30% estimate"
                         : mode === "partial"
                         ? "Partial home — 50% estimate"
                         : mode === "whole"
@@ -389,7 +388,7 @@ export function HomeBatterySizeCalculator() {
                     </span>
                   </label>
                 )}
-                <p className="form-hint">Backup scope estimates the share of normal household energy you want to support during an outage.</p>
+                <p className="form-hint">Backup scope is an illustrative planning estimate of the share of normal household energy supported during an outage.</p>
                 {scopeError && (
                   <p className="error" role="alert">
                     {scopeError}
@@ -516,6 +515,7 @@ export function HomeBatterySizeCalculator() {
                     }}
                   />
                 </label>
+                <p className="form-hint">General planning margin applied to the calculated battery capacity. It is not a separate degradation or standby-power model.</p>
                 {reserveCustomized && <p className="form-hint">Your reserve is custom and will not be replaced when chemistry changes.</p>}
               </fieldset>
             </details>
@@ -537,23 +537,26 @@ export function HomeBatterySizeCalculator() {
             <>
               <p className="result-lede">Recommended home battery capacity</p>
               <p className="result-value">{formatNumber(calculation.result.recommendedKWh)} kWh</p>
-              <StandardsBadge standards={["NFPA 855", "UL 9540", "IEEE 2030.5", "NEC Art. 706"]} />
+              <StandardsBadge standards={["NFPA 855", "UL 9540", "IEEE 2030.5", "NEC Art. 706"]} label="Technical References & Model Basis:" />
               <div style={{ background: "var(--surface, rgba(14, 165, 233, 0.04))", border: "1px solid var(--border-color, #cbd5e1)", borderRadius: "0.75rem", padding: "0.875rem 1rem", margin: "0.75rem 0 1rem 0" }}>
-                <span style={{ fontSize: "0.75rem", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.05em", color: "var(--text-muted, #64748b)", display: "block", marginBottom: "0.5rem" }}>
-                  📦 Equivalent Physical Hardware Modules
+                <span style={{ fontSize: "0.75rem", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.05em", color: "var(--text-muted, #64748b)", display: "block", marginBottom: "0.35rem" }}>
+                  📦 Illustrative Battery Module Equivalents
                 </span>
+                <p style={{ fontSize: "0.75rem", color: "var(--text-muted, #64748b)", margin: "0 0 0.5rem 0", lineHeight: 1.4 }}>
+                  Illustrative capacity equivalents only. Actual battery quantity depends on manufacturer specifications, usable capacity, inverter compatibility, continuous/peak power requirements, system voltage, code requirements and installation design.
+                </p>
                 <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(130px, 1fr))", gap: "0.5rem" }}>
                   <div style={{ padding: "0.5rem 0.75rem", background: "var(--bg-secondary, #f8fafc)", border: "1px solid var(--border-color, #cbd5e1)", borderRadius: "0.5rem", textAlign: "center" }}>
                     <strong style={{ display: "block", fontSize: "1.1rem", color: "#0284c7" }}>{Math.max(1, Math.ceil(calculation.result.recommendedKWh / 13.5))}×</strong>
-                    <small style={{ fontSize: "0.75rem", color: "var(--text-muted, #64748b)" }}>13.5 kWh Units<br />(Powerwall / Enphase)</small>
+                    <small style={{ fontSize: "0.75rem", color: "var(--text-muted, #64748b)" }}>13.5 kWh Units<br />(Residential ESS unit)</small>
                   </div>
                   <div style={{ padding: "0.5rem 0.75rem", background: "var(--bg-secondary, #f8fafc)", border: "1px solid var(--border-color, #cbd5e1)", borderRadius: "0.5rem", textAlign: "center" }}>
                     <strong style={{ display: "block", fontSize: "1.1rem", color: "#16a34a" }}>{Math.max(1, Math.ceil(calculation.result.recommendedKWh / 5.12))}×</strong>
-                    <small style={{ fontSize: "0.75rem", color: "var(--text-muted, #64748b)" }}>5.12 kWh Modules<br />(48V Server Racks)</small>
+                    <small style={{ fontSize: "0.75rem", color: "var(--text-muted, #64748b)" }}>5.12 kWh Modules<br />(48V Lithium Module)</small>
                   </div>
                   <div style={{ padding: "0.5rem 0.75rem", background: "var(--bg-secondary, #f8fafc)", border: "1px solid var(--border-color, #cbd5e1)", borderRadius: "0.5rem", textAlign: "center" }}>
                     <strong style={{ display: "block", fontSize: "1.1rem", color: "#d97706" }}>{Math.max(1, Math.ceil((calculation.result.recommendedKWh * 1000) / 1200))}×</strong>
-                    <small style={{ fontSize: "0.75rem", color: "var(--text-muted, #64748b)" }}>12V 100Ah Batteries<br />(1.2 kWh Drop-ins)</small>
+                    <small style={{ fontSize: "0.75rem", color: "var(--text-muted, #64748b)" }}>12V 100Ah Batteries<br />(1.2 kWh Drop-in Unit)</small>
                   </div>
                 </div>
               </div>
@@ -563,7 +566,7 @@ export function HomeBatterySizeCalculator() {
                 backupHours={calculation.result.backupHours}
                 scopeLabel={
                   calculation.scopeMode === "critical"
-                    ? "Critical Essentials (25%)"
+                    ? "Critical Essentials (30%)"
                     : calculation.scopeMode === "partial"
                     ? "Partial Home (50%)"
                     : calculation.scopeMode === "whole"
@@ -690,10 +693,8 @@ export function HomeBatterySizeCalculator() {
                 </dl>
               </section>
               <p className="warning">
-                This average-energy estimate does not model hourly load curves, solar recharge, generator recharge, nighttime variation or day-to-day appliance schedules. It does not size inverter power, service panels, transfer equipment, wiring or installation.
+                <strong>Energy Capacity vs. Power Output:</strong> This result estimates battery energy capacity (kWh) only. It does not determine inverter kW, motor-starting surge, HVAC LRA requirements, transfer equipment, service capacity or wiring. For whole-home backup, heavy loads such as HVAC, pumps, compressors, and EV chargers require separate continuous and surge-power evaluations.
               </p>
-
-              <GooglePreferredBanner />
 
               <div className="button-row" style={{ marginTop: "0.85rem", display: "flex", gap: "0.5rem", flexWrap: "wrap" }}>
                 <ShareButton title="Home Battery Size Calculation" />
