@@ -8,6 +8,7 @@ import { PageJumpNav } from "@/components/seo/page-jump-nav";
 import { FormulaCard } from "@/components/seo/formula-card";
 import { StandardsBadge } from "@/components/seo/standards-badge";
 import { AcademicCitationModal } from "@/components/seo/academic-citation-modal";
+import { MathDisplay } from "@/components/common/math-display";
 import { buildPageMetadata } from "@/lib/seo/metadata-helper";
 
 export const metadata: Metadata = buildPageMetadata({
@@ -112,24 +113,35 @@ export default function SpaceHeaterGuidePage() {
           Unlike heat pumps that move thermal energy across an outdoor refrigerant loop, portable electric space heaters generate heat directly through <strong>Joule heating (resistive dissipation)</strong>. When electric current flows through a conductive nickel-chromium (Nichrome) wire or ceramic PTC heating element, atomic collisions convert 100% of electrical energy directly into thermal energy:
         </p>
 
-        <pre className="math-block" style={{ padding: "1rem", background: "var(--surface)", borderRadius: "0.5rem", border: "1px solid var(--line)", overflowX: "auto" }}>
-          <code>{`Power (Watts) = Current (I)² × Resistance (R) = Voltage (V) × Current (I)
-Thermal Heat Output = 1 Watt = 3.412142 BTU/hr`}</code>
-        </pre>
+        <MathDisplay
+          title="Joule Heating Law & Thermal Conversion"
+          copyText="P = I^2 * R = V * I | 1 Watt = 3.412142 BTU/hr"
+          benchmark="1 Watt = 3.412142 BTU/hr (100% resistive thermal efficiency)"
+        >
+          P = I² × R = V × I
+        </MathDisplay>
 
         <h3>Why Are All Space Heaters Capped at 1,500 Watts?</h3>
         <p>
           In North America, standard wall receptacles operate at <strong>120 Volts on a 15-Ampere branch circuit</strong>. Applying Ohm&apos;s Law reveals that a 1,500W load draws 12.5 Amps:
         </p>
-        <pre className="math-block" style={{ padding: "1rem", background: "var(--surface)", borderRadius: "0.5rem", border: "1px solid var(--line)", overflowX: "auto" }}>
-          <code>{`I = P ÷ V = 1,500 Watts ÷ 120 Volts = 12.5 Amperes`}</code>
-        </pre>
+        <MathDisplay
+          title="Ohm's Law Current Draw"
+          copyText="I = P / V = 1500 / 120 = 12.5 A"
+          benchmark="1,500W ÷ 120V = 12.5 Amperes continuous load"
+        >
+          I = P / V = 12.5 A
+        </MathDisplay>
         <p>
           Under <strong>NEC Article 210.19(A) and 210.20</strong>, any electrical load expected to operate continuously for 3 hours or more is classified as a <em>continuous load</em> and must not exceed <strong>80% of the circuit&apos;s maximum overcurrent rating</strong>:
         </p>
-        <pre className="math-block" style={{ padding: "1rem", background: "var(--surface)", borderRadius: "0.5rem", border: "1px solid var(--line)", overflowX: "auto" }}>
-          <code>{`Max Continuous Allowable Current on 15A Circuit = 15A × 0.80 = 12.0 Amperes (1,440 Watts)`}</code>
-        </pre>
+        <MathDisplay
+          title="NEC Continuous Load Limit (80% Rule)"
+          copyText="I_max_continuous = 15 A * 0.80 = 12.0 A (1440 W)"
+          benchmark="15A Circuit × 0.80 = 12.0 Amperes (1,440 Watts maximum continuous)"
+        >
+          I_max_continuous = 15 A × 0.80 = 12.0 A
+        </MathDisplay>
         <p>
           To maintain safety certifications under <strong>UL 1278</strong> and prevent household electrical fires, manufacturers strictly cap residential plug-in space heaters at 1,500 Watts (producing exactly <strong>5,118 BTU/hr</strong> of maximum heat output).
         </p>
@@ -166,10 +178,13 @@ Thermal Heat Output = 1 Watt = 3.412142 BTU/hr`}</code>
         <p>
           Thermodynamically, electric resistance space heaters operate at a <strong>Coefficient of Performance of exactly 1.0 (COP = 1.0)</strong>. By comparison, modern air-source heat pumps achieve a <strong>COP of 3.0 to 4.2</strong> in typical winter weather (30°F–50°F):
         </p>
-        <pre className="math-block" style={{ padding: "1rem", background: "var(--surface)", borderRadius: "0.5rem", border: "1px solid var(--line)", overflowX: "auto" }}>
-          <code>{`Heat Pump Heat Output = 1 kWh Electricity → 3.0 to 4.2 kWh Thermal Energy (10,236 to 14,330 BTU)
-Space Heater Heat Output = 1 kWh Electricity → 1.0 kWh Thermal Energy (3,412 BTU)`}</code>
-        </pre>
+        <MathDisplay
+          title="Thermal Efficiency: Heat Pump COP vs. Resistance COP"
+          copyText="COP_heatpump = 3.0 to 4.2 | COP_spaceheater = 1.0"
+          benchmark="Heat pump moves 3.0–4.2x more heat energy per kWh of electricity compared to direct resistive heat"
+        >
+          COP_heatpump = 3.0 to 4.2 &gt; COP_resistance = 1.0
+        </MathDisplay>
       </section>
 
       {/* Section 3: Space Heater Wattage Matrix */}

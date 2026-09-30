@@ -31,6 +31,20 @@ interface GuideItem {
 
 const FEATURED_GUIDES: GuideItem[] = [
   {
+    name: "NEC 705.12 120% Rule: Solar & Battery Panel Busbar Sizing Guide",
+    route: "/guides/nec-705-12-120-percent-rule-solar-busbar-sizing-guide",
+    category: "Solar Photovoltaics",
+    categoryIcon: "⚡",
+    categoryColor: "#f59e0b",
+    categoryBg: "rgba(245, 158, 11, 0.1)",
+    badge: "🔥 New Flagship Guide",
+    badgeType: "new",
+    description: "Master the NEC 705.12 120% busbar rule for solar and battery storage backfeed. Includes 100A–400A busbar derating matrix lookup tables, 125% continuous duty calculations, supply-side taps, and EMS power control.",
+    readTime: "9 min read",
+    updatedDate: "Published September 30, 2026",
+    standards: ["NEC Article 705.12", "NEC Article 705.11", "NEC Article 705.13", "UL 1741"],
+  },
+  {
     name: "How to Calculate EV Driving Range & Efficiency (Formula, Speed Drag & Winter Losses)",
     route: "/guides/how-to-calculate-ev-driving-range-and-efficiency-guide",
     category: "Electric Vehicles",

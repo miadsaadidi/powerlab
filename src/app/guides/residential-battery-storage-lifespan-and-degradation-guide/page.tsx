@@ -6,6 +6,7 @@ import { BatteryCapacityCalculator } from "@/components/calculator/battery-capac
 import { DirectAnswerCard } from "@/components/seo/direct-answer-card";
 import { PageJumpNav } from "@/components/seo/page-jump-nav";
 import { FormulaCard } from "@/components/seo/formula-card";
+import { MathDisplay } from "@/components/common/math-display";
 import { buildPageMetadata } from "@/lib/seo/metadata-helper";
 
 export const metadata: Metadata = buildPageMetadata({
@@ -297,33 +298,49 @@ export default function BatteryDegradationGuidePage() {
           <p style={{ margin: "0 0 0.5rem", lineHeight: 1.6 }}>
             For high-quality residential LiFePO4 cells, empirical cycle fade averages ~0.0035% per EFC at 80% DoD:
           </p>
-          <div style={{ fontFamily: "var(--font-mono, monospace)", padding: "0.5rem 0.75rem", background: "var(--bg)", borderRadius: "0.35rem" }}>
-            Fade_cycle = 2,920 EFC × 0.0035% / EFC = 10.22%
-          </div>
+          <MathDisplay
+            title="Step 1: Cycling Capacity Loss"
+            copyText="Fade_cycle = 2920 * 0.0035% = 10.22%"
+            benchmark="2,920 EFC × 0.0035% / EFC = 10.22% cumulative cycling loss"
+          >
+            Fade_cycle = 2920 × 0.0035% = 10.22%
+          </MathDisplay>
 
           <h4 style={{ margin: "1rem 0 0.5rem", color: "var(--brand-strong)" }}>Step 2: Calculate Calendar Aging (Fade_cal)</h4>
           <p style={{ margin: "0 0 0.5rem", lineHeight: 1.6 }}>
-            Calendar fade follows a square-root-of-time ($\sqrt&#123;t&#125;$) or linear approximation depending on SEI stability. At 22°C and typical 50% average SoC state, calendar fade averages ~1.05% annually:
+            Calendar fade follows a square-root-of-time (√<em>t</em>) or linear approximation depending on SEI stability. At 22°C and typical 50% average SoC state, calendar fade averages ~1.05% annually:
           </p>
-          <div style={{ fontFamily: "var(--font-mono, monospace)", padding: "0.5rem 0.75rem", background: "var(--bg)", borderRadius: "0.35rem" }}>
-            Fade_cal = 10 years × 1.05% / year = 10.50%
-          </div>
+          <MathDisplay
+            title="Step 2: Passive Calendar Aging"
+            copyText="Fade_cal = 10 * 1.05% = 10.50%"
+            benchmark="10 years × 1.05% / year = 10.50% cumulative calendar loss"
+          >
+            Fade_cal = 10 × 1.05% = 10.50%
+          </MathDisplay>
 
           <h4 style={{ margin: "1rem 0 0.5rem", color: "var(--brand-strong)" }}>Step 3: Total Cumulative Capacity Loss</h4>
           <p style={{ margin: "0 0 0.5rem", lineHeight: 1.6 }}>
             Total capacity loss combines cycling and calendar mechanisms (with mild inter-mechanistic damping):
           </p>
-          <div style={{ fontFamily: "var(--font-mono, monospace)", padding: "0.5rem 0.75rem", background: "var(--bg)", borderRadius: "0.35rem" }}>
-            Total Loss = 10.22% + 10.50% = 20.72% Loss (Retention = 100% - 20.72% = 79.28%)
-          </div>
+          <MathDisplay
+            title="Step 3: Combined Degradation Retention"
+            copyText="Loss_total = 10.22% + 10.50% = 20.72% (Retention = 79.28%)"
+            benchmark="10.22% cycle fade + 10.50% calendar aging = 20.72% total loss (79.28% retention)"
+          >
+            Loss_total = 10.22% + 10.50% = 20.72%
+          </MathDisplay>
 
           <h4 style={{ margin: "1rem 0 0.5rem", color: "var(--brand-strong)" }}>Step 4: Remaining Usable Storage Energy</h4>
           <p style={{ margin: "0 0 0.5rem", lineHeight: 1.6 }}>
             Applying the 79.28% retention factor to the original 13.5 kWh nameplate capacity:
           </p>
-          <div style={{ fontFamily: "var(--font-mono, monospace)", padding: "0.5rem 0.75rem", background: "var(--bg)", borderRadius: "0.35rem" }}>
+          <MathDisplay
+            title="Step 4: Year 10 Usable Capacity"
+            copyText="Q_rem(10 yr) = 13.5 kWh * 0.7928 = 10.70 kWh"
+            benchmark="13.5 kWh nominal capacity × 0.7928 retention = 10.70 kWh usable remaining"
+          >
             Q_rem(10 yr) = 13.5 kWh × 0.7928 = 10.70 kWh
-          </div>
+          </MathDisplay>
 
           <h4 style={{ margin: "1rem 0 0.5rem", color: "var(--brand-strong)" }}>Step 5: Engineering Conclusion &amp; Warranty Sizing Assessment</h4>
           <p style={{ margin: 0, lineHeight: 1.6 }}>

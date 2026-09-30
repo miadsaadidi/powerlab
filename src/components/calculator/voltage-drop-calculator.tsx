@@ -429,23 +429,23 @@ export function VoltageDropCalculator() {
           {
             stepNumber: 1,
             title: "Identify Circuit Load, Voltage & One-Way Distance",
-            description: "Determine the continuous amperage drawn by the appliance ($I$), the supply line voltage ($V$), and the one-way distance in feet ($L$) from the distribution panel to the load.",
-            formula: "P = V \\times I",
+            description: "Determine the continuous amperage drawn by the appliance (I), the supply line voltage (V), and the one-way distance in feet (L) from the distribution panel to the load.",
+            formula: "P = V × I",
             exampleValue: "A 20-Amp continuous load on a 120V branch circuit running 50 feet away.",
           },
           {
             stepNumber: 2,
             title: "Lookup Conductor Resistivity & Circular Mils",
-            description: "Retrieve conductor material resistivity ($K = 12.9$ for Copper at 75°C) and cross-sectional area in circular mils ($A_{\\text{cmil}}$) from NEC Chapter 9 Table 8.",
-            formula: "VD_{\\text{volts}} = \\frac{2 \\times K \\times I \\times L}{A_{\\text{cmil}}}",
-            exampleValue: "12 AWG copper wire has 6,530 circular mils. $VD = (2 \\times 12.9 \\times 20 \\times 50) / 6,530 = 3.95\\text{ Volts}$.",
+            description: "Retrieve conductor material resistivity (K = 12.9 for Copper at 75°C) and cross-sectional area in circular mils (A_cmil) from NEC Chapter 9 Table 8.",
+            formula: "VD_volts = (2 × K × I × L) / A_cmil",
+            exampleValue: "12 AWG copper wire has 6,530 circular mils: VD = (2 × 12.9 × 20 × 50) / 6,530 = 3.95 Volts.",
           },
           {
             stepNumber: 3,
             title: "Calculate Percentage Drop & Verify NEC 3% Compliance",
             description: "Divide the dropped voltage by nominal line voltage to calculate percentage loss. If drop exceeds 3%, upsize conductor gauge by one increment.",
-            formula: "VD_{\\%} = \\left( \\frac{VD_{\\text{volts}}}{V_{\\text{nominal}}} \\right) \\times 100\\%",
-            exampleValue: "$(3.95\\text{V} / 120\\text{V}) \\times 100 = 3.29\\%$. Upsize to 10 AWG to achieve a compliant 2.07% drop.",
+            formula: "VD_% = (VD_volts / V_nominal) × 100%",
+            exampleValue: "(3.95V / 120V) × 100 = 3.29%. Upsize to 10 AWG to achieve a compliant 2.07% drop.",
           },
         ]}
         standardCitation="NFPA 70 (NEC 210.19 & Chapter 9 Table 8)"

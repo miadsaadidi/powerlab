@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { siteConfig } from "@/lib/site-config";
+import { formatMathString } from "@/components/common/math-display";
 
 interface FormulaCardProps {
   title?: string;
@@ -245,11 +246,21 @@ export function FormulaCard({
           }}
         >
           {activeTab === "code" && (
-            <div style={{ display: "flex", alignItems: "flex-start", gap: "0.85rem" }}>
-              <span style={{ userSelect: "none", color: "#475569", fontSize: "0.78rem", textAlign: "right" }}>01</span>
-              <code style={{ color: "#38bdf8", fontWeight: 600, wordBreak: "break-word", flexGrow: 1 }}>
-                {formula}
-              </code>
+            <div
+              style={{
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                padding: "0.6rem 0.5rem",
+                fontFamily: '"STIX Two Math", "Cambria Math", "Times New Roman", serif',
+                fontSize: "1.15rem",
+                color: "#38bdf8",
+                textAlign: "center",
+                flexWrap: "wrap",
+                gap: "0.5rem",
+              }}
+            >
+              {formatMathString(formula)}
             </div>
           )}
 

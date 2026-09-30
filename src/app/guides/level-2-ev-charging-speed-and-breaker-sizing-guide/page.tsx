@@ -336,7 +336,7 @@ export default function EvChargingGuidePage() {
         </div>
 
         <p style={{ fontSize: "0.9rem", color: "var(--text-muted)" }}>
-          Also evaluate driving range in the <Link href="/ev/ev-range-calculator" style={{ fontWeight: 600, color: "var(--accent)" }}>EV Real-World Range Calculator</Link>, model utility bills with the <Link href="/ev/ev-charging-cost-calculator" style={{ fontWeight: 600, color: "var(--accent)" }}>EV Charging Cost Calculator</Link>, or examine vehicle-to-home backup in the <Link href="/ev/v2l-runtime-calculator" style={{ fontWeight: 600, color: "var(--accent)" }}>V2L Runtime Calculator</Link>.
+          Also evaluate main service panel busbar limits with our <Link href="/guides/nec-705-12-120-percent-rule-solar-busbar-sizing-guide" style={{ fontWeight: 600, color: "var(--accent)" }}>NEC 705.12 120% Busbar Sizing Guide</Link>, calculate driving range in the <Link href="/ev/ev-range-calculator" style={{ fontWeight: 600, color: "var(--accent)" }}>EV Real-World Range Calculator</Link>, model utility bills with the <Link href="/ev/ev-charging-cost-calculator" style={{ fontWeight: 600, color: "var(--accent)" }}>EV Charging Cost Calculator</Link>, or examine vehicle-to-home backup in the <Link href="/ev/v2l-runtime-calculator" style={{ fontWeight: 600, color: "var(--accent)" }}>V2L Runtime Calculator</Link>.
         </p>
       </section>
 

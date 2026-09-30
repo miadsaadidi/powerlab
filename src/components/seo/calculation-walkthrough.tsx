@@ -1,5 +1,7 @@
 "use client";
 
+import { formatMathString } from "@/components/common/math-display";
+
 export interface WalkthroughStep {
   stepNumber: number;
   title: string;
@@ -128,17 +130,20 @@ export function CalculationWalkthrough({
               {step.formula && (
                 <div
                   style={{
-                    display: "inline-block",
-                    fontFamily: "var(--font-mono, monospace)",
-                    fontSize: "0.82rem",
-                    padding: "0.3rem 0.6rem",
-                    background: "var(--surface-code, #0f172a)",
+                    display: "inline-flex",
+                    alignItems: "center",
+                    fontFamily: '"STIX Two Math", "Cambria Math", "Times New Roman", serif',
+                    fontSize: "0.98rem",
+                    padding: "0.35rem 0.75rem",
+                    background: "#0f172a",
                     color: "#38bdf8",
-                    borderRadius: "0.35rem",
-                    marginBottom: "0.35rem",
+                    borderRadius: "0.4rem",
+                    marginBottom: "0.45rem",
+                    border: "1px solid #1e293b",
+                    boxShadow: "0 2px 8px rgba(0, 0, 0, 0.15)",
                   }}
                 >
-                  {step.formula}
+                  {formatMathString(step.formula)}
                 </div>
               )}
 

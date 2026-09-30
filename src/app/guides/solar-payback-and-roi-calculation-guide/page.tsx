@@ -8,6 +8,7 @@ import { PageJumpNav } from "@/components/seo/page-jump-nav";
 import { FormulaCard } from "@/components/seo/formula-card";
 import { StandardsBadge } from "@/components/seo/standards-badge";
 import { AcademicCitationModal } from "@/components/seo/academic-citation-modal";
+import { MathDisplay } from "@/components/common/math-display";
 import { buildPageMetadata } from "@/lib/seo/metadata-helper";
 
 export const metadata: Metadata = buildPageMetadata({
@@ -88,7 +89,8 @@ export default function SolarPaybackGuidePage() {
       <DirectAnswerCard
         keyword="solar payback period formula"
         answer="The solar payback period formula determines the number of years required for cumulative electricity bill savings to equal the net upfront cost of a solar installation. At the U.S. average electricity rate ($0.16/kWh) and typical $2.80/W turn-key pricing with the 30% Federal Tax Credit, average residential solar payback spans 6.5 to 8.5 years, generating 150% to 300% 25-year lifetime ROI."
-        formula="Payback (Years) = Net System Cost ($) ÷ Annual Savings ($) · Net Cost = Gross Cost × (1 - ITC Tax Credit %)"
+        formula="Payback_years = C_net / S_annual"
+        condition="C_net = C_gross * (1 - ITC_rate)"
         standardExample="8 kW System @ $22,400 gross - $6,720 (30% ITC) = $15,680 net. Annual production of 11,200 kWh @ $0.17/kWh yields $1,904 Year 1 savings. Simple Payback = $15,680 ÷ $1,904 = 8.23 Years (7.4 Years with 3.5% annual utility rate escalation)."
         sourceAuthority="NREL System Advisor Model (SAM), IRS IRC Section 25D & CPUC NEM 3.0 Valuation"
       />
@@ -113,13 +115,17 @@ export default function SolarPaybackGuidePage() {
           Evaluating a rooftop photovoltaic installation requires viewing solar panels not as an expense, but as a <strong>capital asset generating an inflation-hedged revenue stream</strong>. Unlike consumer electronics or automobiles that depreciate immediately, grid-tied PV systems generate electricity that displaces utility grid purchases every hour the sun shines.
         </p>
 
-        <h3>Net Installed Capital Cost ($C_{`\\text{net}`}$)</h3>
+        <h3>Net Installed Capital Cost (<em>C</em><sub>net</sub>)</h3>
         <p>
           Gross turn-key installation pricing includes PV modules, racking, inverters, balance of system (BOS) wiring, permit fees, and master electrician labor. The net basis is calculated after subtracting direct incentives:
         </p>
-        <pre className="math-block" style={{ padding: "1rem", background: "var(--surface)", borderRadius: "0.5rem", border: "1px solid var(--line)", overflowX: "auto" }}>
-          <code>{`C_net = C_gross - (C_gross × ITC_rate) - Rebates_state - SREC_upfront`}</code>
-        </pre>
+        <MathDisplay
+          title="Net Installed Capital Cost"
+          copyText="C_net = C_gross - (C_gross * ITC_rate) - Rebates_state - SREC_upfront"
+          benchmark="Gross turnkey cost minus 30% Federal ITC (IRC Section 25D) and state rebates"
+        >
+          C_net = C_gross - (C_gross × ITC_rate) - Rebates_state - SREC_upfront
+        </MathDisplay>
         <p>
           Under the <strong>Inflation Reduction Act (IRC Section 25D)</strong>, the Federal Residential Clean Energy Credit is fixed at <strong>30% through 2032</strong> (stepping down to 26% in 2033 and 22% in 2034). This tax credit applies to the full gross cost of the solar hardware, electrical service panel upgrades required for interconnection, and installation labor.
         </p>
@@ -158,10 +164,13 @@ export default function SolarPaybackGuidePage() {
         <p>
           Over a standard 25-year warranty period, total return on investment is defined by comparing cumulative net lifetime savings against the initial net capital investment:
         </p>
-        <pre className="math-block" style={{ padding: "1rem", background: "var(--surface)", borderRadius: "0.5rem", border: "1px solid var(--line)", overflowX: "auto" }}>
-          <code>{`Lifetime Net Profit ($) = Total 25-Year Cumulative Savings - Net Initial Cost
-ROI (%) = (Lifetime Net Profit ÷ Net Initial Cost) × 100%`}</code>
-        </pre>
+        <MathDisplay
+          title="Lifetime Net Profit & ROI Formula"
+          copyText="Profit_lifetime = Savings_25yr - C_net | ROI = (Profit_lifetime / C_net) * 100%"
+          benchmark="ROI is cumulative 25-year net profit divided by net upfront investment"
+        >
+          ROI = (Profit_lifetime / C_net) × 100%
+        </MathDisplay>
       </section>
 
       {/* Section 3: Net Metering 1.0/2.0 vs. NEM 3.0 */}
@@ -295,7 +304,7 @@ ROI (%) = (Lifetime Net Profit ÷ Net Initial Cost) × 100%`}</code>
             <li><strong>Nameplate Capacity:</strong> 8.0 kW DC (20 × 400W Monocrystalline PERC modules)</li>
             <li><strong>Gross Turn-Key Cost:</strong> $22,400 ($2.80/Watt installed)</li>
             <li><strong>Federal ITC (30%):</strong> -$6,720 (IRC Section 25D)</li>
-            <li><strong>Net Capital Outlay ($C_{`\\text{net}`}$):</strong> $15,680</li>
+            <li><strong>Net Capital Outlay (<em>C</em><sub>net</sub>):</strong> $15,680</li>
             <li><strong>Year 1 Solar Generation:</strong> 11,500 kWh (1,437.5 kWh/kW specific yield)</li>
             <li><strong>Utility Electricity Tariff:</strong> $0.18/kWh with 3.5% compound annual inflation</li>
             <li><strong>Annual Panel Degradation:</strong> 0.5%/year ($d = 0.005$)</li>

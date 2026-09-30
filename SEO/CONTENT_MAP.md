@@ -76,6 +76,8 @@ SOLAR PV RESEARCH CLUSTER
 │   └── /solar/solar-payback-calculator
 │
 ├── Educational & Technical Guides
+│   ├── /guides/nec-705-12-120-percent-rule-solar-busbar-sizing-guide (Interactive Calculator + Guide)
+│   ├── /guides/solar-inverter-clipping-and-dc-ac-ratio-guide
 │   ├── /guides/solar-panel-tilt-angle-by-latitude-and-season-guide
 │   ├── /guides/mppt-solar-charge-controller-sizing-guide
 │   └── /guides/solar-payback-and-roi-calculation-guide

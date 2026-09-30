@@ -103,7 +103,8 @@ export default function SolarInverterClippingGuidePage() {
       <DirectAnswerCard
         keyword="solar inverter clipping and dc to ac ratio formula"
         answer="The Inverter Loading Ratio (ILR / DC-to-AC ratio) is defined as: ILR = Total DC Array Rating (STC Watts) ÷ Inverter Maximum Continuous AC Output (Watts). An optimal residential ILR ranges from 1.15 to 1.30 (up to 1.35 for East/West split arrays). Inverter clipping caps instantaneous mid-day power at the inverter's maximum AC ceiling, but annual energy lost to clipping is typically only 0.5% to 1.5% of total generation, while increasing morning, late afternoon, and cloudy day energy harvest by 15% to 25%."
-        formula="ILR = P_dc_STC ÷ P_ac_rated   |   P_clipped(t) = max(0, P_dc(t) × η_inv(P_dc) - P_ac_max)"
+        formula="ILR = P_dc_STC / P_ac_rated"
+        condition="P_ac(t) = min(P_ac_max, P_dc(t) × η_inv)"
         standardExample="A 9.6 kW DC Array connected to a 7.6 kW AC Inverter has an ILR of 1.263. Over a typical year in Climate Zone 4, clipping loss is ~1.1% (~165 kWh/year out of 14,800 kWh total generation), while capturing ~2,900 kWh more annual energy than a 1.0 ratio system with zero additional inverter or electrical panel upgrade costs."
         sourceAuthority="NREL System Advisor Model (SAM) / Sandia National Laboratories Report SAND2004-5601"
       />
@@ -140,8 +141,9 @@ export default function SolarInverterClippingGuidePage() {
         </p>
 
         <FormulaCard
-          title="Inverter Loading Ratio (ILR) & Clipping Threshold Formulas"
-          formula="ILR = \frac{P_{dc,STC}}{P_{ac,rated}} \qquad P_{ac}(t) = \min\left(P_{ac,max},\; P_{dc}(t) \times \eta_{inv}(P_{dc})\right)"
+          title="Inverter Loading Ratio (ILR) &amp; Clipping Threshold Formulas"
+          formula="ILR = P_dc_STC / P_ac_rated"
+          latexFormula="\text{ILR} = \frac{P_{\text{dc,STC}}}{P_{\text{ac,rated}}} \qquad P_{\text{ac}}(t) = \min\left(P_{\text{ac,max}},\; P_{\text{dc}}(t) \times \eta_{\text{inv}}(P_{\text{dc}})\right)"
           variables={[
             { symbol: "P_dc,STC", label: "DC Array Nameplate Rating", description: "Total nameplate DC array power under Standard Test Conditions", unit: "kW" },
             { symbol: "P_ac,rated", label: "Inverter AC Continuous Rating", description: "Inverter maximum continuous AC power output rating at unity power factor", unit: "kW" },
@@ -357,7 +359,8 @@ export default function SolarInverterClippingGuidePage() {
 
         <FormulaCard
           title="NEC 705.12(B) 120% Busbar Calculation Formula"
-          formula="I_{bus} \times 1.20 \ge I_{main} + \left(I_{ac,inv\_max} \times 1.25\right)"
+          formula="I_bus * 1.20 >= I_main + (I_ac_inv_max * 1.25)"
+          latexFormula="I_{\text{bus}} \times 1.20 \ge I_{\text{main}} + \left(I_{\text{ac,inv,max}} \times 1.25\right)"
           variables={[
             { symbol: "I_bus", label: "Panel Busbar Ampacity", description: "Main electrical service panel busbar ampacity rating", unit: "Amps" },
             { symbol: "I_main", label: "Main Disconnect Rating", description: "Main service disconnect circuit breaker rating", unit: "Amps" },
@@ -386,6 +389,7 @@ export default function SolarInverterClippingGuidePage() {
             <strong>Approach B (1.316 Ratio):</strong> Installing a 10 kW DC array on a 7.6 kW AC inverter fits perfectly
             within the standard 40A breaker limit (32A continuous &times; 1.25 = 40A). The homeowner avoids the costly panel
             upgrade, passes electrical inspection effortlessly, and still captures 98.8% of theoretical annual solar generation!
+            Calculate your exact panel backfeed ceiling using our interactive <Link href="/guides/nec-705-12-120-percent-rule-solar-busbar-sizing-guide" style={{ fontWeight: 600, color: "var(--accent)" }}>NEC 705.12 120% Busbar Calculator &amp; Guide</Link>.
           </li>
         </ul>
       </section>
@@ -398,6 +402,16 @@ export default function SolarInverterClippingGuidePage() {
         </p>
 
         <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(260px, 1fr))", gap: "1rem", marginTop: "1.25rem", marginBottom: "1.5rem" }}>
+          <div style={{ padding: "1.25rem", borderRadius: "0.75rem", border: "1px solid var(--border)", background: "var(--surface)" }}>
+            <h3 style={{ margin: "0 0 0.5rem", fontSize: "1.1rem" }}>⚡ Panel Busbar Backfeed (NEC 705.12)</h3>
+            <p style={{ fontSize: "0.88rem", color: "var(--muted)", margin: "0 0 0.75rem", lineHeight: 1.5 }}>
+              Calculate maximum solar/battery backfeed breaker capacity and main breaker derate options under the 120% rule.
+            </p>
+            <Link href="/guides/nec-705-12-120-percent-rule-solar-busbar-sizing-guide" className="button secondary-button" style={{ width: "100%", textAlign: "center", display: "block" }}>
+              NEC 705.12 Calculator →
+            </Link>
+          </div>
+
           <div style={{ padding: "1.25rem", borderRadius: "0.75rem", border: "1px solid var(--border)", background: "var(--surface)" }}>
             <h3 style={{ margin: "0 0 0.5rem", fontSize: "1.1rem" }}>☀️ Solar Panel AC Yield</h3>
             <p style={{ fontSize: "0.88rem", color: "var(--muted)", margin: "0 0 0.75rem", lineHeight: 1.5 }}>
@@ -425,16 +439,6 @@ export default function SolarInverterClippingGuidePage() {
             </p>
             <Link href="/solar/solar-panel-tilt-calculator" className="button secondary-button" style={{ width: "100%", textAlign: "center", display: "block" }}>
               Solar Panel Tilt Calculator →
-            </Link>
-          </div>
-
-          <div style={{ padding: "1.25rem", borderRadius: "0.75rem", border: "1px solid var(--border)", background: "var(--surface)" }}>
-            <h3 style={{ margin: "0 0 0.5rem", fontSize: "1.1rem" }}>⚡ Battery Inverter Sizing</h3>
-            <p style={{ fontSize: "0.88rem", color: "var(--muted)", margin: "0 0 0.75rem", lineHeight: 1.5 }}>
-              Size pure sine wave inverters for inductive motor starting surge loads, continuous running watts, and DC fuses.
-            </p>
-            <Link href="/battery/inverter-size-calculator" className="button secondary-button" style={{ width: "100%", textAlign: "center", display: "block" }}>
-              Inverter Size Calculator →
             </Link>
           </div>
         </div>

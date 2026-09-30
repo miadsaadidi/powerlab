@@ -15,6 +15,7 @@ const staticPaths = [
   "/guides/how-to-calculate-ev-driving-range-and-efficiency-guide",
   "/guides/level-2-ev-charging-speed-and-breaker-sizing-guide",
   "/guides/mppt-solar-charge-controller-sizing-guide",
+  "/guides/nec-705-12-120-percent-rule-solar-busbar-sizing-guide",
   "/guides/residential-battery-storage-lifespan-and-degradation-guide",
   "/guides/solar-inverter-clipping-and-dc-ac-ratio-guide",
   "/guides/solar-panel-tilt-angle-by-latitude-and-season-guide",

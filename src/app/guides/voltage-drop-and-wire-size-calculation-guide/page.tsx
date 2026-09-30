@@ -105,7 +105,7 @@ export default function VoltageDropGuidePage() {
       <section id="nec-standards" style={{ marginTop: "2.5rem" }}>
         <h2>1. Voltage Drop Physics &amp; NEC Standard Limits</h2>
         <p>
-          Every electrical conductor possesses internal electrical resistance ($R$). As current ($I$) flows through a wire of length ($L$), electrical potential is lost as heat according to <strong>Ohm&apos;s Law ($V = I \times R$)</strong> and <strong>Joule&apos;s First Law ($P = I^2 \times R$)</strong>.
+          Every electrical conductor possesses internal electrical resistance (<em>R</em>). As current (<em>I</em>) flows through a wire of length (<em>L</em>), electrical potential is lost as heat according to <strong>Ohm&apos;s Law (<em>V</em> = <em>I</em> × <em>R</em>)</strong> and <strong>Joule&apos;s First Law (<em>P</em> = <em>I</em>² × <em>R</em>)</strong>.
         </p>
         <p>
           Excessive voltage drop causes three major engineering failures:

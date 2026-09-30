@@ -4,6 +4,7 @@ import { notFound } from "next/navigation";
 import { siteConfig } from "@/lib/site-config";
 import { RESEARCH_PAPERS, BENCHMARK_DATASETS, type ResearchPaper } from "@/data/research-papers";
 import { AcademicCitationModal } from "@/components/seo/academic-citation-modal";
+import { MathDisplay } from "@/components/common/math-display";
 import { buildPageMetadata } from "@/lib/seo/metadata-helper";
 
 interface PageProps {
@@ -402,17 +403,14 @@ export default async function ResearchPaperPage({ params }: PageProps) {
         </h2>
         <div style={{ display: "grid", gap: "1rem", margin: "1rem 0" }}>
           {paper.equations.map((eq, idx) => (
-            <div key={idx} style={{ padding: "1.25rem", borderRadius: "0.75rem", background: "var(--surface)", border: "1px solid var(--line)" }}>
-              <h3 style={{ margin: "0 0 0.5rem", fontSize: "1.05rem", color: "var(--brand-strong)" }}>
-                {eq.name}
-              </h3>
-              <pre className="math-block" style={{ padding: "0.75rem", background: "var(--surface-subtle, #f8fafc)", borderRadius: "0.5rem", border: "1px solid var(--line)", overflowX: "auto", margin: "0.5rem 0" }}>
-                <code>{eq.latex}</code>
-              </pre>
-              <p style={{ margin: 0, fontSize: "0.9rem", color: "var(--muted)" }}>
-                {eq.description}
-              </p>
-            </div>
+            <MathDisplay
+              key={idx}
+              title={eq.name}
+              copyText={eq.latex}
+              benchmark={eq.description}
+            >
+              {eq.latex}
+            </MathDisplay>
           ))}
         </div>
       </section>

@@ -8,6 +8,7 @@ import { PageJumpNav } from "@/components/seo/page-jump-nav";
 import { FormulaCard } from "@/components/seo/formula-card";
 import { StandardsBadge } from "@/components/seo/standards-badge";
 import { AcademicCitationModal } from "@/components/seo/academic-citation-modal";
+import { MathDisplay } from "@/components/common/math-display";
 import { buildPageMetadata } from "@/lib/seo/metadata-helper";
 
 export const metadata: Metadata = buildPageMetadata({
@@ -86,7 +87,7 @@ export default function HowToCalculateEvRangeGuidePage() {
           How to Calculate EV Driving Range &amp; Efficiency (Formula, Speed Drag &amp; Winter Losses)
         </h1>
         <p className="intro" style={{ margin: 0, color: "var(--muted)", fontSize: "1.02rem", lineHeight: 1.6 }}>
-          Master the mathematical physics of electric vehicle range. Calculate real-world highway range from usable battery kilowatt-hours (kWh), aerodynamic drag force ($F_d \propto v^2$), rolling resistance, winter heat pump derating, and battery degradation kinetics.
+          Master the mathematical physics of electric vehicle range. Calculate real-world highway range from usable battery kilowatt-hours (kWh), aerodynamic drag force (<em>F</em><sub>d</sub> ∝ <em>v</em>²), rolling resistance, winter heat pump derating, and battery degradation kinetics.
         </p>
       </header>
 
@@ -134,9 +135,13 @@ export default function HowToCalculateEvRangeGuidePage() {
           <p style={{ fontSize: "0.95rem", lineHeight: 1.6, margin: 0 }}>
             Total tractive power demanded from the battery pack at any instant is governed by Newton&apos;s second law and vehicle road load resistance:
           </p>
-          <div style={{ fontFamily: "var(--font-mono, monospace)", background: "#eee5d7", padding: "0.75rem 1rem", borderRadius: "0.5rem", margin: "0.75rem 0", fontSize: "0.92rem", overflowX: "auto" }}>
-            P_total = 0.5 &times; &rho; &times; C_d &times; A &times; v&sup3; + C_rr &times; m &times; g &times; v + m &times; g &times; v &times; sin(&theta;) + P_HVAC
-          </div>
+          <MathDisplay
+            title="Total Vehicle Road Load Tractive Power"
+            copyText="P_total = 0.5 * rho * C_d * A * v^3 + C_rr * m * g * v + m * g * v * sin(theta) + P_HVAC"
+            benchmark="Sum of aerodynamic drag (cubic with speed), rolling resistance, gravitational grade, and cabin HVAC"
+          >
+            P_total = ½ · ρ · C_d · A · v³ + C_rr · m · g · v + m · g · v · sin(θ) + P_HVAC
+          </MathDisplay>
         </div>
       </section>
 
@@ -298,9 +303,13 @@ export default function HowToCalculateEvRangeGuidePage() {
           <strong>State of Health (SoH)</strong> is the ratio of current maximum usable capacity relative to the original factory nameplate capacity:
         </p>
 
-        <div style={{ fontFamily: "var(--font-mono, monospace)", background: "#eee5d7", padding: "0.75rem 1rem", borderRadius: "0.5rem", margin: "1rem 0", fontSize: "0.95rem" }}>
-          State of Health (SoH %) = [ Current Usable Capacity (kWh) &divide; Factory Original Usable Capacity (kWh) ] &times; 100%
-        </div>
+        <MathDisplay
+          title="Battery State of Health (SoH)"
+          copyText="SoH = (Capacity_usable_current / Capacity_original_nominal) * 100%"
+          benchmark="State of Health represents remaining usable battery capacity relative to factory nameplate rating"
+        >
+          SoH = (Capacity_usable_current / Capacity_original_nominal) × 100%
+        </MathDisplay>
 
         <ul style={{ lineHeight: 1.65, color: "var(--ink)", paddingLeft: "1.25rem" }}>
           <li><strong>Year 1 to 2 (Initial Settling):</strong> Most EV packs lose 2% to 3% capacity early as the initial SEI layer stabilizes across cell surfaces.</li>
@@ -366,11 +375,13 @@ export default function HowToCalculateEvRangeGuidePage() {
           <p style={{ fontSize: "0.92rem", lineHeight: 1.6, margin: "0 0 0.75rem" }}>
             The net electrical energy required directly from your vehicle&apos;s battery pack to complete a trip is calculated by multiplying distance by your vehicle&apos;s real-world consumption rate:
           </p>
-          <div style={{ fontFamily: "var(--font-mono, monospace)", background: "var(--soft, #f8fafc)", border: "1px solid var(--line)", padding: "0.75rem 1rem", borderRadius: "0.5rem", margin: "0.5rem 0 1rem", fontSize: "0.88rem", overflowX: "auto" }}>
-            Vehicle Energy Required (kWh DC) = [ Trip Distance (miles) &times; Vehicle Consumption (Wh/mi) ] &divide; 1,000<br />
-            Grid Energy Draw (kWh AC) = Vehicle Energy Required (kWh DC) &divide; &eta;_rectifier<br />
-            Level 2 Charge Time (hours) = Vehicle Energy Required (kWh DC) &divide; [ EVSE Power (kW) &times; &eta;_rectifier ]
-          </div>
+          <MathDisplay
+            title="Driving Energy to Level 2 Charging Duration"
+            copyText="t_charge = (Distance * Consumption_Wh_mi) / (1000 * P_evse * eta_rectifier)"
+            benchmark="Converts road mileage and vehicle consumption into wall-side AC charging hours"
+          >
+            t_charge = (Distance × Consumption_Wh_mi) / (1000 × P_evse × η_rectifier)
+          </MathDisplay>
           <p style={{ fontSize: "0.85rem", color: "var(--muted)", margin: 0, lineHeight: 1.55 }}>
             <em>EPA Consumption vs. Wall-Side Grid Energy:</em> Vehicle onboard trip computers report net DC electricity discharged from the battery while driving. However, official EPA window-sticker consumption ratings and electric utility meters measure total wall-side AC electricity drawn from the grid. Because AC-to-DC rectification and thermal cooling incur an illustrative ~10% conversion loss (modeled using an illustrative 90% onboard rectification efficiency assumption), grid electricity consumed (E_grid = E_battery &divide; 0.90) is roughly 11% higher than the net DC energy required to move the vehicle.
           </p>

@@ -236,22 +236,22 @@ export function SolarPanelOutputCalculator() {
         {
           stepNumber: 1,
           title: "Determine Total DC Nameplate Array Capacity",
-          description: "Multiply the individual solar panel STC nameplate wattage by the total number of installed modules to find peak DC kilowatts ($P_{\\text{dc,STC}}$).",
-          formula: "P_{\\text{dc}} = \\frac{N_{\\text{modules}} \\times P_{\\text{module,watts}}}{1000}",
+          description: "Multiply the individual solar panel STC nameplate wattage by the total number of installed modules to find peak DC kilowatts (P_dc).",
+          formula: "P_dc = (N_modules × P_module_watts) / 1000",
           exampleValue: "15 modules of 400 Watts each = (15 × 400) / 1,000 = 6.0 kW DC capacity.",
         },
         {
           stepNumber: 2,
           title: "Lookup Regional Solar Insolation (Peak Sun Hours)",
           description: "Retrieve local annual average Peak Sun Hours (PSH) from NREL National Solar Radiation Database (NSRDB) representing 1,000 W/m² equivalent hours.",
-          formula: "\\text{PSH} = \\frac{\\text{Daily Solar Irradiation (Wh/m}^2)}{1000\\text{ W/m}^2}",
+          formula: "PSH = Daily Solar Irradiation (Wh/m²) / 1000 W/m²",
           exampleValue: "Austin, Texas receives an annual average of 5.15 Peak Sun Hours per day.",
         },
         {
           stepNumber: 3,
           title: "Apply System Derate Factors & Inverter Efficiency",
           description: "Multiply DC nameplate capacity by regional PSH and the composite system derating factor (typically 0.84 to 0.86 accounting for thermal degradation, soiling, wiring losses, and DC-to-AC conversion).",
-          formula: "E_{\\text{daily,kWh}} = P_{\\text{dc}} \\times \\text{PSH} \\times \\eta_{\\text{system}}",
+          formula: "E_daily_kWh = P_dc × PSH × η_system",
           exampleValue: "6.0 kW × 5.15 PSH × 0.86 = 26.57 kWh per day (~9,699 kWh per year).",
         },
       ]}

@@ -7,7 +7,7 @@ import { DirectAnswerCard } from "@/components/seo/direct-answer-card";
 import { PageJumpNav } from "@/components/seo/page-jump-nav";
 import { FormulaCard } from "@/components/seo/formula-card";
 import { StandardsBadge } from "@/components/seo/standards-badge";
-
+import { MathDisplay } from "@/components/common/math-display";
 import { buildPageMetadata } from "@/lib/seo/metadata-helper";
 
 export const metadata: Metadata = buildPageMetadata({
@@ -109,9 +109,13 @@ export default function EmergencyGeneratorGuidePage() {
         <p>
           At standstill (rotor slip <code>s = 1.0</code>), an induction motor behaves electrically as a short-circuited transformer. Because the rotor is not yet rotating, it generates zero <strong>Counter-Electromotive Force (CEMF)</strong> to oppose incoming current. The stator circuit impedance is constrained entirely by the tiny internal copper winding resistance and leakage reactance:
         </p>
-        <pre className="math-block" style={{ padding: "1rem", background: "var(--surface)", borderRadius: "0.5rem", border: "1px solid var(--line)", overflowX: "auto" }}>
-          <code>{`Z_start = √((R_stator + R'_rotor)² + (X_stator + X'_rotor)²) << Z_running`}</code>
-        </pre>
+        <MathDisplay
+          title="Motor Starting Impedance vs Running Impedance"
+          copyText="Z_start = sqrt((R_stator + R'_rotor)^2 + (X_stator + X'_rotor)^2) << Z_running"
+          benchmark="Starting impedance is 5× to 7× lower than running impedance, creating 500%–700% LRA surge"
+        >
+          Z_start = √((R_stator + R&apos;_rotor)² + (X_stator + X&apos;_rotor)²) ≪ Z_running
+        </MathDisplay>
         <p>
           Consequently, the instantaneous initial current—designated on equipment nameplates as <strong>Locked Rotor Amperage (LRA)</strong>—surges to <strong>500% to 700%</strong> of steady-state Full Load Amperage (FLA) for 100 to 500 milliseconds until the rotor achieves synchronous slip.
         </p>
@@ -186,9 +190,13 @@ export default function EmergencyGeneratorGuidePage() {
         <p>
           When an induction motor starts, the generator alternator rotor field cannot immediately increase magnetic flux. During the first few cycles (0–50ms), the alternator terminal voltage drops proportionally to its <strong>direct-axis sub-transient reactance (X&apos;&apos;d)</strong>:
         </p>
-        <pre className="math-block" style={{ padding: "1rem", background: "var(--surface)", borderRadius: "0.5rem", border: "1px solid var(--line)", overflowX: "auto" }}>
-          <code>{`ΔV_transient (%) ≈ (kVA_motor_inrush ÷ kVA_alternator_nominal) × X''d × 100`}</code>
-        </pre>
+        <MathDisplay
+          title="Alternator Sub-Transient Voltage Sag Equation"
+          copyText="Delta_V_transient = (kVA_inrush / kVA_gen_nom) * X''d * 100%"
+          benchmark="IEEE 446 mandates maximum transient sag ≤ 18%–20% to prevent electronic load dropouts"
+        >
+          ΔV_transient = (kVA_inrush / kVA_gen_nom) × X&apos;&apos;d × 100%
+        </MathDisplay>
         <p>
           Under <strong>IEEE 446 guidelines</strong>, transient voltage sag must not exceed <strong>18% to 20%</strong>. Sags greater than 25% cause sensitive microprocessor controls (such as digital furnace control boards, inverter heat pumps, and electronic transfer switches) to trip offline on low-voltage error codes.
         </p>
