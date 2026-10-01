@@ -10,7 +10,7 @@ import { MobileResultBar } from "@/components/calculator/mobile-result-bar";
 import { LossWaterfall } from "@/components/calculator/loss-waterfall";
 import { ShareButton } from "@/components/calculator/share-button";
 import { PrintSpecButton } from "@/components/calculator/print-spec-button";
-import { GooglePreferredBanner } from "@/components/calculator/google-preferred-banner";
+import { StandardsBadge } from "@/components/calculator/standards-badge";
 import { CalculatorTrustPill } from "@/components/calculator/calculator-trust-pill";
 
 const QUICK_BATTERY_SIZE_PRESETS = [
@@ -195,7 +195,7 @@ export function BatterySizeCalculator() {
     <section className="calculator" aria-labelledby="calculator-heading">
       <div className="calculator-grid">
         <div className="calculator-inputs">
-          <h2 id="calculator-heading">Calculate required battery size</h2>
+          <h2 id="calculator-heading">Estimate required battery size</h2>
 
           <div className="preset-chips-container" role="region" aria-label="Quick Sizing Scenarios">
             <span className="preset-chips-label">⚡ 1-Click Autofill: Top 5 Battery Sizing Setups</span>
@@ -388,7 +388,7 @@ export function BatterySizeCalculator() {
                     />
                   </label>
                   <label>
-                    Battery health (%)
+                    Battery health / SOH (%)
                     <input type="number" min="1" max="100" value={percent(batteryHealth)} onChange={(e) => markChanged(setBatteryHealth, fraction(e.target.value))} />
                   </label>
                   <label>
@@ -400,7 +400,7 @@ export function BatterySizeCalculator() {
                     <input type="number" min="1" max="100" value={percent(dcEfficiency)} onChange={(e) => markChanged(setDcEfficiency, fraction(e.target.value))} />
                   </label>
                   <label>
-                    Design margin (%)
+                    Planning margin (%)
                     <input type="number" min="0" max="100" value={percent(designMargin)} onChange={(e) => markChanged(setDesignMargin, fraction(e.target.value))} />
                   </label>
                   <label>
@@ -425,6 +425,7 @@ export function BatterySizeCalculator() {
                     {voltagePreset === "custom" && <input type="number" min="1" step="0.1" value={voltage} onChange={(e) => markChanged(setVoltage, number(e.target.value))} />}
                   </label>
                 </div>
+                <p className="form-hint">Planning margin provides an additional capacity buffer selected for extra sizing headroom.</p>
                 {reserveCustomized && <p className="form-hint">Your reserve is custom and will not be replaced when chemistry changes.</p>}
               </fieldset>
             )}
@@ -543,7 +544,7 @@ export function BatterySizeCalculator() {
                 </dl>
               </section>
               <p className="warning">Capacity is only one part of battery selection. Confirm that the battery, BMS and inverter can support your required continuous and peak power using manufacturer specifications.</p>
-              <GooglePreferredBanner />
+              <StandardsBadge standards={["IEEE 485", "IEC 62619", "UL 1973"]} />
               <div className="button-row" style={{ marginTop: "0.85rem", display: "flex", gap: "0.5rem", flexWrap: "wrap" }}>
                 <button className="button" type="button" onClick={verifyRuntime}>
                   Verify this battery&apos;s runtime

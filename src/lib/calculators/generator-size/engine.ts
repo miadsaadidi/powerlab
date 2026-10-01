@@ -10,7 +10,7 @@ export interface GeneratorApplianceItem {
 
 export interface GeneratorSizeInput {
   appliances: GeneratorApplianceItem[];
-  safetyMarginFraction?: number; // default 0.20 (20%)
+  safetyMarginFraction?: number; // default 0.20 (20% planning headroom)
   fuelType?: "gasoline" | "propane" | "natural_gas" | "diesel";
 }
 
@@ -21,6 +21,7 @@ export interface GeneratorSizeResultData {
   
   targetContinuousWatts: number;
   targetPeakSurgeWatts: number;
+  planningMarginPercent: number;
   
   // Recommendations
   recommendedPortableClass: string;
@@ -36,16 +37,77 @@ export interface GeneratorSizeResultData {
 
 export type GeneratorSizeResult = CalculationResult<GeneratorSizeResultData>;
 
+interface GeneratorCapacityBracket {
+  label: string;
+  maxContinuousW: number;
+  maxPeakW: number;
+  typicalReceptacle: string;
+  typicalConnectionNote: string;
+  standbyClass: string;
+}
+
+const GENERATOR_BRACKETS: GeneratorCapacityBracket[] = [
+  {
+    label: "2,000W – 2,500W Inverter Generator class",
+    maxContinuousW: 2000,
+    maxPeakW: 2500,
+    typicalReceptacle: "NEMA 5-20R (120V 20A Duplex)",
+    typicalConnectionNote: "Verify generator receptacle and cord rating",
+    standbyClass: "Portable inverter scale — dedicated extension cords",
+  },
+  {
+    label: "3,500W – 4,500W Portable Generator class",
+    maxContinuousW: 3600,
+    maxPeakW: 4800,
+    typicalReceptacle: "NEMA L5-30R (120V 30A Twist-Lock) or NEMA TT-30R",
+    typicalConnectionNote: "Verify generator receptacle and cord rating",
+    standbyClass: "Portable scale — manual transfer switch or extension cords",
+  },
+  {
+    label: "7,500W – 9,500W Portable Generator class",
+    maxContinuousW: 7500,
+    maxPeakW: 9500,
+    typicalReceptacle: "NEMA L14-30R (120V/240V 30A Twist-Lock)",
+    typicalConnectionNote: "Verify generator receptacle and transfer switch rating",
+    standbyClass: "10 kW – 14 kW Standby Generator class (Essential circuits)",
+  },
+  {
+    label: "10,000W – 12,500W Heavy Portable Generator class",
+    maxContinuousW: 10000,
+    maxPeakW: 13000,
+    typicalReceptacle: "NEMA 14-50R (120V/240V 50A)",
+    typicalConnectionNote: "Verify generator receptacle and transfer switch rating",
+    standbyClass: "14 kW – 18 kW Standby Generator class",
+  },
+  {
+    label: "14 kW – 18 kW Large Portable or Standby Generator class",
+    maxContinuousW: 14000,
+    maxPeakW: 18000,
+    typicalReceptacle: "Verify generator receptacle or hardwired transfer inlet",
+    typicalConnectionNote: "Hardwired transfer equipment or listed inlet box",
+    standbyClass: "18 kW – 22 kW Standby Generator class",
+  },
+  {
+    label: "20 kW – 26 kW Standby Generator class",
+    maxContinuousW: 20000,
+    maxPeakW: 26000,
+    typicalReceptacle: "Hardwired Automatic Transfer Switch (ATS)",
+    typicalConnectionNote: "Permanently wired automatic transfer switch required",
+    standbyClass: "22 kW – 26 kW Whole-Home Standby Generator class",
+  },
+];
+
 export function calculateGeneratorSize(input: GeneratorSizeInput): GeneratorSizeResult {
   const { appliances, safetyMarginFraction = 0.20, fuelType = "gasoline" } = input;
 
   if (!appliances || appliances.length === 0) {
-    throw new Error("Add at least one appliance to calculate generator size.");
+    throw new Error("Add at least one appliance to estimate generator size.");
   }
 
   let totalRunningWatts = 0;
   let maxInductiveSurgeDelta = 0;
   let totalItems = 0;
+  let hasMissingSurge = false;
 
   for (const item of appliances) {
     if (!Number.isFinite(item.runningWatts) || item.runningWatts <= 0) {
@@ -55,87 +117,82 @@ export function calculateGeneratorSize(input: GeneratorSizeInput): GeneratorSize
     totalItems += qty;
     totalRunningWatts += item.runningWatts * qty;
 
-    const singleItemSurge = Math.max(item.runningWatts, item.startingWatts || item.runningWatts);
-    const surgeDelta = singleItemSurge - item.runningWatts;
+    const singleItemSurge = Number.isFinite(item.startingWatts) && item.startingWatts > 0
+      ? item.startingWatts
+      : item.runningWatts;
+
+    if (item.startingWatts === undefined || item.startingWatts === null) {
+      hasMissingSurge = true;
+    }
+
+    const surgeDelta = Math.max(0, singleItemSurge - item.runningWatts);
     if (surgeDelta > maxInductiveSurgeDelta) {
       maxInductiveSurgeDelta = surgeDelta;
     }
   }
 
+  // Simplified sequential-start planning model:
+  // Calculated_Peak_W = Total_Running_W + Max(Motor_Starting_W - Motor_Running_W)
   const totalStartingSurgeWatts = totalRunningWatts + maxInductiveSurgeDelta;
+
+  // Apply planning margin (headroom)
   const targetContinuousWatts = Math.round(totalRunningWatts * (1 + safetyMarginFraction));
   const targetPeakSurgeWatts = Math.round(totalStartingSurgeWatts * (1 + safetyMarginFraction));
+  const planningMarginPercent = Math.round(safetyMarginFraction * 100);
 
-  // Portable Generator Class Selection
-  let recommendedPortableClass = "";
-  let recommendedNemaOutlet = "";
-  let recommendedCordGauge = "";
+  // Dual-condition generator class selection: must satisfy BOTH continuous and peak surge requirements
+  const matchedBracket = GENERATOR_BRACKETS.find(
+    (b) => b.maxContinuousW >= targetContinuousWatts && b.maxPeakW >= targetPeakSurgeWatts
+  );
 
-  if (targetContinuousWatts <= 2200) {
-    recommendedPortableClass = "2,000W – 2,500W Quiet Inverter Generator";
-    recommendedNemaOutlet = "Standard 5-20R (120V 20A Duplex)";
-    recommendedCordGauge = "14 AWG or 12 AWG Heavy Extension Cord";
-  } else if (targetContinuousWatts <= 3800) {
-    recommendedPortableClass = "3,500W – 4,500W RV-Ready Portable Generator";
-    recommendedNemaOutlet = "NEMA TT-30R / L5-30R (120V 30A)";
-    recommendedCordGauge = "10 AWG Heavy Duty 3-Prong Cord";
-  } else if (targetContinuousWatts <= 7500) {
-    recommendedPortableClass = "7,500W – 9,500W Dual-Fuel Portable Generator";
-    recommendedNemaOutlet = "NEMA L14-30R (120V/240V 30A 4-Prong Twist Lock)";
-    recommendedCordGauge = "10 AWG 4-Conductor Generator Cord";
-  } else if (targetContinuousWatts <= 12000) {
-    recommendedPortableClass = "10,000W – 12,500W Tri-Fuel Heavy Portable";
-    recommendedNemaOutlet = "NEMA 14-50R (120V/240V 50A 4-Prong)";
-    recommendedCordGauge = "6 AWG 4-Conductor Heavy Power Cord";
-  } else {
-    recommendedPortableClass = "15 kW – 18 kW Large Trailered Portable";
-    recommendedNemaOutlet = "Direct 50A / 100A Hardwired Transfer Connection";
-    recommendedCordGauge = "4 AWG or 2 AWG Hardwire";
-  }
+  const selectedBracket = matchedBracket || {
+    label: "30 kW+ Commercial Standby Generator class",
+    maxContinuousW: 48000,
+    maxPeakW: 60000,
+    typicalReceptacle: "Hardwired Automatic Transfer Switch (ATS)",
+    typicalConnectionNote: "Permanently wired automatic transfer switch required",
+    standbyClass: "30 kW – 48 kW Liquid-Cooled Standby Generator class",
+  };
 
-  // Standby Class Selection (Standard whole house brackets)
-  let recommendedStandbyClass = "";
-  if (targetContinuousWatts <= 10000) {
-    recommendedStandbyClass = "10 kW – 14 kW Automatic Standby Generator (Air-Cooled)";
-  } else if (targetContinuousWatts <= 18000) {
-    recommendedStandbyClass = "18 kW – 22 kW Whole-Home Standby Generator (Air-Cooled)";
-  } else if (targetContinuousWatts <= 26000) {
-    recommendedStandbyClass = "24 kW – 26 kW Large Whole-Home Standby";
-  } else {
-    recommendedStandbyClass = "30 kW – 48 kW Commercial Liquid-Cooled Generator";
-  }
-
-  // Apparent Power in kVA (assuming standard 0.8 power factor for motors)
+  // Apparent Power in kVA (assuming standard 0.8 power factor for planning)
   const apparentPowerKva = Number(((targetContinuousWatts / 0.8) / 1000).toFixed(2));
 
   const assumptions: AssumptionUsed[] = [
     {
       key: "safety_margin",
-      value: Math.round(safetyMarginFraction * 100),
+      value: planningMarginPercent,
       unit: "%",
       provenance: "preset",
-      description: "Continuous operating headroom to prevent generator engine bogging and thermal overload",
+      description: "Planning headroom margin above running load to prevent generator engine bogging",
     },
     {
       key: "surge_logic",
       value: "Sequential motor startup",
       provenance: "preset",
-      description: "Adds the single largest inductive motor startup surge to running load rather than summing all surges simultaneously",
+      description: "Simplified sequential-start model: adds the single largest motor startup surge delta to continuous running load",
     },
     {
       key: "power_factor",
       value: 0.8,
       provenance: "preset",
-      description: "Standard inductive power factor assumed for generator sizing kVA conversion",
+      description: "Reference 0.8 power factor used for kVA planning conversion",
     },
   ];
 
   const warnings: CalculationWarning[] = [];
+  if (hasMissingSurge) {
+    warnings.push({
+      code: "SURGE_DATA_ESTIMATED",
+      severity: "info",
+      message: "Some appliances lack manufacturer startup surge data; verify motor nameplate LRA for motorized loads.",
+    });
+  }
+
   if (targetContinuousWatts >= 10000) {
     warnings.push({
       code: "LARGE_WHOLE_HOME_LOAD",
       severity: "info",
-      message: "Total continuous load exceeds 10 kW. A permanently installed standby generator with an automatic transfer switch (ATS) is recommended over portable units.",
+      message: "Estimated continuous load exceeds 10 kW. A permanently installed standby generator with listed transfer equipment is typically recommended.",
     });
   }
 
@@ -143,7 +200,13 @@ export function calculateGeneratorSize(input: GeneratorSizeInput): GeneratorSize
     warnings.push({
       code: "PROPANE_DERATE",
       severity: "info",
-      message: "Running on LP propane typically produces 10% lower peak wattage than gasoline due to fuel energy density.",
+      message: "Running on LP propane typically derates peak generator output by approximately 10% compared with gasoline due to fuel energy density.",
+    });
+  } else if (fuelType === "natural_gas") {
+    warnings.push({
+      code: "NATURAL_GAS_DERATE",
+      severity: "info",
+      message: "Running on natural gas typically derates generator capacity by approximately 15% to 20% compared with gasoline.",
     });
   }
 
@@ -155,10 +218,11 @@ export function calculateGeneratorSize(input: GeneratorSizeInput): GeneratorSize
       totalStartingSurgeWatts,
       targetContinuousWatts,
       targetPeakSurgeWatts,
-      recommendedPortableClass,
-      recommendedStandbyClass,
-      recommendedNemaOutlet,
-      recommendedCordGauge,
+      planningMarginPercent,
+      recommendedPortableClass: selectedBracket.label,
+      recommendedStandbyClass: selectedBracket.standbyClass,
+      recommendedNemaOutlet: selectedBracket.typicalReceptacle,
+      recommendedCordGauge: selectedBracket.typicalConnectionNote,
       apparentPowerKva,
       applianceCount: totalItems,
     },

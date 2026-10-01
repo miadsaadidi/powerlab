@@ -11,7 +11,6 @@ import { track } from "@/lib/analytics/analytics";
 import { buildSolarBatteryHandoffUrl } from "@/lib/calculators/solar-load/handoff";
 import { ShareButton } from "@/components/calculator/share-button";
 import { PrintSpecButton } from "@/components/calculator/print-spec-button";
-import { GooglePreferredBanner } from "@/components/calculator/google-preferred-banner";
 import { CalculatorTrustPill } from "@/components/calculator/calculator-trust-pill";
 import { StandardsBadge } from "@/components/calculator/standards-badge";
 
@@ -94,7 +93,7 @@ export function SolarLoadCalculator() {
         <label htmlFor="solar-load-search">Add an appliance</label>
         <input id="solar-load-search" type="search" value={search} onChange={(event) => setSearch(event.target.value)} placeholder="Search appliance presets..." />
         <div className="appliance-options" role="listbox" aria-label="Solar load appliance presets">{visibleAppliances.map((preset) => { const isAdded = rows.some((r) => r.presetId === preset.id || r.label === preset.label); return <button type="button" key={preset.id} className={isAdded ? "selected" : ""} onClick={() => addPreset(preset.id)}><span>{isAdded ? "✓ " : "+ "}{preset.label}</span><small>{preset.watts} W · {preset.category}</small></button>; })}</div>
-        <p className="form-hint">Presets are editable planning estimates. Add Custom Appliance when you know a different load.</p>
+        <p className="form-hint">Presets are editable planning estimates, not universal appliance specifications. Add Custom Appliance when you know a different load.</p>
         <div className="usage-rows" aria-label="Solar load appliances">
           {rows.map((row) => {
             const error = rowError(row);
@@ -105,7 +104,7 @@ export function SolarLoadCalculator() {
               <label>Qty<input aria-label={`${row.label} quantity`} type="number" min="1" step="1" value={row.quantity} onChange={(event) => updateRow(row.id, { quantity: Number(event.target.value) })} /></label>
               <label>Hours/day<input aria-label={`${row.label} hours per day`} type="number" min="0" max="24" step="0.25" value={row.hoursPerDay} onChange={(event) => updateRow(row.id, { hoursPerDay: Number(event.target.value) })} /></label>
               <label className="switch-row"><input type="checkbox" checked={row.essential} onChange={(event) => updateRow(row.id, { essential: event.target.checked })} /> Essential</label>
-              <details open={activeDetails} onToggle={(event) => setAdvancedRows((current) => ({ ...current, [row.id]: event.currentTarget.open }))}><summary>Row details</summary><label>Preset/custom<select value={row.presetId ?? "custom"} onChange={(event) => updatePreset(row.id, event.target.value)}>{APPLIANCES.map((item) => <option value={item.id} key={item.id}>{item.label}</option>)}</select></label><label>Duty cycle (%)<input type="number" min="0.01" max="100" step="any" value={row.dutyCycle * 100} onChange={(event) => updateRow(row.id, { dutyCycle: Number(event.target.value) / 100 })} /></label><p className="form-hint">Duty cycle is a planning estimate for how often the appliance draws its listed watts. It remains editable.</p></details>
+              <details open={activeDetails} onToggle={(event) => setAdvancedRows((current) => ({ ...current, [row.id]: event.currentTarget.open }))}><summary>Row details</summary><label>Preset/custom<select value={row.presetId ?? "custom"} onChange={(event) => updatePreset(row.id, event.target.value)}>{APPLIANCES.map((item) => <option value={item.id} key={item.id}>{item.label}</option>)}</select></label><label>Duty cycle (%)<input type="number" min="0.01" max="100" step="any" value={row.dutyCycle * 100} onChange={(event) => updateRow(row.id, { dutyCycle: Number(event.target.value) / 100 })} /></label><p className="form-hint">Hours/day is the scheduled operating window. Duty cycle is the fraction of that window the appliance draws its listed watts. Do not enter an already-derated runtime and apply a duty cycle, as that double-counts the reduction (e.g. Refrigerator: 150 W × 24 h × 35% = 1,260 Wh/day).</p></details>
               {error && <p className="error" role="alert">{error}</p>}
               <button type="button" className="text-button" onClick={() => removeRow(row.id)} aria-label={`Remove ${row.label}`}>Remove</button>
             </div>;
@@ -118,15 +117,13 @@ export function SolarLoadCalculator() {
         {result ? <>
           <p className="result-lede">Estimated daily load</p>
           <p className="result-value">{formatKWh(result.result.totalDailyKWh)}</p>
-          <StandardsBadge standards={["IEEE 1013", "IEC 61724", "NEC Art. 690"]} />
-          <dl className="result-breakdown"><div><dt>Essential load</dt><dd>{formatKWh(result.result.essentialDailyKWh)}</dd></div><div><dt>Other load</dt><dd>{formatKWh(result.result.otherDailyKWh)}</dd></div><div><dt>Listed-load running watts</dt><dd>{formatW(result.result.connectedRunningW)}</dd></div></dl>
-          <p className="form-hint">Running watts if all listed loads operate together. This is not a measured peak and does not include startup surge.</p>
+          <StandardsBadge standards={["IEEE Std 1562", "NEC Article 220"]} />
+          <dl className="result-breakdown"><div><dt>Essential load</dt><dd>{formatKWh(result.result.essentialDailyKWh)}</dd></div><div><dt>Other load</dt><dd>{formatKWh(result.result.otherDailyKWh)}</dd></div><div><dt>Connected running watts</dt><dd>{formatW(result.result.connectedRunningW)}</dd></div></dl>
+          <p className="form-hint">Connected running watts is the sum of listed running wattages if all selected loads operate simultaneously. This is not a measured peak demand, does not calculate motor/compressor startup surge, and does not determine final inverter rating by itself.</p>
           <section className="comparison"><h3>All loads vs Essential only</h3><dl><div><dt>All loads</dt><dd>{formatKWh(result.result.comparison.allLoads.dailyKWh)} · {formatW(result.result.comparison.allLoads.connectedW)}</dd></div><div className="current-comparison"><dt>Essential only</dt><dd>{formatKWh(result.result.comparison.essentialOnly.dailyKWh)} · {formatW(result.result.comparison.essentialOnly.connectedW)}</dd></div></dl></section>
           {result.result.topContributors.length > 0 && <section className="comparison"><h3>Top energy contributors</h3><dl>{result.result.topContributors.slice(0, 5).map((item) => <div key={item.id}><dt>{item.label}</dt><dd>{formatWh(item.dailyKWh * 1_000)} · {item.sharePercent.toLocaleString(undefined, { maximumFractionDigits: 1 })}%</dd></div>)}</dl></section>}
-          <section className="assumption-summary"><h3>Important assumptions</h3><p className="form-hint">Non-100% duty cycles remain visible on their rows. Preset duty cycles are editable planning estimates, not universal appliance specifications.</p><p className="form-hint">Weekly schedules are averaged across seven days. Average daily load is not a worst-case daily load.</p></section>
-          <section className="warning"><h3>Capacity and surge limitation</h3><p>Peak/surge output is not calculated. This tool does not verify inverter sizing, battery or BMS current limits, circuit loading, wiring or installation compatibility.</p></section>
-          
-          <GooglePreferredBanner />
+          <section className="assumption-summary"><h3>Important assumptions</h3><p className="form-hint">Presets and duty cycles are editable planning estimates, not universal equipment ratings. Actual energy consumption varies with ambient temperature, settings, and usage patterns.</p><p className="form-hint">Essential loads are specific appliances you designate to keep powered during grid outages or off-grid backup scenarios.</p>{weeklyImported ? <p className="form-hint">Weekly schedules from imported profile rows are averaged across 7 days.</p> : <p className="form-hint">Daily energy reflects a typical 24-hour day. Average daily load is not a peak-day maximum.</p>}</section>
+          <section className="warning"><h3>Continuous load indicator only</h3><p>Connected running watts indicates simultaneous operating load only. This tool does not calculate startup surge, power factor, or verify final inverter rating, battery/BMS current limits, circuit loading, wiring, or installation safety.</p></section>
 
           <div className="button-row" style={{ marginTop: "0.85rem", display: "flex", gap: "0.5rem", flexWrap: "wrap" }}>
             <ShareButton title="Solar Load Calculation" />

@@ -64,6 +64,27 @@ describe("electricity usage engine", () => {
     expect(profile.rows.reduce((sum, row) => sum + row.sharePercent, 0)).toBeCloseTo(100);
   });
 
+  it("validates Case A: 100 W × 4 h/day × 7 days/week × 100% duty cycle", () => {
+    const result = calculateUsage({ mode: "watts-time", watts: 100, quantity: 1, hoursPerDay: 4, daysPerWeek: 7, dutyCycle: 1 });
+    expect(result.averageDailyKWh).toBeCloseTo(0.40, 2);
+    expect(result.monthlyKWh).toBeCloseTo(12.175, 2);
+    expect(result.annualKWh).toBeCloseTo(146.1, 1);
+  });
+
+  it("validates Case B: 1,500 W × 8 h/day × 7 days/week × 100% duty cycle", () => {
+    const result = calculateUsage({ mode: "watts-time", watts: 1500, quantity: 1, hoursPerDay: 8, daysPerWeek: 7, dutyCycle: 1 });
+    expect(result.averageDailyKWh).toBeCloseTo(12.0, 2);
+    expect(result.monthlyKWh).toBeCloseTo(365.25, 2);
+    expect(result.annualKWh).toBeCloseTo(4383.0, 1);
+  });
+
+  it("validates Case C: 150 W × 24 h/day × 7 days/week × 33% duty cycle", () => {
+    const result = calculateUsage({ mode: "watts-time", watts: 150, quantity: 1, hoursPerDay: 24, daysPerWeek: 7, dutyCycle: 0.33 });
+    expect(result.averageDailyKWh).toBeCloseTo(1.188, 3);
+    expect(result.monthlyKWh).toBeCloseTo(36.16, 1);
+    expect(result.annualKWh).toBeCloseTo(433.917, 1);
+  });
+
   it("rejects invalid values", () => {
     expect(() => calculateUsage({ mode: "watts-time", watts: 0, quantity: 1, hoursPerDay: 4, daysPerWeek: 7, dutyCycle: 1 })).toThrow("Enter watts greater than zero.");
     expect(() => calculateUsage({ mode: "watts-time", watts: 100, quantity: 1, hoursPerDay: 4, daysPerWeek: 8, dutyCycle: 1 })).toThrow("Days per week must be between 1 and 7.");

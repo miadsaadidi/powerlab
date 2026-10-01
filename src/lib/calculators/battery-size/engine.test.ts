@@ -54,6 +54,25 @@ describe("battery size engine", () => {
     expect(values[2]).toBeCloseTo(6111.1111);
   });
 
+  it("scales required capacity inversely with State of Health (SOH) < 100%", () => {
+    const fresh = calculateBatterySize({ ...defaults, batteryHealth: 1.0 }).result;
+    const degraded = calculateBatterySize({ ...defaults, batteryHealth: 0.8 }).result;
+
+    expect(degraded.minimumNominalWh).toBeCloseTo(fresh.minimumNominalWh / 0.8);
+    expect(degraded.recommendedNominalWh).toBeCloseTo(fresh.recommendedNominalWh / 0.8);
+  });
+
+  it("reproduces sizing matrix values (12V LiFePO4 / 90% DoD / 88% Inverter / 0% margin)", () => {
+    // 50W over 4, 8, 12, 24 hours
+    const r4 = calculateBatterySize({ loadWatts: 50, loadType: "ac", runtimeHours: 4, startingSoc: 1, reserveSoc: 0.1, batteryHealth: 1, acInverterEfficiency: 0.88, dcConversionEfficiency: 1, designMargin: 0, voltage: 12 }).result;
+    expect(r4.recommendedNominalWh).toBeCloseTo(252.5252);
+    expect(r4.selectedVoltageAh).toBeCloseTo(21.0437);
+
+    const r24 = calculateBatterySize({ loadWatts: 50, loadType: "ac", runtimeHours: 24, startingSoc: 1, reserveSoc: 0.1, batteryHealth: 1, acInverterEfficiency: 0.88, dcConversionEfficiency: 1, designMargin: 0, voltage: 12 }).result;
+    expect(r24.recommendedNominalWh).toBeCloseTo(1515.1515);
+    expect(r24.selectedVoltageAh).toBeCloseTo(126.2626);
+  });
+
   it("rejects invalid inputs", () => {
     expect(() => calculateBatterySize({ ...defaults, loadWatts: 0 })).toThrow("Enter a load greater than zero.");
     expect(() => calculateBatterySize({ ...defaults, runtimeHours: 0 })).toThrow("Enter a runtime greater than zero.");

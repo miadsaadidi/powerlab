@@ -39,7 +39,9 @@ export interface VoltageDropResultData {
   endVoltage: number;
   powerLostWatts: number;
   isAmpacitySafe: boolean;
-  necComplianceStatus: "pass" | "marginal" | "fail";
+  meetsTargetDrop: boolean;
+  designTargetStatus: "pass" | "marginal" | "fail";
+  necComplianceStatus: "pass" | "marginal" | "fail"; // Backwards compatibility
   
   // Table of all available gauges evaluated
   evaluations: WireGaugeEvaluation[];
@@ -47,8 +49,8 @@ export interface VoltageDropResultData {
 
 export type VoltageDropResult = CalculationResult<VoltageDropResultData>;
 
-const COPPER_K = 12.9; // ohms-cmil/ft at 75°C
-const ALUMINUM_K = 21.2; // ohms-cmil/ft at 75°C
+const COPPER_K = 12.9; // ohms-cmil/ft at 75°C (NEC Chapter 9, Table 8 basis)
+const ALUMINUM_K = 21.2; // ohms-cmil/ft at 75°C (NEC Chapter 9, Table 8 basis)
 
 export function calculateVoltageDrop(input: VoltageDropInput): VoltageDropResult {
   const {
@@ -81,7 +83,8 @@ export function calculateVoltageDrop(input: VoltageDropInput): VoltageDropResult
     const endV = Math.max(0, voltage - vDropVolts);
     const pLossWatts = vDropVolts * currentAmps;
     const maxAmpacity = conductorMaterial === "aluminum" ? gauge.maxAmpacityAluminum75C : gauge.maxAmpacityCopper75C;
-    const isAmpacitySafe = currentAmps <= maxAmpacity;
+    // For aluminum, small gauges (<12 AWG) have maxAmpacity 0 and are not valid
+    const isAmpacitySafe = maxAmpacity > 0 && currentAmps <= maxAmpacity;
     const meetsTargetDrop = vDropPercent <= targetMaxDropPercent;
 
     return {
@@ -95,11 +98,27 @@ export function calculateVoltageDrop(input: VoltageDropInput): VoltageDropResult
     };
   });
 
-  // Determine recommended gauge: smallest gauge that is ampacity safe AND meets target drop
-  let recommendedEval = evaluations.find((e) => e.isAmpacitySafe && e.meetsTargetDrop);
+  // Determine recommended gauge: smallest gauge satisfying target drop and valid for material
+  let recommendedEval = evaluations.find((e) => {
+    const maxAmp = conductorMaterial === "aluminum" ? e.gauge.maxAmpacityAluminum75C : e.gauge.maxAmpacityCopper75C;
+    return maxAmp > 0 && e.isAmpacitySafe && e.meetsTargetDrop;
+  });
+
   if (!recommendedEval) {
-    // If none meet target drop, pick the largest available safe gauge
-    recommendedEval = [...evaluations].reverse().find((e) => e.isAmpacitySafe) ?? evaluations[evaluations.length - 1];
+    // If none meet both ampacity and target drop, pick smallest gauge meeting target drop
+    recommendedEval = evaluations.find((e) => {
+      const maxAmp = conductorMaterial === "aluminum" ? e.gauge.maxAmpacityAluminum75C : e.gauge.maxAmpacityCopper75C;
+      return maxAmp > 0 && e.meetsTargetDrop;
+    });
+  }
+
+  if (!recommendedEval) {
+    // If no available gauge in table meets target drop, pick largest available gauge
+    const validMaterialGauges = evaluations.filter((e) => {
+      const maxAmp = conductorMaterial === "aluminum" ? e.gauge.maxAmpacityAluminum75C : e.gauge.maxAmpacityCopper75C;
+      return maxAmp > 0;
+    });
+    recommendedEval = validMaterialGauges[validMaterialGauges.length - 1] ?? evaluations[evaluations.length - 1];
   }
 
   // If user specifically requested customAwg, use that for primary display
@@ -109,11 +128,11 @@ export function calculateVoltageDrop(input: VoltageDropInput): VoltageDropResult
     if (found) selectedEval = found;
   }
 
-  let necComplianceStatus: "pass" | "marginal" | "fail" = "pass";
+  let designTargetStatus: "pass" | "marginal" | "fail" = "pass";
   if (selectedEval.voltageDropPercent > 5.0 || !selectedEval.isAmpacitySafe) {
-    necComplianceStatus = "fail";
-  } else if (selectedEval.voltageDropPercent > 3.0) {
-    necComplianceStatus = "marginal";
+    designTargetStatus = "fail";
+  } else if (selectedEval.voltageDropPercent > targetMaxDropPercent) {
+    designTargetStatus = "marginal";
   }
 
   const assumptions: AssumptionUsed[] = [
@@ -122,41 +141,42 @@ export function calculateVoltageDrop(input: VoltageDropInput): VoltageDropResult
       value: kConstant,
       unit: "ohms-cmil/ft",
       provenance: "preset",
-      description: `${conductorMaterial === "aluminum" ? "Aluminum" : "Copper"} conductor resistivity at 75°C standard operating temperature`,
+      description: `${conductorMaterial === "aluminum" ? "Aluminum" : "Copper"} conductor resistivity at 75°C operating temperature basis (NEC Chapter 9, Table 8)`,
     },
     {
       key: "circuit_multiplier",
       value: circuitMultiplier,
       provenance: "preset",
-      description: circuitType === "ac_three_phase" ? "3-Phase multiplier (1.732)" : "2-Wire round-trip multiplier (2.0)",
+      description: circuitType === "ac_three_phase" ? "Simplified balanced 3-Phase multiplier (1.732) line-to-line" : "2-Wire round-trip loop multiplier (2.0)",
     },
     {
       key: "target_max_drop",
       value: targetMaxDropPercent,
       unit: "%",
       provenance: "user-entered",
-      description: "Maximum allowable voltage drop threshold based on NEC recommendations",
+      description: "Selected engineering design target threshold (e.g. 3.0% branch circuit guideline per NEC Informational Notes)",
     },
   ];
 
   const warnings: CalculationWarning[] = [];
+  const refAmpacity = conductorMaterial === "aluminum" ? selectedEval.gauge.maxAmpacityAluminum75C : selectedEval.gauge.maxAmpacityCopper75C;
   if (!selectedEval.isAmpacitySafe) {
     warnings.push({
       code: "AMPACITY_EXCEEDED",
       severity: "caution",
-      message: `Selected ${selectedEval.gauge.awg} wire exceeds safe NEC current capacity (${conductorMaterial === "aluminum" ? selectedEval.gauge.maxAmpacityAluminum75C : selectedEval.gauge.maxAmpacityCopper75C}A max vs ${currentAmps}A load). Fire hazard!`,
+      message: `Selected ${selectedEval.gauge.awg} wire exceeds 75°C reference ampacity (${refAmpacity}A reference vs ${currentAmps}A load). Verify conductor thermal ampacity, terminal ratings, and applicable code rules.`,
     });
   } else if (selectedEval.voltageDropPercent > 5.0) {
     warnings.push({
       code: "EXCESSIVE_VOLTAGE_DROP",
       severity: "caution",
-      message: `Voltage drop of ${selectedEval.voltageDropPercent}% exceeds 5% critical limit. Inverters, electronics, and LED drivers may malfunction.`,
+      message: `Voltage drop of ${selectedEval.voltageDropPercent}% exceeds the 5.0% threshold. Connected equipment or inverters may experience undervoltage.`,
     });
-  } else if (selectedEval.voltageDropPercent > 3.0) {
+  } else if (selectedEval.voltageDropPercent > targetMaxDropPercent) {
     warnings.push({
       code: "MARGINAL_VOLTAGE_DROP",
       severity: "info",
-      message: `Voltage drop of ${selectedEval.voltageDropPercent}% is between 3% and 5%. Acceptable for general lighting, but 3% or lower is recommended for sensitive DC equipment.`,
+      message: `Voltage drop of ${selectedEval.voltageDropPercent}% exceeds the selected ${targetMaxDropPercent}% design target. Consider upsizing conductor for improved efficiency.`,
     });
   }
 
@@ -175,7 +195,9 @@ export function calculateVoltageDrop(input: VoltageDropInput): VoltageDropResult
       endVoltage: selectedEval.endVoltage,
       powerLostWatts: selectedEval.powerLostWatts,
       isAmpacitySafe: selectedEval.isAmpacitySafe,
-      necComplianceStatus,
+      meetsTargetDrop: selectedEval.meetsTargetDrop,
+      designTargetStatus,
+      necComplianceStatus: designTargetStatus,
       evaluations,
     },
     assumptions,

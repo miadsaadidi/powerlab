@@ -10,14 +10,13 @@ import { MobileResultBar } from "@/components/calculator/mobile-result-bar";
 import { LossWaterfall } from "@/components/calculator/loss-waterfall";
 import { ShareButton } from "@/components/calculator/share-button";
 import { PrintSpecButton } from "@/components/calculator/print-spec-button";
-import { GooglePreferredBanner } from "@/components/calculator/google-preferred-banner";
 import { CalculatorTrustPill } from "@/components/calculator/calculator-trust-pill";
 import { StandardsBadge } from "@/components/calculator/standards-badge";
 
 const QUICK_POWER_STATION_PRESETS = [
   { label: "📱 Weekend Camping (256Wh · 45W)", wh: 256, watts: 45, cont: 300 },
   { label: "🏕️ Overnight Vanlife (512Wh · 65W)", wh: 512, watts: 65, cont: 500 },
-  { label: "⚡ 1 kWh All-Rounder (1024Wh · 150W)", wh: 1024, watts: 150, cont: 1000 },
+  { label: "⚡ 1 kWh All-Rounder (1000Wh · 60W)", wh: 1000, watts: 60, cont: 1000 },
   { label: "🚨 Home Outage (2048Wh · 300W)", wh: 2048, watts: 300, cont: 2000 },
   { label: "🔌 Heavy Jobsite (3072Wh · 600W)", wh: 3072, watts: 600, cont: 3000 },
 ];
@@ -556,12 +555,12 @@ export function PortablePowerStationCalculator() {
                 <>
                   <p className="result-lede">{hasOutputOverload ? "Energy estimate — output overload" : "Estimated runtime"}</p>
                   <p className="result-value">{formatRuntime(calculationResult!.runtimeHours!)}</p>
-                  <StandardsBadge standards={["UL 2743", "IEC 62133", "UN 38.3"]} />
+                  <StandardsBadge standards={["UL 2743", "IEC 62133", "UN 38.3"]} label="Technical References & Model Basis:" />
                   <LossWaterfall
                     steps={[
                       { label: "Nominal Battery Capacity", value: calculation!.capacityWh, unit: "Wh", subtext: "Rated battery capacity of the power station" },
-                      { label: "Usable Stored Energy", value: calculationResult!.usableStoredWh!, unit: "Wh", subtext: "Energy available above reserve and health deratings", isLoss: true },
-                      { label: "Delivered AC Outlet Energy", value: calculationResult!.deliveredAcWh!, unit: "Wh", subtext: "Actual energy available at the AC plugs after inverter losses", isFinal: true },
+                      { label: "Usable Stored Energy", value: calculationResult!.usableStoredWh!, unit: "Wh", subtext: "Energy available above reserve cutoff (90% usable)", isLoss: true },
+                      { label: "Delivered AC Outlet Energy", value: calculationResult!.deliveredAcWh!, unit: "Wh", subtext: "Actual energy available at the AC plugs after inverter losses (88% efficiency)", isFinal: true },
                     ]}
                   />
                 </>
@@ -569,11 +568,11 @@ export function PortablePowerStationCalculator() {
                 <>
                   <p className="result-lede">{hasOutputOverload ? "Required energy — output overload" : "Required nominal capacity"}</p>
                   <p className="result-value">{formatNumber(calculationResult!.requiredNominalWh!)} Wh</p>
-                  <StandardsBadge standards={["UL 2743", "IEC 62133", "UN 38.3"]} />
+                  <StandardsBadge standards={["UL 2743", "IEC 62133", "UN 38.3"]} label="Technical References & Model Basis:" />
                   <LossWaterfall
                     steps={[
                       { label: "Required Delivered AC Energy", value: calculationResult!.requiredDeliveredWh!, unit: "Wh", subtext: `Energy needed to run ${formatNumber(calculationResult!.averageLoadW)} W for ${formatNumber(desiredRuntimeHours)}h` },
-                      { label: "Required Nominal Capacity", value: calculationResult!.requiredNominalWh!, unit: "Wh", subtext: "Total power station battery Wh needed with reserve and inverter losses", isFinal: true },
+                      { label: "Required Nominal Capacity", value: calculationResult!.requiredNominalWh!, unit: "Wh", subtext: "Total power station battery Wh needed with reserve (90% usable) and inverter losses (88% efficiency)", isFinal: true },
                     ]}
                   />
                 </>
@@ -614,9 +613,9 @@ export function PortablePowerStationCalculator() {
                   <dd>{calculationResult!.continuousCapability === "valid" ? "Within entered output" : calculationResult!.continuousCapability === "overload" ? "Overload" : "Not checked"}</dd>
                 </div>
               </dl>
-              {calculationResult!.surgeCheck === "incomplete" && <p className="warning">Startup capability not fully checked — startup watts are missing for one or more appliances.</p>}
-              {calculationResult!.surgeCheck === "confirmed-overload" && <p className="warning">Known startup demand exceeds the station&apos;s surge rating.</p>}
-              {calculationResult!.surgeCheck === "unknown" && <p className="form-hint">Startup capability not fully checked — confirm the station&apos;s surge/peak output rating.</p>}
+              {calculationResult!.surgeCheck === "confirmed-overload" && <p className="warning" role="alert">Known startup demand exceeds the station&apos;s surge rating.</p>}
+              {calculationResult!.surgeCheck === "not-evaluated" && <p className="form-hint">Surge capability not evaluated — enter both appliance startup load and station peak output to check it.</p>}
+              {calculationResult!.surgeCheck === "passes" && <p className="form-hint" style={{ color: "var(--brand-strong, #047857)" }}>✓ Within station peak surge output rating.</p>}
               {calculationResult!.startupDataComplete && calculationResult!.startupLoadW !== null && (
                 <p className="form-hint">Simultaneous startup estimate: {formatNumber(calculationResult!.startupLoadW)} W.</p>
               )}
@@ -629,8 +628,12 @@ export function PortablePowerStationCalculator() {
                   <dl>
                     {calculationResult!.runtimeComparisons.map((item) => (
                       <div className={item.current ? "current-comparison" : ""} key={item.multiplier}>
-                        <dt>{item.multiplier * 100}% load</dt>
-                        <dd>{item.continuousCapability === "overload" ? "Output overload" : formatRuntime(item.runtimeHours)}</dd>
+                        <dt>{item.multiplier * 100}% load ({formatNumber(item.connectedRunningW)} W)</dt>
+                        <dd>
+                          {item.continuousCapability === "overload"
+                            ? `Output limit exceeded (${formatNumber(item.connectedRunningW)} W > ${continuousOutputW} W)`
+                            : formatRuntime(item.runtimeHours)}
+                        </dd>
                       </div>
                     ))}
                   </dl>
@@ -666,8 +669,6 @@ export function PortablePowerStationCalculator() {
                   </div>
                 </dl>
               </section>
-
-              <GooglePreferredBanner />
 
               <div className="button-row" style={{ marginTop: "0.85rem", display: "flex", gap: "0.5rem", flexWrap: "wrap" }}>
                 <ShareButton title="Portable Power Station Calculation" />

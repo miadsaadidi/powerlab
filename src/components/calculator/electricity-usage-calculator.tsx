@@ -164,7 +164,13 @@ export function ElectricityUsageCalculator() {
           {row.mode === "watts-time" && <>
             <label>Power (W)<input type="number" min="0" value={row.watts} onChange={(e) => updateRow(row.id, { watts: Number(e.target.value) })} /></label>
             <label>Quantity<input type="number" min="1" value={row.quantity} onChange={(e) => updateRow(row.id, { quantity: Number(e.target.value) })} /></label>
-            <label>Hours per day<input type="number" min="0" max="24" step="0.25" value={row.hours} onChange={(e) => updateRow(row.id, { hours: Number(e.target.value) })} /></label>
+            <label>
+              Hours per day
+              <input type="number" min="0" max="24" step="0.25" value={row.hours} onChange={(e) => updateRow(row.id, { hours: Number(e.target.value) })} />
+              <span className="helper-text" style={{ fontSize: "0.72rem", color: "var(--muted)", display: "block", marginTop: "0.2rem" }}>
+                Hours per day the appliance is scheduled/powered on
+              </span>
+            </label>
             <label>Days per week<input type="number" min="1" max="7" value={row.days} onChange={(e) => updateRow(row.id, { days: Number(e.target.value) })} /></label>
           </>}
           {row.mode === "kwh-cycle" && <>
@@ -181,8 +187,14 @@ export function ElectricityUsageCalculator() {
 
         {row.mode === "watts-time" && (
           <details open={advanced} onToggle={(e) => setAdvanced(e.currentTarget.open)}>
-            <summary>Advanced settings</summary>
-            <label>Duty cycle (%)<input type="number" min="1" max="100" value={row.duty * 100} onChange={(e) => updateRow(row.id, { duty: Number(e.target.value) / 100 })} /></label>
+            <summary>Advanced settings (duty cycle)</summary>
+            <label>
+              Duty cycle (%)
+              <input type="number" min="1" max="100" value={row.duty * 100} onChange={(e) => updateRow(row.id, { duty: Number(e.target.value) / 100 })} />
+              <span className="helper-text" style={{ fontSize: "0.72rem", color: "var(--muted)", display: "block", marginTop: "0.25rem" }}>
+                Fraction of scheduled time the appliance actively draws the entered running power. Do not enter an already duty-cycle-adjusted average runtime and then apply another duty cycle. For appliances whose entered power is already an average draw, keep duty cycle at 100%.
+              </span>
+            </label>
           </details>
         )}
 
@@ -193,7 +205,7 @@ export function ElectricityUsageCalculator() {
               <div className="usage-row" key={item.id}>
                 <strong>{APPLIANCES.find((a) => a.id === item.applianceId)?.label ?? "Custom"}</strong>
                 <label>W<input aria-label={`${item.applianceId} watts`} type="number" min="0" value={item.watts} onChange={(e) => updateRow(item.id, { watts: Number(e.target.value) })} /></label>
-                <label>h/day<input aria-label={`${item.applianceId} hours per day`} type="number" min="0" max="24" step="0.25" value={item.hours} onChange={(e) => updateRow(item.id, { hours: Number(e.target.value) })} /></label>
+                <label>h/day<input aria-label={`${item.applianceId} hours per day (scheduled time)`} type="number" min="0" max="24" step="0.25" value={item.hours} onChange={(e) => updateRow(item.id, { hours: Number(e.target.value) })} /></label>
                 <label>Qty<input aria-label={`${item.applianceId} quantity`} type="number" min="1" value={item.quantity} onChange={(e) => updateRow(item.id, { quantity: Number(e.target.value) })} /></label>
                 <details className="row-options">
                   <summary>More</summary>

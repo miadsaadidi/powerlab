@@ -5,7 +5,6 @@ import { useEffect, useMemo, useState } from "react";
 import { DEFAULT_DISPLAY_CURRENCY, DISPLAY_CURRENCIES, isSupportedCurrency } from "@/data/currencies";
 import { calculateEnergyBill, type EnergyBillInput, type EnergyBillMode, type EnergyBillResult } from "@/lib/calculators/energy-bill/engine";
 import { createEnergyProfileStore } from "@/lib/energy-profile/store";
-import { GooglePreferredBanner } from "@/components/calculator/google-preferred-banner";
 import { CalculatorTrustPill } from "@/components/calculator/calculator-trust-pill";
 import { ShareButton } from "@/components/calculator/share-button";
 import { PrintSpecButton } from "@/components/calculator/print-spec-button";
@@ -55,6 +54,16 @@ export function EnergyBillCalculator() {
     if (profile.electricityCurrency && isSupportedCurrency(profile.electricityCurrency)) setCurrency(profile.electricityCurrency);
   }, []);
 
+  const meterError = useMemo(() => {
+    if (mode !== "meter-readings") return null;
+    const prev = Number(meter.previousReading);
+    const curr = Number(meter.currentReading);
+    if (Number.isFinite(prev) && Number.isFinite(curr) && curr < prev) {
+      return "Current meter reading cannot be lower than the previous reading. Standard cumulative kWh meter assumed; meters with multipliers, CT ratios, or rollover registers require separate treatment.";
+    }
+    return null;
+  }, [mode, meter.previousReading, meter.currentReading]);
+
   const result = useMemo(() => resultFor(mode, usage, meter, advanced), [mode, usage, meter, advanced]);
   const usageLink = useMemo(() => `/home-energy/electricity-usage-calculator?price=${encodeURIComponent(mode === "usage-for-period" ? usage.pricePerKWh : meter.pricePerKWh)}`, [mode, usage.pricePerKWh, meter.pricePerKWh]);
   const setCurrentPrice = (value: string) => {
@@ -74,26 +83,45 @@ export function EnergyBillCalculator() {
         {mode === "usage-for-period" ? <div className="input-grid">
           <label>Usage for this bill (kWh)<input type="number" min="0" step="0.01" value={usage.energyKWh} onChange={(event) => setUsage({ ...usage, energyKWh: event.target.value })} /></label>
           <label>Billing period (days)<input type="number" min="1" step="1" value={usage.billingDays} onChange={(event) => setUsage({ ...usage, billingDays: event.target.value })} /><span className="helper-text">Editable whole-day period</span></label>
-        </div> : <div className="input-grid">
-          <label>Previous meter reading<input type="number" min="0" step="0.01" value={meter.previousReading} onChange={(event) => setMeter({ ...meter, previousReading: event.target.value })} /></label>
-          <label>Current meter reading<input type="number" min="0" step="0.01" value={meter.currentReading} onChange={(event) => setMeter({ ...meter, currentReading: event.target.value })} /></label>
-          <label>Billing period (days)<input type="number" min="1" step="1" value={meter.billingDays} onChange={(event) => setMeter({ ...meter, billingDays: event.target.value })} /><span className="helper-text">Required whole-day period</span></label>
-        </div>}
+        </div> : <>
+          <div className="input-grid">
+            <label>Previous meter reading<input type="number" min="0" step="0.01" value={meter.previousReading} onChange={(event) => setMeter({ ...meter, previousReading: event.target.value })} /></label>
+            <label>Current meter reading<input type="number" min="0" step="0.01" value={meter.currentReading} onChange={(event) => setMeter({ ...meter, currentReading: event.target.value })} /></label>
+            <label>Billing period (days)<input type="number" min="1" step="1" value={meter.billingDays} onChange={(event) => setMeter({ ...meter, billingDays: event.target.value })} /><span className="helper-text">Required whole-day period</span></label>
+          </div>
+          {meterError && (
+            <p className="validation-message" role="alert" style={{ marginTop: "0.5rem", color: "var(--danger, #dc2626)" }}>
+              {meterError}
+            </p>
+          )}
+          <p className="helper-text" style={{ fontSize: "0.75rem", marginTop: "0.25rem" }}>
+            Assumes standard cumulative kWh meter (Consumption = Current − Previous). Meter multipliers, CT ratios, or rollover registers require separate treatment.
+          </p>
+        </>}
         <div className="input-grid">
           <label>Electricity price ({currency}/kWh)<input type="number" min="0" step="0.01" value={mode === "usage-for-period" ? usage.pricePerKWh : meter.pricePerKWh} onChange={(event) => setCurrentPrice(event.target.value)} /><span className="helper-text">Example rate — replace with your rate.</span></label>
-          <label>Currency<select value={currency} onChange={(event) => { const next = event.target.value; setCurrency(next); createEnergyProfileStore(window.localStorage).patchElectricityCurrency(next); }}>{DISPLAY_CURRENCIES.map((item) => <option key={item.code} value={item.code}>{item.label}</option>)}</select><span className="helper-text">Display only; changing currency does not convert the entered rate.</span></label>
+          <label>Currency<select value={currency} onChange={(event) => { const next = event.target.value; setCurrency(next); createEnergyProfileStore(window.localStorage).patchElectricityCurrency(next); }}>{DISPLAY_CURRENCIES.map((item) => <option key={item.code} value={item.code}>{item.label}</option>)}</select><span className="helper-text">Currency is for display and labeling only. The calculator does not perform foreign-exchange conversion.</span></label>
         </div>
         <details open={advancedOpen} onToggle={(event) => setAdvancedOpen(event.currentTarget.open)}><summary>Advanced bill assumptions</summary>
           <div className="input-grid">
-            <label>Fixed charge for this bill ({currency})<input type="number" min="0" step="0.01" value={advanced.fixedChargeForPeriod} onChange={(event) => setAdvanced({ ...advanced, fixedChargeForPeriod: event.target.value })} /></label>
-            <label>Daily standing charge ({currency}/day)<input type="number" min="0" step="0.01" value={advanced.dailyStandingCharge} onChange={(event) => setAdvanced({ ...advanced, dailyStandingCharge: event.target.value })} /></label>
-            <label>Tax applied to subtotal (%)<input type="number" min="0" max="100" step="0.1" value={advanced.taxPercent} onChange={(event) => setAdvanced({ ...advanced, taxPercent: event.target.value })} /></label>
+            <label>Fixed charge for this bill ({currency})<input type="number" min="0" step="0.01" value={advanced.fixedChargeForPeriod} onChange={(event) => setAdvanced({ ...advanced, fixedChargeForPeriod: event.target.value })} /><span className="helper-text">Base recurring fee per billing cycle.</span></label>
+            <label>Daily standing charge ({currency}/day)<input type="number" min="0" step="0.01" value={advanced.dailyStandingCharge} onChange={(event) => setAdvanced({ ...advanced, dailyStandingCharge: event.target.value })} /><span className="helper-text">Fixed tariff charge independent of kWh.</span></label>
+            <label>Tax applied to subtotal (%)<input type="number" min="0" max="100" step="0.1" value={advanced.taxPercent} onChange={(event) => setAdvanced({ ...advanced, taxPercent: event.target.value })} /><span className="helper-text">Simplified effective tax rate.</span></label>
           </div>
-          <p className="helper-text">Actual utility taxes and fees may apply to different bill components. Enter an effective percentage only when this simplified model matches your bill.</p>
+          <p className="helper-text">A standing charge is a fixed recurring charge specified by the applicable electricity tariff, independent of the amount of energy consumed. Actual utility taxes and fees may apply to different bill components. Enter an effective percentage only when this simplified model matches your bill.</p>
         </details>
       </div>
       <div className="calculator-card calculator-result" aria-live="polite">
-        {result ? <Result result={result} currency={currency} usageLink={usageLink} /> : <><p className="eyebrow">Estimated electricity bill</p><p className="validation-message">Enter valid values to see an estimate. Usage and price may be zero; billing days must be a positive whole number.</p></>}
+        {result ? (
+          <Result result={result} currency={currency} usageLink={usageLink} />
+        ) : (
+          <>
+            <p className="eyebrow">Estimated electricity bill</p>
+            <p className="validation-message">
+              {meterError || "Enter valid values to see an estimate. Usage and price may be zero; billing days must be a positive whole number."}
+            </p>
+          </>
+        )}
       </div>
     </div>
   </section>;
@@ -105,10 +133,8 @@ function Result({ result, currency, usageLink }: { result: EnergyBillResult; cur
     <dl className="result-breakdown"><div><dt>Energy used</dt><dd>{number(result.energyKWh, 2)} kWh</dd></div><div><dt>Energy charge</dt><dd>{money(result.energyCharge, currency)}</dd></div><div><dt>Fixed charge for this bill</dt><dd>{money(result.fixedChargeForPeriod, currency)}</dd></div><div><dt>Standing charge</dt><dd>{money(result.standingCharge, currency)}</dd></div><div><dt>Tax applied to subtotal</dt><dd>{money(result.tax, currency)}</dd></div><div><dt>Total</dt><dd>{money(result.total, currency)}</dd></div></dl>
     <div className="result-metrics"><div><strong>{number(result.averageDailyKWh)} kWh</strong><span>average usage/day</span></div><div><strong>{money(result.averageDailyCost, currency)}</strong><span>average cost/day</span></div></div>
     <div className="scenario"><h3>What-if usage comparison</h3>{result.scenarios.map((scenario) => <div className="contributor-label" key={scenario.label}><span>{scenario.label}</span><strong>{money(scenario.total, currency)}</strong></div>)}</div>
-    <p className="helper-text"><strong>Annualized run-rate estimate:</strong> {number(result.annualizedEnergyKWh)} kWh/year · {money(result.annualizedTotal, currency)}/year. This assumes the same daily usage and charges continue; it is not an expected annual bill.</p>
+    <p className="helper-text"><strong>Annualized run-rate estimate:</strong> {number(result.annualizedEnergyKWh)} kWh/year · {money(result.annualizedTotal, currency)}/year. This extrapolates the current billing period&apos;s daily usage and charges. It is not a forecast of actual annual utility costs.</p>
     <Link className="secondary-button" href={usageLink}>Estimate where your electricity use comes from</Link>
-
-    <GooglePreferredBanner />
 
     <div className="button-row" style={{ marginTop: "0.85rem", display: "flex", gap: "0.5rem", flexWrap: "wrap" }}>
       <ShareButton title="Energy Bill Calculation" />

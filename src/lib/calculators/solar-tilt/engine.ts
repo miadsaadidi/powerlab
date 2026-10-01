@@ -23,16 +23,18 @@ export function validateLatitude(value: number): string | null {
   return null;
 }
 
-export function calculateAnnualTilt(latitude: number) {
-  return clampTilt(Math.abs(latitude));
+export function calculateAnnualTilt(latitude: number): number {
+  const absLat = Math.abs(latitude);
+  return clampTilt(Math.round(absLat * 0.76 + 3.1));
 }
 
 export function calculateSeasonalTilts(latitude: number): SeasonalTilts {
-  const annual = calculateAnnualTilt(latitude);
+  const absLat = Math.abs(latitude);
+  const yearRound = calculateAnnualTilt(latitude);
   return {
-    summer: clampTilt(annual - 15),
-    yearRound: annual,
-    winter: clampTilt(annual + 15),
+    summer: clampTilt(Math.round(Math.max(0, absLat - 15))),
+    yearRound,
+    winter: clampTilt(Math.round(Math.min(90, absLat + 15))),
   };
 }
 

@@ -33,8 +33,6 @@ export interface CalculatorStructuredDataProps {
 export const SHARED_AUTHORITY_SAME_AS = [
   "https://dataverse.harvard.edu/dataverse/powerlab",
   "https://independent.academia.edu/PowerLabEngineering",
-  "https://www.google.com/preferences/source?q=powelab.org",
-  "https://www.trustpilot.com/review/powelab.org",
 ];
 
 /**
@@ -61,7 +59,14 @@ export function getDomainWikidataEntities(categoryName: string, route: string): 
     );
   }
 
-  if (normalizedCategory.includes("battery") || normalizedRoute.includes("battery") || normalizedRoute.includes("ups") || normalizedRoute.includes("inverter")) {
+  if (normalizedRoute.includes("voltage-drop") || normalizedRoute.includes("wire-size")) {
+    entities.push(
+      { "@type": "Thing", name: "Voltage drop", sameAs: "https://www.wikidata.org/wiki/Q1056345" },
+      { "@type": "Thing", name: "Ohm's law", sameAs: "https://www.wikidata.org/wiki/Q25214" },
+      { "@type": "Thing", name: "Electrical resistance and conductance", sameAs: "https://www.wikidata.org/wiki/Q25358" },
+      { "@type": "Thing", name: "American wire gauge", sameAs: "https://www.wikidata.org/wiki/Q468087" }
+    );
+  } else if (normalizedCategory.includes("battery") || normalizedRoute.includes("battery") || normalizedRoute.includes("ups") || normalizedRoute.includes("inverter")) {
     entities.push(
       { "@type": "Thing", name: "Lithium-ion battery", sameAs: "https://www.wikidata.org/wiki/Q207604" },
       { "@type": "Thing", name: "Peukert's law", sameAs: "https://www.wikidata.org/wiki/Q7179471" },

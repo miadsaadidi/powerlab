@@ -50,11 +50,11 @@ const FLOW_CONFIGS: Record<
     nodes: [
       { icon: "🏭", label: "Utility Grid / Solar", sublabel: "240V Split-Phase Service", badge: "Supply", color: "#0ea5e9" },
       { icon: "⚡", label: "Main Service Panel", sublabel: "100A / 200A Main Breaker", badge: "Distribution", color: "#f59e0b" },
-      { icon: "🛡️", label: "Branch Breakers", sublabel: "NEC 80% Continuous Sizing", badge: "Protection", color: "#8b5cf6" },
+      { icon: "🛡️", label: "Branch Breakers", sublabel: "Circuit Protection & Continuous-Load Considerations", badge: "Protection", color: "#8b5cf6" },
       { icon: "❄️", label: "Major 240V Loads", sublabel: "HVAC, Water Heater, Range", badge: "High Draw", color: "#ef4444" },
       { icon: "💡", label: "General 120V Loads", sublabel: "Lighting, Refrigerator, Electronics", badge: "Base Draw", color: "#10b981" },
     ],
-    efficiencyNote: "Heavy 240V heating and cooling appliances typically account for 55% to 65% of total monthly kilowatt-hour consumption.",
+    efficiencyNote: "High-power heating, cooling, water-heating, and charging equipment can contribute substantially to household electricity consumption, depending on equipment efficiency and operating schedule.",
   },
   ev: {
     title: "Electric Vehicle Charging Power Path",

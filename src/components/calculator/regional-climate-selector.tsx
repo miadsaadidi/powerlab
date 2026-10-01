@@ -154,7 +154,7 @@ export function RegionalClimateSelector({
               marginBottom: "0.25rem",
             }}
           >
-            State / Metro Weather Station
+            U.S. Regional Reference Location
           </label>
           <select
             id="regional-state-select"
@@ -203,19 +203,93 @@ export function RegionalClimateSelector({
 
       {/* Dynamic Data Metric Badges */}
       {activeRegion && (
-        <div
-          style={{
-            display: "grid",
-            gridTemplateColumns: "repeat(auto-fit, minmax(130px, 1fr))",
-            gap: "0.5rem",
-            marginTop: "0.85rem",
-            paddingTop: "0.75rem",
-            borderTop: "1px solid var(--line-subtle, #f1f5f9)",
-          }}
-        >
-          {/* Solar Metrics */}
-          {(applyTarget === "all" || applyTarget === "solar") && (
-            <>
+        <>
+          <div
+            style={{
+              display: "grid",
+              gridTemplateColumns: "repeat(auto-fit, minmax(130px, 1fr))",
+              gap: "0.5rem",
+              marginTop: "0.85rem",
+              paddingTop: "0.75rem",
+              borderTop: "1px solid var(--line-subtle, #f1f5f9)",
+            }}
+          >
+            {/* Solar Metrics */}
+            {(applyTarget === "all" || applyTarget === "solar") && (
+              <>
+                <div
+                  style={{
+                    background: "var(--surface, #f8fafc)",
+                    padding: "0.45rem 0.6rem",
+                    borderRadius: "0.375rem",
+                    border: "1px solid var(--line-subtle, #e2e8f0)",
+                  }}
+                >
+                  <div style={{ fontSize: "0.7rem", color: "var(--text-muted, #64748b)" }}>
+                    ☀️ Peak Sun Hours
+                  </div>
+                  <div style={{ fontSize: "0.92rem", fontWeight: 700, color: "var(--text-main, #0f172a)" }}>
+                    {activeRegion.peakSunHours} <span style={{ fontSize: "0.72rem", fontWeight: 500 }}>h/day</span>
+                  </div>
+                </div>
+
+                <div
+                  style={{
+                    background: "var(--surface, #f8fafc)",
+                    padding: "0.45rem 0.6rem",
+                    borderRadius: "0.375rem",
+                    border: "1px solid var(--line-subtle, #e2e8f0)",
+                  }}
+                >
+                  <div style={{ fontSize: "0.7rem", color: "var(--text-muted, #64748b)" }}>
+                    📐 Modeled Tilt
+                  </div>
+                  <div style={{ fontSize: "0.92rem", fontWeight: 700, color: "var(--text-main, #0f172a)" }}>
+                    {activeRegion.optimalTiltDeg}° <span style={{ fontSize: "0.72rem", fontWeight: 500 }}>PVWatts</span>
+                  </div>
+                </div>
+              </>
+            )}
+
+            {/* HVAC & ASHRAE Metrics */}
+            {(applyTarget === "all" || applyTarget === "hvac") && (
+              <>
+                <div
+                  style={{
+                    background: "var(--surface, #f8fafc)",
+                    padding: "0.45rem 0.6rem",
+                    borderRadius: "0.375rem",
+                    border: "1px solid var(--line-subtle, #e2e8f0)",
+                  }}
+                >
+                  <div style={{ fontSize: "0.7rem", color: "var(--text-muted, #64748b)" }}>
+                    ❄️ ASHRAE 99% Winter
+                  </div>
+                  <div style={{ fontSize: "0.92rem", fontWeight: 700, color: "var(--text-main, #0f172a)" }}>
+                    {activeRegion.winterDesignTempF}°F <span style={{ fontSize: "0.72rem", fontWeight: 500 }}>DB</span>
+                  </div>
+                </div>
+
+                <div
+                  style={{
+                    background: "var(--surface, #f8fafc)",
+                    padding: "0.45rem 0.6rem",
+                    borderRadius: "0.375rem",
+                    border: "1px solid var(--line-subtle, #e2e8f0)",
+                  }}
+                >
+                  <div style={{ fontSize: "0.7rem", color: "var(--text-muted, #64748b)" }}>
+                    🔥 ASHRAE 1% Summer
+                  </div>
+                  <div style={{ fontSize: "0.92rem", fontWeight: 700, color: "var(--text-main, #0f172a)" }}>
+                    {activeRegion.summerDesignTempF}°F <span style={{ fontSize: "0.72rem", fontWeight: 500 }}>DB</span>
+                  </div>
+                </div>
+              </>
+            )}
+
+            {/* Electricity Rate Metric */}
+            {(applyTarget === "all" || applyTarget === "electricity-rate" || applyTarget === "solar" || applyTarget === "hvac") && (
               <div
                 style={{
                   background: "var(--surface, #f8fafc)",
@@ -225,87 +299,18 @@ export function RegionalClimateSelector({
                 }}
               >
                 <div style={{ fontSize: "0.7rem", color: "var(--text-muted, #64748b)" }}>
-                  ☀️ Peak Sun Hours
+                  ⚡ EIA Reference Rate
                 </div>
                 <div style={{ fontSize: "0.92rem", fontWeight: 700, color: "var(--text-main, #0f172a)" }}>
-                  {activeRegion.peakSunHours} <span style={{ fontSize: "0.72rem", fontWeight: 500 }}>kWh/m²/d</span>
+                  ${activeRegion.electricityRateKwh.toFixed(3)} <span style={{ fontSize: "0.72rem", fontWeight: 500 }}>/kWh</span>
                 </div>
               </div>
-
-              <div
-                style={{
-                  background: "var(--surface, #f8fafc)",
-                  padding: "0.45rem 0.6rem",
-                  borderRadius: "0.375rem",
-                  border: "1px solid var(--line-subtle, #e2e8f0)",
-                }}
-              >
-                <div style={{ fontSize: "0.7rem", color: "var(--text-muted, #64748b)" }}>
-                  📐 Optimal Tilt
-                </div>
-                <div style={{ fontSize: "0.92rem", fontWeight: 700, color: "var(--text-main, #0f172a)" }}>
-                  {activeRegion.optimalTiltDeg}° <span style={{ fontSize: "0.72rem", fontWeight: 500 }}>fixed</span>
-                </div>
-              </div>
-            </>
-          )}
-
-          {/* HVAC & ASHRAE Metrics */}
-          {(applyTarget === "all" || applyTarget === "hvac") && (
-            <>
-              <div
-                style={{
-                  background: "var(--surface, #f8fafc)",
-                  padding: "0.45rem 0.6rem",
-                  borderRadius: "0.375rem",
-                  border: "1px solid var(--line-subtle, #e2e8f0)",
-                }}
-              >
-                <div style={{ fontSize: "0.7rem", color: "var(--text-muted, #64748b)" }}>
-                  ❄️ ASHRAE 99% Winter
-                </div>
-                <div style={{ fontSize: "0.92rem", fontWeight: 700, color: "var(--text-main, #0f172a)" }}>
-                  {activeRegion.winterDesignTempF}°F <span style={{ fontSize: "0.72rem", fontWeight: 500 }}>DB</span>
-                </div>
-              </div>
-
-              <div
-                style={{
-                  background: "var(--surface, #f8fafc)",
-                  padding: "0.45rem 0.6rem",
-                  borderRadius: "0.375rem",
-                  border: "1px solid var(--line-subtle, #e2e8f0)",
-                }}
-              >
-                <div style={{ fontSize: "0.7rem", color: "var(--text-muted, #64748b)" }}>
-                  🔥 ASHRAE 1% Summer
-                </div>
-                <div style={{ fontSize: "0.92rem", fontWeight: 700, color: "var(--text-main, #0f172a)" }}>
-                  {activeRegion.summerDesignTempF}°F <span style={{ fontSize: "0.72rem", fontWeight: 500 }}>DB</span>
-                </div>
-              </div>
-            </>
-          )}
-
-          {/* Electricity Rate Metric */}
-          {(applyTarget === "all" || applyTarget === "electricity-rate" || applyTarget === "solar" || applyTarget === "hvac") && (
-            <div
-              style={{
-                background: "var(--surface, #f8fafc)",
-                padding: "0.45rem 0.6rem",
-                borderRadius: "0.375rem",
-                border: "1px solid var(--line-subtle, #e2e8f0)",
-              }}
-            >
-              <div style={{ fontSize: "0.7rem", color: "var(--text-muted, #64748b)" }}>
-                ⚡ EIA Grid Rate
-              </div>
-              <div style={{ fontSize: "0.92rem", fontWeight: 700, color: "var(--text-main, #0f172a)" }}>
-                ${activeRegion.electricityRateKwh.toFixed(3)} <span style={{ fontSize: "0.72rem", fontWeight: 500 }}>/kWh</span>
-              </div>
-            </div>
-          )}
-        </div>
+            )}
+          </div>
+          <p style={{ fontSize: "0.72rem", color: "var(--text-muted, #94a3b8)", margin: "0.5rem 0 0 0" }}>
+            Reference data: NREL NSRDB &amp; EIA Form EIA-861 benchmarks (reference data — not a live utility tariff).
+          </p>
+        </>
       )}
     </section>
   );

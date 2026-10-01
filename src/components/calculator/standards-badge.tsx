@@ -33,7 +33,7 @@ export function StandardsBadge({
   standards,
   calculatorId,
   className = "",
-  label = "Governing Standards & Technical References:",
+  label = "Technical References & Model Basis:",
 }: StandardsBadgeProps) {
   let resolvedList: string[] = [];
 
@@ -49,7 +49,7 @@ export function StandardsBadge({
     <div
       className={`standards-compliance-container ${className}`.trim()}
       role="region"
-      aria-label="Governing Energy Planning Standards"
+      aria-label="Energy Planning Technical References & Standards"
       style={{
         marginTop: "0.65rem",
         marginBottom: "0.5rem",
@@ -90,7 +90,7 @@ export function StandardsBadge({
             <Link
               key={standard}
               href={targetUrl}
-              title={`View governing engineering documentation for ${standard} on PowerLab`}
+              title={`View engineering reference documentation for ${standard} on PowerLab`}
               style={{
                 display: "inline-flex",
                 alignItems: "center",

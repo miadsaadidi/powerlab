@@ -9,7 +9,7 @@ export const BATTERY_CHARGING_TIME_DEFAULTS = {
   targetSoc: 1,
   chargerCurrentA: 20,
   chargerOutputPowerW: 300,
-  batteryChargeEfficiency: 0.99,
+  batteryChargeEfficiency: 0.95,
   planningOverheadEnabled: true,
   planningOverheadFactor: 1.05,
   chemistry: "lifepo4",
@@ -23,7 +23,7 @@ export interface ChemistryChargingDefaults {
 export function getChemistryChargingDefaults(chemistry: string): ChemistryChargingDefaults {
   const leadAcid = ["agm", "gel", "flooded-lead-acid"].includes(chemistry);
   return {
-    batteryChargeEfficiency: 0.99,
+    batteryChargeEfficiency: leadAcid ? 0.85 : 0.95,
     planningOverheadFactor: leadAcid ? 1.15 : 1.05,
   };
 }

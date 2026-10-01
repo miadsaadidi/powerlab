@@ -55,7 +55,7 @@ export function calculateApplianceWattage(input: ApplianceWattageInput): Applian
   validateSource(input.source);
   if (!finite(input.quantity) || input.quantity <= 0 || !Number.isInteger(input.quantity)) throw new Error("Quantity must be a positive whole number.");
   if (input.runtimeHours !== undefined && (!finite(input.runtimeHours) || input.runtimeHours < 0 || input.runtimeHours > 24)) throw new Error("Runtime must be between 0 and 24 hours per day.");
-  if (!finite(input.dutyCycle) || input.dutyCycle <= 0 || input.dutyCycle > 1) throw new Error("Duty cycle must be greater than zero and no more than 100%.");
+  if (!finite(input.dutyCycle) || input.dutyCycle < 0 || input.dutyCycle > 1) throw new Error("Duty cycle must be between 0% and 100%.");
 
   const apparentVA = input.source.sourceMode === "label-volts-amps" ? input.source.volts * input.source.amps : null;
   const powerFactor = input.source.sourceMode === "label-volts-amps" ? input.source.powerFactor : null;

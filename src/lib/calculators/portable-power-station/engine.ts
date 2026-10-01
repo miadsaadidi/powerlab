@@ -3,7 +3,7 @@ import type { CalculationResult } from "@/types/calculation";
 export type PortablePowerMode = "runtime" | "capacity";
 export type PortableLoadMode = "direct-watts" | "equipment";
 export type ContinuousCapability = "valid" | "overload" | "unknown";
-export type SurgeCheck = "passes" | "confirmed-overload" | "incomplete" | "unknown";
+export type SurgeCheck = "passes" | "confirmed-overload" | "not-evaluated";
 
 export interface PortableEquipmentInput {
   label: string;
@@ -118,9 +118,14 @@ function capability(connectedRunningW: number, continuousOutputW: number | null)
 }
 
 function surgeCheck(load: ReturnType<typeof resolveLoad>, surgeOutputW: number | null): SurgeCheck {
-  if (surgeOutputW === null) return "unknown";
-  if (!load.startupDataComplete) return load.minimumKnownStartupW! > surgeOutputW ? "confirmed-overload" : "incomplete";
-  return load.startupLoadW! > surgeOutputW ? "confirmed-overload" : "passes";
+  if (surgeOutputW === null) return "not-evaluated";
+  if (!load.startupDataComplete || load.startupLoadW === null) {
+    if (load.minimumKnownStartupW !== null && load.minimumKnownStartupW > surgeOutputW) {
+      return "confirmed-overload";
+    }
+    return "not-evaluated";
+  }
+  return load.startupLoadW > surgeOutputW ? "confirmed-overload" : "passes";
 }
 
 export function calculatePortablePowerStation(input: PortablePowerStationInput): PortablePowerStationResult {
@@ -133,8 +138,7 @@ export function calculatePortablePowerStation(input: PortablePowerStationInput):
   if (continuousCapability === "overload") warnings.push({ code: "CONTINUOUS_OUTPUT_OVERLOAD", severity: "caution", message: "The listed running load exceeds the station's continuous AC output." });
   if (continuousCapability === "unknown") warnings.push({ code: "UNKNOWN_CONTINUOUS_OUTPUT", severity: "info", message: "Continuous output not checked; confirm the station's rated continuous AC output." });
   if (checkedSurge === "confirmed-overload") warnings.push({ code: "SURGE_OVERLOAD", severity: "caution", message: "Known startup demand exceeds the station's surge output." });
-  if (checkedSurge === "incomplete") warnings.push({ code: "INCOMPLETE_STARTUP_DATA", severity: "info", message: "Startup capability not fully checked because startup watts are missing for one or more appliances." });
-  if (checkedSurge === "unknown") warnings.push({ code: "UNKNOWN_SURGE_OUTPUT", severity: "info", message: "Startup capability not fully checked; confirm the station's surge or peak output rating." });
+  if (checkedSurge === "not-evaluated") warnings.push({ code: "SURGE_NOT_EVALUATED", severity: "info", message: "Surge capability not evaluated — enter both appliance startup load and station peak output to check it." });
 
   const usableStoredWh = input.mode === "runtime" ? input.capacityWh * (1 - input.reserveFraction) * input.batteryHealth : null;
   const deliveredAcWh = usableStoredWh === null ? null : usableStoredWh * input.acEfficiency;

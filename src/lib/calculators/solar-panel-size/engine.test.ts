@@ -50,6 +50,46 @@ describe("solar panel size engine", () => {
     expect(monthly.baseRequiredKw).toBeCloseTo(annual.baseRequiredKw);
   });
 
+  it("calculates canonical benchmark scenario (10,800 kWh, 1,450 yield, 10% margin, 400W panel)", () => {
+    const result = calculateSolarPanelSize({
+      annualTargetKWh: 10_800,
+      specificYieldKWhPerKwYear: 1_450,
+      panelWatts: 400,
+      designMargin: 0.10,
+    });
+    expect(result.baseRequiredKw).toBeCloseTo(7.448275, 4);
+    expect(result.recommendedKw).toBeCloseTo(8.193103, 4);
+    expect(result.panelCount).toBe(21);
+    expect(result.installedKw).toBe(8.4);
+    expect(result.modeledAnnualKWh).toBeCloseTo(8.4 * 1450);
+  });
+
+  it("calculates canonical reference sizing matrix scenarios", () => {
+    // 300 kWh/mo = 3,600 kWh/yr -> 2.731 kW target -> 7 panels -> 2.8 kW
+    const r300 = calculateSolarPanelSize({ annualTargetKWh: 3_600, specificYieldKWhPerKwYear: 1_450, panelWatts: 400, designMargin: 0.1 });
+    expect(r300.recommendedKw).toBeCloseTo(2.731, 2);
+    expect(r300.panelCount).toBe(7);
+    expect(r300.installedKw).toBe(2.8);
+
+    // 600 kWh/mo = 7,200 kWh/yr -> 5.462 kW target -> 14 panels -> 5.6 kW
+    const r600 = calculateSolarPanelSize({ annualTargetKWh: 7_200, specificYieldKWhPerKwYear: 1_450, panelWatts: 400, designMargin: 0.1 });
+    expect(r600.recommendedKw).toBeCloseTo(5.462, 2);
+    expect(r600.panelCount).toBe(14);
+    expect(r600.installedKw).toBe(5.6);
+
+    // 1,200 kWh/mo = 14,400 kWh/yr -> 10.924 kW target -> 28 panels -> 11.2 kW
+    const r1200 = calculateSolarPanelSize({ annualTargetKWh: 14_400, specificYieldKWhPerKwYear: 1_450, panelWatts: 400, designMargin: 0.1 });
+    expect(r1200.recommendedKw).toBeCloseTo(10.924, 2);
+    expect(r1200.panelCount).toBe(28);
+    expect(r1200.installedKw).toBe(11.2);
+
+    // 1,500 kWh/mo = 18,000 kWh/yr -> 13.655 kW target -> 35 panels -> 14.0 kW
+    const r1500 = calculateSolarPanelSize({ annualTargetKWh: 18_000, specificYieldKWhPerKwYear: 1_450, panelWatts: 400, designMargin: 0.1 });
+    expect(r1500.recommendedKw).toBeCloseTo(13.655, 2);
+    expect(r1500.panelCount).toBe(35);
+    expect(r1500.installedKw).toBe(14.0);
+  });
+
   it("rejects invalid sizing values and exposes no battery concepts", () => {
     expect(() => calculateSolarPanelSize({ ...fixture, annualTargetKWh: 0 })).toThrow();
     expect(() => calculateSolarPanelSize({ ...fixture, panelWatts: -1 })).toThrow();

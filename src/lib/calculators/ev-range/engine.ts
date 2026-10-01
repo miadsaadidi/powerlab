@@ -43,7 +43,7 @@ export type EvRangeResult = CalculationResult<EvRangeResultData>;
 const validUnit = (unit: string): unit is EvRangeConsumptionUnit => ["kwh-per-100-km", "wh-per-km", "mi-per-kwh", "kwh-per-100-mi"].includes(unit);
 const positive = (value: number) => Number.isFinite(value) && value > 0;
 const percentage = (value: number, allowZero = true) => Number.isFinite(value) && value >= (allowZero ? 0 : Number.MIN_VALUE) && value <= 100;
-const rangeMiles = (km: number) => km * 0.6213711922;
+const rangeMiles = (km: number) => km / 1.609344;
 
 export function normalizeConsumption(value: number, unit: EvRangeConsumptionUnit): number {
   if (!validUnit(unit) || !positive(value)) throw new Error("Enter a valid energy-consumption value and unit.");

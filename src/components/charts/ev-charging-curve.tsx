@@ -1,5 +1,7 @@
 "use client";
 
+import { GENERIC_DC_TAPER } from "@/data/ev-charging-defaults";
+
 interface EvChargingCurveProps {
   batteryKwh: number;
   chargerKw: number;
@@ -19,12 +21,16 @@ export function EvChargingCurveChart({
   const socPoints = [10, 20, 30, 40, 50, 60, 70, 80, 90, 100];
 
   const chargingPoints = socPoints.map((soc) => {
-    // Tapering factor: Above 80%, charging power throttles down
-    const effectiveKw = isDcFastCharge && soc > 80
-      ? chargerKw * (1 - (soc - 80) * 0.035) // taper
-      : chargerKw * 0.90; // AC efficiency
+    let effectiveKw: number;
+    if (isDcFastCharge) {
+      const frac = soc / 100;
+      const segment = GENERIC_DC_TAPER.find((s) => frac > s.startSoc && frac <= s.endSoc) ?? GENERIC_DC_TAPER[0];
+      effectiveKw = chargerKw * segment.powerFactor;
+    } else {
+      effectiveKw = chargerKw * 0.90; // Illustrative wall-to-battery AC efficiency assumption
+    }
 
-    const energyAddedKwh = (batteryKwh * (soc - startSoc)) / 100;
+    const energyAddedKwh = (batteryKwh * Math.max(0, soc - startSoc)) / 100;
     const durationHours = Math.max(0, energyAddedKwh / Math.max(effectiveKw, 1));
     const durationMinutes = Math.round(durationHours * 60);
 
@@ -67,14 +73,19 @@ export function EvChargingCurveChart({
         border: "1px solid var(--border-color, #e2e8f0)",
       }}
     >
-      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "0.75rem" }}>
+      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "0.5rem" }}>
         <strong style={{ fontSize: "0.9rem", color: "var(--brand-strong)" }}>
-          ⚡ Charging Power Profile vs. State of Charge (SoC)
+          ⚡ Illustrative Charging Power Profile vs. State of Charge (SoC)
         </strong>
         <span style={{ fontSize: "0.75rem", color: "var(--text-muted)" }}>
-          {batteryKwh} kWh Pack • {chargerKw} kW Supply
+          {batteryKwh} kWh Usable Pack • {chargerKw} kW EVSE Max
         </span>
       </div>
+      <p style={{ fontSize: "0.75rem", color: "var(--text-muted)", margin: "0 0 0.75rem", lineHeight: 1.4 }}>
+        {isDcFastCharge
+          ? "Illustrative generic DC charging curve. DC charging power typically decreases as SOC rises; exact vehicle charging curves vary by model, battery temperature, SOC and charger conditions."
+          : "AC charging delivers approximately constant battery-side power assuming an illustrative 90% overall wall-to-battery efficiency."}
+      </p>
 
       <svg
         viewBox={`0 0 ${svgWidth} ${svgHeight}`}

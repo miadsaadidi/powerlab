@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { calculateSolarBatteryBankSize } from "./engine";
+import { calculateSolarBatteryBankSize, getHardwareConfigurations } from "./engine";
 
 const defaults = {
   dailyLoadKWh: 5,
@@ -63,5 +63,41 @@ describe("solar battery bank size engine", () => {
     expect(() => calculateSolarBatteryBankSize({ ...defaults, minimumSoc: 1 })).toThrow();
     expect(() => calculateSolarBatteryBankSize({ ...defaults, inverterEfficiency: 0 })).toThrow();
     expect(() => calculateSolarBatteryBankSize({ ...defaults, systemVoltage: 0 })).toThrow();
+  });
+
+  describe("getHardwareConfigurations", () => {
+    it("never returns invalid 7x 12V count for 48V architecture (returns balanced 8x 4S2P)", () => {
+      const options = getHardwareConfigurations(7.64, 48);
+      const twelveVoltOption = options.find((opt) => opt.id === "12v-100ah");
+      expect(twelveVoltOption).toBeDefined();
+      expect(twelveVoltOption?.seriesCount).toBe(4);
+      expect(twelveVoltOption?.parallelCount).toBe(2);
+      expect(twelveVoltOption?.totalUnits).toBe(8); // 8 units, NOT 7!
+      expect(twelveVoltOption?.hardwareNominalKWh).toBe(9.6);
+      expect(twelveVoltOption?.configurationLabel).toContain("4S2P");
+
+      const serverRackOption = options.find((opt) => opt.id === "48v-server-rack");
+      expect(serverRackOption).toBeDefined();
+      expect(serverRackOption?.totalUnits).toBe(2);
+      expect(serverRackOption?.hardwareNominalKWh).toBe(10.24);
+    });
+
+    it("calculates valid 2S4P configuration for 24V architecture", () => {
+      const options = getHardwareConfigurations(7.64, 24);
+      const twelveVoltOption = options.find((opt) => opt.id === "12v-100ah");
+      expect(twelveVoltOption?.seriesCount).toBe(2);
+      expect(twelveVoltOption?.parallelCount).toBe(4);
+      expect(twelveVoltOption?.totalUnits).toBe(8);
+      expect(twelveVoltOption?.configurationLabel).toContain("2S4P");
+    });
+
+    it("calculates valid 1S7P configuration for 12V architecture", () => {
+      const options = getHardwareConfigurations(7.64, 12);
+      const twelveVoltOption = options.find((opt) => opt.id === "12v-100ah");
+      expect(twelveVoltOption?.seriesCount).toBe(1);
+      expect(twelveVoltOption?.parallelCount).toBe(7);
+      expect(twelveVoltOption?.totalUnits).toBe(7);
+      expect(twelveVoltOption?.configurationLabel).toContain("1S7P");
+    });
   });
 });

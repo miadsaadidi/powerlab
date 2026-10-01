@@ -46,11 +46,56 @@ describe("energy bill engine", () => {
     expect(result.total).toBe(25);
   });
 
-  it("reduces usage only in what-if scenarios", () => {
-    const result = calculateEnergyBill({ ...base, fixedChargeForPeriod: 10, dailyStandingCharge: 0.5, taxPercent: 0.1 });
-    expect(result.scenarios.map((scenario) => scenario.energyKWh)).toEqual([300, 270, 240]);
-    expect(result.scenarios[1].fixedChargeForPeriod).toBe(10);
-    expect(result.scenarios[1].standingCharge).toBe(15);
-    expect(result.scenarios[1].total).toBeCloseTo(86.9);
+  it("calculates 300 kWh with $15 fixed charge", () => {
+    const result = calculateEnergyBill({ ...base, fixedChargeForPeriod: 15 });
+    expect(result.energyCharge).toBe(60);
+    expect(result.subtotal).toBe(75);
+    expect(result.total).toBe(75);
+    expect(result.annualizedTotal).toBeCloseTo(912.5);
+  });
+
+  it("calculates 300 kWh with fixed charge, daily standing charge, and 10% tax", () => {
+    const result = calculateEnergyBill({
+      ...base,
+      fixedChargeForPeriod: 15,
+      dailyStandingCharge: 0.1,
+      taxPercent: 0.1,
+    });
+    expect(result.energyCharge).toBe(60);
+    expect(result.fixedChargeForPeriod).toBe(15);
+    expect(result.standingCharge).toBe(3.0);
+    expect(result.subtotal).toBe(78);
+    expect(result.tax).toBeCloseTo(7.8);
+    expect(result.total).toBeCloseTo(85.8);
+  });
+
+  it("calculates meter mode consumption: current 14,850 - previous 14,100 = 750 kWh", () => {
+    const result = calculateEnergyBill({
+      mode: "meter-readings",
+      previousReading: 14100,
+      currentReading: 14850,
+      billingDays: 30,
+      pricePerKWh: 0.2,
+      fixedChargeForPeriod: 0,
+      dailyStandingCharge: 0,
+      taxPercent: 0,
+    });
+    expect(result.energyKWh).toBe(750);
+    expect(result.energyCharge).toBe(150);
+  });
+
+  it("rejects invalid meter reading where current < previous", () => {
+    expect(() =>
+      calculateEnergyBill({
+        mode: "meter-readings",
+        previousReading: 14100,
+        currentReading: 14000,
+        billingDays: 30,
+        pricePerKWh: 0.2,
+        fixedChargeForPeriod: 0,
+        dailyStandingCharge: 0,
+        taxPercent: 0,
+      })
+    ).toThrow();
   });
 });

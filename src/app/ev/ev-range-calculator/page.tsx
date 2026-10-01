@@ -2,18 +2,15 @@ import type { Metadata } from "next";
 import { buildPageMetadata } from "@/lib/seo/metadata-helper";
 import Link from "next/link";
 import { EvRangeCalculator } from "@/components/calculator/ev-range-calculator";
-import { isCalculatorPublished } from "@/lib/calculator-registry";
-import { siteConfig } from "@/lib/site-config";
 import { buildCalculatorStructuredData } from "@/lib/seo/structured-data";
 import { FormulaCard } from "@/components/seo/formula-card";
 import { PageJumpNav } from "@/components/seo/page-jump-nav";
 import { DirectAnswerCard } from "@/components/seo/direct-answer-card";
-
-const isPublished = isCalculatorPublished("ev-range");
+import { calculateEvRange } from "@/lib/calculators/ev-range/engine";
 
 export const metadata: Metadata = buildPageMetadata({
-  title: "EV Range Calculator — Highway & Winter Range",
-  description: "Estimate real-world electric vehicle driving range by battery kWh, 70+ mph highway speed & cold winter temperature drop. Physics-based EV range estimation.",
+  title: "EV Range Calculator — Battery, SOC & Efficiency",
+  description: "Estimate electric vehicle driving range from usable battery pack capacity (kWh), current state of charge, reserve buffer, and vehicle energy consumption.",
   canonicalPath: "/ev/ev-range-calculator",
   category: "ev",
 });
@@ -21,37 +18,51 @@ export const metadata: Metadata = buildPageMetadata({
 const FAQS = [
   {
     question: "How is electric vehicle driving range calculated?",
-    answer: "Available usable energy in kilowatt-hours is calculated as: Available kWh = Battery Capacity × (Current SOC% − Reserve SOC%) × Battery Health. Driving range is then: Range (miles) = Available kWh × Efficiency (mi/kWh).",
+    answer: "Available usable energy is calculated from battery capacity, the state-of-charge window, and battery health: Available kWh = Usable Battery Capacity (kWh) × (Current SOC% − Reserve SOC%) / 100 × (Battery Health% / 100). Driving range is then: Range (miles) = Available kWh × Efficiency (mi/kWh), or Range (km) = (Available kWh ÷ kWh/100 km) × 100.",
   },
   {
-    question: "How does highway driving affect EV range?",
-    answer: "Aerodynamic drag increases with the square of vehicle speed. Driving at 75–80 mph on the highway typically reduces EV driving range by 15% to 25% compared to 55–65 mph city and suburban driving.",
+    question: "How does highway cruising speed affect EV range?",
+    answer: "Aerodynamic drag power increases with the cube of vehicle speed (P ∝ v³). Driving at 75–80 mph on the highway typically reduces EV range by an illustrative 15% to 25% compared to 55–65 mph moderate cruising, though actual impact varies substantially by vehicle aerodynamics, speed, road topography, wind, and tire resistance.",
   },
   {
     question: "How much does cold winter weather reduce EV range?",
-    answer: "Freezing ambient temperatures (below 32°F / 0°C) can reduce EV range by 20% to 35% due to increased battery internal resistance, higher air density drag, and cabin heating HVAC energy consumption.",
+    answer: "Freezing ambient temperatures (below 32°F / 0°C) can reduce EV range by an illustrative 20% to 35% due to increased battery electrochemical internal resistance, higher air density drag, and cabin heating HVAC energy consumption. Actual impact varies substantially depending on cabin heating type (heat pump vs. PTC resistive strip), battery pre-conditioning, and driving conditions.",
   },
   {
     question: "What is the difference between gross and usable EV battery capacity?",
-    answer: "Gross capacity is the physical chemical capacity of the battery cells. Usable (net) capacity is the portion unlocked by the manufacturer BMS for driving (usually 90%–95% of gross) to prevent overcharging and overdischarging.",
+    answer: "Gross capacity is the total physical chemical capacity of all battery cells. Usable (net) capacity is the energy buffer unlocked by the vehicle's battery management system (BMS) for driving to prevent excessive degradation from deep discharge or overcharge.",
   },
+];
+
+const MATRIX_CLASSES = [
+  { label: "50 kWh Class", capacity: 50, examples: "e.g. Standard-Range Compact EVs" },
+  { label: "65 kWh Class", capacity: 65, examples: "e.g. Standard-Range Sedans & Crossovers" },
+  { label: "75 kWh Class", capacity: 75, examples: "e.g. Long-Range Sedans & Crossovers" },
+  { label: "100 kWh Class", capacity: 100, examples: "e.g. Full-Size Luxury EVs & Large Trucks" },
+];
+
+const MATRIX_PROFILES = [
+  { label: "City Driving (4.0 mi/kWh)", consumption: 4.0, unit: "mi-per-kwh" as const },
+  { label: "Combined Average (3.4 mi/kWh)", consumption: 3.4, unit: "mi-per-kwh" as const },
+  { label: "Highway 75 mph (2.8 mi/kWh)", consumption: 2.8, unit: "mi-per-kwh" as const },
+  { label: "Winter Scenario (2.3 mi/kWh)", consumption: 2.3, unit: "mi-per-kwh" as const },
 ];
 
 export default function EvRangePage() {
   const structuredData = buildCalculatorStructuredData({
     name: "EV Range Calculator",
-    description: "Estimate planned driving range from usable battery capacity, current charge, reserve, battery health, and consumption efficiency.",
+    description: "Estimate planned driving range from usable battery capacity, current charge, reserve, battery health, and consumption.",
     route: "/ev/ev-range-calculator",
     categoryName: "EV",
     categoryRoute: "/ev",
     features: [
-      "Calculates real-world driving range in miles and kilometers",
+      "Calculates planned driving range in miles and kilometers",
       "Supports mi/kWh, kWh/100km, Wh/km, and kWh/100mi efficiency units",
       "Configurable arrival reserve buffer and battery state of health (SOH)",
-      "Instant scenario analysis for highway, city, and winter conditions",
+      "Standard consumption comparisons and sensitivity scenarios",
     ],
     standards: [
-      "EPA Light-Duty Automotive Technology, Carbon Dioxide Emissions, and Fuel Economy Trends",
+      "EPA Light-Duty Automotive Technology and Fuel Economy Test Procedures",
       "SAE J1634 (Electric Vehicle Energy Consumption and Range Test Procedure)",
       "WLTP (Worldwide Harmonised Light Vehicles Test Procedure)",
     ],
@@ -74,7 +85,7 @@ export default function EvRangePage() {
         <p className="eyebrow">EV planning</p>
         <h1>EV Range Calculator</h1>
         <p className="intro">
-          Estimate real-world electric vehicle driving range in miles and kilometers from usable battery pack capacity (kWh), current state of charge, and vehicle driving efficiency.
+          Estimate electric vehicle driving range in miles and kilometers from usable battery pack capacity (kWh), current state of charge, arrival reserve buffer, and vehicle energy consumption.
         </p>
       </div>
 
@@ -84,10 +95,10 @@ export default function EvRangePage() {
 
       <DirectAnswerCard
         keyword="EV driving range calculation"
-        answer="Real-world EV driving range is calculated by multiplying available battery energy (kWh remaining above reserve limit) by vehicle efficiency: Range (Miles) = [Usable kWh × (Current SoC − Reserve SoC)] × Efficiency (mi/kWh). A 75 kWh EV at 80% charge with 3.5 mi/kWh efficiency and a 10% arrival reserve provides approximately 183 miles of driving range."
-        formula="Estimated Range (Miles) = [Battery Pack Capacity (kWh) × (Current SoC − Reserve SoC) × Battery Health] × Vehicle Efficiency (mi/kWh)"
-        standardExample="75 kWh pack at 80% SoC, 10% reserve, 3.5 mi/kWh: [75 × (0.80 − 0.10)] × 3.5 = 183.75 miles"
-        sourceAuthority="EPA / SAE J1634 (Electric Vehicle Range & Energy Test Procedures)"
+        answer="Planned EV driving range is calculated by multiplying available battery energy (kWh remaining above your reserve buffer) by estimated vehicle consumption: Range (Miles) = [Usable kWh × (Current SOC% − Reserve SOC%) / 100 × (SOH% / 100)] × Efficiency (mi/kWh). A 75 kWh usable battery pack at 80% SOC with a 10% reserve buffer and 3.5 mi/kWh consumption provides 183.75 miles (295.7 km) of planned driving range."
+        formula="Range (mi) = [Usable Pack kWh × (Current SOC% − Reserve SOC%) / 100 × SOH% / 100] × mi/kWh  |  Range (km) = [Available kWh ÷ (kWh/100 km)] × 100"
+        standardExample="75 kWh pack at 80% SOC, 10% reserve (0.80 − 0.10 = 0.70 window), 100% SOH, 3.5 mi/kWh: [75 × 0.70] × 3.5 = 183.75 miles (295.7 km)"
+        sourceAuthority="EPA / SAE J1634 (Test Procedure & Consumption Measurement References)"
       />
 
       <PageJumpNav />
@@ -95,35 +106,79 @@ export default function EvRangePage() {
       <section id="how-to-guide" style={{ marginTop: "3rem" }}>
         <h2>How to Calculate Real-World EV Driving Range</h2>
         <p>
-          Calculating real-world EV range requires determining your net usable battery energy in kilowatt-hours and multiplying by your vehicle&apos;s real-time consumption efficiency:
+          Calculating EV driving range requires determining net usable battery energy in kilowatt-hours and multiplying by estimated vehicle consumption:
         </p>
         <div style={{ padding: "1.25rem 1.5rem", borderRadius: "0.75rem", background: "var(--surface)", border: "1px solid var(--line)", margin: "1.5rem 0" }}>
           <h3 style={{ margin: "0 0 0.75rem", fontSize: "1.05rem", color: "var(--ink)" }}>4-Step Manual EV Range Calculation:</h3>
           <ol style={{ margin: 0, paddingLeft: "1.25rem", lineHeight: 1.7 }}>
-            <li><strong>Determine Usable Battery Capacity:</strong> Check your vehicle&apos;s net usable battery size (e.g. 75 kWh on a standard long-range EV).</li>
-            <li><strong>Calculate Usable State of Charge (SoC) Window:</strong> Subtract your arrival buffer (e.g. 10% reserve) from current charge (e.g. 80%): &Delta;SoC = 0.80 &minus; 0.10 = 0.70.</li>
-            <li><strong>Compute Available Driving Energy:</strong> Multiply usable capacity by the SoC window: Available kWh = 75 &times; 0.70 = 52.5 kWh.</li>
-            <li><strong>Multiply by Vehicle Efficiency:</strong> Multiply available energy by real-world efficiency (e.g. 3.4 mi/kWh): Range = 52.5 kWh &times; 3.4 mi/kWh = 178.5 miles (287 km).</li>
+            <li>
+              <strong>Determine Usable Battery Capacity:</strong> Identify the vehicle&apos;s new-condition net usable battery pack capacity in kWh (e.g. 75 kWh).
+            </li>
+            <li>
+              <strong>Calculate Usable State of Charge (SOC) Window:</strong> Convert percentages to fractions and subtract your arrival reserve buffer from current charge: <code>ΔSOC = (Current SOC% − Reserve SOC%) / 100 = 0.80 − 0.10 = 0.70</code>.
+            </li>
+            <li>
+              <strong>Compute Available Driving Energy:</strong> Multiply usable capacity by the SOC fraction and battery health factor (SOH): <code>Available kWh = 75 × 0.70 × 1.00 = 52.5 kWh</code>.
+            </li>
+            <li>
+              <strong>Apply Estimated Vehicle Consumption:</strong> Multiply available energy by economy: <code>Range = 52.5 kWh × 3.5 mi/kWh = 183.75 miles (295.7 km)</code>.
+            </li>
           </ol>
         </div>
       </section>
 
-      <section id="speed-aerodynamics">
+      <section id="technical-references" style={{ marginTop: "2rem" }}>
+        <h2>Technical References &amp; Model Basis</h2>
+        <p>
+          PowerLab clearly separates official automotive test cycles, standard testing procedures, and deterministic arithmetic models:
+        </p>
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(min(100%, 280px), 1fr))", gap: "1rem", marginTop: "1rem" }}>
+          <div style={{ padding: "1rem", borderRadius: "0.5rem", background: "var(--surface)", border: "1px solid var(--line)" }}>
+            <h4 style={{ margin: "0 0 0.5rem", color: "var(--brand-strong)" }}>EPA Fuel Economy Test Cycles</h4>
+            <p style={{ fontSize: "0.85rem", color: "var(--muted)", margin: 0, lineHeight: 1.5 }}>
+              U.S. EPA dynamometer testing procedures (UDDS city and HWFET highway cycles) establish official window sticker range and MPGe ratings.
+            </p>
+          </div>
+          <div style={{ padding: "1rem", borderRadius: "0.5rem", background: "var(--surface)", border: "1px solid var(--line)" }}>
+            <h4 style={{ margin: "0 0 0.5rem", color: "var(--brand-strong)" }}>SAE J1634 Standard</h4>
+            <p style={{ fontSize: "0.85rem", color: "var(--muted)", margin: 0, lineHeight: 1.5 }}>
+              Society of Automotive Engineers standard test procedure for electric vehicle energy consumption and range measurement under controlled multi-cycle laboratory conditions.
+            </p>
+          </div>
+          <div style={{ padding: "1rem", borderRadius: "0.5rem", background: "var(--surface)", border: "1px solid var(--line)" }}>
+            <h4 style={{ margin: "0 0 0.5rem", color: "var(--brand-strong)" }}>WLTP Test Procedure</h4>
+            <p style={{ fontSize: "0.85rem", color: "var(--muted)", margin: 0, lineHeight: 1.5 }}>
+              Worldwide Harmonised Light Vehicles Test Procedure, defining standardized laboratory driving cycles used in European and international regulatory markets.
+            </p>
+          </div>
+          <div style={{ padding: "1rem", borderRadius: "0.5rem", background: "var(--surface)", border: "1px solid var(--line)" }}>
+            <h4 style={{ margin: "0 0 0.5rem", color: "var(--brand-strong)" }}>PowerLab Calculation Model</h4>
+            <p style={{ fontSize: "0.85rem", color: "var(--muted)", margin: 0, lineHeight: 1.5 }}>
+              Deterministic physics-based calculation dividing available pack energy by static user-entered consumption. Does not substitute for vehicle telemetry or dynamometer certification.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section id="speed-aerodynamics" style={{ marginTop: "2rem" }}>
         <h2>Highway Speed &amp; Aerodynamic Drag Range Impact</h2>
         <p>
-          Aerodynamic drag force increases with the square of speed (F_drag = 0.5 &times; &rho; &times; C_d &times; A &times; v&sup2;), while power required to overcome drag scales with the cube of speed (P_drag &prop; v&sup3;). Driving at 75–80 mph increases energy consumption significantly compared to 55–65 mph:
+          Aerodynamic drag force increases with the square of speed (<em>F</em><sub>drag</sub> = ½ · <em>ρ</em> · <em>C</em><sub>d</sub> · <em>A</em> · <em>v</em>²), while the power required to overcome drag scales with the cube of speed (<em>P</em><sub>drag</sub> ∝ <em>v</em>³). Driving at 75–80 mph increases energy consumption significantly compared to 55–65 mph:
         </p>
+        <div style={{ margin: "1rem 0", padding: "0.85rem 1.15rem", borderRadius: "0.5rem", background: "rgba(245, 158, 11, 0.08)", border: "1px solid rgba(245, 158, 11, 0.25)", fontSize: "0.85rem", lineHeight: 1.5 }}>
+          <strong>Illustrative Engineering Reference:</strong> Real-world highway impact varies based on individual vehicle drag coefficient (<em>C</em><sub>d</sub>), frontal area, wind speed, elevation changes, tire rolling resistance, and climate control loads.
+        </div>
         <div className="scenario-table" role="region" aria-label="Highway speed and aerodynamic drag impact table">
           <table>
-            <caption>Aerodynamic drag &amp; real-world consumption derating across highway cruising speeds</caption>
+            <caption>Illustrative aerodynamic drag &amp; estimated consumption derating across cruising speeds (75 kWh pack, 100% to 10% SOC)</caption>
             <thead>
               <tr>
                 <th scope="col">Cruising Speed</th>
-                <th scope="col">Aerodynamic Drag Power</th>
+                <th scope="col">Estimated Drag Power</th>
                 <th scope="col">Typical Consumption</th>
                 <th scope="col">Efficiency (mi/kWh)</th>
                 <th scope="col">75 kWh Pack Range</th>
-                <th scope="col">Range vs 55 mph</th>
+                <th scope="col">Range vs 55 mph Baseline</th>
               </tr>
             </thead>
             <tbody>
@@ -132,7 +187,7 @@ export default function EvRangePage() {
                 <td>~6.2 kW</td>
                 <td>~240 Wh/mi (14.9 kWh/100km)</td>
                 <td>4.17 mi/kWh</td>
-                <td>~312 miles (502 km)</td>
+                <td>~281 miles (453 km)</td>
                 <td><span style={{ color: "#059669", fontWeight: 700 }}>Baseline (100%)</span></td>
               </tr>
               <tr>
@@ -140,7 +195,7 @@ export default function EvRangePage() {
                 <td>~10.1 kW</td>
                 <td>~285 Wh/mi (17.7 kWh/100km)</td>
                 <td>3.51 mi/kWh</td>
-                <td>~263 miles (423 km)</td>
+                <td>~237 miles (381 km)</td>
                 <td><span style={{ color: "#d97706", fontWeight: 700 }}>-15.7%</span></td>
               </tr>
               <tr>
@@ -148,45 +203,48 @@ export default function EvRangePage() {
                 <td>~12.6 kW</td>
                 <td>~315 Wh/mi (19.6 kWh/100km)</td>
                 <td>3.17 mi/kWh</td>
-                <td>~238 miles (383 km)</td>
-                <td><span style={{ color: "#d97706", fontWeight: 700 }}>-23.7%</span></td>
+                <td>~214 miles (344 km)</td>
+                <td><span style={{ color: "#d97706", fontWeight: 700 }}>-23.8%</span></td>
               </tr>
               <tr>
                 <td><strong>75 mph</strong> (121 km/h)</td>
                 <td>~15.5 kW</td>
                 <td>~350 Wh/mi (21.7 kWh/100km)</td>
                 <td>2.86 mi/kWh</td>
-                <td>~214 miles (344 km)</td>
-                <td><span style={{ color: "#dc2626", fontWeight: 700 }}>-31.4%</span></td>
+                <td>~193 miles (311 km)</td>
+                <td><span style={{ color: "#dc2626", fontWeight: 700 }}>-31.3%</span></td>
               </tr>
               <tr>
                 <td><strong>80 mph</strong> (129 km/h)</td>
                 <td>~18.8 kW</td>
                 <td>~390 Wh/mi (24.2 kWh/100km)</td>
                 <td>2.56 mi/kWh</td>
-                <td>~192 miles (309 km)</td>
-                <td><span style={{ color: "#dc2626", fontWeight: 700 }}>-38.5%</span></td>
+                <td>~173 miles (278 km)</td>
+                <td><span style={{ color: "#dc2626", fontWeight: 700 }}>-38.4%</span></td>
               </tr>
             </tbody>
           </table>
         </div>
       </section>
 
-      <section id="winter-subzero">
+      <section id="winter-subzero" style={{ marginTop: "2rem" }}>
         <h2>Cold Weather &amp; Sub-Zero Temperature Range Derating</h2>
         <p>
-          Low ambient temperatures derate EV range through three simultaneous physical mechanisms: increased electrochemical internal cell resistance (R_i), higher ambient air density increasing aerodynamic drag, and thermal HVAC energy demand for cabin and battery pack thermal management:
+          Low ambient temperatures derate EV range through three simultaneous physical mechanisms: increased electrochemical cell internal resistance, denser air increasing aerodynamic drag, and cabin heating HVAC energy consumption:
         </p>
+        <div style={{ margin: "1rem 0", padding: "0.85rem 1.15rem", borderRadius: "0.5rem", background: "rgba(245, 158, 11, 0.08)", border: "1px solid rgba(245, 158, 11, 0.25)", fontSize: "0.85rem", lineHeight: 1.5 }}>
+          <strong>Illustrative Scenario Note:</strong> Illustrative scenario values only. Actual winter range variation depends on vehicle thermal architecture, speed, cabin heating system (heat pump vs. PTC resistive), cabin setpoint, battery thermal preconditioning, road conditions, and driving behavior. Values do not apply universally.
+        </div>
         <div className="scenario-table" role="region" aria-label="Winter sub-zero temperature derating table">
           <table>
-            <caption>Winter temperature derating &amp; HVAC impact on 75 kWh battery pack (100% to 10% SoC window)</caption>
+            <caption>Illustrative winter temperature derating &amp; HVAC impact on 75 kWh battery pack (100% to 10% SOC window = 67.5 kWh)</caption>
             <thead>
               <tr>
                 <th scope="col">Ambient Temperature</th>
                 <th scope="col">HVAC Heating System</th>
                 <th scope="col">Heating Power Draw</th>
                 <th scope="col">Effective Consumption</th>
-                <th scope="col">Real-World Range</th>
+                <th scope="col">Estimated Range</th>
                 <th scope="col">Range Retention</th>
               </tr>
             </thead>
@@ -225,7 +283,7 @@ export default function EvRangePage() {
               </tr>
               <tr>
                 <td><strong>-5°F (-21°C)</strong> — Sub-Zero</td>
-                <td>PTC Resistive Heater (COP 1.0)</td>
+                <td>PTC Resistive Heater</td>
                 <td>~5.5 kW</td>
                 <td>~495 Wh/mi (2.02 mi/kWh)</td>
                 <td>~136 miles (219 km)</td>
@@ -236,74 +294,73 @@ export default function EvRangePage() {
         </div>
       </section>
 
-      <section id="sizing-matrix">
+      <section id="sizing-matrix" style={{ marginTop: "2rem" }}>
         <h2>EV Driving Range Reference Matrix</h2>
-        <p>Real-world driving range varies significantly by vehicle efficiency, driving speed, and ambient temperature. Here is how common battery capacities perform across driving profiles (based on 100% to 10% usable capacity window):</p>
+        <p>
+          Calculated driving range across popular vehicle battery capacity classes and driving consumption profiles (based on 100% to 10% usable SOC window = 90% net pack energy available):
+        </p>
         <div className="scenario-table" role="region" aria-label="EV driving range comparison matrix">
           <table>
-            <caption>Estimated driving range by battery size &amp; driving conditions (90% usable charge)</caption>
+            <caption>Estimated driving range by usable capacity class &amp; consumption profile (90% available charge window)</caption>
             <thead>
               <tr>
-                <th scope="col">Battery Pack Size</th>
-                <th scope="col">City Driving (4.0 mi/kWh)</th>
-                <th scope="col">Combined Average (3.4 mi/kWh)</th>
-                <th scope="col">Highway 75 mph (2.8 mi/kWh)</th>
-                <th scope="col">Winter Freezing (2.3 mi/kWh)</th>
+                <th scope="col">Usable Battery Capacity Class</th>
+                {MATRIX_PROFILES.map((p) => (
+                  <th scope="col" key={p.label}>
+                    {p.label}
+                  </th>
+                ))}
               </tr>
             </thead>
             <tbody>
-              <tr>
-                <td><strong>50 kWh Pack</strong> (e.g. Nissan Leaf, Mini SE)</td>
-                <td>~180 mi (290 km)</td>
-                <td>~153 mi (246 km)</td>
-                <td>~126 mi (203 km)</td>
-                <td>~104 mi (167 km)</td>
-              </tr>
-              <tr>
-                <td><strong>65 kWh Pack</strong> (e.g. Chevy Bolt, Kona EV)</td>
-                <td>~234 mi (377 km)</td>
-                <td>~199 mi (320 km)</td>
-                <td>~164 mi (264 km)</td>
-                <td>~135 mi (217 km)</td>
-              </tr>
-              <tr>
-                <td><strong>75 kWh Pack</strong> (e.g. Tesla Model 3/Y Long Range)</td>
-                <td>~270 mi (435 km)</td>
-                <td>~230 mi (370 km)</td>
-                <td>~189 mi (304 km)</td>
-                <td>~155 mi (249 km)</td>
-              </tr>
-              <tr>
-                <td><strong>100 kWh Pack</strong> (e.g. Model S/X, Taycan, Rivian)</td>
-                <td>~360 mi (579 km)</td>
-                <td>~306 mi (492 km)</td>
-                <td>~252 mi (406 km)</td>
-                <td>~207 mi (333 km)</td>
-              </tr>
+              {MATRIX_CLASSES.map((cls) => (
+                <tr key={cls.label}>
+                  <td>
+                    <strong>{cls.label}</strong>
+                    <br />
+                    <small style={{ color: "var(--muted)" }}>{cls.examples}</small>
+                  </td>
+                  {MATRIX_PROFILES.map((prof) => {
+                    const res = calculateEvRange({
+                      batteryCapacityKWh: cls.capacity,
+                      currentSoc: 100,
+                      reserveSoc: 10,
+                      batteryHealth: 100,
+                      consumption: prof.consumption,
+                      consumptionUnit: prof.unit,
+                    }).result;
+                    return (
+                      <td key={prof.label}>
+                        ~{res.rangeMiles.toFixed(0)} mi ({res.rangeKm.toFixed(0)} km)
+                      </td>
+                    );
+                  })}
+                </tr>
+              ))}
             </tbody>
           </table>
         </div>
         <p style={{ fontSize: "0.85rem", color: "var(--muted)", marginTop: "0.75rem" }}>
-          <em>Data Sources: Derived from EPA Light-Duty Vehicle Test Cycles, SAE J1634 EV Energy Consumption Standards, and Idaho National Laboratory (INL) Advanced Vehicle Fleet Testing.</em>
+          <em>Values calculated dynamically using the PowerLab deterministic range engine for a 90-percentage-point usable state-of-charge window (100% → 10% SOC).</em>
         </p>
       </section>
 
       <div id="formula-math">
         <FormulaCard
           title="EV Driving Range Formulas"
-          formula="Available_kWh = Usable_kWh × (Current_SOC - Reserve_SOC) × Health  |  Range (mi) = Available_kWh × mi_per_kWh"
-          formulaDescription="Calculates real-world driving distance in miles and kilometers from net usable battery capacity, current state of charge, and vehicle efficiency."
+          formula="Available_kWh = Usable_kWh × (Current_SOC% − Reserve_SOC%) / 100 × (Health% / 100)  |  Range (mi) = Available_kWh × mi_per_kWh"
+          formulaDescription="Calculates planned driving distance in miles and kilometers from net usable battery capacity, current state of charge, arrival reserve buffer, and estimated vehicle consumption."
           variables={[
-            { symbol: "Usable_kWh", label: "Usable Battery Pack Energy", description: "Manufacturer net usable traction battery capacity.", unit: "kWh" },
-            { symbol: "Current_SOC", label: "Current Charge Level", description: "Starting state of charge percentage.", unit: "fraction" },
-            { symbol: "Reserve_SOC", label: "Minimum Reserve Buffer", description: "Target arrival state of charge cutoff (typically 10%–15%).", unit: "fraction" },
-            { symbol: "Health", label: "Battery State of Health (SOH)", description: "Available capacity relative to new factory condition.", unit: "fraction" },
-            { symbol: "mi_per_kWh", label: "Vehicle Efficiency", description: "Real-world electrical economy (typically 3.0 to 4.0 mi/kWh, or 15–20 kWh/100km).", unit: "mi/kWh" },
+            { symbol: "Usable_kWh", label: "Usable Battery Pack Energy", description: "Manufacturer net usable traction battery capacity when new (kWh).", unit: "kWh" },
+            { symbol: "Current_SOC%", label: "Current Charge Level", description: "Starting state of charge percentage (0% to 100%).", unit: "%" },
+            { symbol: "Reserve_SOC%", label: "Minimum Reserve Buffer", description: "Target arrival state of charge cutoff (typically 10%–15%).", unit: "%" },
+            { symbol: "Health%", label: "Battery State of Health (SOH)", description: "Available capacity relative to new factory condition (1% to 100%).", unit: "%" },
+            { symbol: "mi_per_kWh", label: "Vehicle Consumption", description: "Estimated electrical efficiency (typically 2.5 to 4.5 mi/kWh, or 14–25 kWh/100km).", unit: "mi/kWh" },
           ]}
           notes={[
-            "Metric Range: Range (km) = (Available_kWh ÷ kWh_per_100km) × 100.",
+            "Metric Range Formula: Range (km) = [Available_kWh ÷ (kWh/100 km)] × 100.",
             "Efficiency conversion: mi/kWh = 62.1371 ÷ (kWh/100 km).",
-            "Aerodynamic drag scales quadratically with speed: F_drag = 0.5 × rho × Cd × A × v^2.",
+            "Aerodynamic drag scales quadratically with speed: F_drag = ½ · ρ · Cd · A · v².",
           ]}
         />
       </div>
@@ -323,7 +380,7 @@ export default function EvRangePage() {
       <section id="related-tools" style={{ marginTop: "3rem", padding: "1.75rem", borderRadius: "0.85rem", background: "var(--surface)", border: "1px solid var(--line)" }}>
         <h2 style={{ marginTop: 0, fontSize: "1.35rem", color: "var(--brand-strong)" }}>Related Electric Vehicle Engineering Guides &amp; Tools</h2>
         <p style={{ marginBottom: "1.25rem", color: "var(--muted)", lineHeight: 1.55 }}>
-          Dive into the underlying physics of highway aerodynamic drag, winter battery losses, and home charging sizing:
+          Explore connected EV planning tools and technical guides across charging speeds, electricity costs, and electrical infrastructure:
         </p>
 
         <div style={{ padding: "1.25rem", borderRadius: "0.75rem", background: "linear-gradient(135deg, rgba(139, 92, 246, 0.08) 0%, rgba(139, 92, 246, 0.03) 100%)", border: "1.5px solid rgba(139, 92, 246, 0.3)", marginBottom: "1.25rem" }}>

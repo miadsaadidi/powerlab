@@ -8,7 +8,6 @@ import { resolveBatteryCapacityInitialization } from "@/lib/calculators/battery-
 import { createEnergyProfileStore } from "@/lib/energy-profile/store";
 import { isCalculatorPublished } from "@/lib/calculator-registry";
 import Link from "next/link";
-import { GooglePreferredBanner } from "@/components/calculator/google-preferred-banner";
 import { CalculatorTrustPill } from "@/components/calculator/calculator-trust-pill";
 import { ShareButton } from "@/components/calculator/share-button";
 import { PrintSpecButton } from "@/components/calculator/print-spec-button";
@@ -190,7 +189,8 @@ export function BatteryCapacityCalculator() {
           <label htmlFor="capacity-chemistry">Battery chemistry<select id="capacity-chemistry" value={chemistry} onChange={(event) => selectChemistry(event.target.value)}>{BATTERY_CHEMISTRIES.map((item) => <option key={item.id} value={item.id}>{item.label}</option>)}</select></label>
           <label htmlFor="capacity-starting-soc">Starting charge (%)<input id="capacity-starting-soc" type="number" min="0" max="100" step="1" inputMode="numeric" value={percent(startingSoc)} onChange={(event) => update(setStartingSoc, numberValue(event.target.value) / 100)} /></label>
           <label htmlFor="capacity-minimum-soc">Minimum remaining charge (%)<input id="capacity-minimum-soc" type="number" min="0" max="100" step="1" inputMode="numeric" value={percent(minimumSoc)} onChange={(event) => updateMinimumSoc(numberValue(event.target.value) / 100)} /></label>
-          <label htmlFor="capacity-health">Battery health (%)<input id="capacity-health" type="number" min="0" max="100" step="1" inputMode="numeric" value={percent(batteryHealth)} onChange={(event) => update(setBatteryHealth, numberValue(event.target.value) / 100)} /></label>
+          <label htmlFor="capacity-health">Battery health / capacity factor (%)<input id="capacity-health" type="number" min="0" max="100" step="1" inputMode="numeric" value={percent(batteryHealth)} onChange={(event) => update(setBatteryHealth, numberValue(event.target.value) / 100)} /></label>
+          <p className="form-hint">Planning derating factor, not a degradation prediction. Actual usable capacity depends on cutoff voltage, chemistry, discharge rate, and temperature.</p>
           {minimumSocCustomized && <p className="form-hint">Your minimum charge is user-controlled and will not be replaced when chemistry changes.</p>}
         </fieldset>}
         {error && <p className="error" role="alert">{error.message}</p>}
@@ -212,12 +212,12 @@ export function BatteryCapacityCalculator() {
             {mode === "charge-to-energy" && <p className="formula-line"><span>{displayAh(result.capacityAh)} Ah × {displayVoltage(result.voltage)} V</span><strong>= {displayWh(result.nominalWh)} Wh</strong></p>}
             {mode === "energy-to-charge" && <p className="formula-line"><span>{displayWh(result.nominalWh)} Wh ÷ {displayVoltage(result.voltage)} V</span><strong>= {displayAh(result.capacityAh)} Ah</strong></p>}
             {mode === "find-voltage" && <p className="formula-line"><span>{displayWh(result.nominalWh)} Wh ÷ {displayAh(result.capacityAh)} Ah</span><strong>= {displayVoltage(result.voltage)} V</strong></p>}
-            <p className="formula-line"><span>{displayWh(result.nominalWh)} Wh × {percent(result.usableSocWindow)}% SOC window × {percent(batteryHealth)}% battery health</span><strong>= {displayWh(result.usableWh)} Wh usable</strong></p>
+            <p className="formula-line"><span>{displayWh(result.nominalWh)} Wh × {percent(result.usableSocWindow)}% SOC window × {percent(batteryHealth)}% health factor</span><strong>= {displayWh(result.usableWh)} Wh usable</strong></p>
           </section>
           {mode === "find-voltage" && <p className="form-hint">Compare the calculated value with your battery&apos;s actual nominal specification.</p>}
           {mode === "energy-to-charge" && <section className="comparison"><h3>Equivalent charge capacity by voltage</h3><p className="form-hint">The same energy capacity requires fewer amp-hours at higher voltage.</p><dl>{result.equivalentAh.map((item) => <div key={item.voltage} className={item.voltage === result.voltage ? "current-comparison" : ""}><dt>{item.voltage} V {item.voltage === result.voltage && <span>Selected</span>}</dt><dd>{displayAh(item.capacityAh)} Ah equivalent</dd></div>)}</dl></section>}
-          <section className="comparison"><h3>Usable energy</h3><p className="result-value">{displayWh(result.usableWh)} Wh</p><p className="result-lede">{displayKwh(result.usableKWh)} kWh after the SOC window and battery health assumptions.</p><dl><div><dt>SOC window</dt><dd>{percent(result.usableSocWindow)}%</dd></div><div><dt>Starting charge</dt><dd>{percent(startingSoc)}%</dd></div><div><dt>Minimum charge</dt><dd>{percent(minimumSoc)}%</dd></div><div><dt>Battery health</dt><dd>{percent(batteryHealth)}%</dd></div></dl></section>
-          <section className="assumption-summary"><h3>Assumptions used</h3><dl><div><dt>Battery chemistry</dt><dd>{chemistryPreset.label}</dd></div><div><dt>Voltage</dt><dd>{displayVoltage(result.voltage)} V</dd></div></dl><button className="text-button" type="button" onClick={() => setAdvancedOpen(true)}>Edit assumptions</button></section>
+          <section className="comparison"><h3>Usable energy</h3><p className="result-value">{displayWh(result.usableWh)} Wh</p><p className="result-lede">{displayKwh(result.usableKWh)} kWh after the SOC window and battery health assumptions.</p><dl><div><dt>SOC window</dt><dd>{percent(result.usableSocWindow)}%</dd></div><div><dt>Starting charge</dt><dd>{percent(startingSoc)}%</dd></div><div><dt>Minimum charge</dt><dd>{percent(minimumSoc)}%</dd></div><div><dt>Battery health factor</dt><dd>{percent(batteryHealth)}%</dd></div></dl></section>
+          <section className="assumption-summary"><h3>Assumptions used</h3><dl><div><dt>Battery chemistry</dt><dd>{chemistryPreset.label} (default planning assumption)</dd></div><div><dt>Voltage</dt><dd>{displayVoltage(result.voltage)} V</dd></div></dl><button className="text-button" type="button" onClick={() => setAdvancedOpen(true)}>Edit assumptions</button></section>
           {runtimePublished && (
             <section className="handoff">
               <h3>Next steps &amp; system sizing</h3>
@@ -238,8 +238,6 @@ export function BatteryCapacityCalculator() {
               </div>
             </section>
           )}
-
-          <GooglePreferredBanner />
 
           <div className="button-row" style={{ marginTop: "0.85rem", display: "flex", gap: "0.5rem", flexWrap: "wrap" }}>
             <ShareButton title="Battery Capacity Calculation" />

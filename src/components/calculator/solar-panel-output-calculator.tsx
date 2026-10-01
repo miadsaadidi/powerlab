@@ -9,7 +9,6 @@ import { calculateSeasonalTilts, getEquatorFacingAzimuth } from "@/lib/calculato
 import { calculateUsageProfile } from "@/lib/calculators/electricity-usage/engine";
 import { ShareButton } from "@/components/calculator/share-button";
 import { PrintSpecButton } from "@/components/calculator/print-spec-button";
-import { GooglePreferredBanner } from "@/components/calculator/google-preferred-banner";
 import { CalculatorTrustPill } from "@/components/calculator/calculator-trust-pill";
 import { EmbedModal } from "@/components/calculator/embed-modal";
 import { SolarRoofVisualizer } from "@/components/calculator/solar-roof-visualizer";
@@ -109,7 +108,7 @@ export function SolarPanelOutputCalculator() {
   };
   const calculate = async () => {
     if (!canCalculate) { setMessage("Enter valid coordinates and system details before calculating."); return; }
-    setRequestState("loading"); setMessage("Calculating modeled solar production…"); setStale(false);
+    setRequestState("loading"); setMessage("Calculating modeled solar production via NREL PVWatts V8…"); setStale(false);
     track("calculator_calculate", { calculator: "solar-panel-output", input_mode: inputMode, used_advanced: advancedOpen });
     try {
       const response = await fetch("/api/solar-production", { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ latitude, longitude, systemCapacityKw: capacity, tiltDeg: tilt, azimuthDeg: orientation, moduleType, arrayType, lossesPercent, dcAcRatio, inverterEfficiencyPercent }) });
@@ -152,8 +151,8 @@ export function SolarPanelOutputCalculator() {
 
       <RegionalClimateSelector
         applyTarget="solar"
-        title="📍 Regional NREL Solar Irradiance Presets"
-        description="Select your state to load official NREL annual peak sun hours, optimal tilt angle, and geographic coordinates."
+        title="📍 U.S. Regional Solar Resource Reference"
+        description="Select a benchmark state / metro to load representative latitude, NREL NSRDB peak sun hours, and optimal fixed tilt."
         onSelectRegion={(region: RegionalClimateData) => {
           updateLocation(region.latitude, region.longitude);
           setTilt(region.optimalTiltDeg);
@@ -178,12 +177,12 @@ export function SolarPanelOutputCalculator() {
           {orientationMode === "custom" && <label>Exact azimuth (°)<input type="number" min="0" max="359.99" step="any" value={orientation} onChange={(event) => { setOrientation(numberOr(event.target.value, Number.NaN)); setAzimuthSource("user"); markStale(); }} /></label>}
           {tiltError && <p className="error" role="alert">{tiltError}</p>}{azimuthError && <p className="error" role="alert">{azimuthError}</p>}
         </fieldset>
-        <details open={advancedOpen} onToggle={(event) => { setAdvancedOpen(event.currentTarget.open); if (event.currentTarget.open) track("calculator_advanced_open", { calculator: "solar-panel-output" }); }}><summary>Advanced assumptions</summary><div className="input-group"><label>Module type<select value={moduleType} onChange={(event) => { setModuleType(Number(event.target.value)); markStale(); }}>{PVWATTS_MODULE_TYPES.map((item) => <option value={item.value} key={item.value}>{item.label}</option>)}</select></label><label>Array type<select value={arrayType} onChange={(event) => { setArrayType(Number(event.target.value)); markStale(); }}>{PVWATTS_ARRAY_TYPES.map((item) => <option value={item.value} key={item.value}>{item.label}</option>)}</select></label><label>System losses (%)<input type="number" min="0" max="100" step="1" value={lossesPercent} onChange={(event) => { setLossesPercent(numberOr(event.target.value, Number.NaN)); markStale(); }} /></label><label>DC/AC ratio<input type="number" min="0.1" step="0.1" value={dcAcRatio} onChange={(event) => { setDcAcRatio(numberOr(event.target.value, Number.NaN)); markStale(); }} /></label><label>Inverter efficiency (%)<input type="number" min="1" max="100" step="1" value={inverterEfficiencyPercent} onChange={(event) => { setInverterEfficiencyPercent(numberOr(event.target.value, Number.NaN)); markStale(); }} /></label><p className="form-hint">PVWatts planning assumptions are editable estimates, not product specifications.</p></div></details>
-        {!calculation && <p className="form-hint">Add your location to estimate solar production for your {systemSize} kW system.</p>}
+        <details open={advancedOpen} onToggle={(event) => { setAdvancedOpen(event.currentTarget.open); if (event.currentTarget.open) track("calculator_advanced_open", { calculator: "solar-panel-output" }); }}><summary>Advanced assumptions</summary><div className="input-group"><label>Module type<select value={moduleType} onChange={(event) => { setModuleType(Number(event.target.value)); markStale(); }}>{PVWATTS_MODULE_TYPES.map((item) => <option value={item.value} key={item.value}>{item.label}</option>)}</select></label><label>Array type<select value={arrayType} onChange={(event) => { setArrayType(Number(event.target.value)); markStale(); }}>{PVWATTS_ARRAY_TYPES.map((item) => <option value={item.value} key={item.value}>{item.label}</option>)}</select></label><label>System losses (%)<input type="number" min="0" max="100" step="1" value={lossesPercent} onChange={(event) => { setLossesPercent(numberOr(event.target.value, Number.NaN)); markStale(); }} /></label><label>DC/AC ratio<input type="number" min="0.1" step="0.1" value={dcAcRatio} onChange={(event) => { setDcAcRatio(numberOr(event.target.value, Number.NaN)); markStale(); }} /></label><label>Inverter efficiency (%)<input type="number" min="1" max="100" step="1" value={inverterEfficiencyPercent} onChange={(event) => { setInverterEfficiencyPercent(numberOr(event.target.value, Number.NaN)); markStale(); }} /></label><p className="form-hint">PVWatts planning assumptions are editable inputs passed to the hourly simulation engine.</p></div></details>
+        {!calculation && <p className="form-hint">Add your location coordinates and click Calculate to run the PVWatts V8 hourly simulation for your {systemSize} kW system.</p>}
         <button className="button calculator-submit" type="submit" disabled={requestState === "loading"}>{requestState === "loading" ? "Calculating…" : calculation ? "Recalculate" : "Calculate Solar Output"}</button>
       </form>
     </div>
-    <aside className="result-panel" aria-live="polite"><p className="eyebrow">PVWatts V8 estimate</p>{!calculation ? <p>Enter a valid location and calculate to see modeled solar production.</p> : <><p className="result-lede">Estimated annual solar production</p><p className="result-value">{formatNumber(calculation.summary.annualAcKWh)} kWh/year</p>{stale && <p className="warning" role="status">Previous result — inputs have changed.</p>}
+    <aside className="result-panel" aria-live="polite"><p className="eyebrow">PVWatts V8 Modeled Estimate</p>{!calculation ? <p>Enter a valid location and calculate to see modeled solar production.</p> : <><p className="result-lede">Estimated annual solar production</p><p className="result-value">{formatNumber(calculation.summary.annualAcKWh)} kWh/year</p>{stale && <p className="warning" role="status">Previous result — inputs have changed.</p>}
       <SolarRoofVisualizer
         systemKw={calculation.capacityKw}
         panelWatts={panelWatts}
@@ -194,8 +193,7 @@ export function SolarPanelOutputCalculator() {
         annualKwh={calculation.summary.annualAcKWh}
       />
       <dl className="result-breakdown">
-<div><dt>Average daily production</dt><dd>{formatNumber(calculation.summary.averageDailyKWh, 2)} kWh/day</dd></div><div><dt>Best month</dt><dd>{calculation.summary.bestMonth.label} · {formatNumber(calculation.summary.bestMonth.kWh)} kWh</dd></div><div><dt>Lowest month</dt><dd>{calculation.summary.lowestMonth.label} · {formatNumber(calculation.summary.lowestMonth.kWh)} kWh</dd></div><div><dt>Specific yield</dt><dd>{formatNumber(calculation.summary.specificYieldKWhPerKwYear)} kWh/kW-year</dd></div>{calculation.summary.capacityFactorPercent !== undefined && <div><dt>Capacity factor</dt><dd>{formatNumber(calculation.summary.capacityFactorPercent)}%</dd></div>}<div><dt>Modeled system size</dt><dd>{calculation.capacityKw.toFixed(2)} kW</dd></div></dl>{calculation.summary.coveragePercent !== null && <p className="form-hint">Modeled annual solar production compared with saved annual electricity use: {formatNumber(calculation.summary.coveragePercent)}%.</p>}<section className="scenario-table" aria-label="Monthly solar production"><h3>Production by month</h3><table><caption>PVWatts modeled monthly AC production</caption><thead><tr><th scope="col">Month</th><th scope="col">AC production</th></tr></thead><tbody>{calculation.provider.monthlyAcKWh.map((value, index) => <tr key={monthLabels[index]}><th scope="row">{monthLabels[index]}</th><td>{formatNumber(value)} kWh</td></tr>)}</tbody></table></section><section className="assumption-summary"><h3>Assumptions used</h3><dl><div><dt>Location</dt><dd>{latitude?.toFixed(2)}°, {longitude?.toFixed(2)}°</dd></div><div><dt>Tilt</dt><dd>{tilt.toFixed(1)}°</dd></div><div><dt>Orientation</dt><dd>{orientationLabel} / {orientation.toFixed(1)}°</dd></div><div><dt>System losses</dt><dd>{lossesPercent}%</dd></div><div><dt>Module / array</dt><dd>{PVWATTS_MODULE_TYPES.find((item) => item.value === moduleType)?.label} / {PVWATTS_ARRAY_TYPES.find((item) => item.value === arrayType)?.label}</dd></div><div><dt>Model</dt><dd>PVWatts V8</dd></div></dl></section><p className="warning">This is a modeled historical-weather estimate, not a guarantee of actual production. Shading, weather, equipment and site conditions can change the result.</p>
-      <GooglePreferredBanner />
+<div><dt>Average daily production</dt><dd>{formatNumber(calculation.summary.averageDailyKWh, 2)} kWh/day</dd></div><div><dt>Best month</dt><dd>{calculation.summary.bestMonth.label} · {formatNumber(calculation.summary.bestMonth.kWh)} kWh</dd></div><div><dt>Lowest month</dt><dd>{calculation.summary.lowestMonth.label} · {formatNumber(calculation.summary.lowestMonth.kWh)} kWh</dd></div><div><dt>Specific yield</dt><dd>{formatNumber(calculation.summary.specificYieldKWhPerKwYear)} kWh/kW-year</dd></div>{calculation.summary.capacityFactorPercent !== undefined && <div><dt>Capacity factor</dt><dd>{formatNumber(calculation.summary.capacityFactorPercent)}%</dd></div>}<div><dt>Modeled system size</dt><dd>{calculation.capacityKw.toFixed(2)} kW</dd></div></dl>{calculation.summary.coveragePercent !== null && <p className="form-hint">Modeled annual solar production compared with saved annual electricity use: {formatNumber(calculation.summary.coveragePercent)}%.</p>}<section className="scenario-table" aria-label="Monthly solar production"><h3>Production by month</h3><table><caption>PVWatts modeled monthly AC production</caption><thead><tr><th scope="col">Month</th><th scope="col">AC production</th></tr></thead><tbody>{calculation.provider.monthlyAcKWh.map((value, index) => <tr key={monthLabels[index]}><th scope="row">{monthLabels[index]}</th><td>{formatNumber(value)} kWh</td></tr>)}</tbody></table></section><section className="assumption-summary"><h3>Assumptions used</h3><dl><div><dt>Location</dt><dd>{latitude?.toFixed(2)}°, {longitude?.toFixed(2)}°</dd></div><div><dt>Tilt</dt><dd>{tilt.toFixed(1)}°</dd></div><div><dt>Orientation</dt><dd>{orientationLabel} / {orientation.toFixed(1)}°</dd></div><div><dt>System losses</dt><dd>{lossesPercent}%</dd></div><div><dt>Module / array</dt><dd>{PVWATTS_MODULE_TYPES.find((item) => item.value === moduleType)?.label} / {PVWATTS_ARRAY_TYPES.find((item) => item.value === arrayType)?.label}</dd></div><div><dt>Model</dt><dd>PVWatts V8 Hourly Simulation</dd></div></dl></section><p className="warning">This is a modeled historical-weather estimate, not a guarantee of actual production. Shading, weather, equipment and site conditions can change the result.</p>
       <div className="button-row" style={{ marginTop: "0.85rem", display: "flex", gap: "0.5rem", flexWrap: "wrap" }}>
         <ShareButton title="Solar Panel Output Calculation" />
         <PrintSpecButton />
@@ -204,10 +202,10 @@ export function SolarPanelOutputCalculator() {
       <p className="sr-only" role="status" aria-live="polite" aria-atomic="true">{announcement || message}</p>
     </div>
 
-    {/* Quick-Reference Solar Production Matrix (Google Position 0 Table Snippet Magnet) */}
+    {/* Quick-Reference Solar Production Matrix (Position 0 Snippet Table) */}
     <QuickReferenceTable
       title="Solar Panel Daily &amp; Annual AC kWh Yield Matrix (by Peak Sun Hours)"
-      subtitle="Estimated AC electricity generated across standard DC array capacities factoring in 14% NREL PVWatts system losses."
+      subtitle="Estimated AC electricity generated across standard DC array capacities using the canonical simplified formula: DC kW × PSH × (1 - 0.14 DC losses) × 0.96 Inverter Efficiency."
       columns={[
         { key: "system", header: "DC Array Capacity", isPrimary: true },
         { key: "psh35", header: "3.5 PSH (Pacific NW)", align: "center" },
@@ -217,21 +215,21 @@ export function SolarPanelOutputCalculator() {
         { key: "annual", header: "Est. Annual (4.5 PSH)", align: "right" },
       ]}
       rows={[
-        { system: "400 W (1x Residential Module)", psh35: "1.2 kWh/day", psh45: "1.5 kWh/day", psh55: "1.9 kWh/day", psh65: "2.2 kWh/day", annual: "551 kWh/yr" },
-        { system: "1.2 kW (3x Modules / RV / Shed)", psh35: "3.5 kWh/day", psh45: "4.5 kWh/day", psh55: "5.5 kWh/day", psh65: "6.6 kWh/day", annual: "1,657 kWh/yr" },
-        { system: "4.0 kW (10x Modules / Townhouse)", psh35: "11.8 kWh/day", psh45: "15.1 kWh/day", psh55: "18.5 kWh/day", psh65: "21.8 kWh/day", annual: "5,518 kWh/yr" },
-        { system: "6.0 kW (15x Modules / Mid Home)", psh35: "17.6 kWh/day", psh45: "22.7 kWh/day", psh55: "27.7 kWh/day", psh65: "32.8 kWh/day", annual: "8,278 kWh/yr", isHighlighted: true, badge: "Most Common" },
-        { system: "10.0 kW (25x Modules / All-Electric)", psh35: "29.4 kWh/day", psh45: "37.8 kWh/day", psh55: "46.2 kWh/day", psh65: "54.6 kWh/day", annual: "13,797 kWh/yr" },
-        { system: "15.0 kW (38x Modules / Estate & EV)", psh35: "44.1 kWh/day", psh45: "56.7 kWh/day", psh55: "69.3 kWh/day", psh65: "81.9 kWh/day", annual: "20,695 kWh/yr" },
+        { system: "400 W (1x Residential Module)", psh35: "1.2 kWh/day", psh45: "1.5 kWh/day", psh55: "1.8 kWh/day", psh65: "2.1 kWh/day", annual: "543 kWh/yr" },
+        { system: "1.2 kW (3x Modules / RV / Shed)", psh35: "3.5 kWh/day", psh45: "4.5 kWh/day", psh55: "5.4 kWh/day", psh65: "6.4 kWh/day", annual: "1,628 kWh/yr" },
+        { system: "4.0 kW (10x Modules / Townhouse)", psh35: "11.6 kWh/day", psh45: "14.9 kWh/day", psh55: "18.2 kWh/day", psh65: "21.5 kWh/day", annual: "5,428 kWh/yr" },
+        { system: "6.0 kW (15x Modules / Mid Home)", psh35: "17.3 kWh/day", psh45: "22.3 kWh/day", psh55: "27.2 kWh/day", psh65: "32.2 kWh/day", annual: "8,142 kWh/yr", isHighlighted: true, badge: "Most Common" },
+        { system: "10.0 kW (25x Modules / All-Electric)", psh35: "28.9 kWh/day", psh45: "37.2 kWh/day", psh55: "45.4 kWh/day", psh65: "53.7 kWh/day", annual: "13,570 kWh/yr" },
+        { system: "15.0 kW (38x Modules / Estate & EV)", psh35: "43.3 kWh/day", psh45: "55.7 kWh/day", psh55: "68.1 kWh/day", psh65: "80.5 kWh/day", annual: "20,355 kWh/yr" },
       ]}
-      footerNote="Assumes fixed equator-facing tilt matching regional latitude, 0.86 composite derate factor (soiling, inverter, wiring), and -0.35%/°C temperature coefficient."
-      standardReference="NREL PVWatts V8 / IEC 61724"
+      footerNote="Calculated using the canonical simplified planning model: DC kW × Peak Sun Hours × (1 - 0.14) × 0.96. Dynamic cell temperature kinetics and diffuse fractions are modeled in PVWatts hourly simulations."
+      standardReference="Technical Reference: NREL PVWatts V8 / IEC 61724"
     />
 
     {/* Step-by-Step Engineering Calculation Walkthrough */}
     <CalculationWalkthrough
       calculatorName="Solar Panel AC Electricity Output"
-      overview="How to calculate hourly, daily, and annual photovoltaic AC energy production step-by-step using NREL PVWatts standards."
+      overview="How to calculate daily and annual photovoltaic AC energy production step-by-step using simplified engineering models."
       steps={[
         {
           stepNumber: 1,
@@ -255,7 +253,7 @@ export function SolarPanelOutputCalculator() {
           exampleValue: "6.0 kW × 5.15 PSH × 0.86 = 26.57 kWh per day (~9,699 kWh per year).",
         },
       ]}
-      standardCitation="NREL PVWatts V8 / IEC 61724"
+      standardCitation="Technical Reference / Model Basis: NREL PVWatts V8 / IEC 61724"
     />
   </section>;
 }

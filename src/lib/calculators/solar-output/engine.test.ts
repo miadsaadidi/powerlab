@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { calculatePanelSystemCapacity, summarizeSolarOutput, type NormalizedSolarOutput } from "./engine";
+import { calculatePanelSystemCapacity, calculateSimplifiedSolarOutput, summarizeSolarOutput, type NormalizedSolarOutput } from "./engine";
 
 const mockedProviderOutput: NormalizedSolarOutput = {
   annualAcKWh: 7500,
@@ -43,5 +43,49 @@ describe("solar output engine", () => {
     expect(() => calculatePanelSystemCapacity(10.5, 400)).toThrow();
     expect(() => calculatePanelSystemCapacity(0, 400)).toThrow();
     expect(() => calculatePanelSystemCapacity(-1, 400)).toThrow();
+  });
+
+  describe("calculateSimplifiedSolarOutput", () => {
+    it("matches canonical QA Case 1 (400W panel at 4.5 PSH)", () => {
+      const result = calculateSimplifiedSolarOutput({
+        dcCapacityKw: 0.4,
+        peakSunHours: 4.5,
+        dcLossPercent: 14,
+        inverterEfficiencyPercent: 96,
+      });
+      // 0.40 * 4.5 * 0.86 * 0.96 = 1.48608
+      expect(result.dailyAcKWh).toBeCloseTo(1.486, 3);
+      expect(result.annualAcKWh).toBeCloseTo(542.79, 1);
+    });
+
+    it("matches canonical QA Case 2 (6.0 kW system at 5.15 PSH)", () => {
+      const result = calculateSimplifiedSolarOutput({
+        dcCapacityKw: 6.0,
+        peakSunHours: 5.15,
+        dcLossPercent: 14,
+        inverterEfficiencyPercent: 96,
+      });
+      // 6.0 * 5.15 * 0.86 * 0.96 = 25.51104
+      expect(result.dailyAcKWh).toBeCloseTo(25.511, 3);
+      expect(result.annualAcKWh).toBeCloseTo(9317.9, 1);
+    });
+
+    it("scales output proportionally with inverter efficiency", () => {
+      const base = calculateSimplifiedSolarOutput({ dcCapacityKw: 10, peakSunHours: 5, dcLossPercent: 14, inverterEfficiencyPercent: 96 });
+      const lower = calculateSimplifiedSolarOutput({ dcCapacityKw: 10, peakSunHours: 5, dcLossPercent: 14, inverterEfficiencyPercent: 90 });
+      expect(lower.dailyAcKWh / base.dailyAcKWh).toBeCloseTo(90 / 96, 5);
+    });
+
+    it("scales output proportionally with DC losses", () => {
+      const loss14 = calculateSimplifiedSolarOutput({ dcCapacityKw: 10, peakSunHours: 5, dcLossPercent: 14, inverterEfficiencyPercent: 96 });
+      const loss20 = calculateSimplifiedSolarOutput({ dcCapacityKw: 10, peakSunHours: 5, dcLossPercent: 20, inverterEfficiencyPercent: 96 });
+      expect(loss20.dailyAcKWh / loss14.dailyAcKWh).toBeCloseTo(0.80 / 0.86, 5);
+    });
+
+    it("scales output proportionally with PSH", () => {
+      const psh4 = calculateSimplifiedSolarOutput({ dcCapacityKw: 10, peakSunHours: 4 });
+      const psh6 = calculateSimplifiedSolarOutput({ dcCapacityKw: 10, peakSunHours: 6 });
+      expect(psh6.dailyAcKWh / psh4.dailyAcKWh).toBeCloseTo(6 / 4, 5);
+    });
   });
 });
