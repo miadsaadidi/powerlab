@@ -223,7 +223,7 @@ function formatSubscriptsAndSymbols(text: string): React.ReactNode {
  */
 export function MathDisplay({
   copyText,
-  title = "Governing Formula & Sizing Principle",
+  title = "Calculation Formula & Sizing Principle",
   children,
   condition,
   benchmark,

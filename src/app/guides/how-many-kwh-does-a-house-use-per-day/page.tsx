@@ -6,12 +6,11 @@ import { ElectricityUsageCalculator } from "@/components/calculator/electricity-
 import { DirectAnswerCard } from "@/components/seo/direct-answer-card";
 import { PageJumpNav } from "@/components/seo/page-jump-nav";
 import { FormulaCard } from "@/components/seo/formula-card";
-
 import { buildPageMetadata } from "@/lib/seo/metadata-helper";
 
 export const metadata: Metadata = buildPageMetadata({
   title: "How Many kWh Does a House Use Per Day? (2026)",
-  description: "An average US home uses 29–30 kWh/day (900 kWh/mo). Calculate your exact daily power consumption by square footage, HVAC, and top household appliances.",
+  description: "An average US home uses ~29–30 kWh/day (880–900 kWh/mo) based on EIA utility data. Estimate daily power consumption by home size, climate zone, and appliance loads.",
   canonicalPath: "/guides/how-many-kwh-does-a-house-use-per-day",
   category: "home-energy",
   isArticle: true,
@@ -32,33 +31,33 @@ const FAQS = [
   },
   {
     question: "Is 50 kWh a day a lot of electricity?",
-    answer: "Yes, 50 kWh per day (1,500 kWh/month) is about 70% higher than the national average. Homes consuming 50+ kWh/day typically have large square footage (3,000+ sq ft), central air conditioning running in hot climates, electric resistance heat, pool pumps, or an electric vehicle charged daily.",
+    answer: "Yes, 50 kWh per day (1,500 kWh/month) is about 70% higher than the national average. Homes consuming 50+ kWh/day typically have large floor plans (3,000+ sq ft), central air conditioning running in hot climates, electric resistance heat, pool pumps, or an electric vehicle charged daily.",
   },
   {
     question: "What appliance uses the most kWh in a house?",
-    answer: "Central air conditioning and space heating are the largest electricity consumers, accounting for 35% to 45% of total household power (10 to 25 kWh/day in extreme seasons). Electric water heaters rank second, consuming 9 to 14 kWh/day (12% to 18% of the bill).",
+    answer: "Central air conditioning and electric space heating are typically the largest electricity consumers, accounting for 35% to 45% of total household power (10 to 25 kWh/day during extreme weather). Standard electric resistance water heaters rank second, typically consuming 9 to 14 kWh/day.",
   },
   {
     question: "How much does 30 kWh per day cost on an electric bill?",
-    answer: "At the US national average residential electricity rate of $0.16 per kWh, 30 kWh per day costs approximately $4.80 per day, $144 per month, or $1,728 per year. In higher-rate states like California, Massachusetts, or New York ($0.25 to $0.35/kWh), 30 kWh/day costs $7.50 to $10.50/day ($225 to $315/month).",
+    answer: "At a benchmark US residential electricity rate of $0.16 per kWh, 30 kWh per day costs approximately $4.80 per day, $144 per month, or $1,728 per year. In higher-rate states ($0.25 to $0.35/kWh), 30 kWh/day costs $7.50 to $10.50/day ($225 to $315/month).",
   },
   {
     question: "How many solar panels do I need for 30 kWh per day?",
-    answer: "To generate 30 kWh per day in a region receiving an average of 4.5 peak sun hours per day, you need approximately a 7.5 kW to 8.0 kW DC solar array (accounting for standard 15% to 20% system derating losses). This typically requires 18 to 20 modern 400-watt solar panels.",
+    answer: "To generate 30 kWh per day in a location receiving 4.5 peak sun hours (PSH) per day with an 85% system performance factor, you need: 30 ÷ (4.5 × 0.85) = 7.84 kW of DC solar capacity. Using 400-watt panels, this requires approximately 20 panels.",
   },
 ];
 
 export default function HowManyKwhDoesAHouseUsePerDayPage() {
   const structuredData = buildGuideStructuredData({
     title: "How Many kWh Does a House Use Per Day? (Daily Electricity Calculator & Guide)",
-    description: "Complete empirical breakdown of daily residential electricity consumption based on EIA utility benchmarks. Calculate your home's daily kilowatt-hour demand.",
+    description: "Empirical breakdown of daily residential electricity consumption based on EIA utility benchmarks. Calculate your home's estimated daily kilowatt-hour demand.",
     route: "/guides/how-many-kwh-does-a-house-use-per-day",
     datePublished: "2026-08-19",
     dateModified: "2026-09-18",
+    proficiencyLevel: "Beginner to Intermediate",
     standards: [
-      "U.S. Energy Information Administration (EIA) RECS Benchmark Data",
-      "NFPA 70 / National Electrical Code (NEC) Article 220 Branch Load Sizing",
-      "NREL PVWatts Version 8 Generation Model",
+      "U.S. Energy Information Administration (EIA) Residential Energy Consumption Survey (RECS) Benchmark Data",
+      "NREL PVWatts Version 8 Performance Model (Solar Reference)",
     ],
     faqs: FAQS,
   });
@@ -79,19 +78,19 @@ export default function HowManyKwhDoesAHouseUsePerDayPage() {
         <p className="eyebrow">Residential Energy Auditing &amp; Sizing Guide</p>
         <h1>How Many kWh Does a House Use Per Day?</h1>
         <p className="intro">
-          A definitive empirical breakdown of daily residential electricity consumption based on U.S. Energy Information Administration (EIA) utility data, home square footage, climate zones, and major appliance duty cycles.
+          An empirical breakdown of daily residential electricity consumption based on U.S. Energy Information Administration (EIA) utility statistics, home square footage, climate zones, and representative appliance duty cycles.
         </p>
       </header>
 
       <DirectAnswerCard
         keyword="how many kWh does a house use per day"
         answer="According to U.S. Energy Information Administration (EIA) data, the average American home consumes approximately 29 to 30 kWh of electricity per day (about 880–900 kWh per month). Actual daily demand ranges from 8–15 kWh/day for efficient apartments and gas-heated homes up to 45–65+ kWh/day for large all-electric homes with central air conditioning, heat pumps, and EV charging."
-        formula="Daily Energy (kWh) = ∑ [Appliance Rated Power (W) × Operating Hours (h) × Duty Cycle (%)] ÷ 1,000"
-        standardExample="Typical 2,000 sq ft home: Central AC (12 kWh) + Water Heater (12 kWh) + Refrigerator (2.2 kWh) + Lighting & Electronics (3.8 kWh) = 30 kWh/day (~$4.80/day at $0.16/kWh)"
-        sourceAuthority="U.S. Energy Information Administration (EIA) Residential Energy Consumption Survey"
+        formula="Daily Energy (kWh) = ∑ [Appliance Rated Power (W) × Operating Hours (h) × Duty Cycle Fraction] ÷ 1,000"
+        standardExample="Illustrative 30 kWh/day household scenario: Central AC (12.0 kWh) + Water Heater (11.0 kWh) + Refrigerator (1.5 kWh) + Lighting, Cooking & Electronics (5.5 kWh) = 30.0 kWh/day (~$4.80/day at $0.16/kWh). Note: Appliance composition is an illustrative example, not an official EIA statistical breakdown."
+        sourceAuthority="Primary Data Source: U.S. Energy Information Administration (EIA) Residential Energy Consumption Survey"
       />
 
-      <PageJumpNav />
+      <PageJumpNav hasMatrix hasHowTo hasFormula hasWorkedExample hasFaqs hasRelated />
 
       {/* Planning Pathway: Daily kWh to Bill & Battery Sizing */}
       <section style={{ margin: "2rem 0", padding: "1.25rem 1.5rem", borderRadius: "0.85rem", background: "var(--surface)", border: "1px solid var(--line)" }}>
@@ -105,7 +104,7 @@ export default function HowManyKwhDoesAHouseUsePerDayPage() {
           <div style={{ padding: "1rem", borderRadius: "0.5rem", background: "var(--surface-subtle, #fafafa)", border: "1px solid var(--line)" }}>
             <h3 style={{ margin: "0 0 0.35rem", fontSize: "0.98rem", color: "var(--brand-strong)" }}>1. Itemize Appliance Loads</h3>
             <p style={{ fontSize: "0.84rem", color: "var(--muted)", margin: "0 0 0.75rem", lineHeight: 1.5 }}>
-              Audit cycling compressors, water heaters, and continuous plug loads to determine exact daily kilowatt-hours.
+              Audit cycling compressors, water heaters, and continuous plug loads to estimate daily kilowatt-hours.
             </p>
             <Link href="/home-energy/electricity-usage-calculator" className="button secondary-button" style={{ width: "100%", textAlign: "center", display: "block", fontSize: "0.82rem" }}>
               Electricity Usage Calculator →
@@ -137,7 +136,7 @@ export default function HowManyKwhDoesAHouseUsePerDayPage() {
       {/* Interactive Tool Section */}
       <section id="calculator-tool" className="calculator-wrapper" style={{ marginTop: "2rem" }}>
         <div style={{ marginBottom: "1rem" }}>
-          <h2 style={{ fontSize: "1.4rem", margin: "0 0 0.5rem" }}>Calculate Your Home&apos;s Exact Daily kWh</h2>
+          <h2 style={{ fontSize: "1.4rem", margin: "0 0 0.5rem" }}>Calculate Your Home&apos;s Estimated Daily kWh</h2>
           <p style={{ color: "var(--muted)", margin: 0 }}>
             Select your household appliances, specify operating hours, and calculate your personalized daily and monthly kilowatt-hour consumption.
           </p>
@@ -149,7 +148,7 @@ export default function HowManyKwhDoesAHouseUsePerDayPage() {
       <section id="daily-kwh-archetypes" style={{ marginTop: "2.5rem" }}>
         <h2>What Does 9 kWh, 12 kWh, 20 kWh, 30 kWh, or 50 kWh Per Day Look Like?</h2>
         <p>
-          Home electricity consumption varies dramatically depending on whether thermal loads (space heating, air conditioning, and water heating) are powered by electricity or natural gas. The table below compares the <strong>official U.S. EIA national average</strong> against representative <strong>modeled engineering benchmark scenarios</strong>:
+          Home electricity consumption varies dramatically depending on whether thermal loads (space heating, air conditioning, and water heating) are powered by electricity or natural gas. The table below compares the <strong>official U.S. EIA national average benchmark</strong> against representative <strong>illustrative PowerLab scenarios</strong>:
         </p>
 
         <div className="scenario-table" style={{ overflowX: "auto", margin: "1.25rem 0" }}>
@@ -166,42 +165,42 @@ export default function HowManyKwhDoesAHouseUsePerDayPage() {
             </thead>
             <tbody>
               <tr>
-                <td><strong>9 kWh / day</strong></td>
+                <td><strong>9 kWh / day</strong><br /><span style={{ fontSize: "0.78rem", color: "var(--muted)" }}>Illustrative PowerLab Scenario</span></td>
                 <td>270 kWh / mo</td>
                 <td>1-Bed Apartment / Off-Grid Cabin (Gas HVAC &amp; Water)</td>
                 <td>Efficient LED lighting, refrigerator (1.5 kWh), laptop/WiFi (0.8 kWh), TV (0.7 kWh), microwave/small plug loads (1.0 kWh), gas furnace blower (2.0 kWh), phantom base load (3.0 kWh).</td>
                 <td>~$43 / month</td>
               </tr>
               <tr>
-                <td><strong>12 kWh / day</strong></td>
+                <td><strong>12 kWh / day</strong><br /><span style={{ fontSize: "0.78rem", color: "var(--muted)" }}>Illustrative PowerLab Scenario</span></td>
                 <td>360 kWh / mo</td>
                 <td>2-Bed Condo / Energy-Efficient Townhouse (Gas Heating)</td>
                 <td>Refrigerator &amp; freezer (2.2 kWh), mini-split AC 2h/day (3.0 kWh), LED lighting (1.0 kWh), home office &amp; TV (2.5 kWh), laundry/cooking (1.8 kWh), standby loads (1.5 kWh).</td>
                 <td>~$58 / month</td>
               </tr>
               <tr>
-                <td><strong>20 kWh / day</strong></td>
+                <td><strong>20 kWh / day</strong><br /><span style={{ fontSize: "0.78rem", color: "var(--muted)" }}>Illustrative PowerLab Scenario</span></td>
                 <td>600 kWh / mo</td>
                 <td>Small Single-Family (1,200–1,600 sq ft, Moderate Climate)</td>
                 <td>Central AC or heat pump 4h/day (8.0 kWh), electric water heater moderate use (6.0 kWh), refrigerator (2.0 kWh), lighting &amp; appliances (4.0 kWh).</td>
                 <td>~$96 / month</td>
               </tr>
               <tr>
-                <td><strong>29–30 kWh / day</strong><br /><span style={{ fontSize: "0.8rem", color: "var(--brand-strong)" }}>★ US National Avg</span></td>
+                <td><strong>29–30 kWh / day</strong><br /><span style={{ fontSize: "0.8rem", fontWeight: 700, color: "var(--brand-strong)" }}>EIA Statistical Benchmark</span></td>
                 <td><strong>880–900 kWh / mo</strong></td>
                 <td><strong>Average US Home (2,000 sq ft, Mixed Fuel or Moderate AC)</strong></td>
                 <td>Central AC 5h/day (12.0 kWh), electric water heater 3h active (11.0 kWh), refrigerator/freezers (2.5 kWh), washer/dryer/dishwasher (2.5 kWh), lighting &amp; electronics (2.0 kWh).</td>
                 <td><strong>~$144 / month</strong></td>
               </tr>
               <tr>
-                <td><strong>45–50 kWh / day</strong></td>
+                <td><strong>45–50 kWh / day</strong><br /><span style={{ fontSize: "0.78rem", color: "var(--muted)" }}>Illustrative PowerLab Scenario</span></td>
                 <td>1,350–1,500 kWh / mo</td>
                 <td>Large Home (2,500+ sq ft) or High Summer AC Usage</td>
                 <td>Dual-zone Central AC 8h/day (22.0 kWh), electric water heater (12.0 kWh), refrigeration (3.5 kWh), home entertainment &amp; electronics (5.0 kWh), lighting &amp; plug loads (7.5 kWh).</td>
                 <td>~$216–$240 / month</td>
               </tr>
               <tr>
-                <td><strong>65–75+ kWh / day</strong></td>
+                <td><strong>65–75+ kWh / day</strong><br /><span style={{ fontSize: "0.78rem", color: "var(--muted)" }}>Illustrative PowerLab Scenario</span></td>
                 <td>1,950–2,250 kWh / mo</td>
                 <td>All-Electric Modern Home + EV + Heat Pump + Pool Pump</td>
                 <td>Heat pump space conditioning (25.0 kWh), Level 2 EV charging 40 mi/day (12.0 kWh), heat pump water heater (6.0 kWh), pool filtration pump (8.0 kWh), whole-house base loads (14.0 kWh).</td>
@@ -210,10 +209,13 @@ export default function HowManyKwhDoesAHouseUsePerDayPage() {
             </tbody>
           </table>
         </div>
+        <p style={{ fontSize: "0.85rem", color: "var(--muted)", margin: "0.5rem 0 0" }}>
+          *Note: Only the 29–30 kWh/day benchmark is presented as an official EIA statistical benchmark (U.S. residential average ~880–900 kWh/month). All other rows are illustrative PowerLab planning scenarios created from representative appliance loads and operating assumptions.
+        </p>
       </section>
 
       {/* Section 2: Square Footage & Climate Zone Benchmarks */}
-      <section id="benchmarks-sqft" style={{ marginTop: "2.5rem" }}>
+      <section id="sizing-matrix" style={{ marginTop: "2.5rem" }}>
         <h2>Daily Electricity Consumption by Square Footage &amp; Climate Zone</h2>
         <p>
           Conditioned floor area and outdoor climate dictate the thermal envelope load. Heating and cooling demand varies substantially between hot Southern climates (high cooling degree days), cold Northern climates (high heating degree days), and temperate coastal zones:
@@ -228,7 +230,7 @@ export default function HowManyKwhDoesAHouseUsePerDayPage() {
                 <th scope="col">Moderate Climate (Coastal / Mild)</th>
                 <th scope="col">Hot Climate (High Summer AC)</th>
                 <th scope="col">Cold Climate (All-Electric Heat)</th>
-                <th scope="col">Estimated Solar Array Size (4.5 PSH)</th>
+                <th scope="col">Est. Solar Array Size (4.5 PSH, 85% PR)</th>
               </tr>
             </thead>
             <tbody>
@@ -237,59 +239,61 @@ export default function HowManyKwhDoesAHouseUsePerDayPage() {
                 <td>8 – 12 kWh/day</td>
                 <td>14 – 20 kWh/day</td>
                 <td>18 – 28 kWh/day</td>
-                <td>2.5 – 4.0 kW (6–10 panels)</td>
+                <td>2.1 – 7.3 kW (5–18 panels)</td>
               </tr>
               <tr>
                 <td><strong>1,000 – 1,500 sq ft</strong></td>
                 <td>15 – 22 kWh/day</td>
                 <td>24 – 32 kWh/day</td>
                 <td>30 – 42 kWh/day</td>
-                <td>4.5 – 6.5 kW (11–16 panels)</td>
+                <td>3.9 – 11.0 kW (10–28 panels)</td>
               </tr>
               <tr>
                 <td><strong>1,500 – 2,200 sq ft</strong></td>
                 <td>22 – 28 kWh/day</td>
                 <td>32 – 44 kWh/day</td>
                 <td>40 – 58 kWh/day</td>
-                <td>6.5 – 9.0 kW (16–23 panels)</td>
+                <td>5.8 – 15.2 kW (15–38 panels)</td>
               </tr>
               <tr>
                 <td><strong>2,200 – 3,000 sq ft</strong></td>
                 <td>28 – 38 kWh/day</td>
                 <td>42 – 58 kWh/day</td>
                 <td>55 – 75 kWh/day</td>
-                <td>8.5 – 12.0 kW (21–30 panels)</td>
+                <td>7.3 – 19.6 kW (18–49 panels)</td>
               </tr>
               <tr>
                 <td><strong>3,000+ sq ft</strong></td>
                 <td>38 – 50+ kWh/day</td>
                 <td>55 – 80+ kWh/day</td>
                 <td>70 – 100+ kWh/day</td>
-                <td>12.0 – 18.0+ kW (30–45+ panels)</td>
+                <td>9.9 – 26.1+ kW (25–65+ panels)</td>
               </tr>
             </tbody>
           </table>
         </div>
+        <p style={{ fontSize: "0.85rem", color: "var(--muted)", margin: "0.5rem 0 0" }}>
+          *Solar array size (kW) = Daily kWh ÷ (4.5 PSH × 0.85 Performance Factor); panel counts assume 400W modules.
+        </p>
       </section>
 
       {/* Section 3: Comprehensive Appliance Wattage & Daily Energy Budget */}
-      <section id="appliance-breakdown" style={{ marginTop: "2.5rem" }}>
-        <h2>Complete Household Appliance Daily Electricity Breakdown</h2>
+      <section id="how-to-guide" style={{ marginTop: "2.5rem" }}>
+        <h2>Illustrative Household Appliance Daily Electricity Examples</h2>
         <p>
-          In a typical 30 kWh/day household, electrical demand is heavily concentrated in high-wattage heating and cooling elements. The table below breaks down the typical power draw, runtime, and daily energy contribution for standard residential appliances:
+          Household electrical demand is heavily concentrated in high-wattage heating and cooling elements. The table below illustrates typical power ratings, daily runtimes, and daily energy consumption for common residential appliances:
         </p>
 
         <div className="scenario-table" style={{ overflowX: "auto", margin: "1.25rem 0" }}>
           <table style={{ width: "100%", borderCollapse: "collapse" }}>
-            <caption>Table 3: Appliance Power Ratings, Operating Hours, and Daily Kilowatt-Hour Demands</caption>
+            <caption>Table 3: Illustrative Appliance Energy Examples</caption>
             <thead>
               <tr>
                 <th scope="col">Appliance / Electrical Load</th>
                 <th scope="col">Average Power (Watts)</th>
                 <th scope="col">Typical Daily Runtime</th>
-                <th scope="col">Duty Cycle (%)</th>
+                <th scope="col">Duty Cycle (fraction, 0–1)</th>
                 <th scope="col">Daily Energy (kWh/day)</th>
-                <th scope="col">% of 30 kWh Total</th>
               </tr>
             </thead>
             <tbody>
@@ -297,93 +301,85 @@ export default function HowManyKwhDoesAHouseUsePerDayPage() {
                 <td><strong>Central AC (3-Ton, 15 SEER2)</strong></td>
                 <td>2,400 W</td>
                 <td>8.0 hrs</td>
-                <td>60% (4.8h compressor run)</td>
+                <td>0.60 (4.8h compressor run)</td>
                 <td><strong>11.52 kWh</strong></td>
-                <td>38.4%</td>
               </tr>
               <tr>
                 <td><strong>Electric Water Heater (50 Gal Tank)</strong></td>
                 <td>4,500 W</td>
                 <td>2.5 hrs active heating</td>
-                <td>100% (when heating)</td>
+                <td>1.00 (when heating)</td>
                 <td><strong>11.25 kWh</strong></td>
-                <td>37.5%</td>
               </tr>
               <tr>
                 <td><strong>Heat Pump Water Heater (Hybrid)</strong></td>
                 <td>500 W</td>
                 <td>6.0 hrs</td>
-                <td>100% (compressor active)</td>
+                <td>1.00 (compressor active)</td>
                 <td><strong>3.00 kWh</strong></td>
-                <td>10.0%</td>
               </tr>
               <tr>
-                <td><strong>Level 2 EV Charger (32A @ 240V, 30 mi)</strong></td>
+                <td><strong>Level 2 EV Charger (32A @ 240V, ~30 mi)</strong></td>
                 <td>7,680 W</td>
                 <td>1.2 hrs</td>
-                <td>100%</td>
+                <td>1.00</td>
                 <td><strong>9.22 kWh</strong></td>
-                <td>30.7%</td>
               </tr>
               <tr>
                 <td><strong>Electric Clothes Dryer</strong></td>
                 <td>3,000 W</td>
                 <td>0.8 hrs (1 standard cycle)</td>
-                <td>100%</td>
+                <td>1.00</td>
                 <td><strong>2.40 kWh</strong></td>
-                <td>8.0%</td>
               </tr>
               <tr>
                 <td><strong>Refrigerator &amp; Freezer (Energy Star)</strong></td>
                 <td>180 W</td>
                 <td>24.0 hrs</td>
-                <td>35% (8.4h compressor run)</td>
+                <td>0.35 (8.4h compressor run)</td>
                 <td><strong>1.51 kWh</strong></td>
-                <td>5.0%</td>
               </tr>
               <tr>
                 <td><strong>Electric Range / Oven (Cooking)</strong></td>
                 <td>2,500 W</td>
                 <td>0.75 hrs</td>
-                <td>70% (thermostat cycling)</td>
+                <td>0.70 (thermostat cycling)</td>
                 <td><strong>1.31 kWh</strong></td>
-                <td>4.4%</td>
               </tr>
               <tr>
                 <td><strong>Dishwasher (Normal Heated Dry)</strong></td>
                 <td>1,400 W</td>
                 <td>1.0 hr (1 cycle)</td>
-                <td>100%</td>
+                <td>1.00</td>
                 <td><strong>1.40 kWh</strong></td>
-                <td>4.7%</td>
               </tr>
               <tr>
                 <td><strong>LED Lighting (15 Fixtures × 10W)</strong></td>
                 <td>150 W</td>
                 <td>5.0 hrs</td>
-                <td>100%</td>
+                <td>1.00</td>
                 <td><strong>0.75 kWh</strong></td>
-                <td>2.5%</td>
               </tr>
               <tr>
                 <td><strong>Home Office &amp; WiFi Router (Continuous)</strong></td>
                 <td>80 W</td>
                 <td>24.0 hrs</td>
-                <td>100%</td>
+                <td>1.00</td>
                 <td><strong>1.92 kWh</strong></td>
-                <td>6.4%</td>
               </tr>
               <tr>
                 <td><strong>Standby / Phantom Vampire Loads</strong></td>
                 <td>60 W</td>
                 <td>24.0 hrs</td>
-                <td>100%</td>
+                <td>1.00</td>
                 <td><strong>1.44 kWh</strong></td>
-                <td>4.8%</td>
               </tr>
             </tbody>
           </table>
         </div>
+        <p style={{ fontSize: "0.85rem", color: "var(--muted)", margin: "0.5rem 0 0" }}>
+          *Note: These are independent illustrative appliance examples, not a single household load profile. They should not be summed as one 30 kWh/day household.
+        </p>
 
         <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))", gap: "1.25rem", margin: "1.5rem 0" }}>
           <article style={{ padding: "1.25rem", borderRadius: "0.85rem", border: "1px solid var(--line)", background: "var(--surface)" }}>
@@ -442,26 +438,27 @@ export default function HowManyKwhDoesAHouseUsePerDayPage() {
       </section>
 
       {/* Section 4: Formula & Methodology */}
-      <section id="formula-breakdown" style={{ marginTop: "2.5rem" }}>
-        <h2>The Mathematical Formula for Calculating Daily kWh</h2>
+      <section id="formula-math" style={{ marginTop: "2.5rem" }}>
+        <h2>Calculation Formulas &amp; Methodology</h2>
         <p>
-          Calculating true electrical energy consumption requires multiplying power demand (Watts) by operational duration (Hours) and dividing by 1,000 to convert to kilowatt-hours (kWh):
+          Calculating electrical energy consumption requires multiplying power demand (Watts) by operational duration (Hours) and active duty cycle fraction, then dividing by 1,000 to convert to kilowatt-hours (kWh):
         </p>
 
         <FormulaCard
           title="Daily Kilowatt-Hour Calculation Model"
-          formula="E_daily = ∑ [ (P_i × t_i × DC_i) ÷ 1,000 ]"
-          formulaDescription="Empirical energy model calculating total cumulative active daily load across cycling and continuous appliances."
+          formula="E_{\text{daily}} = \sum \left[ \frac{P_i \times t_i \times \text{DC}_i}{1,000} \right]"
+          formulaDescription="Energy-balance planning model calculating cumulative active daily energy across cycling and continuous appliances."
           variables={[
             { symbol: "E_daily", label: "Daily Energy Consumption", description: "Total daily electrical energy consumed by the home", unit: "kWh/day" },
             { symbol: "P_i", label: "Rated Appliance Power", description: "Nameplate electrical power draw of appliance i", unit: "Watts" },
-            { symbol: "t_i", label: "Operating Time", description: "Powered window or active runtime duration per day", unit: "Hours" },
-            { symbol: "DC_i", label: "Duty Cycle Fraction", description: "Percentage of time compressor/heating element actively draws power (1.0 for continuous, 0.35 for cycling refrigeration)", unit: "0.0 - 1.0" },
+            { symbol: "t_i", label: "Operating Time", description: "Powered window or active runtime duration per day", unit: "Hours/day" },
+            { symbol: "DC_i", label: "Duty Cycle Fraction", description: "Decimal fraction of time compressor or heating element actively draws power (1.0 for continuous, 0.35 for cycling refrigeration)", unit: "0.0 - 1.0" },
             { symbol: "1,000", label: "Metric Conversion Factor", description: "Conversion constant from Watts to Kilowatts (1 kW = 1,000 W)" },
           ]}
           notes={[
-            "Conforms to NFPA 70 / NEC Article 220 general branch circuit demand factors.",
-            "Cycling refrigeration loads assume nominal ambient baseline (70°F / 21°C).",
+            "Duty cycle fraction is converted from percentage (e.g. 35% duty cycle = 0.35 fraction).",
+            "For electrical service sizing, refer to NFPA 70 / NEC Article 220 demand calculations. Daily kWh energy balance is an energy estimation model, not an electrical service rating.",
+            "Cycling refrigeration loads assume nominal ambient baseline conditions (70°F / 21°C).",
           ]}
         />
 
@@ -469,13 +466,13 @@ export default function HowManyKwhDoesAHouseUsePerDayPage() {
           For an editable appliance-by-appliance estimate using this model, continue with the <Link href="/home-energy/electricity-usage-calculator">Electricity Usage Calculator</Link>.
         </p>
 
-        <div style={{ padding: "1.25rem", borderRadius: "0.85rem", background: "rgba(198, 93, 36, 0.06)", border: "1px solid rgba(198, 93, 36, 0.2)", marginTop: "1.25rem" }}>
-          <h3 style={{ marginTop: 0, color: "var(--brand-strong)", fontSize: "1.05rem" }}>Worked Example: 24-Hour Home Energy Audit (29.2 kWh/day)</h3>
+        <div id="worked-example" style={{ padding: "1.25rem", borderRadius: "0.85rem", background: "rgba(198, 93, 36, 0.06)", border: "1px solid rgba(198, 93, 36, 0.2)", marginTop: "1.25rem" }}>
+          <h3 style={{ marginTop: 0, color: "var(--brand-strong)", fontSize: "1.05rem" }}>Worked Example: 24-Hour Home Energy Audit (29.21 kWh/day)</h3>
           <ul style={{ margin: "0.5rem 0 0", paddingLeft: "1.25rem", lineHeight: 1.7, fontSize: "0.95rem" }}>
-            <li><strong>Central AC (3,500W @ 3.5h cumulative run):</strong> (3,500 × 3.5) ÷ 1,000 = <strong>12.25 kWh</strong></li>
-            <li><strong>Water Heater (4,500W @ 2.5h active heating):</strong> (4,500 × 2.5) ÷ 1,000 = <strong>11.25 kWh</strong></li>
-            <li><strong>Refrigerator (180W @ 35% duty cycle = 8.4h):</strong> (180 × 8.4) ÷ 1,000 = <strong>1.51 kWh</strong></li>
-            <li><strong>LED Lighting, TVs, WiFi, Computers (~350W @ 12h combined):</strong> (350 × 12) ÷ 1,000 = <strong>4.20 kWh</strong></li>
+            <li><strong>Central AC (3,500W @ 3.5h cumulative run, DC = 1.0):</strong> (3,500 × 3.5 × 1.0) ÷ 1,000 = <strong>12.25 kWh</strong></li>
+            <li><strong>Water Heater (4,500W @ 2.5h active heating, DC = 1.0):</strong> (4,500 × 2.5 × 1.0) ÷ 1,000 = <strong>11.25 kWh</strong></li>
+            <li><strong>Refrigerator (180W @ 24h with DC = 0.35):</strong> (180 × 24 × 0.35) ÷ 1,000 = <strong>1.51 kWh</strong></li>
+            <li><strong>LED Lighting, TVs, WiFi, Computers (~350W @ 12h combined, DC = 1.0):</strong> (350 × 12 × 1.0) ÷ 1,000 = <strong>4.20 kWh</strong></li>
             <li><strong>Total Daily Home Consumption:</strong> 12.25 + 11.25 + 1.51 + 4.20 = <strong>29.21 kWh/day</strong></li>
           </ul>
         </div>
@@ -485,17 +482,17 @@ export default function HowManyKwhDoesAHouseUsePerDayPage() {
       <section id="solar-battery-sizing" style={{ marginTop: "2.5rem" }}>
         <h2>How Daily kWh Translates into Solar &amp; Battery Sizing</h2>
         <p>
-          Once you establish your baseline daily kilowatt-hour demand, you can accurately plan renewable energy equipment without under-sizing or over-paying:
+          Once you establish your baseline daily kilowatt-hour demand, you can plan renewable energy equipment with transparent assumptions:
         </p>
 
         <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))", gap: "1.25rem", margin: "1.25rem 0" }}>
           <div style={{ padding: "1.5rem", borderRadius: "0.85rem", border: "1px solid var(--line)", background: "var(--surface)" }}>
             <h3 style={{ marginTop: 0, color: "var(--brand-strong)" }}>☀️ Sizing a Rooftop Solar PV System</h3>
             <p style={{ fontSize: "0.95rem", lineHeight: 1.55, color: "var(--muted)" }}>
-              To offset a <strong>30 kWh/day</strong> consumption in an area with <strong>4.5 peak sun hours</strong>:
+              To offset an illustrative <strong>30 kWh/day</strong> consumption in an area with <strong>4.5 peak sun hours (PSH)</strong> and an <strong>85% performance factor</strong>:
             </p>
             <p style={{ fontFamily: "var(--font-mono, monospace)", background: "#eee5d7", padding: "0.5rem 0.75rem", borderRadius: "0.4rem", fontSize: "0.9rem" }}>
-              Solar kW = 30 kWh ÷ (4.5 PSH × 0.85 Efficiency) = <strong>7.84 kW System</strong> (~20 × 400W panels)
+              Solar kW = 30 kWh ÷ (4.5 PSH × 0.85 Performance Factor) = <strong>7.84 kW System</strong> (~20 × 400W panels)
             </p>
             <Link href="/solar/solar-panel-size-calculator" className="button" style={{ display: "inline-block", marginTop: "0.75rem", fontSize: "0.9rem" }}>
               Open Solar Panel Size Calculator →
@@ -505,10 +502,13 @@ export default function HowManyKwhDoesAHouseUsePerDayPage() {
           <div style={{ padding: "1.5rem", borderRadius: "0.85rem", border: "1px solid var(--line)", background: "var(--surface)" }}>
             <h3 style={{ marginTop: 0, color: "var(--brand-strong)" }}>🔋 Sizing Home Battery Storage</h3>
             <p style={{ fontSize: "0.95rem", lineHeight: 1.55, color: "var(--muted)" }}>
-              To power critical blackout loads (refrigerator, lights, internet, medical: ~8 kWh/day) for <strong>2 days of autonomy</strong>:
+              To power critical backup loads (refrigerator, lights, internet, medical: ~8 kWh/day) for <strong>2 days of autonomy</strong> at <strong>90% usable capacity (DoD)</strong>:
             </p>
             <p style={{ fontFamily: "var(--font-mono, monospace)", background: "#eee5d7", padding: "0.5rem 0.75rem", borderRadius: "0.4rem", fontSize: "0.9rem" }}>
-              Battery kWh = (8 kWh/day × 2 days) ÷ 0.90 DoD = <strong>17.7 kWh LiFePO4 Storage</strong>
+              Battery kWh = (8 kWh/day × 2 days) ÷ 0.90 DoD = <strong>17.78 kWh LiFePO4 Storage</strong>
+            </p>
+            <p style={{ fontSize: "0.85rem", color: "var(--muted)", marginTop: "0.35rem" }}>
+              Note: Critical backup demand (8 kWh/day) is a separate planning parameter from whole-home continuous consumption (30 kWh/day).
             </p>
             <Link href="/home-energy/home-battery-size-calculator" className="button" style={{ display: "inline-block", marginTop: "0.75rem", fontSize: "0.9rem" }}>
               Open Home Battery Size Calculator →
@@ -518,10 +518,10 @@ export default function HowManyKwhDoesAHouseUsePerDayPage() {
           <div style={{ padding: "1.5rem", borderRadius: "0.85rem", border: "1px solid var(--line)", background: "var(--surface)" }}>
             <h3 style={{ marginTop: 0, color: "var(--brand-strong)" }}>❄️ Modeling Central AC &amp; Heat Pump Load</h3>
             <p style={{ fontSize: "0.95rem", lineHeight: 1.55, color: "var(--muted)" }}>
-              Because HVAC represents <strong>40% to 50%</strong> of daily summer kWh, model your exact cooling tonnage, SEER2 ratings, and cycling costs:
+              Because HVAC represents <strong>35% to 45%</strong> of daily summer kWh, model your cooling capacity, SEER2 ratings, and operating hours:
             </p>
             <p style={{ fontFamily: "var(--font-mono, monospace)", background: "#eee5d7", padding: "0.5rem 0.75rem", borderRadius: "0.4rem", fontSize: "0.9rem" }}>
-              Cooling kWh = (36,000 BTU ÷ 15 SEER2 ÷ 1,000) × 10h = <strong>24.0 kWh/day</strong>
+              Estimated Cooling kWh = (36,000 BTU ÷ 15 SEER2 ÷ 1,000) × 10h = <strong>24.0 kWh/day</strong>
             </p>
             <Link href="/guides/central-ac-and-heat-pump-electricity-cost-guide" className="button" style={{ display: "inline-block", marginTop: "0.75rem", fontSize: "0.9rem" }}>
               Open Central AC &amp; Heat Pump Guide →
@@ -531,10 +531,10 @@ export default function HowManyKwhDoesAHouseUsePerDayPage() {
       </section>
 
       {/* Section 6: Connected Planning Tools */}
-      <section id="connected-tools" style={{ marginTop: "3rem", padding: "1.75rem", borderRadius: "0.85rem", background: "var(--surface)", border: "1px solid var(--line)" }}>
+      <section id="related-tools" style={{ marginTop: "3rem", padding: "1.75rem", borderRadius: "0.85rem", background: "var(--surface)", border: "1px solid var(--line)" }}>
         <h2 style={{ marginTop: 0, fontSize: "1.35rem", color: "var(--brand-strong)" }}>Connected Residential Energy &amp; Utility Planning Tools</h2>
         <p style={{ marginBottom: "1.25rem", color: "var(--muted)", lineHeight: 1.55 }}>
-          Audit your exact household electricity usage, estimate utility bills, and model clean energy offsets with PowerLab&apos;s calculation engines:
+          Audit your household electricity usage, estimate utility bills, and model clean energy offsets with PowerLab&apos;s calculation engines:
         </p>
 
         <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(260px, 1fr))", gap: "1rem" }}>
@@ -615,9 +615,9 @@ export default function HowManyKwhDoesAHouseUsePerDayPage() {
 
       {/* Section 8: Methodology & Sources */}
       <section id="sources-methodology" style={{ marginTop: "2.5rem", padding: "1.5rem", borderRadius: "0.85rem", background: "var(--surface)", border: "1px solid var(--line)" }}>
-        <h2 style={{ marginTop: 0 }}>Methodology &amp; Standards Citations</h2>
+        <h2 style={{ marginTop: 0 }}>Methodology &amp; Data Sources</h2>
         <p style={{ fontSize: "0.95rem", lineHeight: 1.6, color: "var(--muted)" }}>
-          Data referenced in this guide is derived from the <strong>U.S. Energy Information Administration (EIA) Residential Energy Consumption Survey (RECS)</strong>, <strong>NFPA 70 / National Electrical Code (NEC 2023) Article 220</strong> branch circuit load calculation methods, and the <strong>National Renewable Energy Laboratory (NREL) PVWatts Version 8</strong> solar production performance standards.
+          Data referenced in this guide is derived from the <strong>U.S. Energy Information Administration (EIA) Residential Energy Consumption Survey (RECS)</strong> benchmark statistics. Solar sizing references utilize the <strong>National Renewable Energy Laboratory (NREL) PVWatts Version 8</strong> performance model assumptions. For electrical service and branch circuit load calculations, consult NFPA 70 / NEC Article 220; PowerLab calculators provide simplified energy-balance planning models and do not replace certified electrical engineering or code compliance evaluations.
         </p>
         <div style={{ display: "flex", flexWrap: "wrap", gap: "1rem", marginTop: "1rem" }}>
           <Link href="/methodology" style={{ fontSize: "0.9rem", fontWeight: 600, color: "var(--accent)" }}>
@@ -631,4 +631,3 @@ export default function HowManyKwhDoesAHouseUsePerDayPage() {
     </article>
   );
 }
-

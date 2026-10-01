@@ -5,7 +5,6 @@ import { buildGuideStructuredData } from "@/lib/seo/structured-data";
 import { EvRangeCalculator } from "@/components/calculator/ev-range-calculator";
 import { DirectAnswerCard } from "@/components/seo/direct-answer-card";
 import { PageJumpNav } from "@/components/seo/page-jump-nav";
-import { FormulaCard } from "@/components/seo/formula-card";
 import { StandardsBadge } from "@/components/seo/standards-badge";
 import { AcademicCitationModal } from "@/components/seo/academic-citation-modal";
 import { MathDisplay } from "@/components/common/math-display";
@@ -14,7 +13,7 @@ import { buildPageMetadata } from "@/lib/seo/metadata-helper";
 export const metadata: Metadata = buildPageMetadata({
   title: "How to Calculate EV Driving Range & Efficiency",
   description:
-    "Calculate EV driving range from usable battery kWh, highway aerodynamic drag (70+ mph), cold winter temperature derate, and battery degradation.",
+    "Estimate EV driving range from usable battery kWh, highway aerodynamic drag, seasonal temperature effects, and battery health.",
   canonicalPath: "/guides/how-to-calculate-ev-driving-range-and-efficiency-guide",
   category: "ev",
   isArticle: true,
@@ -22,49 +21,48 @@ export const metadata: Metadata = buildPageMetadata({
 
 const FAQS = [
   {
-    question: "What is the exact mathematical formula to calculate EV driving range?",
-    answer: "The fundamental formula is: Driving Range (miles) = Usable Battery Capacity (kWh) × (Starting SOC% − Arrival Reserve SOC%) × Battery State of Health (SoH%) × Driving Efficiency (mi/kWh). For metric units (kilometers), multiply usable energy by (km/kWh) or divide by (kWh/100km ÷ 100).",
+    question: "What is the mathematical energy-balance formula to calculate EV driving range?",
+    answer: "The fundamental formula is: Driving Range (miles) = Usable Battery Capacity at 100% SoH (kWh) × (Starting SOC% − Arrival Reserve SOC%) × Battery State of Health (SoH%) × Driving Efficiency (mi/kWh). For metric units (kilometers), multiply usable energy by (km/kWh) or divide by (kWh/100km ÷ 100).",
   },
   {
-    question: "Why does driving at 75 mph reduce EV range by 20% to 25% compared to 55 mph?",
-    answer: "Aerodynamic drag force increases with the square of velocity (F_drag = ½ ρ C_d A v²), which means the engine power required to overcome air resistance scales cubically with speed (P = F × v ∝ v³). Increasing cruise speed from 55 mph to 75 mph (+36% speed increase) requires approximately 86% more power solely to overcome aerodynamic drag, dropping driving efficiency from ~3.8 mi/kWh to ~2.9 mi/kWh.",
+    question: "Why does driving at 75 mph reduce EV range compared to 55 mph?",
+    answer: "Aerodynamic drag force increases with the square of velocity (F_drag = ½ ρ C_d A v²), and at constant vehicle properties and air density, the mechanical power required to overcome drag scales with the cube of speed (P = F × v ∝ v³). Increasing cruise speed from 55 mph to 75 mph (+36% speed increase) requires approximately 86% more power solely to overcome aerodynamic drag, all else equal, which significantly lowers effective driving efficiency (e.g. from ~3.8 mi/kWh to ~2.9 mi/kWh in typical crossovers).",
   },
   {
-    question: "How much driving range do electric vehicles lose in freezing winter weather?",
-    answer: "In sub-freezing temperatures (20°F to 32°F / −6°C to 0°C), EVs typically experience a 20% to 35% reduction in total driving range. This loss is driven by three physical factors: higher air density drag (+12% to +15% aerodynamic resistance), increased battery internal electrolyte resistance, and cabin heating HVAC power consumption (heat pumps drawing 1.5–3.0 kW; resistive PTC heaters drawing 4.0–6.0 kW continuous).",
+    question: "How do cold temperatures affect electric vehicle driving range?",
+    answer: "In cold and freezing temperatures, electric vehicles generally experience reduced driving range. This reduction is influenced by multiple physical factors: higher air density drag, increased internal battery electrolyte resistance, and cabin HVAC heating energy demand. Actual winter range varies with vehicle efficiency, cabin heating demand, battery temperature, speed, wind, precipitation, tires, road conditions, and preconditioning.",
   },
   {
     question: "What is the difference between gross battery capacity and usable battery capacity?",
-    answer: "Gross capacity represents the total theoretical chemical energy contained in all battery cells. Usable (net) capacity is the software-gated energy accessible to the driver, managed by the Battery Management System (BMS) with top and bottom buffers (typically 4% to 8% reserve) to prevent lithium plating, thermal runaway, and rapid cycle degradation.",
+    answer: "Gross capacity represents the total theoretical chemical energy contained in all battery cells. Usable (net) capacity at 100% State of Health is the software-accessible energy allocated by the Battery Management System (BMS) with top and bottom protective buffers to preserve cell longevity and prevent overcharge/overdischarge.",
   },
   {
-    question: "How fast do EV batteries degrade over 100,000 miles (State of Health SoH)?",
-    answer: "Modern lithium-ion EV battery packs (NMC, NCA, and LFP) degrade at an average rate of 1.0% to 1.8% of capacity per year or ~10% to 12% over 100,000 miles (160,000 km) under normal Level 2 charging. Battery State of Health (SoH) should be multiplied against nominal usable capacity to calculate realistic long-term road trip range.",
+    question: "How does battery State of Health (SoH) affect usable driving range?",
+    answer: "Battery State of Health (SoH) represents the ratio of current maximum usable capacity to the original factory usable capacity. Degradation rates vary across cell chemistries (such as NMC vs LFP), operating temperatures, depth of discharge, charging behavior, and thermal management. Multiplying original usable capacity by SoH provides a realistic available energy baseline for range planning.",
   },
   {
-    question: "How does cabin climate control (AC vs Heat) affect EV efficiency?",
-    answer: "Air conditioning during summer draws 1.0 kW to 2.0 kW, reducing driving range by only 4% to 8%. In contrast, winter heating requires warming ambient sub-zero air to 70°F. Resistive PTC heaters consume 4.0 kW to 6.0 kW (reducing range by 25% to 35%), whereas modern heat pumps operate at COP 2.0–3.0, cutting heating energy penalties in half.",
+    question: "How does cabin climate control affect EV efficiency?",
+    answer: "Air conditioning during warm weather typically draws 1.0 kW to 2.0 kW, resulting in a modest range impact. In cold weather, heating the cabin requires warming ambient air, where resistive PTC heaters draw 4.0 kW to 6.0 kW, while heat pump systems operate with a Coefficient of Performance (COP) of 2.0 to 3.0 to reduce heating power draw to approximately 1.5 kW to 2.5 kW.",
   },
   {
     question: "How do you convert EV driving range and miles driven into home charging time?",
-    answer: "Divide the energy consumed (Distance in miles × Consumption in Wh/mi ÷ 1,000) by your home charger's effective power output, factoring in approximately 90% onboard AC-to-DC rectifier efficiency: Charging Time (hours) = Energy Needed (kWh) ÷ (EVSE Power kW × 0.90). For example, a 40-mile daily commute in a crossover EV consuming 300 Wh/mi uses 12.0 kWh. On a 7.7 kW (32A @ 240V) Level 2 home charger delivering 6.93 kW net to the battery, replenishment requires: 12.0 kWh ÷ 6.93 kW = 1.73 hours (approximately 1 hour and 44 minutes).",
+    answer: "Divide the energy consumed (Distance in miles × Consumption in Wh/mi ÷ 1,000) by your home charger's effective delivery rate, factoring in an illustrative planning assumption for onboard AC-to-DC conversion efficiency: Charging Time (hours) = Energy Needed (kWh) ÷ (EVSE Power kW × 0.90). For example, a 40-mile daily commute consuming 300 Wh/mi uses 12.0 kWh DC from the battery. On a 7.7 kW (32A @ 240V) Level 2 home charger delivering ~6.93 kW net to the battery at an illustrative 90% efficiency, replenishment requires: 12.0 kWh ÷ 6.93 kW ≈ 1.73 hours (about 1 hour 44 minutes). Actual wall-to-battery charging losses vary by vehicle, charging rate, and temperature.",
   },
 ];
 
 export default function HowToCalculateEvRangeGuidePage() {
   const structuredData = buildGuideStructuredData({
-    title: "How to Calculate EV Driving Range & Efficiency (Formula, Speed Drag & Winter Losses)",
-    description: "Definitive automotive engineering guide: calculate electric vehicle driving range from usable battery capacity, aerodynamic drag kinetics, cold temperature derating, and battery health.",
+    title: "How to Calculate EV Driving Range & Efficiency (Formula, Speed Drag & Seasonal Losses)",
+    description: "Automotive engineering guide: estimate electric vehicle driving range from usable battery capacity, aerodynamic drag kinetics, temperature factors, and battery health.",
     route: "/guides/how-to-calculate-ev-driving-range-and-efficiency-guide",
     datePublished: "2026-09-05",
-    dateModified: "2026-09-05",
+    dateModified: "2026-09-30",
     categoryName: "Electric Vehicles",
     categoryRoute: "/ev",
     standards: [
-      "SAE J1634 (Electric Vehicle Energy Consumption and Range Test Procedure)",
-      "EPA 40 CFR Part 600 (Fuel Economy and Greenhouse Gas Exhaust Emissions)",
-      "WLTP (Worldwide Harmonised Light Vehicles Test Procedure - UNECE GTR No. 15)",
-      "ISO 15118 (Road Vehicles - Vehicle to Grid Communication Interface)",
+      "SAE J1634 Reference (Electric Vehicle Energy Consumption and Range Test Procedure)",
+      "EPA 40 CFR Part 600 Reference (Fuel Economy and Greenhouse Gas Exhaust Emissions)",
+      "WLTP Reference (Worldwide Harmonised Light Vehicles Test Procedure - UNECE GTR No. 15)",
     ],
     faqs: FAQS,
   });
@@ -82,21 +80,21 @@ export default function HowToCalculateEvRangeGuidePage() {
       </nav>
 
       <header className="calculator-header" style={{ border: "1px solid var(--line)", borderRadius: "0.85rem", background: "rgb(255 253 249 / 0.85)", padding: "1.5rem", marginBottom: "0.5rem" }}>
-        <p className="eyebrow">Automotive Aerodynamics &amp; Electrochemical Range Engineering</p>
+        <p className="eyebrow">Automotive Aerodynamics &amp; Energy Planning</p>
         <h1 style={{ margin: "0.25rem 0 0.75rem", fontSize: "1.85rem", color: "var(--brand-strong)" }}>
-          How to Calculate EV Driving Range &amp; Efficiency (Formula, Speed Drag &amp; Winter Losses)
+          How to Calculate EV Driving Range &amp; Efficiency (Formula, Speed Drag &amp; Seasonal Losses)
         </h1>
         <p className="intro" style={{ margin: 0, color: "var(--muted)", fontSize: "1.02rem", lineHeight: 1.6 }}>
-          Master the mathematical physics of electric vehicle range. Calculate real-world highway range from usable battery kilowatt-hours (kWh), aerodynamic drag force (<em>F</em><sub>d</sub> ∝ <em>v</em>²), rolling resistance, winter heat pump derating, and battery degradation kinetics.
+          Understand the physical factors behind electric vehicle range. Estimate real-world highway range from usable battery kilowatt-hours (kWh), aerodynamic drag force (<em>F</em><sub>d</sub> ∝ <em>v</em>²), rolling resistance, seasonal heating and cooling loads, and battery State of Health.
         </p>
       </header>
 
       <DirectAnswerCard
         keyword="how to calculate EV driving range"
-        answer="Electric Vehicle Driving Range (miles) = Usable Battery Capacity (kWh) × Available State of Charge (%) × Battery State of Health (SoH%) × Driving Efficiency (mi/kWh). Real-world range deviates significantly from window-sticker EPA ratings because aerodynamic drag scales quadratically with velocity (driving at 75 mph requires ~86% more aerodynamic power than 55 mph), rolling resistance increases with tire width, and winter cabin heating reduces net range by 20% to 35%."
-        formula="Range (mi) = [ Usable_kWh × (SOC_start - SOC_reserve) × SoH ] × Efficiency (mi/kWh)"
-        standardExample="77.4 kWh Battery Pack (e.g. Ioniq 5 / Model Y) starting at 90% SOC with a 10% emergency arrival buffer at 95% SoH driving at 72 mph highway efficiency (3.0 mi/kWh): [77.4 × (0.90 - 0.10) × 0.95] × 3.0 = 58.82 kWh × 3.0 mi/kWh = 176.5 Miles."
-        sourceAuthority="SAE J1634 Electric Vehicle Range Test Standard &amp; EPA Light-Duty Automotive Trends"
+        answer="Electric Vehicle Driving Range (miles) = Usable Battery Capacity at 100% SoH (kWh) × Available State of Charge (%) × Battery State of Health (SoH%) × Driving Efficiency (mi/kWh). Real-world range deviates from window-sticker EPA ratings because aerodynamic drag scales quadratically with velocity (at the same Cd and frontal area, aero power demand is proportional to v³, requiring ~86% more aero power at 75 mph than 55 mph, all else equal), rolling resistance varies with tires/surface, and cold winter weather increases air density and cabin heating loads."
+        formula="Range (mi) = [ Usable_kWh_100SoH × (SOC_start - SOC_reserve) × SoH ] × Efficiency (mi/kWh)"
+        standardExample="Illustrative 77.4 kWh usable-battery example starting at 90% SOC with a 10% emergency arrival buffer at 95% SoH driving at 72 mph highway efficiency (3.0 mi/kWh): [77.4 × (0.90 - 0.10) × 0.95] × 3.0 = 58.82 kWh × 3.0 mi/kWh = 176.5 Miles."
+        sourceAuthority="SAE J1634 Electric Vehicle Range Test Procedure Reference"
       />
 
       <PageJumpNav />
@@ -107,8 +105,11 @@ export default function HowToCalculateEvRangeGuidePage() {
           <h2 style={{ fontSize: "1.4rem", margin: "0 0 0.5rem", color: "var(--brand-strong)" }}>
             Interactive EV Driving Range &amp; Consumption Engine
           </h2>
-          <p style={{ color: "var(--muted)", margin: 0, fontSize: "0.95rem" }}>
-            Adjust usable battery pack capacity, speed, temperature, arrival reserve buffer, and efficiency units to calculate your exact trip range:
+          <p style={{ color: "var(--muted)", margin: "0 0 0.75rem", fontSize: "0.95rem" }}>
+            Adjust usable battery pack capacity (at 100% SoH), SOC window, battery health, and driving efficiency to estimate your trip range:
+          </p>
+          <p style={{ fontSize: "0.85rem", color: "var(--muted)", background: "var(--surface)", border: "1px solid var(--line)", padding: "0.65rem 0.85rem", borderRadius: "0.5rem", margin: 0 }}>
+            <em>Methodology Note:</em> The interactive calculator uses battery energy, SOC window, battery health and a selected consumption rate. The road-load and thermal equations below explain why real-world consumption changes, but they are not independently solved by the calculator unless explicitly stated.
           </p>
         </div>
         <EvRangeCalculator />
@@ -116,9 +117,9 @@ export default function HowToCalculateEvRangeGuidePage() {
 
       {/* Section 1: The Physics of EV Driving Range */}
       <section id="physics-of-range" style={{ marginTop: "2.5rem" }}>
-        <h2>1. The Physics of EV Driving Range: EPA Window Stickers vs. Real-World Highway Roads</h2>
+        <h2>1. The Physics of EV Driving Range: EPA Ratings vs. Real-World Highway Driving</h2>
         <p>
-          Every new electric vehicle sold in North America displays an official <strong>EPA Estimated Range</strong> (e.g., 300 miles). However, drivers frequently discover that cruising at 75 mph on interstate highways yields only 225 to 240 miles of range.
+          Every new electric vehicle sold in North America displays an official <strong>EPA Estimated Range</strong> (e.g., 300 miles). However, drivers frequently observe that cruising at 75 mph on interstate highways yields lower range than the window sticker.
         </p>
         <p>
           This divergence occurs because the U.S. Environmental Protection Agency (EPA) determines window-sticker range using standardized dynamometer laboratory test cycles under <strong>SAE J1634</strong>:
@@ -127,13 +128,13 @@ export default function HowToCalculateEvRangeGuidePage() {
         <ul style={{ lineHeight: 1.65, color: "var(--ink)", paddingLeft: "1.25rem" }}>
           <li><strong>UDDS (Urban Dynamometer Driving Schedule / City Cycle):</strong> Simulates stop-and-go city traffic with an average speed of only <strong>19.6 mph (31.5 km/h)</strong> and frequent regenerative braking deceleration phases.</li>
           <li><strong>HWFET (Highway Fuel Economy Driving Schedule):</strong> Simulates mild highway cruising with an average speed of <strong>48.3 mph (77.7 km/h)</strong> and a top speed of 60 mph—without high-speed interstate aerodynamic drag.</li>
-          <li><strong>The EPA 0.70 Derating Factor:</strong> Laboratory unadjusted dynamometer results are multiplied by a standard 0.70 scaling factor (or an optional 5-cycle formula) to produce the composite window-sticker number.</li>
+          <li><strong>Standardized Test Cycles &amp; Adjustment Factors:</strong> Multi-cycle dynamometer testing results are adjusted using standardized EPA calculation procedures to produce the composite window-sticker rating.</li>
         </ul>
 
         <div style={{ background: "var(--surface)", border: "1px solid var(--line)", borderRadius: "0.75rem", padding: "1.25rem", margin: "1.25rem 0" }}>
-          <h3 style={{ margin: "0 0 0.5rem", color: "var(--brand-strong)", fontSize: "1.1rem" }}>The Three Road-Load Forces That Consume EV Battery Kilowatt-Hours:</h3>
+          <h3 style={{ margin: "0 0 0.5rem", color: "var(--brand-strong)", fontSize: "1.1rem" }}>The Road-Load Forces That Consume EV Battery Kilowatt-Hours:</h3>
           <p style={{ fontSize: "0.95rem", lineHeight: 1.6, margin: 0 }}>
-            Total tractive power demanded from the battery pack at any instant is governed by Newton&apos;s second law and vehicle road load resistance:
+            Total tractive power demanded from the battery pack at any instant is governed by vehicle road load resistance:
           </p>
           <MathDisplay
             title="Total Vehicle Road Load Tractive Power"
@@ -147,24 +148,24 @@ export default function HowToCalculateEvRangeGuidePage() {
 
       {/* Section 2: Aerodynamic Drag & High Speed Loss */}
       <section id="aerodynamic-drag" style={{ marginTop: "2.5rem" }}>
-        <h2>2. Aerodynamic Drag (F_d = 0.5 &times; &rho; &times; C_d &times; A &times; v&sup2;) and the High-Speed Highway Penalty</h2>
+        <h2>2. Aerodynamic Drag (F_d = 0.5 &times; &rho; &times; C_d &times; A &times; v&sup2;) and Highway Speed</h2>
         <p>
-          While internal combustion engine (ICE) vehicles waste 65% to 75% of fuel energy as exhaust heat and engine friction, electric vehicle drivetrains operate at <strong>88% to 94% wire-to-wheel efficiency</strong>. Because EV drivetrains are nearly lossless, external physics—primarily aerodynamic air resistance—dominates high-speed consumption.
+          Electric vehicle drivetrains operate at high wire-to-wheel efficiency. Because internal drivetrain losses are relatively small, external physics—primarily aerodynamic air resistance—dominates high-speed highway consumption.
         </p>
 
         <p>
-          Aerodynamic drag force increases with the <strong>square of velocity (v&sup2;)</strong>, but the mechanical power required to push the vehicle through the air increases with the <strong>cube of velocity (v&sup3;)</strong>:
+          At the same vehicle Cd, frontal area and air density, aerodynamic power is proportional to v³; increasing speed from 55 to 75 mph therefore requires approximately 86% more aerodynamic power, all else equal.
         </p>
 
         <div className="scenario-table" style={{ overflowX: "auto", margin: "1.25rem 0" }}>
           <table style={{ width: "100%", borderCollapse: "collapse" }}>
-            <caption>Table 1: Cruising Speed vs. Aerodynamic Power Demand and Driving Efficiency (Model Vehicle: C_d = 0.24, Frontal Area A = 2.4 m&sup2;)</caption>
+            <caption>Table 1: Illustrative Cruising Speed vs. Aerodynamic Power Demand and Driving Efficiency (Model Scenario: C_d = 0.24, Frontal Area A = 2.4 m²)</caption>
             <thead>
               <tr>
                 <th scope="col">Cruising Speed</th>
                 <th scope="col">Aero Drag Force (F_d)</th>
                 <th scope="col">Aero Power Demand (P_aero)</th>
-                <th scope="col">Typical Efficiency</th>
+                <th scope="col">Illustrative Efficiency</th>
                 <th scope="col">Estimated Range (75 kWh Pack)</th>
                 <th scope="col">Range Delta vs 55 mph</th>
               </tr>
@@ -207,56 +208,56 @@ export default function HowToCalculateEvRangeGuidePage() {
         </div>
 
         <p style={{ marginTop: "1rem" }}>
-          <strong>Key Engineering Takeaway:</strong> Increasing your highway cruising speed from 65 mph to 75 mph requires <strong>53% more aerodynamic power (21.5 kW vs. 14.0 kW)</strong>, consuming battery kilowatt-hours at a drastically accelerated rate.
+          <strong>Takeaway:</strong> Aerodynamic power demand increases steeply at higher speeds, which directly reduces vehicle efficiency per mile traveled.
         </p>
       </section>
 
       {/* Section 3: Cold-Weather Range Loss */}
       <section id="winter-range-loss" style={{ marginTop: "2.5rem" }}>
-        <h2>3. Cold-Weather Thermodynamics: Why EVs Lose 20% to 35% Range in Winter</h2>
+        <h2>3. Cold-Weather Thermodynamics: Seasonal Range Impacts</h2>
         <p>
-          Winter driving imposes a compounding three-way penalty on EV battery chemistry and ambient road loads:
+          Winter driving introduces multiple thermodynamic and electrochemical factors that influence energy consumption:
         </p>
 
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))", gap: "1.25rem", margin: "1.25rem 0" }}>
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))", gap: "125rem", margin: "1.25rem 0" }}>
           <article style={{ padding: "1.25rem", borderRadius: "0.85rem", border: "1px solid var(--line)", background: "var(--surface)" }}>
             <h3 style={{ marginTop: 0, color: "#0284c7", fontSize: "1.1rem" }}>1. Cabin HVAC Heating Energy</h3>
             <p style={{ fontSize: "0.92rem", lineHeight: 1.55, color: "var(--ink)", margin: 0 }}>
-              Because electric motors generate almost no waste heat, warming the cabin requires drawing power directly from the traction battery. Resistive PTC heaters draw <strong>4.0 kW to 6.0 kW continuous</strong> (4 to 6 kWh per hour of driving). Modern vapor-injection heat pumps operate with a Coefficient of Performance (COP) of 2.0 to 3.0, reducing heating power draw to <strong>1.5 kW to 2.5 kW</strong>.
+              Because electric motors generate minimal waste heat, warming the cabin draws energy from the battery pack. Resistive PTC heaters can draw <strong>4.0 kW to 6.0 kW</strong>, while heat pumps operate with a COP of 2.0 to 3.0 to reduce heating power draw to approximately <strong>1.5 kW to 2.5 kW</strong>.
             </p>
           </article>
 
           <article style={{ padding: "1.25rem", borderRadius: "0.85rem", border: "1px solid var(--line)", background: "var(--surface)" }}>
             <h3 style={{ marginTop: 0, color: "#0284c7", fontSize: "1.1rem" }}>2. Electrochemical Internal Resistance (R_int)</h3>
             <p style={{ fontSize: "0.92rem", lineHeight: 1.55, color: "var(--ink)", margin: 0 }}>
-              At cold temperatures (0°F to 32°F / −18°C to 0°C), lithium-ion electrolyte viscosity increases and ion diffusion kinetics slow down. This elevates internal cell resistance (R_int), causing a voltage sag under acceleration and temporarily trapping <strong>8% to 15% of usable battery capacity</strong> until the battery thermal management system warms the pack.
+              At cold temperatures, electrolyte viscosity increases and ion diffusion kinetics slow down. This elevates internal cell resistance, temporarily reducing usable battery energy until the thermal management system conditions the pack.
             </p>
           </article>
 
           <article style={{ padding: "1.25rem", borderRadius: "0.85rem", border: "1px solid var(--line)", background: "var(--surface)" }}>
             <h3 style={{ marginTop: 0, color: "#0284c7", fontSize: "1.1rem" }}>3. Increased Air Density &amp; Tire Drag</h3>
             <p style={{ fontSize: "0.92rem", lineHeight: 1.55, color: "var(--ink)", margin: 0 }}>
-              Cold air is significantly denser than warm air (1.34 kg/m&sup3; at 14°F vs. 1.18 kg/m&sup3; at 77°F—a <strong>13.5% increase in air density &rho;</strong>). This directly multiplies the aerodynamic drag force (F_d), while cold road surfaces and winter rubber compounds elevate tire rolling resistance by 8% to 12%.
+              Cold air is denser than warm air, which increases aerodynamic drag force at all speeds. Cold pavement and winter tire compounds also elevate rolling resistance.
             </p>
           </article>
         </div>
 
         <div className="scenario-table" style={{ overflowX: "auto", margin: "1.25rem 0" }}>
           <table style={{ width: "100%", borderCollapse: "collapse" }}>
-            <caption>Table 2: Temperature Impact on Usable EV Highway Range (77.4 kWh Battery Pack @ 70 mph)</caption>
+            <caption>Table 2: Illustrative Seasonal Range Scenarios (77.4 kWh Battery Pack @ 70 mph)</caption>
             <thead>
               <tr>
                 <th scope="col">Ambient Temperature</th>
                 <th scope="col">HVAC Cabin Draw</th>
-                <th scope="col">Air Density Penalty</th>
+                <th scope="col">Air Density Effect</th>
                 <th scope="col">Effective Efficiency</th>
                 <th scope="col">Achievable Highway Range</th>
-                <th scope="col">Range Retained</th>
+                <th scope="col">Relative Retention</th>
               </tr>
             </thead>
             <tbody>
               <tr>
-                <td><strong>75°F (24°C)</strong> — Ideal Spring/Fall</td>
+                <td><strong>75°F (24°C)</strong> — Mild Spring/Fall</td>
                 <td>0.0 kW (Off / Vent)</td>
                 <td>Baseline (1.18 kg/m³)</td>
                 <td><strong>3.5 mi/kWh</strong></td>
@@ -266,7 +267,7 @@ export default function HowToCalculateEvRangeGuidePage() {
               <tr>
                 <td><strong>95°F (35°C)</strong> — Summer AC</td>
                 <td>1.5 kW (AC Cooling)</td>
-                <td>−4.0% (Less dense)</td>
+                <td>Lower density</td>
                 <td><strong>3.2 mi/kWh</strong></td>
                 <td><strong>248 Miles</strong></td>
                 <td>91.8%</td>
@@ -274,67 +275,69 @@ export default function HowToCalculateEvRangeGuidePage() {
               <tr>
                 <td><strong>32°F (0°C)</strong> — Freezing Weather</td>
                 <td>3.0 kW (Heat Pump)</td>
-                <td>+8.5% (Denser air)</td>
+                <td>Higher density</td>
                 <td><strong>2.7 mi/kWh</strong></td>
                 <td><strong>209 Miles</strong></td>
                 <td>77.4%</td>
               </tr>
               <tr>
                 <td><strong>10°F (−12°C)</strong> — Severe Winter</td>
-                <td>5.5 kW (PTC Strip Heat)</td>
-                <td>+14.0% (Dense air)</td>
+                <td>5.5 kW (Aux Heating)</td>
+                <td>Dense winter air</td>
                 <td><strong>2.2 mi/kWh</strong></td>
                 <td><strong>170 Miles</strong></td>
-                <td><span style={{ color: "#dc2626", fontWeight: 700 }}>63.0% (−37% Loss)</span></td>
+                <td><span style={{ color: "#dc2626", fontWeight: 700 }}>63.0%</span></td>
               </tr>
             </tbody>
           </table>
         </div>
+        <p style={{ fontSize: "0.85rem", color: "var(--muted)", marginTop: "0.5rem" }}>
+          <em>Note:</em> Actual winter range varies with vehicle efficiency, cabin heating demand, battery temperature, speed, wind, precipitation, tires, road conditions and preconditioning.
+        </p>
       </section>
 
       {/* Section 4: Battery Degradation & State of Health */}
       <section id="battery-health" style={{ marginTop: "2.5rem" }}>
         <h2>4. Battery Degradation &amp; State of Health (SoH) Sizing</h2>
         <p>
-          Over years of ownership, lithium-ion battery cells undergo irreversible physical and chemical changes: Solid Electrolyte Interphase (SEI) layer growth, active lithium trapping, and cathode micro-cracking.
+          Over years of operation, lithium-ion battery cells undergo chemical and physical aging that gradually reduces usable capacity.
         </p>
 
         <p>
-          <strong>State of Health (SoH)</strong> is the ratio of current maximum usable capacity relative to the original factory nameplate capacity:
+          <strong>State of Health (SoH)</strong> is the ratio of current maximum usable capacity relative to the original factory usable capacity:
         </p>
 
         <MathDisplay
           title="Battery State of Health (SoH)"
-          copyText="SoH = (Capacity_usable_current / Capacity_original_nominal) * 100%"
-          benchmark="State of Health represents remaining usable battery capacity relative to factory nameplate rating"
+          copyText="SoH = (Capacity_usable_current / Capacity_usable_original_100SoH) * 100%"
+          benchmark="State of Health represents remaining usable battery capacity relative to original factory rating"
         >
-          SoH = (Capacity_usable_current / Capacity_original_nominal) × 100%
+          SoH = (Capacity_usable_current / Capacity_usable_original_100SoH) × 100%
         </MathDisplay>
 
         <ul style={{ lineHeight: 1.65, color: "var(--ink)", paddingLeft: "1.25rem" }}>
-          <li><strong>Year 1 to 2 (Initial Settling):</strong> Most EV packs lose 2% to 3% capacity early as the initial SEI layer stabilizes across cell surfaces.</li>
-          <li><strong>Years 3 to 8 (Linear Aging):</strong> Capacity degradation slows to a steady <strong>0.8% to 1.5% per year</strong> under standard Level 2 home charging.</li>
-          <li><strong>100,000-Mile Benchmark:</strong> A well-managed EV with thermal liquid battery cooling typically maintains <strong>88% to 92% SoH</strong> after 100,000 miles.</li>
-          <li><strong>LFP vs. NMC Chemistries:</strong> Lithium Iron Phosphate (LiFePO4 / LFP) packs endure 3,000+ full charge cycles (up to 500,000 miles) and can be routinely charged to 100% daily, whereas Nickel-Manganese-Cobalt (NMC) packs degrade faster if kept above 80% SOC continuously.</li>
+          <li><strong>Degradation Variables:</strong> Capacity degradation varies with cell chemistry, ambient and operating temperatures, state of charge exposure, cycling frequency, charging power, and thermal management.</li>
+          <li><strong>Capacity Retention:</strong> Well-managed thermal liquid battery systems generally maintain substantial usable capacity over years of normal driving.</li>
+          <li><strong>Cell Chemistry Differences:</strong> LFP cell cycle life can be high, but actual vehicle battery life depends on cell design, depth of discharge, temperature, charging conditions, operating limits and the manufacturer&apos;s end-of-life criterion.</li>
         </ul>
       </section>
 
       {/* Section 5: Step-by-Step Worked Example */}
       <section id="worked-example" style={{ marginTop: "2.5rem" }}>
-        <h2>5. Step-by-Step Worked Calculation Example: Winter Highway Road Trip</h2>
+        <h2>5. Step-by-Step Worked Calculation Example: Highway Road Trip Scenario</h2>
         <p>
-          Let&apos;s calculate the precise achievable highway driving distance for a real-world winter road trip scenario:
+          Let&apos;s calculate an illustrative highway driving range estimate for a real-world road trip scenario:
         </p>
 
         <div style={{ background: "var(--surface)", border: "1px solid var(--line)", borderRadius: "0.75rem", padding: "1.5rem", margin: "1rem 0" }}>
           <h3 style={{ margin: "0 0 0.75rem", color: "var(--brand-strong)", fontSize: "1.15rem" }}>Vehicle &amp; Trip Parameters:</h3>
           <ul style={{ lineHeight: 1.6, margin: "0 0 1rem", paddingLeft: "1.25rem" }}>
-            <li><strong>Vehicle Model:</strong> Hyundai Ioniq 5 Long Range AWD / Tesla Model Y Long Range</li>
-            <li><strong>Nominal Usable Battery Pack:</strong> <code>77.4 kWh</code></li>
-            <li><strong>Current Battery State of Health (SoH):</strong> <code>95.0%</code> (after 45,000 miles)</li>
+            <li><strong>Vehicle Example:</strong> Illustrative 77.4 kWh usable-battery example</li>
+            <li><strong>Nominal Usable Battery Pack at 100% SoH:</strong> <code>77.4 kWh</code></li>
+            <li><strong>Current Battery State of Health (SoH):</strong> <code>95.0%</code></li>
             <li><strong>Initial Departure Charge (SOC_start):</strong> <code>90%</code></li>
-            <li><strong>Safe Arrival Buffer (SOC_reserve):</strong> <code>10%</code> (to avoid stranding or DC fast charger queues)</li>
-            <li><strong>Ambient Conditions:</strong> <code>25°F (−4°C)</code> winter weather with cabin heat set to 68°F</li>
+            <li><strong>Safe Arrival Buffer (SOC_reserve):</strong> <code>10%</code></li>
+            <li><strong>Ambient Conditions:</strong> <code>25°F (−4°C)</code> winter weather with cabin heating</li>
             <li><strong>Highway Cruising Speed:</strong> <code>72 mph (116 km/h)</code></li>
           </ul>
 
@@ -342,21 +345,21 @@ export default function HowToCalculateEvRangeGuidePage() {
           <ol style={{ paddingLeft: "1.25rem", lineHeight: 1.65 }}>
             <li>
               <strong>Step 1: Calculate Net Usable Energy Window (kWh):</strong><br />
-              <code>Usable Energy = Gross Usable (77.4 kWh) × (SOC_start 0.90 − SOC_reserve 0.10) × SoH (0.95)</code><br />
-              <code>Usable Energy = 77.4 × 0.80 × 0.95 = 58.82 kWh</code> available for driving.
+              <code>Available Energy = Original Usable (77.4 kWh) × (SOC_start 0.90 − SOC_reserve 0.10) × SoH (0.95)</code><br />
+              <code>Available Energy = 77.4 × 0.80 × 0.95 = 58.82 kWh</code> available for driving.
             </li>
             <li>
               <strong>Step 2: Determine Cold-Weather Highway Efficiency (mi/kWh):</strong><br />
-              At 72 mph in 25°F weather, baseline EPA efficiency (3.6 mi/kWh) is derated by speed drag (−18%) and winter heating (−15%), yielding an effective driving efficiency of <strong>2.65 mi/kWh (377 Wh/mi)</strong>.
+              At 72 mph in 25°F weather, an illustrative cold-weather highway efficiency might be <strong>2.65 mi/kWh (377 Wh/mi)</strong>.
             </li>
             <li>
-              <strong>Step 3: Calculate Safe Real-World Highway Range:</strong><br />
-              <code>Achievable Range = 58.82 kWh × 2.65 mi/kWh = 155.87 Miles (250.8 km)</code>.
+              <strong>Step 3: Calculate Illustrative Highway Range:</strong><br />
+              <code>Estimated Range = 58.82 kWh × 2.65 mi/kWh = 155.87 Miles (250.8 km)</code>.
             </li>
           </ol>
 
           <p style={{ marginTop: "1rem", padding: "0.85rem 1.1rem", borderRadius: "0.5rem", background: "rgba(16, 185, 129, 0.1)", border: "1px solid rgba(16, 185, 129, 0.25)", color: "#065f46", margin: "1rem 0 0" }}>
-            <strong>Engineering Verdict:</strong> Despite an EPA window-sticker rating of 266 miles, the driver must plan DC Fast Charging stops every <strong>150 to 155 miles</strong> to maintain a safe 10% reserve under high-speed winter road conditions.
+            <strong>Planning Note:</strong> Under high-speed winter road conditions, charging stops should be planned according to actual consumption and desired reserve margins.
           </p>
         </div>
       </section>
@@ -365,7 +368,7 @@ export default function HowToCalculateEvRangeGuidePage() {
       <section id="range-to-charging" style={{ marginTop: "2.5rem" }}>
         <h2>6. Connecting EV Driving Range to Home Charging: Energy Replenishment &amp; EVSE Sizing</h2>
         <p>
-          Calculating driving range is only the first half of the electric vehicle planning equation. Once you determine how much battery energy your trip consumes, you must translate that energy demand into home charging hours and electrical branch-circuit infrastructure.
+          Once you determine how much battery energy your trip consumes, you can translate that energy demand into home charging hours and electrical branch-circuit infrastructure.
         </p>
 
         <div style={{ background: "var(--surface)", border: "1px solid var(--line)", borderRadius: "0.75rem", padding: "1.5rem", margin: "1.25rem 0" }}>
@@ -373,7 +376,7 @@ export default function HowToCalculateEvRangeGuidePage() {
             The Mathematical Bridge: Driving Consumption to Charging Duration
           </h3>
           <p style={{ fontSize: "0.92rem", lineHeight: 1.6, margin: "0 0 0.75rem" }}>
-            The net electrical energy required directly from your vehicle&apos;s battery pack to complete a trip is calculated by multiplying distance by your vehicle&apos;s real-world consumption rate:
+            The net electrical energy required from your vehicle&apos;s battery pack to complete a trip is calculated by multiplying distance by your vehicle&apos;s consumption rate:
           </p>
           <MathDisplay
             title="Driving Energy to Level 2 Charging Duration"
@@ -383,13 +386,13 @@ export default function HowToCalculateEvRangeGuidePage() {
             t_charge = (Distance × Consumption_Wh_mi) / (1000 × P_evse × η_rectifier)
           </MathDisplay>
           <p style={{ fontSize: "0.85rem", color: "var(--muted)", margin: 0, lineHeight: 1.55 }}>
-            <em>EPA Consumption vs. Wall-Side Grid Energy:</em> Vehicle onboard trip computers report net DC electricity discharged from the battery while driving. However, official EPA window-sticker consumption ratings and electric utility meters measure total wall-side AC electricity drawn from the grid. Because AC-to-DC rectification and thermal cooling incur an illustrative ~10% conversion loss (modeled using an illustrative 90% onboard rectification efficiency assumption), grid electricity consumed (E_grid = E_battery &divide; 0.90) is roughly 11% higher than the net DC energy required to move the vehicle.
+            <em>Charging Efficiency Basis:</em> 90% is an illustrative planning assumption. Actual wall-to-battery charging losses vary by vehicle, charging power, temperature and charging conditions. Battery-side energy discharged while driving and wall-side energy drawn from the utility grid remain distinct quantities.
           </p>
         </div>
 
         <div className="scenario-table" role="region" aria-label="EV driving consumption and charging replenishment matrix">
           <table>
-            <caption>Table 3: Illustrative EV driving consumption scenarios to Level 2 home charging replenishment durations (Modeled EPA baselines)</caption>
+            <caption>Table 3: Illustrative EV driving consumption scenarios to Level 2 home charging replenishment durations (Modeled baselines)</caption>
             <thead>
               <tr>
                 <th scope="col">Vehicle Category &amp; Representative Models</th>
@@ -442,13 +445,13 @@ export default function HowToCalculateEvRangeGuidePage() {
           </table>
         </div>
         <p style={{ fontSize: "0.85rem", color: "var(--muted)", marginTop: "0.75rem", lineHeight: 1.6 }}>
-          <em>*Data Classification &amp; Sourcing: Baseline consumption rates reflect representative EPA Combined Fuel Economy ratings and illustrative modeled engineering scenarios across vehicle classes; they do not represent universal industry constants. Daily 40-mile commutes and 150-mile trip segments are modeled examples. Charge times assume nominal 240V single-phase supply with an illustrative 90% onboard rectifier efficiency. Actual vehicle consumption varies with cruising speed, temperature, topography, and tire inflation; manufacturer documentation and onboard telemetry take precedence.</em>
+          <em>*Data Classification &amp; Sourcing: Baseline consumption rates reflect illustrative modeled engineering scenarios across vehicle classes; they do not represent universal constants. Daily 40-mile commutes and 150-mile trip segments are modeled examples. Charge times assume nominal 240V single-phase supply with an illustrative 90% onboard rectifier efficiency. Actual vehicle consumption varies with cruising speed, temperature, topography, and tire inflation.</em>
         </p>
 
         {/* Contextual Planning Pathways */}
         <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(min(100%, 260px), 1fr))", gap: "1rem", margin: "1.5rem 0" }}>
           <div style={{ padding: "1.25rem", borderRadius: "0.75rem", background: "var(--surface-subtle, #fafafa)", border: "1px solid var(--line)" }}>
-            <h3 style={{ margin: "0 0 0.35rem", fontSize: "1rem", color: "var(--brand-strong)" }}>⏱️ Calculate Exact Recharge Hours</h3>
+            <h3 style={{ margin: "0 0 0.35rem", fontSize: "1rem", color: "var(--brand-strong)" }}>⏱️ Estimate Recharge Hours</h3>
             <p style={{ fontSize: "0.84rem", color: "var(--muted)", margin: "0 0 0.75rem", lineHeight: 1.5 }}>
               Model custom battery capacities (50 to 130+ kWh), charge taper profiles, and starting-to-target State of Charge windows.
             </p>
@@ -481,13 +484,13 @@ export default function HowToCalculateEvRangeGuidePage() {
 
       {/* Section 7: Rules of Thumb */}
       <section id="rules-of-thumb" style={{ marginTop: "2.5rem" }}>
-        <h2>7. Engineering Rules of Thumb for Maximizing Real-World EV Range</h2>
+        <h2>7. Engineering Guidelines for Real-World EV Range Planning</h2>
         <ul style={{ lineHeight: 1.65, color: "var(--ink)", paddingLeft: "1.25rem" }}>
-          <li><strong>Precondition While Plugged Into Level 2 EVSE:</strong> Always use your vehicle app to warm the battery pack and cabin to 70°F 20 minutes before departure while connected to grid power. This saves 4 to 6 kWh of battery capacity for the road. (See our <Link href="/guides/level-2-ev-charging-speed-and-breaker-sizing-guide">Level 2 EV Charging Speed Guide</Link>).</li>
-          <li><strong>The 65 mph Sweet Spot:</strong> Dropping interstate speed from 75 mph to 68 mph recovers <strong>12% to 15% more range</strong> with minimal trip time penalty (arriving just 5 minutes later per 60 miles driven).</li>
-          <li><strong>Use Heated Seats and Steering Wheel Over Cabin Air:</strong> Heated seats consume only 40 to 60 Watts of direct conduction heat, compared to 3,000 to 5,000 Watts for forced-air resistive cabin blowers.</li>
-          <li><strong>Maintain Correct Tire Cold Inflation Pressure:</strong> Every 10°F drop in ambient temperature reduces tire pressure by 1 PSI. Under-inflated tires increase rolling resistance, penalizing driving range by 3% to 5%.</li>
-          <li><strong>Install Aerodynamic Wheel Covers:</strong> Aero wheel inserts smooth turbulent airflow over wheel wells, delivering an empirical <strong>+3% to +5% range improvement</strong> at 70+ mph highway speeds.</li>
+          <li><strong>Precondition While Connected to EVSE:</strong> Preconditioning while connected to Level 2 power can supply some cabin and battery heating energy from the grid instead of the traction battery, potentially reducing battery energy used after departure. (See our <Link href="/guides/level-2-ev-charging-speed-and-breaker-sizing-guide">Level 2 EV Charging Speed Guide</Link>).</li>
+          <li><strong>Cruising Speed Management:</strong> Moderating highway speeds from 75 mph to around 65–68 mph significantly reduces aerodynamic drag power demand with modest trip time differences.</li>
+          <li><strong>Use Heated Seats and Steering Wheel Over Cabin Air:</strong> Heated seats consume direct conduction heat (typically 40 to 60 Watts), compared to higher power draws for forced-air resistive cabin blowers.</li>
+          <li><strong>Maintain Correct Tire Cold Inflation Pressure:</strong> Ambient temperature drops reduce tire pressure, increasing rolling resistance and energy consumption per mile.</li>
+          <li><strong>Aerodynamic Considerations:</strong> Smooth wheel inserts and minimizing roof-mounted accessories reduce turbulent airflow, improving high-speed efficiency.</li>
         </ul>
 
         <StandardsBadge category="ev" />
@@ -521,7 +524,7 @@ export default function HowToCalculateEvRangeGuidePage() {
           <div style={{ padding: "1.25rem", borderRadius: "0.75rem", background: "var(--surface-subtle, #fafafa)", border: "1px solid var(--line)" }}>
             <h3 style={{ margin: "0 0 0.5rem", fontSize: "1.05rem", color: "var(--brand-strong)" }}>⏱️ EV Charging Time Calculator</h3>
             <p style={{ fontSize: "0.88rem", color: "var(--muted)", margin: "0 0 0.75rem", lineHeight: 1.5 }}>
-              Model charge duration across 120V Level 1, 240V Level 2, and 350 kW DC Fast Chargers with taper curves.
+              Model charge duration across 120V Level 1, 240V Level 2, and DC Fast Chargers with taper curves.
             </p>
             <Link href="/ev/ev-charging-time-calculator" className="button secondary-button" style={{ width: "100%", textAlign: "center", display: "block" }}>
               EV Charging Time Calculator →
@@ -551,7 +554,7 @@ export default function HowToCalculateEvRangeGuidePage() {
           <div style={{ padding: "1.25rem", borderRadius: "0.75rem", background: "var(--surface-subtle, #fafafa)", border: "1px solid var(--line)" }}>
             <h3 style={{ margin: "0 0 0.5rem", fontSize: "1.05rem", color: "var(--brand-strong)" }}>💵 EV vs. Gas Savings Calculator</h3>
             <p style={{ fontSize: "0.88rem", color: "var(--muted)", margin: "0 0 0.75rem", lineHeight: 1.5 }}>
-              Compare cents-per-mile electricity rates against gallons of gasoline to compute your exact annual fuel savings.
+              Compare cents-per-mile electricity rates against gasoline costs to estimate annual fuel savings.
             </p>
             <Link href="/ev/ev-savings-calculator" className="button secondary-button" style={{ width: "100%", textAlign: "center", display: "block" }}>
               EV Savings Calculator →
@@ -566,6 +569,13 @@ export default function HowToCalculateEvRangeGuidePage() {
         </div>
       </section>
 
+      <section>
+        <h2>Methodology and Standards</h2>
+        <p>
+          This guide combines simplified energy-balance calculations with technical reference material. Values presented as assumptions or examples should be treated as planning estimates, not vehicle-specific specifications or certification criteria. See our <Link href="/methodology">methodology</Link> and <Link href="/sources">sources</Link>.
+        </p>
+      </section>
+
       <div style={{ marginTop: "2rem", textAlign: "center" }}>
         <AcademicCitationModal
           title="How to Calculate EV Driving Range &amp; Efficiency Guide"
@@ -575,3 +585,4 @@ export default function HowToCalculateEvRangeGuidePage() {
     </article>
   );
 }
+

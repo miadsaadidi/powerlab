@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { siteConfig } from "@/lib/site-config";
 import { buildGuideStructuredData } from "@/lib/seo/structured-data";
 import { AcCostCalculator } from "@/components/calculator/ac-cost-calculator";
 import { DirectAnswerCard } from "@/components/seo/direct-answer-card";
@@ -13,7 +12,7 @@ import { buildPageMetadata } from "@/lib/seo/metadata-helper";
 
 export const metadata: Metadata = buildPageMetadata({
   title: "Central AC & Heat Pump Electricity Cost Guide",
-  description: "Calculate central AC and heat pump electricity costs. Master SEER2, tonnage power draw, compressor duty cycles, and operating cost formulas.",
+  description: "Estimate central AC and heat pump electricity costs. Understand SEER2 ratings, tonnage electrical demand proxies, compressor duty cycles, and operating cost formulas.",
   canonicalPath: "/guides/central-ac-and-heat-pump-electricity-cost-guide",
   category: "home-energy",
   isArticle: true,
@@ -22,34 +21,34 @@ export const metadata: Metadata = buildPageMetadata({
 const FAQS = [
   {
     question: "How many watts does a 3-ton central air conditioner use?",
-    answer: "A standard 3-ton (36,000 BTU/hr) central air conditioner with a modern SEER2 rating of 14.5 to 16 draws approximately 2,250 to 2,500 continuous running watts while the compressor and outdoor fan are active. Older 10-SEER units draw 3,500 to 3,800 watts for the same cooling capacity.",
+    answer: "Based on a simplified SEER2 planning proxy (P = Btu/hr ÷ (SEER2 × 1,000)), a standard 3-ton (36,000 BTU/hr) central air conditioner rated at 14.5 to 16 SEER2 represents an estimated electrical power input of approximately 2,250 to 2,500 continuous running watts while the compressor and outdoor fan are active. However, actual rated input varies by equipment model, ambient temperature, and specific operating conditions.",
   },
   {
     question: "How much does it cost to run central AC all day (24 hours)?",
-    answer: "At the U.S. national average electricity price of $0.16/kWh, running a 3-ton central AC costs approximately $3.60 to $5.50 per day during summer heat. Even though the thermostat is set 24 hours a day, the compressor cycles on and off, averaging 9 to 14 total operating hours per day (a 35% to 60% compressor duty cycle).",
+    answer: "At an electricity price of $0.16/kWh, a 3-ton central AC (2.4 kW estimated input proxy) maintaining setpoint over a 24-hour day with a 50% compressor duty cycle runs the compressor for approximately 12 cumulative hours. This consumes about 28.8 kWh/day, costing approximately $4.61/day ($138/month for 30 days). Operating cost depends on actual compressor runtime hours rather than continuous 24-hour compressor operation.",
   },
   {
     question: "Is it cheaper to leave the AC running all day or turn it off when away?",
-    answer: "According to thermodynamics and U.S. Department of Energy (DOE) studies, heat transfer into a home is directly proportional to the indoor-outdoor temperature delta (ΔT). Allowing the house to warm up while away reduces total heat gain, requiring less cumulative energy to cool back down than maintaining a constant low temperature all day. A programmable thermostat setback of 7°F to 10°F saves 10% to 15% on cooling bills.",
+    answer: "Heat transfer into a home is proportional to the indoor-outdoor temperature difference (ΔT). Allowing indoor temperature to float upward while unoccupied reduces cumulative heat gain over the day, requiring less total cooling energy than maintaining a cold setpoint continuously. A thermostat setback of 7°F to 10°F during unoccupied periods typically yields an illustrative 5% to 15% reduction in cooling energy, though actual savings depend on climate, envelope insulation, equipment sizing, and setback duration.",
   },
   {
     question: "What is the difference between SEER and SEER2 ratings?",
-    answer: "SEER2 (Seasonal Energy Efficiency Ratio 2), mandated by the DOE in 2023 under test standard M1, tests HVAC equipment under 0.5 inches of water column (in. w.c.) external static pressure rather than the unrealistic 0.1 to 0.2 in. w.c. used in legacy SEER tests. As a result, SEER2 ratings are nominally 4.5% to 4.7% lower than legacy SEER numbers for the exact same physical equipment (e.g., 14 SEER ≈ 13.4 SEER2).",
+    answer: "SEER2 (Seasonal Energy Efficiency Ratio 2), established under DOE 10 CFR Part 430 and AHRI 210/240 Appendix M1, tests HVAC equipment under 0.50 in. w.c. (inches of water column) external static pressure to represent typical ducted field installations, compared to 0.10 to 0.20 in. w.c. used in legacy SEER tests. Due to higher modeled blower static work, SEER2 ratings are numerically ~4.5% to 4.7% lower than legacy SEER values for equivalent physical equipment (e.g., 14 SEER ≈ 13.4 SEER2).",
   },
   {
     question: "Can a portable generator run a central air conditioner during an outage?",
-    answer: "A central AC's running watts (2,000W–3,500W) can easily fit within a 7,500W–9,000W generator's capacity, but its compressor starting surge (Locked Rotor Amperage or LRA) can instantaneously demand 15,000W to 20,000W (60A–85A at 240V), stalling the generator. Installing a micro-controller soft starter (such as Micro-Air EasyStart) drops inrush current by 65% to 70%, allowing a 3-ton to 4-ton unit to start smoothly on an 8,500W generator.",
+    answer: "Running a 3-ton AC requires ~2,400 running watts, which falls within a 7,500W–9,000W generator's continuous rating. However, motor compressor startup draws Locked Rotor Amperage (LRA) that can reach 75A to 88A at 240V (18 kW to 21 kW instantaneous surge), which can stall a generator. A properly selected electronic soft starter can reduce inrush current (often by 65% to 70% in illustrative tests), but generator compatibility must always be verified using actual running watts, compressor LRA, voltage, soft-starter specifications, and generator surge ratings.",
   },
   {
     question: "When is a heat pump cheaper to run than a natural gas furnace?",
-    answer: "A modern heat pump operating with a Coefficient of Performance (COP) above 3.0 provides heat at lower cost than a natural gas furnace when the local electricity price per kWh is less than ~28 to 30 times the price of natural gas per therm. In moderate winter temperatures (above 35°F / 2°C), heat pumps deliver 300% to 400% efficiency, outperforming even 96% AFUE condensing gas furnaces.",
+    answer: "The break-even electricity rate depends on gas price, furnace AFUE, and heat-pump COP: BreakEven ($/kWh) = GasPrice ($/therm) × COP × 3412 ÷ (100,000 × AFUE). At $1.45/therm, 80% furnace AFUE, and a heat-pump COP of 3.0, the simplified break-even electricity rate is about $0.186/kWh. If electricity is below this rate, heating with the heat pump is cheaper. Actual seasonal economics depend on temperature-dependent COP, cycling, auxiliary heat staging, utility tariffs, and local climate.",
   },
 ];
 
 export default function CentralAcAndHeatPumpGuidePage() {
   const structuredData = buildGuideStructuredData({
     title: "Central AC & Heat Pump Electricity Cost Guide (SEER2, Tons & Power Draw)",
-    description: "Definitive HVAC engineering and energy auditing guide: calculate central AC and heat pump operating cost, SEER2 power demand, compressor cycling, and heat pump vs gas economics.",
+    description: "Practical HVAC energy planning guide: estimate central AC and heat pump operating costs, SEER2 power demand proxies, compressor cycling, and heat pump vs gas economics.",
     route: "/guides/central-ac-and-heat-pump-electricity-cost-guide",
     datePublished: "2026-08-29",
     dateModified: "2026-08-29",
@@ -59,10 +58,12 @@ export default function CentralAcAndHeatPumpGuidePage() {
       "AHRI Standard 210/240 (Unitary Air-Conditioning & Air-Source Heat Pump Equipment)",
       "ASHRAE Standard 90.1 (Energy Standard for Buildings)",
       "U.S. Department of Energy 10 CFR Part 430 (SEER2 / HSPF2 Metric Rules)",
-      "U.S. Energy Information Administration (EIA) RECS Benchmark Data",
+      "U.S. Energy Information Administration (EIA) Residential Energy Data",
       "NFPA 70 / NEC Article 440 (Air-Conditioning and Refrigerating Equipment)",
     ],
     faqs: FAQS,
+    proficiencyLevel: "Beginner to Intermediate",
+    audienceType: "Homeowners, Energy Planners, Property Managers",
   });
 
   return (
@@ -78,19 +79,19 @@ export default function CentralAcAndHeatPumpGuidePage() {
       </nav>
 
       <header className="calculator-header" style={{ border: "1px solid var(--line)", borderRadius: "0.85rem", background: "rgb(255 253 249 / 0.85)", padding: "1.5rem", marginBottom: "0.5rem" }}>
-        <p className="eyebrow">HVAC Energy Auditing &amp; Efficiency Engineering</p>
+        <p className="eyebrow">HVAC Energy Planning &amp; Efficiency Reference</p>
         <h1 style={{ fontSize: "clamp(1.75rem, 3.2vw, 2.5rem)", lineHeight: 1.15, margin: "0.25rem 0 0.75rem" }}>Central AC &amp; Heat Pump Electricity Cost Guide</h1>
         <p className="intro" style={{ margin: 0, fontSize: "1.05rem", color: "var(--ink)" }}>
-          A definitive engineering guide to residential cooling and heating power consumption. Learn how to convert tonnage and SEER2 ratings to kilowatt-hours, model compressor cycling duty cycles, evaluate heat pump vs. natural gas cost parity, and calculate exact hourly, daily, and seasonal operating expenses.
+          A practical HVAC energy-planning guide to residential cooling and heating power consumption. Learn how to convert cooling tonnage and SEER2 ratings into estimated kilowatt-hour consumption, model compressor cycling duty cycles, evaluate heat pump vs. natural gas cost parity, and estimate hourly, daily, and seasonal operating costs.
         </p>
       </header>
 
       <DirectAnswerCard
         keyword="central AC and heat pump electricity cost formula"
-        answer="Running a typical 3-ton central AC or heat pump (14–16 SEER2) costs approximately $0.35 to $0.60 per operating hour, or $3.50 to $6.00 per day at the U.S. national average electricity rate of $0.16/kWh. Steady-state power draw averages 2,250 to 2,800 running watts with a 35% to 65% compressor cycling duty cycle."
-        formula="P (kW) = (Tons × 12,000) ÷ (SEER2 × 1,000) · Hourly Cost = P (kW) × Duty Cycle × Electricity Rate ($/kWh)"
-        standardExample="3-Ton Central AC (36,000 BTU/hr @ 15 SEER2) = 2.4 kW. At 50% duty cycle (1.2 kWh/hr active) and $0.16/kWh, operating cost is $0.192/hr of day, $4.61/day, and ~$138/month."
-        sourceAuthority="AHRI Standard 210/240, ASHRAE 90.1 & U.S. EIA RECS Utility Benchmarks"
+        answer="Running a typical 3-ton central AC (14–16 SEER2) represents an estimated electrical power input of 2,250 to 2,500 watts while actively running. At a 50% compressor duty cycle and an electricity rate of $0.16/kWh, average consumption is about 1.2 kWh per clock hour ($0.192/hr), or approximately $4.61 per 24-hour day ($138/month for 30 days). Actual power draw and operating costs vary with outdoor temperature, equipment specifications, and thermostat schedule."
+        formula="Estimated Input (kW) = Cooling_Capacity_Btu_per_h ÷ (SEER2 × 1,000) · Average Hourly Cost = Estimated_kW × Duty_Cycle × Electricity_Rate ($/kWh)"
+        standardExample="3-Ton Central AC (36,000 BTU/hr @ 15 SEER2) = 2.4 kW estimated input proxy. At 50% duty cycle (1.2 kWh per clock hour) and $0.16/kWh, estimated cost is $0.192 per clock hour, $4.61 per 24-hour day (12 runtime hours), and ~$138.24 per 30-day month."
+        sourceAuthority="AHRI Standard 210/240, ASHRAE 90.1 & U.S. EIA Residential Energy Data (Technical References)"
       />
 
       <PageJumpNav />
@@ -100,7 +101,7 @@ export default function CentralAcAndHeatPumpGuidePage() {
         <div style={{ marginBottom: "1rem" }}>
           <h2 style={{ fontSize: "1.4rem", margin: "0 0 0.5rem" }}>Live Interactive Air Conditioner &amp; Heat Pump Cost Calculator</h2>
           <p style={{ color: "var(--muted)", margin: 0 }}>
-            Configure cooling capacity (BTU or Tons), SEER2 rating, compressor daily run-time, and local electric utility rates to model precise hourly, daily, and monthly cooling expenses.
+            Configure cooling capacity (BTU or Tons), SEER2 rating, compressor daily run-time, and local electric utility rates to model estimated hourly, daily, and monthly cooling expenses.
           </p>
         </div>
         <AcCostCalculator />
@@ -127,17 +128,23 @@ export default function CentralAcAndHeatPumpGuidePage() {
 
         <h3>SEER2, EER, and Electrical Power Draw</h3>
         <p>
-          The electrical power demand of an air conditioner is dictated by its efficiency ratio. The seasonal performance is governed by <strong>SEER2 (Seasonal Energy Efficiency Ratio 2)</strong>, defined under AHRI 210/240 as total cooling output in BTUs divided by total electrical energy input in watt-hours over a standardized cooling season:
+          The electrical energy demand of an air conditioner during the cooling season is characterized by its seasonal efficiency rating. <strong>SEER2 (Seasonal Energy Efficiency Ratio 2)</strong>, defined under AHRI 210/240 and DOE 10 CFR Part 430, represents total cooling output in BTUs divided by total electrical energy input in watt-hours over a standardized seasonal temperature distribution.
+        </p>
+        <p>
+          For general planning when only tonnage and SEER2 are available, electrical power input can be estimated using the simplified planning proxy below:
         </p>
         <MathDisplay
-          title="SEER2 Power Draw Formula"
-          copyText="P_electrical_kW = (Tonnage * 12000) / (SEER2 * 1000)"
-          benchmark="3 Tons @ 15 SEER2 = (3 × 12,000) ÷ 15,000 = 2.40 kW electrical draw"
+          title="SEER2 Power Input Planning Proxy"
+          copyText="Estimated_Input_kW = (Tonnage * 12000) / (SEER2 * 1000)"
+          benchmark="3 Tons @ 15 SEER2 = (3 × 12,000) ÷ 15,000 = 2.40 kW estimated electrical input"
         >
-          P_electrical_kW = (Tonnage × 12000) / (SEER2 × 1000)
+          Estimated_Input_kW = (Tonnage × 12000) / (SEER2 × 1000)
         </MathDisplay>
+        <p className="form-hint" style={{ marginTop: "0.5rem" }}>
+          <em>Simplified planning estimate — actual electrical input varies with operating conditions, outdoor temperatures, and equipment specifications.</em>
+        </p>
         <p>
-          For instantaneous peak summer demand during extreme heat waves (95°F / 35°C outdoor ambient), the system operates closer to its steady-state <strong>EER (Energy Efficiency Ratio)</strong>, which is typically 15% to 20% lower than the seasonal SEER2 number.
+          For peak summer demand during extreme heat waves (95°F / 35°C outdoor ambient), the system operates closer to its steady-state <strong>EER2 (Energy Efficiency Ratio 2)</strong>, which is typically 15% to 20% lower than the seasonal SEER2 value. When manufacturer nameplate electrical ratings or measured wattages are available, they should be used in place of the SEER2 proxy for instantaneous power calculations.
         </p>
       </section>
 
@@ -145,21 +152,21 @@ export default function CentralAcAndHeatPumpGuidePage() {
       <section id="tonnage-sizing-matrix" style={{ marginTop: "2.5rem" }}>
         <h2>2. Central AC Power Draw &amp; Cost by Tonnage (1.5 to 5.0 Tons)</h2>
         <p>
-          Below is an empirical benchmark table showing electrical power demand, daily kilowatt-hour consumption, and estimated monthly operating cost across common residential AC sizes at standard 15 SEER2 efficiency and the U.S. national average electric rate of $0.16/kWh:
+          Below is a planning benchmark table showing estimated electrical power input, daily kilowatt-hour consumption, and estimated monthly operating cost across common residential AC sizes at standard 15 SEER2 efficiency and the U.S. national average electric rate of $0.16/kWh:
         </p>
 
         <div className="scenario-table" style={{ overflowX: "auto", margin: "1.25rem 0" }}>
           <table style={{ width: "100%", borderCollapse: "collapse" }}>
-            <caption>Table 1: Central AC Electrical Demand &amp; Operating Cost by System Size (15 SEER2 @ $0.16/kWh)</caption>
+            <caption>Table 1: Illustrative Central AC Electrical Demand &amp; Operating Cost by System Size (15 SEER2 planning proxy @ $0.16/kWh)</caption>
             <thead>
               <tr>
                 <th scope="col">System Size</th>
                 <th scope="col">Capacity (BTU/hr)</th>
                 <th scope="col">Typical Home Area</th>
-                <th scope="col">Electrical Draw</th>
-                <th scope="col">Daily kWh (10h/day)</th>
+                <th scope="col">Estimated Input Draw</th>
+                <th scope="col">Daily kWh (10h runtime)</th>
                 <th scope="col">Cost / Month (@ $0.16)</th>
-                <th scope="col">Locked Rotor Amps (LRA)</th>
+                <th scope="col">Illustrative Locked Rotor Amps (LRA)</th>
               </tr>
             </thead>
             <tbody>
@@ -229,13 +236,16 @@ export default function CentralAcAndHeatPumpGuidePage() {
             </tbody>
           </table>
         </div>
+        <p className="form-hint">
+          <em>Note: Daily kWh assumes 10 hours of active compressor runtime per day. Monthly costs are modeled at 30 days. Actual power draw and energy consumption depend on local weather, building envelope, and thermostat settings.</em>
+        </p>
       </section>
 
       {/* Section 3: SEER2 vs SEER Efficiency */}
       <section id="seer2-efficiency-comparison" style={{ marginTop: "2.5rem" }}>
         <h2>3. SEER2 Rating Impact: Upgrading Old Equipment</h2>
         <p>
-          Many homeowners operate legacy 10 SEER or 12 SEER air conditioning systems installed in the early 2000s. Because power draw is inversely proportional to the efficiency rating, upgrading to modern equipment yields substantial compounding savings:
+          Many homes operate legacy 10 SEER or 12 SEER air conditioning systems. Because electrical energy demand is inversely related to the efficiency rating, upgrading to modern equipment yields substantial compounding savings:
         </p>
         <MathDisplay
           title="Equipment Upgrade Energy Reduction Ratio"
@@ -245,9 +255,9 @@ export default function CentralAcAndHeatPumpGuidePage() {
           Savings_percent = 1 - (SEER_old / SEER2_new)
         </MathDisplay>
         <ul>
-          <li><strong>Upgrading from 10 SEER to 15.2 SEER2:</strong> Reduces cooling electrical consumption by <strong>36.8%</strong> (saving ~$65 to $110 per peak summer month on a 3-ton unit).</li>
-          <li><strong>Upgrading from 10 SEER to 18 SEER2 (Inverter Variable-Speed):</strong> Reduces electricity usage by <strong>46.7%</strong> while improving humidity removal and eliminating on/off temperature swings.</li>
-          <li><strong>Upgrading from 12 SEER to 20 SEER2:</strong> Delivers a <strong>42.1%</strong> reduction in summer cooling costs.</li>
+          <li><strong>Upgrading from 10 SEER to 15.2 SEER2:</strong> Reduces cooling electrical consumption by approximately <strong>34.2%</strong> (saving ~$60 to $100 per peak summer month on a 3-ton unit).</li>
+          <li><strong>Upgrading from 10 SEER to 18 SEER2 (Inverter Variable-Speed):</strong> Reduces electricity usage by approximately <strong>44.4%</strong> while improving humidity control and reducing temperature swings.</li>
+          <li><strong>Upgrading from 12 SEER to 20 SEER2:</strong> Delivers an estimated <strong>40.0%</strong> reduction in summer cooling electricity consumption.</li>
         </ul>
       </section>
 
@@ -255,20 +265,23 @@ export default function CentralAcAndHeatPumpGuidePage() {
       <section id="heat-pump-vs-gas" style={{ marginTop: "2.5rem" }}>
         <h2>4. Heat Pump Heating Mode vs. Natural Gas Furnace Economics</h2>
         <p>
-          In heating mode, modern air-source heat pumps reverse their refrigeration cycle, extracting thermal energy from cold outdoor air and pumping it inside. Rather than burning fuel at 80%–96% efficiency, heat pumps achieve a <strong>Coefficient of Performance (COP) of 2.5 to 4.2</strong> (generating 2.5 to 4.2 units of heat per unit of electricity consumed).
+          In heating mode, modern air-source heat pumps reverse their refrigeration cycle, extracting thermal energy from outdoor air and delivering it inside. Unlike cooling mode, <strong>heat-pump heating performance is evaluated by HSPF2 (Heating Seasonal Performance Factor 2) or COP (Coefficient of Performance), not SEER2</strong>. A COP of 2.5 to 4.0 means the heat pump delivers 2.5 to 4.0 units of heat energy for each unit of electricity consumed.
         </p>
         <p>
-          To determine whether heating with a heat pump is cheaper than a high-efficiency natural gas furnace, calculate the <strong>Break-Even COP</strong> based on your local utility rates:
+          To determine whether heating with a heat pump is cheaper than a natural gas furnace at a specific operating condition, calculate the <strong>Break-Even Electricity Rate</strong>:
         </p>
         <MathDisplay
-          title="Heat Pump vs. Natural Gas Parity COP"
-          copyText="COP_breakeven = (Rate_elec * 29.3) / (Rate_gas / eta_furnace)"
-          benchmark="At $0.16/kWh and $1.50/therm @ 95% furnace: Break-Even COP = 2.97"
+          title="Heat Pump vs. Natural Gas Break-Even Electricity Rate"
+          copyText="BreakEven_Electricity_Rate = (GasPrice_therm * COP * 3412) / (100000 * AFUE)"
+          benchmark="At $1.45/therm gas, 80% furnace AFUE, and COP 3.0: Break-Even Electricity Rate = $0.186/kWh"
         >
-          COP_breakeven = (Rate_elec × 29.3) / (Rate_gas / η_furnace) = 2.97
+          BreakEven_Electricity_Rate = (GasPrice_therm × COP × 3412) / (100000 × AFUE)
         </MathDisplay>
         <p>
-          Whenever outdoor temperatures allow the heat pump to operate at a COP above 2.97 (typically above 32°F / 0°C for modern cold-climate heat pumps with vapor-injection compressors), heating with the heat pump is cheaper than burning natural gas. Model your exact seasonal heating demand, fuel pricing, and DOE Appendix M1 HSPF2 performance in our interactive <Link href="/home-energy/heat-pump-cost-calculator" style={{ fontWeight: 600, color: "var(--brand-strong)" }}>Heat Pump Running Cost Calculator</Link>.
+          In this example with natural gas at $1.45/therm and an 80% AFUE furnace, a heat pump operating at COP 3.0 provides cheaper heat whenever electricity costs less than <strong>$0.186/kWh</strong>. At $1.50/therm gas with a 95% condensing furnace and $0.16/kWh electricity, the required break-even COP is approximately <strong>2.97</strong>.
+        </p>
+        <p>
+          <em>Note: This simplified comparison evaluates point-condition COP. Actual seasonal heating economics vary with climate temperature bin distributions, defrost cycles, auxiliary electric strip staging, and seasonal HSPF2 ratings. For comprehensive heating modeling, see our dedicated <Link href="/home-energy/heat-pump-cost-calculator" style={{ fontWeight: 600, color: "var(--brand-strong)" }}>Heat Pump Running Cost Calculator</Link>.</em>
         </p>
       </section>
 
@@ -276,34 +289,34 @@ export default function CentralAcAndHeatPumpGuidePage() {
       <section id="compressor-inrush-and-generators" style={{ marginTop: "2.5rem" }}>
         <h2>5. Compressor Inrush Surge &amp; Emergency Generator Sizing</h2>
         <p>
-          While running a 3-ton air conditioner requires only 2,400 running watts, starting the unit poses the single greatest challenge to emergency home backup systems:
+          While running a 3-ton air conditioner requires an estimated 2,400 running watts, starting the single-phase induction compressor motor presents a significant surge load for home backup systems:
         </p>
         <ul>
-          <li><strong>Locked Rotor Amperage (LRA):</strong> At standstill, the single-phase induction compressor motor draws 75 to 88 Amps at 240V for 100 to 300 milliseconds. This represents an instantaneous inrush surge of <strong>18,000 to 21,000 Watts</strong>.</li>
-          <li><strong>Generator Stalling:</strong> Standard 7,500W to 10,000W portable generators experience severe voltage drop and frequency collapse when hit with an instantaneous 18 kW surge, tripping their breakers or stalling the engine.</li>
-          <li><strong>The Soft-Starter Solution:</strong> Installing an electronic soft starter (such as Micro-Air EasyStart or Hyper Engineering SureStart) uses thyristor voltage ramping to reduce starting inrush by <strong>65% to 70%</strong>. This lowers a 75A LRA down to ~22A–25A (under 6,000W surge), enabling a 3-ton or 4-ton unit to start cleanly on an 8,500W generator or a home battery system.</li>
+          <li><strong>Locked Rotor Amperage (LRA):</strong> At standstill, the compressor motor draws an instantaneous starting surge of 75 to 88 Amps at 240V (representing 18,000 to 21,000 Watts) for 100 to 300 milliseconds.</li>
+          <li><strong>Generator Sizing Considerations:</strong> Standard 7,500W to 10,000W portable generators can experience severe voltage drop and frequency sag when subjected to an 18+ kW motor starting surge, potentially tripping breakers or stalling.</li>
+          <li><strong>Soft-Starter Compatibility:</strong> A properly selected electronic soft starter (such as Micro-Air EasyStart or Hyper Engineering SureStart) can reduce starting inrush by an illustrative 65% to 70%, lowering starting surge down to ~22A–26A. However, generator compatibility must always be verified using actual compressor LRA, soft-starter specifications, generator continuous and surge capabilities, and manufacturer installation guidelines.</li>
         </ul>
         <p>
-          To calculate exact generator sizing with motor inrush, use our dedicated <Link href="/home-energy/generator-size-calculator">Generator Size Calculator</Link> or read our deep-dive <Link href="/guides/emergency-generator-sizing-and-inrush-load-guide">Emergency Generator Sizing &amp; Motor Inrush Guide</Link>.
+          To model generator sizing with motor inrush, use our dedicated <Link href="/home-energy/generator-size-calculator">Generator Size Calculator</Link> or consult our <Link href="/guides/emergency-generator-sizing-and-inrush-load-guide">Emergency Generator Sizing &amp; Motor Inrush Guide</Link>.
         </p>
       </section>
 
       {/* Formula Card */}
       <div id="formula-math" style={{ marginTop: "2.5rem" }}>
         <FormulaCard
-          title="Central AC & Heat Pump Operating Cost Formulation"
-          formula="Cost ($) = [(Cooling_BTU / SEER2) / 1000] × Daily_Hours × (Duty_Cycle / 100) × Electricity_Rate × Days"
-          formulaDescription="Determines exact electrical energy consumption and dollar cost by converting rated cooling capacity to continuous electrical kilowatt demand, adjusting for compressor thermostat cycling, and applying local utility tariffs."
+          title="Calculation Formula & Sizing Method"
+          formula="Estimated Cost ($) = [(Cooling_BTU / (SEER2 × 1000))] × Daily_Hours × (Duty_Cycle / 100) × Electricity_Rate × Days"
+          formulaDescription="Provides a simplified planning estimate of electrical energy consumption and operating cost by converting nominal cooling capacity and SEER2 to an estimated kilowatt power proxy, adjusting for compressor cycling duty cycle, and applying local utility tariffs."
           variables={[
-            { symbol: "Cooling_BTU", label: "Rated Cooling Capacity", description: "Nominal heat removal rate (Tons × 12,000 BTU/hr).", unit: "BTU/hr" },
-            { symbol: "SEER2", label: "Seasonal Energy Efficiency", description: "DOE 2023 standardized seasonal cooling efficiency ratio.", unit: "BTU/Wh" },
-            { symbol: "Daily_Hours", label: "Operating Window", description: "Hours per day the cooling system is armed and maintaining setpoint.", unit: "hours" },
-            { symbol: "Duty_Cycle", label: "Compressor Active Percentage", description: "Fraction of time the compressor actively pumps refrigerant (typically 35% to 65%).", unit: "%" },
-            { symbol: "Electricity_Rate", label: "Utility Tariff", description: "All-in cost per kilowatt-hour including generation and distribution.", unit: "$/kWh" },
+            { symbol: "Cooling_BTU", label: "Nominal Cooling Capacity", description: "Rated cooling capacity (Tons × 12,000 BTU/hr).", unit: "BTU/hr" },
+            { symbol: "SEER2", label: "Seasonal Energy Efficiency", description: "DOE standardized seasonal cooling efficiency ratio.", unit: "BTU/Wh" },
+            { symbol: "Daily_Hours", label: "Thermostat Active Window", description: "Hours per day the system is maintaining setpoint.", unit: "hours" },
+            { symbol: "Duty_Cycle", label: "Compressor Active Percentage", description: "Fraction of time the compressor actively cycles (typically 35% to 65%).", unit: "%" },
+            { symbol: "Electricity_Rate", label: "Utility Tariff", description: "Cost per kilowatt-hour including generation and delivery.", unit: "$/kWh" },
           ]}
           notes={[
-            "Window AC units and portable ACs have lower efficiency (typically 10 to 12 CEER) compared to central AC systems (14.5 to 20+ SEER2).",
-            "In extreme heat waves (>100°F), compressor duty cycles can approach 85% to 100% continuous runtime.",
+            "SEER2 is a seasonal efficiency rating; actual instantaneous power varies with ambient temperatures, airflow, and compressor modulation.",
+            "In heating mode, heat pumps use HSPF2 or COP rather than SEER2. Use the dedicated Heat Pump Cost Calculator for heating projections.",
           ]}
         />
       </div>
@@ -325,14 +338,14 @@ export default function CentralAcAndHeatPumpGuidePage() {
       <section id="related-tools" style={{ marginTop: "3rem" }}>
         <h2>Related Energy Planning Calculators &amp; Engineering Guides</h2>
         <p>
-          Continue planning your home energy efficiency, solar sizing, and backup power systems with our verified, ad-free calculators:
+          Calculations run in your browser • No sign-up required. Continue planning your home energy efficiency and backup power systems:
         </p>
         <ul>
           <li>
             <Link href="/home-energy/air-conditioner-cost-calculator"><strong>Air Conditioner Cost Calculator</strong></Link> — Customize room AC units, mini-splits, and central systems with seasonal month projections.
           </li>
           <li>
-            <Link href="/home-energy/heat-pump-cost-calculator"><strong>Heat Pump Running Cost Calculator</strong></Link> — Compare heat pump operating costs against natural gas, propane, and fuel oil.
+            <Link href="/home-energy/heat-pump-cost-calculator"><strong>Heat Pump Running Cost Calculator</strong></Link> — Compare heat pump operating costs against natural gas, propane, and fuel oil across climate zones.
           </li>
           <li>
             <Link href="/home-energy/space-heater-cost-calculator"><strong>Space Heater Cost Calculator</strong></Link> — Calculate operating costs for 500W, 1000W, and 1500W resistance heaters.
@@ -347,22 +360,22 @@ export default function CentralAcAndHeatPumpGuidePage() {
             <Link href="/guides/how-many-kwh-does-a-house-use-per-day"><strong>Daily Household kWh Usage Guide</strong></Link> — See EIA benchmark data for typical residential electric usage by home square footage.
           </li>
           <li>
-            <Link href="/guides/emergency-generator-sizing-and-inrush-load-guide"><strong>Emergency Generator Sizing &amp; Motor Inrush Guide</strong></Link> — Master inductive motor inrush physics and soft-starter sizing for AC compressors.
+            <Link href="/guides/emergency-generator-sizing-and-inrush-load-guide"><strong>Emergency Generator Sizing &amp; Motor Inrush Guide</strong></Link> — Inductive motor inrush physics and soft-starter sizing for AC compressors.
           </li>
           <li>
             <Link href="/datasets/heat-pump-sub-zero-cop-degradation-benchmark"><strong>Benchmark Dataset: Heat Pump Sub-Zero COP Degradation (PL-DS-HVAC-04)</strong></Link> — Open empirical dataset tabulating sub-zero COP retention, compressor power draw, and electric strip heat staging from 47°F down to -15°F.
           </li>
           <li>
-            <Link href="/research/heat-pump-cop-degradation-and-auxiliary-heat-kinetics"><strong>Research Report: Heat Pump COP Degradation &amp; Strip Heat Dynamics (PL-TR-2026-HVAC01)</strong></Link> — Open engineering preprint analyzing sub-zero vapor compression kinetics and auxiliary staging costs.
+            <Link href="/research/heat-pump-cop-degradation-and-auxiliary-heat-kinetics"><strong>Research Report: Heat Pump COP Degradation &amp; Strip Heat Dynamics (PL-TR-2026-HVAC01)</strong></Link> — Engineering preprint analyzing sub-zero vapor compression kinetics and auxiliary staging costs.
           </li>
         </ul>
       </section>
 
-      {/* Academic Citation & Standards */}
+      {/* Academic Citation & Technical References */}
       <section style={{ marginTop: "3rem", padding: "1.5rem", border: "1px solid var(--line)", borderRadius: "0.75rem", background: "var(--surface)" }}>
-        <h3 style={{ margin: "0 0 0.5rem" }}>Engineering Standards &amp; Academic Citation</h3>
+        <h3 style={{ margin: "0 0 0.5rem" }}>Technical References &amp; Model Basis</h3>
         <p style={{ margin: "0 0 1rem", fontSize: "0.95rem", color: "var(--ink)" }}>
-          Calculations adhere to AHRI 210/240, ASHRAE 90.1, DOE 10 CFR Part 430, and U.S. EIA residential consumption data. For full thermodynamic derivations, see our technical report on <Link href="/research/heat-pump-cop-degradation-and-auxiliary-heat-kinetics" style={{ color: "var(--brand-strong)", fontWeight: 700 }}>COP Degradation &amp; Strip Heat Staging (PL-TR-2026-HVAC01)</Link>. Cite this publication for academic research, syllabus planning, or engineering audits:
+          This guide references AHRI Standard 210/240, ASHRAE Standard 90.1, DOE 10 CFR Part 430, and U.S. EIA residential data for contextual HVAC efficiency metrics, test procedures, and utility benchmarks. The formulas presented are simplified planning models and are not certified engineering specifications. For thermodynamic research on low-temperature heating, see our report on <Link href="/research/heat-pump-cop-degradation-and-auxiliary-heat-kinetics" style={{ color: "var(--brand-strong)", fontWeight: 700 }}>COP Degradation &amp; Strip Heat Staging (PL-TR-2026-HVAC01)</Link>. Cite this publication for planning and educational references:
         </p>
         <AcademicCitationModal
           title="Central AC & Heat Pump Electricity Cost Guide"
@@ -375,3 +388,4 @@ export default function CentralAcAndHeatPumpGuidePage() {
     </article>
   );
 }
+

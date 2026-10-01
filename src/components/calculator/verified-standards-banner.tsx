@@ -66,7 +66,7 @@ export function VerifiedStandardsBanner({
 
   return (
     <section
-      aria-label="Verified Engineering Standards & Regulatory Compliance"
+      aria-label="Engineering Standards & Technical References"
       className={`verified-standards-box ${compact ? "compact" : ""} ${className}`.trim()}
       style={{
         width: "100%",
@@ -117,9 +117,9 @@ export function VerifiedStandardsBanner({
             alignItems: "center",
             gap: "0.2rem",
           }}
-          title="View full Regulatory Codes & Physics Specification Matrix"
+          title="View full Standards & Technical References Cross-Reference"
         >
-          <span>Compliance Matrix</span>
+          <span>Standards Directory</span>
           <span aria-hidden="true">→</span>
         </Link>
       </div>
@@ -142,7 +142,7 @@ export function VerifiedStandardsBanner({
               key={std.code}
               href={targetUrl}
               className="standard-pill-tag"
-              title={`${std.code}: ${std.title} (Click to inspect governing clauses)`}
+              title={`${std.code}: ${std.title} (Click to inspect referenced clauses)`}
               style={{
                 display: "inline-flex",
                 alignItems: "center",

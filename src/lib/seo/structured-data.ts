@@ -69,10 +69,12 @@ export function getDomainWikidataEntities(categoryName: string, route: string): 
   } else if (normalizedCategory.includes("battery") || normalizedRoute.includes("battery") || normalizedRoute.includes("ups") || normalizedRoute.includes("inverter")) {
     entities.push(
       { "@type": "Thing", name: "Lithium-ion battery", sameAs: "https://www.wikidata.org/wiki/Q207604" },
-      { "@type": "Thing", name: "Peukert's law", sameAs: "https://www.wikidata.org/wiki/Q7179471" },
       { "@type": "Thing", name: "Energy storage", sameAs: "https://www.wikidata.org/wiki/Q834129" },
       { "@type": "Thing", name: "Power inverter", sameAs: "https://www.wikidata.org/wiki/Q189871" }
     );
+    if (normalizedRoute.includes("peukert")) {
+      entities.push({ "@type": "Thing", name: "Peukert's law", sameAs: "https://www.wikidata.org/wiki/Q7179471" });
+    }
   }
 
   if (normalizedCategory.includes("ev") || normalizedRoute.includes("ev") || normalizedRoute.includes("v2l")) {
@@ -361,6 +363,8 @@ export interface GuideStructuredDataProps {
   faqs?: CalculatorFaq[];
   speakableSelectors?: string[];
   aboutEntities?: Array<{ name: string; sameAs: string }>;
+  proficiencyLevel?: string;
+  audienceType?: string;
 }
 
 export function buildGuideStructuredData({
@@ -375,6 +379,8 @@ export function buildGuideStructuredData({
   faqs,
   speakableSelectors,
   aboutEntities,
+  proficiencyLevel = "Professional",
+  audienceType = "Electrical Engineers, Energy Modelers, Contractors, Homeowners",
 }: GuideStructuredDataProps) {
   const pageUrl = new URL(route, siteConfig.url).toString();
   const categoryUrl = new URL(categoryRoute, siteConfig.url).toString();
@@ -419,11 +425,15 @@ export function buildGuideStructuredData({
       dateModified,
       author: organization,
       publisher: organization,
-      proficiencyLevel: "Professional",
-      audience: {
-        "@type": "Audience",
-        audienceType: "Electrical Engineers, Energy Modelers, Contractors, Homeowners",
-      },
+      ...(proficiencyLevel ? { proficiencyLevel } : {}),
+      ...(audienceType
+        ? {
+            audience: {
+              "@type": "Audience",
+              audienceType,
+            },
+          }
+        : {}),
       about: entities,
       speakable: {
         "@type": "SpeakableSpecification",

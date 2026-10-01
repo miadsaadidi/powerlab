@@ -3,7 +3,7 @@ import type { CalculationResult, AssumptionUsed, CalculationWarning } from "@/ty
 
 export interface HeatPumpCostInput {
   annualHeatingDemandMmbtu: number;
-  heatPumpScop: number; // Seasonal COP e.g. 3.2
+  heatPumpScop: number; // Simplified seasonal COP e.g. 3.2
   electricityRate: number; // $/kWh
   existingFuelType: HeatingFuelType;
   furnaceAfuePercent: number; // e.g. 80% or 96%
@@ -29,11 +29,11 @@ export interface HeatPumpCostResultData {
 
 export type HeatPumpCostResult = CalculationResult<HeatPumpCostResultData>;
 
-// Constants
-const BTU_PER_KWH = 3412.142;
-const BTU_PER_THERM_GAS = 100000;
-const BTU_PER_GALLON_PROPANE = 91500;
-const BTU_PER_GALLON_OIL = 138500;
+// Thermodynamic Constants (Higher Heating Value / Point-of-Use Equivalency)
+export const BTU_PER_KWH = 3412.142;
+export const BTU_PER_THERM_GAS = 100000;
+export const BTU_PER_GALLON_PROPANE = 91500;
+export const BTU_PER_GALLON_OIL = 138500;
 
 export function calculateHeatPumpCost(input: HeatPumpCostInput): HeatPumpCostResult {
   const {
@@ -42,7 +42,7 @@ export function calculateHeatPumpCost(input: HeatPumpCostInput): HeatPumpCostRes
     electricityRate,
     existingFuelType,
     furnaceAfuePercent,
-    gasPricePerTherm = 1.40,
+    gasPricePerTherm = 1.45,
     propanePricePerGallon = 3.20,
     oilPricePerGallon = 4.10,
   } = input;
@@ -62,58 +62,76 @@ export function calculateHeatPumpCost(input: HeatPumpCostInput): HeatPumpCostRes
 
   const totalDeliveredBtu = annualHeatingDemandMmbtu * 1000000;
 
-  // 1. Electric Heat Pump Calculation
+  // 1. Electric Heat Pump Calculation (Full Precision)
   const heatPumpDeliveredBtuPerKwh = BTU_PER_KWH * heatPumpScop;
-  const heatPumpTotalKwh = Math.round(totalDeliveredBtu / heatPumpDeliveredBtuPerKwh);
-  const heatPumpAnnualCost = Number((heatPumpTotalKwh * electricityRate).toFixed(2));
+  const rawHeatPumpKwh = totalDeliveredBtu / heatPumpDeliveredBtuPerKwh;
+  const heatPumpTotalKwh = Math.round(rawHeatPumpKwh);
+  const heatPumpAnnualCost = Number((rawHeatPumpKwh * electricityRate).toFixed(2));
 
-  // 2. Existing Heating System Calculation
-  let existingFuelUnitsConsumed = 0;
+  // 2. Existing Baseline Heating System Calculation
+  let rawFuelUnits = 0;
   let existingFuelUnitLabel = "";
-  let existingSystemAnnualCost = 0;
+  let fuelPrice = 0;
+  let fuelEnergyDensity = 0;
+  let breakEvenElectricityRate = 0;
   const afueFraction = furnaceAfuePercent / 100;
 
   if (existingFuelType === "natural_gas") {
     existingFuelUnitLabel = "Therms";
-    const deliveredBtuPerTherm = BTU_PER_THERM_GAS * afueFraction;
-    existingFuelUnitsConsumed = Number((totalDeliveredBtu / deliveredBtuPerTherm).toFixed(1));
-    existingSystemAnnualCost = Number((existingFuelUnitsConsumed * gasPricePerTherm).toFixed(2));
+    fuelPrice = gasPricePerTherm;
+    fuelEnergyDensity = BTU_PER_THERM_GAS;
+    rawFuelUnits = totalDeliveredBtu / (fuelEnergyDensity * afueFraction);
+    // Break-Even ($/kWh) = (Gas_Price_per_Therm * 3412.142 * COP) / (100,000 * AFUE)
+    breakEvenElectricityRate = (fuelPrice * BTU_PER_KWH * heatPumpScop) / (fuelEnergyDensity * afueFraction);
   } else if (existingFuelType === "propane") {
     existingFuelUnitLabel = "Gallons";
-    const deliveredBtuPerGallon = BTU_PER_GALLON_PROPANE * afueFraction;
-    existingFuelUnitsConsumed = Number((totalDeliveredBtu / deliveredBtuPerGallon).toFixed(1));
-    existingSystemAnnualCost = Number((existingFuelUnitsConsumed * propanePricePerGallon).toFixed(2));
+    fuelPrice = propanePricePerGallon;
+    fuelEnergyDensity = BTU_PER_GALLON_PROPANE;
+    rawFuelUnits = totalDeliveredBtu / (fuelEnergyDensity * afueFraction);
+    // Break-Even ($/kWh) = (Propane_Price_per_Gallon * 3412.142 * COP) / (91,500 * AFUE)
+    breakEvenElectricityRate = (fuelPrice * BTU_PER_KWH * heatPumpScop) / (fuelEnergyDensity * afueFraction);
   } else if (existingFuelType === "heating_oil") {
     existingFuelUnitLabel = "Gallons";
-    const deliveredBtuPerGallon = BTU_PER_GALLON_OIL * afueFraction;
-    existingFuelUnitsConsumed = Number((totalDeliveredBtu / deliveredBtuPerGallon).toFixed(1));
-    existingSystemAnnualCost = Number((existingFuelUnitsConsumed * oilPricePerGallon).toFixed(2));
+    fuelPrice = oilPricePerGallon;
+    fuelEnergyDensity = BTU_PER_GALLON_OIL;
+    rawFuelUnits = totalDeliveredBtu / (fuelEnergyDensity * afueFraction);
+    // Break-Even ($/kWh) = (Oil_Price_per_Gallon * 3412.142 * COP) / (138,500 * AFUE)
+    breakEvenElectricityRate = (fuelPrice * BTU_PER_KWH * heatPumpScop) / (fuelEnergyDensity * afueFraction);
   } else {
-    // Electric Resistance Baseboard (COP = 1.0)
+    // Electric Resistance Baseboard (COP = 1.0, 100% resistance conversion)
     existingFuelUnitLabel = "kWh";
-    existingFuelUnitsConsumed = Math.round(totalDeliveredBtu / BTU_PER_KWH);
-    existingSystemAnnualCost = Number((existingFuelUnitsConsumed * electricityRate).toFixed(2));
+    fuelPrice = electricityRate;
+    fuelEnergyDensity = BTU_PER_KWH;
+    rawFuelUnits = totalDeliveredBtu / BTU_PER_KWH;
+    // Break-Even ($/kWh) = Baseboard Electricity Rate * Heat Pump COP
+    breakEvenElectricityRate = electricityRate * heatPumpScop;
   }
 
+  const existingFuelUnitsConsumed = Number(rawFuelUnits.toFixed(1));
+  const existingSystemAnnualCost = Number((rawFuelUnits * fuelPrice).toFixed(2));
   const annualCostDifference = Number((existingSystemAnnualCost - heatPumpAnnualCost).toFixed(2));
   const isHeatPumpCheaper = annualCostDifference >= 0;
-
-  // Break-even electric rate ($/kWh)
-  const breakEvenElectricityRate = heatPumpTotalKwh > 0 ? Number((existingSystemAnnualCost / heatPumpTotalKwh).toFixed(3)) : 0;
 
   const assumptions: AssumptionUsed[] = [
     {
       key: "btu_per_kwh",
-      value: 3412.14,
+      value: 3412.142,
       unit: "BTU/kWh",
       provenance: "preset",
-      description: "Standard physical energy conversion constant",
+      description: "Standard electrical-to-thermal energy conversion constant",
     },
     {
       key: "fuel_heat_content",
-      value: existingFuelType === "natural_gas" ? "100,000 BTU/Therm" : existingFuelType === "propane" ? "91,500 BTU/Gal" : "138,500 BTU/Gal",
+      value:
+        existingFuelType === "natural_gas"
+          ? "100,000 BTU/Therm"
+          : existingFuelType === "propane"
+          ? "91,500 BTU/Gal"
+          : existingFuelType === "heating_oil"
+          ? "138,500 BTU/Gal"
+          : "3,412.14 BTU/kWh",
       provenance: "preset",
-      description: "Higher Heating Value (HHV) of standard heating fuels",
+      description: "Higher Heating Value (HHV) of baseline heating fuels",
     },
   ];
 
@@ -122,12 +140,12 @@ export function calculateHeatPumpCost(input: HeatPumpCostInput): HeatPumpCostRes
     warnings.push({
       code: "FOSSIL_PRICE_PARITY",
       severity: "info",
-      message: `At your current electricity rate ($${electricityRate}/kWh) and gas price, natural gas is currently slightly cheaper per year. A dual-fuel hybrid system or pairing with solar maximizes savings.`,
+      message: `At your current electricity rate ($${electricityRate}/kWh) and fuel price ($${fuelPrice.toFixed(2)}/${existingFuelUnitLabel}), your baseline heating system is currently estimated to cost less per year under this simplified seasonal model.`,
     });
   }
 
   return {
-    formulaVersion: "1.0.0",
+    formulaVersion: "1.1.0",
     result: {
       annualHeatingDemandMmbtu,
       heatPumpTotalKwh,
@@ -138,7 +156,7 @@ export function calculateHeatPumpCost(input: HeatPumpCostInput): HeatPumpCostRes
       existingSystemAnnualCost,
       annualCostDifference,
       isHeatPumpCheaper,
-      breakEvenElectricityRate,
+      breakEvenElectricityRate: Number(breakEvenElectricityRate.toFixed(4)),
     },
     assumptions,
     warnings,

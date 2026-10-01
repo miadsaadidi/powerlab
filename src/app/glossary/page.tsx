@@ -6,14 +6,14 @@ import Link from "next/link";
 
 export const metadata: Metadata = buildPageMetadata({
   title: "Clean Energy & Electrical Engineering Glossary",
-  description: "Verified engineering terminology, governing equations, SI units, and standards for solar PV, battery storage, HVAC heat pumps, and EV charging.",
+  description: "Engineering terminology, formulas, standards references, and modeling assumptions for solar PV, battery storage, and EV charging.",
   canonicalPath: "/glossary",
 });
 
 export default function GlossaryPage() {
   const structuredData = buildDefinedTermSetStructuredData({
-    name: "PowerLab Clean Energy & Electrical Engineering Terminology Glossary",
-    description: "Authoritative engineering definitions, mathematical formulas, SI units, and Wikidata knowledge graph entities for clean energy planning.",
+    name: "PowerLab Clean Energy & Electrical Engineering Glossary",
+    description: "Engineering terminology, formulas, standards references, and modeling assumptions for clean energy planning.",
     route: "/glossary",
     terms: ENGINEERING_GLOSSARY_TERMS.map((t) => ({
       term: t.term,
@@ -41,22 +41,22 @@ export default function GlossaryPage() {
         </nav>
 
         <div style={{ display: "inline-flex", alignItems: "center", gap: "0.5rem", background: "rgba(2, 132, 199, 0.1)", color: "var(--primary, #0284c7)", padding: "0.3rem 0.75rem", borderRadius: "0.375rem", fontSize: "0.78rem", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.05em", marginBottom: "0.75rem" }}>
-          <span>📚</span> Engineering Terminology &amp; Equations
+          <span>📚</span> Engineering Terminology &amp; Formulas
         </div>
 
         <h1 style={{ fontSize: "2.2rem", fontWeight: 800, color: "var(--text-main, #0f172a)", margin: "0 0 0.75rem", letterSpacing: "-0.02em" }}>
           Clean Energy &amp; Electrical Engineering Glossary
         </h1>
         <p style={{ fontSize: "1.05rem", color: "var(--text-muted, #64748b)", maxWidth: "850px", lineHeight: 1.6 }}>
-          Authoritative definitions, governing physical equations, SI units, and international standards 
-          (<strong>IEEE, NFPA 70 NEC, NREL, ANSI/ASHRAE, and AHRI</strong>) used across PowerLab&apos;s deterministic planning engines.
+          Engineering terminology, physical formulas, standards references, and modeling assumptions 
+          used across PowerLab&apos;s clean energy planning engines.
         </p>
       </header>
 
       {/* Glossary Term Grid */}
       <section aria-labelledby="terms-heading">
         <h2 id="terms-heading" style={{ fontSize: "1.35rem", fontWeight: 700, marginBottom: "1.25rem" }}>
-          Standardized Concepts ({ENGINEERING_GLOSSARY_TERMS.length} Terms)
+          Engineering Concepts ({ENGINEERING_GLOSSARY_TERMS.length} Terms)
         </h2>
 
         <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(320px, 1fr))", gap: "1.5rem" }}>
@@ -142,7 +142,7 @@ export default function GlossaryPage() {
               </div>
 
               <div style={{ borderTop: "1px solid var(--line-subtle, #f1f5f9)", paddingTop: "0.75rem", marginTop: "0.75rem", display: "flex", alignItems: "center", justifyContent: "space-between", fontSize: "0.75rem", color: "var(--text-muted, #64748b)" }}>
-                <span>Standard: <strong>{item.standardReference}</strong></span>
+                <span>Reference: <strong>{item.standardReference}</strong></span>
                 {item.sameAsWikidata && (
                   <a
                     href={item.sameAsWikidata}

@@ -1,10 +1,10 @@
 export const V2L_DEFAULTS = {
   batteryCapacityKwh: 77.4, // Hyundai Ioniq 5 / Kia EV6 standard pack
   startingSocPercent: 90,
-  drivingReservePercent: 20, // 20% protected driving buffer (~50 mi)
+  drivingReservePercent: 20, // 20% protected driving buffer (~15.5 kWh)
   averageLoadWatts: 350, // Refrigerator, Wi-Fi, LED lights, TV, Phone chargers
   v2lMaxOutputWatts: 3600, // 3.6 kW max socket output
-  inverterEfficiencyPercent: 92,
+  inverterEfficiencyPercent: 88,
 } as const;
 
 export const QUICK_V2L_PRESETS = [

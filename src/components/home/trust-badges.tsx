@@ -7,8 +7,8 @@ interface TrustItem {
 const TRUST_ITEMS: TrustItem[] = [
   {
     icon: "🔒",
-    title: "100% Client-Side Privacy",
-    subtitle: "Zero tracking cookies, zero accounts, and zero database logging. Your calculation data stays in your browser.",
+    title: "Client-Side Calculation Processing",
+    subtitle: "Calculation inputs are processed in your browser; the site may use analytics to measure website usage.",
   },
   {
     icon: "📐",
@@ -17,13 +17,13 @@ const TRUST_ITEMS: TrustItem[] = [
   },
   {
     icon: "☀️",
-    title: "NREL PVWatts V8 Verified",
-    subtitle: "Solar calculations use authentic laboratory irradiance data from the National Renewable Energy Laboratory.",
+    title: "NREL PVWatts V8",
+    subtitle: "Solar calculations use NREL PVWatts V8 modeling and NREL solar resource data.",
   },
   {
     icon: "📜",
-    title: "NEC & IEEE Standardized",
-    subtitle: "Safety margins and circuit sizing adhere to National Electrical Code (NEC 690 & 706) and IEEE guidelines.",
+    title: "NEC & IEEE References",
+    subtitle: "Circuit-sizing calculations reference applicable National Electrical Code (NEC) requirements and relevant IEEE guidance.",
   },
 ];
 

@@ -11,7 +11,7 @@ export interface InverterLoadItem {
 export interface InverterSizeInput {
   appliances: InverterLoadItem[];
   batteryVoltage: 12 | 24 | 48;
-  inverterEfficiencyPercent?: number; // default 90%
+  inverterEfficiencyPercent?: number; // default 92%
   safetyHeadroomFraction?: number; // default 0.20 (20%)
   waveformPreference?: "pure_sine" | "modified_sine";
 }
@@ -44,7 +44,7 @@ export function calculateInverterSize(input: InverterSizeInput): InverterSizeRes
   const {
     appliances,
     batteryVoltage,
-    inverterEfficiencyPercent = 90,
+    inverterEfficiencyPercent = 92,
     safetyHeadroomFraction = 0.20,
     waveformPreference = "pure_sine",
   } = input;
@@ -75,26 +75,26 @@ export function calculateInverterSize(input: InverterSizeInput): InverterSizeRes
   const targetPeakSurgeWatts = Math.round(totalSurgeWatts * (1 + safetyHeadroomFraction));
 
   // Standard Commercial Inverter Sizes (Watts)
-  const standardInverterRatings = [300, 600, 1000, 1500, 2000, 3000, 4000, 5000, 6000, 8000, 10000];
+  const standardInverterRatings = [300, 500, 600, 1000, 1500, 2000, 3000, 4000, 5000, 6000, 8000, 10000];
   const recommendedInverterWatts = standardInverterRatings.find((r) => r >= targetContinuousWatts) ?? Math.ceil(targetContinuousWatts / 1000) * 1000;
   const recommendedInverterSurgeWatts = recommendedInverterWatts * 2; // standard 2x surge rating
 
-  // DC Current Draw Calculation
+  // Canonical DC Current Draw Calculation: DC_Amps = AC_Watts / (Battery_Volts * Inverter_Efficiency)
   const efficiencyFrac = Math.max(0.7, Math.min(0.98, inverterEfficiencyPercent / 100));
   const maxContinuousDcAmps = Number(((recommendedInverterWatts / (batteryVoltage * efficiencyFrac))).toFixed(1));
 
-  // Fuse Sizing (1.25 continuous safety factor)
-  const standardFuses = [30, 40, 50, 60, 80, 100, 125, 150, 175, 200, 250, 300, 400, 500];
+  // Illustrative Fuse Sizing (using illustrative 1.25x continuous planning factor)
+  const standardFuses = [30, 40, 50, 60, 80, 100, 125, 150, 175, 200, 250, 300, 350, 400, 500];
   const requiredFuseAmps = maxContinuousDcAmps * 1.25;
   const recommendedDcFuseAmps = standardFuses.find((f) => f >= requiredFuseAmps) ?? Math.ceil(requiredFuseAmps / 50) * 50;
 
-  // Battery Cable Gauge Recommendation (NEC 75°C Copper)
+  // Illustrative Battery Cable Gauge Reference (General 75°C Copper Ampacity Guide)
   let recommendedBatteryCableGauge = "10 AWG";
   if (recommendedDcFuseAmps <= 30) recommendedBatteryCableGauge = "10 AWG";
   else if (recommendedDcFuseAmps <= 50) recommendedBatteryCableGauge = "8 AWG";
   else if (recommendedDcFuseAmps <= 70) recommendedBatteryCableGauge = "6 AWG";
   else if (recommendedDcFuseAmps <= 90) recommendedBatteryCableGauge = "4 AWG";
-  else if (recommendedDcFuseAmps <= 120) recommendedBatteryCableGauge = "2 AWG";
+  else if (recommendedDcFuseAmps <= 125) recommendedBatteryCableGauge = "2 AWG";
   else if (recommendedDcFuseAmps <= 160) recommendedBatteryCableGauge = "1/0 AWG";
   else if (recommendedDcFuseAmps <= 200) recommendedBatteryCableGauge = "2/0 AWG";
   else if (recommendedDcFuseAmps <= 260) recommendedBatteryCableGauge = "4/0 AWG";
@@ -108,14 +108,14 @@ export function calculateInverterSize(input: InverterSizeInput): InverterSizeRes
       value: inverterEfficiencyPercent,
       unit: "%",
       provenance: "preset",
-      description: "Typical DC-to-AC pure sine wave inverter conversion efficiency",
+      description: "Default DC-to-AC pure sine wave inverter conversion efficiency assumption",
     },
     {
       key: "headroom_margin",
       value: Math.round(safetyHeadroomFraction * 100),
       unit: "%",
       provenance: "preset",
-      description: "Continuous operating headroom to avoid triggering inverter overload alarms",
+      description: "Illustrative continuous operating headroom planning margin",
     },
   ];
 
@@ -124,12 +124,12 @@ export function calculateInverterSize(input: InverterSizeInput): InverterSizeRes
     warnings.push({
       code: "HIGH_DC_CURRENT_12V",
       severity: "caution",
-      message: `DC current draw is extremely high (${maxContinuousDcAmps}A at 12V). Stepping up to a 24V or 48V battery bank will cut amperage in half and drastically reduce cable thickness.`,
+      message: `DC current draw is high (${maxContinuousDcAmps}A at 12V). Using a 24V or 48V battery bank reduces current proportionally and reduces required conductor gauge.`,
     });
   }
 
   return {
-    formulaVersion: "1.0.0",
+    formulaVersion: "1.1.0",
     result: {
       totalRunningWatts,
       maxMotorSurgeDelta,

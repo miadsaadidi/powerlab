@@ -6,7 +6,7 @@ export interface V2lRuntimeInput {
   drivingReservePercent?: number; // default 20%
   averageLoadWatts: number;
   v2lMaxOutputWatts?: number; // default 3600W
-  inverterEfficiencyPercent?: number; // default 92%
+  inverterEfficiencyPercent?: number; // default 88%
 }
 
 export interface DayDischargeRow {
@@ -43,7 +43,7 @@ export function calculateV2lRuntime(input: V2lRuntimeInput): V2lRuntimeResult {
     drivingReservePercent = 20,
     averageLoadWatts,
     v2lMaxOutputWatts = 3600,
-    inverterEfficiencyPercent = 92,
+    inverterEfficiencyPercent = 88,
   } = input;
 
   if (!Number.isFinite(batteryCapacityKwh) || batteryCapacityKwh <= 0) {
@@ -56,6 +56,8 @@ export function calculateV2lRuntime(input: V2lRuntimeInput): V2lRuntimeResult {
     throw new Error("Average appliance load (Watts) must be greater than zero.");
   }
 
+  // Canonical V2L Energy & Runtime Model:
+  // Delivered_AC_kWh = Battery_Capacity_kWh * (SOC_start - SOC_reserve) * Inverter_Efficiency
   const startingEnergyKwh = Number((batteryCapacityKwh * (startingSocPercent / 100)).toFixed(2));
   const reserveEnergyKwh = Number((batteryCapacityKwh * (Math.max(0, drivingReservePercent) / 100)).toFixed(2));
   const availableBackupEnergyKwh = Math.max(0, Number((startingEnergyKwh - reserveEnergyKwh).toFixed(2)));
@@ -64,9 +66,9 @@ export function calculateV2lRuntime(input: V2lRuntimeInput): V2lRuntimeResult {
   const deliveredAcEnergyKwh = Number((availableBackupEnergyKwh * efficiencyFrac).toFixed(2));
 
   const totalRuntimeHours = averageLoadWatts > 0 ? Number(((deliveredAcEnergyKwh * 1000) / averageLoadWatts).toFixed(1)) : 0;
-  const totalRuntimeDays = Number((totalRuntimeHours / 24).toFixed(1));
+  const totalRuntimeDays = averageLoadWatts > 0 ? Number(((deliveredAcEnergyKwh * 1000) / (averageLoadWatts * 24)).toFixed(2)) : 0;
 
-  // Preserved driving range (assuming typical 3.3 miles / kWh EV efficiency)
+  // Illustrative preserved driving range (assuming nominal 3.3 miles / kWh EV efficiency)
   const preservedDrivingRangeMiles = Math.round(reserveEnergyKwh * 3.3);
 
   // Overload check
@@ -108,7 +110,7 @@ export function calculateV2lRuntime(input: V2lRuntimeInput): V2lRuntimeResult {
       value: inverterEfficiencyPercent,
       unit: "%",
       provenance: "preset",
-      description: "Vehicle high-voltage DC to 120V/240V AC bidirectional inverter conversion efficiency",
+      description: "Vehicle high-voltage DC to AC bidirectional inverter conversion efficiency (canonical: 88%)",
     },
   ];
 
@@ -130,7 +132,7 @@ export function calculateV2lRuntime(input: V2lRuntimeInput): V2lRuntimeResult {
   }
 
   return {
-    formulaVersion: "1.0.0",
+    formulaVersion: "1.1.0",
     result: {
       totalRuntimeHours,
       totalRuntimeDays,

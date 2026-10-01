@@ -8,7 +8,6 @@ import { createEnergyProfileStore } from "@/lib/energy-profile/store";
 import { MobileResultBar } from "@/components/calculator/mobile-result-bar";
 import { ShareButton } from "@/components/calculator/share-button";
 import { PrintSpecButton } from "@/components/calculator/print-spec-button";
-import { GooglePreferredBanner } from "@/components/calculator/google-preferred-banner";
 import { CalculatorTrustPill } from "@/components/calculator/calculator-trust-pill";
 import { EmbedModal } from "@/components/calculator/embed-modal";
 import { track } from "@/lib/analytics/analytics";
@@ -278,8 +277,6 @@ export function ElectricityUsageCalculator() {
               Estimated cost: {money(result.dailyCost ?? 0)}/day · {money(result.monthlyCost ?? 0)}/month · {money(result.annualCost ?? 0)}/year
             </p>
           )}
-
-          <GooglePreferredBanner />
 
           <div className="button-row" style={{ marginTop: "0.85rem", display: "flex", gap: "0.5rem", flexWrap: "wrap" }}>
             <ShareButton getShareUrl={() => typeof window !== "undefined" ? window.location.href : ""} />

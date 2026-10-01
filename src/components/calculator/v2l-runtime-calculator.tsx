@@ -7,7 +7,6 @@ import { track } from "@/lib/analytics/analytics";
 import { MobileResultBar } from "@/components/calculator/mobile-result-bar";
 import { ShareButton } from "@/components/calculator/share-button";
 import { PrintSpecButton } from "@/components/calculator/print-spec-button";
-import { GooglePreferredBanner } from "@/components/calculator/google-preferred-banner";
 import { CalculatorTrustPill } from "@/components/calculator/calculator-trust-pill";
 import { StandardsBadge } from "@/components/calculator/standards-badge";
 
@@ -27,6 +26,7 @@ export function V2lRuntimeCalculator() {
         drivingReservePercent: V2L_DEFAULTS.drivingReservePercent,
         averageLoadWatts: V2L_DEFAULTS.averageLoadWatts,
         v2lMaxOutputWatts: V2L_DEFAULTS.v2lMaxOutputWatts,
+        inverterEfficiencyPercent: 88,
       });
     } catch {
       return null;
@@ -48,6 +48,7 @@ export function V2lRuntimeCalculator() {
         drivingReservePercent: reservePercent,
         averageLoadWatts: loadWatts,
         v2lMaxOutputWatts: maxV2lWatts,
+        inverterEfficiencyPercent: 88,
       });
       setCalculated(res);
       setError(null);
@@ -95,6 +96,7 @@ export function V2lRuntimeCalculator() {
                         drivingReservePercent: p.reserve,
                         averageLoadWatts: p.load,
                         v2lMaxOutputWatts: p.maxOutput,
+                        inverterEfficiencyPercent: 88,
                       });
                       setCalculated(res);
                       setStale(false);
@@ -186,10 +188,10 @@ export function V2lRuntimeCalculator() {
                       if (calculated) setStale(true);
                     }}
                   >
-                    <option value="10">10% Reserve (~25 Miles)</option>
-                    <option value="15">15% Reserve (~38 Miles)</option>
-                    <option value="20">20% Reserve (~50 Miles · Recommended)</option>
-                    <option value="30">30% Reserve (~75 Miles · Heavy Buffer)</option>
+                    <option value="10">10% Reserve (Illustrative ~25 Miles)</option>
+                    <option value="15">15% Reserve (Illustrative ~38 Miles)</option>
+                    <option value="20">20% Reserve (Illustrative ~50 Miles · Recommended)</option>
+                    <option value="30">30% Reserve (Illustrative ~75 Miles · Heavy Buffer)</option>
                   </select>
                 </label>
               </div>
@@ -247,18 +249,18 @@ export function V2lRuntimeCalculator() {
               <p className="result-subtext" style={{ fontWeight: 600, marginTop: "-0.25rem", marginBottom: "0.5rem" }}>
                 {calculated.result.totalRuntimeHours} Hours Continuous Power at {calculated.result.averageLoadWatts}W
               </p>
-              <StandardsBadge standards={["ISO 15118-20", "SAE J3072", "UL 9741"]} />
+              <StandardsBadge standards={["ISO 15118-20 Reference", "UL 9741 Reference"]} />
 
               {stale && <p className="warning">Inputs changed — recalculate to refresh results.</p>}
 
               {/* Driving Range Safeguard Card */}
               <div style={{ margin: "1rem 0", padding: "1rem", borderRadius: "0.5rem", background: "var(--card-bg, #f8fafc)", border: "1px solid var(--border-color, #e2e8f0)" }}>
                 <div style={{ display: "flex", justifyContent: "space-between", marginBottom: "0.35rem" }}>
-                  <span>🚗 Preserved Driving Range:</span>
+                  <span>🚗 Illustrative Protected Driving Range:</span>
                   <strong style={{ color: "#0284c7" }}>~{calculated.result.preservedDrivingRangeMiles} Miles</strong>
                 </div>
                 <div style={{ display: "flex", justifyContent: "space-between", fontSize: "0.85rem", color: "var(--text-muted, #64748b)" }}>
-                  <span>Emergency Reserve Energy:</span>
+                  <span>Reserved Emergency Energy:</span>
                   <span>{calculated.result.reserveEnergyKwh} kWh ({reservePercent}%)</span>
                 </div>
               </div>
@@ -277,9 +279,9 @@ export function V2lRuntimeCalculator() {
                   <dd>{calculated.result.averageLoadWatts} W</dd>
                 </div>
                 <div>
-                  <dt>Socket Overload Status</dt>
+                  <dt>Inverter Loading Status</dt>
                   <dd style={{ color: calculated.result.isOverloaded ? "#ef4444" : "#10b981" }}>
-                    {calculated.result.isOverloaded ? "⚠️ Overloaded" : "🟢 Safe Within Limit"}
+                    {calculated.result.isOverloaded ? "⚠️ Exceeds Socket Limit" : "✓ Within Inverter Output Limit"}
                   </dd>
                 </div>
               </dl>
@@ -314,8 +316,6 @@ export function V2lRuntimeCalculator() {
                   </table>
                 </div>
               </section>
-
-              <GooglePreferredBanner />
 
               <div className="button-row" style={{ marginTop: "0.85rem", display: "flex", gap: "0.5rem", flexWrap: "wrap" }}>
                 <ShareButton getShareUrl={getShareUrl} />

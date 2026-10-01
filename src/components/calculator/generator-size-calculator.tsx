@@ -596,7 +596,7 @@ export function GeneratorSizeCalculator() {
                 </div>
               </dl>
 
-              <div className="button-row" style={{ marginTop: "1rem", display: "flex", gap: "0.5rem", flexWrap: "wrap" }}>
+              <div className="button-row" style={{ marginTop: "0.85rem", display: "flex", gap: "0.5rem", flexWrap: "wrap" }}>
                 <ShareButton getShareUrl={getShareUrl} />
                 <PrintSpecButton />
               </div>
@@ -609,4 +609,3 @@ export function GeneratorSizeCalculator() {
     </section>
   );
 }
-

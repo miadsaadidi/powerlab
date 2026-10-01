@@ -5,14 +5,14 @@ import { COMPREHENSIVE_STANDARDS_LIST } from "@/data/standards-registry";
 import { FormulaCopyButton } from "@/components/standards/formula-copy-button";
 
 export const metadata: Metadata = {
-  title: "Standards & Code Compliance Matrix",
+  title: "Energy Engineering Standards & Technical References | PowerLab",
   description:
-    "Cross-reference index linking IEEE, NFPA 70 NEC, NREL PVWatts, SAE, and UL engineering standards to PowerLab calculation engines and physical formulas.",
+    "Cross-reference index mapping IEEE, NFPA 70 (NEC), NREL PVWatts, SAE, and UL engineering standards and models to PowerLab calculation methods.",
   alternates: { canonical: `${siteConfig.url}/standards` },
   openGraph: {
-    title: "Standards & Code Compliance Matrix — PowerLab",
+    title: "Energy Engineering Standards & Technical References — PowerLab",
     description:
-      "Direct bidirectional mapping connecting IEEE, NFPA 70 NEC, NREL, SAE, and UL codes to deterministic physical calculations.",
+      "Cross-reference index mapping IEEE, NFPA 70 (NEC), NREL, SAE, and UL codes and technical models to PowerLab calculation methods.",
     url: `${siteConfig.url}/standards`,
     siteName: siteConfig.name,
     locale: "en_US",
@@ -22,15 +22,15 @@ export const metadata: Metadata = {
         url: `${siteConfig.url}/opengraph-image`,
         width: 1200,
         height: 630,
-        alt: "Standards & Code Compliance Matrix — PowerLab",
+        alt: "Energy Engineering Standards & Technical References — PowerLab",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Standards & Code Compliance Matrix — PowerLab",
+    title: "Energy Engineering Standards & Technical References — PowerLab",
     description:
-      "Direct bidirectional mapping connecting IEEE, NFPA 70 NEC, NREL, SAE, and UL codes to deterministic physical calculations.",
+      "Cross-reference index mapping IEEE, NFPA 70 (NEC), NREL, SAE, and UL codes and technical models to PowerLab calculation methods.",
     images: [`${siteConfig.url}/opengraph-image`],
   },
 };
@@ -39,9 +39,9 @@ export default function StandardsPage() {
   const structuredData = {
     "@context": "https://schema.org",
     "@type": "TechArticle",
-    headline: "Energy Engineering Standards & Code Compliance Matrix",
+    headline: "Energy Engineering Standards & Technical References Cross-Reference",
     description:
-      "Direct bidirectional mapping connecting IEEE, NFPA 70 (NEC), NREL, SAE, and UL engineering codes directly to PowerLab calculation engines.",
+      "Cross-reference mapping connecting IEEE, NFPA 70 (NEC), NREL, SAE, and UL engineering codes and models to PowerLab calculation methods.",
     url: `${siteConfig.url}/standards`,
     author: {
       "@type": "Organization",
@@ -61,7 +61,7 @@ export default function StandardsPage() {
             <Link href="/" style={{ color: "var(--text-muted)", textDecoration: "none" }}>Home</Link>
           </li>
           <li>/</li>
-          <li style={{ color: "var(--ink)", fontWeight: 600 }} aria-current="page">Standards &amp; Codes</li>
+          <li style={{ color: "var(--ink)", fontWeight: 600 }} aria-current="page">Standards &amp; Technical References</li>
         </ol>
       </nav>
 
@@ -85,7 +85,7 @@ export default function StandardsPage() {
           }}
         >
           <span>📜</span>
-          <span>Regulatory Codes &amp; Physics Specification Matrix</span>
+          <span>Technical Standards &amp; Engineering References</span>
         </div>
 
         <h1 style={{ fontSize: "clamp(2rem, 4vw, 2.75rem)", fontWeight: 800, color: "var(--ink)", letterSpacing: "-0.02em", margin: "0 0 0.75rem", lineHeight: 1.2 }}>
@@ -93,7 +93,7 @@ export default function StandardsPage() {
         </h1>
 
         <p style={{ fontSize: "1.05rem", color: "var(--text-muted)", maxWidth: "880px", lineHeight: 1.6, margin: 0 }}>
-          Direct bidirectional mapping connecting American National Standards (ANSI), IEEE, NFPA 70 (National Electrical Code), NREL PVWatts V8, SAE International, and UL/IEC ratings to the exact deterministic algorithms and interactive calculators that enforce them.
+          Maps relevant standards, codes, models, and technical references to PowerLab calculation methods and interactive calculators.
         </p>
       </header>
 
@@ -112,7 +112,7 @@ export default function StandardsPage() {
               boxShadow: "0 4px 16px rgba(0, 0, 0, 0.03)",
             }}
           >
-            {/* Top row: Standard Code badge + Edition */}
+            {/* Top row: Standard Code badge + Authority + Category + Edition */}
             <div
               style={{
                 display: "flex",
@@ -123,7 +123,7 @@ export default function StandardsPage() {
                 marginBottom: "0.75rem",
               }}
             >
-              <div style={{ display: "flex", alignItems: "center", gap: "0.6rem" }}>
+              <div style={{ display: "flex", alignItems: "center", gap: "0.6rem", flexWrap: "wrap" }}>
                 <span
                   style={{
                     background: "var(--bg-secondary, #f8fafc)",
@@ -150,6 +150,18 @@ export default function StandardsPage() {
                 >
                   {std.authority}
                 </span>
+                <span
+                  style={{
+                    background: "rgba(100, 116, 139, 0.12)",
+                    color: "var(--text-muted, #475569)",
+                    fontSize: "0.75rem",
+                    fontWeight: 600,
+                    padding: "0.2rem 0.55rem",
+                    borderRadius: "4px",
+                  }}
+                >
+                  {std.category}
+                </span>
               </div>
               <span style={{ fontSize: "0.82rem", color: "var(--text-muted)" }}>{std.edition}</span>
             </div>
@@ -163,7 +175,7 @@ export default function StandardsPage() {
             </p>
 
             <p style={{ fontSize: "0.88rem", color: "var(--text-muted)", lineHeight: 1.5, marginBottom: "1.5rem" }}>
-              💡 <strong>Regulatory Authority:</strong> {std.regulatoryAuthority}
+              💡 <strong>Classification &amp; Context:</strong> {std.context}
             </p>
 
             {/* Clauses */}
@@ -178,7 +190,7 @@ export default function StandardsPage() {
                   borderBottom: "1px solid var(--border-color, #e2e8f0)",
                 }}
               >
-                Governing Clauses &amp; Enforced Mathematical Models
+                Referenced Clauses &amp; Mathematical Models
               </h3>
 
               {std.clauses.map((clause, idx) => (
@@ -264,10 +276,10 @@ export default function StandardsPage() {
                     </div>
                   </div>
 
-                  {/* Enforcing Calculators */}
+                  {/* Related Calculators */}
                   <div style={{ display: "flex", flexWrap: "wrap", alignItems: "center", gap: "0.5rem" }}>
                     <span style={{ fontSize: "0.78rem", fontWeight: 600, color: "var(--text-muted)" }}>
-                      Enforcing Calculators:
+                      Related Calculators:
                     </span>
                     {clause.enforcingCalculators.map((calc) => (
                       <Link
@@ -308,3 +320,4 @@ export default function StandardsPage() {
     </article>
   );
 }
+

@@ -76,14 +76,6 @@ const rootStructuredData = {
       description: siteConfig.description,
       publisher: { "@id": `${siteConfig.url}/#organization` },
       inLanguage: "en-US",
-      potentialAction: {
-        "@type": "SearchAction",
-        target: {
-          "@type": "EntryPoint",
-          urlTemplate: `${siteConfig.url}/?q={search_term_string}`,
-        },
-        "query-input": "required name=search_term_string",
-      },
     },
   ],
 };

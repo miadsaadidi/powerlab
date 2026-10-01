@@ -58,9 +58,9 @@ export function ConnectedSystemFlow() {
   return (
     <section className="connected-system-section" style={{ marginTop: "2rem", marginBottom: "2.25rem" }}>
       <div style={{ textAlign: "center", marginBottom: "1.15rem" }}>
-        <p className="eyebrow" style={{ marginBottom: "0.2rem" }}>The Connected Energy Ecosystem</p>
+        <p className="eyebrow" style={{ marginBottom: "0.2rem" }}>Connected Energy Planning Tools</p>
         <h2 style={{ fontSize: "1.45rem", fontWeight: 700, margin: "0 0 0.35rem" }}>
-          One Unified Energy Planning Architecture
+          One Connected Energy Planning Suite
         </h2>
         <p style={{ color: "var(--text-muted)", fontSize: "0.9rem", maxWidth: "680px", margin: "0 auto" }}>
           Your electrical devices, solar production, battery storage, and EV charging are connected in one continuous energy flow:

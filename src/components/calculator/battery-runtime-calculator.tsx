@@ -436,4 +436,3 @@ export function BatteryRuntimeCalculator() {
     <p className="sr-only" role="status" aria-live="polite" aria-atomic="true">{announcement}</p>
   </section>;
 }
-

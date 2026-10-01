@@ -8,7 +8,6 @@ import { track } from "@/lib/analytics/analytics";
 import { MobileResultBar } from "@/components/calculator/mobile-result-bar";
 import { ShareButton } from "@/components/calculator/share-button";
 import { PrintSpecButton } from "@/components/calculator/print-spec-button";
-import { GooglePreferredBanner } from "@/components/calculator/google-preferred-banner";
 import { CalculatorTrustPill } from "@/components/calculator/calculator-trust-pill";
 import { StandardsBadge } from "@/components/calculator/standards-badge";
 
@@ -22,7 +21,7 @@ export function InverterSizeCalculator() {
 
   const [batteryVoltage, setBatteryVoltage] = useState<12 | 24 | 48>(12);
   const [headroom, setHeadroom] = useState<number>(0.20);
-  const [efficiency, setEfficiency] = useState<number>(90);
+  const [efficiency, setEfficiency] = useState<number>(92);
   const [activeCategory, setActiveCategory] = useState<string>("All");
   const [search, setSearch] = useState("");
   const [advancedOpen, setAdvancedOpen] = useState(false);
@@ -37,7 +36,7 @@ export function InverterSizeCalculator() {
           { id: "starlink", label: "Starlink Satellite & Router", runningWatts: 65, surgeWatts: 95, quantity: 1 },
         ],
         batteryVoltage: 12,
-        inverterEfficiencyPercent: 90,
+        inverterEfficiencyPercent: 92,
         safetyHeadroomFraction: 0.20,
       });
     } catch {
@@ -301,15 +300,15 @@ export function InverterSizeCalculator() {
             </fieldset>
 
             <button className="text-button" type="button" aria-expanded={advancedOpen} onClick={() => setAdvancedOpen((o) => !o)}>
-              {advancedOpen ? "Hide" : "Show"} advanced safety headroom &amp; efficiency
+              {advancedOpen ? "Hide" : "Show"} advanced planning headroom &amp; efficiency
             </button>
 
             {advancedOpen && (
               <fieldset className="input-group advanced-settings">
-                <legend>Headroom &amp; Efficiency</legend>
+                <legend>Headroom &amp; Efficiency Assumptions</legend>
                 <div className="field-pair">
                   <label htmlFor="inv-headroom">
-                    Safety Headroom Margin
+                    Illustrative Planning Headroom Margin
                     <select
                       id="inv-headroom"
                       value={String(headroom)}
@@ -319,7 +318,7 @@ export function InverterSizeCalculator() {
                       }}
                     >
                       <option value="0.10">10% Headroom</option>
-                      <option value="0.20">20% Headroom (Standard Recommendation)</option>
+                      <option value="0.20">20% Headroom (Default Planning Margin)</option>
                       <option value="0.30">30% Headroom (Heavy Inductive Motors)</option>
                     </select>
                   </label>
@@ -365,7 +364,7 @@ export function InverterSizeCalculator() {
               <p className="result-subtext" style={{ fontWeight: 600, marginTop: "-0.25rem", marginBottom: "0.5rem" }}>
                 {calculated.result.totalRunningWatts}W Running Load on {calculated.result.batteryVoltage}V DC Battery
               </p>
-              <StandardsBadge standards={["NEC 2023 Art. 445/706", "UL 1741", "IEEE 1547"]} />
+              <StandardsBadge standards={["UL 1741 Reference", "NEC Article 706 Reference"]} />
 
               {stale && <p className="warning">Appliance list changed — recalculate to refresh results.</p>}
 
@@ -376,19 +375,22 @@ export function InverterSizeCalculator() {
                   <strong style={{ color: "#f59e0b" }}>{calculated.result.maxContinuousDcAmps} Amps DC</strong>
                 </div>
                 <div style={{ display: "flex", justifyContent: "space-between", marginBottom: "0.35rem" }}>
-                  <span>Recommended DC Fuse:</span>
+                  <span>Illustrative DC Fuse Sizing:</span>
                   <strong>{calculated.result.recommendedDcFuseAmps} A Class-T / ANL</strong>
                 </div>
                 <div style={{ display: "flex", justifyContent: "space-between", color: "#0284c7", fontWeight: 600, fontSize: "0.85rem" }}>
-                  <span>Minimum Battery Cable:</span>
+                  <span>Illustrative Battery Cable Size:</span>
                   <span>{calculated.result.recommendedBatteryCableGauge} Copper</span>
                 </div>
+                <p style={{ margin: "0.5rem 0 0", fontSize: "0.74rem", color: "var(--text-muted, #64748b)", lineHeight: 1.4 }}>
+                  Illustrative only. Conductor and fuse sizing depend on cable length, allowable voltage drop, terminal ratings, insulation temperature, installation conditions, and equipment manufacturer instructions.
+                </p>
               </div>
 
               {/* Next Step Engineering Handoff */}
               <div style={{ margin: "0.75rem 0 1rem", padding: "0.65rem 0.85rem", borderRadius: "0.5rem", background: "rgba(2, 132, 199, 0.08)", border: "1px solid rgba(2, 132, 199, 0.2)", fontSize: "0.84rem" }}>
-                <span style={{ fontWeight: 700, color: "#0284c7" }}>⚡ Wire Sizing Next Step: </span>
-                <span>Drawing {calculated.result.maxContinuousDcAmps}A DC? Check one-way cable run length with our </span>
+                <span style={{ fontWeight: 700, color: "#0284c7" }}>⚡ Dynamic Conductor Sizing: </span>
+                <span>Drawing {calculated.result.maxContinuousDcAmps}A DC? Calculate required conductor gauge based on one-way run length and target voltage drop with our </span>
                 <Link href="/battery/voltage-drop-calculator" style={{ fontWeight: 700, color: "#0284c7", textDecoration: "underline" }}>
                   Voltage Drop Calculator →
                 </Link>
@@ -404,16 +406,14 @@ export function InverterSizeCalculator() {
                   <dd>{calculated.result.totalSurgeWatts} W</dd>
                 </div>
                 <div>
-                  <dt>Target Sizing (with 20% Headroom)</dt>
+                  <dt>Target Sizing (with 20% Illustrative Headroom)</dt>
                   <dd>{calculated.result.targetContinuousWatts} W</dd>
                 </div>
                 <div>
                   <dt>Recommended Waveform</dt>
-                  <dd>Pure Sine Wave (Safe for Electronics)</dd>
+                  <dd>Pure Sine Wave (Preferred for sensitive electronics &amp; motors)</dd>
                 </div>
               </dl>
-
-              <GooglePreferredBanner />
 
               <div className="button-row" style={{ marginTop: "0.85rem", display: "flex", gap: "0.5rem", flexWrap: "wrap" }}>
                 <ShareButton getShareUrl={getShareUrl} />

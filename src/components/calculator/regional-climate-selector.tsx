@@ -174,7 +174,7 @@ export function RegionalClimateSelector({
           >
             {US_REGIONAL_CLIMATE_DATA.map((item) => (
               <option key={item.stateCode} value={item.stateCode}>
-                {item.state} ({item.metro}) — Zone {item.ashraeClimateZone}
+                {item.state} (Representative: {item.metro}) — Zone {item.ashraeClimateZone}
               </option>
             ))}
           </select>

@@ -49,16 +49,22 @@ export function calculateSpaceHeaterCost(input: SpaceHeaterCostInput): SpaceHeat
   const dutyFraction = Math.max(0.1, Math.min(1.0, dutyCyclePercent / 100));
   const effectiveHourlyKwh = Number(((heaterWatts / 1000) * dutyFraction).toFixed(3));
 
-  const costPerHour = Number((effectiveHourlyKwh * electricityRate).toFixed(4));
-  const costPerNight8h = Number((costPerHour * 8).toFixed(2));
-  const costPerDay = Number((costPerHour * dailyHours).toFixed(2));
-  const costPerMonth = Number((costPerDay * 30.4375).toFixed(2));
+  // Canonical formulas:
+  // Hourly_Cost = (Heater_Watts / 1000) * Duty_Cycle * Electricity_Rate
+  // Daily_Cost = Hourly_Cost * Daily_Hours
+  // Monthly_Cost = Daily_Cost * 30 (canonical 30-day billing month)
+  // Season_Cost = Monthly_Cost * Season_Months
+  const costPerHour = Number(((heaterWatts / 1000) * dutyFraction * electricityRate).toFixed(4));
+  const costPerDay = Number((costPerHour * dailyHours).toFixed(4));
+  const costPerNight8h = Number((costPerHour * 8).toFixed(3));
+  const costPerMonth = Number((costPerDay * 30).toFixed(2));
   const costPerWinterSeason = Number((costPerMonth * winterMonths).toFixed(2));
 
-  // Comparison vs 100% continuous full-blast run
+  // Comparison vs 100% continuous full-blast run (30-day month)
   const continuousHourlyKwh = heaterWatts / 1000;
-  const continuousDailyCost = continuousHourlyKwh * dailyHours * electricityRate;
-  const continuousMonthlyCost = Number((continuousDailyCost * 30.4375).toFixed(2));
+  const continuousHourlyCost = continuousHourlyKwh * electricityRate;
+  const continuousDailyCost = continuousHourlyCost * dailyHours;
+  const continuousMonthlyCost = Number((continuousDailyCost * 30).toFixed(2));
   const thermostatSavingsPerMonth = Math.max(0, Number((continuousMonthlyCost - costPerMonth).toFixed(2)));
 
   const assumptions: AssumptionUsed[] = [
@@ -83,7 +89,7 @@ export function calculateSpaceHeaterCost(input: SpaceHeaterCostInput): SpaceHeat
     warnings.push({
       code: "HIGH_SPACE_HEATER_CONSUMPTION",
       severity: "info",
-      message: "Running a 1,500W space heater for 16+ hours a day adds substantial cost. Using a whole-home heat pump or zone thermostat is up to 300% more energy efficient.",
+      message: "Running a 1,500W space heater for 16+ hours a day adds substantial cost. Using a whole-home heat pump (COP 3.0–4.0 under rating conditions) or zoned thermostat reduces electricity demand significantly.",
     });
   }
 

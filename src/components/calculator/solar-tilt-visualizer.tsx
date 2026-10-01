@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { calculateSeasonalTilts } from "@/lib/calculators/solar-tilt/engine";
 
 interface SolarTiltVisualizerProps {
   tiltAngle: number;
@@ -13,19 +14,21 @@ export function SolarTiltVisualizer({
   latitude,
 }: SolarTiltVisualizerProps) {
   const [selectedSeason, setSelectedSeason] = useState<"year-round" | "summer" | "winter" | "custom">("year-round");
-  const [customAngle, setCustomAngle] = useState<number>(Math.round(tiltAngle));
+  const [customAngle, setCustomAngle] = useState<number>(Number(tiltAngle.toFixed(1)));
 
-  const absLat = Math.min(90, Math.max(0, Math.abs(Number.isFinite(latitude) ? latitude : 34)));
+  const validLat = Number.isFinite(latitude) ? latitude : 34;
+  const absLat = Math.min(90, Math.max(0, Math.abs(validLat)));
 
-  // Approximate solar noon elevations
+  // Canonical seasonal tilt angles from engine
+  const seasonalTilts = calculateSeasonalTilts(validLat);
+  const summerTilt = seasonalTilts.summer;
+  const winterTilt = seasonalTilts.winter;
+  const yearRoundTilt = seasonalTilts.yearRound;
+
+  // Solar noon elevations
   const equinoxElevation = Math.max(5, Math.min(88, 90 - absLat));
   const summerElevation = Math.min(88, Math.max(10, equinoxElevation + 23.45));
   const winterElevation = Math.max(5, Math.min(80, equinoxElevation - 23.45));
-
-  // Calculate seasonal recommendations matching canonical engine
-  const summerTilt = Math.max(0, Math.min(90, Math.round(absLat - 15)));
-  const winterTilt = Math.max(0, Math.min(90, Math.round(absLat + 15)));
-  const yearRoundTilt = Math.max(0, Math.min(90, Math.round(absLat * 0.76 + 3.1)));
 
   const activeTilt = selectedSeason === "summer" 
     ? summerTilt 
@@ -33,7 +36,7 @@ export function SolarTiltVisualizer({
       ? winterTilt 
       : selectedSeason === "custom" 
         ? customAngle 
-        : Math.round(tiltAngle || yearRoundTilt);
+        : (tiltAngle || yearRoundTilt);
 
   const activeSunElevation = selectedSeason === "summer" 
     ? summerElevation 
@@ -259,4 +262,3 @@ export function SolarTiltVisualizer({
     </div>
   );
 }
-

@@ -5,16 +5,16 @@ import { DirectAnswerCard } from "@/components/seo/direct-answer-card";
 import { US_REGIONAL_CLIMATE_DATA } from "@/data/regional-climate-solar-data";
 
 export const metadata: Metadata = {
-  title: "U.S. Solar Insolation & ASHRAE Climatic Data",
+  title: "U.S. Solar Insolation & ASHRAE Climatic Design Data",
   description:
-    "Official NREL Peak Sun Hours, ASHRAE 99% winter/summer design temperatures, and EIA electricity rates for all 50 U.S. states and major metro areas.",
+    "U.S. regional solar Peak Sun Hours (h/day), ASHRAE 99% winter and 1% summer design temperatures, reference tilt angles, and EIA residential electricity rates.",
   alternates: {
     canonical: `${siteConfig.url}/solar/regional-climate-data`,
   },
   openGraph: {
-    title: "U.S. Solar Insolation & ASHRAE Climatic Database — PowerLab",
+    title: "U.S. Solar Resource & ASHRAE Climatic Design Database — PowerLab",
     description:
-      "Deterministic NREL solar radiation benchmarks, ASHRAE climate zones, design temperatures, and EIA electricity prices across all 50 states.",
+      "U.S. regional solar Peak Sun Hours (h/day), ASHRAE climate zones, design temperatures, and EIA electricity rates across all 50 states and metro regions.",
     url: `${siteConfig.url}/solar/regional-climate-data`,
     siteName: siteConfig.name,
     locale: "en_US",
@@ -24,15 +24,15 @@ export const metadata: Metadata = {
         url: `${siteConfig.url}/solar/opengraph-image`,
         width: 1200,
         height: 630,
-        alt: "U.S. Solar Insolation & ASHRAE Climatic Database — PowerLab",
+        alt: "U.S. Solar Resource & ASHRAE Climatic Design Database — PowerLab",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "U.S. Solar Insolation & ASHRAE Climatic Database — PowerLab",
+    title: "U.S. Solar Resource & ASHRAE Climatic Design Database — PowerLab",
     description:
-      "Deterministic NREL solar radiation benchmarks, ASHRAE climate zones, design temperatures, and EIA electricity prices across all 50 states.",
+      "U.S. regional solar Peak Sun Hours (h/day), ASHRAE climate zones, design temperatures, and EIA electricity rates across all 50 states and metro regions.",
     images: [`${siteConfig.url}/solar/opengraph-image`],
   },
 };
@@ -55,31 +55,26 @@ export default function RegionalClimateDataPage() {
       {
         "@type": "Dataset",
         "@id": `${pageUrl}#dataset`,
-        name: "United States Regional Solar Irradiance, ASHRAE Climatic Design & Electricity Pricing Dataset",
+        name: "United States Regional Solar Resource, ASHRAE Climatic Design & Electricity Pricing Reference Dataset",
         description:
-          "Comprehensive engineering dataset containing NREL NSRDB annual average peak sun hours (kWh/m²/day), ASHRAE Handbook Fundamentals 99% winter and 1% summer dry-bulb design temperatures, optimal fixed solar tilt angles, and U.S. EIA residential electric rates across all 50 states.",
+          "Engineering reference dataset compiling solar Peak Sun Hours (h/day) derived from NREL NSRDB multi-year solar irradiance data, ASHRAE Handbook Fundamentals 99% winter and 1% summer dry-bulb design temperatures for representative weather stations, reference annual fixed solar tilt angles, and U.S. EIA residential electricity rates across 54 meteorological stations covering all 50 U.S. states and metro areas.",
         url: pageUrl,
         keywords: [
           "Solar Insolation by State",
           "Peak Sun Hours by State",
           "ASHRAE 99% Design Temperatures",
           "ASHRAE 1% Design Temperatures",
-          "Optimal Solar Tilt Angle by State",
+          "Reference Solar Tilt Angle by State",
           "Electricity Cost per kWh by State",
           "ASHRAE Climate Zones",
         ],
         creator: {
           "@type": "Organization",
-          name: "PowerLab Engineering & Energy Modeling Team",
+          name: "PowerLab",
           url: siteConfig.url,
-          sameAs: [
-            "https://dataverse.harvard.edu/dataverse/powerlab",
-            "https://independent.academia.edu/PowerLabEngineering",
-          ],
         },
         license: "https://creativecommons.org/licenses/by/4.0/",
         isAccessibleForFree: true,
-        temporalCoverage: "2024/2026",
         spatialCoverage: {
           "@type": "Place",
           name: "United States",
@@ -89,23 +84,23 @@ export default function RegionalClimateDataPage() {
           },
         },
         variableMeasured: [
-          "Peak Sun Hours (kWh/m2/day)",
+          "Peak Sun Hours (h/day)",
           "ASHRAE 99% Winter Design DB Temperature (deg F)",
           "ASHRAE 1% Summer Design DB Temperature (deg F)",
-          "Optimal Fixed Solar Tilt (deg)",
+          "Reference Fixed Solar Tilt (deg)",
           "Average Residential Electricity Rate ($/kWh)",
         ],
       },
       {
         "@type": "TechArticle",
         "@id": `${pageUrl}#article`,
-        headline: "U.S. Solar Insolation & ASHRAE Climatic Design Data (50 States)",
+        headline: "U.S. Solar Resource & ASHRAE Climatic Design Data Cross-Reference",
         description:
-          "Official NREL Peak Sun Hours, ASHRAE 99% winter / 1% summer design temperatures, and EIA electricity rates for engineering submittals and energy planning.",
+          "Solar Peak Sun Hours (h/day), ASHRAE 99% winter and 1% summer design temperatures, reference tilt angles, and EIA electricity rates for energy planning and HVAC load screening.",
         url: pageUrl,
         mainEntityOfPage: pageUrl,
         datePublished: "2026-08-20",
-        dateModified: "2026-09-02",
+        dateModified: "2026-09-30",
         author: {
           "@type": "Organization",
           name: "PowerLab Engineering Team",
@@ -142,30 +137,51 @@ export default function RegionalClimateDataPage() {
 
       {/* Header */}
       <header style={{ marginBottom: "1.75rem" }}>
+        <div
+          style={{
+            display: "inline-flex",
+            alignItems: "center",
+            gap: "0.45rem",
+            padding: "0.3rem 0.85rem",
+            borderRadius: "9999px",
+            background: "rgba(2, 132, 199, 0.08)",
+            border: "1px solid rgba(2, 132, 199, 0.2)",
+            color: "var(--primary, #0284c7)",
+            fontSize: "0.78rem",
+            fontWeight: 700,
+            textTransform: "uppercase",
+            letterSpacing: "0.05em",
+            marginBottom: "0.75rem",
+          }}
+        >
+          <span>☀️</span>
+          <span>U.S. Solar Resource &amp; Climatic References</span>
+        </div>
+
         <h1 style={{ fontSize: "2rem", fontWeight: 800, color: "var(--text-main, #0f172a)", letterSpacing: "-0.02em", marginBottom: "0.5rem" }}>
-          U.S. Solar Insolation &amp; ASHRAE Climatic Design Database
+          U.S. Solar Resource &amp; ASHRAE Climatic Design Database
         </h1>
-        <p style={{ fontSize: "1.05rem", color: "var(--text-muted, #64748b)", maxWidth: "850px", lineHeight: 1.6 }}>
-          Standardized meteorological benchmarks from the <strong>National Renewable Energy Laboratory (NREL NSRDB &amp; PVWatts V8)</strong>, 
-          <strong>ASHRAE Handbook — Fundamentals (Chapters 14 &amp; 18)</strong>, and the <strong>U.S. Energy Information Administration (EIA)</strong>.
+        <p style={{ fontSize: "1.05rem", color: "var(--text-muted, #64748b)", maxWidth: "880px", lineHeight: 1.6 }}>
+          Meteorological and utility references compiled from the <strong>National Renewable Energy Laboratory (NREL National Solar Radiation Database &amp; PVWatts V8 modeling methodology)</strong>, 
+          <strong>ASHRAE Handbook — Fundamentals (Climatic Design Information)</strong>, and the <strong>U.S. Energy Information Administration (EIA Electric Power Monthly)</strong>.
         </p>
       </header>
 
       {/* Direct Answer Summary Card */}
       <DirectAnswerCard
-        keyword="U.S. Solar Insolation & ASHRAE Climatic Design Data"
-        answer="Solar photovoltaic daily yield is directly proportional to regional Peak Sun Hours (1 PSH = 1,000 W/m² equivalent irradiance for 1 hour), ranging from 3.15 PSH in Alaska to 6.55 PSH in Arizona. For HVAC heat pumps and air conditioning, ASHRAE 99% winter and 1% summer dry-bulb design temperatures determine peak thermal transmission loads, non-linear COP degradation, and auxiliary strip heat staging thresholds."
-        sourceAuthority="NREL NSRDB / PVWatts V8, ANSI/ASHRAE Standard 90.1, & U.S. EIA Electric Power Monthly"
+        keyword="U.S. Solar Resource & ASHRAE Climatic Design Data"
+        answer="Peak Sun Hours (PSH, where 1 PSH = 1 hour of 1,000 W/m² equivalent solar irradiance, or 1 kWh/m²/day of cumulative irradiation) serve as a first-order solar-resource indicator, ranging from 3.15 h/day in Alaska to 6.55 h/day in Arizona. Actual PV production depends on array capacity, azimuth orientation, tilt angle, ambient temperature derating, shading, inverter conversion efficiency, and local microclimate factors. For HVAC systems, ASHRAE 99% winter and 1% summer dry-bulb design temperatures provide station-specific baselines for thermal envelope load sizing and heat pump auxiliary strip heat staging."
+        sourceAuthority="Data & Technical References: NREL NSRDB / PVWatts V8 Model, ASHRAE Handbook — Fundamentals, & U.S. EIA Electric Power Monthly"
       />
 
       {/* Interactive Regional Data Table */}
       <section aria-labelledby="data-table-heading" style={{ marginTop: "2rem" }}>
         <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", flexWrap: "wrap", gap: "1rem", marginBottom: "1rem" }}>
           <h2 id="data-table-heading" style={{ fontSize: "1.35rem", fontWeight: 700, margin: 0 }}>
-            50-State Solar &amp; Climatic Benchmark Table
+            50-State &amp; Regional Solar &amp; Climatic Reference Table
           </h2>
           <span style={{ fontSize: "0.82rem", color: "var(--text-muted, #64748b)", background: "var(--surface, #f8fafc)", padding: "0.3rem 0.65rem", borderRadius: "0.375rem", border: "1px solid var(--line, #e2e8f0)" }}>
-            54 Meteorological Stations Listed
+            54 Representative Weather Stations (50 States + DC &amp; Subdivided Metro Regions)
           </span>
         </div>
 
@@ -175,8 +191,8 @@ export default function RegionalClimateDataPage() {
               <tr style={{ background: "var(--surface-header, #0f172a)", color: "#ffffff", borderBottom: "2px solid #334155" }}>
                 <th style={{ padding: "0.75rem 0.9rem", fontWeight: 700 }}>State &amp; Metro</th>
                 <th style={{ padding: "0.75rem 0.9rem", fontWeight: 700 }}>Zone</th>
-                <th style={{ padding: "0.75rem 0.9rem", fontWeight: 700 }}>☀️ Peak Sun Hours</th>
-                <th style={{ padding: "0.75rem 0.9rem", fontWeight: 700 }}>📐 Opt. Tilt</th>
+                <th style={{ padding: "0.75rem 0.9rem", fontWeight: 700 }}>☀️ Peak Sun Hours (h/day)</th>
+                <th style={{ padding: "0.75rem 0.9rem", fontWeight: 700 }}>📐 Ref. Tilt</th>
                 <th style={{ padding: "0.75rem 0.9rem", fontWeight: 700 }}>❄️ ASHRAE 99% Winter</th>
                 <th style={{ padding: "0.75rem 0.9rem", fontWeight: 700 }}>🔥 ASHRAE 1% Summer</th>
                 <th style={{ padding: "0.75rem 0.9rem", fontWeight: 700 }}>⚡ EIA Rate</th>
@@ -198,7 +214,7 @@ export default function RegionalClimateDataPage() {
                     {row.ashraeClimateZone}
                   </td>
                   <td style={{ padding: "0.7rem 0.9rem", fontWeight: 700 }}>
-                    {row.peakSunHours} <span style={{ fontSize: "0.75rem", color: "var(--text-muted, #64748b)" }}>kWh/m²/d</span>
+                    {row.peakSunHours} <span style={{ fontSize: "0.75rem", color: "var(--text-muted, #64748b)" }}>h/day</span>
                   </td>
                   <td style={{ padding: "0.7rem 0.9rem", fontWeight: 600 }}>
                     {row.optimalTiltDeg}°
@@ -219,13 +235,82 @@ export default function RegionalClimateDataPage() {
         </div>
       </section>
 
+      {/* Methodology & Data Provenance */}
+      <section
+        style={{
+          marginTop: "3rem",
+          padding: "2rem",
+          borderRadius: "0.85rem",
+          background: "var(--surface, #ffffff)",
+          border: "1px solid var(--line, #cbd5e1)",
+          boxShadow: "0 4px 16px rgba(0, 0, 0, 0.03)",
+        }}
+      >
+        <h2 style={{ fontSize: "1.35rem", fontWeight: 700, color: "var(--text-main, #0f172a)", marginBottom: "0.75rem" }}>
+          📐 Methodology &amp; Data Provenance
+        </h2>
+        <p style={{ fontSize: "0.92rem", color: "var(--text-muted, #64748b)", lineHeight: 1.6, marginBottom: "1.5rem" }}>
+          This reference dataset compiles publicly accessible meteorological, solar radiation, and utility statistics into a standardized screening matrix. The following methodology outlines how each variable is defined, sourced, and applied in engineering calculations:
+        </p>
+
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))", gap: "1.5rem" }}>
+          {/* Item 1: Solar Resource & PSH */}
+          <div style={{ background: "var(--surface-card, #f8fafc)", padding: "1.25rem", borderRadius: "0.6rem", border: "1px solid var(--line, #e2e8f0)" }}>
+            <h3 style={{ fontSize: "1rem", fontWeight: 700, color: "var(--text-main, #0f172a)", marginBottom: "0.5rem", display: "flex", alignItems: "center", gap: "0.4rem" }}>
+              <span>☀️</span> Solar Resource &amp; Peak Sun Hours (PSH)
+            </h3>
+            <p style={{ fontSize: "0.84rem", color: "var(--text-muted, #64748b)", lineHeight: 1.55, margin: 0 }}>
+              <strong>Definition:</strong> 1 Peak Sun Hour equals 1 hour of equivalent standard irradiance at 1,000 W/m² (1 PSH = 1 kWh/m²/day of cumulative daily irradiation).<br />
+              <strong>Source:</strong> Derived from multi-year solar irradiance records in the NREL National Solar Radiation Database (NSRDB) and NREL PVWatts V8 modeling runs for south-facing surfaces.<br />
+              <strong>Engineering Note:</strong> PSH is a first-order resource indicator. Actual array energy yield (kWh/yr) requires modeling array DC rating (kW), tilt/azimuth transposition, thermal cell degradation (power temperature coefficient), inverter efficiency, and system losses.
+            </p>
+          </div>
+
+          {/* Item 2: Reference Fixed Solar Tilt */}
+          <div style={{ background: "var(--surface-card, #f8fafc)", padding: "1.25rem", borderRadius: "0.6rem", border: "1px solid var(--line, #e2e8f0)" }}>
+            <h3 style={{ fontSize: "1rem", fontWeight: 700, color: "var(--text-main, #0f172a)", marginBottom: "0.5rem", display: "flex", alignItems: "center", gap: "0.4rem" }}>
+              <span>📐</span> Reference Fixed Solar Tilt Angle
+            </h3>
+            <p style={{ fontSize: "0.84rem", color: "var(--text-muted, #64748b)", lineHeight: 1.55, margin: 0 }}>
+              <strong>Definition:</strong> The fixed module tilt angle (degrees from horizontal) oriented due south (180° azimuth) that maximizes annual cumulative energy capture.<br />
+              <strong>Methodology:</strong> Derived from latitude-based transposition models accounting for atmospheric path length and regional seasonal solar clearness indices (typically latitude minus 2° to 5° across continental U.S. latitudes).
+            </p>
+          </div>
+
+          {/* Item 3: ASHRAE Design Temperatures */}
+          <div style={{ background: "var(--surface-card, #f8fafc)", padding: "1.25rem", borderRadius: "0.6rem", border: "1px solid var(--line, #e2e8f0)" }}>
+            <h3 style={{ fontSize: "1rem", fontWeight: 700, color: "var(--text-main, #0f172a)", marginBottom: "0.5rem", display: "flex", alignItems: "center", gap: "0.4rem" }}>
+              <span>❄️</span> ASHRAE Climatic Design Conditions
+            </h3>
+            <p style={{ fontSize: "0.84rem", color: "var(--text-muted, #64748b)", lineHeight: 1.55, margin: 0 }}>
+              <strong>Source:</strong> <em>ASHRAE Handbook — Fundamentals</em> (Chapter 14: Climatic Design Information).<br />
+              <strong>99% Winter DB:</strong> Ambient dry-bulb temperature exceeded 99% of hours in a typical year (used for peak heating load sizing and cold-climate heat pump staging).<br />
+              <strong>1% Summer DB:</strong> Ambient dry-bulb temperature exceeded only 1% of annual hours (used for peak sensible cooling sizing).<br />
+              <strong>Location Specificity:</strong> Values are specific to the representative airport/weather station listed for each metro area and do not represent a uniform statewide figure.
+            </p>
+          </div>
+
+          {/* Item 4: U.S. EIA Electricity Rates */}
+          <div style={{ background: "var(--surface-card, #f8fafc)", padding: "1.25rem", borderRadius: "0.6rem", border: "1px solid var(--line, #e2e8f0)" }}>
+            <h3 style={{ fontSize: "1rem", fontWeight: 700, color: "var(--text-main, #0f172a)", marginBottom: "0.5rem", display: "flex", alignItems: "center", gap: "0.4rem" }}>
+              <span>⚡</span> U.S. EIA Electricity Rates
+            </h3>
+            <p style={{ fontSize: "0.84rem", color: "var(--text-muted, #64748b)", lineHeight: 1.55, margin: 0 }}>
+              <strong>Source:</strong> U.S. Energy Information Administration (EIA), <em>Electric Power Monthly</em> (Table 5.6.A: Average Price of Electricity to Ultimate Customers by End-Use Sector).<br />
+              <strong>Basis:</strong> State-level weighted average residential retail price ($/kWh).<br />
+              <strong>Variability Note:</strong> Rates represent historical statewide averages. Local retail utility tariffs vary significantly based on time-of-use (TOU) schedules, tiered consumption tiers, and monthly fixed service fees.
+            </p>
+          </div>
+        </div>
+      </section>
+
       {/* Connected Planning Calculators */}
       <section style={{ marginTop: "3rem", padding: "1.75rem", borderRadius: "0.75rem", background: "var(--surface-card, #ffffff)", border: "1px solid var(--line, #e2e8f0)" }}>
         <h2 style={{ fontSize: "1.25rem", fontWeight: 700, marginBottom: "0.75rem" }}>
           Explore Interactive Calculators Using This Dataset
         </h2>
         <p style={{ fontSize: "0.9rem", color: "var(--text-muted, #64748b)", marginBottom: "1.25rem" }}>
-          These deterministic calculators automatically integrate NREL solar radiation tables and ASHRAE design baselines for high-accuracy engineering modeling:
+          These deterministic calculators integrate solar irradiance data and ASHRAE design baselines for engineering modeling:
         </p>
 
         <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(260px, 1fr))", gap: "1rem" }}>
@@ -277,3 +362,4 @@ export default function RegionalClimateDataPage() {
     </div>
   );
 }
+
