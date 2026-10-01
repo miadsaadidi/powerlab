@@ -200,7 +200,7 @@ export default function EvChargingGuidePage() {
             <h3 style={{ marginTop: 0, color: "var(--brand-strong)", fontSize: "1.1rem" }}>🔌 Cord-and-Plug Connection (NEMA 14-50 / 6-50)</h3>
             <ul style={{ paddingLeft: "1.25rem", margin: "0.5rem 0 0", fontSize: "0.92rem", lineHeight: 1.6, color: "var(--muted)" }}>
               <li><strong>Continuous Current Limit:</strong> Restricted to 40 A continuous load on a 50 A branch circuit under NEC 210.19(A) and 210.20 (9.6 kW @ 240 V).</li>
-              <li><strong>GFCI Requirement:</strong> NEC 625.54 and 210.8 mandate GFCI protection on all EV charging receptacles. Upstream Class A GFCI breakers (4–6 mA threshold) can experience nuisance tripping when paired with the EVSE's internal UL 2594 CCID monitor.</li>
+              <li><strong>GFCI Requirement:</strong> NEC 625.54 and 210.8 mandate GFCI protection on all EV charging receptacles. Upstream Class A GFCI breakers (4–6 mA threshold) can experience nuisance tripping when paired with the EVSE&apos;s internal UL 2594 CCID monitor.</li>
               <li><strong>Receptacle Grade:</strong> Continuous duty EV charging subjects receptacles to prolonged thermal stress. Standard builder-grade residential receptacles can degrade over time; industrial-grade or EV-rated receptacles are strongly recommended.</li>
               <li><strong>Portability:</strong> Allows quick disconnection of mobile charging units when traveling or relocating.</li>
             </ul>
@@ -210,7 +210,7 @@ export default function EvChargingGuidePage() {
             <h3 style={{ marginTop: 0, color: "var(--brand-strong)", fontSize: "1.1rem" }}>⚡ Permanently Hardwired (48 A to 80 A Output)</h3>
             <ul style={{ paddingLeft: "1.25rem", margin: "0.5rem 0 0", fontSize: "0.92rem", lineHeight: 1.6, color: "var(--muted)" }}>
               <li><strong>Higher Output Capacity:</strong> Unlocks full 48 A continuous charging (11.52 kW) on a 60 A circuit, or up to 80 A (19.2 kW) on a 100 A circuit.</li>
-              <li><strong>No Dual-GFCI Nuisance Tripping:</strong> Under NEC 625.44, hardwired EVSE does not require an upstream receptacle GFCI breaker. Personnel protection is provided by the EVSE's internal UL 2594 / NEC 625.22 listed CCID system.</li>
+              <li><strong>No Dual-GFCI Nuisance Tripping:</strong> Under NEC 625.44, hardwired EVSE does not require an upstream receptacle GFCI breaker. Personnel protection is provided by the EVSE&apos;s internal UL 2594 / NEC 625.22 listed CCID system.</li>
               <li><strong>Reduced Contact Resistance:</strong> Eliminates plug-to-blade mechanical contact points, reducing terminal thermal degradation and joint heating risks.</li>
               <li><strong>Outdoor Durability:</strong> Provides superior environmental sealing against moisture, dust, and temperature cycling in driveway installations.</li>
             </ul>

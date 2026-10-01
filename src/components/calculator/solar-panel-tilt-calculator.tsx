@@ -35,6 +35,7 @@ export function SolarPanelTiltCalculator() {
   const [compareRoof, setCompareRoof] = useState(false);
   const [roofTilt, setRoofTilt] = useState<number>(30);
   const [azimuth, setAzimuth] = useState<number>(180);
+  const [showSnowScenario, setShowSnowScenario] = useState(false);
   const [advancedOpen, setAdvancedOpen] = useState(false);
   const [systemCapacityKw, setSystemCapacityKw] = useState<number>(SOLAR_DEFAULTS.systemCapacityKw);
   const [moduleType, setModuleType] = useState<number>(SOLAR_DEFAULTS.moduleType);
@@ -77,7 +78,7 @@ export function SolarPanelTiltCalculator() {
   const longitudeError = !Number.isFinite(longitude) ? "Enter a valid longitude." : longitude < -180 || longitude > 180 ? "Longitude must be between -180° and 180°." : null;
   const tilts = useMemo(() => latitudeError ? null : calculateSeasonalTilts(latitude), [latitude, latitudeError]);
   const orientation = useMemo(() => latitudeError ? null : getEquatorFacingAzimuth(latitude), [latitude, latitudeError]);
-  const winterAlbedoGain = useMemo(() => tilts ? calculateGroundAlbedoGain(tilts.winter, "snow") : null, [tilts]);
+  const winterAlbedoGain = useMemo(() => (showSnowScenario && tilts) ? calculateGroundAlbedoGain(tilts.winter, "snow") : null, [tilts, showSnowScenario]);
 
   const saveSolar = (update: Parameters<ReturnType<typeof createEnergyProfileStore>["patchSolar"]>[0]) => {
     createEnergyProfileStore(window.localStorage).patchSolar(update);
@@ -155,7 +156,7 @@ export function SolarPanelTiltCalculator() {
   return <div className="calculator solar-tilt-calculator">
     <div className="calculator-grid">
       <div className="calculator-inputs">
-        <h2>Solar Panel Tilt Angle Calculator</h2>
+        <h2>Find a starting panel angle</h2>
         <CalculatorTrustPill />
 
         <div className="preset-chips-container" role="region" aria-label="Quick Location Presets">
@@ -181,8 +182,8 @@ export function SolarPanelTiltCalculator() {
 
         <RegionalClimateSelector
           applyTarget="solar"
-          title="📍 Regional Solar Tilt & Latitude Presets"
-          description="Select your representative state/metro station to load latitude, starting fixed tilt angle, and NREL annual peak sun hours."
+          title="📍 U.S. Regional Reference Location"
+          description="Select a benchmark state / metro to load representative latitude, PVWatts modeled optimal tilt, and annual peak sun hours."
           onSelectRegion={(region: RegionalClimateData) => {
             setLatitude(region.latitude);
             setLongitude(region.longitude);
@@ -195,12 +196,12 @@ export function SolarPanelTiltCalculator() {
         <form onSubmit={(event) => event.preventDefault()}>
           <fieldset className="input-group">
             <legend>Location</legend>
-            <label htmlFor="solar-latitude">Latitude <span className="form-hint">Example: 34° N (positive for North, negative for South)</span>
+            <label htmlFor="solar-latitude">Latitude <span className="form-hint">Example: 34° N</span>
               <div className="input-with-unit"><input id="solar-latitude" type="number" inputMode="decimal" step="0.01" value={Number.isFinite(latitude) ? latitude : ""} onChange={(event) => updateLatitude(numberOr(event.target.value, Number.NaN))} onBlur={() => setLatitudeTouched(true)} aria-describedby="solar-latitude-help solar-latitude-error" /><span aria-hidden="true">°</span></div>
             </label>
-            <p id="solar-latitude-help" className="form-hint">Latitude is the primary input for the seasonal starting tilt heuristic.</p>
+            <p id="solar-latitude-help" className="form-hint">Use a negative value south of the equator (-90° to +90°).</p>
             {latitudeTouched && latitudeError && <p id="solar-latitude-error" className="error" role="alert">{latitudeError}</p>}
-            <label htmlFor="solar-longitude">Longitude <span className="form-hint">Optional for starting tilt (used for PVWatts production simulation)</span>
+            <label htmlFor="solar-longitude">Longitude <span className="form-hint">Optional for the local tilt estimate</span>
               <div className="input-with-unit"><input id="solar-longitude" type="number" inputMode="decimal" step="0.01" value={Number.isFinite(longitude) ? longitude : ""} onChange={(event) => { const value = numberOr(event.target.value, Number.NaN); setLongitude(value); saveSolar({ longitude: value }); }} /><span aria-hidden="true">°</span></div>
             </label>
             {longitudeError && <p className="error" role="alert">{longitudeError}</p>}
@@ -209,32 +210,46 @@ export function SolarPanelTiltCalculator() {
           </fieldset>
 
           <fieldset className="input-group">
-            <legend>Optional Roof Pitch &amp; Production Comparison</legend>
-            <label className="switch-row" htmlFor="compare-roof"><input id="compare-roof" type="checkbox" checked={compareRoof} onChange={(event) => handleRoofToggle(event.target.checked)} /><span>Compare existing roof pitch vs. starting tilt</span></label>
+            <legend>Optional roof comparison</legend>
+            <label className="switch-row" htmlFor="compare-roof"><input id="compare-roof" type="checkbox" checked={compareRoof} onChange={(event) => handleRoofToggle(event.target.checked)} /><span>Compare my roof</span></label>
             {compareRoof && <>
-              <label htmlFor="roof-tilt">Existing Roof Pitch Angle
+              <label htmlFor="roof-tilt">My roof tilt
                 <div className="input-with-unit"><input id="roof-tilt" type="number" inputMode="decimal" min="0" max="90" step="1" value={roofTilt} onChange={(event) => { const value = numberOr(event.target.value, roofTilt); setRoofTilt(value); saveSolar({ tiltDeg: value }); }} /><span aria-hidden="true">°</span></div>
               </label>
-              <div><span className="field-label">Roof Orientation (Azimuth)</span><div className="chip-row" role="group" aria-label="Roof orientation">{AZIMUTH_PRESETS.map((preset) => <button type="button" className={azimuth === preset.value ? "chip active" : "chip"} key={preset.value} onClick={() => { setAzimuth(preset.value); saveSolar({ azimuthDeg: preset.value }); }}>{preset.label}</button>)}</div></div>
-              <p className="form-hint">Run NREL PVWatts V8 hourly simulation comparing your existing roof pitch with the calculated starting angle.</p>
+              <div><span className="field-label">Orientation</span><div className="chip-row" role="group" aria-label="Roof orientation">{AZIMUTH_PRESETS.map((preset) => <button type="button" className={azimuth === preset.value ? "chip active" : "chip"} key={preset.value} onClick={() => { setAzimuth(preset.value); saveSolar({ azimuthDeg: preset.value }); }}>{preset.label}</button>)}</div></div>
+              <p className="form-hint">Production comparison will use the roof angle and orientation you enter.</p>
             </>}
           </fieldset>
 
-          {compareRoof && (
-            <details open={advancedOpen} onToggle={(event) => { const open = event.currentTarget.open; setAdvancedOpen(open); if (open) track("calculator_advanced_open", { calculator: "solar-panel-tilt" }); }}>
-              <summary>PVWatts Production Simulation Parameters</summary>
-              <div className="input-group">
-                <label htmlFor="solar-system-size">System size (kW)<input id="solar-system-size" type="number" min="0.01" step="0.1" value={systemCapacityKw} onChange={(event) => { const value = numberOr(event.target.value, systemCapacityKw); setSystemCapacityKw(value); saveSolar({ systemCapacityKw: value }); }} /></label>
-                <label htmlFor="solar-module">Module type<select id="solar-module" value={moduleType} onChange={(event) => setModuleType(Number(event.target.value))}>{PVWATTS_MODULE_TYPES.map((item) => <option value={item.value} key={item.value}>{item.label}</option>)}</select></label>
-                <label htmlFor="solar-array">Array type<select id="solar-array" value={arrayType} onChange={(event) => setArrayType(Number(event.target.value))}>{PVWATTS_ARRAY_TYPES.map((item) => <option value={item.value} key={item.value}>{item.label}</option>)}</select></label>
-                <label htmlFor="solar-losses">System losses (%)<input id="solar-losses" type="number" min="0" max="100" step="1" value={lossesPercent} onChange={(event) => setLossesPercent(numberOr(event.target.value, lossesPercent))} /></label>
-                <label htmlFor="solar-dcac">DC/AC ratio<input id="solar-dcac" type="number" min="0.1" step="0.1" value={dcAcRatio} onChange={(event) => setDcAcRatio(numberOr(event.target.value, dcAcRatio))} /></label>
-                <label htmlFor="solar-inverter">Inverter efficiency (%)<input id="solar-inverter" type="number" min="1" max="100" step="1" value={inverterEfficiencyPercent} onChange={(event) => setInverterEfficiencyPercent(numberOr(event.target.value, inverterEfficiencyPercent))} /></label>
-                <label htmlFor="solar-azimuth">Exact roof azimuth (°)<input id="solar-azimuth" type="number" min="0" max="359.99" step="1" value={azimuth} onChange={(event) => { const value = numberOr(event.target.value, azimuth); setAzimuth(value); saveSolar({ azimuthDeg: value }); }} /></label>
-                <p className="form-hint">These are editable PVWatts planning defaults used only for the optional production comparison simulation.</p>
-              </div>
-            </details>
-          )}
+          <fieldset className="input-group">
+            <legend>Optional snow &amp; albedo scenario</legend>
+            <label className="switch-row" htmlFor="snow-scenario">
+              <input
+                id="snow-scenario"
+                type="checkbox"
+                checked={showSnowScenario}
+                onChange={(event) => setShowSnowScenario(event.target.checked)}
+              />
+              <span>Evaluate snow-cover reflection scenario</span>
+            </label>
+            <p className="form-hint">
+              Computes ground-reflected diffuse gain when fresh snow (ρ = 0.70) covers the foreground in front of the array.
+            </p>
+          </fieldset>
+
+          <details open={advancedOpen} onToggle={(event) => { const open = event.currentTarget.open; setAdvancedOpen(open); if (open) track("calculator_advanced_open", { calculator: "solar-panel-tilt" }); }}>
+            <summary>Advanced assumptions</summary>
+            <div className="input-group">
+              <label htmlFor="solar-system-size">System size (kW)<input id="solar-system-size" type="number" min="0.01" step="0.1" value={systemCapacityKw} onChange={(event) => { const value = numberOr(event.target.value, systemCapacityKw); setSystemCapacityKw(value); saveSolar({ systemCapacityKw: value }); }} /></label>
+              <label htmlFor="solar-module">Module type<select id="solar-module" value={moduleType} onChange={(event) => setModuleType(Number(event.target.value))}>{PVWATTS_MODULE_TYPES.map((item) => <option value={item.value} key={item.value}>{item.label}</option>)}</select></label>
+              <label htmlFor="solar-array">Array type<select id="solar-array" value={arrayType} onChange={(event) => setArrayType(Number(event.target.value))}>{PVWATTS_ARRAY_TYPES.map((item) => <option value={item.value} key={item.value}>{item.label}</option>)}</select></label>
+              <label htmlFor="solar-losses">System losses (%)<input id="solar-losses" type="number" min="0" max="100" step="1" value={lossesPercent} onChange={(event) => setLossesPercent(numberOr(event.target.value, lossesPercent))} /></label>
+              <label htmlFor="solar-dcac">DC/AC ratio<input id="solar-dcac" type="number" min="0.1" step="0.1" value={dcAcRatio} onChange={(event) => setDcAcRatio(numberOr(event.target.value, dcAcRatio))} /></label>
+              <label htmlFor="solar-inverter">Inverter efficiency (%)<input id="solar-inverter" type="number" min="1" max="100" step="1" value={inverterEfficiencyPercent} onChange={(event) => setInverterEfficiencyPercent(numberOr(event.target.value, inverterEfficiencyPercent))} /></label>
+              <label htmlFor="solar-azimuth">Exact roof azimuth (°)<input id="solar-azimuth" type="number" min="0" max="359.99" step="1" value={azimuth} onChange={(event) => { const value = numberOr(event.target.value, azimuth); setAzimuth(value); saveSolar({ azimuthDeg: value }); }} /></label>
+              <p className="form-hint">These are editable PVWatts planning defaults, not product specifications.</p>
+            </div>
+          </details>
         </form>
       </div>
 
@@ -247,16 +262,16 @@ export function SolarPanelTiltCalculator() {
           <SolarTiltVisualizer tiltAngle={tilts.yearRound} latitude={latitude} />
 
           <div className="comparison tilt-season-grid"><dl><div><dt>Summer</dt><dd>{tilts.summer}°</dd></div><div className="current-comparison"><dt>Year-round</dt><dd>{tilts.yearRound}°</dd></div><div><dt>Winter</dt><dd>{tilts.winter}°</dd></div></dl></div>
-          <dl className="result-breakdown"><div><dt>Face toward</dt><dd>{orientation.label}{orientation.degrees === null ? "" : ` / ${orientation.degrees}°`}</dd></div><div><dt>Method</dt><dd>Latitude heuristic estimate</dd></div></dl>
+          <dl className="result-breakdown"><div><dt>Face toward</dt><dd>{orientation.label}{orientation.degrees === null ? "" : ` / ${orientation.degrees}°`}</dd></div><div><dt>Method</dt><dd>Latitude starting estimate</dd></div></dl>
 
-          {winterAlbedoGain && (
+          {showSnowScenario && winterAlbedoGain && (
             <div className="albedo-analysis-card" style={{ marginTop: "1rem", padding: "0.85rem", background: "var(--surface-subtle, rgba(255,255,255,0.04))", borderRadius: "8px", border: "1px solid var(--border-subtle, rgba(255,255,255,0.1))" }}>
               <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "0.4rem" }}>
-                <strong style={{ fontSize: "0.85rem", color: "var(--foreground, #fff)" }}>❄️ Ground Albedo &amp; Snow Backscatter (Illustrative)</strong>
-                <span style={{ fontSize: "0.7rem", padding: "2px 6px", background: "rgba(16, 185, 129, 0.15)", color: "#10b981", borderRadius: "4px", fontWeight: 600 }}>Perez Isotropic Model</span>
+                <strong style={{ fontSize: "0.85rem", color: "var(--foreground, #fff)" }}>❄️ Snow Albedo Reflection Scenario</strong>
+                <span style={{ fontSize: "0.7rem", padding: "2px 6px", background: "rgba(59, 130, 246, 0.15)", color: "#60a5fa", borderRadius: "4px", fontWeight: 600 }}>Simplified View-Factor Model</span>
               </div>
               <p className="form-hint" style={{ fontSize: "0.78rem", margin: "0 0 0.5rem 0" }}>
-                Modeled ground view factor ({winterAlbedoGain.groundViewFactor}) at {tilts.winter}° winter tilt with fresh snow albedo (ρ = 0.70):
+                Steep winter tilt ({tilts.winter}°) expands ground view factor ({winterAlbedoGain.groundViewFactor}) to capture ground snow reflection (albedo ρ = 0.70):
               </p>
               <dl style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "0.5rem", fontSize: "0.8rem", margin: 0 }}>
                 <div style={{ background: "rgba(0,0,0,0.15)", padding: "6px 8px", borderRadius: "4px" }}>
@@ -268,10 +283,13 @@ export function SolarPanelTiltCalculator() {
                   <dd style={{ fontWeight: 700, margin: 0 }}>{winterAlbedoGain.snowSheddingEffectiveness.split(" ")[0]}</dd>
                 </div>
               </dl>
+              <p className="form-hint" style={{ fontSize: "0.72rem", margin: "0.4rem 0 0 0" }}>
+                Simplified ground-reflected irradiance estimate (G_horiz × ρ × (1 - cos β) / 2). Actual yield depends on local snow cover duration, horizon obstruction, and soiling.
+              </p>
             </div>
           )}
 
-          <p className="energy-flow-note form-hint">This is a practical planning estimate. Actual generation depends on local shading, roof geometry, weather patterns, and time-of-use utility rates.</p>
+          <p className="energy-flow-note form-hint">This is a practical starting estimate, not a universal optimum. Roof shape, shading and local conditions can change the best practical angle.</p>
 
           <div className="button-row" style={{ marginTop: "0.85rem", display: "flex", gap: "0.5rem", flexWrap: "wrap" }}>
             <ShareButton getShareUrl={getShareUrl} />

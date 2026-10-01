@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import { buildPageMetadata } from "@/lib/seo/metadata-helper";
 import Link from "next/link";
-import { siteConfig } from "@/lib/site-config";
 import { isCalculatorPublished } from "@/lib/calculator-registry";
 import { buildCalculatorStructuredData } from "@/lib/seo/structured-data";
 import { AcCostCalculator } from "@/components/calculator/ac-cost-calculator";
@@ -14,7 +13,7 @@ const isPublished = isCalculatorPublished("ac-cost");
 
 export const metadata: Metadata = buildPageMetadata({
   title: "AC Cost Calculator — Central AC Electricity Cost & SEER2",
-  description: "Calculate air conditioner electricity costs per hour, day & month. Sizing formulas for Central AC, Mini-Splits & Window units with DOE Appendix M1 SEER2 efficiency.",
+  description: "Estimate air conditioner electricity costs per hour, day & month. Sizing formulas for Central AC, Mini-Splits & Window units with DOE Appendix M1 SEER2 efficiency.",
   canonicalPath: "/home-energy/air-conditioner-cost-calculator",
   category: "home-energy",
 });
@@ -22,15 +21,15 @@ export const metadata: Metadata = buildPageMetadata({
 const FAQS = [
   {
     question: "How much does central air conditioning cost to run per month?",
-    answer: "At the U.S. EIA June 2026 residential benchmark rate of 18.34¢/kWh ($0.1834/kWh), a standard 3-ton (36,000 BTU, 15.0 SEER2) central air conditioner operating for 8 clock hours per day at a typical 60% compressor duty cycle consumes approximately 350 kWh per month, costing roughly $64.20 per month. In hot southern climates with 12 to 14 daily operating hours and higher duty cycles, monthly central AC electricity usage typically ranges from 600 to 900 kWh, costing between $110 and $165 per month.",
+    answer: "At the U.S. EIA June 2026 residential benchmark rate of 18.34¢/kWh ($0.1834/kWh), a standard 3-ton (36,000 BTU, 15.0 SEER2 / 2.40 kW rated power) central air conditioner operating for 8 clock hours per day at an illustrative 60% compressor duty-cycle assumption consumes approximately 350.6 kWh per month, costing roughly $64.31 per month. In hot southern climates with 12 to 14 daily operating hours and higher duty cycles, monthly central AC electricity usage typically ranges from 600 to 900 kWh, costing between $110 and $165 per month.",
   },
   {
     question: "How much does it cost to run an air conditioner for 1 hour?",
-    answer: "At the national benchmark rate of 18.34¢/kWh: a small 5,000 BTU window AC (450W active draw) costs about $0.05 to $0.08 per operating hour; a modern 12,000 BTU 22-SEER2 ductless mini-split (545W active draw) costs about $0.06 to $0.10 per operating hour; and a 3-ton (36,000 BTU, 15.0 SEER2) central AC (2,400W nominal draw) costs about $0.26 per clock hour at 60% compressor cycling ($0.44 per continuous active hour).",
+    answer: "At the national benchmark rate of 18.34¢/kWh: a small 5,000 BTU window AC (450W active draw) costs about $0.05 per clock hour at 60% duty ($0.08 per active hour); a modern 12,000 BTU 22-SEER2 ductless mini-split (545W active draw) costs about $0.06 per clock hour ($0.10 per active hour); and a 3-ton (36,000 BTU, 15.0 SEER2) central AC (2,400W nominal draw) costs $0.26 per clock hour at an illustrative 60% compressor duty-cycle assumption ($0.44 per continuous active hour).",
   },
   {
-    question: "What is the difference between SEER and SEER2 under DOE Appendix M1?",
-    answer: "SEER2 (Seasonal Energy Efficiency Ratio 2) replaced legacy SEER in 2023 under DOE 10 CFR Part 430 Appendix M1. The updated test standard raised the external static pressure (ESP) from 0.10–0.20 inches of water column (in. WG) up to 0.50 in. WG to realistically simulate ducted residential air distribution. Because the blower motor works against higher static resistance during testing, the resulting numerical SEER2 rating is approximately 4.5% lower than the legacy SEER rating for equivalent physical hardware. Certified ratings are model-specific under AHRI 210/240-2023.",
+    question: "What is the difference between SEER, SEER2, EER2, CEER, and SACC?",
+    answer: "Different AC equipment categories use distinct rating standards: SEER2 (Seasonal Energy Efficiency Ratio 2) applies to central AC and heat pumps tested under DOE 10 CFR Part 430 Appendix M1 at 0.50 in. WG external static pressure. EER2 measures instantaneous steady-state efficiency at 95°F outdoor design temperature. CEER (Combined Energy Efficiency Ratio) applies to window room air conditioners and includes standby energy consumption. SACC (Seasonally Adjusted Cooling Capacity) applies to portable room air conditioners to account for duct heat infiltration. Ratings should not be treated as interchangeable instantaneous efficiency values.",
   },
   {
     question: "Does Cooling Degree Days (CDD) equal equipment run hours?",
@@ -38,7 +37,7 @@ const FAQS = [
   },
   {
     question: "Why does compressor duty cycle affect my electric bill?",
-    answer: "An air conditioner does not draw continuous peak wattage all day; the compressor cycles on and off once the indoor temperature satisfies the thermostat setpoint. On a moderate 82°F summer day, a properly sized central AC runs roughly 50% to 65% of each clock hour. During peak 95°F+ heatwaves, the compressor may operate at 85% to 100% duty cycle, substantially increasing hourly and daily electricity consumption.",
+    answer: "An air conditioner does not draw continuous peak wattage all day; the compressor cycles on and off once the indoor temperature satisfies the thermostat setpoint. On a moderate 82°F summer day, a properly sized central AC runs at an illustrative 50% to 65% duty-cycle range. During peak 95°F+ heatwaves, duty cycles may reach an illustrative 85% to 100% range, substantially increasing hourly and daily electricity consumption. Actual duty cycle depends on outdoor conditions, indoor setpoint, building envelope, internal heat gains, equipment sizing, controls, humidity, and thermostat behavior.",
   },
   {
     question: "Is it cheaper to leave the AC running all day or set it higher when away?",
@@ -53,12 +52,13 @@ export default function AcCostPage() {
     route: "/home-energy/air-conditioner-cost-calculator",
     categoryName: "Home Energy",
     categoryRoute: "/home-energy",
+    applicationCategory: "UtilitiesApplication",
     features: [
       "BTU cooling capacity and DOE Appendix M1 SEER2 seasonal efficiency modeling",
       "Thermostat compressor duty cycle adjustments for mild vs extreme heatwaves",
       "Calculations for window units, portable ACs, ductless mini-splits, and central air systems",
-      "Annual upgrade savings comparisons against legacy 10 SEER and 13 SEER equipment",
-      "DOE Appendix M1 static pressure derate reference and regional cooling hour analysis",
+      "Annual upgrade savings comparisons against legacy 10 SEER equipment",
+      "DOE Appendix M1 static pressure reference and regional cooling analysis",
     ],
     standards: [
       "AHRI Standard 210/240-2023 (Performance Rating of Unitary Air-Conditioning & Heat Pump Equipment)",
@@ -87,7 +87,7 @@ export default function AcCostPage() {
         <p className="eyebrow">Cooling Bills &amp; HVAC Efficiency</p>
         <h1>Air Conditioner Electricity Cost Calculator</h1>
         <p className="intro">
-          Calculate how much your air conditioner costs to run per hour, per day, and across the entire summer cooling season for central AC systems, ductless mini-splits, and window units using DOE Appendix M1 SEER2 standards.
+          Estimate how much your air conditioner costs to run per hour, per day, and across the summer cooling season for central AC systems, ductless mini-splits, and window units using transparent technical formulas and DOE Appendix M1 SEER2 references.
         </p>
       </div>
 
@@ -97,10 +97,12 @@ export default function AcCostPage() {
 
       <DirectAnswerCard
         keyword="air conditioner electricity cost calculation"
-        answer="Running a standard 3-ton (36,000 BTU) 15.0-SEER2 central air conditioner costs approximately $0.44 per active compressor hour at the U.S. EIA June 2026 residential benchmark of 18.34¢/kWh ($0.1834/kWh). At a realistic 60% compressor duty cycle, it costs $0.26 per clock hour (averaging ~$64/month at 8 hours of daily use). A 5,000 BTU window unit costs ~$0.05 to $0.08/hr, while an 18-SEER2 mini-split costs ~$0.09/hr."
-        formula="Hourly Cost ($/hr) = (BTU Cooling Capacity ÷ SEER2 Rating ÷ 1,000) × Compressor Duty Cycle × Electricity Rate ($/kWh)"
-        standardExample="36,000 BTU unit @ 15.0 SEER2, 60% duty cycle, $0.1834/kWh: (36,000 ÷ 15 ÷ 1,000) × 0.60 × 0.1834 = $0.264 per clock hour ($2.11 per 8-hour day)"
-        sourceAuthority="U.S. Department of Energy (DOE 10 CFR Part 430 Appendix M1) & U.S. EIA June 2026 Benchmark"
+        answer="Running a standard 3-ton (36,000 BTU) 15.0-SEER2 central air conditioner (2.40 kW rated input power) costs approximately $0.44 per active compressor hour at the U.S. EIA June 2026 residential benchmark of 18.34¢/kWh ($0.1834/kWh). At an illustrative 60% compressor duty-cycle assumption, it costs $0.26 per clock hour (averaging ~$64.31/month at 8 hours of daily use). A 5,000 BTU window unit costs ~$0.05/hr (clock hour at 60% duty), while an 18-SEER2 mini-split costs ~$0.08/hr."
+        formulaTitle="Calculation Formulas"
+        formula="Hourly_Active_Cost = Input_kW × Electricity_Rate; Hourly_Clock_Cost = Input_kW × Duty_Cycle × Electricity_Rate"
+        standardExample="36,000 BTU unit @ 15.0 SEER2 (2.40 kW), 60% duty cycle, $0.1834/kWh: Active = 2.40 × 0.1834 = $0.44/hr; Clock = 2.40 × 0.60 × 0.1834 = $0.264/hr ($2.11 per 8-hr day; $64.31/mo)"
+        sourceAuthority="U.S. Department of Energy (DOE 10 CFR Part 430 Appendix M1) &amp; U.S. EIA June 2026 Benchmark"
+        sourceAuthorityLabel="Technical References &amp; Model Basis:"
       />
 
       <PageJumpNav />
@@ -109,20 +111,20 @@ export default function AcCostPage() {
       <section id="how-to-guide" style={{ marginTop: "3rem" }}>
         <h2>How to Calculate Air Conditioner Electricity Cost</h2>
         <p>
-          Calculating central air conditioner electricity consumption and operating costs requires four core engineering variables: nominal cooling capacity (BTU/hr or tons), seasonal cooling efficiency (SEER2), compressor duty cycle, and your local electricity tariff ($/kWh).
+          Estimating air conditioner electricity consumption and operating costs requires distinguishing between active compressor power and clock-hour energy across operating periods. Core variables include rated electrical input (or nominal BTU/hr capacity and seasonal efficiency rating), compressor duty cycle, daily operating hours, and your local electricity tariff ($/kWh).
         </p>
         <ol>
           <li>
-            <strong>Determine Cooling Capacity (BTU/hr or Tons):</strong> One ton of refrigeration equals 12,000 BTU/hr of heat removal. Residential central air conditioners typically range from 1.5 tons (18,000 BTU/hr) to 5.0 tons (60,000 BTU/hr).
+            <strong>Determine Electrical Input Power (kW) or Rated Capacity:</strong> When available from manufacturer nameplates or sub-metering, direct electrical wattage (kW) provides the most direct input power basis. For seasonal planning when nameplate wattage is unavailable, rated cooling capacity (BTU/hr) and efficiency rating (SEER2 / CEER / SACC) provide a simplified planning estimate (<code>Input kW ≈ BTU/hr ÷ Rating ÷ 1,000</code>).
           </li>
           <li>
-            <strong>Check Seasonal Efficiency Rating (SEER2):</strong> Under DOE Appendix M1 standards, SEER2 measures total seasonal heat removed (BTU) divided by total electrical energy consumed (Watt-hours). Higher SEER2 ratings (14.3 to 22+) require fewer electrical watts for equivalent cooling capacity.
+            <strong>Distinguish Active-Hour vs. Clock-Hour Operation:</strong> An air conditioner draws full input wattage during active compressor cycles (<code>Hourly Active Cost = Input kW × Electricity Rate</code>). Because thermostats cycle the compressor on and off, clock-hour energy depends on duty cycle (<code>Hourly Clock Cost = Input kW × Duty Cycle × Electricity Rate</code>).
           </li>
           <li>
-            <strong>Account for Compressor Duty Cycle:</strong> Central AC compressors cycle on and off once indoor temperatures reach the thermostat setpoint. During moderate summer days, properly sized systems operate at roughly 50% to 65% duty cycle. On extreme 95°F+ design days, duty cycles approach 85% to 100%.
+            <strong>Account for Compressor Duty-Cycle Assumptions:</strong> On a moderate summer day, a properly sized system may operate at an illustrative 50% to 65% duty-cycle range. On extreme design-temperature days, duty cycles may reach an illustrative 85% to 100% range. Actual duty cycle depends on outdoor temperature, indoor setpoint, building envelope insulation, solar heat gain, internal loads, and equipment controls.
           </li>
           <li>
-            <strong>Apply Local Electric Utility Tariff ($/kWh):</strong> The national residential electricity benchmark is <strong>18.34¢/kWh ($0.1834/kWh)</strong>, based on U.S. Energy Information Administration (EIA) data from June 2026. Local retail tariffs vary significantly across utility territories. The calculator allows entering your exact local tariff.
+            <strong>Apply Selected Local Electricity Rate ($/kWh):</strong> The U.S. EIA national residential electricity benchmark is <strong>18.34¢/kWh ($0.1834/kWh)</strong> (June 2026). Applying your local utility tariff scales all active-hour, clock-hour, daily, and monthly cost projections synchronously.
           </li>
         </ol>
       </section>
@@ -131,20 +133,20 @@ export default function AcCostPage() {
       <section id="seer-vs-seer2" style={{ margin: "2.5rem 0" }}>
         <h2>SEER vs. SEER2: DOE Appendix M1 Efficiency Standards</h2>
         <p>
-          In January 2023, the U.S. Department of Energy (DOE 10 CFR Part 430 Appendix M1) updated the mandatory test procedure for residential central air conditioners and heat pumps, transitioning from legacy SEER to <strong>SEER2</strong>.
+          In January 2023, the U.S. Department of Energy (DOE 10 CFR Part 430 Appendix M1) updated the test procedure for residential central air conditioners and heat pumps, transitioning from legacy SEER to <strong>SEER2</strong>.
         </p>
         <p>
-          Under the legacy Appendix M test procedure, ducted systems were evaluated at an external static pressure (ESP) of only <strong>0.10 to 0.20 inches of water column (in. WG)</strong>. In real-world ducted installations with supply registers, return grilles, and air filtration, residential duct systems typically present 0.50 in. WG or higher. The updated Appendix M1 standard increased the testing static pressure to <strong>0.50 in. WG</strong> to accurately reflect real-world duct resistance.
+          Under the legacy Appendix M test procedure, ducted systems were evaluated at an external static pressure (ESP) of only <strong>0.10 to 0.20 inches of water column (in. WG)</strong>. In real-world ducted installations with supply registers, return grilles, and air filtration, residential duct systems typically present 0.50 in. WG or higher. The updated Appendix M1 standard increased the testing static pressure to <strong>0.50 in. WG</strong> to represent ducted residential resistance.
         </p>
         <div style={{ background: "rgba(0, 0, 0, 0.02)", padding: "1.25rem", borderRadius: "0.5rem", borderLeft: "4px solid var(--accent)", marginBottom: "1.5rem" }}>
           <p style={{ margin: 0, fontSize: "0.95rem", lineHeight: 1.6 }}>
-            <strong>Important Engineering Distinctions:</strong> SEER2 is not a simple universal mathematical conversion of SEER. Because the indoor blower motor expends more electrical power to overcome the higher 0.50 in. WG static resistance during testing, a ducted system evaluated under Appendix M1 receives a numerical rating roughly <strong>~4.5% lower</strong> than under legacy Appendix M. This ~4.5% difference serves as an <em>approximate screening and comparison aid</em>; certified ratings are model-specific and governed by AHRI Standard 210/240-2023 certification protocols.
+            <strong>Important Technical Distinctions:</strong> SEER2 is a seasonal efficiency rating, not an instantaneous electrical efficiency formula. Because the indoor blower motor expends more electrical power to overcome the 0.50 in. WG static resistance during testing, a ducted system evaluated under Appendix M1 receives a numerical rating roughly <strong>~4.5% lower</strong> than under legacy Appendix M. Certified ratings are model-specific and governed by AHRI Standard 210/240-2023 certification protocols.
           </p>
         </div>
 
         <div className="scenario-table" role="region" aria-label="SEER vs SEER2 efficiency and cost comparison table">
           <table>
-            <caption>Comparison of residential air conditioner efficiency tiers, nominal electrical draw, and relative energy savings</caption>
+            <caption>Comparison of residential air conditioner efficiency tiers, rated electrical power, and relative energy savings</caption>
             <thead>
               <tr>
                 <th scope="col">Efficiency Tier / Era</th>
@@ -224,11 +226,11 @@ export default function AcCostPage() {
       <section id="central-ac-tonnage-matrix">
         <h2>Cost to Run Central Air Conditioning per Hour by Tonnage</h2>
         <p>
-          Central air conditioner operating costs scale directly with cooling capacity (tonnage) and compressor cycling. The table below provides reference metrics for standard residential capacities operating at a <strong>15.0 SEER2 baseline</strong> evaluated at the U.S. EIA June 2026 residential benchmark of <strong>18.34¢/kWh ($0.1834/kWh)</strong>:
+          Central air conditioner operating costs scale directly with cooling capacity (tonnage), compressor cycling, and electricity rate. The table below provides reference metrics for standard residential capacities operating at a <strong>15.0 SEER2 baseline</strong> evaluated at the U.S. EIA June 2026 residential benchmark of <strong>18.34¢/kWh ($0.1834/kWh)</strong>:
         </p>
         <div className="scenario-table" role="region" aria-label="Central AC running cost per hour by tonnage">
           <table>
-            <caption>Central air conditioner electricity consumption and operating cost by tonnage (15.0 SEER2 @ $0.1834/kWh benchmark)</caption>
+            <caption>Central air conditioner electricity consumption and operating cost by tonnage (15.0 SEER2 @ $0.1834/kWh benchmark). Illustrative home size ranges are screening values only; actual HVAC sizing requires a building-load calculation such as ACCA Manual J.</caption>
             <thead>
               <tr>
                 <th scope="col">Capacity (Tons / BTU)</th>
@@ -246,7 +248,7 @@ export default function AcCostPage() {
                 <td>1.20 kW (1,200 W)</td>
                 <td>$0.13 / hr</td>
                 <td>$0.22 / hr</td>
-                <td>$31.69 / mo</td>
+                <td>$32.16 / mo</td>
               </tr>
               <tr>
                 <td><strong>2.0 Ton (24,000 BTU)</strong></td>
@@ -254,7 +256,7 @@ export default function AcCostPage() {
                 <td>1.60 kW (1,600 W)</td>
                 <td>$0.18 / hr</td>
                 <td>$0.29 / hr</td>
-                <td>$42.26 / mo</td>
+                <td>$42.87 / mo</td>
               </tr>
               <tr>
                 <td><strong>2.5 Ton (30,000 BTU)</strong></td>
@@ -262,7 +264,7 @@ export default function AcCostPage() {
                 <td>2.00 kW (2,000 W)</td>
                 <td>$0.22 / hr</td>
                 <td>$0.37 / hr</td>
-                <td>$52.82 / mo</td>
+                <td>$53.59 / mo</td>
               </tr>
               <tr>
                 <td><strong>3.0 Ton (36,000 BTU)</strong></td>
@@ -270,7 +272,7 @@ export default function AcCostPage() {
                 <td>2.40 kW (2,400 W)</td>
                 <td>$0.26 / hr</td>
                 <td>$0.44 / hr</td>
-                <td>$63.38 / mo</td>
+                <td>$64.31 / mo</td>
               </tr>
               <tr>
                 <td><strong>3.5 Ton (42,000 BTU)</strong></td>
@@ -278,7 +280,7 @@ export default function AcCostPage() {
                 <td>2.80 kW (2,800 W)</td>
                 <td>$0.31 / hr</td>
                 <td>$0.51 / hr</td>
-                <td>$73.95 / mo</td>
+                <td>$75.03 / mo</td>
               </tr>
               <tr>
                 <td><strong>4.0 Ton (48,000 BTU)</strong></td>
@@ -286,7 +288,7 @@ export default function AcCostPage() {
                 <td>3.20 kW (3,200 W)</td>
                 <td>$0.35 / hr</td>
                 <td>$0.59 / hr</td>
-                <td>$84.51 / mo</td>
+                <td>$85.75 / mo</td>
               </tr>
               <tr>
                 <td><strong>5.0 Ton (60,000 BTU)</strong></td>
@@ -294,13 +296,13 @@ export default function AcCostPage() {
                 <td>4.00 kW (4,000 W)</td>
                 <td>$0.44 / hr</td>
                 <td>$0.73 / hr</td>
-                <td>$105.64 / mo</td>
+                <td>$107.18 / mo</td>
               </tr>
             </tbody>
           </table>
         </div>
         <p style={{ fontSize: "0.88rem", color: "var(--text-muted)", marginTop: "0.5rem" }}>
-          *Notes: Power draw is calculated directly from the stated efficiency assumption (Nominal BTU/hr ÷ 15.0 SEER2 ÷ 1,000). Systems of identical tonnage may have different power draws depending on whether they are single-stage, two-stage, or variable-speed inverter compressors, as well as duct design and outdoor ambient temperature.
+          *Notes: Power draw is calculated from nominal planning assumptions (Nominal BTU/hr ÷ 15.0 SEER2 ÷ 1,000). Illustrative only — actual HVAC sizing requires a formal building-load calculation such as ACCA Manual J. Systems of identical tonnage may have different power draws depending on whether they are single-stage, two-stage, or variable-speed inverter compressors.
         </p>
       </section>
 
@@ -372,7 +374,7 @@ export default function AcCostPage() {
       <section id="sizing-matrix">
         <h2>Window AC vs. Ductless Mini-Split Running Costs</h2>
         <p>
-          Small room air conditioners and high-efficiency inverter mini-splits operate at distinct wattage profiles compared to whole-home ducted systems. Ductless mini-splits avoid duct thermal losses and static resistance, frequently achieving seasonal efficiencies exceeding 20+ SEER2:
+          Small room air conditioners and high-efficiency inverter mini-splits operate at distinct wattage profiles compared to whole-home ducted systems. Different metrics apply: CEER (Combined Energy Efficiency Ratio) includes standby power for window units, while SEER2 applies to multi-zone mini-splits:
         </p>
         <div className="scenario-table" role="region" aria-label="Window AC and mini-split running cost reference">
           <table>
@@ -394,7 +396,7 @@ export default function AcCostPage() {
                 <td>11.0 CEER</td>
                 <td>450 W</td>
                 <td>$0.05 / hr</td>
-                <td>$11.88 / mo</td>
+                <td>$12.06 / mo</td>
               </tr>
               <tr>
                 <td><strong>Medium Window Unit (Living Rooms)</strong></td>
@@ -402,7 +404,7 @@ export default function AcCostPage() {
                 <td>11.4 CEER</td>
                 <td>700 W</td>
                 <td>$0.08 / hr</td>
-                <td>$18.49 / mo</td>
+                <td>$18.76 / mo</td>
               </tr>
               <tr>
                 <td><strong>Large Window / Wall Unit</strong></td>
@@ -410,7 +412,7 @@ export default function AcCostPage() {
                 <td>11.0 CEER</td>
                 <td>1,090 W</td>
                 <td>$0.12 / hr</td>
-                <td>$28.78 / mo</td>
+                <td>$29.20 / mo</td>
               </tr>
               <tr>
                 <td><strong>High-Efficiency Inverter Mini-Split</strong></td>
@@ -418,7 +420,7 @@ export default function AcCostPage() {
                 <td>22.0 SEER2</td>
                 <td>545 W</td>
                 <td>$0.06 / hr</td>
-                <td>$14.40 / mo</td>
+                <td>$14.61 / mo</td>
               </tr>
               <tr>
                 <td><strong>Multi-Zone Mini-Split (2-3 Rooms)</strong></td>
@@ -426,7 +428,7 @@ export default function AcCostPage() {
                 <td>20.0 SEER2</td>
                 <td>1,200 W</td>
                 <td>$0.13 / hr</td>
-                <td>$31.69 / mo</td>
+                <td>$32.16 / mo</td>
               </tr>
             </tbody>
           </table>
@@ -437,38 +439,37 @@ export default function AcCostPage() {
       <section id="worked-example" style={{ margin: "2rem 0", padding: "1.5rem", borderRadius: "0.75rem", background: "var(--card-bg, #f8fafc)", border: "1px solid var(--border-color, #e2e8f0)" }}>
         <h2 style={{ marginTop: 0 }}>Step-by-Step Worked Calculation Example</h2>
         <p>
-          Below is a manual calculation demonstrating how hourly power draw, daily consumption, and monthly electricity costs are determined for a residential central air conditioner:
+          Below is a calculation demonstrating how active power, clock-hour energy draw, daily consumption, and monthly electricity costs are estimated for a residential central air conditioner:
         </p>
         <div style={{ background: "rgba(0, 0, 0, 0.03)", padding: "1rem 1.25rem", borderRadius: "0.5rem", marginBottom: "1rem" }}>
           <p style={{ margin: "0 0 0.5rem", fontWeight: 600 }}>Example System Parameters:</p>
           <ul style={{ margin: 0, paddingLeft: "1.25rem", fontSize: "0.95rem" }}>
             <li><strong>Cooling Capacity:</strong> 3.0-Ton Central AC = 36,000 BTU/hr</li>
-            <li><strong>Seasonal Efficiency:</strong> 15.0 SEER2 (DOE Appendix M1 certified)</li>
-            <li><strong>Thermostat Duty Cycle:</strong> 60% active compressor run time (0.60)</li>
+            <li><strong>Seasonal Efficiency:</strong> 15.0 SEER2 (DOE Appendix M1 reference)</li>
+            <li><strong>Thermostat Duty Cycle:</strong> Illustrative 60% active compressor duty-cycle assumption (0.60)</li>
             <li><strong>Daily Usage:</strong> 8 clock hours per day</li>
             <li><strong>Electricity Rate:</strong> $0.1834 per kWh (U.S. EIA June 2026 residential benchmark)</li>
           </ul>
         </div>
         <ol style={{ lineHeight: 1.8, fontSize: "0.95rem" }}>
           <li>
-            <strong>Step 1: Calculate Effective Electrical Power Draw:</strong><br />
-            <code>Electrical kW = Nominal Capacity (BTU/hr) ÷ (SEER2 Rating × 1,000) = 36,000 ÷ (15.0 × 1,000) = 2.40 kW (2,400 Watts)</code>
+            <strong>Step 1: Calculate Rated Electrical Input Power:</strong><br />
+            <code>Input kW = Rated Capacity (BTU/hr) ÷ (SEER2 Rating × 1,000) = 36,000 ÷ (15.0 × 1,000) = 2.40 kW (2,400 Watts)</code>
           </li>
           <li>
-            <strong>Step 2: Calculate Energy Consumption per Clock Hour:</strong><br />
-            <code>Hourly Energy = 2.40 kW × 0.60 duty cycle = 1.44 kWh per clock hour</code>
+            <strong>Step 2: Calculate Active-Hour vs. Clock-Hour Electricity Cost:</strong><br />
+            <code>Active-Hour Cost = 2.40 kW × $0.1834/kWh = $0.44 / active hour</code><br />
+            <code>Clock-Hour Cost (60% duty) = 2.40 kW × 0.60 × $0.1834/kWh = $0.2641 ≈ $0.26 / clock hour</code>
           </li>
           <li>
-            <strong>Step 3: Calculate Operating Cost per Clock Hour:</strong><br />
-            <code>Cost per Clock Hour = 1.44 kWh × $0.1834/kWh = $0.2641 ≈ $0.26 / hr</code>
+            <strong>Step 3: Calculate Daily Energy &amp; Operating Cost (8 Clock Hours):</strong><br />
+            <code>Daily Energy = 2.40 kW × 0.60 duty × 8 hrs/day = 11.52 kWh / day</code><br />
+            <code>Daily Cost = 11.52 kWh/day × $0.1834/kWh = $2.11 / day</code>
           </li>
           <li>
-            <strong>Step 4: Calculate Daily Operating Cost (8 Hours):</strong><br />
-            <code>Daily Cost = 1.44 kWh/hr × 8 hrs/day × $0.1834/kWh = $2.11 / day</code>
-          </li>
-          <li>
-            <strong>Step 5: Calculate Monthly Electric Bill Impact:</strong><br />
-            <code>Monthly Cost = 1.44 kWh/hr × 8 hrs/day × 30.4 days × $0.1834/kWh = $64.22 / month</code>
+            <strong>Step 4: Calculate Monthly Operating Cost (30.4375 Average Days/Month):</strong><br />
+            <code>Monthly Energy = 11.52 kWh/day × 30.4375 days/mo = 350.64 kWh / month</code><br />
+            <code>Monthly Cost = 350.64 kWh × $0.1834/kWh = $64.31 / month</code>
           </li>
         </ol>
       </section>
@@ -479,24 +480,25 @@ export default function AcCostPage() {
           📊 Open Empirical Benchmark Data
         </h3>
         <p style={{ margin: "0 0 0.75rem", fontSize: "0.92rem", color: "var(--ink)", lineHeight: 1.6 }}>
-          Need empirical laboratory data on cooling degree days and seasonal efficiency transitions under DOE Appendix M1? Explore our open <Link href="/datasets/central-air-conditioner-seer2-cooling-degree-day-benchmark" style={{ fontWeight: 700, color: "#059669", textDecoration: "underline" }}>Central AC &amp; Heat Pump SEER2 Benchmark Dataset (PL-DS-AC-04)</Link> and thermodynamic study on <Link href="/research/heat-pump-cop-degradation-and-auxiliary-heat-kinetics" style={{ fontWeight: 700, color: "#059669", textDecoration: "underline" }}>HVAC COP Degradation &amp; Auxiliary Staging (PL-TR-2026-HVAC01)</Link>.
+          Need empirical laboratory data on cooling degree days and seasonal efficiency transitions under DOE Appendix M1? Explore our open <Link href="/datasets/central-air-conditioner-seer2-cooling-degree-day-benchmark" style={{ fontWeight: 700, color: "#059669", textDecoration: "underline" }}>Central AC &amp; Heat Pump SEER2 Benchmark Dataset (PL-DS-AC-04)</Link> and thermodynamic study on <Link href="/research/central-ac-heat-pump-seasonal-efficiency-degradation" style={{ fontWeight: 700, color: "#059669", textDecoration: "underline" }}>Central AC &amp; Heat Pump Seasonal Efficiency Degradation</Link>.
         </p>
       </section>
 
       <div id="formula-math">
         <FormulaCard
-          title="Air Conditioner Power &amp; Cost Formulas"
-          formula="Hourly_Cost = (BTU_hr / SEER2 / 1000) × Duty_Cycle × Electricity_Rate"
-          formulaDescription="Standard HVAC thermodynamic conversion using AHRI SEER2 seasonal cooling efficiency and realistic thermostat duty cycles."
+          title="Calculation Formulas"
+          formula="Hourly_Active_Cost = Input_kW * Electricity_Rate; Hourly_Clock_Cost = Input_kW * Duty_Cycle * Electricity_Rate"
+          formulaDescription="Energy planning formulas distinguishing continuous active compressor power from thermostat clock-hour cycling."
           variables={[
+            { symbol: "Input_kW", label: "Electrical Input Power", description: "Nameplate rated input power or simplified planning estimate (BTU_hr / Rating / 1,000)", unit: "kW" },
             { symbol: "BTU_hr", label: "Cooling Capacity", description: "Nominal cooling rating in British Thermal Units per hour (1 ton = 12,000 BTU)", unit: "BTU/hr" },
-            { symbol: "SEER2", label: "Seasonal Cooling Efficiency", description: "DOE Appendix M1 SEER2 rating (BTU removed per Watt-hour consumed at 0.50 in. WG ESP)", unit: "BTU/Wh" },
-            { symbol: "Duty_Cycle", label: "Compressor Active Run Time", description: "Fraction of time compressor actively chills air (typically 50%–70% on warm days)", unit: "%" },
+            { symbol: "Rating", label: "Efficiency Rating", description: "SEER2, SEER, CEER, or SACC efficiency metric depending on equipment class", unit: "BTU/Wh" },
+            { symbol: "Duty_Cycle", label: "Compressor Duty Cycle", description: "Illustrative fraction of time compressor actively chills air (typically 0.40–0.80)", unit: "decimal" },
             { symbol: "Electricity_Rate", label: "Utility Electricity Tariff", description: "Marginal cost per kilowatt-hour of electric grid power (U.S. EIA June 2026 avg: $0.1834/kWh)", unit: "$/kWh" },
           ]}
           notes={[
-            "SEER2 test standards incorporate 0.50 in. WG external duct pressure for realistic real-world airflow modeling.",
-            "Inverter-driven variable-speed mini-splits ramp power smoothly, achieving effective seasonal efficiencies over 20+ SEER2.",
+            "Simplified planning estimate — actual input power varies with operating conditions, refrigerant charge, and equipment rating.",
+            "SEER2 test procedures (DOE Appendix M1) evaluate systems at 0.50 in. WG external static pressure.",
           ]}
         />
       </div>
@@ -543,7 +545,7 @@ export default function AcCostPage() {
           <div style={{ padding: "1.25rem", borderRadius: "0.5rem", border: "1px solid var(--border-color, #e2e8f0)", background: "var(--card-bg, #ffffff)" }}>
             <h3 style={{ margin: "0 0 0.5rem", fontSize: "1.05rem" }}>⚡ Generator &amp; Inrush Sizing</h3>
             <p style={{ margin: "0 0 0.75rem", fontSize: "0.88rem", lineHeight: 1.5, color: "var(--text-muted)" }}>
-              Central AC compressors draw 5x to 7x their running wattage in Locked Rotor Amperes (LRA) during motor startup. Size an emergency standby generator or soft-starter kit.
+              Central AC compressors draw substantial starting surge in Locked Rotor Amperes (LRA) during motor startup. Size an emergency backup generator with appropriate motor starting capacity.
             </p>
             <Link href="/home-energy/generator-size-calculator" style={{ fontWeight: 600, color: "var(--accent)", fontSize: "0.9rem" }}>
               Generator Size Calculator →
@@ -562,14 +564,14 @@ export default function AcCostPage() {
         </div>
 
         <p>
-          For a comprehensive technical breakdown of SEER vs SEER2 testing, heat-load kinetics, and compressor electrical characteristics, consult our <Link href="/guides/central-ac-and-heat-pump-electricity-cost-guide" style={{ fontWeight: 600, color: "var(--accent)" }}>Central AC &amp; Heat Pump Electricity Cost Guide</Link>, explore the empirical <Link href="/datasets/heat-pump-sub-zero-cop-degradation-benchmark" style={{ fontWeight: 600, color: "#059669" }}>Heat Pump Sub-Zero COP Degradation Dataset (PL-DS-HVAC-04)</Link>, or reference national household consumption norms in the <Link href="/guides/how-many-kwh-does-a-house-use-per-day">Daily Household kWh Guide</Link>.
+          For an in-depth reference on SEER vs SEER2 testing, heat-load kinetics, and compressor electrical characteristics, consult our <Link href="/guides/central-ac-and-heat-pump-electricity-cost-guide" style={{ fontWeight: 600, color: "var(--accent)" }}>Central AC &amp; Heat Pump Electricity Cost Guide</Link>, explore the empirical <Link href="/datasets/heat-pump-sub-zero-cop-degradation-benchmark" style={{ fontWeight: 600, color: "#059669" }}>Heat Pump Sub-Zero COP Degradation Dataset (PL-DS-HVAC-04)</Link>, or reference national household consumption norms in the <Link href="/guides/how-many-kwh-does-a-house-use-per-day">Daily Household kWh Guide</Link>.
         </p>
       </section>
 
       <section>
-        <h2>Methodology and Standards</h2>
+        <h2>Technical References &amp; Model Basis</h2>
         <p>
-          Cooling calculations adhere to AHRI Standard 210/240-2023, DOE 10 CFR Part 430 Appendix M1 test procedures, and U.S. EIA retail electricity price benchmarks. Detailed formulas and calculation assumptions are available in our <Link href="/methodology">methodology</Link> and <Link href="/sources">sources</Link>.
+          Energy planning calculations reference AHRI Standard 210/240-2023, DOE 10 CFR Part 430 Appendix M1 test methods, and U.S. EIA retail electricity price benchmarks. Detailed formulas and calculation assumptions are available in our <Link href="/methodology">methodology</Link> and <Link href="/sources">sources</Link>.
         </p>
       </section>
 
@@ -577,3 +579,4 @@ export default function AcCostPage() {
     </article>
   );
 }
+

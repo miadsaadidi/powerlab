@@ -33,6 +33,38 @@ export function calculatePanelSystemCapacity(panelCount: number, panelWatts: num
   return systemCapacityKw;
 }
 
+export interface SimplifiedSolarOutputInput {
+  dcCapacityKw: number;
+  peakSunHours: number;
+  dcLossPercent?: number; // e.g. 14 for 14%
+  inverterEfficiencyPercent?: number; // e.g. 96 for 96%
+}
+
+export interface SimplifiedSolarOutputResult {
+  dailyAcKWh: number;
+  annualAcKWh: number;
+  compositeDerateFactor: number;
+}
+
+export function calculateSimplifiedSolarOutput(input: SimplifiedSolarOutputInput): SimplifiedSolarOutputResult {
+  if (!Number.isFinite(input.dcCapacityKw) || input.dcCapacityKw <= 0) {
+    throw new Error("DC capacity must be greater than zero.");
+  }
+  if (!Number.isFinite(input.peakSunHours) || input.peakSunHours < 0) {
+    throw new Error("Peak sun hours must be non-negative.");
+  }
+  const dcLossFrac = (input.dcLossPercent ?? 14) / 100;
+  const invEffFrac = (input.inverterEfficiencyPercent ?? 96) / 100;
+  const compositeDerateFactor = (1 - dcLossFrac) * invEffFrac;
+  const dailyAcKWh = input.dcCapacityKw * input.peakSunHours * compositeDerateFactor;
+  const annualAcKWh = dailyAcKWh * 365.25;
+  return {
+    dailyAcKWh,
+    annualAcKWh,
+    compositeDerateFactor,
+  };
+}
+
 export function summarizeSolarOutput(input: { systemCapacityKw: number; provider: NormalizedSolarOutput; annualElectricityUsageKWh: number | null }): SolarOutputSummary {
   if (!Number.isFinite(input.systemCapacityKw) || input.systemCapacityKw <= 0) throw new Error("System size must be greater than zero.");
   validateProviderOutput(input.provider);

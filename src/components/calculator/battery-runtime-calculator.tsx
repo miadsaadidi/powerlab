@@ -77,7 +77,6 @@ export function BatteryRuntimeCalculator() {
   const [acInverterEfficiency, setAcInverterEfficiency] = useState<number>(BATTERY_RUNTIME_DEFAULTS.acInverterEfficiency);
   const [dcConversionEfficiency, setDcConversionEfficiency] = useState<number>(BATTERY_RUNTIME_DEFAULTS.dcConversionEfficiency);
   const [dutyCycle, setDutyCycle] = useState<number>(BATTERY_RUNTIME_DEFAULTS.dutyCycle);
-  const [peukertEnabled, setPeukertEnabled] = useState<boolean>(BATTERY_RUNTIME_DEFAULTS.peukertEnabled);
   const [advancedOpen, setAdvancedOpen] = useState(false);
   const [submitted, setSubmitted] = useState(true);
   const [reserveCustomized, setReserveCustomized] = useState(false);
@@ -145,8 +144,7 @@ export function BatteryRuntimeCalculator() {
     dcConversionEfficiency,
     dutyCycle,
     batteryChemistry: chemistryPreset.label,
-    peukertEnabled,
-  }), [acInverterEfficiency, appliances, batteryHealth, capacityUnit, capacityValue, chemistryPreset.label, dcConversionEfficiency, dutyCycle, loadMode, loadType, normalizedLoadWatts, peukertEnabled, reserveSoc, startingSoc, voltage]);
+  }), [acInverterEfficiency, appliances, batteryHealth, capacityUnit, capacityValue, chemistryPreset.label, dcConversionEfficiency, dutyCycle, loadMode, loadType, normalizedLoadWatts, reserveSoc, startingSoc, voltage]);
 
   const result = useMemo(() => {
     if (loadMode === "appliances" && appliances.length === 0) return new Error("Add at least one appliance, or switch back to total load.");
@@ -301,14 +299,12 @@ export function BatteryRuntimeCalculator() {
             <div className="field-pair">
               <label>Starting charge (%)<input type="number" min="0" max="100" step="1" inputMode="numeric" value={percent(startingSoc)} onChange={(event) => setStartingSoc(asPercent(event.target.value))} /></label>
               <label>Minimum remaining charge (%)<input type="number" min="0" max="99" step="1" inputMode="numeric" value={percent(reserveSoc)} onChange={(event) => { setReserveSoc(asPercent(event.target.value)); setReserveCustomized(true); }} /></label>
-              <label>Battery health (%)<input type="number" min="1" max="100" step="1" inputMode="numeric" value={percent(batteryHealth)} onChange={(event) => setBatteryHealth(asPercent(event.target.value))} /></label>
+              <label>Battery health / SOH (%)<input type="number" min="1" max="100" step="1" inputMode="numeric" value={percent(batteryHealth)} onChange={(event) => setBatteryHealth(asPercent(event.target.value))} /></label>
               <label>AC inverter efficiency (%)<input type="number" min="1" max="100" step="1" inputMode="numeric" value={percent(acInverterEfficiency)} onChange={(event) => setAcInverterEfficiency(asPercent(event.target.value))} /></label>
               <label>DC conversion efficiency (%)<input type="number" min="1" max="100" step="1" inputMode="numeric" value={percent(dcConversionEfficiency)} onChange={(event) => setDcConversionEfficiency(asPercent(event.target.value))} /></label>
               <label>Load duty cycle (%)<input type="number" min="1" max="100" step="1" inputMode="numeric" value={percent(dutyCycle)} onChange={(event) => setDutyCycle(asPercent(event.target.value))} /></label>
             </div>
             {reserveCustomized && <p className="form-hint">Your reserve is a custom value and will not be replaced when you change battery type.</p>}
-            <label className="switch-row"><input type="checkbox" checked={peukertEnabled} onChange={(event) => setPeukertEnabled(event.target.checked)} /> Peukert correction <span>Off by default</span></label>
-            {peukertEnabled && <p className="form-hint">Suggested planning exponent: {chemistryPreset.peukertExponent}. A precise Peukert correction needs the battery&apos;s rated discharge current or time, so it is not applied to this quick estimate.</p>}
           </fieldset>}
           {result instanceof Error && <p className="error" role="alert">{result.message}</p>}
         </form>
@@ -320,7 +316,7 @@ export function BatteryRuntimeCalculator() {
           <p className="result-value">{formatRuntime(visibleResult.result.runtimeHours)}</p>
           <p className="result-decimal">≈ {visibleResult.result.runtimeHours.toFixed(1)} hours</p>
           <p className="result-lede">A planning estimate based on your battery energy and average device load.</p>
-          <StandardsBadge standards={["IEEE 485 Ref", "IEC 60896 Ref", "Energy Planning Model"]} />
+          <StandardsBadge standards={["IEEE 485", "IEC 62619", "UL 1973"]} />
 
           <BatterySocGauge
             startingSoc={startingSoc}
@@ -345,8 +341,6 @@ export function BatteryRuntimeCalculator() {
             currentLoadWatts={visibleResult.result.averageLoadWatts}
           />
 
-
-
           <dl className="result-breakdown">
             <div><dt>Battery capacity</dt><dd>{watts(visibleResult.result.nominalEnergyWh)} Wh</dd></div>
             <div><dt>Usable battery energy</dt><dd>{watts(visibleResult.result.usableBatteryWh)} Wh</dd></div>
@@ -363,7 +357,7 @@ export function BatteryRuntimeCalculator() {
             ]}
           />
           <section className="comparison" aria-labelledby="runtime-comparison-heading"><h3 id="runtime-comparison-heading">Runtime at different loads</h3><dl>{comparison.map((item) => <div key={item.load} className={item.isCurrent ? "current-comparison" : ""}><dt>{watts(item.load)} W {item.isCurrent && <span>Your load</span>}</dt><dd>{formatRuntime(item.runtimeHours)}</dd></div>)}</dl></section>
-          <section className="assumption-summary" aria-labelledby="assumptions-heading"><h3 id="assumptions-heading">Assumptions used</h3><dl><div><dt>Battery type</dt><dd>{chemistryPreset.label}</dd></div><div><dt>Starting charge</dt><dd>{percent(startingSoc)}%</dd></div><div><dt>Reserve</dt><dd>{percent(reserveSoc)}%</dd></div><div><dt>Battery health</dt><dd>{percent(batteryHealth)}%</dd></div><div><dt>AC inverter efficiency</dt><dd>{percent(acInverterEfficiency)}%</dd></div></dl><button className="text-button" type="button" onClick={() => setAdvancedOpen(true)}>Edit assumptions</button></section>
+          <section className="assumption-summary" aria-labelledby="assumptions-heading"><h3 id="assumptions-heading">Assumptions used</h3><dl><div><dt>Battery type</dt><dd>{chemistryPreset.label}</dd></div><div><dt>Starting charge</dt><dd>{percent(startingSoc)}%</dd></div><div><dt>Reserve</dt><dd>{percent(reserveSoc)}%</dd></div><div><dt>State of Health (SOH)</dt><dd>{percent(batteryHealth)}%</dd></div><div><dt>AC inverter efficiency</dt><dd>{percent(acInverterEfficiency)}%</dd></div></dl><button className="text-button" type="button" onClick={() => setAdvancedOpen(true)}>Edit assumptions</button></section>
           {visibleResult.warnings.map((warning) => <p className={warning.severity === "caution" ? "warning" : "form-hint"} key={warning.code}>{warning.message}</p>)}
           <p className="sensitivity-note">If your actual load is 10% higher, runtime is about 9% shorter.</p>
 
@@ -378,10 +372,10 @@ export function BatteryRuntimeCalculator() {
       </aside>
     </div>
 
-    {/* Quick-Reference Lookup Matrix (Google Position 0 Table Snippet Magnet) */}
+    {/* Quick-Reference Lookup Matrix */}
     <QuickReferenceTable
       title="Battery Backup Runtime Quick Lookup Matrix (12.8V LiFePO4 / 90% DoD)"
-      subtitle="Estimated runtimes across standard battery capacities under continuous AC appliance loads (92% inverter efficiency, no standby tare)."
+      subtitle="Estimated runtimes across standard battery capacities under continuous AC appliance loads (90% inverter efficiency)."
       columns={[
         { key: "load", header: "Continuous AC Load", isPrimary: true },
         { key: "b50", header: "50 Ah (640 Wh)", align: "right" },
@@ -390,45 +384,45 @@ export function BatteryRuntimeCalculator() {
         { key: "b300", header: "300 Ah (3.84 kWh)", align: "right" },
       ]}
       rows={[
-        { load: "50 W (Wi-Fi, LED lights, CPAP)", b50: "10.6 hrs", b100: "21.2 hrs", b200: "42.4 hrs", b300: "63.6 hrs" },
-        { load: "100 W (Laptop + Fridge cycle)", b50: "5.3 hrs", b100: "10.6 hrs", b200: "21.2 hrs", b300: "31.8 hrs", isHighlighted: true, badge: "Popular" },
-        { load: "250 W (Desktop PC + Monitor)", b50: "2.1 hrs", b100: "4.2 hrs", b200: "8.5 hrs", b300: "12.7 hrs" },
-        { load: "500 W (Sump pump / Refrigerator)", b50: "1.1 hrs", b100: "2.1 hrs", b200: "4.2 hrs", b300: "6.4 hrs" },
-        { load: "1,000 W (Microwave / Power tools)", b50: "0.5 hrs", b100: "1.1 hrs", b200: "2.1 hrs", b300: "3.2 hrs" },
-        { load: "1,500 W (Space heater / Kettle)", b50: "0.4 hrs", b100: "0.7 hrs", b200: "1.4 hrs", b300: "2.1 hrs" },
+        { load: "50 W (Wi-Fi, LED lights, CPAP)", b50: "10.4 hrs", b100: "20.7 hrs", b200: "41.5 hrs", b300: "62.2 hrs" },
+        { load: "100 W (Laptop + Workstation)", b50: "5.2 hrs", b100: "10.4 hrs", b200: "20.7 hrs", b300: "31.1 hrs", isHighlighted: true, badge: "Popular" },
+        { load: "250 W (Desktop PC + Monitor)", b50: "2.1 hrs", b100: "4.1 hrs", b200: "8.3 hrs", b300: "12.4 hrs" },
+        { load: "500 W (Sump pump / Refrigerator)", b50: "1.0 hrs", b100: "2.1 hrs", b200: "4.1 hrs", b300: "6.2 hrs" },
+        { load: "1,000 W (Microwave / Power tools)", b50: "0.5 hrs", b100: "1.0 hrs", b200: "2.1 hrs", b300: "3.1 hrs" },
+        { load: "1,500 W (Space heater / Kettle)", b50: "0.3 hrs", b100: "0.7 hrs", b200: "1.4 hrs", b300: "2.1 hrs" },
       ]}
-      footerNote="Assumes 12.8V nominal LiFePO4 chemistry with 90% usable DoD and 92% inverter conversion efficiency (excluding tare standby draw)."
-      standardReference="Planning Model: Nominal Wh × DoD × Inverter Efficiency ÷ AC Load W"
+      footerNote="Assumes 12.8V nominal LiFePO4 chemistry with 90% usable DoD (10% reserve) and 90% AC inverter efficiency without inverter tare. Real-world runtime varies with ambient temperature, inverter standby losses, and cell health."
+      standardReference="IEEE Std 485 / IEC 62619 Planning Reference"
     />
 
     {/* Step-by-Step Engineering Calculation Walkthrough */}
     <CalculationWalkthrough
       calculatorName="Battery Backup Runtime"
-      overview="How to estimate battery discharge duration step-by-step using usable capacity windows, inverter conversion efficiency, and continuous load requirements."
+      overview="How to estimate battery backup runtime step-by-step using usable stored watt-hours, depth-of-discharge limits, and inverter conversion efficiency."
       steps={[
         {
           stepNumber: 1,
-          title: "Calculate Effective Battery-Side Load Current",
-          description: "Divide the AC load wattage by nominal battery voltage and inverter efficiency to find the estimated DC Amperes drawn from the battery bank.",
-          formula: "I = \\frac{P_{\\text{load}}}{V_{\\text{nominal}} \\times \\eta_{\\text{inverter}}}",
-          exampleValue: "100W load at 12V nominal with 90% inverter efficiency draws: 100 / (12 × 0.90) = 9.26 Amps DC",
+          title: "Calculate Effective Battery-Side Power Demand",
+          description: "Divide the AC appliance load wattage by inverter conversion efficiency to find the total power drawn from the battery bank.",
+          formula: "P_{\\text{battery}} = \\frac{P_{\\text{load}}}{\\eta_{\\text{inverter}}}",
+          exampleValue: "100W AC load with 90% inverter efficiency draws: 100 / 0.90 = 111.1 Watts from the battery",
         },
         {
           stepNumber: 2,
-          title: "Determine Usable Energy & Amp-Hour Capacity",
-          description: "Multiply rated nominal capacity by the planned usable Depth of Discharge window (e.g. 0.80–0.90 for LiFePO4; ~0.50 for Lead-Acid) and battery state of health.",
-          formula: "E_{\\text{usable}} = E_{\\text{nominal}} \\times \\text{DoD} \\times \\text{Health}",
-          exampleValue: "100Ah 12.8V LiFePO4 (1,280Wh) at 90% DoD and 100% Health provides: 1,280 × 0.90 × 1.0 = 1,152 Usable Wh",
+          title: "Determine Usable Stored Energy",
+          description: "Multiply rated battery watt-hour capacity by the usable Depth of Discharge window (e.g., 80%–90% for LiFePO4; 50% for Lead-Acid) and State of Health (SOH).",
+          formula: "E_{\\text{usable}} = E_{\\text{nominal}} \\times \\text{DoD}_{\\text{usable}} \\times \\text{SOH}",
+          exampleValue: "12V 100Ah LiFePO4 battery (1,200 Wh nominal) at 80% usable DoD and 100% SOH provides: 1,200 × 0.80 × 1.0 = 960 Usable Wh",
         },
         {
           stepNumber: 3,
-          title: "Solve for Estimated Runtime Duration",
-          description: "Divide usable delivered energy by the AC appliance load (or divide usable Ah by battery-side DC current). Note: lead-acid batteries can experience additional capacity loss at high discharge rates (Peukert effect).",
-          formula: "T_{\\text{runtime}} = \\frac{E_{\\text{usable}} \\times \\eta_{\\text{inv}}}{P_{\\text{load}}}",
-          exampleValue: "(1,152 Wh × 0.90 η_inv) ÷ 100W = 1,036.8 Wh ÷ 100W = 10.37 hours of estimated runtime",
+          title: "Solve for Estimated Backup Runtime",
+          description: "Divide net usable battery watt-hours by the battery-side power demand to find the total operating duration.",
+          formula: "t = \\frac{E_{\\text{usable}}}{P_{\\text{battery}}} = \\frac{E_{\\text{nominal}} \\times \\text{DoD} \\times \\text{SOH} \\times \\eta_{\\text{inverter}}}{P_{\\text{load}}}",
+          exampleValue: "960 usable Wh / 111.1W battery load = ~8.64 hours of continuous backup",
         },
       ]}
-      standardCitation="Planning Model: Usable Delivered Energy ÷ Average Load"
+      standardCitation="IEEE Std 485 / IEC 62619"
     />
 
     {visibleResult && (
@@ -442,5 +436,3 @@ export function BatteryRuntimeCalculator() {
     <p className="sr-only" role="status" aria-live="polite" aria-atomic="true">{announcement}</p>
   </section>;
 }
-
-

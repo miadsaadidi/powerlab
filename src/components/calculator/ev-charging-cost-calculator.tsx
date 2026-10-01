@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { useEffect, useMemo, useState } from "react";
 import { DEFAULT_DISPLAY_CURRENCY, DISPLAY_CURRENCIES, isSupportedCurrency } from "@/data/currencies";
-import { calculateEvChargingCost, type ConsumptionUnit, type DistancePeriod, type DistanceUnit, type EvChargingCostInput, type EvChargingCostMode, type EvChargingCostResult } from "@/lib/calculators/ev-charging-cost/engine";
+import { calculateEvChargingCost, type ConsumptionBasis, type ConsumptionUnit, type DistancePeriod, type DistanceUnit, type EvChargingCostInput, type EvChargingCostMode, type EvChargingCostResult } from "@/lib/calculators/ev-charging-cost/engine";
 import { createEnergyProfileStore } from "@/lib/energy-profile/store";
 import { track } from "@/lib/analytics/analytics";
 import { ShareButton } from "@/components/calculator/share-button";
@@ -21,10 +21,26 @@ const QUICK_COST_PRESETS = [
 ];
 
 type SessionDraft = { batteryCapacityKWh: string; startSoc: string; targetSoc: string; pricePerKWh: string };
-type DrivingDraft = { consumption: string; consumptionUnit: ConsumptionUnit; distance: string; distanceUnit: DistanceUnit; distancePeriod: DistancePeriod; pricePerKWh: string };
+type DrivingDraft = {
+  consumption: string;
+  consumptionUnit: ConsumptionUnit;
+  consumptionBasis: ConsumptionBasis;
+  distance: string;
+  distanceUnit: DistanceUnit;
+  distancePeriod: DistancePeriod;
+  pricePerKWh: string;
+};
 
 const initialSession: SessionDraft = { batteryCapacityKWh: "60", startSoc: "20", targetSoc: "80", pricePerKWh: "0.20" };
-const initialDriving: DrivingDraft = { consumption: "18", consumptionUnit: "kwh-per-100-km", distance: "40", distanceUnit: "km", distancePeriod: "day", pricePerKWh: "0.20" };
+const initialDriving: DrivingDraft = {
+  consumption: "18",
+  consumptionUnit: "kwh-per-100-km",
+  consumptionBasis: "battery-consumption",
+  distance: "40",
+  distanceUnit: "km",
+  distancePeriod: "day",
+  pricePerKWh: "0.20",
+};
 
 const parse = (value: string) => Number(value);
 const money = (value: number, currency: string) => new Intl.NumberFormat(undefined, { style: "currency", currency, maximumFractionDigits: 2 }).format(value);
@@ -41,9 +57,9 @@ export function EvChargingCostCalculator() {
     try {
       return calculateEvChargingCost({
         mode: "session",
-        batteryCapacityKWh: 60,
-        startSoc: 0.2,
-        targetSoc: 0.8,
+        batteryCapacityKwh: 60,
+        startSocPercent: 20,
+        targetSocPercent: 80,
         pricePerKWh: 0.2,
         sourceToBatteryEfficiency: 0.9,
       });
@@ -81,9 +97,9 @@ export function EvChargingCostCalculator() {
       mode === "session"
         ? {
             mode,
-            batteryCapacityKWh: parse(session.batteryCapacityKWh),
-            startSoc: percent(session.startSoc),
-            targetSoc: percent(session.targetSoc),
+            batteryCapacityKwh: parse(session.batteryCapacityKWh),
+            startSocPercent: parse(session.startSoc),
+            targetSocPercent: parse(session.targetSoc),
             pricePerKWh: parse(session.pricePerKWh),
             sourceToBatteryEfficiency: percent(efficiency),
           }
@@ -91,6 +107,7 @@ export function EvChargingCostCalculator() {
             mode,
             consumption: parse(driving.consumption),
             consumptionUnit: driving.consumptionUnit,
+            consumptionBasis: driving.consumptionBasis,
             distance: parse(driving.distance),
             distanceUnit: driving.distanceUnit,
             distancePeriod: driving.distancePeriod,
@@ -146,9 +163,9 @@ export function EvChargingCostCalculator() {
                     try {
                       const res = calculateEvChargingCost({
                         mode: "session",
-                        batteryCapacityKWh: parse(sc.capacity),
-                        startSoc: percent(sc.start),
-                        targetSoc: percent(sc.target),
+                        batteryCapacityKwh: parse(sc.capacity),
+                        startSocPercent: parse(sc.start),
+                        targetSocPercent: parse(sc.target),
                         pricePerKWh: parse(sc.price),
                         sourceToBatteryEfficiency: percent(efficiency),
                       });
@@ -193,7 +210,7 @@ export function EvChargingCostCalculator() {
                 <legend>Charging session</legend>
                 <div className="field-pair">
                   <label>
-                    Battery usable capacity (kWh)
+                    Usable battery capacity (kWh)
                     <input
                       type="number"
                       min="0.01"
@@ -204,14 +221,14 @@ export function EvChargingCostCalculator() {
                         markStale();
                       }}
                     />
-                    <span className="form-hint">Use usable/net capacity when known. Gross pack capacity may overestimate displayed SOC energy.</span>
+                    <span className="form-hint">Usable net capacity. Gross pack capacity may differ from usable SOC energy.</span>
                   </label>
                   <label>
                     Start charge (%)
                     <input
                       type="number"
                       min="0"
-                      max="99"
+                      max="100"
                       value={session.startSoc}
                       onChange={(event) => {
                         setSession({ ...session, startSoc: event.target.value });
@@ -223,7 +240,7 @@ export function EvChargingCostCalculator() {
                     Target charge (%)
                     <input
                       type="number"
-                      min="1"
+                      min="0"
                       max="100"
                       value={session.targetSoc}
                       onChange={(event) => {
@@ -239,7 +256,7 @@ export function EvChargingCostCalculator() {
                 <legend>Driving cost</legend>
                 <div className="field-pair">
                   <label>
-                    Battery consumption
+                    Energy consumption
                     <input
                       type="number"
                       min="0.01"
@@ -251,7 +268,7 @@ export function EvChargingCostCalculator() {
                       }}
                     />
                     <select
-                      aria-label="Battery consumption unit"
+                      aria-label="Energy consumption unit"
                       value={driving.consumptionUnit}
                       onChange={(event) => {
                         setDriving({ ...driving, consumptionUnit: event.target.value as ConsumptionUnit });
@@ -261,7 +278,21 @@ export function EvChargingCostCalculator() {
                       <option value="kwh-per-100-km">kWh/100 km</option>
                       <option value="kwh-per-100-mi">kWh/100 mi</option>
                     </select>
-                    <span className="form-hint">Battery-side vehicle consumption before charging losses.</span>
+                  </label>
+                  <label>
+                    Consumption basis
+                    <select
+                      aria-label="Consumption measurement basis"
+                      value={driving.consumptionBasis}
+                      onChange={(event) => {
+                        setDriving({ ...driving, consumptionBasis: event.target.value as ConsumptionBasis });
+                        markStale();
+                      }}
+                    >
+                      <option value="battery-consumption">Battery meter (before charging losses)</option>
+                      <option value="wall-consumption">EPA window sticker / Wall meter (includes losses)</option>
+                    </select>
+                    <span className="form-hint">EPA window sticker ratings already include wall charging losses; onboard trip meters measure battery draw.</span>
                   </label>
                   <label>
                     Distance
@@ -321,7 +352,7 @@ export function EvChargingCostCalculator() {
                       markStale();
                     }}
                   />
-                  <select aria-label="Display currency" value={currency} onChange={(event) => updateCurrency(event.target.value)}>
+                  <select aria-label="Rate currency" value={currency} onChange={(event) => updateCurrency(event.target.value)}>
                     {DISPLAY_CURRENCIES.map((item) => (
                       <option key={item.code} value={item.code}>
                         {item.code}
@@ -329,7 +360,7 @@ export function EvChargingCostCalculator() {
                     ))}
                   </select>
                 </div>
-                <span className="form-hint">Enter the price charged per kWh of electricity supplied to the charging session.</span>
+                <span className="form-hint">No currency conversion is performed; enter the electricity price in the selected rate currency.</span>
               </label>
             </fieldset>
             <button className="text-button" type="button" aria-expanded={advancedOpen} onClick={() => setAdvancedOpen((open) => !open)}>
@@ -339,7 +370,7 @@ export function EvChargingCostCalculator() {
               <fieldset className="input-group advanced-settings">
                 <legend>Advanced assumptions</legend>
                 <label>
-                  Source-to-battery efficiency (%)
+                  Overall source-to-battery charging efficiency (%)
                   <input
                     type="number"
                     min="0.1"
@@ -351,7 +382,9 @@ export function EvChargingCostCalculator() {
                       markStale();
                     }}
                   />
-                  <span className="form-hint">Planning assumption — replace when better data is known. If your consumption already includes wall/charger losses, use 100%.</span>
+                  <span className="form-hint">
+                    Overall source-to-battery charging efficiency — illustrative assumption (default 90% for AC charging, accounting for onboard rectifier and thermal management). Actual efficiency varies by vehicle, EVSE, temperature, and measurement boundary. If your consumption basis already includes wall/charger losses, use 100%.
+                  </span>
                 </label>
               </fieldset>
             )}
@@ -379,7 +412,7 @@ export function EvChargingCostCalculator() {
               driving={driving}
               handoff={
                 calculatedMode === "session"
-                  ? `/ev/ev-charging-time-calculator?batteryCapacityKwh=${encodeURIComponent(session.batteryCapacityKWh)}&startSoc=${encodeURIComponent(percent(session.startSoc))}&targetSoc=${encodeURIComponent(percent(session.targetSoc))}`
+                  ? `/ev/ev-charging-time-calculator?batteryCapacityKwh=${encodeURIComponent(session.batteryCapacityKWh)}&startSoc=${encodeURIComponent(session.startSoc)}&targetSoc=${encodeURIComponent(session.targetSoc)}`
                   : null
               }
               stale={stale}
@@ -427,11 +460,11 @@ function CostResult({
       <dl className="result-breakdown">
         <div>
           <dt>Battery energy {mode === "session" ? "added" : "used"}</dt>
-          <dd>{quantity(result.batteryEnergyKWh)} kWh</dd>
+          <dd>{quantity(result.batteryEnergyAddedKwh)} kWh</dd>
         </div>
         <div>
           <dt>Estimated billed/source energy</dt>
-          <dd>{quantity(result.sourceEnergyKWh)} kWh</dd>
+          <dd>{quantity(result.sourceEnergyKwh)} kWh</dd>
         </div>
         <div>
           <dt>Electricity price</dt>
@@ -503,7 +536,7 @@ function CostResult({
       )}
       <p className="form-hint" style={{ marginTop: "0.75rem" }}>
         {mode === "session"
-          ? "Battery energy stored and billed/source energy purchased are different quantities."
+          ? "Battery energy stored and billed/source energy purchased are different quantities due to wall-to-battery charging losses. This calculator models energy-priced ($/kWh) charging; public networks may assess additional session, parking, or demand fees."
           : `Normalized costs for ${selectedLabel} assume the same driving rate and electricity price continue.`}
       </p>
     </>

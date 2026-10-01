@@ -132,7 +132,7 @@ export function calculateBatteryChargingTime(input: BatteryChargingTimeInput): B
       { key: "startSoc", value: input.startSoc, unit: "%", provenance: "user-entered", description: "Starting charge" },
       { key: "targetSoc", value: input.targetSoc, unit: "%", provenance: "user-entered", description: "Target charge" },
       { key: "batteryChargeEfficiency", value: input.batteryChargeEfficiency, unit: "%", provenance: "user-entered", description: "Battery charge efficiency planning assumption" },
-      { key: "planningOverheadFactor", value: planningOverheadFactor, provenance: input.planningOverheadEnabled ? "preset" : "derived", description: "Planning estimate for charging behavior beyond the constant-rate formula" },
+      { key: "planningOverheadFactor", value: planningOverheadFactor, provenance: input.planningOverheadEnabled ? "preset" : "derived", description: "Taper allowance — simplified multiplier for additional charging time near the upper SOC range" },
       { key: "chemistry", value: input.chemistry, provenance: "preset", description: "Battery chemistry used for planning defaults" },
     ],
     warnings: batteryLimit === undefined ? [{ code: "UNKNOWN_BATTERY_CHARGE_LIMIT", severity: "info", message: "Battery maximum charge rate is unknown — confirm the manufacturer's charging specification." }] : [],

@@ -22,26 +22,26 @@ export const metadata: Metadata = buildPageMetadata({
 const FAQS = [
   {
     question: "What is the optimal angle for solar panels?",
-    answer: "As a general rule, the optimal year-round tilt angle for fixed solar panels equals your geographic latitude multiplied by 0.76 plus 3.1 degrees (or simply your latitude). For example, at 35° latitude, optimal tilt is approximately 30° to 35° facing true South (in Northern hemisphere) or true North (in Southern hemisphere).",
+    answer: "As an engineering reference formula, the optimal year-round tilt angle for fixed solar panels equals Latitude × 0.76 + 3.1°. Simplified rules of thumb often use your latitude directly. For example, at 34° latitude (e.g. Los Angeles), the canonical formula calculates 29° (with simplified rule of thumb at 34° and regional modeled estimates around 31°). At 35° latitude, optimal tilt is approximately 30° facing True South (in the Northern Hemisphere) or True North (in the Southern Hemisphere).",
   },
   {
     question: "How much power do you lose if your roof pitch isn't optimal?",
-    answer: "A tilt angle within ±10° to 15° of optimal typically reduces total annual energy production by less than 3% to 5%. Because the losses are relatively modest, it is usually more cost-effective to mount solar panels flush with your existing roof pitch rather than installing expensive racking tilt legs.",
+    answer: "Under typical insolation conditions, a tilt angle within ±10° to 15° of optimal typically reduces total annual energy production by less than 3% to 5%, though exact variance depends on local climate, diffuse-to-direct irradiance ratios, and azimuth. Because the losses are relatively modest, it is usually more cost-effective to mount solar panels flush with your existing roof pitch rather than installing expensive racking tilt legs.",
   },
   {
     question: "Should solar panels be adjusted seasonally?",
-    answer: "If you have ground-mounted or adjustable rack panels, adjusting tilt twice or four times a year increases annual energy capture by 4% to 7%. In summer, tilt panels 15° flatter than your latitude; in winter, tilt panels 15° steeper than your latitude to capture the low winter sun and shed snow.",
+    answer: "For ground-mounted or adjustable rack systems, adjusting tilt seasonally can increase annual energy capture by approximately 4% to 7% in sunny climates with low cloud cover. As practical rules of thumb: in summer, tilt panels Latitude − 15° to capture higher midday sun; in winter, tilt panels Latitude + 15° to capture lower winter sun and assist snow shedding. Actual annual yield gains depend on local seasonal cloud distribution and diffuse irradiance.",
   },
   {
     question: "What compass direction should solar panels face?",
-    answer: "In the Northern Hemisphere, solar panels should face true South (180° azimuth). In the Southern Hemisphere, they should face true North (0° azimuth). West-facing panels are also popular for time-of-use (TOU) utility rates because they generate peak power during expensive late afternoon hours.",
+    answer: "In the Northern Hemisphere, solar panels should face True South (180° azimuth). In the Southern Hemisphere, they should face True North (0° azimuth). West-facing panels are also popular for time-of-use (TOU) utility rate structures because they generate peak power during high-rate late afternoon peak hours.",
   },
 ];
 
 export default function SolarTiltPage() {
   const structuredData = buildCalculatorStructuredData({
     name: "Solar Panel Tilt Calculator",
-    description: "Find optimal solar panel tilt angle and compass orientation for your latitude.",
+    description: "Calculate optimal solar panel tilt angle and compass orientation for your latitude.",
     route: "/solar/solar-panel-tilt-calculator",
     categoryName: "Solar",
     categoryRoute: "/solar",
@@ -49,13 +49,13 @@ export default function SolarTiltPage() {
       "Calculates seasonal and year-round solar panel tilt angle from latitude",
       "Determines equator-facing azimuth orientation",
       "Compares current roof pitch and azimuth with modeled PVWatts yield",
-      "Zero account or registration required",
+      "No account required — calculations run locally in your browser",
     ],
     standards: [
       "NREL PVWatts V8 Photovoltaic Performance Model",
       "NREL Solar Position Algorithm (SPA)",
       "IEC 61724 (Photovoltaic System Performance Monitoring)",
-      "ASHRAE Handbook of Solar Irradiance Fundamentals",
+      "ASHRAE Handbook of Fundamentals (Solar Heat Gain & Solar Geometry)",
     ],
     faqs: FAQS,
   });
@@ -86,10 +86,10 @@ export default function SolarTiltPage() {
 
       <DirectAnswerCard
         keyword="solar panel tilt calculator"
-        answer="As a general rule of thumb, your optimal year-round solar panel tilt angle equals your geographic latitude. For seasonal adjustments, tilt panels Latitude + 15° in winter (when the sun is lower) and Latitude - 15° in summer."
-        formula="Year-Round Tilt = Latitude × 0.87 (or Latitude) · Facing True South (180° in Northern Hemisphere)"
-        standardExample="At 35° North latitude, optimal fixed year-round tilt is ~35°, winter angle is ~50°, and summer angle is ~20°."
-        sourceAuthority="NREL / PVWatts Solar Geometry Models"
+        answer="As an engineering reference formula, optimal fixed year-round solar panel tilt is calculated as Latitude × 0.76 + 3.1°. Simplified rules of thumb often use your latitude directly. For seasonal adjustments, tilt panels approximately Latitude + 15° in winter (when the sun is lower) and Latitude − 15° in summer."
+        formula="Year-Round Tilt = Latitude × 0.76 + 3.1° · Facing True South (180° in Northern Hemisphere) or True North (0° in Southern Hemisphere)"
+        standardExample="For 34° N latitude (e.g., Los Angeles), the canonical year-round tilt is 29° (34 × 0.76 + 3.1°), with summer tilt at 19° and winter tilt at 49°, facing True South (180°). For 35° N latitude, year-round tilt is 30°."
+        sourceAuthority="Technical Reference / Model Basis: NREL / PVWatts Solar Geometry Models & Empirical Insolation Literature"
       />
 
       <PageJumpNav />
@@ -97,10 +97,10 @@ export default function SolarTiltPage() {
       <section id="how-to-guide" style={{ marginTop: "3rem" }}>
         <h2>How to Find Your Optimal Solar Panel Tilt Angle</h2>
         <ol>
-          <li><strong>Enter Latitude or Location:</strong> Type your city or geographic latitude (e.g. 34.05° for Los Angeles).</li>
-          <li><strong>Choose Optimization Goal:</strong> Select year-round maximum yield, winter heating optimization (+15°), or summer air conditioning optimization (-15°).</li>
-          <li><strong>Check Compass Direction (Azimuth):</strong> Aim true South (180°) in the Northern Hemisphere or true North (0°) in the Southern Hemisphere.</li>
-          <li><strong>Compare Existing Roof Pitch:</strong> Optionally compare your actual roof pitch (e.g. 4/12 or 6/12 slope) against the theoretical ideal.</li>
+          <li><strong>Enter Latitude or Location:</strong> Type your city or geographic latitude (e.g. 34.05° for Los Angeles or −33.87° for Sydney).</li>
+          <li><strong>Choose Optimization Goal:</strong> Review canonical year-round maximum yield (Lat × 0.76 + 3.1°), winter optimization (+15°), or summer optimization (−15°).</li>
+          <li><strong>Check Compass Direction (Azimuth):</strong> Aim True South (180°) in the Northern Hemisphere or True North (0°) in the Southern Hemisphere.</li>
+          <li><strong>Compare Existing Roof Pitch:</strong> Optionally compare your actual roof pitch (e.g. 4/12 or 6/12 slope) against the theoretical ideal using NREL PVWatts.</li>
         </ol>
 
         <SystemFlowDiagram category="solar" title="Solar PV Irradiance Geometry & AC Power Flow" />
@@ -116,7 +116,7 @@ export default function SolarTiltPage() {
               <tr>
                 <th scope="col">Latitude / Region</th>
                 <th scope="col">Summer Tilt (Lat − 15°)</th>
-                <th scope="col">Year-Round Optimal (Lat × 0.76 + 3.1°)</th>
+                <th scope="col">Year-Round Canonical (Lat × 0.76 + 3.1°)</th>
                 <th scope="col">Winter Tilt (Lat + 15°)</th>
                 <th scope="col">Optimal Orientation</th>
               </tr>
@@ -137,7 +137,14 @@ export default function SolarTiltPage() {
                 <td>True South (180°)</td>
               </tr>
               <tr>
-                <td><strong>35° N</strong> (Los Angeles, Atlanta, Tokyo)</td>
+                <td><strong>34° N</strong> (Los Angeles, Beirut, Rabat)</td>
+                <td>19°</td>
+                <td>29°</td>
+                <td>49°</td>
+                <td>True South (180°)</td>
+              </tr>
+              <tr>
+                <td><strong>35° N</strong> (Charlotte, Tokyo, Tehran)</td>
                 <td>20°</td>
                 <td>30°</td>
                 <td>50°</td>
@@ -164,6 +171,13 @@ export default function SolarTiltPage() {
                 <td>65°</td>
                 <td>True South (180°)</td>
               </tr>
+              <tr>
+                <td><strong>34° S</strong> (Sydney, Cape Town, Buenos Aires)</td>
+                <td>19°</td>
+                <td>29°</td>
+                <td>49°</td>
+                <td>True North (0°)</td>
+              </tr>
             </tbody>
           </table>
         </div>
@@ -171,24 +185,59 @@ export default function SolarTiltPage() {
 
       <div id="formula-math">
         <FormulaCard
-          title="Solar Panel Tilt Angle & Ground Albedo Formulas"
-          formula="Year_Round = Latitude × 0.76 + 3.1°  |  Winter = Latitude + 15°  |  G_ground = G_horiz × ρ × (1 - cos β) / 2"
-          formulaDescription="Calculates optimal fixed solar panel tilt relative to horizontal based on geographic latitude, 23.45° axial declination, and Perez ground-reflected albedo backscatter."
+          title="Solar Panel Tilt Angle & Ground Albedo Calculation Formulas"
+          formula="Year_Round = Latitude × 0.76 + 3.1°  |  Summer = Latitude - 15°  |  Winter = Latitude + 15°  |  G_ground = G_horiz × ρ × (1 - cos β) / 2"
+          formulaDescription="Calculates optimal fixed solar panel tilt relative to horizontal based on geographic latitude, solar geometry, and simplified isotropic ground-reflected albedo view factor."
           variables={[
             { symbol: "Latitude", label: "Geographic Latitude", description: "Distance north (+) or south (-) from Earth's equator.", unit: "degrees" },
             { symbol: "Year_Round", label: "Fixed Annual Optimal Tilt", description: "Maximizes cumulative annual kilowatt-hour solar harvest for fixed mounts.", unit: "degrees" },
-            { symbol: "Winter", label: "Winter Peak Optimization", description: "Steeper angle optimized for lower winter sun trajectories and snow shedding.", unit: "degrees" },
-            { symbol: "G_ground", label: "Ground-Reflected Irradiance", description: "Plane-of-array diffuse irradiance captured from ground reflection (Perez transposition model).", unit: "W/m²" },
-            { symbol: "ρ (rho)", label: "Ground Albedo Coefficient", description: "Surface reflectance: 0.20 for dark ground/grass; 0.70 for fresh snow pack.", unit: "fraction" },
+            { symbol: "Summer", label: "Summer Tilt (Rule of Thumb)", description: "Flatter angle optimized for higher summer solar noon trajectory.", unit: "degrees" },
+            { symbol: "Winter", label: "Winter Tilt (Rule of Thumb)", description: "Steeper angle optimized for lower winter sun trajectories and snow shedding.", unit: "degrees" },
+            { symbol: "G_ground", label: "Ground-Reflected Irradiance", description: "Simplified isotropic ground-view factor diffuse irradiance estimate.", unit: "W/m²" },
+            { symbol: "ρ (rho)", label: "Ground Albedo Coefficient", description: "Surface reflectance: ~0.20 for dark ground/grass; ~0.70 for fresh snow pack.", unit: "fraction" },
             { symbol: "β (beta)", label: "Panel Tilt Angle", description: "Array inclination angle relative to horizontal.", unit: "degrees" },
           ]}
           notes={[
             "Equator-facing azimuth orientation: 180° (True South) in the Northern Hemisphere; 0° (True North) in the Southern Hemisphere.",
-            "Steep winter tilts (e.g. 50°–60°) increase the ground view factor (1 - cos β)/2 to ~0.20, capturing up to +15% additional diffuse plane-of-array irradiance when ground snow albedo (ρ ≈ 0.70) is present.",
-            "A tilt angle deviation of ±10° from optimal typically causes less than 3% to 5% loss in total annual solar generation.",
+            "Canonical vs. Modeled Presets: The canonical formula (Latitude × 0.76 + 3.1°) provides a clear-sky geometric starting estimate. Regional weather-modeled simulations (such as NREL PVWatts V8) incorporate local cloudiness, atmospheric turbidity, and diffuse-to-direct irradiance ratios, which can shift the empirical optimum by 1° to 3°.",
+            "Ground Albedo Model: The ground reflection calculation uses the standard isotropic view factor (1 - cos β)/2. When fresh snow is present (ρ ≈ 0.70), steep winter tilts expand foreground diffuse reflection.",
+            "A tilt angle deviation of ±10° to 15° from optimal typically causes less than 3% to 5% loss in total annual solar generation under average insolation conditions.",
           ]}
         />
       </div>
+
+      <section id="technical-basis" style={{ marginTop: "2.5rem" }}>
+        <h2>Technical References &amp; Model Basis</h2>
+        <p style={{ color: "var(--text-muted)", marginBottom: "1.25rem" }}>
+          This calculator integrates solar geometric principles, empirical clear-sky insolation literature, and NREL photovoltaic performance modeling:
+        </p>
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(260px, 1fr))", gap: "1rem" }}>
+          <div style={{ padding: "1.15rem", borderRadius: "0.5rem", border: "1px solid var(--border-color, #e2e8f0)", background: "var(--card-bg, #ffffff)" }}>
+            <h3 style={{ margin: "0 0 0.4rem", fontSize: "1rem" }}>📐 Solar Geometry &amp; SPA</h3>
+            <p style={{ margin: 0, fontSize: "0.85rem", lineHeight: 1.5, color: "var(--text-muted)" }}>
+              Solar noon elevation and incidence angle calculations follow spherical astronomical geometry and the NREL Solar Position Algorithm (SPA).
+            </p>
+          </div>
+          <div style={{ padding: "1.15rem", borderRadius: "0.5rem", border: "1px solid var(--border-color, #e2e8f0)", background: "var(--card-bg, #ffffff)" }}>
+            <h3 style={{ margin: "0 0 0.4rem", fontSize: "1rem" }}>🔬 NREL PVWatts V8 Engine</h3>
+            <p style={{ margin: 0, fontSize: "0.85rem", lineHeight: 1.5, color: "var(--text-muted)" }}>
+              Roof-pitch comparison and regional benchmarks use NREL PVWatts V8 hourly simulation models with standard system loss derates (14.08%).
+            </p>
+          </div>
+          <div style={{ padding: "1.15rem", borderRadius: "0.5rem", border: "1px solid var(--border-color, #e2e8f0)", background: "var(--card-bg, #ffffff)" }}>
+            <h3 style={{ margin: "0 0 0.4rem", fontSize: "1rem" }}>❄️ Isotropic Ground View Factor</h3>
+            <p style={{ margin: 0, fontSize: "0.85rem", lineHeight: 1.5, color: "var(--text-muted)" }}>
+              Foreground albedo reflection is modeled using the standard geometric view factor (1 − cos β) / 2 under isotropic diffuse sky assumptions.
+            </p>
+          </div>
+          <div style={{ padding: "1.15rem", borderRadius: "0.5rem", border: "1px solid var(--border-color, #e2e8f0)", background: "var(--card-bg, #ffffff)" }}>
+            <h3 style={{ margin: "0 0 0.4rem", fontSize: "1rem" }}>📊 Regional NSRDB Data</h3>
+            <p style={{ margin: 0, fontSize: "0.85rem", lineHeight: 1.5, color: "var(--text-muted)" }}>
+              Benchmark insolation values are derived from the NREL National Solar Radiation Database (NSRDB) and representative state weather stations.
+            </p>
+          </div>
+        </div>
+      </section>
 
       <section id="faq-section" className="faq-section">
         <h2>Frequently Asked Questions (FAQ)</h2>
@@ -232,7 +281,7 @@ export default function SolarTiltPage() {
           <div style={{ padding: "1.25rem", borderRadius: "0.5rem", border: "1px solid var(--border-color, #e2e8f0)", background: "var(--card-bg, #ffffff)" }}>
             <h3 style={{ margin: "0 0 0.5rem", fontSize: "1.05rem" }}>📖 Solar Tilt &amp; Season Guide</h3>
             <p style={{ margin: "0 0 0.75rem", fontSize: "0.88rem", lineHeight: 1.5, color: "var(--text-muted)" }}>
-              Explore mathematical models, 23.45° axial declination, global latitude matrices, and Perez snow albedo transposition boosts (+15% winter diffuse gain).
+              Explore mathematical models, solar geometry, global latitude matrices, and snow albedo reflection mechanics.
             </p>
             <Link href="/guides/solar-panel-tilt-angle-by-latitude-and-season-guide" style={{ fontWeight: 600, color: "var(--accent)", fontSize: "0.9rem" }}>
               Solar Panel Tilt Angle Guide →

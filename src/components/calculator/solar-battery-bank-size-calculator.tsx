@@ -2,7 +2,7 @@
 
 import { useEffect, useMemo, useState } from "react";
 import { BATTERY_CHEMISTRIES, BATTERY_VOLTAGE_PRESETS, resolveChemistryReserve } from "@/data/battery-defaults";
-import { calculateSolarBatteryBankSize, type SolarBatteryBankSizeInput, type SolarBatteryBankSizeResult } from "@/lib/calculators/solar-battery-bank-size/engine";
+import { calculateSolarBatteryBankSize, getHardwareConfigurations, type SolarBatteryBankSizeInput, type SolarBatteryBankSizeResult } from "@/lib/calculators/solar-battery-bank-size/engine";
 import { calculateUsageProfile } from "@/lib/calculators/electricity-usage/engine";
 import { createEnergyProfileStore } from "@/lib/energy-profile/store";
 import { track } from "@/lib/analytics/analytics";
@@ -11,7 +11,6 @@ import { LossWaterfall } from "@/components/calculator/loss-waterfall";
 import { EnergyFlowVisualizer } from "@/components/calculator/energy-flow-visualizer";
 import { ShareButton } from "@/components/calculator/share-button";
 import { PrintSpecButton } from "@/components/calculator/print-spec-button";
-import { GooglePreferredBanner } from "@/components/calculator/google-preferred-banner";
 import { CalculatorTrustPill } from "@/components/calculator/calculator-trust-pill";
 
 const QUICK_SOLAR_BATTERY_PRESETS = [
@@ -288,11 +287,14 @@ export function SolarBatteryBankSizeCalculator() {
               </label>
               {voltagePreset === "custom" && (
                 <label>
-                  Custom system voltage<input type="number" min="0.01" step="any" value={systemVoltage} onChange={(event) => markChanged(setSystemVoltage, numberOrNaN(event.target.value))} />
-                  <span className="form-hint">V</span>
+                  Custom system voltage (nominal)
+                  <span className="input-with-unit">
+                    <input type="number" min="0.01" step="any" inputMode="decimal" value={systemVoltage} onChange={(event) => markChanged(setSystemVoltage, numberOrNaN(event.target.value))} />
+                    <span aria-hidden="true">V</span>
+                  </span>
                 </label>
               )}
-              <p className="form-hint">Voltage changes the Ah representation only; it never changes the required kWh.</p>
+              <p className="form-hint">Voltage affects Amp-hour (Ah) representation only; it does not change the required energy in kWh. Custom voltages represent mathematical capacity equivalents.</p>
             </fieldset>
             <details
               open={advancedOpen}
@@ -324,12 +326,12 @@ export function SolarBatteryBankSizeCalculator() {
                   Inverter efficiency (%)
                   <input type="number" min="0.01" max="100" step="any" value={percent(inverterEfficiency)} onChange={(event) => markChanged(setInverterEfficiency, numberOrNaN(event.target.value) / 100)} />
                 </label>
-                <p className="form-hint">If your daily energy figure already includes inverter losses or represents battery-side energy, use 100% to avoid counting losses twice.</p>
+                <p className="form-hint">Daily load energy is the energy delivered to the loads. Inverter losses are modeled separately when inverter efficiency is below 100%. If you enter battery-side DC energy directly, set inverter efficiency to 100% to avoid double-counting.</p>
                 <label>
-                  Battery health / available capacity (%)
+                  Available capacity factor (%)
                   <input type="number" min="0.01" max="100" step="any" value={percent(batteryHealth)} onChange={(event) => markChanged(setBatteryHealth, numberOrNaN(event.target.value) / 100)} />
                 </label>
-                <p className="form-hint">Planning derating only; this tool does not predict aging or degradation.</p>
+                <p className="form-hint">Planning derating applied to nominal battery capacity. This is not a battery-aging prediction.</p>
                 <label>
                   Design margin (%)
                   <input type="number" min="0" max="100" step="any" value={percent(designMargin)} onChange={(event) => markChanged(setDesignMargin, numberOrNaN(event.target.value) / 100)} />
@@ -355,25 +357,43 @@ export function SolarBatteryBankSizeCalculator() {
             <>
               <p className="result-lede">Recommended stored-energy capacity</p>
               <p className="result-value">{formatKWh(calculation.result.recommendedKWh)}</p>
-              <div style={{ background: "var(--surface, rgba(14, 165, 233, 0.04))", border: "1px solid var(--border-color, #cbd5e1)", borderRadius: "0.75rem", padding: "0.875rem 1rem", margin: "0.75rem 0 1rem 0" }}>
-                <span style={{ fontSize: "0.75rem", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.05em", color: "var(--text-muted, #64748b)", display: "block", marginBottom: "0.5rem" }}>
-                  📦 Suggested Hardware Configurations
-                </span>
-                <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(130px, 1fr))", gap: "0.5rem" }}>
-                  <div style={{ padding: "0.5rem 0.75rem", background: "var(--bg-secondary, #f8fafc)", border: "1px solid var(--border-color, #cbd5e1)", borderRadius: "0.5rem", textAlign: "center" }}>
-                    <strong style={{ display: "block", fontSize: "1.1rem", color: "#0284c7" }}>{Math.max(1, Math.ceil((calculation.result.recommendedKWh * 1000) / (systemVoltage * 100)))}×</strong>
-                    <small style={{ fontSize: "0.75rem", color: "var(--text-muted, #64748b)" }}>{systemVoltage}V 100Ah Units<br />({(systemVoltage * 100) / 1000} kWh each)</small>
+              {(() => {
+                const hardwareOptions = getHardwareConfigurations(calculation.result.recommendedKWh, systemVoltage);
+                return (
+                  <div style={{ background: "var(--surface, rgba(14, 165, 233, 0.04))", border: "1px solid var(--border-color, #cbd5e1)", borderRadius: "0.75rem", padding: "0.875rem 1rem", margin: "0.75rem 0 1rem 0" }}>
+                    <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "0.5rem", flexWrap: "wrap", gap: "0.25rem" }}>
+                      <span style={{ fontSize: "0.75rem", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.05em", color: "var(--text-muted, #64748b)" }}>
+                        📦 Illustrative Next-Size-Up Configurations
+                      </span>
+                      <span style={{ fontSize: "0.72rem", color: "var(--text-muted, #64748b)", fontFamily: "ui-monospace, monospace" }}>
+                        Required: {formatKWh(calculation.result.recommendedKWh)}
+                      </span>
+                    </div>
+                    {hardwareOptions.length === 0 ? (
+                      <p className="form-hint" style={{ margin: 0 }}>No standard hardware configuration available for these assumptions.</p>
+                    ) : (
+                      <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(130px, 1fr))", gap: "0.5rem" }}>
+                        {hardwareOptions.map((opt) => (
+                          <div key={opt.id} style={{ padding: "0.6rem 0.75rem", background: "var(--bg-secondary, #f8fafc)", border: "1px solid var(--border-color, #cbd5e1)", borderRadius: "0.5rem", textAlign: "center" }}>
+                            <strong style={{ display: "block", fontSize: "1.05rem", color: "var(--brand-strong, #0284c7)" }}>
+                              {opt.totalUnits}× ({opt.unitVoltage}V {opt.unitAh}Ah)
+                            </strong>
+                            <small style={{ fontSize: "0.74rem", color: "var(--foreground, #334155)", display: "block", fontWeight: 600, marginTop: "0.2rem" }}>
+                              {opt.configurationLabel}
+                            </small>
+                            <small style={{ fontSize: "0.72rem", color: "var(--text-muted, #64748b)", display: "block" }}>
+                              {opt.hardwareNominalKWh.toFixed(1)} kWh nominal
+                            </small>
+                          </div>
+                        ))}
+                      </div>
+                    )}
+                    <small style={{ fontSize: "0.68rem", color: "var(--text-muted, #64748b)", display: "block", marginTop: "0.5rem", lineHeight: 1.3 }}>
+                      Illustrative hardware arrangements only. Actual installations require string balancing, fusing, BMS ratings, and disconnect sizing.
+                    </small>
                   </div>
-                  <div style={{ padding: "0.5rem 0.75rem", background: "var(--bg-secondary, #f8fafc)", border: "1px solid var(--border-color, #cbd5e1)", borderRadius: "0.5rem", textAlign: "center" }}>
-                    <strong style={{ display: "block", fontSize: "1.1rem", color: "#16a34a" }}>{Math.max(1, Math.ceil((calculation.result.recommendedKWh * 1000) / 1200))}×</strong>
-                    <small style={{ fontSize: "0.75rem", color: "var(--text-muted, #64748b)" }}>12V 100Ah Batteries<br />(1.2 kWh in Series/Parallel)</small>
-                  </div>
-                  <div style={{ padding: "0.5rem 0.75rem", background: "var(--bg-secondary, #f8fafc)", border: "1px solid var(--border-color, #cbd5e1)", borderRadius: "0.5rem", textAlign: "center" }}>
-                    <strong style={{ display: "block", fontSize: "1.1rem", color: "#d97706" }}>{Math.max(1, Math.ceil(calculation.result.recommendedKWh / 5.12))}×</strong>
-                    <small style={{ fontSize: "0.75rem", color: "var(--text-muted, #64748b)" }}>5.12 kWh 48V<br />(Server Rack Units)</small>
-                  </div>
-                </div>
-              </div>
+                );
+              })()}
               {stale && <p className="warning" role="status">Inputs changed — recalculate to update this recommendation.</p>}
               <EnergyFlowVisualizer
                 batteryKwh={calculation.result.recommendedKWh}
@@ -455,7 +475,7 @@ export function SolarBatteryBankSizeCalculator() {
                 <dl>
                   <div>
                     <dt>Daily load</dt>
-                    <dd>{dailyLoadKWh} kWh/day, load-side energy</dd>
+                    <dd>{dailyLoadKWh} kWh/day (delivered to loads; inverter losses modeled separately)</dd>
                   </div>
                   <div>
                     <dt>Autonomy</dt>
@@ -480,8 +500,8 @@ export function SolarBatteryBankSizeCalculator() {
                     <dd>{percent(inverterEfficiency)}%</dd>
                   </div>
                   <div>
-                    <dt>Battery health / available capacity</dt>
-                    <dd>{percent(batteryHealth)}%</dd>
+                    <dt>Available capacity factor</dt>
+                    <dd>{percent(batteryHealth)}% (planning derating)</dd>
                   </div>
                   <div>
                     <dt>Design margin</dt>
@@ -500,7 +520,6 @@ export function SolarBatteryBankSizeCalculator() {
                   compatibility.
                 </p>
               </section>
-              <GooglePreferredBanner />
               <div className="button-row" style={{ marginTop: "0.85rem", display: "flex", gap: "0.5rem", flexWrap: "wrap" }}>
                 <button className="button secondary-button" type="button" onClick={saveProfile}>
                   Save to Energy Profile

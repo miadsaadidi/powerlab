@@ -3,17 +3,15 @@ import { buildPageMetadata } from "@/lib/seo/metadata-helper";
 import Link from "next/link";
 import { BatterySizeCalculator } from "@/components/calculator/battery-size-calculator";
 import { siteConfig } from "@/lib/site-config";
-import { isCalculatorPublished } from "@/lib/calculator-registry";
 import { buildCalculatorStructuredData } from "@/lib/seo/structured-data";
 import { FormulaCard } from "@/components/seo/formula-card";
 import { PageJumpNav } from "@/components/seo/page-jump-nav";
 import { DirectAnswerCard } from "@/components/seo/direct-answer-card";
 import { SystemFlowDiagram } from "@/components/seo/system-flow-diagram";
 
-
 export const metadata: Metadata = buildPageMetadata({
   title: "Battery Size Calculator — Backup kWh & Ah",
-  description: "Calculate required battery size (kWh & Ah) for any load and backup runtime. Includes DOD reserves, inverter efficiency, and safety margin.",
+  description: "Calculate required battery size (kWh & Ah) for any load and backup runtime. Includes DOD reserves, inverter efficiency, and planning margin.",
   canonicalPath: "/battery/battery-size-calculator",
   category: "battery",
 });
@@ -21,23 +19,23 @@ export const metadata: Metadata = buildPageMetadata({
 const FAQS = [
   {
     question: "How do I calculate what size battery I need?",
-    answer: "Multiply your appliance load (in Watts) by your target runtime (in hours) to find total watt-hours needed. Then divide by inverter efficiency (~90%) and usable battery depth-of-discharge (80% for LiFePO4, 50% for Lead-Acid), plus a 10% safety margin. Finally, divide by battery voltage (12V, 24V, 48V) to find required Amp-hours (Ah).",
+    answer: "Multiply your appliance load (in Watts) by your target runtime (in hours) to find required load energy (Wh). Divide by your conversion efficiency (e.g., 90% for an AC inverter) and usable Depth of Discharge (e.g., 80% for LiFePO4, 50% for Lead-Acid) to find minimum nominal capacity. Then apply a planning margin (e.g., 10%) for extra sizing headroom. Finally, divide by system voltage (12V, 24V, or 48V) to determine required Amp-hours (Ah).",
   },
   {
     question: "What size battery do I need for a 500W load?",
-    answer: "To run a continuous 500W AC load for 4 hours (2,000Wh of device energy), you need a battery bank of approximately 3.06 kWh (assuming 90% inverter efficiency, 80% usable depth-of-discharge, and a 10% design margin). At 12V this is ~255 Ah; at 24V this is ~127 Ah; at 48V this is ~64 Ah.",
+    answer: "To run a 500W AC load for 4 hours (2,000Wh of load energy), you need a recommended battery bank of approximately 3.06 kWh (assuming 90% inverter efficiency, 80% usable depth-of-discharge, 100% SOH, and a 10% planning margin: 2,000 ÷ (0.80 × 0.90) × 1.10 = 3,055.56 Wh). At 12V this is ~255 Ah; at 24V this is ~127 Ah; at 48V this is ~64 Ah.",
   },
   {
     question: "What size battery do I need to run a refrigerator during a 24-hour power outage?",
-    answer: "A typical full-size refrigerator consumes about 1.2 to 1.8 kWh per day. Factoring in inverter standby losses, 80% depth of discharge, and safety margins, a 2.5 kWh to 3.5 kWh battery bank (or approximately 200Ah–300Ah at 12V LiFePO4) is recommended to comfortably cover 24 hours.",
+    answer: "A residential refrigerator with an illustrative average load of 50W (e.g. 150W compressor cycling at a 33% duty cycle) consumes approximately 1,200Wh over 24 hours. Assuming 80% usable Depth of Discharge, 90% inverter efficiency, and a 10% planning margin, the recommended battery size is approximately 1.83 kWh (1,200 ÷ (0.80 × 0.90) × 1.10 = 1,833 Wh), or ~153 Ah at 12V LiFePO4. If the refrigerator averages 80W (1,920Wh/day), required capacity is approximately 2.93 kWh (~244 Ah at 12V).",
   },
   {
     question: "Why does system voltage affect required battery Ah but not kWh?",
-    answer: "Watt-hours (kWh) measure total energy storage capacity, which remains constant regardless of voltage. However, Amp-hours (Ah) measure electrical charge at a specific voltage (Ah = Wh ÷ Volts). A 2,400 Wh battery bank equals 200 Ah at 12V, 100 Ah at 24V, or 50 Ah at 48V.",
+    answer: "Watt-hours (Wh or kWh) measure total energy storage capacity, which remains constant regardless of wiring voltage. Amp-hours (Ah) measure electrical charge at a specific voltage (Ah = Wh ÷ Volts). A 2,400 Wh battery bank equals 200 Ah at 12V, 100 Ah at 24V, or 50 Ah at 48V.",
   },
   {
     question: "How much extra capacity should I add for battery aging?",
-    answer: "Batteries naturally lose capacity over their operational lifespan. Adding a 10% to 20% planning margin ensures your battery continues meeting your full backup runtime target even after several years of continuous cycling.",
+    answer: "A planning margin can provide additional nominal capacity headroom, but actual capacity loss over time depends on battery chemistry, operating temperature, cycling frequency, depth of discharge, maintenance, and manufacturer specifications. For general planning, many system designers select a 10% to 20% margin.",
   },
 ];
 
@@ -49,10 +47,10 @@ export default function BatterySizePage() {
     categoryName: "Battery",
     categoryRoute: "/battery",
     features: [
-      "Calculates required battery capacity in kWh and Ah across 12V, 24V, and 48V",
+      "Calculates recommended battery capacity in kWh and Ah across 12V, 24V, and 48V",
       "Customizable depth-of-discharge reserve presets for Lithium, AGM, and Gel",
-      "AC inverter conversion efficiency and DC-DC step loss compensation",
-      "Built-in appliance catalog with power presets and runtime duration sliders",
+      "Accounts for AC inverter conversion efficiency and DC conversion efficiency losses",
+      "Built-in appliance catalog with power presets and customizable planning margins",
     ],
     standards: [
       "IEEE Std 485 (Recommended Practice for Sizing Lead-Acid Batteries)",
@@ -79,7 +77,7 @@ export default function BatterySizePage() {
         <p className="eyebrow">Battery system sizing</p>
         <h1>Battery Size Calculator</h1>
         <p className="intro">
-          Estimate the exact battery capacity (Ah and kWh) needed to power your electrical appliances for a desired backup runtime, factoring in inverter conversion losses and chemistry DOD limits.
+          Estimate the battery capacity (Ah and kWh) needed to power your electrical appliances for a desired backup runtime, factoring in inverter conversion losses, DOD reserve limits, and planning margin.
         </p>
       </div>
 
@@ -89,9 +87,9 @@ export default function BatterySizePage() {
 
       <DirectAnswerCard
         keyword="battery size calculator"
-        answer="To size a battery bank, multiply total load watts by desired backup hours, divide by inverter efficiency (~88%) and usable Depth of Discharge (DOD), then divide by system voltage (12V, 24V, or 48V) to find required Amp-hours (Ah)."
-        formula="Battery Size (Ah) = (Load Watts × Backup Hours) ÷ (Inverter Eff × Usable DOD × Voltage)"
-        standardExample="Powering a 200W load for 8 hours on a 12V LiFePO4 battery (80% DOD, 90% inverter) requires a minimum 185Ah (2.22 kWh) battery bank."
+        answer="To calculate required battery size, multiply total appliance load (Watts) by desired runtime (Hours) to find device energy (Wh), divide by inverter efficiency (~90%) and usable Depth of Discharge (80% for LiFePO4, 50% for Lead-Acid), then multiply by your planning margin (e.g. 10%). Divide by system voltage to find required Amp-hours (Ah)."
+        formula="Required Wh = (Load Watts × Backup Hours × (1 + Planning Margin)) ÷ (Inverter Eff × Usable DOD × SOH)"
+        standardExample="Powering a 500W load for 4 hours (2,000 Wh load energy) with 80% usable DOD, 90% inverter efficiency, and a 10% planning margin requires a ~3.06 kWh battery bank (~255 Ah at 12V, ~127 Ah at 24V, or ~64 Ah at 48V)."
       />
 
       <PageJumpNav />
@@ -99,7 +97,7 @@ export default function BatterySizePage() {
       <section id="how-to-guide" style={{ marginTop: "3rem" }}>
         <h2>How to Size a Battery Bank for Power Outages</h2>
         <ol>
-          <li><strong>Enter Continuous Power Load (Watts):</strong> Enter the total wattage of all devices running simultaneously.</li>
+          <li><strong>Enter Continuous Power Load (Watts):</strong> Enter the total wattage of all devices running simultaneously or add individual appliances.</li>
           <li><strong>Set Target Backup Duration (Hours):</strong> Specify how many hours or days the battery must sustain the load without grid power.</li>
           <li><strong>Choose Battery Chemistry (LiFePO4 vs Lead-Acid):</strong> LiFePO4 allows 80%–90% usable DOD, while Lead-Acid/AGM is limited to 50%.</li>
           <li><strong>Select System Voltage (12V / 24V / 48V):</strong> Review required Amp-hour (Ah) capacity across voltage configurations.</li>
@@ -110,10 +108,10 @@ export default function BatterySizePage() {
 
       <section id="sizing-matrix">
         <h2>Common Emergency Backup Battery Sizing Scenarios</h2>
-        <p>Typical battery capacities needed for common residential power outage durations (assuming 12V LiFePO4 with 10% reserve and 88% AC inverter efficiency):</p>
+        <p>Estimated battery capacities needed for common residential power outage durations (assuming 12V LiFePO4 with 90% usable DoD, 88% AC inverter efficiency, and 0% planning margin):</p>
         <div className="scenario-table" role="region" aria-label="Backup battery sizing scenarios">
           <table>
-            <caption>Battery capacity needed by load and outage duration (12V LiFePO4)</caption>
+            <caption>Battery capacity needed by load and outage duration (12V LiFePO4 / 90% DoD / 88% Inverter Eff)</caption>
             <thead>
               <tr>
                 <th scope="col">Backup Scope &amp; Average Load</th>
@@ -126,7 +124,7 @@ export default function BatterySizePage() {
             <tbody>
               <tr>
                 <td><strong>Essential Communications</strong> (Wi-Fi + Phone + LED Lights: 50W)</td>
-                <td>~250 Wh (21 Ah)</td>
+                <td>~253 Wh (21 Ah)</td>
                 <td>~505 Wh (42 Ah)</td>
                 <td>~758 Wh (63 Ah)</td>
                 <td>~1.52 kWh (126 Ah)</td>
@@ -157,7 +155,7 @@ export default function BatterySizePage() {
                 <td>~2.02 kWh (168 Ah)</td>
                 <td>~4.04 kWh (337 Ah)</td>
                 <td>~6.06 kWh (505 Ah)</td>
-                <td>~12.1 kWh (1,010 Ah)</td>
+                <td>~12.12 kWh (1,010 Ah)</td>
               </tr>
             </tbody>
           </table>
@@ -166,22 +164,42 @@ export default function BatterySizePage() {
 
       <div id="formula-math">
         <FormulaCard
-          title="Battery Sizing Formulas &amp; Capacity Math"
-          formula="Battery_Wh = (Load_Watts × Runtime_Hours × (1 + Margin)) / (Usable_SOC × Inverter_Eff × Battery_Health)"
-          formulaDescription="Calculates nominal stored-energy capacity (Wh and Ah) required to sustain a continuous or cycling electrical load for a desired backup duration."
+          title="Calculation Formulas"
+          formula="Nominal_Battery_Wh = (Load_Watts × Runtime_Hours × (1 + Planning_Margin)) / (Usable_SOC × Conversion_Efficiency × Battery_Health)"
+          formulaDescription="Estimates nominal stored-energy capacity (Wh and Ah) required to sustain a continuous or cycling electrical load for a desired backup duration for planning purposes."
           variables={[
             { symbol: "Load_Watts", label: "Continuous Electrical Load", description: "Average real-time power draw (Watts × Duty Cycle).", unit: "W" },
             { symbol: "Runtime_Hours", label: "Target Autonomy Duration", description: "Desired continuous operating hours without recharging.", unit: "hours" },
-            { symbol: "Usable_SOC", label: "Usable DOD Window", description: "Fraction of nominal energy available above minimum reserve (e.g., 80% for LiFePO4, 50% for Lead-Acid).", unit: "fraction" },
-            { symbol: "Inverter_Eff", label: "Inverter AC Efficiency (η)", description: "DC-to-AC power conversion efficiency (typically 88%–93%).", unit: "fraction" },
-            { symbol: "Margin", label: "Planning Design Margin", description: "Safety buffer for temperature deratings and cable losses (typically 10%–20%).", unit: "fraction" },
+            { symbol: "Planning_Margin", label: "Planning Margin", description: "User-selected capacity buffer for extra sizing headroom (e.g. 10%–20%).", unit: "fraction" },
+            { symbol: "Usable_SOC", label: "Usable DOD Window", description: "Fraction of nominal energy available above minimum reserve (e.g. 80% for LiFePO4, 50% for Lead-Acid).", unit: "fraction" },
+            { symbol: "Conversion_Efficiency", label: "Conversion Efficiency (η)", description: "Inverter efficiency for AC loads (88%–93%) or DC conversion efficiency.", unit: "fraction" },
+            { symbol: "Battery_Health", label: "State of Health (SOH)", description: "Available capacity factor relative to original factory rating (default 100%).", unit: "fraction" },
           ]}
           notes={[
-            "Amp-Hour equivalent at selected voltage V: Ah = Battery_Wh / V.",
-            "For mixed loads, AC appliances use Inverter Efficiency and DC appliances use DC-DC step efficiency separately.",
+            "Amp-Hour equivalent at selected voltage V: Ah = Nominal_Battery_Wh / V.",
+            "Planning margin provides an additional capacity buffer selected by the user. Temperature derating, cable resistance losses, and high-rate discharge physics are not individually modeled by this formula.",
           ]}
         />
       </div>
+
+      <section id="governing-standards" className="standards-section" style={{ marginTop: "3rem" }}>
+        <h2>Technical References &amp; Model Basis</h2>
+        <p>The sizing methodology and energy reserve calculations in this tool reflect industry standards and engineering references:</p>
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))", gap: "1rem", marginTop: "1rem" }}>
+          <div style={{ padding: "1.25rem", border: "1px solid var(--border-color)", borderRadius: "var(--radius)", background: "var(--card-bg)" }}>
+            <h3 style={{ fontSize: "1rem", fontWeight: 600, marginBottom: "0.5rem" }}>IEEE Std 485 &amp; IEC 62619</h3>
+            <p style={{ fontSize: "0.875rem", color: "var(--muted)", margin: 0 }}>
+              Recommended practices for battery sizing, depth-of-discharge margins, and safety reserve limits in stationary lithium-ion and lead-acid battery installations.
+            </p>
+          </div>
+          <div style={{ padding: "1.25rem", border: "1px solid var(--border-color)", borderRadius: "var(--radius)", background: "var(--card-bg)" }}>
+            <h3 style={{ fontSize: "1rem", fontWeight: 600, marginBottom: "0.5rem" }}>UL 1973 &amp; NFPA 70 / NEC 706</h3>
+            <p style={{ fontSize: "0.875rem", color: "var(--muted)", margin: 0 }}>
+              Safety standards and National Electrical Code requirements governing energy storage system (ESS) integration, inverter pairing, and disconnect protection.
+            </p>
+          </div>
+        </div>
+      </section>
 
       <section id="faq-section" className="faq-section">
         <h2>Frequently Asked Questions (FAQ)</h2>

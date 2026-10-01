@@ -99,11 +99,11 @@ export function OutageTimelineVisualizer({
           </div>
           <div className="milestone">
             <span className="milestone-dot dot-mid" />
-            <span className="milestone-text">50% Half-Life</span>
+            <span className="milestone-text">50% usable-energy point</span>
           </div>
           <div className="milestone">
             <span className="milestone-dot dot-reserve" />
-            <span className="milestone-text">{reservePercent}% Low Cutoff</span>
+            <span className="milestone-text">{reservePercent}% Configured cutoff</span>
           </div>
         </div>
 

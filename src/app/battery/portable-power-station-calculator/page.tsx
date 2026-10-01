@@ -3,18 +3,16 @@ import { buildPageMetadata } from "@/lib/seo/metadata-helper";
 import Link from "next/link";
 import { PortablePowerStationCalculator } from "@/components/calculator/portable-power-station-calculator";
 import { isCalculatorPublished } from "@/lib/calculator-registry";
-import { siteConfig } from "@/lib/site-config";
 import { buildCalculatorStructuredData } from "@/lib/seo/structured-data";
 import { FormulaCard } from "@/components/seo/formula-card";
 import { PageJumpNav } from "@/components/seo/page-jump-nav";
 import { DirectAnswerCard } from "@/components/seo/direct-answer-card";
 
-
 const isPublished = isCalculatorPublished("portable-power-station");
 
 export const metadata: Metadata = buildPageMetadata({
-  title: "Portable Power Station Calculator — Runtime & Wh",
-  description: "Estimate portable power station runtime from Wh capacity and appliance load, or calculate the capacity needed for a target runtime. Check AC output limits.",
+  title: "Portable Power Station Calculator — Runtime & Wh Sizing",
+  description: "Estimate portable power station runtime from rated Wh capacity and load wattage, or calculate required battery Wh for a target runtime with inverter loss modeling.",
   canonicalPath: "/battery/portable-power-station-calculator",
   category: "battery",
 });
@@ -22,19 +20,23 @@ export const metadata: Metadata = buildPageMetadata({
 const FAQS = [
   {
     question: "How long will a 1,000Wh portable power station run a refrigerator?",
-    answer: "A modern home refrigerator (averaging ~150W with a 35% duty cycle = ~50W continuous average) will run for approximately 14 to 17 hours on a 1,000Wh portable power station (factoring in ~88% inverter efficiency and internal BMS reserve).",
+    answer:
+      "Runtime depends on the refrigerator's average power draw, compressor duty cycle, ambient temperature, battery reserve cutoff, and inverter conversion efficiency. For example, a refrigerator drawing 150W with a 33.3% duty cycle averages 50W. On a 1,000Wh power station with 90% usable capacity (10% reserve) and 88% AC inverter efficiency, delivered AC energy is 792 Wh (1,000 × 0.90 × 0.88), providing approximately 15.8 hours of runtime (792 ÷ 50W). In addition to runtime, ensure the power station's continuous output exceeds 150W and peak surge capacity handles compressor startup (~400W–600W).",
   },
   {
-    question: "Why does my 500Wh power station not give me a full 500 watt-hours?",
-    answer: "Portable power stations convert internal DC battery power to 120V/230V AC via a built-in inverter (typically 85%–90% efficiency). Additionally, the internal BMS retains a 5%–10% safety buffer to prevent cell over-discharge.",
+    question: "Why does my 500Wh power station not deliver a full 500 watt-hours?",
+    answer:
+      "Portable power stations cannot deliver 100% of nominal battery capacity at the AC outlets due to two loss factors: internal battery reserve cutoff (typically 5%–10% retained by the BMS to protect lithium cells from over-discharge) and DC-to-AC pure sine wave inverter conversion losses (typically 10%–15% loss, or 85%–90% efficiency). On a 500Wh station with 90% usable capacity and 88% inverter efficiency, expected AC outlet energy is approximately 396 Wh (500 × 0.90 × 0.88).",
   },
   {
     question: "What size power station do I need for camping?",
-    answer: "For a weekend camping trip running a 12V cooler/fridge (20W), LED lanterns, phone chargers, and a drone, a 500Wh to 1,000Wh power station (like a Jackery 1000 or EcoFlow Delta 2) is typically the sweet spot.",
+    answer:
+      "Required power station capacity depends on your total daily device watt-hours, operating hours, appliance duty cycles, desired reserve, and conversion losses. For example, running a 12V camping fridge (20W average × 24h = 480 Wh) and charging two phones (24 Wh) requires ~504 Wh delivered. Factoring in 90% usable capacity and 88% efficiency, a power station of at least 636 Wh nominal capacity is needed (504 ÷ (0.90 × 0.88)).",
   },
   {
     question: "Can a portable power station run a coffee maker or microwave?",
-    answer: "Yes, provided the power station's continuous inverter rating exceeds the appliance's wattage. A 1,000W coffee maker requires a power station with at least a 1,200W to 1,500W pure sine wave inverter (e.g. 1,000Wh+ class units).",
+    answer:
+      "Running high-wattage heating appliances depends on the power station's inverter continuous output (W) and surge capability, not its energy capacity (Wh). A 1,000W coffee maker or 1,200W microwave requires a power station with an inverter rated for at least 1,200W–1,500W continuous pure sine wave output, regardless of whether the battery capacity is 500Wh, 1,000Wh, or 2,000Wh.",
   },
 ];
 
@@ -46,15 +48,15 @@ export default function PortablePowerStationPage() {
     categoryName: "Battery",
     categoryRoute: "/battery",
     features: [
-      "Calculates runtime in hours and minutes across standard station capacities",
-      "Calculates required station capacity (Wh) for a target runtime duration",
-      "Checks continuous inverter and surge wattage limits",
-      "Appliance builder with duty cycles and power checks",
+      "Calculates portable power station runtime in hours from rated Wh and connected load",
+      "Calculates required station battery capacity in Wh for desired runtime",
+      "Validates continuous AC inverter power limits and motor startup surge wattage",
+      "Itemizes usable battery energy after depth-of-discharge and inverter conversion losses",
     ],
     standards: [
-      "UL 2743 (Standard for Portable Power Packs)",
-      "IEC 62133 (Secondary Cells and Batteries Containing Alkaline or Other Non-Acid Electrolytes)",
-      "UN 38.3 (Transport of Lithium Metal and Lithium Ion Batteries)",
+      "UL 2743 (Portable Power Packs Technical Reference)",
+      "IEC 62133 (Secondary Lithium Cells and Batteries Reference)",
+      "UN 38.3 (Transport of Lithium Metal and Lithium Ion Batteries Reference)",
     ],
     faqs: FAQS,
   });
@@ -75,7 +77,7 @@ export default function PortablePowerStationPage() {
         <p className="eyebrow">Portable battery planning</p>
         <h1>Portable Power Station Calculator</h1>
         <p className="intro">
-          Estimate how long a portable power station (Jackery, EcoFlow, Bluetti, Anker) will run your devices, or calculate the exact watt-hour capacity you need for camping and emergency backup.
+          Estimate how long a portable power station (Jackery, EcoFlow, Bluetti, Anker) will run your devices, or calculate the watt-hour capacity you need for camping and emergency backup.
         </p>
       </div>
 
@@ -85,10 +87,10 @@ export default function PortablePowerStationPage() {
 
       <DirectAnswerCard
         keyword="portable power station runtime calculation"
-        answer="A 1,000Wh portable power station will power a 60W portable fridge for approximately 14 hours, a 30W CPAP machine for 28 hours, or recharge a 60Wh laptop ~14 times. Runtime is calculated by multiplying rated battery capacity by usable depth-of-discharge (90%) and inverter conversion efficiency (85%), then dividing by device wattage."
-        formula="Runtime (Hours) = (Station Capacity Wh × 0.90 DoD × 0.85 Inverter Efficiency) ÷ Total AC Load (Watts)"
-        standardExample="1000Wh station running a 60W load: (1000 × 0.90 × 0.85) ÷ 60W = 12.75 hours (12h 45m)"
-        sourceAuthority="UL 2743 (Portable Power Packs Standard) & IEC 62133"
+        answer="A 1,000Wh portable power station will power a 60W portable fridge for approximately 13.2 hours (13h 12m), a 35W CPAP machine for ~22.6 hours, or deliver ~792 Wh of usable AC outlet energy. Runtime is calculated by multiplying rated battery capacity by usable capacity factor (90%), battery health (100%), and inverter conversion efficiency (88%), then dividing by connected load wattage."
+        formula="Runtime_h = (Station_Wh × Usable_Factor × Battery_Health × Inverter_Efficiency) / Load_W"
+        standardExample="1,000Wh station running a 60W load (90% usable, 88% inverter efficiency): (1,000 × 0.90 × 1.00 × 0.88) ÷ 60W = 13.2 hours (13h 12m)"
+        sourceAuthority="Technical Reference Basis: UL 2743 & IEC 62133"
       />
 
       <PageJumpNav />
@@ -96,97 +98,101 @@ export default function PortablePowerStationPage() {
       <section id="how-to-guide" style={{ marginTop: "3rem" }}>
         <h2>How to Calculate Power Station Runtime &amp; Sizing</h2>
         <ol>
-          <li><strong>Select Power Station Capacity:</strong> Choose standard models (300Wh, 500Wh, 1000Wh, 2000Wh) or enter custom watt-hours.</li>
-          <li><strong>Add Connected Devices:</strong> Add laptops, camping fridges, CPAP machines, or electric coolers with realistic duty cycles.</li>
+          <li><strong>Select Power Station Capacity:</strong> Choose standard sizes (256Wh, 512Wh, 1000Wh, 2048Wh) or enter custom watt-hours.</li>
+          <li><strong>Add Connected Devices:</strong> Add laptops, camping fridges, CPAP machines, or lights with realistic running watts and duty cycles.</li>
           <li><strong>Verify Inverter Limits:</strong> Ensure device running watts and startup surges do not exceed the station&apos;s continuous AC inverter rating.</li>
-          <li><strong>Review Operating Duration:</strong> View exact hours and battery recharges available on a single charge.</li>
+          <li><strong>Review Operating Duration:</strong> View calculated operating hours and delivered AC energy available on a full charge.</li>
         </ol>
       </section>
 
       <section id="sizing-matrix">
         <h2>Portable Power Station Capability Chart (What Can It Run?)</h2>
-        <p>Estimated runtime across common portable power station capacities (e.g. Jackery, EcoFlow, Bluetti, Anker) assuming 10% reserve and 88% AC inverter efficiency:</p>
+        <p>Estimated runtime across common portable power station capacities assuming canonical planning assumptions of 90% usable capacity (10% reserve) and 88% AC inverter efficiency (delivered AC Wh = Station Wh × 0.792):</p>
         <div className="scenario-table" role="region" aria-label="Power station capability matrix">
           <table>
-            <caption>Estimated runtime across portable power station capacities</caption>
+            <caption>Estimated runtime across portable power station capacities (90% usable factor, 88% AC inverter efficiency)</caption>
             <thead>
               <tr>
                 <th scope="col">Device / Appliance</th>
                 <th scope="col">Average Power</th>
-                <th scope="col">300 Wh Station (~240 Usable Wh)</th>
-                <th scope="col">500 Wh Station (~400 Usable Wh)</th>
-                <th scope="col">1,000 Wh Station (~800 Usable Wh)</th>
-                <th scope="col">2,000 Wh Station (~1,600 Usable Wh)</th>
+                <th scope="col">300 Wh Station (~238 Delivered AC Wh)</th>
+                <th scope="col">500 Wh Station (~396 Delivered AC Wh)</th>
+                <th scope="col">1,000 Wh Station (~792 Delivered AC Wh)</th>
+                <th scope="col">2,000 Wh Station (~1,584 Delivered AC Wh)</th>
               </tr>
             </thead>
             <tbody>
               <tr>
-                <td><strong>Smartphones &amp; Tablets</strong> (15W USB-C)</td>
-                <td>15 W</td>
-                <td>~16 charges</td>
-                <td>~27 charges</td>
-                <td>~53 charges</td>
-                <td>~107 charges</td>
+                <td><strong>Smartphones</strong> (~12 Wh battery, ~90% DC charging)</td>
+                <td>15 W max</td>
+                <td>~20 recharges</td>
+                <td>~33 recharges</td>
+                <td>~67 recharges</td>
+                <td>~135 recharges</td>
               </tr>
               <tr>
-                <td><strong>Laptop (65W USB-PD)</strong></td>
+                <td><strong>Laptop (USB-PD)</strong></td>
                 <td>45 W avg</td>
                 <td>~5.3 hours</td>
-                <td>~8.9 hours</td>
-                <td>~17.8 hours</td>
-                <td>~35.6 hours</td>
+                <td>~8.8 hours</td>
+                <td>~17.6 hours</td>
+                <td>~35.2 hours</td>
               </tr>
               <tr>
                 <td><strong>12V 45L Portable Camping Fridge</strong></td>
                 <td>20 W avg (cycling)</td>
-                <td>~12 hours</td>
-                <td>~20 hours</td>
-                <td>~40 hours (1.7 days)</td>
-                <td>~80 hours (3.3 days)</td>
+                <td>~11.9 hours</td>
+                <td>~19.8 hours</td>
+                <td>~39.6 hours</td>
+                <td>~79.2 hours</td>
               </tr>
               <tr>
                 <td><strong>CPAP Machine</strong> (no heated humidifier)</td>
                 <td>35 W</td>
-                <td>~6.9 hours</td>
-                <td>~11.4 hours</td>
-                <td>~22.9 hours (2.8 nights)</td>
-                <td>~45.7 hours (5.7 nights)</td>
+                <td>~6.8 hours</td>
+                <td>~11.3 hours</td>
+                <td>~22.6 hours</td>
+                <td>~45.3 hours</td>
               </tr>
               <tr>
-                <td><strong>Starlink Satellite Dish</strong></td>
+                <td><strong>Starlink Satellite Terminal</strong></td>
                 <td>60 W</td>
                 <td>~4.0 hours</td>
-                <td>~6.7 hours</td>
-                <td>~13.3 hours</td>
-                <td>~26.7 hours</td>
+                <td>~6.6 hours</td>
+                <td>~13.2 hours</td>
+                <td>~26.4 hours</td>
               </tr>
               <tr>
                 <td><strong>Full-Size Home Refrigerator</strong></td>
                 <td>150 W avg (450W surge)</td>
-                <td>Inverter limit check</td>
-                <td>~2.7 hours</td>
+                <td>Inverter check (~1.6h)</td>
+                <td>~2.6 hours</td>
                 <td>~5.3 hours</td>
-                <td>~10.7 hours</td>
+                <td>~10.6 hours</td>
               </tr>
             </tbody>
           </table>
         </div>
+        <p style={{ fontSize: "0.85rem", color: "var(--muted)", marginTop: "0.75rem" }}>
+          *Note: Delivered AC energy equals Station Wh × 90% usable × 88% inverter conversion efficiency. Smartphone recharges assume a 12 Wh phone battery with 90% DC charging efficiency. Refrigerator runtime assumes station continuous output ≥ 150W and peak surge capacity ≥ 450W.*
+        </p>
       </section>
 
       <div id="formula-math">
         <FormulaCard
           title="Portable Power Station Runtime &amp; Capacity Formulas"
-          formula="Runtime (hours) = (Station_Wh × Usable_Window × Health × Inverter_Eff) / Load_Watts"
-          formulaDescription="Calculates operational hours from battery storage and validates whether continuous and surge wattage demand satisfy the station's built-in inverter limits."
+          formula="Runtime_h = (Station_Wh × Usable_Factor × Battery_Health × Inverter_Efficiency) / Load_W"
+          formulaDescription="Calculates operating hours from battery storage and verifies whether continuous and surge wattage demand satisfy the station's built-in inverter limits."
           variables={[
-            { symbol: "Station_Wh", label: "Rated Battery Energy", description: "Nominal lithium battery capacity of the power station (e.g. 512 Wh, 1,024 Wh, 2,048 Wh).", unit: "Wh" },
-            { symbol: "Usable_Window", label: "Usable SOC Share", description: "Available capacity above internal BMS cutoff (typically 90%–95%).", unit: "fraction" },
-            { symbol: "Inverter_Eff", label: "Pure Sine Wave Inverter Efficiency", description: "Internal DC-to-AC conversion efficiency (typically 85%–90%).", unit: "fraction" },
-            { symbol: "Load_Watts", label: "Average Connected Load", description: "Running watts × duty cycle.", unit: "W" },
+            { symbol: "Station_Wh", label: "Rated Battery Energy", description: "Nominal lithium battery capacity of the power station (e.g. 512 Wh, 1,000 Wh, 2,048 Wh).", unit: "Wh" },
+            { symbol: "Usable_Factor", label: "Usable Capacity Factor", description: "Available capacity fraction above internal BMS reserve cutoff (typically 90%–95%).", unit: "fraction" },
+            { symbol: "Battery_Health", label: "State of Health", description: "Available battery capacity relative to original factory nominal rating (typically 80%–100%).", unit: "fraction" },
+            { symbol: "Inverter_Efficiency", label: "Pure Sine Wave Inverter Efficiency", description: "Internal DC-to-AC conversion efficiency (typically 85%–90%).", unit: "fraction" },
+            { symbol: "Load_W", label: "Average Connected Load", description: "Running watts × duty cycle.", unit: "W" },
           ]}
           notes={[
-            "Required Capacity Mode: Station_Wh = (Load_Watts × Desired_Hours × (1 + Margin)) / (Usable_Window × Inverter_Eff).",
-            "Power check: Running Watts ≤ Continuous Inverter Limit, and Startup Surge Watts ≤ Peak Surge Limit.",
+            "Required Capacity Mode: Required_Station_Wh = (Load_W × Desired_Runtime_h × (1 + Margin)) / (Usable_Factor × Battery_Health × Inverter_Efficiency).",
+            "Power Check: Running Watts ≤ Continuous Inverter Rating, and Startup Surge Watts ≤ Peak Surge Limit.",
           ]}
         />
       </div>

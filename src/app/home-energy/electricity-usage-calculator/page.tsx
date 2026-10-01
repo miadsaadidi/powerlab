@@ -14,7 +14,7 @@ const isPublished = isCalculatorPublished("electricity-usage");
 
 export const metadata: Metadata = buildPageMetadata({
   title: "Electricity Usage Calculator — Daily kWh & Cost",
-  description: "Calculate daily, monthly, and annual electricity usage (kWh) and operating cost ($) for any appliance with EIA wattage presets and NEC load math.",
+  description: "Calculate daily, monthly, and annual electricity usage (kWh) and operating cost ($) for any appliance with EIA wattage presets and deterministic energy formulas.",
   canonicalPath: "/home-energy/electricity-usage-calculator",
   category: "home-energy",
 });
@@ -22,19 +22,19 @@ export const metadata: Metadata = buildPageMetadata({
 const FAQS = [
   {
     question: "How do you calculate appliance electricity usage in kWh?",
-    answer: "Multiply the appliance wattage (W) by the hours used per day, then divide by 1,000 to convert to kilowatt-hours: kWh = (Watts × Hours) ÷ 1,000. To find operating cost, multiply the result by your local electricity rate ($/kWh).",
+    answer: "To calculate daily kilowatt-hours, multiply running wattage by daily hours of operation, weekly schedule fraction, and duty cycle, then divide by 1,000: Daily kWh = Watts × (Hours/day) × (Days/week ÷ 7) × Duty cycle ÷ 1,000. Monthly kWh is Daily kWh × 30.4375, and annual kWh is Daily kWh × 365.25. Multiply by your electricity tariff ($/kWh) to estimate operating cost.",
   },
   {
     question: "Which household appliances use the most electricity?",
-    answer: "Central air conditioning (3,000W–5,000W), electric water heaters (4,500W), electric space heaters (1,500W), electric clothes dryers (3,000W), and Level 2 EV home chargers (7,200W–11,500W) account for over 65% of the average home electricity bill.",
+    answer: "High-power heating, cooling, water-heating, and vehicle charging equipment (such as central AC, heat pumps, electric water heaters, space heaters, clothes dryers, and EV chargers) typically have the highest individual power draws and contribute substantially to household electricity consumption, depending on climate, equipment efficiency, and operating schedules.",
   },
   {
     question: "What is an appliance duty cycle in energy calculations?",
-    answer: "A duty cycle represents the percentage of time a cycling compressor or thermostat heating element actively draws electricity while powered on. Refrigerators typically operate at a 30% to 40% duty cycle (~8 to 10 hours of active compressor runtime per 24-hour day).",
+    answer: "A duty cycle represents the fraction of scheduled powered-on time during which an appliance actively draws its rated running wattage. For example, a refrigerator compressor might only run actively for 33% of the day (about 8 hours across a 24-hour period). Continuous loads (such as LED lighting or Wi-Fi routers) operate at a 100% duty cycle.",
   },
   {
     question: "How many kWh does an average home use per month?",
-    answer: "According to the US Energy Information Administration (EIA), the average residential utility customer consumes approximately 880 to 900 kWh per month (around 10,500 kWh per year).",
+    answer: "According to U.S. Energy Information Administration (EIA) benchmarks (2022/2023 Form EIA-861/RECS data), the average U.S. residential customer consumes approximately 880 to 900 kWh per month (around 29 to 30 kWh per day, or ~10,500 kWh per year). Actual usage varies widely by home size, climate zone, heating fuel type, and appliance efficiency.",
   },
 ];
 
@@ -52,9 +52,7 @@ export default function ElectricityUsagePage() {
       "Supports direct energy label and cycle-based input modes",
     ],
     standards: [
-      "U.S. Energy Information Administration (EIA) Residential Energy Consumption Survey (RECS)",
-      "DOE 10 CFR Part 430 Energy Conservation Standards for Consumer Products",
-      "NFPA 70 / NEC Article 220 (Branch-Circuit, Feeder, and Service Load Calculations)",
+      "Technical references: U.S. Energy Information Administration (EIA) RECS and DOE 10 CFR Part 430 benchmarks",
     ],
     faqs: FAQS,
   });
@@ -75,7 +73,7 @@ export default function ElectricityUsagePage() {
         <p className="eyebrow">Home energy planning</p>
         <h1>Electricity Usage Calculator</h1>
         <p className="intro">
-          Estimate how much electricity (kWh) your appliances use each day, month, and year, and calculate exactly how much they add to your electric utility bill.
+          Estimate how much electricity your appliances use each day, month, and year, and optionally estimate their operating cost using your electricity rate.
         </p>
       </div>
 
@@ -85,10 +83,10 @@ export default function ElectricityUsagePage() {
 
       <DirectAnswerCard
         keyword="electricity usage calculator"
-        answer="To calculate an appliance's electricity consumption in kilowatt-hours (kWh), multiply its operating wattage by the hours used per day, then divide by 1,000. Multiply by your utility electricity rate ($/kWh) to find total operating cost."
-        formula="Electricity Use (kWh) = (Appliance Watts × Daily Hours) ÷ 1,000"
-        standardExample="A 1,500W space heater run for 8 hours consumes 12 kWh/day (approx. $1.92/day at the national average rate of $0.16/kWh)."
-        sourceAuthority="U.S. Department of Energy (DOE) & EIA Benchmarks"
+        answer="To calculate an appliance's electricity consumption in kilowatt-hours (kWh), multiply its running wattage by daily operating hours, weekly schedule fraction, and duty cycle, then divide by 1,000: Daily kWh = Watts × (Hours/day) × (Days/week ÷ 7) × Duty cycle ÷ 1,000. Multiply by your electricity rate ($/kWh) to find operating cost."
+        formula="Daily kWh = Watts × Hours/day × (Days/week ÷ 7) × Duty cycle ÷ 1,000  |  Monthly kWh = Daily kWh × 30.4375  |  Annual kWh = Daily kWh × 365.25"
+        standardExample="1,500W space heater run for 8 hours/day (7 days/wk, 100% duty cycle) consumes 12.0 kWh/day (~365.25 kWh/month or 4,383 kWh/year), costing approx. $1.92/day at $0.16/kWh."
+        sourceAuthority="Technical references: DOE 10 CFR Part 430 & EIA RECS Benchmarks"
       />
 
       {/* Next-Step Planning Pathways */}
@@ -103,7 +101,7 @@ export default function ElectricityUsagePage() {
           <div style={{ padding: "1rem", borderRadius: "0.5rem", background: "var(--surface-subtle, #fafafa)", border: "1px solid var(--line)" }}>
             <h3 style={{ margin: "0 0 0.35rem", fontSize: "0.95rem", color: "var(--brand-strong)" }}>📊 Compare to Household Benchmarks</h3>
             <p style={{ fontSize: "0.83rem", color: "var(--muted)", margin: "0 0 0.75rem", lineHeight: 1.5 }}>
-              Benchmark your daily total against the official EIA US national average of 29–30 kWh/day (~900 kWh/mo).
+              Benchmark your daily total against the official EIA U.S. residential benchmark (2022/2023 Form EIA-861/RECS data of 29–30 kWh/day or ~880–900 kWh/mo).
             </p>
             <Link href="/guides/how-many-kwh-does-a-house-use-per-day" className="button secondary-button" style={{ width: "100%", textAlign: "center", display: "block", fontSize: "0.82rem" }}>
               Daily kWh Usage Guide →
@@ -137,21 +135,23 @@ export default function ElectricityUsagePage() {
       <section id="how-to-guide" style={{ marginTop: "3rem" }}>
         <h2>How to Calculate Appliance Electricity Usage &amp; Costs</h2>
         <ol>
-          <li><strong>Select or Add Appliances:</strong> Choose devices from the built-in library (AC, heater, fridge, TV) or enter custom wattage.</li>
-          <li><strong>Enter Operating Schedule:</strong> Input active hours per day and days used per week.</li>
+          <li><strong>Select or Add Appliances:</strong> Choose devices from the built-in library (AC, heater, fridge, TV) or enter custom running wattage.</li>
+          <li><strong>Enter Operating Schedule:</strong> Input scheduled hours per day, days per week, and duty cycle for cycling equipment.</li>
           <li><strong>Enter Utility Electricity Rate ($/kWh):</strong> Input your local power tariff (US national average is ~$0.16/kWh).</li>
-          <li><strong>Review Breakdown:</strong> Compare monthly and annual kilowatt-hours across all household devices.</li>
+          <li><strong>Review Breakdown:</strong> Compare daily, monthly, and annual kilowatt-hours across all household devices.</li>
         </ol>
 
         <SystemFlowDiagram category="home-energy" title="Residential Electricity Consumption & Load Hierarchy" />
       </section>
 
       <section id="sizing-matrix">
-        <h2>Top Household Appliances Electricity Usage Breakdown</h2>
-        <p>Typical continuous watts, operating schedules, and monthly electricity consumption for common residential appliances:</p>
+        <h2>Illustrative Appliance Scenarios</h2>
+        <p>
+          Values are example scenarios, not universal household averages. Actual consumption varies with equipment efficiency, capacity, climate, usage patterns, controls, and operating conditions. Monthly kWh is calculated using the canonical Gregorian month factor (Daily kWh × 30.4375):
+        </p>
         <div className="scenario-table" role="region" aria-label="Typical appliance electricity usage">
           <table>
-            <caption>Typical household appliance electricity consumption &amp; running cost</caption>
+            <caption>Illustrative household appliance electricity consumption &amp; running cost</caption>
             <thead>
               <tr>
                 <th scope="col">Appliance</th>
@@ -165,51 +165,51 @@ export default function ElectricityUsagePage() {
               <tr>
                 <td><strong>Central Air Conditioning (3-ton, 14 SEER)</strong></td>
                 <td>3,500 W</td>
-                <td>6 hours/day (cycling)</td>
-                <td>~630 kWh</td>
-                <td>~$100.80</td>
+                <td>6 active hours/day (cycling)</td>
+                <td>~639.2 kWh</td>
+                <td>~$102.27</td>
               </tr>
               <tr>
                 <td><strong>Water Heater (50-gallon electric tank)</strong></td>
                 <td>4,500 W</td>
-                <td>3 hours/day (cycling)</td>
-                <td>~405 kWh</td>
-                <td>~$64.80</td>
+                <td>3 active hours/day (cycling)</td>
+                <td>~410.9 kWh</td>
+                <td>~$65.74</td>
               </tr>
               <tr>
                 <td><strong>Electric Space Heater</strong></td>
                 <td>1,500 W</td>
-                <td>8 hours/day</td>
-                <td>~360 kWh</td>
-                <td>~$57.60</td>
+                <td>8 hours/day (100% duty)</td>
+                <td>~365.25 kWh</td>
+                <td>~$58.44</td>
               </tr>
               <tr>
                 <td><strong>Standard Kitchen Refrigerator (22 cu. ft.)</strong></td>
                 <td>150 W (running)</td>
                 <td>24 hrs (33% duty cycle)</td>
-                <td>~36 kWh</td>
-                <td>~$5.76</td>
+                <td>~36.16 kWh</td>
+                <td>~$5.79</td>
               </tr>
               <tr>
                 <td><strong>Level 2 EV Home Charger</strong></td>
                 <td>7,200 W (30A @ 240V)</td>
                 <td>2.5 hours/day (30 mi/day)</td>
-                <td>~540 kWh</td>
-                <td>~$86.40</td>
+                <td>~547.9 kWh</td>
+                <td>~$87.66</td>
               </tr>
               <tr>
                 <td><strong>Electric Clothes Dryer</strong></td>
                 <td>3,000 W</td>
-                <td>1 cycle/day (45 min)</td>
-                <td>~68 kWh</td>
-                <td>~$10.88</td>
+                <td>1 cycle/day (45 min = 0.75 hr)</td>
+                <td>~68.48 kWh</td>
+                <td>~$10.96</td>
               </tr>
               <tr>
                 <td><strong>Home Desktop Computer / Gaming PC</strong></td>
                 <td>300 W</td>
                 <td>6 hours/day</td>
-                <td>~54 kWh</td>
-                <td>~$8.64</td>
+                <td>~54.79 kWh</td>
+                <td>~$8.77</td>
               </tr>
             </tbody>
           </table>
@@ -219,20 +219,54 @@ export default function ElectricityUsagePage() {
       <div id="formula-math">
         <FormulaCard
           title="Electricity Usage &amp; Appliance Energy Formulas"
-          formula="Daily_kWh = (Watts × Hours_Per_Day × (Days_Per_Week / 7) × Duty_Cycle) / 1,000"
+          formula="Daily_kWh = (Watts × Hours_Per_Day × (Days_Per_Week ÷ 7) × Duty_Cycle) ÷ 1,000  |  Monthly_kWh = Daily_kWh × 30.4375  |  Annual_kWh = Daily_kWh × 365.25"
           formulaDescription="Converts instantaneous appliance power demand into normalized daily, monthly, and annual kilowatt-hour energy consumption, accounting for weekly schedules and cycling compressor behavior."
           variables={[
             { symbol: "Watts", label: "Appliance Running Wattage", description: "Nominal power draw under active operation (Volts × Amps × Power Factor).", unit: "W" },
-            { symbol: "Hours_Per_Day", label: "Daily Operating Time", description: "Active hours of use per operating day.", unit: "hours" },
+            { symbol: "Hours_Per_Day", label: "Daily Scheduled Time", description: "Hours per day the appliance is scheduled or powered on.", unit: "hours" },
             { symbol: "Days_Per_Week", label: "Weekly Schedule", description: "Number of operating days per 7-day calendar week.", unit: "days/week" },
-            { symbol: "Duty_Cycle", label: "Compressor / Heating Duty Cycle", description: "Fraction of time the appliance draws active power while turned on (e.g. 33% for refrigerators).", unit: "fraction" },
+            { symbol: "Duty_Cycle", label: "Active Duty Cycle", description: "Fraction of scheduled time the appliance actively draws full running power (e.g. 33% for refrigerators).", unit: "fraction" },
           ]}
           notes={[
             "Monthly kWh is derived using exact Gregorian calendar normalization: Daily_kWh × 30.4375 (365.25 ÷ 12).",
             "Annual kWh = Daily_kWh × 365.25.",
+            "Duty cycle should only be applied when entering peak/running wattage for cycling equipment (e.g. refrigeration compressors, thermostatically controlled heaters). For appliances whose entered power is already an average draw, keep duty cycle at 100%.",
           ]}
         />
       </div>
+
+      <section id="technical-references" style={{ marginTop: "3rem" }}>
+        <h2>Technical References &amp; Model Basis</h2>
+        <p>
+          Appliance energy formulas and baseline profiles are based on national energy conservation metrics and empirical consumption benchmarks:
+        </p>
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(260px, 1fr))", gap: "1.25rem", marginTop: "1.25rem" }}>
+          <div className="card">
+            <h3 style={{ fontSize: "1.05rem", marginBottom: "0.5rem" }}>DOE 10 CFR Part 430</h3>
+            <p style={{ fontSize: "0.9rem", color: "var(--color-text-muted)" }}>
+              Department of Energy energy conservation standards for consumer products, standardized test procedures, and annual EnergyGuide labeling requirements.
+            </p>
+          </div>
+          <div className="card">
+            <h3 style={{ fontSize: "1.05rem", marginBottom: "0.5rem" }}>EIA RECS &amp; Form EIA-861</h3>
+            <p style={{ fontSize: "0.9rem", color: "var(--color-text-muted)" }}>
+              Energy Information Administration Residential Energy Consumption Survey and annual utility sales reporting for empirical household electricity baselines.
+            </p>
+          </div>
+          <div className="card">
+            <h3 style={{ fontSize: "1.05rem", marginBottom: "0.5rem" }}>NREL / DOE Building Energy Data</h3>
+            <p style={{ fontSize: "0.9rem", color: "var(--color-text-muted)" }}>
+              National Renewable Energy Laboratory residential building load profiles and end-use load shape modeling data.
+            </p>
+          </div>
+          <div className="card">
+            <h3 style={{ fontSize: "1.05rem", marginBottom: "0.5rem" }}>PowerLab Deterministic Model</h3>
+            <p style={{ fontSize: "0.9rem", color: "var(--color-text-muted)" }}>
+              Pure deterministic calendar and schedule evaluation (365.25-day astronomical year, 30.4375-day mean Gregorian month) with zero hidden assumptions.
+            </p>
+          </div>
+        </div>
+      </section>
 
       <section id="faq-section" className="faq-section">
         <h2>Frequently Asked Questions (FAQ)</h2>
@@ -247,23 +281,23 @@ export default function ElectricityUsagePage() {
       </section>
 
       <section id="battery-sizing-handoff" style={{ marginTop: "2.5rem" }}>
-        <h2>Translating Appliance Audits to Battery Storage &amp; Backup Inverter Sizing</h2>
+        <h2>Illustrative Battery &amp; Backup Planning</h2>
         <p>
-          A common objective when calculating appliance electricity usage is sizing backup battery storage for emergency power outages. Sizing requires two distinct electrical metrics: <strong>continuous/surge power (Watts)</strong> to size the inverter, and <strong>24-hour energy consumption (Watt-hours)</strong> to size battery capacity.
+          A common objective when calculating appliance electricity usage is estimating backup battery storage for emergency power outages. Sizing requires two distinct electrical metrics: <strong>continuous/surge power (Watts)</strong> to evaluate the inverter, and <strong>24-hour energy consumption (Watt-hours)</strong> to evaluate battery capacity.
         </p>
-        <p>
-          Under National Electrical Code (NEC) Article 702 and IEEE 485 sizing principles, battery storage calculations must account for inverter conversion efficiency (~90%) and usable Depth of Discharge (typically 80% to 90% for Lithium Iron Phosphate / LiFePO4 cells to preserve 6,000+ cycle life):
+        <p style={{ fontSize: "0.88rem", color: "var(--muted)", fontStyle: "italic" }}>
+          Disclaimer: These examples are educational estimates, not a complete battery, inverter, or electrical-system design. Actual system sizing requires manufacturer specifications, measured/expected load profiles, surge characteristics, battery operating limits, inverter efficiency, environmental conditions, installation requirements, and applicable local codes.
         </p>
 
         <div className="scenario-table" role="region" aria-label="Appliance to Battery Sizing Reference Table">
           <table style={{ width: "100%", borderCollapse: "collapse" }}>
-            <caption>Table 2: Critical Home Appliance Audit to Battery Storage &amp; Inverter Sizing Benchmarks</caption>
+            <caption>Illustrative Critical Home Appliance Audit to Battery Storage &amp; Inverter Sizing Estimates</caption>
             <thead>
               <tr>
                 <th scope="col">Critical Appliance</th>
                 <th scope="col">Running Power &amp; Duty Cycle</th>
                 <th scope="col">Daily Energy (Wh/day)</th>
-                <th scope="col">24-Hr Battery Needed (LiFePO4 @ 85% DoD)</th>
+                <th scope="col">24-Hr Battery Estimate (LiFePO4 @ 85% DoD)</th>
                 <th scope="col">Inverter Sizing (Continuous / Peak LRA)</th>
               </tr>
             </thead>
@@ -286,7 +320,7 @@ export default function ElectricityUsagePage() {
                 <td><strong>Gas Furnace Heating (Blower Motor + Control Board)</strong></td>
                 <td>400W running (50% winter duty cycle)</td>
                 <td>~4,800 Wh/day</td>
-                <td>~6.27 kWh nominal (523 Ah @ 12V / 131 Ah @ 48V)</td>
+                <td>~6.28 kWh nominal (523 Ah @ 12V / 131 Ah @ 48V)</td>
                 <td>1,000W cont. / 2,200W surge (inductive blower motor)</td>
               </tr>
               <tr>
@@ -314,7 +348,7 @@ export default function ElectricityUsagePage() {
           </table>
         </div>
         <p style={{ fontSize: "0.85rem", color: "var(--muted)", marginTop: "0.75rem" }}>
-          *Note: Battery sizing incorporates a 90% hybrid inverter DC-to-AC conversion efficiency and an 85% maximum Depth of Discharge (DoD) cutoff. Inductive loads (compressors and motors) require peak surge allowance to prevent inverter overload trips.*
+          *Note: Example battery nominal capacity is calculated as: <code>Nominal Battery Capacity = Daily AC Energy ÷ Inverter Efficiency (0.90) ÷ Usable DoD (0.85)</code>. Example battery sizing uses an 85% DoD assumption. Actual usable DoD and cycle-life limits should follow the battery manufacturer&apos;s specifications. Motor startup Locked Rotor Amps (LRA) and inrush surge requirements must be verified against actual equipment nameplate data.*
         </p>
       </section>
 

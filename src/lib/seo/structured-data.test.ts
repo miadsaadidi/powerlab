@@ -86,6 +86,25 @@ describe("structured-data", () => {
     expect(webApp.isBasedOn).toContain("https://www.powelab.org/research/photovoltaic-inverter-clipping-efficiency-loss");
   });
 
+  it("assigns electrical wire & voltage drop entities without Peukert's law for voltage drop calculator", () => {
+    const data = buildCalculatorStructuredData({
+      name: "Voltage Drop Calculator",
+      description: "Calculate DC and AC voltage drop.",
+      route: "/battery/voltage-drop-calculator",
+      categoryName: "Battery",
+      categoryRoute: "/battery",
+    });
+
+    const webApp = data.find(
+      (item) => Array.isArray(item["@type"]) && item["@type"].includes("WebApplication"),
+    ) as any;
+    const aboutNames = webApp.about.map((e: any) => e.name);
+    expect(aboutNames).toContain("Voltage drop");
+    expect(aboutNames).toContain("Ohm's law");
+    expect(aboutNames).toContain("American wire gauge");
+    expect(aboutNames).not.toContain("Peukert's law");
+  });
+
   it("builds valid guide structured data with speakable and audience schema", () => {
     const data = buildGuideStructuredData({
       title: "Voltage Drop & Wire Size Calculation Guide",

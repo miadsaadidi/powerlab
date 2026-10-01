@@ -44,12 +44,11 @@ export function SolarTiltVisualizer({
       ? winterElevation 
       : equinoxElevation;
 
-  // Real-time solar ray incidence angle at solar noon:
-  // Sun altitude angle from horizon + Panel tilt angle from horizon = 90° for perpendicular incidence
+  // Geometric solar ray incidence: alignment of panel normal to solar noon vector
+  // In 2D profile: Sun altitude angle from horizon + Panel tilt angle from horizon = 90° for perpendicular noon alignment
   const totalAngle = activeSunElevation + activeTilt;
   const angularDeviation = Math.abs(totalAngle - 90);
-  const captureEfficiency = Math.max(0, Math.min(100, Math.round(Math.cos((angularDeviation * Math.PI) / 180) * 100)));
-
+  const geometricAlignmentPct = Math.max(0, Math.round(Math.cos((angularDeviation * Math.PI) / 180) * 100));
 
   // Geometry calculations for SVG
   // Pivot point on ground: (180, 160)
@@ -226,9 +225,12 @@ export function SolarTiltVisualizer({
           <span className="tilt-metric-val">{Math.round(activeSunElevation)}°</span>
         </div>
         <div className="tilt-metric">
-          <span className="tilt-metric-label">Direct Noon Capture</span>
-          <span className={`tilt-metric-val ${captureEfficiency >= 95 ? "optimal" : ""}`}>
-            {captureEfficiency}%
+          <span className="tilt-metric-label">Geometric Noon Alignment</span>
+          <span className={`tilt-metric-val ${geometricAlignmentPct >= 95 ? "optimal" : ""}`}>
+            {geometricAlignmentPct}%
+          </span>
+          <span className="form-hint" style={{ fontSize: "0.68rem", display: "block", marginTop: "2px" }}>
+            Incidence alignment at solar noon (not annual energy yield)
           </span>
         </div>
       </div>
@@ -260,4 +262,3 @@ export function SolarTiltVisualizer({
     </div>
   );
 }
-

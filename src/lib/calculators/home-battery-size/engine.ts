@@ -33,7 +33,7 @@ export interface HomeBatterySizeResult {
 const DAYS_PER_YEAR = 365.25;
 const DAYS_PER_MONTH = DAYS_PER_YEAR / 12;
 const scopePresets = [
-  { scopeFraction: 0.25, label: "Critical loads — 25% estimate" },
+  { scopeFraction: 0.3, label: "Critical loads — 30% estimate" },
   { scopeFraction: 0.5, label: "Partial home — 50% estimate" },
   { scopeFraction: 1, label: "Whole home — 100%" },
 ] as const;

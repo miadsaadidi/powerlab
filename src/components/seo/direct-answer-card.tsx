@@ -5,9 +5,11 @@ interface DirectAnswerCardProps {
   answer: string;
   formula?: string;
   formulaNode?: React.ReactNode;
+  formulaTitle?: string;
   condition?: React.ReactNode;
   standardExample?: string;
   sourceAuthority?: string;
+  sourceAuthorityLabel?: string;
 }
 
 export function DirectAnswerCard({
@@ -15,9 +17,11 @@ export function DirectAnswerCard({
   answer,
   formula,
   formulaNode,
+  formulaTitle,
   condition,
   standardExample,
   sourceAuthority = "Engineering Standards (NEC / IEC / NREL)",
+  sourceAuthorityLabel = "Governing Standard:",
 }: DirectAnswerCardProps) {
   return (
     <aside
@@ -63,7 +67,7 @@ export function DirectAnswerCard({
       {(formula || formulaNode || standardExample) && (
         <MathDisplay
           copyText={formula}
-          title="Calculation Formula &amp; Sizing Principle"
+          title={formulaTitle || "Governing Formula & Sizing Principle"}
           condition={condition}
           benchmark={standardExample}
         >
@@ -84,7 +88,7 @@ export function DirectAnswerCard({
         }}
       >
         <span>🏛️</span>
-        <span>Technical References &amp; Model Basis: {sourceAuthority}</span>
+        <span>{sourceAuthorityLabel} {sourceAuthority}</span>
       </div>
     </aside>
   );

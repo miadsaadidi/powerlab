@@ -1,5 +1,5 @@
 export type DistanceUnit = "km" | "mi";
-export type EvConsumptionUnit = "kwh-per-100-km" | "kwh-per-100-mi";
+export type EvConsumptionUnit = "kwh-per-100-km" | "kwh-per-100-mi" | "mi-per-kwh";
 export type FuelConsumptionUnit = "l-per-100-km" | "km-per-l" | "us-mpg";
 export type FuelPriceUnit = "per-liter" | "per-us-gallon";
 
@@ -28,6 +28,7 @@ export interface EvSavingsScenario {
 
 export interface EvSavingsResult {
   annualDistanceKm: number;
+  annualDistanceMiles: number;
   evKWhPerKm: number;
   fuelLitersPerKm: number;
   fuelPricePerLiter: number;
@@ -35,6 +36,7 @@ export interface EvSavingsResult {
   evGridEnergyKWh: number;
   evEnergyCost: number;
   fuelLiters: number;
+  fuelGallons: number;
   fuelCost: number;
   operatingSavings: number;
   monthlyOperatingSavings: number;
@@ -64,11 +66,20 @@ function requireNonNegative(value: unknown, message: string): asserts value is n
   if (!finite(value) || value < 0) throw new Error(message);
 }
 
+export function evConsumptionToKWhPerKm(value: number, unit: EvConsumptionUnit): number {
+  requirePositive(value, "EV battery consumption must be greater than zero.");
+  if (unit === "kwh-per-100-km") return value / 100;
+  if (unit === "kwh-per-100-mi") return value / KM_PER_100_MI;
+  if (unit === "mi-per-kwh") return 1 / (value * KM_PER_US_MILE);
+  throw new Error("Choose a supported EV consumption unit.");
+}
+
 export function fuelConsumptionToLitersPerKm(value: number, unit: FuelConsumptionUnit): number {
   requirePositive(value, "Fuel consumption must be greater than zero.");
   if (unit === "l-per-100-km") return value / 100;
   if (unit === "km-per-l") return 1 / value;
-  return LITERS_PER_US_GALLON / (value * KM_PER_US_MILE);
+  if (unit === "us-mpg") return LITERS_PER_US_GALLON / (value * KM_PER_US_MILE);
+  throw new Error("Choose a supported fuel consumption unit.");
 }
 
 export function fuelPriceToPerLiter(value: number, unit: FuelPriceUnit): number {
@@ -80,36 +91,52 @@ function validateMaintenance(value: number | undefined, label: string): void {
   if (value !== undefined) requireNonNegative(value, `${label} must be zero or greater.`);
 }
 
+function resolveEfficiency(eff: number): number {
+  if (!finite(eff) || eff <= 0) throw new Error("Charging efficiency must be greater than 0.");
+  if (eff > 0 && eff <= 1) return eff;
+  if (eff >= 5 && eff <= 100) return eff / 100;
+  throw new Error("Charging efficiency must be no more than 100%.");
+}
+
 export function calculateEvSavings(input: EvSavingsInput): EvSavingsResult {
-  requireNonNegative(input.annualDistance, "Annual distance must be zero or greater.");
+  requirePositive(input.annualDistance, "Annual distance must be greater than zero.");
   if (input.distanceUnit !== "km" && input.distanceUnit !== "mi") throw new Error("Choose a supported distance unit.");
-  requirePositive(input.evConsumption, "EV consumption must be greater than zero.");
-  if (input.evConsumptionUnit !== "kwh-per-100-km" && input.evConsumptionUnit !== "kwh-per-100-mi") throw new Error("Choose a supported EV consumption unit.");
-  if (!finite(input.chargingEfficiency) || input.chargingEfficiency <= 0 || input.chargingEfficiency > 1) throw new Error("Charging efficiency must be greater than 0 and no more than 1.");
+  
+  const efficiency = resolveEfficiency(input.chargingEfficiency);
   requireNonNegative(input.electricityPricePerKWh, "Electricity price must be zero or greater.");
-  if (input.fuelConsumptionUnit !== "l-per-100-km" && input.fuelConsumptionUnit !== "km-per-l" && input.fuelConsumptionUnit !== "us-mpg") throw new Error("Choose a supported fuel consumption unit.");
   if (input.fuelPriceUnit !== "per-liter" && input.fuelPriceUnit !== "per-us-gallon") throw new Error("Choose a supported fuel price unit.");
+  
   validateMaintenance(input.annualEvMaintenance, "Annual EV maintenance");
   validateMaintenance(input.annualIceMaintenance, "Annual ICE maintenance");
 
   const annualDistanceKm = input.distanceUnit === "km" ? input.annualDistance : input.annualDistance * MILES_TO_KM;
-  const evKWhPerKm = input.evConsumptionUnit === "kwh-per-100-km" ? input.evConsumption / 100 : input.evConsumption / KM_PER_100_MI;
+  const annualDistanceMiles = annualDistanceKm / MILES_TO_KM;
+  
+  const evKWhPerKm = evConsumptionToKWhPerKm(input.evConsumption, input.evConsumptionUnit);
   const fuelLitersPerKm = fuelConsumptionToLitersPerKm(input.fuelConsumption, input.fuelConsumptionUnit);
   const fuelPricePerLiter = fuelPriceToPerLiter(input.fuelPrice, input.fuelPriceUnit);
+
+  // Exact battery energy before charging losses
   const evBatteryEnergyKWh = annualDistanceKm * evKWhPerKm;
-  const evGridEnergyKWh = evBatteryEnergyKWh / input.chargingEfficiency;
+  // Wall/grid energy drawn factoring in charging efficiency exactly once
+  const evGridEnergyKWh = evBatteryEnergyKWh / efficiency;
   const evEnergyCost = evGridEnergyKWh * input.electricityPricePerKWh;
+
   const fuelLiters = annualDistanceKm * fuelLitersPerKm;
+  const fuelGallons = fuelLiters / LITERS_PER_US_GALLON;
   const fuelCost = fuelLiters * fuelPricePerLiter;
   const operatingSavings = fuelCost - evEnergyCost;
+
   const hasMaintenance = input.annualEvMaintenance !== undefined && input.annualIceMaintenance !== undefined;
   const maintenanceDifference = hasMaintenance ? input.annualIceMaintenance! - input.annualEvMaintenance! : null;
   const totalComparedSavings = hasMaintenance ? operatingSavings + maintenanceDifference! : null;
   const primarySavings = totalComparedSavings ?? operatingSavings;
-  const evCostPer100Km = (evKWhPerKm / input.chargingEfficiency) * 100 * input.electricityPricePerKWh;
-  const evCostPer100Mi = (evKWhPerKm / input.chargingEfficiency) * KM_PER_100_MI * input.electricityPricePerKWh;
+
+  const evCostPer100Km = (evKWhPerKm / efficiency) * 100 * input.electricityPricePerKWh;
+  const evCostPer100Mi = (evKWhPerKm / efficiency) * KM_PER_100_MI * input.electricityPricePerKWh;
   const fuelCostPer100Km = fuelLitersPerKm * 100 * fuelPricePerLiter;
   const fuelCostPer100Mi = fuelLitersPerKm * KM_PER_100_MI * fuelPricePerLiter;
+
   const scenarios = [0.75, 1, 1.25].map((multiplier) => {
     const scenarioPrice = input.electricityPricePerKWh * multiplier;
     const scenarioEvCost = evGridEnergyKWh * scenarioPrice;
@@ -124,9 +151,32 @@ export function calculateEvSavings(input: EvSavingsInput): EvSavingsResult {
   });
 
   return {
-    annualDistanceKm, evKWhPerKm, fuelLitersPerKm, fuelPricePerLiter, evBatteryEnergyKWh, evGridEnergyKWh, evEnergyCost, fuelLiters, fuelCost, operatingSavings,
-    monthlyOperatingSavings: operatingSavings / 12, maintenanceDifference, totalComparedSavings, primarySavings, primaryScope: hasMaintenance ? "maintenance-adjusted" : "operating",
-    evCostPer100Km, evCostPer100Mi, fuelCostPer100Km, fuelCostPer100Mi,
-    fuelEconomy: { lPer100Km: fuelLitersPerKm * 100, kmPerL: 1 / fuelLitersPerKm, usMpg: LITERS_PER_US_GALLON / (fuelLitersPerKm * KM_PER_US_MILE) }, scenarios,
+    annualDistanceKm,
+    annualDistanceMiles,
+    evKWhPerKm,
+    fuelLitersPerKm,
+    fuelPricePerLiter,
+    evBatteryEnergyKWh,
+    evGridEnergyKWh,
+    evEnergyCost,
+    fuelLiters,
+    fuelGallons,
+    fuelCost,
+    operatingSavings,
+    monthlyOperatingSavings: operatingSavings / 12,
+    maintenanceDifference,
+    totalComparedSavings,
+    primarySavings,
+    primaryScope: hasMaintenance ? "maintenance-adjusted" : "operating",
+    evCostPer100Km,
+    evCostPer100Mi,
+    fuelCostPer100Km,
+    fuelCostPer100Mi,
+    fuelEconomy: {
+      lPer100Km: fuelLitersPerKm * 100,
+      kmPerL: 1 / fuelLitersPerKm,
+      usMpg: LITERS_PER_US_GALLON / (fuelLitersPerKm * KM_PER_US_MILE),
+    },
+    scenarios,
   };
 }

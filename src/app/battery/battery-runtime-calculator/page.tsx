@@ -10,70 +10,44 @@ import { PageJumpNav } from "@/components/seo/page-jump-nav";
 import { SystemFlowDiagram } from "@/components/seo/system-flow-diagram";
 import { DirectAnswerCard } from "@/components/seo/direct-answer-card";
 
-
 export const metadata: Metadata = buildPageMetadata({
   title: "Battery Runtime Calculator — Backup Hours",
-  description: "Calculate how long a 12V, 24V, or 48V battery backup will run your appliances. Supports LiFePO4, AGM, and Gel chemistries with inverter efficiency losses.",
+  description: "Estimate how long a 12V, 24V, or 48V battery backup will run your appliances. Supports LiFePO4, AGM, and Gel chemistries with DOD reserves, SOH, and inverter losses.",
   canonicalPath: "/battery/battery-runtime-calculator",
   category: "battery",
 });
 
-const example = calculateBatteryRuntime({
-  capacityAh: 100,
-  voltage: 12,
-  loadWatts: 100,
-  startingSoc: 1,
-  reserveSoc: 0.2,
-  batteryHealth: 1,
-  conversionEfficiency: 0.9,
-  dutyCycle: 1,
-});
-
-const scenarioLoads = [50, 100, 300, 500].map((loadWatts) => ({
-  loadWatts,
-  runtimeHours: calculateBatteryRuntime({
-    capacityAh: 100,
-    voltage: 12,
-    loadWatts,
-    startingSoc: 1,
-    reserveSoc: 0.2,
-    batteryHealth: 1,
-    conversionEfficiency: 0.9,
-    dutyCycle: 1,
-  }).result.runtimeHours,
-}));
-
 const FAQS = [
   {
     question: "How long will a 100Ah 12V battery run a refrigerator?",
-    answer: "A standard household refrigerator averaging 150W (cycling with a ~35% compressor duty cycle) will run for approximately 6.3 hours on a 12V 100Ah LiFePO4 battery (assuming 80% usable capacity and 90% inverter efficiency). On a 200Ah battery, it will run for about 12.7 hours.",
+    answer: "A household refrigerator with a 150W compressor cycling at a 35% duty cycle averages approximately 52.5W. On a 12V 100Ah LiFePO4 battery (1,200Wh nominal, 80% usable DoD = 960Wh, 90% inverter efficiency yielding 864Wh delivered AC), it will run for approximately 16.5 hours (864 Wh ÷ 52.5 W). On a 12V 200Ah battery, it will run for about 32.9 hours. If the refrigerator runs continuously at 150W without cycling, runtime is approximately 5.8 hours on 100Ah and 11.5 hours on 200Ah.",
   },
   {
     question: "How long will a 100Ah battery run a CPAP machine?",
-    answer: "A CPAP machine consuming 35W without a heated humidifier will run for approximately 24.7 hours on a 12V 100Ah LiFePO4 battery, or around 3 full 8-hour nights of sleep before needing recharge.",
+    answer: "An illustrative CPAP machine consuming ~35W (without a heated humidifier or heated tube) will run for approximately 24.7 hours on a 12V 100Ah LiFePO4 battery (864Wh delivered AC), or around 3 full 8-hour nights of sleep. Actual runtime varies depending on machine model, therapy pressure settings, humidifier heating (which can increase draw to 70W–100W+), mask seal quality, and whether powered via an AC inverter or a high-efficiency native DC-DC adapter.",
   },
   {
-    question: "Why does a 12V 100Ah battery not provide the full 1,200 watt-hours?",
-    answer: "Nominal energy is 12V × 100Ah = 1,200Wh. However, usable capacity is reduced by minimum state-of-charge reserve limits (typically 20% for LiFePO4 or 50% for Lead-Acid) and AC inverter conversion losses (typically 85%–92% efficiency).",
+    question: "Why does a 12V 100Ah battery not deliver the full 1,200 watt-hours to AC appliances?",
+    answer: "Nominal stored energy is 12V × 100Ah = 1,200Wh (or 1,280Wh for a 12.8V 4S LiFePO4 pack). Delivered AC energy is lower due to: (1) Safe Depth of Discharge reserve limits (typically 20% reserve / 80% usable for LiFePO4, 50% for Lead-Acid) to protect battery lifespan, leaving 960Wh usable DC; and (2) Inverter conversion losses (typically 85%–92% efficiency), delivering approximately 864Wh of AC power to connected appliances.",
   },
   {
     question: "How do I calculate battery runtime for AC appliances?",
-    answer: "Divide usable battery watt-hours by the battery-side load. For AC equipment: Usable Wh = Rated Wh × Usable Fraction. Battery-Side Load = Appliance Watts ÷ Inverter Efficiency. Runtime Hours = Usable Wh ÷ Battery-Side Load.",
+    answer: "Divide usable battery watt-hours by the battery-side load. For AC loads: Usable Wh = Nominal Wh × Usable Fraction × SOH. Battery-Side Load = Appliance Watts ÷ Inverter Efficiency. Runtime (Hours) = Usable Wh ÷ Battery-Side Load.",
   },
 ];
 
 export default function BatteryRuntimePage() {
   const structuredData = buildCalculatorStructuredData({
     name: "Battery Runtime Calculator",
-    description: "Estimate battery runtime from Wh or Ah, voltage, load, state of charge, reserve and inverter efficiency.",
+    description: "Estimate battery backup runtime from Wh or Ah, voltage, appliance load, state of charge, reserve limits, and inverter efficiency.",
     route: "/battery/battery-runtime-calculator",
     categoryName: "Battery",
     categoryRoute: "/battery",
     features: [
-      "Calculates battery backup runtime in hours and minutes",
-      "Converts Ah to Wh using nominal voltage presets",
+      "Estimates battery backup runtime in hours and minutes for planning purposes",
+      "Converts Ah to Wh using nominal voltage presets (12V, 12.8V, 24V, 48V)",
       "Accounts for AC inverter and DC conversion efficiency losses",
-      "Customizable depth-of-discharge reserve and battery health",
+      "Customizable depth-of-discharge reserve and battery State of Health (SOH)",
       "Appliance load builder with duty cycles and peak watts",
     ],
     standards: [
@@ -83,7 +57,6 @@ export default function BatteryRuntimePage() {
       "NFPA 70 / NEC Article 706 (Energy Storage Systems)",
     ],
     companionDatasetUrl: "https://doi.org/10.6084/m9.figshare.33821940",
-    companionPaperUrl: "https://www.powelab.org/research/stationary-bess-peukert-derating-inverter-tare-loss",
     faqs: FAQS,
   });
 
@@ -113,9 +86,9 @@ export default function BatteryRuntimePage() {
 
       <DirectAnswerCard
         keyword="battery runtime calculator"
-        answer="To calculate battery runtime, multiply your battery's total watt-hours by its usable Depth of Discharge (80% for LiFePO4, 50% for Lead-Acid) and inverter efficiency (~90%), then divide by the total connected load in watts."
-        formula="Runtime (Hours) = (Capacity Wh × Usable DOD % × Inverter Eff %) ÷ Load Watts"
-        standardExample="A 12V 100Ah LiFePO4 battery (1,280 Wh nominal = 921 Wh usable AC) powers a continuous 100W load for ~9.2 hours."
+        answer="To calculate battery runtime, multiply your battery's nominal watt-hours by its usable State of Charge window (80%–90% for LiFePO4, 50% for Lead-Acid) and inverter efficiency (~90%), then divide by the total connected load in watts."
+        formula="Runtime (Hours) = (Nominal Wh × Usable SOC % × Inverter Eff %) ÷ Load Watts"
+        standardExample="A 12V 100Ah LiFePO4 battery (1,200 Wh nominal; 80% usable DoD = 960 Wh DC; 90% inverter efficiency = 864 Wh delivered AC) powers a continuous 100W load for ~8.6 hours. On a 12.8V 100Ah pack (1,280 Wh nominal = 921.6 Wh delivered AC), it provides ~9.2 hours."
       />
 
       <PageJumpNav />
@@ -126,7 +99,7 @@ export default function BatteryRuntimePage() {
           <li><strong>Enter Battery Capacity (Ah or Wh):</strong> Choose nominal system voltage (12V, 24V, 48V) and Amp-hour capacity.</li>
           <li><strong>Select or Enter Appliance Load (Watts):</strong> Enter continuous average running watts or use the appliance load builder.</li>
           <li><strong>Set Depth of Discharge (DOD) Reserve:</strong> Lithium LiFePO4 batteries allow 80% to 90% usable capacity; Lead-Acid/AGM allows 50%.</li>
-          <li><strong>Review Operating Duration:</strong> View exact hours and minutes of backup power available.</li>
+          <li><strong>Review Operating Duration:</strong> View estimated hours and minutes of backup power available for planning.</li>
         </ol>
 
         <SystemFlowDiagram category="battery" title="Battery Discharge & Backup Flow Topology" />
@@ -137,7 +110,7 @@ export default function BatteryRuntimePage() {
         <p>Estimated continuous operating hours for popular appliances powered by a 12V lithium battery (80% usable capacity, 90% inverter efficiency):</p>
         <div className="scenario-table" role="region" aria-label="Battery runtime scenarios">
           <table>
-            <caption>Estimated runtime on 12V 100Ah (960Wh usable) vs 12V 200Ah (1,920Wh usable)</caption>
+            <caption>Estimated runtime on 12V 100Ah (864Wh delivered AC) vs 12V 200Ah (1,728Wh delivered AC)</caption>
             <thead>
               <tr>
                 <th scope="col">Device / Load</th>
@@ -154,7 +127,7 @@ export default function BatteryRuntimePage() {
                 <td>~115.2 hours (4.8 days)</td>
               </tr>
               <tr>
-                <td><strong>CPAP Machine</strong> (no heated humidifier)</td>
+                <td><strong>CPAP Machine</strong> (illustrative load, no heater)</td>
                 <td>35 W</td>
                 <td>~24.7 hours (~3 nights)</td>
                 <td>~49.4 hours (~6 nights)</td>
@@ -178,10 +151,10 @@ export default function BatteryRuntimePage() {
                 <td>~8.6 hours</td>
               </tr>
               <tr>
-                <td><strong>Full-Size Refrigerator</strong> (cycling)</td>
-                <td>150 W avg</td>
-                <td>~6.3 hours</td>
-                <td>~12.7 hours</td>
+                <td><strong>Full-Size Refrigerator</strong> (cycling at 35% duty)</td>
+                <td>52.5 W avg (150W peak)</td>
+                <td>~16.5 hours</td>
+                <td>~32.9 hours</td>
               </tr>
             </tbody>
           </table>
@@ -191,21 +164,40 @@ export default function BatteryRuntimePage() {
       <div id="formula-math">
         <FormulaCard
           title="Battery Runtime Calculation Formula"
-          formula="Runtime (hours) = (Capacity_Wh × Usable_SOC × Battery_Health × Efficiency) / Load_Watts"
-          formulaDescription="Calculates exact continuous running duration by determining net usable stored energy after Depth-of-Discharge (DOD) limits, battery health degradation, and inverter conversion losses."
+          formula="Runtime (hours) = (Capacity_Wh × Usable_SOC × Battery_Health × Inverter_Efficiency) / Load_Watts"
+          formulaDescription="Estimates battery backup duration for planning purposes by determining net usable stored energy after Depth-of-Discharge (DOD) limits, battery State of Health (SOH), and inverter conversion losses."
           variables={[
             { symbol: "Capacity_Wh", label: "Nominal Battery Energy", description: "Rated battery watt-hours (or Volts × Amp-Hours).", unit: "Wh" },
             { symbol: "Usable_SOC", label: "Usable State of Charge Window", description: "Fraction of capacity available above minimum reserve (e.g., 80% for LiFePO4, 50% for Lead-Acid).", unit: "fraction" },
-            { symbol: "Battery_Health", label: "State of Health (SOH)", description: "Available capacity relative to original factory rating (default 100%).", unit: "fraction" },
-            { symbol: "Efficiency", label: "Conversion Efficiency (η)", description: "Inverter efficiency for AC loads (85%–93%) or DC-DC step efficiency.", unit: "fraction" },
+            { symbol: "Battery_Health", label: "State of Health (SOH)", description: "Available capacity factor relative to original factory rating (default 100%).", unit: "fraction" },
+            { symbol: "Inverter_Efficiency", label: "Conversion Efficiency (η)", description: "Inverter efficiency for AC loads (85%–93%) or DC-DC step efficiency.", unit: "fraction" },
             { symbol: "Load_Watts", label: "Continuous Power Demand", description: "Average real-time appliance consumption (Running Watts × Duty Cycle).", unit: "W" },
           ]}
           notes={[
-            "For intermittent loads like refrigerators and AC compressors, average load = running watts × duty cycle (typically 30%–45%).",
-            "Lead-acid and AGM batteries experience Peukert capacity loss under heavy discharge rates (>0.2C).",
+            "For cycling loads like refrigerators, average continuous demand = running wattage × duty cycle (e.g., 150 W × 35% = 52.5 W).",
+            "Real-world runtime varies with ambient temperature, cell aging/SOH, discharge rate, BMS voltage cutoff thresholds, standby inverter tare losses, and dynamic load cycling.",
           ]}
         />
       </div>
+
+      <section id="governing-standards" className="standards-section" style={{ marginTop: "3rem" }}>
+        <h2>Technical References &amp; Model Basis</h2>
+        <p>The mathematical models in this calculator reflect industry planning guidelines and test standards for stationary and portable energy storage systems:</p>
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))", gap: "1rem", marginTop: "1rem" }}>
+          <div style={{ padding: "1.25rem", border: "1px solid var(--border-color)", borderRadius: "var(--radius)", background: "var(--card-bg)" }}>
+            <h3 style={{ fontSize: "1rem", fontWeight: 600, marginBottom: "0.5rem" }}>IEEE Std 485 / IEC 62619</h3>
+            <p style={{ fontSize: "0.875rem", color: "var(--muted)", margin: 0 }}>
+              Industry engineering recommendations for battery sizing, defining depth-of-discharge reserve thresholds, and state-of-health capacity retention in lithium and lead-acid battery banks.
+            </p>
+          </div>
+          <div style={{ padding: "1.25rem", border: "1px solid var(--border-color)", borderRadius: "var(--radius)", background: "var(--card-bg)" }}>
+            <h3 style={{ fontSize: "1rem", fontWeight: 600, marginBottom: "0.5rem" }}>UL 1973 &amp; NFPA 70 / NEC 706</h3>
+            <p style={{ fontSize: "0.875rem", color: "var(--muted)", margin: 0 }}>
+              Safety and installation standards governing energy storage systems (ESS), inverter integration boundaries, and electrical protection requirements.
+            </p>
+          </div>
+        </div>
+      </section>
 
       <section id="faq-section" className="faq-section">
         <h2>Frequently Asked Questions (FAQ)</h2>

@@ -3,17 +3,17 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { AC_COST_DEFAULTS, QUICK_AC_PRESETS } from "@/data/ac-defaults";
-import { calculateAcCost, type AcCostResult } from "@/lib/calculators/ac-cost/engine";
+import { calculateAcCost, type AcCostResult, type AcRatingType } from "@/lib/calculators/ac-cost/engine";
 import { track } from "@/lib/analytics/analytics";
 import { MobileResultBar } from "@/components/calculator/mobile-result-bar";
 import { ShareButton } from "@/components/calculator/share-button";
 import { PrintSpecButton } from "@/components/calculator/print-spec-button";
-import { CalculatorTrustPill } from "@/components/calculator/calculator-trust-pill";
 import { RegionalClimateSelector } from "@/components/calculator/regional-climate-selector";
 import type { RegionalClimateData } from "@/data/regional-climate-solar-data";
 
 export function AcCostCalculator() {
   const [inputMode, setInputMode] = useState<"btu_seer" | "watts">(AC_COST_DEFAULTS.inputMode);
+  const [ratingType, setRatingType] = useState<AcRatingType>(AC_COST_DEFAULTS.ratingType);
   const [coolingBtu, setCoolingBtu] = useState<number>(AC_COST_DEFAULTS.coolingCapacityBtu);
   const [seerRating, setSeerRating] = useState<number>(AC_COST_DEFAULTS.seer2Rating);
   const [nameplateWatts, setNameplateWatts] = useState<number>(AC_COST_DEFAULTS.nameplateWatts);
@@ -27,6 +27,7 @@ export function AcCostCalculator() {
     try {
       return calculateAcCost({
         inputMode: AC_COST_DEFAULTS.inputMode,
+        ratingType: AC_COST_DEFAULTS.ratingType,
         coolingCapacityBtu: AC_COST_DEFAULTS.coolingCapacityBtu,
         seer2Rating: AC_COST_DEFAULTS.seer2Rating,
         nameplateWatts: AC_COST_DEFAULTS.nameplateWatts,
@@ -47,10 +48,12 @@ export function AcCostCalculator() {
     track("calculator_view", { calculator_id: "ac-cost", category: "home-energy", phase: 5 });
   }, []);
 
-  const calculate = () => {
+  // Synchronous auto-calculation whenever any input state changes
+  useEffect(() => {
     try {
       const res = calculateAcCost({
         inputMode,
+        ratingType,
         coolingCapacityBtu: coolingBtu,
         seer2Rating: seerRating,
         nameplateWatts,
@@ -62,11 +65,10 @@ export function AcCostCalculator() {
       setCalculated(res);
       setError(null);
       setStale(false);
-      track("calculator_calculate", { calculator_id: "ac-cost", used_advanced: advancedOpen });
     } catch (err) {
       setError(err instanceof Error ? err : new Error("Unable to calculate air conditioner cost."));
     }
-  };
+  }, [inputMode, ratingType, coolingBtu, seerRating, nameplateWatts, dailyHours, dutyCycle, electricityRate, seasonMonths]);
 
   const getShareUrl = () => {
     if (typeof window === "undefined") return "";
@@ -74,8 +76,11 @@ export function AcCostCalculator() {
     url.searchParams.set("mode", inputMode);
     url.searchParams.set("btu", String(coolingBtu));
     url.searchParams.set("seer", String(seerRating));
+    url.searchParams.set("w", String(nameplateWatts));
     url.searchParams.set("h", String(dailyHours));
+    url.searchParams.set("d", String(dutyCycle));
     url.searchParams.set("r", String(electricityRate));
+    url.searchParams.set("m", String(seasonMonths));
     return url.toString();
   };
 
@@ -92,31 +97,15 @@ export function AcCostCalculator() {
                 <button
                   key={p.label}
                   type="button"
-                  className={`preset-chip-btn ${coolingBtu === p.btu && seerRating === p.seer ? "active" : ""}`}
+                  className={`preset-chip-btn ${coolingBtu === p.btu && seerRating === p.seer && inputMode === p.mode ? "active" : ""}`}
                   onClick={() => {
                     setInputMode(p.mode);
+                    setRatingType(p.ratingType);
                     setCoolingBtu(p.btu);
                     setSeerRating(p.seer);
                     setNameplateWatts(p.watts);
                     setDailyHours(p.hours);
                     setDutyCycle(p.duty);
-                    try {
-                      const res = calculateAcCost({
-                        inputMode: p.mode,
-                        coolingCapacityBtu: p.btu,
-                        seer2Rating: p.seer,
-                        nameplateWatts: p.watts,
-                        dailyHours: p.hours,
-                        compressorDutyCyclePercent: p.duty,
-                        electricityRate,
-                        coolingSeasonMonths: seasonMonths,
-                      });
-                      setCalculated(res);
-                      setStale(false);
-                      setError(null);
-                    } catch {
-                      if (calculated) setStale(true);
-                    }
                     track("calculator_preset_click", { calculator_id: "ac-cost", preset: p.label });
                   }}
                 >
@@ -128,44 +117,46 @@ export function AcCostCalculator() {
 
           <RegionalClimateSelector
             applyTarget="hvac"
-            title="📍 Regional ASHRAE Cooling Climate & EIA Rates"
-            description="Select your state to load official ASHRAE 1% summer design temperatures, cooling season duration, and EIA grid rates."
+            title="📍 Regional ASHRAE Cooling Climate &amp; EIA Rates"
+            description="Select your state to load representative ASHRAE summer design temperatures and EIA residential electricity-rate benchmarks."
             onSelectRegion={(region: RegionalClimateData) => {
               setElectricityRate(region.electricityRateKwh);
-              // Set cooling season months based on climate zone & summer design temp
               const isHotSouth = region.summerDesignTempF > 94;
               const isModerate = region.summerDesignTempF >= 88;
               const nextMonths = isHotSouth ? 6 : isModerate ? 4 : 3;
               const nextHours = isHotSouth ? 10 : 8;
               setSeasonMonths(nextMonths);
               setDailyHours(nextHours);
-              try {
-                const res = calculateAcCost({
-                  inputMode,
-                  coolingCapacityBtu: coolingBtu,
-                  seer2Rating: seerRating,
-                  nameplateWatts,
-                  dailyHours: nextHours,
-                  compressorDutyCyclePercent: dutyCycle,
-                  electricityRate: region.electricityRateKwh,
-                  coolingSeasonMonths: nextMonths,
-                });
-                setCalculated(res);
-                setStale(false);
-                setError(null);
-              } catch {
-                if (calculated) setStale(true);
-              }
               track("calculator_region_select", { calculator_id: "ac-cost", state: region.stateCode });
             }}
           />
 
-          <CalculatorTrustPill />
+          <div
+            role="note"
+            style={{
+              display: "inline-flex",
+              alignItems: "center",
+              flexWrap: "wrap",
+              gap: "0.45rem 0.65rem",
+              padding: "0.35rem 0.75rem",
+              borderRadius: "9999px",
+              background: "rgba(55, 94, 75, 0.06)",
+              border: "1px solid rgba(55, 94, 75, 0.15)",
+              fontSize: "0.78rem",
+              fontWeight: 600,
+              color: "var(--brand-strong, #264435)",
+              marginBottom: "1rem",
+              width: "fit-content",
+              maxWidth: "100%",
+              lineHeight: 1.3,
+            }}
+          >
+            <span>Calculations run in your browser • No sign-up required</span>
+          </div>
 
           <form
             onSubmit={(e) => {
               e.preventDefault();
-              calculate();
             }}
             noValidate
           >
@@ -179,11 +170,10 @@ export function AcCostCalculator() {
                     value={inputMode}
                     onChange={(e) => {
                       setInputMode(e.target.value as "btu_seer" | "watts");
-                      if (calculated) setStale(true);
                     }}
                   >
-                    <option value="btu_seer">Cooling BTU &amp; SEER2 Rating (Recommended)</option>
-                    <option value="watts">Direct Electric Power (Watts)</option>
+                    <option value="btu_seer">Cooling Capacity &amp; Efficiency Rating (Seasonal / Planning)</option>
+                    <option value="watts">Direct Electric Power (Nameplate / Active Watts)</option>
                   </select>
                 </label>
 
@@ -195,7 +185,6 @@ export function AcCostCalculator() {
                       value={coolingBtu}
                       onChange={(e) => {
                         setCoolingBtu(Number(e.target.value));
-                        if (calculated) setStale(true);
                       }}
                     >
                       <option value="5000">5,000 BTU (~150 sq ft Bedroom)</option>
@@ -211,7 +200,7 @@ export function AcCostCalculator() {
                   </label>
                 ) : (
                   <label htmlFor="ac-watts">
-                    Nameplate Electric Power (Watts)
+                    Nameplate / Measured Power (Watts)
                     <input
                       id="ac-watts"
                       type="number"
@@ -221,7 +210,6 @@ export function AcCostCalculator() {
                       value={nameplateWatts}
                       onChange={(e) => {
                         setNameplateWatts(Number(e.target.value));
-                        if (calculated) setStale(true);
                       }}
                     />
                   </label>
@@ -231,22 +219,34 @@ export function AcCostCalculator() {
               {inputMode === "btu_seer" && (
                 <div className="field-pair">
                   <label htmlFor="ac-seer">
-                    Efficiency Rating (SEER / SEER2 / CEER)
+                    Efficiency Metric &amp; Rating Value
                     <select
                       id="ac-seer"
-                      value={seerRating}
+                      value={String(seerRating)}
                       onChange={(e) => {
-                        setSeerRating(Number(e.target.value));
-                        if (calculated) setStale(true);
+                        const val = Number(e.target.value);
+                        setSeerRating(val);
+                        if (val === 11.0 || val === 12.0) {
+                          setRatingType("CEER");
+                        } else if (val === 9.5) {
+                          setRatingType("SACC");
+                        } else if (val === 10.0) {
+                          setRatingType("SEER");
+                        } else {
+                          setRatingType("SEER2");
+                        }
                       }}
                     >
-                      <option value="10.0">10.0 SEER (Legacy 15+ yr old unit)</option>
+                      <option value="10.0">10.0 SEER (Legacy Pre-2006 AC)</option>
+                      <option value="11.0">11.0 CEER (Small Window Unit)</option>
                       <option value="12.0">12.0 CEER (Standard Window AC)</option>
-                      <option value="13.4">13.4 SEER2 (Minimum standard prior to 2023)</option>
+                      <option value="9.5">9.5 SACC (Portable Room AC)</option>
+                      <option value="13.4">13.4 SEER2 (DOE 2023 North Minimum)</option>
                       <option value="14.3">14.3 SEER2 (Modern Standard Central AC)</option>
-                      <option value="16.0">16.0 SEER2 (High Efficiency)</option>
+                      <option value="15.0">15.0 SEER2 (South / SW Standard Central AC)</option>
+                      <option value="16.0">16.0 SEER2 (High Efficiency Central AC)</option>
                       <option value="20.0">20.0 SEER2 (Inverter Ductless Mini-Split)</option>
-                      <option value="24.0">24.0+ SEER2 (Ultra High Efficiency Heat Pump)</option>
+                      <option value="24.0">24.0+ SEER2 (Ultra High Efficiency Inverter)</option>
                     </select>
                   </label>
                 </div>
@@ -257,7 +257,7 @@ export function AcCostCalculator() {
               <legend>Usage Hours &amp; Electricity Price</legend>
               <div className="field-pair">
                 <label htmlFor="ac-hours">
-                  Daily Usage (Hours / Day)
+                  Daily Usage (Clock Hours / Day)
                   <input
                     id="ac-hours"
                     type="number"
@@ -268,7 +268,6 @@ export function AcCostCalculator() {
                     value={dailyHours}
                     onChange={(e) => {
                       setDailyHours(Number(e.target.value));
-                      if (calculated) setStale(true);
                     }}
                   />
                 </label>
@@ -279,13 +278,15 @@ export function AcCostCalculator() {
                     type="number"
                     inputMode="decimal"
                     min="0.01"
-                    step="0.01"
+                    step="0.001"
                     value={electricityRate}
                     onChange={(e) => {
                       setElectricityRate(Number(e.target.value));
-                      if (calculated) setStale(true);
                     }}
                   />
+                  <small style={{ color: "var(--text-muted, #64748b)", fontSize: "0.74rem", display: "block", marginTop: "0.2rem" }}>
+                    Selected local electricity rate (EIA national benchmark: $0.1834/kWh).
+                  </small>
                 </label>
               </div>
             </fieldset>
@@ -305,13 +306,12 @@ export function AcCostCalculator() {
                       value={dutyCycle}
                       onChange={(e) => {
                         setDutyCycle(Number(e.target.value));
-                        if (calculated) setStale(true);
                       }}
                     >
                       <option value="40">40% (Mild Weather / Moderate Shading)</option>
-                      <option value="60">60% (Typical Summer Cycling)</option>
+                      <option value="60">60% (Illustrative Summer Cycling Assumption)</option>
                       <option value="80">80% (Extreme Heat Wave / Peak Sun)</option>
-                      <option value="100">100% (Continuous Full Blast / Undersized Unit)</option>
+                      <option value="100">100% (Continuous Active Run / Undersized Unit)</option>
                     </select>
                   </label>
                   <label htmlFor="ac-season">
@@ -321,7 +321,6 @@ export function AcCostCalculator() {
                       value={seasonMonths}
                       onChange={(e) => {
                         setSeasonMonths(Number(e.target.value));
-                        if (calculated) setStale(true);
                       }}
                     >
                       <option value="3">3 Months (June – August)</option>
@@ -338,9 +337,6 @@ export function AcCostCalculator() {
                 {error.message}
               </p>
             )}
-            <button className="button calculator-submit" type="submit">
-              {calculated ? "Recalculate" : "Calculate AC Running Cost"}
-            </button>
           </form>
         </div>
 
@@ -354,11 +350,15 @@ export function AcCostCalculator() {
               <p className="result-value" style={{ color: "#0284c7" }}>
                 ${calculated.result.costPerMonth.toFixed(2)} / mo
               </p>
-              <p className="result-subtext" style={{ fontWeight: 600, marginTop: "-0.25rem", marginBottom: "1rem" }}>
-                ${calculated.result.costPerHour.toFixed(2)} per hour · ${calculated.result.costPerDay.toFixed(2)} per day
+              <p className="result-subtext" style={{ fontWeight: 600, marginTop: "-0.25rem", marginBottom: "0.5rem" }}>
+                ${calculated.result.costPerHour.toFixed(2)} / clock hour ({calculated.result.dutyCyclePercent}% duty) · ${calculated.result.costPerActiveHour.toFixed(2)} / active hour
               </p>
 
-              {stale && <p className="warning">Inputs changed — recalculate to refresh cost breakdown.</p>}
+              <p style={{ fontSize: "0.75rem", color: "var(--text-muted, #64748b)", margin: "0.25rem 0 0.85rem", fontStyle: "italic", lineHeight: 1.4 }}>
+                Simplified planning estimate — actual input power varies with operating conditions and equipment rating.
+              </p>
+
+              {stale && <p className="warning">Inputs changed — recalculating cost breakdown...</p>}
 
               {/* Upgrade Savings Comparison Card */}
               <div style={{ margin: "1rem 0", padding: "1rem", borderRadius: "0.5rem", background: "var(--card-bg, #f8fafc)", border: "1px solid var(--border-color, #e2e8f0)" }}>
@@ -385,20 +385,24 @@ export function AcCostCalculator() {
 
               <dl className="result-breakdown">
                 <div>
-                  <dt>Effective Power Draw</dt>
-                  <dd>{calculated.result.effectiveElectricalWatts.toLocaleString()} Watts</dd>
+                  <dt>Rated Electrical Input Power</dt>
+                  <dd>{calculated.result.effectiveElectricalWatts.toLocaleString()} Watts ({calculated.result.activeHourKwh.toFixed(2)} kW)</dd>
                 </div>
                 <div>
-                  <dt>Average Electricity Consumption</dt>
-                  <dd>{calculated.result.hourlyKwh} kWh / hour</dd>
+                  <dt>Clock-Hour Energy Draw ({calculated.result.dutyCyclePercent}% duty)</dt>
+                  <dd>{calculated.result.clockHourKwh} kWh / clock hour</dd>
                 </div>
                 <div>
-                  <dt>Thermostat Run-Time Duty</dt>
-                  <dd>{calculated.result.dutyCyclePercent}% active compressor time</dd>
+                  <dt>Active-Hour Energy Draw (100% run)</dt>
+                  <dd>{calculated.result.activeHourKwh} kWh / active hour</dd>
                 </div>
                 <div>
-                  <dt>Daily Operating Hours</dt>
-                  <dd>{calculated.result.dailyOperatingHours} hours / day</dd>
+                  <dt>Daily Energy Consumption</dt>
+                  <dd>{(calculated.result.clockHourKwh * calculated.result.dailyOperatingHours).toFixed(2)} kWh / day</dd>
+                </div>
+                <div>
+                  <dt>Electricity Tariff Applied</dt>
+                  <dd>${calculated.result.electricityRate.toFixed(4)} / kWh</dd>
                 </div>
               </dl>
 
@@ -415,3 +419,4 @@ export function AcCostCalculator() {
     </section>
   );
 }
+

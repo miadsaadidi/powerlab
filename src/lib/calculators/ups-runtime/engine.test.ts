@@ -55,8 +55,49 @@ describe("UPS runtime engine", () => {
     expect(calculateUpsRuntime({ ...base, upsVA: 1000, assumedUpsOutputPowerFactor: 0.8, directLoadW: 900 }).result.overloadState).toBe("estimated-overload");
   });
 
+  it("calculates default 216 Wh @ 100W load to 58.32 minutes (~58 min)", () => {
+    const result = calculateUpsRuntime(base).result;
+    const minutes = result.runtimeHours * 60;
+    expect(minutes).toBeCloseTo(58.32, 2);
+  });
+
+  it("scales load durations inversely across comparison loads", () => {
+    // 50W -> 116.64 min
+    const res50 = calculateUpsRuntime({ ...base, directLoadW: 50 }).result;
+    expect(res50.runtimeHours * 60).toBeCloseTo(116.64, 2);
+
+    // 100W -> 58.32 min
+    const res100 = calculateUpsRuntime({ ...base, directLoadW: 100 }).result;
+    expect(res100.runtimeHours * 60).toBeCloseTo(58.32, 2);
+
+    // 150W -> 38.88 min
+    const res150 = calculateUpsRuntime({ ...base, directLoadW: 150 }).result;
+    expect(res150.runtimeHours * 60).toBeCloseTo(38.88, 2);
+  });
+
+  it("reproduces matrix values consistently (50% usable, 90% efficiency)", () => {
+    // 650VA / 84Wh @ 25W -> 90.72 min
+    const m650_25 = calculateUpsRuntime({ ...base, directWh: 84, directLoadW: 25 }).result;
+    expect(m650_25.runtimeHours * 60).toBeCloseTo(90.72, 2);
+
+    // 1000VA / 168Wh @ 100W -> 45.36 min
+    const m1000_100 = calculateUpsRuntime({ ...base, directWh: 168, directLoadW: 100 }).result;
+    expect(m1000_100.runtimeHours * 60).toBeCloseTo(45.36, 2);
+
+    // 1500VA / 216Wh @ 350W -> 16.66 min
+    const m1500_350 = calculateUpsRuntime({ ...base, directWh: 216, directLoadW: 350 }).result;
+    expect(m1500_350.runtimeHours * 60).toBeCloseTo(16.6628, 2);
+
+    // 2200VA / 432Wh @ 600W -> 19.44 min
+    const m2200_600 = calculateUpsRuntime({ ...base, directWh: 432, directLoadW: 600 }).result;
+    expect(m2200_600.runtimeHours * 60).toBeCloseTo(19.44, 2);
+  });
+
   it("validates active battery-bank and VA inputs", () => {
     expect(() => calculateUpsRuntime({ ...base, batteryCapacityMode: "battery-bank", batteryCount: 1.5 })).toThrow(/whole number/);
     expect(() => calculateUpsRuntime({ ...base, upsVA: 1000, assumedUpsOutputPowerFactor: 0 })).toThrow(/power factor/);
+    expect(() => calculateUpsRuntime({ ...base, directWh: 0 })).toThrow("Enter battery energy greater than zero.");
+    expect(() => calculateUpsRuntime({ ...base, directLoadW: -5 })).toThrow("Enter a load greater than zero.");
+    expect(() => calculateUpsRuntime({ ...base, upsEfficiency: 1.5 })).toThrow("greater than 0% and no more than 100%");
   });
 });

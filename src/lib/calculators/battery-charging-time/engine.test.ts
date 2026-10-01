@@ -4,7 +4,7 @@ import { calculateBatteryChargingTime, type BatteryChargingTimeInput } from "./e
 const shared = {
   startSoc: 0.2,
   targetSoc: 1,
-  batteryChargeEfficiency: 0.99,
+  batteryChargeEfficiency: 0.95,
   planningOverheadEnabled: true,
   planningOverheadFactor: 1.05,
   chemistry: "LiFePO4 / LFP",
@@ -29,14 +29,14 @@ const powerInput = (overrides: Partial<Extract<BatteryChargingTimeInput, { mode:
 });
 
 describe("calculateBatteryChargingTime", () => {
-  it("calculates the documented Ah default fixture", () => {
+  it("calculates the documented Ah default fixture with canonical formula", () => {
     const result = calculateBatteryChargingTime(ahInput());
 
     expect(result.result.chargeAh).toBe(80);
     expect(result.result.selectedChargerRate).toBe(20);
     expect(result.result.effectiveChargerRate).toBe(20);
     expect(result.result.idealHours).toBe(4);
-    expect(result.result.adjustedHours).toBeCloseTo(4.242424, 6);
+    expect(result.result.adjustedHours).toBeCloseTo(4.421053, 5);
     expect(result.result.limitingFactor).toBe("charger-output");
   });
 

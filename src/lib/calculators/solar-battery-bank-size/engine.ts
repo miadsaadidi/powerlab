@@ -90,3 +90,104 @@ export function calculateSolarBatteryBankSize(input: SolarBatteryBankSizeInput):
     qualityLabel: "preset-assisted",
   };
 }
+
+export interface BatteryHardwareOption {
+  id: string;
+  name: string;
+  unitVoltage: number;
+  unitAh: number;
+  unitKWh: number;
+  seriesCount: number;
+  parallelCount: number;
+  totalUnits: number;
+  hardwareNominalKWh: number;
+  hardwareNominalAh: number;
+  configurationLabel: string;
+}
+
+export function getHardwareConfigurations(requiredKWh: number, systemVoltage: number): BatteryHardwareOption[] {
+  if (!Number.isFinite(requiredKWh) || requiredKWh <= 0 || !Number.isFinite(systemVoltage) || systemVoltage <= 0) {
+    return [];
+  }
+
+  const options: BatteryHardwareOption[] = [];
+
+  // Option 1: 12V 100Ah Standard Deep-Cycle Units (1.2 kWh each)
+  if (systemVoltage >= 12 && systemVoltage % 12 === 0) {
+    const seriesCount = systemVoltage / 12;
+    const stringKWh = seriesCount * 1.2;
+    const parallelCount = Math.max(1, Math.ceil(requiredKWh / stringKWh));
+    const totalUnits = seriesCount * parallelCount;
+    const hardwareNominalKWh = totalUnits * 1.2;
+    const hardwareNominalAh = parallelCount * 100;
+    options.push({
+      id: "12v-100ah",
+      name: "12V 100Ah Deep-Cycle Units",
+      unitVoltage: 12,
+      unitAh: 100,
+      unitKWh: 1.2,
+      seriesCount,
+      parallelCount,
+      totalUnits,
+      hardwareNominalKWh,
+      hardwareNominalAh,
+      configurationLabel: `${seriesCount}S${parallelCount}P (${systemVoltage}V / ${hardwareNominalAh}Ah)`,
+    });
+  }
+
+  // Option 2: 48V 100Ah / 5.12 kWh Server Rack Modules (for 48V or 51.2V nominal systems)
+  if (Math.abs(systemVoltage - 48) < 4 || Math.abs(systemVoltage - 51.2) < 4) {
+    const parallelCount = Math.max(1, Math.ceil(requiredKWh / 5.12));
+    options.push({
+      id: "48v-server-rack",
+      name: "5.12 kWh 48V Server-Rack Modules",
+      unitVoltage: 48,
+      unitAh: 100,
+      unitKWh: 5.12,
+      seriesCount: 1,
+      parallelCount,
+      totalUnits: parallelCount,
+      hardwareNominalKWh: parallelCount * 5.12,
+      hardwareNominalAh: parallelCount * 100,
+      configurationLabel: `1S${parallelCount}P (48V / ${parallelCount * 100}Ah)`,
+    });
+  } else if (systemVoltage >= 24 && systemVoltage % 24 === 0) {
+    // 24V 100Ah Modules (2.4 kWh)
+    const seriesCount = systemVoltage / 24;
+    const stringKWh = seriesCount * 2.4;
+    const parallelCount = Math.max(1, Math.ceil(requiredKWh / stringKWh));
+    const totalUnits = seriesCount * parallelCount;
+    options.push({
+      id: "24v-100ah",
+      name: "24V 100Ah Modular Batteries",
+      unitVoltage: 24,
+      unitAh: 100,
+      unitKWh: 2.4,
+      seriesCount,
+      parallelCount,
+      totalUnits,
+      hardwareNominalKWh: totalUnits * 2.4,
+      hardwareNominalAh: parallelCount * 100,
+      configurationLabel: `${seriesCount}S${parallelCount}P (${systemVoltage}V / ${parallelCount * 100}Ah)`,
+    });
+  }
+
+  // Option 3: Native System-Voltage 200Ah Pack
+  const packUnitKWh = (systemVoltage * 200) / 1000;
+  const packParallelCount = Math.max(1, Math.ceil(requiredKWh / packUnitKWh));
+  options.push({
+    id: `${systemVoltage}v-200ah`,
+    name: `${systemVoltage}V 200Ah Commercial Blocks`,
+    unitVoltage: systemVoltage,
+    unitAh: 200,
+    unitKWh: packUnitKWh,
+    seriesCount: 1,
+    parallelCount: packParallelCount,
+    totalUnits: packParallelCount,
+    hardwareNominalKWh: packParallelCount * packUnitKWh,
+    hardwareNominalAh: packParallelCount * 200,
+    configurationLabel: `1S${packParallelCount}P (${systemVoltage}V / ${packParallelCount * 200}Ah)`,
+  });
+
+  return options;
+}
