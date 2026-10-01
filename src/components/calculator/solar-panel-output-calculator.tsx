@@ -247,10 +247,10 @@ export function SolarPanelOutputCalculator() {
         },
         {
           stepNumber: 3,
-          title: "Apply DC System Losses & Inverter Conversion Efficiency",
-          description: "Multiply DC nameplate capacity by regional PSH, the DC derate factor (1 - 0.14 = 0.86), and the nominal inverter efficiency (0.96).",
-          formula: "E_daily_kWh = P_dc × PSH × (1 - DC_Losses) × Inverter_Efficiency",
-          exampleValue: "6.0 kW × 5.15 PSH × (1 - 0.14) × 0.96 = 25.51 kWh per day (~9,318 kWh per year).",
+          title: "Apply System Derate Factors & Inverter Efficiency",
+          description: "Multiply DC nameplate capacity by regional PSH and the composite system derating factor (typically 0.84 to 0.86 accounting for thermal degradation, soiling, wiring losses, and DC-to-AC conversion).",
+          formula: "E_daily_kWh = P_dc × PSH × η_system",
+          exampleValue: "6.0 kW × 5.15 PSH × 0.86 = 26.57 kWh per day (~9,699 kWh per year).",
         },
       ]}
       standardCitation="Technical Reference / Model Basis: NREL PVWatts V8 / IEC 61724"

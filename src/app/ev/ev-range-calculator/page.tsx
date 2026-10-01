@@ -391,7 +391,7 @@ export default function EvRangePage() {
             </h3>
           </div>
           <p style={{ margin: "0 0 0.75rem", fontSize: "0.92rem", color: "var(--ink)", lineHeight: 1.55 }}>
-            Master aerodynamic speed drag physics (<em>F</em><sub>d</sub> = ½ · <em>ρ</em> · <em>C</em><sub>d</sub> · <em>A</em> · <em>v</em>²), winter heat pump vs PTC strip heating penalties, and battery degradation kinetics.
+            Master aerodynamic speed drag formulas (<em>F</em><sub>d</sub> = ½ · <em>ρ</em> · <em>C</em><sub>d</sub> · <em>A</em> · <em>v</em>²), winter heat pump vs PTC strip heating penalties, and 100,000-mile battery degradation kinetics.
           </p>
           <Link href="/guides/how-to-calculate-ev-driving-range-and-efficiency-guide" className="button" style={{ display: "inline-block", background: "#8b5cf6", color: "#ffffff", fontWeight: 700, padding: "0.6rem 1.25rem", borderRadius: "0.5rem", textDecoration: "none", fontSize: "0.9rem" }}>
             Read Complete EV Range Calculation Guide →
