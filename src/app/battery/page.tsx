@@ -145,7 +145,7 @@ export default function BatteryHub() {
                 : tool.id === "home-battery-size"
                 ? "kWh • Whole-Home Outage Backup"
                 : tool.id === "voltage-drop"
-                ? "NEC 3% • AWG / mm² • Watts Loss"
+                ? "NEC 210.19 • AWG / mm² • Watts Loss"
                 : tool.id === "inverter-size"
                 ? "Continuous • Surge • DC Fuse & Cable"
                 : "Wh • AC & DC Appliance Runtime"}
@@ -244,7 +244,7 @@ export default function BatteryHub() {
     </section>
     <section className="hub-support" aria-labelledby="battery-guides-heading">
       <h2 id="battery-guides-heading">Featured Battery Engineering Guides &amp; Open Datasets</h2>
-      <p>Explore our peer-reviewed technical reference guides, open empirical datasets, and research preprints for battery storage and electrical conductor sizing:</p>
+      <p>Explore our technical reference guides, open empirical datasets, and research reports for battery storage and electrical conductor sizing:</p>
       <div className="supporting-links" style={{ display: "flex", flexWrap: "wrap", gap: "0.85rem", marginTop: "0.75rem" }}>
         <Link href="/datasets/bess-peukert-capacity-derating-tare-loss-benchmark" className="footer-link">📊 Dataset: Residential BESS Peukert Derating Benchmark (PL-DS-BESS-05)</Link>
         <Link href="/datasets/residential-battery-storage-degradation-and-thermal-loss-benchmark" className="footer-link">📊 Dataset: Residential BESS Degradation &amp; Thermal Loss Benchmark (PL-DS-BESS-06)</Link>

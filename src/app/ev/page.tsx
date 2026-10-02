@@ -15,7 +15,7 @@ const evToolContent: Record<string, string> = {
   "ev-range": "Estimate real-world driving range from usable battery capacity, charge level, reserve, and vehicle efficiency.",
   "ev-savings": "Compare annual EV electricity costs with gas or diesel fuel costs for the same annual driving distance.",
   "v2l-runtime": "Calculate how many days your EV can power essential home appliances during an electrical blackout.",
-  "ev-breaker-size": "Find the exact circuit breaker size, wire gauge (AWG), and charging speed for your Level 2 EV charger.",
+  "ev-breaker-size": "Estimate circuit breaker size, conductor size (AWG), and charging capacity using the selected assumptions and applicable NEC references.",
 };
 
 import { buildPageMetadata } from "@/lib/seo/metadata-helper";
@@ -222,7 +222,7 @@ export default function EvHub() {
     </section>
     <section className="hub-support" aria-labelledby="ev-guides-heading">
       <h2 id="ev-guides-heading">Featured EV Engineering Guides &amp; Open Datasets</h2>
-      <p>Explore our peer-reviewed electrical installation guides, empirical datasets, and EVSE ampacity whitepapers:</p>
+      <p>Explore our technical reference guides, empirical datasets, and EVSE ampacity research reports:</p>
       <div className="supporting-links" style={{ display: "flex", flexWrap: "wrap", gap: "0.85rem", marginTop: "0.75rem" }}>
         <Link href="/datasets/continuous-duty-evse-terminal-temperature-benchmark" className="footer-link">📊 Dataset: Continuous-Duty EVSE Terminal Benchmark (PL-DS-EVSE-01)</Link>
         <Link href="/research/continuous-duty-thermal-sizing-evse-ampacity" className="footer-link">🔬 Research: Level 2 EVSE Continuous-Duty Ampacity &amp; Terminal Heating</Link>

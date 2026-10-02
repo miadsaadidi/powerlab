@@ -99,8 +99,7 @@ EMPIRICAL METRICS SUMMARY (2026-09-02 to 2026-09-29):
 * **Candidate T1-06 — Appliance Wattage Calculator Strike-Distance Tuning:** COMPLETED (Session 41) $\rightarrow$ **Measurement Mode** *(56 imp, avg pos 27.14)*.
 * **Candidate T1-07 — Central AC Cost Calculator SEER2 & Cooling Load Upgrade:** COMPLETED (Session 43) $\rightarrow$ **Measurement Mode** *(501 imp, 1 click, avg pos 14.95)*.
 * **Candidate T1-08 — Heat Pump Cost Calculator HSPF2, Cold-Climate COP & HVAC Cluster Upgrade:** COMPLETED (Session 48) $\rightarrow$ **Measurement Mode**.
-* **Candidate T1-09 — Portable Power Station & UPS Runtime Top-10 Quick-Win Tuning:** `SCHEDULED (Day 3)`  
-  *Evidence:* `/battery/portable-power-station-calculator` (145 imp, 1 click, avg pos 9.38) and `/battery/ups-battery-size-calculator` (22 imp, avg pos 9.68) are in striking distance of Top 5 Google Search rankings.
+* **Candidate T1-09 — Portable Power Station & UPS Runtime Top-10 Quick-Win Tuning:** COMPLETED (Session 54) $\rightarrow$ **Measurement Mode** *(145 imp, avg pos 9.38 / 22 imp, avg pos 9.68)*.
 
 ### Track B: Cluster Upgrades (Multi-Asset Mesh Enhancements)
 * **Candidate T2-01 — EV Driving Range, Charging Speed & Infrastructure Cluster Mesh:** COMPLETED (Session 42) $\rightarrow$ **Measurement Mode**.

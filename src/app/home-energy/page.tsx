@@ -232,7 +232,7 @@ export default function HomeEnergyHub() {
     </section>
     <section className="hub-support" aria-labelledby="home-energy-guides-heading">
       <h2 id="home-energy-guides-heading">Featured Home Energy Guides &amp; Open Datasets</h2>
-      <p>Explore our empirical reference guides, open benchmark datasets, and peer-reviewed technical whitepapers for residential electricity audits, heat pump thermodynamics, and emergency generator sizing:</p>
+      <p>Explore our empirical reference guides, open benchmark datasets, and technical research whitepapers for residential electricity audits, heat pump thermodynamics, and emergency generator sizing:</p>
       <div className="supporting-links" style={{ display: "flex", flexWrap: "wrap", gap: "0.85rem", marginTop: "0.75rem" }}>
         <Link href="/datasets/central-air-conditioner-seer2-cooling-degree-day-benchmark" className="footer-link">📊 Dataset: Central AC &amp; Heat Pump SEER2 Benchmark (PL-DS-AC-04)</Link>
         <Link href="/datasets/standby-generator-motor-inrush-voltage-sag-benchmark" className="footer-link">📊 Dataset: Motor Starting Surge &amp; Inrush Benchmark (PL-DS-GEN-04)</Link>

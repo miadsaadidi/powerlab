@@ -411,6 +411,12 @@ export default async function DatasetDetailPage({ params }: PageProps) {
               </tbody>
             </table>
           </div>
+
+          {Object.keys(ds.sampleData[0] || {}).includes("nec_sizing_pass") && (
+            <p style={{ fontSize: "0.8rem", color: "var(--muted)", marginTop: "0.75rem", fontStyle: "italic", lineHeight: 1.45 }}>
+              * Note: The <code>nec_sizing_pass</code> field indicates whether the modeled sizing condition passes the selected NEC-based calculation checks. It does not constitute a determination of code compliance for a physical installation.
+            </p>
+          )}
         </section>
 
         {/* Citation Block */}
@@ -513,7 +519,7 @@ export default async function DatasetDetailPage({ params }: PageProps) {
                 }}
               >
                 <div style={{ fontSize: "0.75rem", fontWeight: 700, color: "#d97706", textTransform: "uppercase", marginBottom: "0.25rem" }}>
-                  Authoritative Engineering Guide
+                  Technical Engineering Guide
                 </div>
                 <h3 style={{ fontSize: "0.98rem", fontWeight: 700, color: "var(--brand-strong)", margin: "0 0 0.35rem" }}>
                   {guide.name}

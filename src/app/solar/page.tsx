@@ -217,7 +217,7 @@ export default function SolarHub() {
     </section>
     <section className="hub-support" aria-labelledby="solar-guides-heading">
       <h2 id="solar-guides-heading">Featured Solar Engineering Guides &amp; Open Datasets</h2>
-      <p>Explore our peer-reviewed technical reference guides, empirical datasets, and preprints for solar photovoltaic system design:</p>
+      <p>Explore our technical reference guides, empirical datasets, and research reports for solar photovoltaic system design:</p>
       <div className="supporting-links" style={{ display: "flex", flexWrap: "wrap", gap: "0.85rem", marginTop: "0.75rem" }}>
         <Link href="/datasets/50-state-solar-insolation-climatic-benchmark" className="footer-link">📊 Dataset: 50-State Solar Insolation &amp; Climatic Benchmark (PL-DS-SOL-03)</Link>
         <Link href="/solar/regional-climate-data" className="footer-link">🗺️ 50-State NREL Solar &amp; ASHRAE Climatic Database</Link>
@@ -230,9 +230,9 @@ export default function SolarHub() {
       </div>
     </section>
     <section className="hub-support" aria-labelledby="solar-method-heading">
-      <h2 id="solar-method-heading">Deterministic calculations &amp; verified laboratory models</h2>
+      <h2 id="solar-method-heading">Deterministic calculations &amp; transparent model references</h2>
       <p>Our solar tools pair local geometry heuristics with NREL PVWatts V8 solar irradiance data. Every technical assumption (losses, inverter efficiency, DC-to-AC ratio) is visible and user-editable.</p>
-      <p>Consult our <Link href="/solar/regional-climate-data">50-State Regional Climate Data</Link>, verify code compliance in <Link href="/standards">engineering standards</Link>, browse all categories in the <Link href="/calculators">calculators directory</Link>, <Link href="/methodology">inspect our methodology</Link>, or <Link href="/sources">review laboratory sources</Link>.</p>
+      <p>Consult our <Link href="/solar/regional-climate-data">50-State Regional Climate Data</Link>, review applicable <Link href="/standards">engineering standards</Link>, browse all categories in the <Link href="/calculators">calculators directory</Link>, <Link href="/methodology">inspect our methodology</Link>, or <Link href="/sources">review laboratory sources</Link>.</p>
     </section>
   </section>;
 }

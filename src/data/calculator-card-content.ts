@@ -28,5 +28,5 @@ export const CALCULATOR_CARD_CONTENT: Record<string, { description: string; acti
   "solar-charge-controller": { description: "Size MPPT and PWM charge controllers by amperage and cold-weather array voltage (Voc).", action: "Calculate Controller Size" },
   "inverter-size": { description: "Calculate continuous and surge inverter wattage, DC battery amperage, fuse rating, and cable gauge.", action: "Calculate Inverter Size" },
   "v2l-runtime": { description: "Calculate how many days your EV can power essential home appliances during an electrical blackout.", action: "Calculate V2L Runtime" },
-  "ev-breaker-size": { description: "Find the exact circuit breaker size, wire gauge (AWG), and charging speed for your Level 2 EV charger.", action: "Calculate Breaker Size" },
+  "ev-breaker-size": { description: "Estimate circuit breaker size, conductor size (AWG), and charging capacity using the selected assumptions and applicable NEC references.", action: "Calculate Breaker Size" },
 };

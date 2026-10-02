@@ -6,24 +6,24 @@ interface TrustItem {
 
 const TRUST_ITEMS: TrustItem[] = [
   {
-    icon: "🔒",
-    title: "Client-Side Calculation Processing",
-    subtitle: "Calculation inputs are processed in your browser; the site may use analytics to measure website usage.",
+    icon: "📐",
+    title: "Deterministic Calculation Engines",
+    subtitle: "Pure TypeScript formulas produce reproducible outputs from visible inputs, physical equations, and explicit loss parameters.",
   },
   {
-    icon: "📐",
-    title: "Deterministic Pure Engines",
-    subtitle: "All formulas run client-side with transparent electrical losses, temperature derating, and editable reserves.",
+    icon: "🔒",
+    title: "Local Browser Processing",
+    subtitle: "Calculator engines execute locally in your browser with zero account requirements and no server-side scenario database.",
   },
   {
     icon: "☀️",
-    title: "NREL PVWatts V8",
-    subtitle: "Solar calculations use NREL PVWatts V8 modeling and NREL solar resource data.",
+    title: "Documented Technical References",
+    subtitle: "Models cite applicable references including NREL solar resource data, SAE charging protocols, and ASHRAE design conditions.",
   },
   {
     icon: "📜",
-    title: "NEC & IEEE References",
-    subtitle: "Circuit-sizing calculations reference applicable National Electrical Code (NEC) requirements and relevant IEEE guidance.",
+    title: "Applicable Code Context",
+    subtitle: "Relevant circuit-sizing calculations reference applicable National Electrical Code (NEC) provisions and IEEE guidance.",
   },
 ];
 
@@ -31,9 +31,9 @@ export function TrustBadges() {
   return (
     <section className="trust-badges-section" style={{ marginTop: "3rem", marginBottom: "3.5rem" }}>
       <div style={{ textAlign: "center", marginBottom: "1.75rem" }}>
-        <p className="eyebrow" style={{ marginBottom: "0.25rem" }}>Engineered for Accuracy &amp; Integrity</p>
+        <p className="eyebrow" style={{ marginBottom: "0.25rem" }}>Transparent Engineering &amp; Open Models</p>
         <h2 style={{ fontSize: "1.5rem", fontWeight: 700, margin: 0 }}>
-          Why Professionals &amp; Homeowners Trust PowerLab
+          Why PowerLab Is Designed for Transparency
         </h2>
       </div>
 
@@ -69,3 +69,4 @@ export function TrustBadges() {
     </section>
   );
 }
+
