@@ -38,7 +38,7 @@ const CALCULATOR_METRICS: Record<string, { metric: string; icon: string }> = {
   "ups-battery-size": { metric: "Ah • Inverter Efficiency • Surge", icon: "🏢" },
   "home-battery-size": { metric: "kWh • Whole-Home Outage Backup", icon: "🏡" },
   "portable-power-station": { metric: "Wh • AC & DC Appliance Runtime", icon: "⛺" },
-  "voltage-drop": { metric: "NEC 3% • AWG / mm² • Watts Loss", icon: "📏" },
+  "voltage-drop": { metric: "NEC 210.19 • AWG / mm² • Watts Loss", icon: "📏" },
   "inverter-size": { metric: "Continuous • Surge • DC Fuse & Cable", icon: "🔄" },
 
   // Home Energy (Color: #0284c7)

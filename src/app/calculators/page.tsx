@@ -116,7 +116,7 @@ export default function CalculatorsHubPage() {
         <p className="eyebrow">Engineering Tools &amp; Sizing Directory</p>
         <h1>Clean Energy Calculators Directory</h1>
         <p className="intro" style={{ maxWidth: "780px" }}>
-          Explore PowerLab&apos;s full suite of deterministic computational models. Built with pure TypeScript, our engines run entirely in your browser with zero paywalls, tracking, or cloud dependencies. Every calculation references verified engineering models, including NFPA 70 / NEC guidelines, IEEE 1547 interconnection principles, and NREL solar resource methodologies.
+          Explore PowerLab&apos;s full suite of deterministic computational models. Calculator engines execute locally in the browser using pure TypeScript without requiring user accounts or server-side saved calculation storage. Each calculator uses the engineering standards, technical references, datasets, or physical models applicable to its calculation domain. Relevant circuit-sizing tools reference applicable NEC provisions and IEEE engineering guidance.
         </p>
       </header>
 

@@ -34,7 +34,7 @@ export function FormulaCard({
   citationTitle,
   bibtexKey,
   doi,
-  standardAuthority = "IEEE Std 485 / NFPA 70 NEC / NREL PVWatts / ASHRAE 90.1",
+  standardAuthority = "Applicable Engineering Standards & Technical References",
 }: FormulaCardProps) {
   const [activeTab, setActiveTab] = useState<DisplayTab>("code");
   const [copiedTab, setCopiedTab] = useState<string | null>(null);

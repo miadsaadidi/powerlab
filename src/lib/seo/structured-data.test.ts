@@ -57,9 +57,11 @@ describe("structured-data", () => {
     expect(aboutNames).toContain("Energy storage");
     expect(aboutNames).toContain("Lithium-ion battery");
 
-    // Authority sameAs links
-    expect(webApp.author.sameAs).toEqual(SHARED_AUTHORITY_SAME_AS);
-    expect(webApp.author.sameAs).toContain("https://dataverse.harvard.edu/dataverse/powerlab");
+    // Author and Publisher
+    expect(webApp.author.name).toBe("Miad S.");
+    expect(webApp.publisher.name).toBe("PowerLab Clean Energy Engineering Group");
+    expect(webApp.publisher.sameAs).toEqual(SHARED_AUTHORITY_SAME_AS);
+    expect(webApp.publisher.sameAs).toContain("https://dataverse.harvard.edu/dataverse/powerlab");
 
     const faqPage = data.find((item) => item["@type"] === "FAQPage") as any;
     expect(faqPage).toBeDefined();

@@ -211,7 +211,7 @@ export function EnergyProfileDrawer() {
             </div>
 
             <p className="profile-drawer-desc">
-              Your energy facts are stored locally in this browser. They automatically prefill connected calculators with zero accounts or tracking.
+              Your energy facts are stored locally in this browser. They automatically prefill connected calculators without requiring user accounts.
             </p>
 
             <div className="profile-sections-list">

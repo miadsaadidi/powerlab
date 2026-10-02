@@ -73,7 +73,7 @@ export default function MethodologyPage() {
               1. Deterministic &amp; Reproducible
             </strong>
             <p style={{ margin: 0, fontSize: "0.85rem", color: "var(--text-muted)", lineHeight: 1.45 }}>
-              Given the exact same electrical, thermal, and geographic inputs, calculation engines consistently produce the same reproducible result without hidden non-deterministic state.
+              Given the same inputs and model assumptions, the calculation engines produce reproducible results without hidden non-deterministic state.
             </p>
           </div>
 
@@ -119,14 +119,64 @@ export default function MethodologyPage() {
       <section>
         <h2>Model Classification Framework</h2>
         <p>
-          To maintain scientific and engineering rigor, calculations across PowerLab are classified by their underlying mathematical foundation:
+          To maintain scientific, legal, and engineering rigor, calculations and technical references across PowerLab are explicitly distinguished by category rather than grouped as generic &quot;standards&quot;:
         </p>
-        <ul style={{ lineHeight: 1.6, fontSize: "0.92rem" }}>
-          <li><strong>Physics-Based Models:</strong> Deterministic relationships derived from fundamental electrical and thermodynamic laws (e.g., Ohm&apos;s law $V = IR$, Joule heating dissipation $P = I^2R$, inrush apparent power $S = \sqrt{3} V I$).</li>
-          <li><strong>Empirical &amp; Benchmark References:</strong> Sourced from published national laboratory datasets and standards (e.g., ASHRAE 99%/1% climatic design temperatures, NREL NSRDB solar irradiance, U.S. EIA electricity tariff data).</li>
-          <li><strong>Heuristic Sizing Rules:</strong> Established engineering rules of thumb used for initial planning estimates (e.g., latitude-based solar tilt rules, typical appliance load approximations).</li>
-          <li><strong>Deterministic Numerical Algorithms:</strong> Multi-variable mathematical methods implemented in pure TypeScript (e.g., battery discharge integration, seasonal heat pump COP curves).</li>
-        </ul>
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))", gap: "1rem", margin: "1.25rem 0" }}>
+          <div style={{ padding: "1rem", borderRadius: "0.5rem", background: "var(--surface)", border: "1px solid var(--border)" }}>
+            <strong style={{ color: "var(--brand-strong)", display: "block", marginBottom: "0.25rem" }}>⚡ First-Principles Physical Equations</strong>
+            <p style={{ margin: 0, fontSize: "0.85rem", color: "var(--muted)", lineHeight: 1.5 }}>
+              Fundamental laws of physics and circuit theory (e.g., Ohm&apos;s Law $V=IR$, Joule heating $P=I^2R$, inrush apparent power $S=\sqrt{3}VI$).
+            </p>
+          </div>
+          <div style={{ padding: "1rem", borderRadius: "0.5rem", background: "var(--surface)", border: "1px solid var(--border)" }}>
+            <strong style={{ color: "var(--brand-strong)", display: "block", marginBottom: "0.25rem" }}>🧪 Empirical Models &amp; Coefficients</strong>
+            <p style={{ margin: 0, fontSize: "0.85rem", color: "var(--muted)", lineHeight: 1.5 }}>
+              Formulations derived from experimental observation and curve fitting (e.g., Peukert&apos;s rate-capacity equation, Perez diffuse sky radiation transposition).
+            </p>
+          </div>
+          <div style={{ padding: "1rem", borderRadius: "0.5rem", background: "var(--surface)", border: "1px solid var(--border)" }}>
+            <strong style={{ color: "var(--brand-strong)", display: "block", marginBottom: "0.25rem" }}>🌐 External Technical Models</strong>
+            <p style={{ margin: 0, fontSize: "0.85rem", color: "var(--muted)", lineHeight: 1.5 }}>
+              Computational engines developed by national laboratories (e.g., NREL PVWatts V8, NREL SAM loss frameworks).
+            </p>
+          </div>
+          <div style={{ padding: "1rem", borderRadius: "0.5rem", background: "var(--surface)", border: "1px solid var(--border)" }}>
+            <strong style={{ color: "var(--brand-strong)", display: "block", marginBottom: "0.25rem" }}>📊 Government Datasets</strong>
+            <p style={{ margin: 0, fontSize: "0.85rem", color: "var(--muted)", lineHeight: 1.5 }}>
+              Official open data repositories (e.g., U.S. EIA electricity tariffs, NREL NSRDB solar irradiance, NOAA/ASHRAE climate design conditions).
+            </p>
+          </div>
+          <div style={{ padding: "1rem", borderRadius: "0.5rem", background: "var(--surface)", border: "1px solid var(--border)" }}>
+            <strong style={{ color: "var(--brand-strong)", display: "block", marginBottom: "0.25rem" }}>📐 Engineering Consensus Standards</strong>
+            <p style={{ margin: 0, fontSize: "0.85rem", color: "var(--muted)", lineHeight: 1.5 }}>
+              Voluntary industry consensus documents (e.g., IEEE 1547 interconnection, IEEE 485 battery sizing, SAE J1772 conductive coupler).
+            </p>
+          </div>
+          <div style={{ padding: "1rem", borderRadius: "0.5rem", background: "var(--surface)", border: "1px solid var(--border)" }}>
+            <strong style={{ color: "var(--brand-strong)", display: "block", marginBottom: "0.25rem" }}>📜 Adopted Electrical Codes &amp; Notes</strong>
+            <p style={{ margin: 0, fontSize: "0.85rem", color: "var(--muted)", lineHeight: 1.5 }}>
+              Model electrical codes (e.g., NFPA 70 / NEC Articles 220, 625, 690, 705, 706) and non-mandatory Informational Notes (e.g., NEC 210.19(A) Note 4).
+            </p>
+          </div>
+          <div style={{ padding: "1rem", borderRadius: "0.5rem", background: "var(--surface)", border: "1px solid var(--border)" }}>
+            <strong style={{ color: "var(--brand-strong)", display: "block", marginBottom: "0.25rem" }}>🔬 Standardized Test Procedures</strong>
+            <p style={{ margin: 0, fontSize: "0.85rem", color: "var(--muted)", lineHeight: 1.5 }}>
+              Laboratory testing and seasonal rating methods (e.g., AHRI 210/240-2023, DOE 10 CFR Part 430 Appendix M1 for SEER2/HSPF2).
+            </p>
+          </div>
+          <div style={{ padding: "1rem", borderRadius: "0.5rem", background: "var(--surface)", border: "1px solid var(--border)" }}>
+            <strong style={{ color: "var(--brand-strong)", display: "block", marginBottom: "0.25rem" }}>🛡️ Product Safety &amp; Listing Standards</strong>
+            <p style={{ margin: 0, fontSize: "0.85rem", color: "var(--muted)", lineHeight: 1.5 }}>
+              Equipment safety standards for manufacturer product listings (e.g., UL 1741 inverters, UL 1973 battery packs, UL 9540 ESS).
+            </p>
+          </div>
+          <div style={{ padding: "1rem", borderRadius: "0.5rem", background: "var(--surface)", border: "1px solid var(--border)" }}>
+            <strong style={{ color: "var(--brand-strong)", display: "block", marginBottom: "0.25rem" }}>📈 PowerLab Benchmark Datasets</strong>
+            <p style={{ margin: 0, fontSize: "0.85rem", color: "var(--muted)", lineHeight: 1.5 }}>
+              Open-access benchmark matrices synthesized from published lab measurements, field monitoring data, and deterministic simulation runs.
+            </p>
+          </div>
+        </div>
       </section>
 
       {/* Battery Modeling */}

@@ -97,7 +97,7 @@ export default function NecBusbarSizingGuidePage() {
         <p className="eyebrow">Electrical Engineering &amp; Solar Interconnection Guide</p>
         <h1>NEC 705.12 120% Rule: Solar &amp; Battery Panel Busbar Sizing Guide</h1>
         <p className="intro">
-          An authoritative engineering explainer on calculating load-side electrical service panel backfeed limits under
+          A detailed engineering explainer on calculating load-side electrical service panel backfeed limits under
           NFPA 70 / NEC Article 705.12(B). Learn how to size solar and battery overcurrent devices, evaluate 100A to 400A
           busbar capacities, simulate main-breaker derating scenarios under NEC Article 220, and explore supply-side tap
           (NEC 705.11) and Power Control System (NEC 705.13) alternatives.

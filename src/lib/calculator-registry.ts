@@ -308,7 +308,7 @@ export const calculatorRegistry: CalculatorRegistryItem[] = [
     "status": "published",
     "primaryKeyword": "voltage drop calculator",
     "seoTitle": "Voltage Drop Calculator — Wire Gauge Sizing",
-    "metaDescription": "Calculate DC & AC voltage drop percentage, power loss, and wire gauge (AWG/mm²) for 12V, 24V, 48V, 120V, and 240V circuits to meet NEC 3% limits.",
+    "metaDescription": "Calculate DC & AC voltage drop percentage, power loss, and wire gauge (AWG) for 12V–240V circuits using NEC 210.19(A) Informational Note 4 guidance.",
     "relatedCalculatorIds": [
       "battery-size",
       "battery-runtime"
@@ -451,7 +451,7 @@ export const calculatorRegistry: CalculatorRegistryItem[] = [
     "status": "published",
     "primaryKeyword": "ev charger breaker size calculator",
     "seoTitle": "EV Charger Breaker Size Calculator — Amps & Wire",
-    "metaDescription": "Find the exact circuit breaker size, wire gauge (AWG), and charging speed (kW) for your home Level 2 EV charger following the NEC 125% continuous load rule.",
+    "metaDescription": "Estimate circuit breaker size, conductor size (AWG), and charging capacity using the selected assumptions and applicable NEC references.",
     "relatedCalculatorIds": [
       "ev-charging-time",
       "voltage-drop",

@@ -8,7 +8,7 @@ import { buildPageMetadata } from "@/lib/seo/metadata-helper";
 export const metadata: Metadata = buildPageMetadata({
   title: "Energy Guides & Engineering Reference",
   description:
-    "In-depth educational guides for home energy auditing, solar PV engineering, battery storage sizing, and EV charging infrastructure under NEC standards.",
+    "In-depth educational guides for home energy auditing, solar PV engineering, battery storage sizing, and EV charging infrastructure referencing applicable engineering standards.",
   canonicalPath: "/guides",
   ogImageUrlOverride: `${siteConfig.url}/clean_energy_educational_model.jpg`,
   ogImageAlt: "PowerLab Educational Energy Modeling & Engineering Reference",
@@ -87,15 +87,15 @@ const FEATURED_GUIDES: GuideItem[] = [
     standards: ["NEC Article 702", "IEEE Std 446", "NEMA MG-1", "ISO 8528-5"],
   },
   {
-    name: "Voltage Drop & Wire Size Calculation Guide (NEC 3% Rules & Table 8)",
+    name: "Voltage Drop & Wire Size Calculation Guide (NEC 210.19 & Table 8)",
     route: "/guides/voltage-drop-and-wire-size-calculation-guide",
     category: "Battery Storage",
     categoryIcon: "⚡",
     categoryColor: "#10b981",
     categoryBg: "rgba(16, 185, 129, 0.1)",
-    badge: "🔥 74,000+ Search Volume Target",
+    badge: "🔥 Trending Guide",
     badgeType: "trending",
-    description: "Master the mathematical formulas for DC and AC voltage drop. Size copper and aluminum AWG conductors using NEC Chapter 9 Table 8, Ohm's law, and the 3% branch circuit efficiency threshold.",
+    description: "Master the mathematical formulas for DC and AC voltage drop. Size copper and aluminum AWG conductors using NEC Chapter 9 Table 8, Ohm's law, and the NEC 210.19(A) Informational Note 4 guidance.",
     readTime: "9 min read",
     updatedDate: "Published August 25, 2026",
     standards: ["NEC 210.19(A)", "NEC 215.2(A)", "NEC Ch 9 Table 8", "IEEE Std 141"],
@@ -475,15 +475,15 @@ export default function GuidesHubPage() {
           </span>
         </div>
         <p style={{ color: "var(--muted)", fontSize: "0.92rem", marginBottom: "1.25rem" }}>
-          Our engineering research group publishes peer-referenced, formula-complete sizing guides paired with deterministic computation engines:
+          Our engineering research group publishes formula-complete sizing guides paired with deterministic computation engines:
         </p>
 
         <div style={{ display: "grid", gap: "0.75rem" }}>
           <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", padding: "0.85rem 1rem", borderRadius: "0.6rem", background: "rgba(16, 185, 129, 0.08)", border: "1px solid rgba(16, 185, 129, 0.3)" }}>
             <div>
               <span style={{ fontSize: "0.75rem", fontWeight: 700, color: "#10b981", textTransform: "uppercase" }}>✅ Day 0 (Aug 25, 2026) · Live</span>
-              <div style={{ fontWeight: 700, fontSize: "0.95rem", color: "var(--foreground)" }}>Voltage Drop &amp; Wire Size Calculation Guide (NEC 3% &amp; Table 8)</div>
-              <div style={{ fontSize: "0.8rem", color: "var(--muted)" }}>Target Keyword: Voltage Drop Formula &bull; 74,000/mo &bull; Live Now</div>
+              <div style={{ fontWeight: 700, fontSize: "0.95rem", color: "var(--foreground)" }}>Voltage Drop &amp; Wire Size Calculation Guide (NEC 210.19 &amp; Table 8)</div>
+              <div style={{ fontSize: "0.8rem", color: "var(--muted)" }}>Voltage Drop Formula &bull; Conductor Resistance &bull; Live Now</div>
             </div>
             <Link href="/guides/voltage-drop-and-wire-size-calculation-guide" style={{ fontSize: "0.82rem", fontWeight: 700, color: "#10b981", textDecoration: "none" }}>Read Guide →</Link>
           </div>

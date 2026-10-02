@@ -246,9 +246,32 @@ To eliminate recurring typecheck errors, agents must adhere to the following con
      `"Illustrative Reference Scenario — Not Used in Primary Calculation"`
    - The primary result must remain purely derived from the user's active inputs.
 
+### 22. STRICT PROHIBITION OF UNQUALIFIED ABSOLUTES & MANDATORY BROAD/QUALIFIED ASSUMPTIONS
+1. **Strict Prohibition of Unverified Absolutes:**
+   Unless supported by direct, documented, and verified empirical evidence in the repository, the assistant is **STRICTLY PROHIBITED** from using absolute, universal, or marketing assertions in code, metadata, schemas, documentation, UI, or text responses:
+   - ❌ `"verified"` (e.g., *"verified by NREL"*, *"laboratory verified"*, *"expert verified"*)
+   - ❌ `"100%..."` (e.g., *"100% client-side"*, *"100% accurate"*, *"100% compliant"*)
+   - ❌ `"Zero..."` / `"No..."` absolutes (e.g., *"zero tracking"*, *"zero cloud dependencies"*, *"no external services"*)
+   - ❌ `"compliant"` / `"NEC compliant"` / `"code compliant"` (when used as a binary certification or universal claim)
+   - ❌ `"exact..."` (e.g., *"find the exact breaker size"*, *"exact same authoritative result"*)
+   - ❌ `"authoritative"` / `"certified"` / `"approved"` / `"peer-reviewed"` (unless formal academic peer review or official legal certification is documented)
+   - ❌ Universal generalizations (e.g., *"Every calculation adheres to NEC/IEEE/NREL"*, *"All calculators comply with..."*)
+
+2. **Mandatory Broad, Qualified & Domain-Specific Framing:**
+   Always use precise, qualified, and transparent engineering terminology:
+   - **Execution & Privacy:** *"Calculator engines execute locally in the browser. PowerLab does not require user accounts or server-side database storage of saved calculation scenarios. Selected models may use external technical data services where required."*
+   - **Standards Scope:** *"Each calculator uses the engineering standards, technical references, datasets, or physical models applicable to its calculation domain."*
+   - **Circuit Sizing:** *"Relevant circuit-sizing tools reference applicable NEC provisions and IEEE engineering guidance."*
+   - **Voltage Drop:** Cite as *"NEC 210.19(A) Informational Note 4 guidance"* (informational recommendation, not a mandatory statute).
+   - **Reproducibility:** *"Given the same inputs and model assumptions, the calculation engines produce reproducible results."*
+   - **Research & Publications:** Classify as *"technical reference guide"*, *"technical whitepaper"*, *"research report"*, or *"open benchmark dataset"*.
+   - **Representative Parameters:** Label battery DoD, tare losses, and thermal coefficients as *"typical"*, *"illustrative"*, *"model assumption"*, or *"representative range"*.
+   - **Dataset Checks:** Use boolean fields like `nec_sizing_pass` accompanied by the notice: *"This field indicates whether the modeled sizing condition passes the selected NEC-based calculation checks. It does not constitute a determination of code compliance for a physical installation."*
+
 ---
 
 ## General Interaction Standards
 * **Zero Guessing on Short or Ambiguous Prompts:** When prompt is 1–3 words, never guess. Ask one direct clarifying question and stop.
 * **Direct Questions Get Direct, Minimal Answers:** Answer factual, status, or navigational questions directly in 1–3 sentences or a plain table without triggering downstream unrequested actions.
 * **Permanent Order:** **Plan first → Approval second → Execution third → Validation fourth → Logging fifth → Measurement sixth → Reassessment seventh**.
+

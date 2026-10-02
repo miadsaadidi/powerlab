@@ -29,7 +29,7 @@ const calculatorCardContent: Record<string, { description: string; action: strin
   "ev-range": { description: "Estimate planned EV range from usable battery capacity, charge level, reserve and energy consumption.", action: "Calculate EV Range" },
   "ev-savings": { description: "Compare EV electricity cost with combustion-vehicle fuel cost for the same annual distance.", action: "Calculate EV Savings" },
   "appliance-wattage": { description: "Estimate running watts from an appliance preset or label, then calculate energy use for a selected runtime.", action: "Calculate Appliance Watts" },
-  "voltage-drop": { description: "Calculate DC and AC wire gauge sizing, voltage drop percentage, and power loss in watts under NEC standards.", action: "Calculate Voltage Drop" },
+  "voltage-drop": { description: "Calculate DC and AC wire gauge sizing, voltage drop percentage, and power loss in watts using NEC guidance.", action: "Calculate Voltage Drop" },
   "generator-size": { description: "Calculate generator running and starting wattage requirements for storm outages and emergency backup.", action: "Calculate Generator Size" },
   "solar-payback": { description: "Calculate solar break-even timeline in years, 25-year net profit, and return on investment without lead-gen forms.", action: "Calculate Solar Payback" },
   "ac-cost": { description: "Calculate hourly, monthly, and seasonal electricity costs for window AC, mini-splits, and central cooling.", action: "Calculate AC Cost" },
@@ -38,7 +38,7 @@ const calculatorCardContent: Record<string, { description: string; action: strin
   "solar-charge-controller": { description: "Size MPPT and PWM charge controllers by amperage and cold-weather array voltage (Voc).", action: "Calculate Controller Size" },
   "inverter-size": { description: "Calculate continuous and surge inverter wattage, DC battery amperage, fuse rating, and cable gauge.", action: "Calculate Inverter Size" },
   "v2l-runtime": { description: "Calculate how many days your EV can power essential home appliances during an electrical blackout.", action: "Calculate V2L Runtime" },
-  "ev-breaker-size": { description: "Find the exact circuit breaker size, wire gauge (AWG), and charging speed for your Level 2 EV charger.", action: "Calculate Breaker Size" },
+  "ev-breaker-size": { description: "Estimate circuit breaker size, conductor size (AWG), and charging capacity using the selected assumptions and applicable NEC references.", action: "Calculate Breaker Size" },
 };
 
 export const metadata: Metadata = {

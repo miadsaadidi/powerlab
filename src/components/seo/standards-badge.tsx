@@ -55,7 +55,7 @@ const STANDARDS_DATA: Record<"solar" | "battery" | "home-energy" | "ev", Standar
       code: "NEC Article 220",
       name: "Branch-Circuit, Feeder, and Service Load Calculations",
       organization: "National Electrical Code (NFPA 70)",
-      description: "Authoritative demand factors and continuous load ratings for residential electrical services.",
+      description: "Standard demand factors and continuous load ratings for residential electrical services.",
     },
     {
       code: "ANSI / ASHRAE 90.2",
@@ -112,7 +112,7 @@ export function StandardsBadge({ category }: StandardsBadgeProps) {
           </h3>
         </div>
         <p style={{ fontSize: "0.875rem", color: "var(--text-muted, #64748b)", marginBottom: "1rem" }}>
-          Calculations, electrical losses, and design safety margins adhere to recognized engineering guidelines:
+          Engineering references used by these calculators:
         </p>
 
         <div style={{ display: "grid", gap: "0.75rem" }}>
