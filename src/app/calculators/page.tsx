@@ -116,7 +116,7 @@ export default function CalculatorsHubPage() {
         <p className="eyebrow">Engineering Tools &amp; Sizing Directory</p>
         <h1>Clean Energy Calculators Directory</h1>
         <p className="intro" style={{ maxWidth: "780px" }}>
-          Explore PowerLab&apos;s full suite of deterministic computational models. Built with pure TypeScript, our engines run entirely in your browser with zero paywalls, tracking, or cloud dependencies. Every calculation adheres to NFPA 70 / NEC 2023, IEEE 1547-2018, and NREL SAM standards.
+          Explore PowerLab&apos;s full suite of deterministic computational models. Built with pure TypeScript, our engines run entirely in your browser with zero paywalls, tracking, or cloud dependencies. Every calculation references verified engineering models, including NFPA 70 / NEC guidelines, IEEE 1547 interconnection principles, and NREL solar resource methodologies.
         </p>
       </header>
 
@@ -251,7 +251,7 @@ export default function CalculatorsHubPage() {
                 Solar Inverter Clipping &amp; DC-to-AC Ratio Sizing Guide
               </h3>
               <p style={{ fontSize: "0.85rem", color: "var(--muted)", margin: "0 0 1rem", lineHeight: 1.45 }}>
-                Evaluate inverter clipping losses, optimal 1.15–1.35 DC/AC oversizing ratios across warm vs cold climates, and inverter warranty boundaries under IEEE 1547.
+                Evaluate inverter clipping losses, optimal 1.15–1.35 DC/AC oversizing ratios across warm vs cold climates, and grid interconnection considerations referencing IEEE 1547.
               </p>
             </div>
             <Link

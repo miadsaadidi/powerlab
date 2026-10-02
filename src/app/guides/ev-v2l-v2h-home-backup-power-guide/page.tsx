@@ -36,7 +36,7 @@ const FAQS = [
   {
     question: "What hardware is required to connect a V2L-capable EV to a home electrical panel?",
     answer:
-      "A code-compliant connection requires: (1) A listed power inlet box mounted on the exterior wall (e.g., NEMA L14-30P male flanged inlet for 120/240V 30A systems), (2) A listed manual transfer switch or mechanical interlock panel (compliant with NEC Article 702) that prevents simultaneous connection to the utility grid, (3) A properly rated, heavy-duty generator cord with compatible connector genders (e.g., female NEMA L14-30R connector to house inlet, male NEMA L14-30P plug to vehicle bed outlet), and (4) An appropriately configured neutral switching arrangement matching the vehicle's grounding design.",
+      "A standard residential installation under adopted NEC Article 702 guidelines typically includes: (1) A listed power inlet box mounted on the exterior wall (e.g., NEMA L14-30P male flanged inlet for 120/240V 30A systems), (2) A listed manual transfer switch or mechanical interlock panel that prevents simultaneous connection to the utility grid, (3) A properly rated, heavy-duty generator cord with compatible connector genders (e.g., female NEMA L14-30R connector to house inlet, male NEMA L14-30P plug to vehicle bed outlet), and (4) An appropriately configured neutral switching arrangement matching the vehicle's grounding design.",
   },
   {
     question: "Can an EV with V2L power a central air conditioner or heat pump?",
@@ -390,7 +390,7 @@ export default function EvV2lV2hHomeBackupGuidePage() {
               Install an exterior-mounted flanged power inlet box with appropriate male pins (e.g., NEMA L14-30P for 120/240V 30A split-phase or NEMA TT-30P / L5-30P for 120V 30A systems) located near the vehicle parking position.
             </li>
             <li>
-              <strong>Select Code-Compliant Transfer Equipment:</strong>
+              <strong>Select Code-Aligned Transfer Equipment (NEC Article 702):</strong>
               <ul>
                 <li><strong>Bonded-Neutral Systems:</strong> Utilize a listed 3-pole manual transfer switch (such as Reliance Controls X-Series) that switches the neutral conductor to isolate the vehicle&apos;s bonded neutral from the utility neutral bus.</li>
                 <li><strong>Floating-Neutral Systems:</strong> Utilize a listed manual transfer switch or mechanical interlock kit on the main service panel, maintaining the single main service bonding point.</li>

@@ -130,6 +130,12 @@ export function buildCalculatorStructuredData({
       ? "FinanceApplication"
       : "UtilitiesApplication");
 
+  const authorPerson = {
+    "@type": "Person",
+    name: "Miad S.",
+    url: siteConfig.url,
+  };
+
   const organization = {
     "@type": "Organization",
     "@id": `${siteConfig.url}/#organization`,
@@ -207,6 +213,7 @@ export function buildCalculatorStructuredData({
       isAccessibleForFree: true,
       softwareVersion: "2.1.0",
       author: organization,
+      creator: authorPerson,
       publisher: organization,
       offers: {
         "@type": "Offer",
@@ -385,6 +392,12 @@ export function buildGuideStructuredData({
   const pageUrl = new URL(route, siteConfig.url).toString();
   const categoryUrl = new URL(categoryRoute, siteConfig.url).toString();
 
+  const authorPerson = {
+    "@type": "Person",
+    name: "Miad S.",
+    url: siteConfig.url,
+  };
+
   const organization = {
     "@type": "Organization",
     "@id": `${siteConfig.url}/#organization`,
@@ -424,6 +437,7 @@ export function buildGuideStructuredData({
       datePublished,
       dateModified,
       author: organization,
+      creator: authorPerson,
       publisher: organization,
       ...(proficiencyLevel ? { proficiencyLevel } : {}),
       ...(audienceType

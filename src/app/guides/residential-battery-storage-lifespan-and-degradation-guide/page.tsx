@@ -457,7 +457,7 @@ export default function BatteryDegradationGuidePage() {
               <strong>IEEE Std 485:</strong> <em>IEEE Recommended Practice for Sizing Lead-Acid and Stationary Batteries for Generating Stations and Substations</em> (incorporating aging margin practices such as sizing for 80% EOL capacity retention).
             </li>
             <li>
-              <strong>UL 1973:</strong> <em>Standard for Batteries for Use in Stationary, Vehicle Auxiliary Power and Light Electric Rail Applications</em> (mandating safety construction, thermal runaway containment, and environmental testing).
+              <strong>UL 1973:</strong> <em>Standard for Batteries for Use in Stationary, Vehicle Auxiliary Power and Light Electric Rail Applications</em> (safety standard covering construction, thermal runaway containment, and environmental testing).
             </li>
             <li>
               <strong>IEC 62619:</strong> <em>Secondary cells and batteries containing alkaline or other non-acid electrolytes - Safety requirements for secondary lithium cells and batteries in industrial and stationary applications</em>.

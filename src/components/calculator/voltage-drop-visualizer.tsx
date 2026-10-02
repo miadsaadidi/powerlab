@@ -37,16 +37,16 @@ export function VoltageDropVisualizer({
   voltageDropPercent,
   powerLossWatts,
 }: VoltageDropVisualizerProps) {
-  const isCompliant = voltageDropPercent <= 3.0;
+  const isTargetMet = voltageDropPercent <= 3.0;
   const isCaution = voltageDropPercent > 3.0 && voltageDropPercent <= 5.0;
-  const isViolation = voltageDropPercent > 5.0;
+  const isExcessive = voltageDropPercent > 5.0;
 
-  const statusColor = isCompliant ? "#10b981" : isCaution ? "#f59e0b" : "#ef4444";
-  const statusBg = isCompliant ? "rgba(16, 185, 129, 0.1)" : isCaution ? "rgba(245, 158, 11, 0.1)" : "rgba(239, 68, 68, 0.1)";
-  const statusLabel = isCompliant
-    ? "NEC Compliant (≤ 3.0%)"
+  const statusColor = isTargetMet ? "#10b981" : isCaution ? "#f59e0b" : "#ef4444";
+  const statusBg = isTargetMet ? "rgba(16, 185, 129, 0.1)" : isCaution ? "rgba(245, 158, 11, 0.1)" : "rgba(239, 68, 68, 0.1)";
+  const statusLabel = isTargetMet
+    ? "Meets NEC Informational Target (≤ 3.0%)"
     : isCaution
-    ? "Caution (3.0% – 5.0%)"
+    ? "Caution: Above 3% Target (3.0% – 5.0%)"
     : "Excessive Drop (> 5.0%)";
 
   // Radius for conductor cross-section SVG (clamped 14px to 42px)
@@ -169,8 +169,8 @@ export function VoltageDropVisualizer({
       <div style={{ marginTop: "1rem" }}>
         <div style={{ display: "flex", justifyContent: "space-between", fontSize: "0.75rem", color: "var(--muted, #64748b)", marginBottom: "4px" }}>
           <span>0% Drop (Ideal)</span>
-          <span style={{ color: "#10b981", fontWeight: 700 }}>3.0% NEC Branch Limit</span>
-          <span style={{ color: "#f59e0b", fontWeight: 700 }}>5.0% NEC Total Limit</span>
+          <span style={{ color: "#10b981", fontWeight: 700 }}>3.0% NEC Branch Target</span>
+          <span style={{ color: "#f59e0b", fontWeight: 700 }}>5.0% NEC Total Target</span>
           <span>10%+ Excessive</span>
         </div>
         <div style={{ position: "relative", width: "100%", height: "10px", background: "#f1f5f9", borderRadius: "999px", overflow: "hidden", border: "1px solid #e2e8f0" }}>

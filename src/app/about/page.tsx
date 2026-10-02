@@ -212,6 +212,14 @@ export default function AboutPage() {
         </div>
       </section>
 
+      {/* Authorship & Engineering */}
+      <section>
+        <h2>Authorship &amp; Engineering</h2>
+        <p>
+          PowerLab is authored and maintained by <strong>Miad S.</strong> alongside open engineering benchmarks and verified research datasets. All calculation engines are developed as transparent, open-source TypeScript algorithms verified against physics fundamentals and applicable engineering references.
+        </p>
+      </section>
+
       {/* Trust & Transparency Links */}
       <section>
         <h2>Transparency &amp; Governance</h2>

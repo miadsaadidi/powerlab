@@ -311,7 +311,7 @@ export default function SpaceHeaterGuidePage() {
           <li><strong>Direct Wall Receptacle Connection:</strong> Always plug space heaters directly into a wall outlet. Standard household extension cords (often 16 AWG or 18 AWG) are not rated for prolonged 12.5 A continuous loads and can overheat due to conductor resistance ($I^2 R$) and contact point degradation.</li>
           <li><strong>Branch Circuit Capacity Coordination:</strong> Ensure that high-draw appliances (such as microwaves, coffee makers, or hair dryers) are not operated simultaneously on the same 15 A or 20 A branch circuit.</li>
           <li><strong>3-Foot Clearance Rule:</strong> Maintain a minimum clearance of 36 inches (0.9 meters) from bedding, drapery, upholstery, and combustible materials.</li>
-          <li><strong>UL 1278 Certified Safety Mechanisms:</strong> Ensure portable heaters feature automatic <em>tip-over shutoff switches</em> and internal <em>thermal cut-off limiters</em>.</li>
+          <li><strong>UL 1278 Listed Safety Features:</strong> Ensure portable heaters feature automatic <em>tip-over shutoff switches</em> and internal <em>thermal cut-off limiters</em>.</li>
         </ul>
 
         <StandardsBadge category="home-energy" />

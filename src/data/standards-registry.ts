@@ -8,7 +8,9 @@ export type StandardAuthority =
   | "ISO"
   | "AHRI"
   | "ASHRAE"
-  | "DOE";
+  | "DOE"
+  | "IEC"
+  | "NFPA";
 
 export interface StandardRef {
   code: string;
@@ -65,14 +67,14 @@ export const CALCULATOR_STANDARDS_MAP: Record<string, StandardRef[]> = {
   ],
   "battery-capacity": [
     { code: "IEEE 485", authority: "IEEE", title: "Nominal Voltage & Ah to Usable kWh Conversion", clauseId: "ieee-485" },
-    { code: "IEC 62619", authority: "UL", title: "Secondary Lithium Cells & Batteries Industrial Safety", clauseId: "iec-62619" },
+    { code: "IEC 62619", authority: "IEC", title: "Secondary Lithium Cells & Batteries Industrial Safety", clauseId: "iec-62619" },
   ],
   "battery-charging-time": [
     { code: "IEEE 2030.2.1", authority: "IEEE", title: "Design & Integration of Battery Energy Storage Systems", clauseId: "ieee-2030" },
     { code: "CC/CV Protocol", authority: "IEEE", title: "Constant Current / Constant Voltage Charging Curves", clauseId: "cc-cv" },
   ],
   "home-battery-size": [
-    { code: "NFPA 855", authority: "UL", title: "Standard for the Installation of Stationary ESS", clauseId: "nfpa-855" },
+    { code: "NFPA 855", authority: "NFPA", title: "Standard for the Installation of Stationary ESS", clauseId: "nfpa-855" },
     { code: "NEC Article 706", authority: "NEC", title: "Residential Energy Storage Sizing & Backup Scope", clauseId: "nec-706" },
     { code: "IEEE 2030.2.1", authority: "IEEE", title: "Grid-Connected Residential ESS Architecture", clauseId: "ieee-2030" },
   ],
@@ -90,7 +92,7 @@ export const CALCULATOR_STANDARDS_MAP: Record<string, StandardRef[]> = {
   ],
   "solar-panel-output": [
     { code: "NREL PVWatts® V8", authority: "NREL", title: "Meteorological Insolation & Physical System Loss Model", clauseId: "nrel-pvwatts" },
-    { code: "IEC 61215", authority: "UL", title: "Terrestrial Photovoltaic (PV) Module Design Qualification", clauseId: "iec-61215" },
+    { code: "IEC 61215", authority: "IEC", title: "Terrestrial Photovoltaic (PV) Module Design Qualification", clauseId: "iec-61215" },
     { code: "IEEE 1547", authority: "IEEE", title: "Standard for Interconnection of Distributed Energy Resources", clauseId: "ieee-1547" },
   ],
   "solar-panel-tilt": [
@@ -104,7 +106,7 @@ export const CALCULATOR_STANDARDS_MAP: Record<string, StandardRef[]> = {
   "solar-charge-controller": [
     { code: "NEC 690.7", authority: "NEC", title: "Sub-Zero Open-Circuit Voltage (Voc) Expansion Correction", clauseId: "nec-690-7" },
     { code: "NEC 690.8", authority: "NEC", title: "Circuit Sizing & Continuous 125% Current Multipliers", clauseId: "nec-690-8" },
-    { code: "IEC 62109-1", authority: "UL", title: "Safety of Power Converters for Use in Photovoltaic Systems", clauseId: "iec-62109" },
+    { code: "IEC 62109-1", authority: "IEC", title: "Safety of Power Converters for Use in Photovoltaic Systems", clauseId: "iec-62109" },
   ],
   "solar-battery-bank-size": [
     { code: "IEEE 485", authority: "IEEE", title: "Stationary Storage Sizing for Autonomous Off-Grid Systems", clauseId: "ieee-485" },
@@ -155,10 +157,10 @@ export const CALCULATOR_STANDARDS_MAP: Record<string, StandardRef[]> = {
   ],
   "appliance-wattage": [
     { code: "ENERGY STAR® Testing", authority: "DOE", title: "Standardized Measurement of Standby & Running Power Draw", clauseId: "energy-star" },
-    { code: "IEC 62301", authority: "UL", title: "Household Electrical Appliances Measurement of Standby Power", clauseId: "iec-62301" },
+    { code: "IEC 62301", authority: "IEC", title: "Household Electrical Appliances Measurement of Standby Power", clauseId: "iec-62301" },
   ],
   "voltage-drop": [
-    { code: "NEC 210.19", authority: "NEC", title: "Informational Note No. 4: 3% Branch Circuit Voltage Drop", clauseId: "nec-210-19" },
+    { code: "NEC 210.19", authority: "NEC", title: "Informational Note No. 4: 3% Branch Circuit Voltage Drop Guidance", clauseId: "nec-210-19" },
     { code: "NEC Ch. 9 Table 8", authority: "NEC", title: "Conductor Properties (DC Resistance in Ω/kFT at 75°C)", clauseId: "nec-table-8" },
     { code: "IEEE 141 (Red Book)", authority: "IEEE", title: "Recommended Practice for Electric Power Distribution", clauseId: "ieee-141" },
   ],
