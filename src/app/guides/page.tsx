@@ -123,7 +123,7 @@ const FEATURED_GUIDES: GuideItem[] = [
     categoryBg: "rgba(2, 132, 199, 0.1)",
     badge: "🔥 15,000+ Readers / Month",
     badgeType: "trending",
-    description: "Complete empirical breakdown of residential electricity consumption based on EIA utility benchmarks. Includes home size square-footage tables, heavy appliance duty cycles, and daily kWh formula calculation.",
+    description: "Comprehensive reference breakdown of residential electricity consumption based on EIA utility benchmarks. Includes home size square-footage tables, heavy appliance duty cycles, and daily kWh formula calculation.",
     readTime: "8 min read",
     updatedDate: "Updated August 2026",
     standards: ["EIA RECS Survey", "NEC 220 Load Sizing", "DOE Building Tech"],
@@ -151,7 +151,7 @@ const FEATURED_GUIDES: GuideItem[] = [
     categoryBg: "rgba(139, 92, 246, 0.1)",
     badge: "⚡ 8,500+ Readers / Month",
     badgeType: "new",
-    description: "Definitive electrical engineering guide to Level 2 EV charging speeds, breaker sizing, wire gauges, and the NEC 80% continuous load rule for 16A through 48A home chargers.",
+    description: "Electrical engineering guide to Level 2 EV charging speeds, breaker sizing, wire gauges, and the NEC continuous load rules for 16A through 48A home chargers.",
     readTime: "8 min read",
     updatedDate: "Updated August 2026",
     standards: ["NEC Article 625", "SAE J1772 / NACS", "UL 2594 EVSE"],
@@ -247,7 +247,7 @@ export default function GuidesHubPage() {
     categoryName: "Educational Guides",
     categoryRoute: "/guides",
     title: "Educational Energy Guides & Engineering Reference",
-    description: "Comprehensive engineering guides and Open Educational Resources (OER) for solar PV, battery storage, and residential energy planning.",
+    description: "Engineering guides and educational reference resources for solar PV, battery storage, EV charging, and residential energy planning.",
     tools: FEATURED_GUIDES.map((g) => ({
       name: g.name,
       route: g.route,
@@ -270,7 +270,7 @@ export default function GuidesHubPage() {
         <p className="eyebrow">Open Educational Resources &amp; Applied Engineering</p>
         <h1>Engineering Energy Guides &amp; Reference</h1>
         <p className="intro" style={{ maxWidth: "52rem" }}>
-          Rigorous, formula-backed technical explainers for homeowners, engineering students, and trade professionals. Every guide pairs real-world electrical standards with live, interactive calculation engines.
+          Formula-backed educational engineering explainers for homeowners, students, and planners. Every guide pairs published electrical standards with live, deterministic calculation tools.
         </p>
 
         {/* Highlight Stats Ribbon */}
@@ -299,7 +299,7 @@ export default function GuidesHubPage() {
           </div>
           <div style={{ display: "flex", alignItems: "center", gap: "0.4rem" }}>
             <span style={{ color: "#f59e0b", fontWeight: 700 }}>🏛️</span>
-            <span><strong>IEEE, NEC &amp; EIA</strong> Standards Grounded</span>
+            <span><strong>Standards-Informed</strong> Engineering References</span>
           </div>
           <div style={{ display: "flex", alignItems: "center", gap: "0.4rem" }}>
             <span style={{ color: "#8b5cf6", fontWeight: 700 }}>🧮</span>

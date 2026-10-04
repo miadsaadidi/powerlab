@@ -116,6 +116,7 @@ describe("structured-data", () => {
       dateModified: "2026-08-25",
       standards: ["NEC 210.19(A)", "NEC Chapter 9 Table 8"],
       speakableSelectors: [".direct-answer-card", "h1"],
+      proficiencyLevel: "Beginner to Intermediate",
     });
 
     expect(data.length).toBe(2); // BreadcrumbList, TechArticle
@@ -124,7 +125,7 @@ describe("structured-data", () => {
       (item) => Array.isArray(item["@type"]) && item["@type"].includes("TechArticle"),
     ) as any;
     expect(article).toBeDefined();
-    expect(article.proficiencyLevel).toBe("Professional");
+    expect(article.proficiencyLevel).toBe("Beginner to Intermediate");
     expect(article.audience["@type"]).toBe("Audience");
     expect(article.speakable.cssSelector).toEqual([".direct-answer-card", "h1"]);
     expect(article.citation).toEqual(["NEC 210.19(A)", "NEC Chapter 9 Table 8"]);
