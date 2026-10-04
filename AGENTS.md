@@ -158,6 +158,10 @@ POWERLAB CORE FIRST → VERIFY → SELECT BEST-FIT CHANNEL → ADAPT → PUBLISH
   4. **Form Field Isolation & Keyword Invariant:** Platform submission forms (e.g. MERLOT, Zenodo) must have every input field in its own separate, clearly labeled, standalone copyable code box matching the platform's exact UI inputs. For MERLOT keywords, provide a maximum of 5 high-relevance terms, with each keyword in its own separate copyable code box.
   5. **Mandatory Visual Asset Generation:** Automatically generate required images (e.g. 16:9 simulation thumbnails) using `generate_image`, save to `public/images/`, and provide the exact local file path for upload.
   6. **Markdown LaTeX Rendering:** Never output raw LaTeX dollar syntax (`$...$`) on DEV.to/Hashnode. Use Liquid `{% katex %}` block tags on DEV.to and clean HTML/Markdown typography (`*I*<sub>hot</sub> ≠ *I*<sub>neutral</sub>`, `*P*<sub>continuous</sub>`) inline. Enclose all full-article markdown outputs in 4 backticks (` ````text ````).
+  7. **Platform-Specific Output Sequences (MANDATORY):**
+     - **DEV.to Sequence:** Strictly `Title` $\rightarrow$ `Tags` $\rightarrow$ `Image Prompt (with local file path)` $\rightarrow$ `Body (wrapped in 4 backticks, no frontmatter inside block)` $\rightarrow$ `Canonical URL`.
+     - **Hashnode Sequence:** Strictly `Title` $\rightarrow$ `Subtitle` $\rightarrow$ `Image (local file path)` $\rightarrow$ `Body (wrapped in 4 backticks)` $\rightarrow$ `Slug` $\rightarrow$ `Tags` $\rightarrow$ `SEO (Title / Description)` $\rightarrow$ `Canonical URL`.
+  8. **Immediate Governance Logging & Push Invariant:** The moment a live URL or material ID is provided by the user, the assistant MUST immediately update `SEO/EXTERNAL_DISTRIBUTION.md` and `SEO/BACKLINK_LOG.csv`, commit, and push before proceeding to any other task.
 
 ### 9. EVIDENCE RULE
 * Use verified empirical evidence before assumptions. If GSC or live data is unavailable, explicitly state the limitation.
