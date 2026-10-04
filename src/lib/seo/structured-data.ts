@@ -367,6 +367,8 @@ export interface GuideStructuredDataProps {
   categoryName?: string;
   categoryRoute?: string;
   standards?: string[];
+  citations?: string[];
+  isBasedOn?: string[];
   faqs?: CalculatorFaq[];
   speakableSelectors?: string[];
   aboutEntities?: Array<{ name: string; sameAs: string }>;
@@ -383,11 +385,13 @@ export function buildGuideStructuredData({
   categoryName = "Educational Guides",
   categoryRoute = "/guides",
   standards,
+  citations,
+  isBasedOn,
   faqs,
   speakableSelectors,
   aboutEntities,
-  proficiencyLevel = "Professional",
-  audienceType = "Electrical Engineers, Energy Modelers, Contractors, Homeowners",
+  proficiencyLevel,
+  audienceType = "Electrical engineering students, solar and energy storage planners, electricians, and homeowners",
 }: GuideStructuredDataProps) {
   const pageUrl = new URL(route, siteConfig.url).toString();
   const categoryUrl = new URL(categoryRoute, siteConfig.url).toString();
@@ -413,6 +417,8 @@ export function buildGuideStructuredData({
   const entities = aboutEntities && aboutEntities.length > 0
     ? aboutEntities.map((e) => ({ "@type": "Thing", name: e.name, sameAs: e.sameAs }))
     : getDomainWikidataEntities(categoryName, route);
+
+  const resolvedCitations = citations || standards;
 
   const data: Array<Record<string, unknown>> = [
     {
@@ -459,7 +465,8 @@ export function buildGuideStructuredData({
         "@type": "WebSite",
         "@id": `${siteConfig.url}/#website`,
       },
-      ...(standards && standards.length > 0 ? { isBasedOn: standards, citation: standards } : {}),
+      ...(isBasedOn && isBasedOn.length > 0 ? { isBasedOn } : {}),
+      ...(resolvedCitations && resolvedCitations.length > 0 ? { citation: resolvedCitations } : {}),
     },
   ];
 

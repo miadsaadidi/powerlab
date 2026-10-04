@@ -293,7 +293,7 @@ export default function HomeBatterySizePage() {
         </div>
 
         <p style={{ marginTop: "1rem" }}>
-          📖 <strong>In-Depth Technical Guides &amp; Research:</strong> Benchmark your home&apos;s baseline with our <Link href="/guides/how-many-kwh-does-a-house-use-per-day" style={{ fontWeight: 600, color: "var(--accent)" }}>Daily Household kWh Usage Guide</Link>, learn battery runtime formulas in the <Link href="/guides/battery-backup-runtime-calculation-guide" style={{ fontWeight: 600, color: "var(--accent)" }}>Battery Runtime Guide</Link>, or inspect empirical Peukert discharge data in our open <Link href="/datasets/bess-peukert-capacity-derating-tare-loss-benchmark" style={{ fontWeight: 600, color: "var(--accent)" }}>Residential BESS Peukert Benchmark (PL-DS-BESS-05)</Link>.
+          📖 <strong>In-Depth Technical Guides &amp; Research:</strong> Benchmark your home&apos;s baseline with our <Link href="/guides/how-many-kwh-does-a-house-use-per-day" style={{ fontWeight: 600, color: "var(--accent)" }}>Daily Household kWh Usage Guide</Link>, examine our <Link href="/datasets/residential-bess-low-load-efficiency-and-tare-loss-benchmark" style={{ fontWeight: 600, color: "var(--accent)" }}>Residential BESS Low-Load Efficiency Benchmark (PL-DS-BESS-07)</Link>, learn battery runtime formulas in the <Link href="/guides/battery-backup-runtime-calculation-guide" style={{ fontWeight: 600, color: "var(--accent)" }}>Battery Runtime Guide</Link>, or inspect empirical Peukert discharge data in our open <Link href="/datasets/bess-peukert-capacity-derating-tare-loss-benchmark" style={{ fontWeight: 600, color: "var(--accent)" }}>Residential BESS Peukert Benchmark (PL-DS-BESS-05)</Link>.
         </p>
       </section>
     </article>

@@ -7,7 +7,7 @@ import { buildPageMetadata } from "@/lib/seo/metadata-helper";
 export const metadata: Metadata = {
   ...buildPageMetadata({
     title: "Open Benchmark Datasets & Engineering Data Repository",
-    description: "Open access benchmark scientific datasets, engineering matrices, and reproducible data packages for solar PV, BESS storage, EVSE infrastructure, and heat pumps.",
+    description: "Open access benchmark engineering datasets, performance matrices, and reproducible data packages for solar PV, BESS storage, EVSE infrastructure, and heat pumps.",
     canonicalPath: "/datasets",
     ogImageUrlOverride: `${siteConfig.url}/clean_energy_educational_model.jpg`,
     ogImageAlt: "PowerLab Open Benchmark Datasets",
@@ -43,10 +43,22 @@ export default function DatasetsIndexPage() {
       identifier: ds.doi ? `https://doi.org/${ds.doi}` : `${siteConfig.url}/datasets/${ds.slug}`,
       license: "https://creativecommons.org/licenses/by/4.0/",
       datePublished: ds.datePublished,
-      creator: {
-        "@type": "Organization",
-        name: ds.creator,
-      },
+      creator: ds.creator.includes("Miad S.")
+        ? [
+            { "@type": "Person", name: "Miad S." },
+            {
+              "@type": "Organization",
+              name: ds.creator.includes("PowerLab Clean Energy Engineering Group")
+                ? "PowerLab Clean Energy Engineering Group"
+                : "PowerLab Open Energy Research",
+              url: siteConfig.url,
+            },
+          ]
+        : {
+            "@type": "Organization",
+            name: ds.creator,
+            url: siteConfig.url,
+          },
     })),
   };
 
@@ -73,7 +85,7 @@ export default function DatasetsIndexPage() {
       >
         <div style={{ display: "flex", flexWrap: "wrap", gap: "0.4rem", marginBottom: "0.65rem" }}>
           <div style={{ display: "inline-flex", alignItems: "center", gap: "0.35rem", padding: "0.2rem 0.6rem", borderRadius: "9999px", background: "rgba(16, 185, 129, 0.1)", border: "1px solid rgba(16, 185, 129, 0.25)", color: "#10b981", fontSize: "0.74rem", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.03em" }}>
-            <span>📊</span><span>DOI-Archived Open Datasets</span>
+            <span>📊</span><span>Open Benchmark Datasets</span>
           </div>
           <div style={{ display: "inline-flex", alignItems: "center", gap: "0.35rem", padding: "0.2rem 0.6rem", borderRadius: "9999px", background: "rgba(2, 132, 199, 0.1)", border: "1px solid rgba(2, 132, 199, 0.25)", color: "var(--accent)", fontSize: "0.74rem", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.03em" }}>
             <span>🛡️</span><span>CC BY 4.0 Open Access</span>
@@ -88,10 +100,10 @@ export default function DatasetsIndexPage() {
         </h1>
 
         <p style={{ fontSize: "1.02rem", color: "var(--ink)", maxWidth: "980px", lineHeight: 1.5, margin: "0 0 0.5rem" }}>
-          PowerLab publishes reproducible open benchmark datasets, engineering matrices, and supporting data packages for its calculation engines and technical research.
+          PowerLab publishes documented open benchmark datasets, engineering matrices, and supporting data packages for its calculation engines and technical research.
         </p>
         <p style={{ fontSize: "0.92rem", color: "var(--muted)", maxWidth: "980px", lineHeight: 1.5, margin: "0 0 1rem" }}>
-          Dataset pages provide available metadata, documentation, downloads, and persistent DOI references for each published dataset.
+          Dataset pages provide available metadata, documentation, downloads, and persistent DOI references where accessioned.
         </p>
 
         <div style={{ display: "flex", flexWrap: "wrap", gap: "1rem", fontSize: "0.85rem", color: "var(--muted)" }}>
@@ -155,7 +167,7 @@ export default function DatasetsIndexPage() {
                   {ds.subtitle}
                 </p>
 
-                {ds.doi && (
+                {ds.doi ? (
                   <div style={{ marginBottom: "0.85rem", fontSize: "0.75rem", color: "var(--muted)" }}>
                     <strong>DOI:</strong>{" "}
                     <a
@@ -172,6 +184,13 @@ export default function DatasetsIndexPage() {
                     >
                       {ds.doi}
                     </a>
+                  </div>
+                ) : (
+                  <div style={{ marginBottom: "0.85rem", fontSize: "0.75rem", color: "var(--muted)" }}>
+                    <strong>Accession:</strong>{" "}
+                    <span style={{ fontFamily: "monospace", color: "var(--ink-secondary)" }}>
+                      Pending Repository Deposit
+                    </span>
                   </div>
                 )}
               </div>

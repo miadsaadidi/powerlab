@@ -62,6 +62,29 @@ export default async function DatasetDetailPage({ params }: PageProps) {
     notFound();
   }
 
+  const creators: Array<{ "@type": string; name: string; url?: string }> = [];
+  if (ds.creator.includes("Miad S.")) {
+    creators.push({
+      "@type": "Person",
+      name: "Miad S.",
+    });
+  }
+  if (ds.creator.includes("PowerLab Clean Energy Engineering Group") || ds.creator.includes("PowerLab Open Energy Research") || ds.creator.includes("PowerLab")) {
+    creators.push({
+      "@type": "Organization",
+      name: ds.creator.includes("PowerLab Clean Energy Engineering Group")
+        ? "PowerLab Clean Energy Engineering Group"
+        : "PowerLab Open Energy Research",
+      url: siteConfig.url,
+    });
+  } else if (creators.length === 0) {
+    creators.push({
+      "@type": "Organization",
+      name: ds.creator,
+      url: siteConfig.url,
+    });
+  }
+
   const structuredData = {
     "@context": "https://schema.org",
     "@type": "Dataset",
@@ -73,11 +96,7 @@ export default async function DatasetDetailPage({ params }: PageProps) {
     datePublished: ds.datePublished,
     dateModified: ds.dateModified,
     license: "https://creativecommons.org/licenses/by/4.0/",
-    creator: {
-      "@type": "Organization",
-      name: ds.creator,
-      url: siteConfig.url,
-    },
+    creator: creators.length === 1 ? creators[0] : creators,
     publisher: {
       "@type": "Organization",
       name: "PowerLab Open Energy Research",
@@ -103,13 +122,19 @@ export default async function DatasetDetailPage({ params }: PageProps) {
       {
         "@type": "DataDownload",
         encodingFormat: "text/csv",
-        contentUrl: ds.downloadUrl || ds.repositoryUrl,
+        contentUrl: ds.downloadUrl
+          ? (ds.downloadUrl.startsWith("http") ? ds.downloadUrl : `${siteConfig.url}${ds.downloadUrl}`)
+          : ds.repositoryUrl,
       },
     ],
+    ...(ds.isBasedOn && ds.isBasedOn.length > 0
+      ? { isBasedOn: ds.isBasedOn }
+      : ds.relatedWhitepaper
+      ? { isBasedOn: `${siteConfig.url}${ds.relatedWhitepaper.route}` }
+      : {}),
     sameAs: [
-      ds.doi ? `https://doi.org/${ds.doi}` : null,
       ds.huggingFaceUrl || null,
-      ds.repositoryUrl !== ds.downloadUrl ? ds.repositoryUrl : null,
+      ds.repositoryUrl && !ds.repositoryUrl.includes("doi.org") && ds.repositoryUrl !== ds.downloadUrl && !ds.repositoryUrl.includes(ds.slug) ? ds.repositoryUrl : null,
     ].filter(Boolean),
     isAccessibleForFree: true,
   };
@@ -333,13 +358,13 @@ export default async function DatasetDetailPage({ params }: PageProps) {
         {/* Methodology */}
         <section style={{ background: "var(--surface)", border: "1px solid var(--line)", borderRadius: "0.65rem", padding: "1.75rem" }}>
           <h2 style={{ fontSize: "1.3rem", fontWeight: 700, color: "var(--brand-strong)", marginTop: 0, marginBottom: "0.75rem" }}>
-            2. Experimental &amp; Simulation Methodology
+            2. Technical Methodology &amp; Benchmark Formulation
           </h2>
           <p style={{ fontSize: "0.96rem", color: "var(--ink)", lineHeight: 1.6, margin: "0 0 1rem" }}>
             {ds.methodology}
           </p>
           <div style={{ background: "var(--surface-subtle, #f8fafc)", borderLeft: "4px solid var(--accent)", padding: "0.85rem 1.25rem", fontSize: "0.88rem", color: "var(--ink)" }}>
-            <strong>Reproducibility Standard:</strong> All values are generated deterministically in compliance with applicable standards (NEC, IEEE, AHRI, NREL, ISO) and can be audited directly through our TypeScript engines.
+            <strong>Reproducibility Standard:</strong> All values are deterministically generated from the documented assumptions, equations, source references, and modeling parameters described on this page. The dataset is an engineering benchmark and does not constitute certified laboratory test data or certification to any referenced standard.
           </div>
         </section>
 
@@ -419,13 +444,26 @@ export default async function DatasetDetailPage({ params }: PageProps) {
           )}
         </section>
 
+        {/* Limitations & Engineering Disclaimer */}
+        <section style={{ background: "var(--surface)", border: "1px solid var(--line)", borderRadius: "0.65rem", padding: "1.75rem" }}>
+          <h2 style={{ fontSize: "1.3rem", fontWeight: 700, color: "var(--brand-strong)", marginTop: 0, marginBottom: "0.75rem" }}>
+            5. Limitations &amp; Engineering Disclaimer
+          </h2>
+          <p style={{ fontSize: "0.92rem", color: "var(--ink)", lineHeight: 1.6, margin: "0 0 0.75rem" }}>
+            {ds.limitations || "This dataset provides engineering reference calculations and benchmark scenarios. It does not replace manufacturer specifications, certified test data, installation requirements, electrical codes, AHJ requirements, or professional engineering/electrical review."}
+          </p>
+          <div style={{ background: "var(--surface-subtle, #f8fafc)", borderLeft: "4px solid #d97706", padding: "0.85rem 1.25rem", fontSize: "0.86rem", color: "var(--ink)" }}>
+            <strong>Jurisdictional Notice:</strong> Referenced standards (IEEE, UL, NFPA 70 / NEC) and technical modeling materials have jurisdiction-specific applicability. System designers and installers must consult the requirements adopted by the applicable Authority Having Jurisdiction (AHJ) and current manufacturer technical specifications.
+          </div>
+        </section>
+
         {/* Citation Block */}
         <section style={{ background: "var(--surface)", border: "1px solid var(--line)", borderRadius: "0.65rem", padding: "1.75rem" }}>
           <h2 style={{ fontSize: "1.3rem", fontWeight: 700, color: "var(--brand-strong)", marginTop: 0, marginBottom: "0.75rem" }}>
-            5. Dataset Citation (BibTeX / APA / IEEE)
+            6. Dataset Citation (BibTeX / APA / IEEE)
           </h2>
           <p style={{ fontSize: "0.88rem", color: "var(--muted)", marginBottom: "1rem" }}>
-            When referencing this dataset in academic preprints, technical reports, or computational tooling, please cite using the standard DataCite DOI reference below:
+            When referencing this dataset in academic preprints, technical reports, or computational tooling, please cite using the formal reference metadata below:
           </p>
 
           <div style={{ marginBottom: "1rem" }}>
@@ -453,7 +491,7 @@ export default async function DatasetDetailPage({ params }: PageProps) {
         {/* Connected Calculators & Internal Linking */}
         <section style={{ background: "var(--surface)", border: "1px solid var(--line)", borderRadius: "0.65rem", padding: "1.75rem" }}>
           <h2 style={{ fontSize: "1.3rem", fontWeight: 700, color: "var(--brand-strong)", marginTop: 0, marginBottom: "0.75rem" }}>
-            6. Connected Calculators &amp; Research Whitepapers
+            7. Connected Calculators &amp; Research Whitepapers
           </h2>
           <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))", gap: "1rem" }}>
             {ds.relatedWhitepaper && (

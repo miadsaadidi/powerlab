@@ -118,8 +118,8 @@ EMPIRICAL METRICS SUMMARY (2026-09-02 to 2026-09-29):
 ### Track D: Core Publication Candidates (Research Radar — Provenance Gates)
 * **Candidate CD-01 — Residential Battery Storage Degradation & Thermal Loss Dataset (PL-DS-BESS-06):** COMPLETED (Session 46) $\rightarrow$ **Measurement Mode**.
 * **Candidate CD-02 — Heat Pump Sub-Zero Heating Performance Factor (HSPF2) Benchmark (PL-DS-HVAC-04):** COMPLETED (Session 51) $\rightarrow$ **Measurement Mode**.
-* **Candidate CD-03 / RG-01 — Residential BESS Low-Load Efficiency & Standby Inverter Tare Loss Benchmark (PL-DS-BESS-07):** `SCHEDULED (Day 4)`  
-  *Evidence:* Empirically model 30W–60W inverter standby tare loads and low-load efficiency decay (200W night load @ 70% round-trip efficiency vs 95% rated).
+* **Candidate CD-03 / RG-01 — Residential BESS Low-Load Efficiency & Standby Inverter Tare Loss Benchmark (PL-DS-BESS-07):** COMPLETED (Session 55) $\rightarrow$ **Measurement Mode**  
+  *Evidence:* Empirically modeled 30W–60W inverter standby tare loads and low-load efficiency decay (200W night load @ 68.8%–74.3% effective RTE vs 95% nominal). Exact 48-row benchmark dataset deployed.
 
 ### Track E: Layer 1 Supporting Intent Candidates
 * **Candidate L1-01 — Level 2 EVSE Continuous Duty 125% Ampacity Sizing Guide:** COMPLETED (Session 45) $\rightarrow$ **Measurement Mode**.

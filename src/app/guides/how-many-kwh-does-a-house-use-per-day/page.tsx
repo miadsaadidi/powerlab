@@ -50,7 +50,7 @@ const FAQS = [
 export default function HowManyKwhDoesAHouseUsePerDayPage() {
   const structuredData = buildGuideStructuredData({
     title: "How Many kWh Does a House Use Per Day? (Daily Electricity Calculator & Guide)",
-    description: "Empirical breakdown of daily residential electricity consumption based on EIA utility benchmarks. Calculate your home's estimated daily kilowatt-hour demand.",
+    description: "Reference breakdown of daily residential electricity consumption based on EIA utility benchmarks. Calculate your home's estimated daily kilowatt-hour demand.",
     route: "/guides/how-many-kwh-does-a-house-use-per-day",
     datePublished: "2026-08-19",
     dateModified: "2026-09-18",
@@ -78,7 +78,7 @@ export default function HowManyKwhDoesAHouseUsePerDayPage() {
         <p className="eyebrow">Residential Energy Auditing &amp; Sizing Guide</p>
         <h1>How Many kWh Does a House Use Per Day?</h1>
         <p className="intro">
-          An empirical breakdown of daily residential electricity consumption based on U.S. Energy Information Administration (EIA) utility statistics, home square footage, climate zones, and representative appliance duty cycles.
+          A comprehensive reference breakdown of daily residential electricity consumption based on U.S. Energy Information Administration (EIA) utility statistics, home square footage, climate zones, and representative appliance duty cycles.
         </p>
       </header>
 
@@ -585,6 +585,7 @@ export default function HowManyKwhDoesAHouseUsePerDayPage() {
           <Link href="/battery/battery-capacity-calculator" className="button secondary-button" style={{ fontSize: "0.85rem" }}>⚡ Battery Capacity Calculator</Link>
           <Link href="/home-energy/appliance-wattage-calculator" className="button secondary-button" style={{ fontSize: "0.85rem" }}>Appliance Wattage Calculator</Link>
           <Link href="/solar/solar-panel-output-calculator" className="button secondary-button" style={{ fontSize: "0.85rem" }}>Solar Panel Output Calculator</Link>
+          <Link href="/datasets/residential-bess-low-load-efficiency-and-tare-loss-benchmark" className="button secondary-button" style={{ fontSize: "0.85rem" }}>📊 Inverter Tare Loss Dataset</Link>
         </div>
       </section>
 

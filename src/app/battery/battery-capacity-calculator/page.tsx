@@ -500,6 +500,9 @@ export default function BatteryCapacityPage() {
           <Link href="/datasets/bess-peukert-capacity-derating-tare-loss-benchmark" style={{ fontWeight: 600, color: "var(--accent)" }}>
             📊 Open BESS Peukert Benchmark Dataset (PL-DS-BESS-05) →
           </Link>
+          <Link href="/datasets/residential-bess-low-load-efficiency-and-tare-loss-benchmark" style={{ fontWeight: 600, color: "var(--accent)" }}>
+            📊 Inverter Tare Loss &amp; Low-Load Benchmark (PL-DS-BESS-07) →
+          </Link>
           <Link href="/datasets/residential-battery-storage-degradation-and-thermal-loss-benchmark" style={{ fontWeight: 600, color: "var(--accent)" }}>
             📊 BESS Degradation &amp; Thermal Loss Benchmark (PL-DS-BESS-06) →
           </Link>

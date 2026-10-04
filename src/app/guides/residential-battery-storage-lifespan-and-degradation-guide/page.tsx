@@ -433,9 +433,9 @@ export default function BatteryDegradationGuidePage() {
             </div>
 
             <div style={{ padding: "1.25rem", borderRadius: "0.75rem", border: "1px solid var(--border)", background: "var(--surface)" }}>
-              <h3 style={{ margin: "0 0 0.5rem", fontSize: "1.1rem" }}>📊 Empirical Benchmark Dataset</h3>
+              <h3 style={{ margin: "0 0 0.5rem", fontSize: "1.1rem" }}>📊 BESS Degradation Benchmark Dataset</h3>
               <p style={{ fontSize: "0.88rem", color: "var(--muted)", margin: "0 0 0.75rem", lineHeight: 1.5 }}>
-                Explore our open research dataset tabulating empirical cycling and ambient temperature degradation data points.
+                Explore our open benchmark dataset tabulating source-informed cycle life, calendar aging, and ambient temperature derating matrices.
               </p>
               <Link href="/datasets/residential-battery-storage-degradation-and-thermal-loss-benchmark" className="button secondary-button" style={{ width: "100%", textAlign: "center", display: "block" }}>
                 BESS Degradation Dataset (PL-DS-BESS-06) →
