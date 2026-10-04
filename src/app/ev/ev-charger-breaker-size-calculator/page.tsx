@@ -112,7 +112,7 @@ export default function EvBreakerSizePage() {
         <div style={{ padding: "1.25rem", borderRadius: "0.75rem", background: "var(--surface)", border: "1px solid var(--line)", borderLeft: "4px solid #10b981" }}>
           <h3 style={{ margin: "0 0 0.35rem", fontSize: "1.05rem", color: "var(--brand-strong)" }}>⚡ How Fast Will This Circuit Charge?</h3>
           <p style={{ fontSize: "0.88rem", color: "var(--muted)", margin: "0 0 0.75rem", lineHeight: 1.5 }}>
-            Calculate exact hours and minutes to recharge your specific EV battery pack (10% to 80% and 100%) at this breaker amperage.
+            Estimate hours and minutes to recharge your specific EV battery pack (10% to 80% and 100%) at this breaker amperage.
           </p>
           <Link href="/ev/ev-charging-time-calculator" className="button secondary-button" style={{ width: "100%", textAlign: "center", display: "block", fontSize: "0.85rem" }}>
             Calculate EV Charging Time →

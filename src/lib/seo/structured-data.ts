@@ -139,7 +139,7 @@ export function buildCalculatorStructuredData({
   const organization = {
     "@type": "Organization",
     "@id": `${siteConfig.url}/#organization`,
-    name: "PowerLab Engineering & Energy Modeling Team",
+    name: "PowerLab Clean Energy Engineering Group",
     url: siteConfig.url,
     logo: {
       "@type": "ImageObject",
@@ -212,7 +212,7 @@ export function buildCalculatorStructuredData({
       browserRequirements: "Requires JavaScript. Requires HTML5 Canvas/SVG.",
       isAccessibleForFree: true,
       softwareVersion: "2.1.0",
-      author: organization,
+      author: authorPerson,
       creator: authorPerson,
       publisher: organization,
       offers: {
@@ -284,7 +284,7 @@ export function buildCategoryHubStructuredData({
   const organization = {
     "@type": "Organization",
     "@id": `${siteConfig.url}/#organization`,
-    name: "PowerLab Engineering & Energy Modeling Team",
+    name: "PowerLab Clean Energy Engineering Group",
     url: siteConfig.url,
     logo: {
       "@type": "ImageObject",
@@ -347,7 +347,7 @@ export function buildWebSiteStructuredData() {
     publisher: {
       "@type": "Organization",
       "@id": `${siteConfig.url}/#organization`,
-      name: "PowerLab Engineering & Energy Modeling Team",
+      name: "PowerLab Clean Energy Engineering Group",
       url: siteConfig.url,
       logo: {
         "@type": "ImageObject",
@@ -401,7 +401,7 @@ export function buildGuideStructuredData({
   const organization = {
     "@type": "Organization",
     "@id": `${siteConfig.url}/#organization`,
-    name: "PowerLab Engineering & Energy Modeling Team",
+    name: "PowerLab Clean Energy Engineering Group",
     url: siteConfig.url,
     logo: {
       "@type": "ImageObject",
@@ -436,7 +436,7 @@ export function buildGuideStructuredData({
       inLanguage: "en-US",
       datePublished,
       dateModified,
-      author: organization,
+      author: authorPerson,
       creator: authorPerson,
       publisher: organization,
       ...(proficiencyLevel ? { proficiencyLevel } : {}),
@@ -509,7 +509,7 @@ export function buildDefinedTermSetStructuredData({
   const organization = {
     "@type": "Organization",
     "@id": `${siteConfig.url}/#organization`,
-    name: "PowerLab Engineering & Energy Modeling Team",
+    name: "PowerLab Clean Energy Engineering Group",
     url: siteConfig.url,
     logo: {
       "@type": "ImageObject",

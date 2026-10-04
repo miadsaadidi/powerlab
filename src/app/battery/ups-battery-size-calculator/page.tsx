@@ -12,7 +12,7 @@ const isPublished = isCalculatorPublished("ups-battery-size");
 
 export const metadata: Metadata = buildPageMetadata({
   title: "UPS Battery Size Calculator — Wh & Ah Sizing",
-  description: "Calculate UPS battery size from load watts and required backup time, including UPS efficiency, usable battery fraction, health and planning margin.",
+  description: "Calculate required UPS battery capacity in Wh and Ah for a target backup runtime. Sizing model incorporates DC bus voltage, inverter efficiency, usable DoD fraction, and planning margin.",
   canonicalPath: "/battery/ups-battery-size-calculator",
   category: "battery",
 });
@@ -244,6 +244,7 @@ export default function UpsBatterySizePage() {
         </div>
 
         <div style={{ marginTop: "1rem", display: "flex", gap: "0.5rem", flexWrap: "wrap" }}>
+          <Link href="/battery/portable-power-station-calculator" className="button secondary-button" style={{ fontSize: "0.85rem" }}>Portable Power Station Calculator</Link>
           <Link href="/battery/battery-size-calculator" className="button secondary-button" style={{ fontSize: "0.85rem" }}>Battery Size Calculator</Link>
           <Link href="/home-energy/home-battery-size-calculator" className="button secondary-button" style={{ fontSize: "0.85rem" }}>Home Battery Size Calculator</Link>
           <Link href="/guides/battery-backup-runtime-calculation-guide" className="button secondary-button" style={{ fontSize: "0.85rem" }}>Battery Runtime Calculation Guide</Link>

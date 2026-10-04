@@ -12,7 +12,7 @@ const isPublished = isCalculatorPublished("portable-power-station");
 
 export const metadata: Metadata = buildPageMetadata({
   title: "Portable Power Station Calculator — Runtime & Wh Sizing",
-  description: "Estimate portable power station runtime from rated Wh capacity and load wattage, or calculate required battery Wh for a target runtime with inverter loss modeling.",
+  description: "Calculate portable power station runtime in hours from rated Wh and appliance watts, or size required Wh battery capacity with inverter loss and depth-of-discharge modeling.",
   canonicalPath: "/battery/portable-power-station-calculator",
   category: "battery",
 });
@@ -54,7 +54,7 @@ export default function PortablePowerStationPage() {
       "Itemizes usable battery energy after depth-of-discharge and inverter conversion losses",
     ],
     standards: [
-      "UL 2743 (Portable Power Packs Technical Reference)",
+      "UL 2743 (Standard for Portable Power Packs Technical Reference)",
       "IEC 62133 (Secondary Lithium Cells and Batteries Reference)",
       "UN 38.3 (Transport of Lithium Metal and Lithium Ion Batteries Reference)",
     ],
@@ -77,7 +77,7 @@ export default function PortablePowerStationPage() {
         <p className="eyebrow">Portable battery planning</p>
         <h1>Portable Power Station Calculator</h1>
         <p className="intro">
-          Estimate how long a portable power station (Jackery, EcoFlow, Bluetti, Anker) will run your devices, or calculate the watt-hour capacity you need for camping and emergency backup.
+          Estimate how long a portable power station (Jackery, EcoFlow, Bluetti, Anker) will run your devices, or calculate the watt-hour capacity you need for camping, mobile vans, and emergency backup.
         </p>
       </div>
 
@@ -209,11 +209,69 @@ export default function PortablePowerStationPage() {
         </div>
       </section>
 
-      <section id="related-tools">
-        <h2>Related Portable &amp; Off-Grid Tools</h2>
-        <p>
-          Compare vehicle-to-load capabilities with the <Link href="/ev/v2l-runtime-calculator">V2L Runtime Calculator</Link>, size off-grid solar storage with the <Link href="/solar/solar-battery-bank-size-calculator">Solar Battery Bank Size Calculator</Link>, or check battery discharge with the <Link href="/battery/battery-runtime-calculator">Battery Runtime Calculator</Link>.
+      <section id="technical-references" style={{ marginTop: "3rem" }}>
+        <h2>Technical References &amp; Standards Basis</h2>
+        <ul>
+          <li><strong>UL 2743:</strong> Standard for Portable Power Packs (safety requirements, battery containment, and inverter overcurrent protection).</li>
+          <li><strong>IEC 62133:</strong> Secondary cells and batteries containing alkaline or other non-acid electrolytes — safety requirements for portable sealed lithium secondary cells.</li>
+          <li><strong>UN 38.3:</strong> Recommendations on the Transport of Dangerous Goods — Manual of Tests and Criteria for Lithium Metal and Lithium Ion Batteries.</li>
+        </ul>
+      </section>
+
+      <section id="related-tools" style={{ marginTop: "3rem", padding: "1.75rem", borderRadius: "0.85rem", background: "var(--surface)", border: "1px solid var(--line)" }}>
+        <h2 style={{ marginTop: 0, fontSize: "1.35rem", color: "var(--brand-strong)" }}>Related Portable, Backup &amp; Battery Storage Tools</h2>
+        <p style={{ marginBottom: "1.25rem", color: "var(--muted)", lineHeight: 1.55 }}>
+          Plan backup runtimes, battery chemistries, vehicle-to-load systems, and solar charging:
         </p>
+
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(260px, 1fr))", gap: "1rem" }}>
+          <div style={{ padding: "1.25rem", borderRadius: "0.75rem", background: "var(--surface-subtle, #fafafa)", border: "1px solid var(--line)" }}>
+            <h3 style={{ margin: "0 0 0.5rem", fontSize: "1.05rem", color: "var(--brand-strong)" }}>🖥️ UPS Battery Size Calculator</h3>
+            <p style={{ fontSize: "0.88rem", color: "var(--muted)", margin: "0 0 0.75rem", lineHeight: 1.5 }}>
+              Size nominal UPS battery energy (Wh and Ah) needed to sustain workstations, servers, and networking gear during outages.
+            </p>
+            <Link href="/battery/ups-battery-size-calculator" className="button secondary-button" style={{ width: "100%", textAlign: "center", display: "block" }}>
+              UPS Battery Size Calculator →
+            </Link>
+          </div>
+
+          <div style={{ padding: "1.25rem", borderRadius: "0.75rem", background: "var(--surface-subtle, #fafafa)", border: "1px solid var(--line)" }}>
+            <h3 style={{ margin: "0 0 0.5rem", fontSize: "1.05rem", color: "var(--brand-strong)" }}>🚗 EV V2L Runtime Calculator</h3>
+            <p style={{ fontSize: "0.88rem", color: "var(--muted)", margin: "0 0 0.75rem", lineHeight: 1.5 }}>
+              Model how many hours or days an EV battery pack (50 kWh–100 kWh) can run home appliances via vehicle-to-load (V2L).
+            </p>
+            <Link href="/ev/v2l-runtime-calculator" className="button secondary-button" style={{ width: "100%", textAlign: "center", display: "block" }}>
+              V2L Runtime Calculator →
+            </Link>
+          </div>
+
+          <div style={{ padding: "1.25rem", borderRadius: "0.75rem", background: "var(--surface-subtle, #fafafa)", border: "1px solid var(--line)" }}>
+            <h3 style={{ margin: "0 0 0.5rem", fontSize: "1.05rem", color: "var(--brand-strong)" }}>☀️ Solar Battery Bank Sizing</h3>
+            <p style={{ fontSize: "0.88rem", color: "var(--muted)", margin: "0 0 0.75rem", lineHeight: 1.5 }}>
+              Calculate total storage capacity required for off-grid cabins, solar generators, and autonomy days.
+            </p>
+            <Link href="/solar/solar-battery-bank-size-calculator" className="button secondary-button" style={{ width: "100%", textAlign: "center", display: "block" }}>
+              Solar Battery Sizing →
+            </Link>
+          </div>
+
+          <div style={{ padding: "1.25rem", borderRadius: "0.75rem", background: "var(--surface-subtle, #fafafa)", border: "1px solid var(--line)" }}>
+            <h3 style={{ margin: "0 0 0.5rem", fontSize: "1.05rem", color: "var(--brand-strong)" }}>⚡ Battery Runtime Calculator</h3>
+            <p style={{ fontSize: "0.88rem", color: "var(--muted)", margin: "0 0 0.75rem", lineHeight: 1.5 }}>
+              Compare runtime curves across LiFePO4, AGM, and lead-acid battery chemistries under heavy discharge.
+            </p>
+            <Link href="/battery/battery-runtime-calculator" className="button secondary-button" style={{ width: "100%", textAlign: "center", display: "block" }}>
+              Battery Runtime Calculator →
+            </Link>
+          </div>
+        </div>
+
+        <div style={{ marginTop: "1rem", display: "flex", gap: "0.5rem", flexWrap: "wrap" }}>
+          <Link href="/battery/battery-capacity-calculator" className="button secondary-button" style={{ fontSize: "0.85rem" }}>Battery Capacity &amp; Ah/kWh</Link>
+          <Link href="/home-energy/home-battery-size-calculator" className="button secondary-button" style={{ fontSize: "0.85rem" }}>Home Battery Size Calculator</Link>
+          <Link href="/guides/battery-backup-runtime-calculation-guide" className="button secondary-button" style={{ fontSize: "0.85rem" }}>Battery Runtime Calculation Guide</Link>
+          <Link href="/guides/ev-v2l-v2h-home-backup-power-guide" className="button secondary-button" style={{ fontSize: "0.85rem" }}>EV V2L/V2H Backup Guide</Link>
+        </div>
       </section>
     </article>
   );

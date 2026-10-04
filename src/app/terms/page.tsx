@@ -120,7 +120,7 @@ export default function TermsPage() {
         </p>
         <ul>
           <li><strong>Jurisdictional Compliance &amp; AHJ:</strong> Physical installations must comply with the electrical, building, fire, and mechanical codes legally adopted in your specific jurisdiction (such as NFPA 70 / NEC, Canadian Electrical Code CSA C22.1, or applicable IEC/EN standards) and the requirements of the local Authority Having Jurisdiction (AHJ). Standards have differing scopes, legal adoption mechanisms, and published editions.</li>
-          <li><strong>Qualified Professional Requirement:</strong> Sizing calculations for overcurrent protection, continuous EVSE circuits, battery energy storage systems (BESS), generator transfer equipment, and solar interconnection must be reviewed, engineered, and installed by appropriately licensed or qualified professionals (such as licensed electricians or professional engineers) where required by law.</li>
+          <li><strong>Qualified Professional Requirement:</strong> Sizing calculations for overcurrent protection, continuous EVSE circuits, battery energy storage systems (BESS), generator transfer equipment, and solar interconnection must be reviewed, engineered, and installed by a properly licensed electrician, electrical contractor, or Professional Engineer as required by the applicable jurisdiction.</li>
           <li><strong>Structural &amp; Environmental Loading:</strong> Solar tilt, orientation, and mounting calculations do not replace structural engineering assessments for roof weight capacity, wind uplift forces, snow loads, or seismic bracing.</li>
         </ul>
       </section>

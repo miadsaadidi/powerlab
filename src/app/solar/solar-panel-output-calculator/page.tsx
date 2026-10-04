@@ -385,7 +385,7 @@ export default function SolarOutputPage() {
       <section id="technical-basis" style={{ marginTop: "2.5rem" }}>
         <h2>Technical References &amp; Model Basis</h2>
         <p style={{ color: "var(--text-muted)", marginBottom: "1.25rem" }}>
-          This calculator and reference models are grounded in peer-reviewed solar resource databases and photovoltaic modeling standards:
+          This calculator and reference models are grounded in established solar resource databases and photovoltaic modeling standards:
         </p>
         <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(260px, 1fr))", gap: "1rem" }}>
           <div style={{ padding: "1.15rem", borderRadius: "0.5rem", border: "1px solid var(--border-color, #e2e8f0)", background: "var(--card-bg, #ffffff)" }}>

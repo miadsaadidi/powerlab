@@ -166,7 +166,7 @@ export default function PrivacyPage() {
       </section>
 
       <section>
-        <h2>5. Technical Data Controls (GDPR / CCPA Considerations)</h2>
+        <h2>5. Privacy Rights &amp; Data Controls</h2>
         <p>
           Because PowerLab operates without a user account database for calculator entries:
         </p>
