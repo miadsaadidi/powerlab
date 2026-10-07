@@ -3,6 +3,7 @@ import Link from "next/link";
 import { siteConfig } from "@/lib/site-config";
 import { RESEARCH_PAPERS, BENCHMARK_DATASETS, STUDENT_LAB_EXERCISES } from "@/data/research-papers";
 import { buildPageMetadata } from "@/lib/seo/metadata-helper";
+import { Disclaimer } from "@/components/shared/Disclaimer";
 
 export const metadata: Metadata = {
   ...buildPageMetadata({
@@ -674,6 +675,8 @@ export default function ResearchHubPage() {
           <Link href="/methodology" className="button secondary-button" style={{ fontSize: "0.82rem", padding: "0.4rem 0.8rem" }}>Mathematical Methodology</Link>
         </div>
       </section>
+
+      <Disclaimer variant="standard" />
     </article>
   );
 }

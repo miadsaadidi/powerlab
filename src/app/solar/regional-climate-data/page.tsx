@@ -3,6 +3,7 @@ import Link from "next/link";
 import { siteConfig } from "@/lib/site-config";
 import { DirectAnswerCard } from "@/components/seo/direct-answer-card";
 import { US_REGIONAL_CLIMATE_DATA } from "@/data/regional-climate-solar-data";
+import { Disclaimer } from "@/components/shared/Disclaimer";
 
 export const metadata: Metadata = {
   title: "U.S. Solar Insolation & ASHRAE Climatic Design Data",
@@ -310,7 +311,7 @@ export default function RegionalClimateDataPage() {
           Explore Interactive Calculators Using This Dataset
         </h2>
         <p style={{ fontSize: "0.9rem", color: "var(--text-muted, #64748b)", marginBottom: "1.25rem" }}>
-          These deterministic calculators integrate solar irradiance data and ASHRAE design baselines for engineering modeling:
+          These interactive engineering calculators integrate solar irradiance data and ASHRAE design baselines for planning modeling:
         </p>
 
         <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(260px, 1fr))", gap: "1rem" }}>
@@ -359,6 +360,8 @@ export default function RegionalClimateDataPage() {
           </Link>
         </div>
       </section>
+
+      <Disclaimer variant="standard" />
     </div>
   );
 }

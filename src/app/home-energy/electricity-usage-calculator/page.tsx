@@ -9,12 +9,13 @@ import { FormulaCard } from "@/components/seo/formula-card";
 import { PageJumpNav } from "@/components/seo/page-jump-nav";
 import { SystemFlowDiagram } from "@/components/seo/system-flow-diagram";
 import { DirectAnswerCard } from "@/components/seo/direct-answer-card";
+import { Disclaimer } from "@/components/shared/Disclaimer";
 
 const isPublished = isCalculatorPublished("electricity-usage");
 
 export const metadata: Metadata = buildPageMetadata({
   title: "Electricity Usage Calculator — Daily kWh & Cost",
-  description: "Calculate daily, monthly, and annual electricity usage (kWh) and operating cost ($) for any appliance with EIA wattage presets and deterministic energy formulas.",
+  description: "Calculate daily, monthly, and annual electricity usage (kWh) and operating cost ($) for any appliance with EIA wattage presets and physics-based energy formulas.",
   canonicalPath: "/home-energy/electricity-usage-calculator",
   category: "home-energy",
 });
@@ -80,6 +81,8 @@ export default function ElectricityUsagePage() {
       <div id="calculator-tool">
         <ElectricityUsageCalculator />
       </div>
+
+      <Disclaimer variant="calculator" />
 
       <DirectAnswerCard
         keyword="electricity usage calculator"

@@ -19,10 +19,11 @@ const evToolContent: Record<string, string> = {
 };
 
 import { buildPageMetadata } from "@/lib/seo/metadata-helper";
+import { Disclaimer } from "@/components/shared/Disclaimer";
 
 export const metadata: Metadata = buildPageMetadata({
   title: "EV Calculators — Charging & Savings",
-  description: "Free deterministic EV planning tools to calculate charging time, charging cost, real-world driving range, and annual fuel savings vs gas.",
+  description: "Free physics-based EV planning tools to calculate charging time, charging cost, real-world driving range, and annual fuel savings vs gas.",
   canonicalPath: "/ev",
   category: "ev",
 });
@@ -236,6 +237,9 @@ export default function EvHub() {
       <h2 id="ev-method-heading">Realistic charging and conversion models</h2>
       <p>Our EV engines account for onboard charger limits, AC/DC conversion losses, and fast-charge thermal tapering. Review our <Link href="/standards">engineering standards</Link>, browse the <Link href="/calculators">calculators directory</Link>, embed via <Link href="/developers">developer widgets</Link>, or inspect <Link href="/methodology">methodology</Link>.</p>
     </section>
+
+    {/* Technical Disclaimer Notice */}
+    <Disclaimer variant="standard" />
   </section>;
 }
 

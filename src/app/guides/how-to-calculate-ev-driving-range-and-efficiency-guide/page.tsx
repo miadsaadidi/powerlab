@@ -9,6 +9,7 @@ import { StandardsBadge } from "@/components/seo/standards-badge";
 import { AcademicCitationModal } from "@/components/seo/academic-citation-modal";
 import { MathDisplay } from "@/components/common/math-display";
 import { buildPageMetadata } from "@/lib/seo/metadata-helper";
+import { Disclaimer } from "@/components/shared/Disclaimer";
 
 export const metadata: Metadata = buildPageMetadata({
   title: "How to Calculate EV Driving Range & Efficiency",
@@ -582,6 +583,8 @@ export default function HowToCalculateEvRangeGuidePage() {
           urlPath="/guides/how-to-calculate-ev-driving-range-and-efficiency-guide"
         />
       </div>
+
+      <Disclaimer variant="standard" />
     </article>
   );
 }

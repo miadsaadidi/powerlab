@@ -53,7 +53,7 @@ export interface StandardDefinition {
 }
 
 /**
- * Verified standards mapped to each calculator in PowerLab.
+ * Applicable standards and references mapped to each calculator in PowerLab.
  */
 export const CALCULATOR_STANDARDS_MAP: Record<string, StandardRef[]> = {
   "battery-runtime": [
@@ -233,7 +233,7 @@ export const COMPREHENSIVE_STANDARDS_LIST: StandardDefinition[] = [
     edition: "2023 National Electrical Code",
     title: "Solar Photovoltaic (PV) Systems Sizing & Safety Provisions",
     scope: "Prescribes requirements for maximum DC voltage calculation, continuous current multipliers, overcurrent protection, and conductor sizing in PV systems.",
-    context: "Model electrical code adopted into law across state and municipal building authorities in the United States.",
+    context: "Model electrical code published by NFPA. Model codes become legally enforceable when adopted or incorporated by the applicable jurisdiction, including applicable local amendments.",
     color: "#d97706",
     clauses: [
       {
@@ -300,7 +300,7 @@ export const COMPREHENSIVE_STANDARDS_LIST: StandardDefinition[] = [
     edition: "2023 National Electrical Code",
     title: "Electric Vehicle Power Transfer Systems (EVSE) & Terminal Ratings",
     scope: "Covers branch circuits, continuous load overcurrent protection, and conductor terminal limitations for EV charging equipment.",
-    context: "Model electrical code adopted into law across state and municipal building jurisdictions.",
+    context: "Model electrical code published by NFPA. Model codes become legally enforceable when adopted or incorporated by the applicable jurisdiction, including applicable local amendments.",
     color: "#8b5cf6",
     clauses: [
       {

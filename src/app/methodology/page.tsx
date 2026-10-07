@@ -1,11 +1,12 @@
 import Link from "next/link";
 import { buildPageMetadata } from "@/lib/seo/metadata-helper";
 import { AcademicCitationModal } from "@/components/seo/academic-citation-modal";
+import { Disclaimer } from "@/components/shared/Disclaimer";
 
 export const metadata = buildPageMetadata({
   title: "Engineering Methodology & Physical Formulas",
   description:
-    "Explore the mathematical models, loss factors, and deterministic calculation methods powering PowerLab clean energy planning tools.",
+    "Explore the mathematical models, loss factors, and reproducible calculation methods powering PowerLab clean energy planning tools.",
   canonicalPath: "/methodology",
 });
 
@@ -21,7 +22,7 @@ export default function MethodologyPage() {
       <p className="eyebrow">Engineering Standards &amp; Methodology</p>
       <h1>Engineering Calculation Methodology</h1>
       <p className="intro">
-        PowerLab implements <strong>deterministic mathematical calculations</strong> combining physics-based equations, empirical datasets, and established engineering standards. Every calculator explicitly exposes its loss factors, component efficiencies, and environmental parameters so calculation steps can be inspected and reproduced.
+        PowerLab implements <strong>physics-based mathematical calculation models</strong> combining explicit equations, empirical reference datasets, and established engineering standards. Every calculator explicitly exposes its loss factors, component efficiencies, and environmental parameters so calculation steps can be inspected and reproduced.
       </p>
 
       <div style={{ margin: "1rem 0 1.5rem 0", display: "flex", gap: "0.75rem", flexWrap: "wrap", alignItems: "center" }}>
@@ -70,10 +71,10 @@ export default function MethodologyPage() {
             }}
           >
             <strong style={{ display: "block", marginBottom: "0.35rem", color: "var(--brand-strong)" }}>
-              1. Deterministic &amp; Reproducible
+              1. Reproducible &amp; Open Models
             </strong>
             <p style={{ margin: 0, fontSize: "0.85rem", color: "var(--text-muted)", lineHeight: 1.45 }}>
-              Given the same inputs and model assumptions, the calculation engines produce reproducible results without hidden non-deterministic state.
+              Given the same inputs and model assumptions, the calculation engines produce reproducible results without hidden state.
             </p>
           </div>
 
@@ -417,8 +418,10 @@ export default function MethodologyPage() {
           <li><strong>Regression Prevention:</strong> Ensuring mathematical engine refactorings preserve identical numerical outputs for baseline test vectors.</li>
         </ul>
         <p style={{ marginTop: "1rem" }}>
-          To explore further technical documentation, review our <Link href="/standards">Standards &amp; Technical References</Link>, inspect our <Link href="/research">Research Papers</Link>, look up terms in the <Link href="/glossary">Engineering Glossary</Link>, or browse our <Link href="/sources">Laboratory Sources Directory</Link>.
+          To explore further technical documentation, review our <Link href="/standards">Standards &amp; Technical References</Link>, consult our <Link href="/disclaimer">Technical Disclaimer</Link>, inspect our <Link href="/research">Research Papers</Link>, look up terms in the <Link href="/glossary">Engineering Glossary</Link>, or browse our <Link href="/sources">Laboratory Sources Directory</Link>.
         </p>
+
+        <Disclaimer variant="standard" />
       </section>
     </article>
   );

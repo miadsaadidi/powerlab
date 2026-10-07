@@ -7,6 +7,7 @@ import { FormulaCard } from "@/components/seo/formula-card";
 import { PageJumpNav } from "@/components/seo/page-jump-nav";
 import { DirectAnswerCard } from "@/components/seo/direct-answer-card";
 import { calculateEvRange } from "@/lib/calculators/ev-range/engine";
+import { Disclaimer } from "@/components/shared/Disclaimer";
 
 export const metadata: Metadata = buildPageMetadata({
   title: "EV Range Calculator — Battery, SOC & Efficiency",
@@ -92,6 +93,8 @@ export default function EvRangePage() {
       <div id="calculator-tool">
         <EvRangeCalculator />
       </div>
+
+      <Disclaimer variant="calculator" />
 
       <DirectAnswerCard
         keyword="EV driving range calculation"

@@ -7,6 +7,7 @@ import { DirectAnswerCard } from "@/components/seo/direct-answer-card";
 import { PageJumpNav } from "@/components/seo/page-jump-nav";
 import { FormulaCard } from "@/components/seo/formula-card";
 import { buildPageMetadata } from "@/lib/seo/metadata-helper";
+import { Disclaimer } from "@/components/shared/Disclaimer";
 
 export const metadata: Metadata = buildPageMetadata({
   title: "How Many kWh Does a House Use Per Day? (2026)",
@@ -629,6 +630,8 @@ export default function HowManyKwhDoesAHouseUsePerDayPage() {
           </Link>
         </div>
       </section>
+
+      <Disclaimer variant="standard" />
     </article>
   );
 }

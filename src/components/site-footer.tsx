@@ -43,7 +43,7 @@ export function SiteFooter() {
                       marginTop: "2px",
                     }}
                   >
-                    Deterministic Energy Planning
+                    Physics-Based Energy Planning
                   </span>
                 </div>
               </Link>
@@ -237,6 +237,11 @@ export function SiteFooter() {
                   ⚖️ Terms of Service
                 </Link>
               </li>
+              <li>
+                <Link href="/disclaimer" style={{ fontWeight: 600, color: "var(--accent, #c65d24)" }}>
+                  🛡️ Technical Disclaimer
+                </Link>
+              </li>
             </ul>
           </div>
         </div>
@@ -392,8 +397,20 @@ export function SiteFooter() {
           <div suppressHydrationWarning>
             © {new Date().getFullYear()} {siteConfig.name} (powerlab.org). Open-access engineering calculators.
           </div>
-          <div style={{ maxWidth: "600px", textAlign: "right", lineHeight: 1.45 }}>
-            Disclaimer: Calculations are provided for engineering screening and estimating purposes. Consult governing electrical codes (NFPA 70 / NEC, IEEE) and licensed professional electrical engineers (PE) for permitted construction designs.
+          <div style={{ maxWidth: "660px", textAlign: "right", lineHeight: 1.5 }}>
+            <p style={{ margin: "0 0 0.35rem" }}>
+              <strong>Technical Notice:</strong> PowerLab provides technical, educational, and reference information. Users must verify applicable codes, consensus standards, manufacturer documentation, and professional engineering requirements before relying on this information for real-world engineering or operational decisions.
+            </p>
+            <Link
+              href="/disclaimer"
+              style={{
+                color: "var(--accent, #c65d24)",
+                fontWeight: 600,
+                textDecoration: "underline",
+              }}
+            >
+              Read Full Technical Disclaimer →
+            </Link>
           </div>
         </div>
       </div>

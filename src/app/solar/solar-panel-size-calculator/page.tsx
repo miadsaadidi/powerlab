@@ -8,6 +8,7 @@ import { buildCalculatorStructuredData } from "@/lib/seo/structured-data";
 import { FormulaCard } from "@/components/seo/formula-card";
 import { PageJumpNav } from "@/components/seo/page-jump-nav";
 import { DirectAnswerCard } from "@/components/seo/direct-answer-card";
+import { Disclaimer } from "@/components/shared/Disclaimer";
 
 const isPublished = isCalculatorPublished("solar-panel-size");
 
@@ -80,6 +81,8 @@ export default function SolarPanelSizePage() {
       <div id="calculator-tool">
         <SolarPanelSizeCalculator />
       </div>
+
+      <Disclaimer variant="calculator" />
 
       <DirectAnswerCard
         keyword="solar panel size and count calculation"
@@ -184,7 +187,7 @@ export default function SolarPanelSizePage() {
       <section id="technical-basis" style={{ marginTop: "2.5rem" }}>
         <h2>Technical References &amp; Model Basis</h2>
         <p>
-          PowerLab implements a deterministic photovoltaic sizing model based on location-specific solar irradiance modeling and whole-number module discretization. The following technical references provide context for performance modeling and module ratings:
+          PowerLab implements a photovoltaic sizing model based on the stated model and inputs, incorporating location-specific solar irradiance modeling and whole-number module discretization. The following technical references provide context for performance modeling and module ratings:
         </p>
         <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(260px, 1fr))", gap: "1rem", marginTop: "1rem" }}>
           <div style={{ padding: "1rem", borderRadius: "0.5rem", border: "1px solid var(--border-color, #cbd5e1)", background: "var(--surface, #ffffff)" }}>

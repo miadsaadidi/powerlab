@@ -4,6 +4,7 @@ import { notFound } from "next/navigation";
 import { siteConfig } from "@/lib/site-config";
 import { BENCHMARK_DATASETS } from "@/data/research-papers";
 import { buildPageMetadata } from "@/lib/seo/metadata-helper";
+import { Disclaimer } from "@/components/shared/Disclaimer";
 
 interface PageProps {
   params: Promise<{ slug: string }>;
@@ -453,8 +454,9 @@ export default async function DatasetDetailPage({ params }: PageProps) {
             {ds.limitations || "This dataset provides engineering reference calculations and benchmark scenarios. It does not replace manufacturer specifications, certified test data, installation requirements, electrical codes, AHJ requirements, or professional engineering/electrical review."}
           </p>
           <div style={{ background: "var(--surface-subtle, #f8fafc)", borderLeft: "4px solid #d97706", padding: "0.85rem 1.25rem", fontSize: "0.86rem", color: "var(--ink)" }}>
-            <strong>Jurisdictional Notice:</strong> Referenced standards (IEEE, UL, NFPA 70 / NEC) and technical modeling materials have jurisdiction-specific applicability. System designers and installers must consult the requirements adopted by the applicable Authority Having Jurisdiction (AHJ) and current manufacturer technical specifications.
+            <strong>Jurisdictional Notice:</strong> Model codes become legally enforceable when adopted or incorporated by the applicable jurisdiction, including applicable local amendments. System designers and installers must consult the requirements adopted by the applicable Authority Having Jurisdiction (AHJ) and current manufacturer technical specifications.
           </div>
+          <Disclaimer variant="standard" />
         </section>
 
         {/* Citation Block */}

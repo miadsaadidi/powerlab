@@ -216,7 +216,7 @@ export default function AboutPage() {
       <section>
         <h2>Authorship &amp; Engineering</h2>
         <p>
-          PowerLab is authored and maintained by <strong>Miad S.</strong> alongside open engineering benchmarks and verified research datasets. All calculation engines are developed as transparent, open-source TypeScript algorithms verified against physics fundamentals and applicable engineering references.
+          PowerLab is authored and maintained by <strong>Miad S.</strong> alongside open engineering benchmarks and peer-reviewed research citations. All calculation engines are developed as transparent, open-source TypeScript algorithms referenced against physics fundamentals and applicable engineering standards.
         </p>
       </section>
 
@@ -224,7 +224,7 @@ export default function AboutPage() {
       <section>
         <h2>Transparency &amp; Governance</h2>
         <p>
-          PowerLab provides transparent methodology, engineering references, and open documentation. Review calculation methods on our <Link href="/methodology">Engineering Methodology</Link> page, inspect reference standards on our <Link href="/standards">Standards Matrix</Link>, browse definitions in our <Link href="/glossary">Engineering Glossary</Link>, consult our <Link href="/terms">Terms of Service</Link>, or read our <Link href="/privacy">Privacy Policy</Link>.
+          PowerLab provides transparent methodology, engineering references, and open documentation. Review calculation methods on our <Link href="/methodology">Engineering Methodology</Link> page, inspect reference standards on our <Link href="/standards">Standards Matrix</Link>, browse definitions in our <Link href="/glossary">Engineering Glossary</Link>, read our comprehensive <Link href="/disclaimer">Technical Disclaimer</Link>, consult our <Link href="/terms">Terms of Service</Link>, or read our <Link href="/privacy">Privacy Policy</Link>.
         </p>
         <p style={{ marginTop: "1rem", fontSize: "0.85rem", color: "var(--text-muted, #64748b)" }}>
           External profiles &amp; reviews:{" "}

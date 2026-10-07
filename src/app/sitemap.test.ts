@@ -58,6 +58,7 @@ describe("sitemap", () => {
     expect(paths).toContain("/guides/space-heater-electricity-cost-and-wattage-guide");
     expect(paths).toContain("/research");
     expect(paths).toContain("/research/continuous-duty-thermal-sizing-evse-ampacity");
+    expect(paths).toContain("/disclaimer");
   });
 });
 

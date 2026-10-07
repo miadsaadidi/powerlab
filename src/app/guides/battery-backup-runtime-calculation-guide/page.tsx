@@ -8,6 +8,7 @@ import { DirectAnswerCard } from "@/components/seo/direct-answer-card";
 import { PageJumpNav } from "@/components/seo/page-jump-nav";
 import { FormulaCard } from "@/components/seo/formula-card";
 import { buildPageMetadata } from "@/lib/seo/metadata-helper";
+import { Disclaimer } from "@/components/shared/Disclaimer";
 
 export const metadata: Metadata = buildPageMetadata({
   title: "Battery Backup Runtime Formula Guide",
@@ -370,6 +371,8 @@ export default function BatteryRuntimeGuidePage() {
           </Link>
         </div>
       </section>
+
+      <Disclaimer variant="standard" />
     </article>
   );
 }

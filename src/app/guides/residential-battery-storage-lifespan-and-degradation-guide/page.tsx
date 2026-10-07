@@ -7,6 +7,7 @@ import { PageJumpNav } from "@/components/seo/page-jump-nav";
 import { FormulaCard } from "@/components/seo/formula-card";
 import { MathDisplay } from "@/components/common/math-display";
 import { buildPageMetadata } from "@/lib/seo/metadata-helper";
+import { Disclaimer } from "@/components/shared/Disclaimer";
 
 export const metadata: Metadata = buildPageMetadata({
   title: "Residential Battery Storage Lifespan & Degradation Guide",
@@ -495,6 +496,8 @@ export default function BatteryDegradationGuidePage() {
           </div>
         </div>
       </section>
+
+      <Disclaimer variant="standard" />
     </article>
   );
 }

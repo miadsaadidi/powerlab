@@ -7,6 +7,7 @@ import { FormulaCard } from "@/components/seo/formula-card";
 import { PageJumpNav } from "@/components/seo/page-jump-nav";
 import { DirectAnswerCard } from "@/components/seo/direct-answer-card";
 import { calculateEvChargingCost } from "@/lib/calculators/ev-charging-cost/engine";
+import { Disclaimer } from "@/components/shared/Disclaimer";
 
 export const metadata: Metadata = buildPageMetadata({
   title: "EV Charging Cost Calculator — Cost per Charge & Mile",
@@ -92,6 +93,8 @@ export default function EvChargingCostPage() {
       <div id="calculator-tool">
         <EvChargingCostCalculator />
       </div>
+
+      <Disclaimer variant="calculator" />
 
       <DirectAnswerCard
         keyword="EV charging cost calculation"

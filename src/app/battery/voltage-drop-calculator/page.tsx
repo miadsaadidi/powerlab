@@ -9,6 +9,7 @@ import { FormulaCard } from "@/components/seo/formula-card";
 import { StandardsBadge } from "@/components/seo/standards-badge";
 import { PageJumpNav } from "@/components/seo/page-jump-nav";
 import { DirectAnswerCard } from "@/components/seo/direct-answer-card";
+import { Disclaimer } from "@/components/shared/Disclaimer";
 
 const isPublished = isCalculatorPublished("voltage-drop");
 
@@ -46,7 +47,7 @@ export default function VoltageDropPage() {
     categoryName: "Battery",
     categoryRoute: "/battery",
     features: [
-      "Calculates exact DC and AC voltage drop percentage under continuous load",
+      "Calculates estimated DC and AC voltage drop percentage under continuous load",
       "Determines minimum AWG / mm² wire gauge to satisfy selected voltage-drop design target (e.g. 3%)",
       "Models copper vs aluminum conductor resistivity at 75°C (NEC Chapter 9, Table 8)",
       "Calculates continuous resistance power loss in watts and kilowatt-hours",
@@ -83,6 +84,8 @@ export default function VoltageDropPage() {
       <div id="calculator-tool">
         <VoltageDropCalculator />
       </div>
+
+      <Disclaimer variant="safety" />
 
       <DirectAnswerCard
         keyword="voltage drop and wire gauge sizing calculation"

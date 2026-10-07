@@ -7,6 +7,7 @@ import { PageJumpNav } from "@/components/seo/page-jump-nav";
 import { FormulaCard } from "@/components/seo/formula-card";
 import { buildPageMetadata } from "@/lib/seo/metadata-helper";
 import { MathFraction, MathVar } from "@/components/common/math-display";
+import { Disclaimer } from "@/components/shared/Disclaimer";
 
 export const metadata: Metadata = buildPageMetadata({
   title: "NEC 705.12 120% Rule: Solar & Battery Busbar Sizing Guide",
@@ -644,30 +645,16 @@ export default function NecBusbarSizingGuidePage() {
         </div>
       </section>
 
-      {/* Safety & Engineering Disclaimer */}
-      <footer
-        style={{
-          marginTop: "3.5rem",
-          padding: "1.25rem 1.5rem",
-          borderRadius: "8px",
-          background: "var(--surface)",
-          border: "1px solid var(--border)",
-          fontSize: "0.82rem",
-          color: "var(--muted)",
-          lineHeight: 1.5,
-        }}
+      <Disclaimer
+        variant="safety"
+        title="Busbar Sizing & Electrical Safety Notice"
+        modelBasis="NFPA 70 (NEC) Article 705.12, 705.11, 705.13 & UL 1741"
       >
-        <p style={{ margin: "0 0 0.5rem", fontWeight: 700, color: "var(--foreground)" }}>
-          🔒 Safety &amp; Engineering Disclaimer
-        </p>
-        <p style={{ margin: 0 }}>
-          This guide and its associated calculation models are provided strictly for educational and engineering reference.
-          Final system design, conductor sizing, overcurrent protection, and panel interconnections must be evaluated and
-          verified against the applicable NEC edition, local electrical amendments, manufacturer listing instructions, formal
-          NEC Article 220 load calculations, utility interconnection requirements, and approval by the Authority Having
-          Jurisdiction (AHJ) and a licensed electrical professional.
-        </p>
-      </footer>
+        This guide and its calculation models provide educational screening for solar and battery backfeed busbar ampacity.
+        Model codes become legally enforceable when adopted or incorporated by the applicable jurisdiction, including applicable local amendments.
+        Final system design, conductor sizing, overcurrent protection, and panel interconnections must be evaluated and
+        verified against manufacturer listing instructions, formal NEC Article 220 load calculations, and utility interconnection rules, and be approved by the local Authority Having Jurisdiction (AHJ) and a licensed Professional Engineer.
+      </Disclaimer>
     </article>
   );
 }

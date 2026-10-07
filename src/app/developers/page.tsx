@@ -4,6 +4,7 @@ import { useState } from "react";
 import Link from "next/link";
 import { siteConfig } from "@/lib/site-config";
 import { calculatorRegistry, type CalculatorRegistryItem } from "@/lib/calculator-registry";
+import { Disclaimer } from "@/components/shared/Disclaimer";
 
 const CATEGORY_NAMES: Record<string, string> = {
   battery: "🔋 Battery & Storage",
@@ -55,7 +56,7 @@ export default function DevelopersPage() {
         <p className="eyebrow">Developer &amp; Publisher Tools</p>
         <h1>Embeddable Energy Calculators</h1>
         <p className="intro">
-          Easily embed any of PowerLab&apos;s 30 deterministic energy planning tools into your website, blog, client portal, or contractor proposal with responsive HTML iframes.
+          Easily embed any of PowerLab&apos;s 30 physics-based energy planning tools into your website, blog, client portal, or contractor proposal with responsive HTML iframes.
         </p>
       </div>
 
@@ -237,6 +238,9 @@ export default function DevelopersPage() {
           </article>
         </div>
       </section>
+
+      {/* Embedding Disclaimer */}
+      <Disclaimer variant="compact" style={{ marginTop: "2.5rem" }} />
     </article>
   );
 }

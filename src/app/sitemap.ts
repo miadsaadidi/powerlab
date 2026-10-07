@@ -33,6 +33,7 @@ const staticPaths = [
   "/about",
   "/privacy",
   "/terms",
+  "/disclaimer",
 ];
 
 export function getSitemapPaths() {
@@ -90,7 +91,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     } else if (path.startsWith("/guides")) {
       priority = 0.75;
       changeFrequency = "monthly";
-    } else if (path === "/privacy" || path === "/terms") {
+    } else if (path === "/privacy" || path === "/terms" || path === "/disclaimer") {
       priority = 0.3;
       changeFrequency = "yearly";
     } else {

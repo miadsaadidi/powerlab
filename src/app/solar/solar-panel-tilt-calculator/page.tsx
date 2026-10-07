@@ -9,6 +9,7 @@ import { FormulaCard } from "@/components/seo/formula-card";
 import { PageJumpNav } from "@/components/seo/page-jump-nav";
 import { DirectAnswerCard } from "@/components/seo/direct-answer-card";
 import { SystemFlowDiagram } from "@/components/seo/system-flow-diagram";
+import { Disclaimer } from "@/components/shared/Disclaimer";
 
 const isPublished = isCalculatorPublished("solar-panel-tilt");
 
@@ -83,6 +84,8 @@ export default function SolarTiltPage() {
       <div id="calculator-tool">
         <SolarPanelTiltCalculator />
       </div>
+
+      <Disclaimer variant="calculator" />
 
       <DirectAnswerCard
         keyword="solar panel tilt calculator"

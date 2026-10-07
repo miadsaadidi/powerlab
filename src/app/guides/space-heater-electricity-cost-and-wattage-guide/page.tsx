@@ -9,6 +9,7 @@ import { StandardsBadge } from "@/components/seo/standards-badge";
 import { AcademicCitationModal } from "@/components/seo/academic-citation-modal";
 import { MathDisplay } from "@/components/common/math-display";
 import { buildPageMetadata } from "@/lib/seo/metadata-helper";
+import { Disclaimer } from "@/components/shared/Disclaimer";
 
 export const metadata: Metadata = buildPageMetadata({
   title: "Space Heater Electricity Cost & Wattage Guide",
@@ -417,9 +418,13 @@ export default function SpaceHeaterGuidePage() {
           <li><strong>AHRI Standard 210/240:</strong> Unitary heat pump performance and Coefficient of Performance (COP) rating methodology.</li>
         </ul>
 
-        <div style={{ padding: "1rem", borderRadius: "0.6rem", background: "var(--soft, #f8fafc)", border: "1px solid var(--line)", fontSize: "0.85rem", color: "var(--muted)", margin: "1rem 0" }}>
-          <strong>Educational Disclaimer:</strong> This guide provides screening-level energy estimation calculations. Actual heating costs depend on room dimensions, ceiling height, building envelope insulation, window area, outdoor temperatures, and specific electric utility rate structures.
-        </div>
+        <Disclaimer
+          variant="standard"
+          title="Heating Energy Screening Notice"
+          modelBasis="UL 1278, NEC Article 210, DOE Energy Saver & AHRI 210/240"
+        >
+          This guide provides screening-level energy estimation calculations. Actual heating costs depend on room dimensions, ceiling height, building envelope insulation, window area, outdoor temperatures, and specific electric utility rate structures. Branch circuit wiring capacity and safety must be verified by a qualified electrical professional.
+        </Disclaimer>
 
         <div style={{ display: "flex", flexWrap: "wrap", gap: "1rem", marginTop: "1rem" }}>
           <Link href="/methodology" style={{ fontSize: "0.9rem", fontWeight: 600, color: "var(--accent)" }}>

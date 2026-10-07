@@ -9,6 +9,7 @@ import { StandardsBadge } from "@/components/seo/standards-badge";
 import { AcademicCitationModal } from "@/components/seo/academic-citation-modal";
 import { MathDisplay } from "@/components/common/math-display";
 import { buildPageMetadata } from "@/lib/seo/metadata-helper";
+import { Disclaimer } from "@/components/shared/Disclaimer";
 
 export const metadata: Metadata = buildPageMetadata({
   title: "Solar Payback Period & ROI Calculation Guide",
@@ -525,9 +526,13 @@ export default function SolarPaybackGuidePage() {
           <li><strong>IEC 61215:</strong> Design qualification standard establishing baseline reliability and performance criteria for terrestrial crystalline silicon photovoltaic modules.</li>
         </ul>
 
-        <div style={{ padding: "1rem", borderRadius: "0.6rem", background: "var(--soft, #f8fafc)", border: "1px solid var(--line)", fontSize: "0.85rem", color: "var(--muted)", margin: "1rem 0" }}>
-          <strong>Educational Disclaimer:</strong> This guide provides screening-level financial modeling tools. Actual solar electricity savings and return on investment depend on local solar resource, roof azimuth/shading, specific utility tariff rate structures, future electricity rate inflation, equipment degradation, and individual tax credit eligibility.
-        </div>
+        <Disclaimer
+          variant="standard"
+          title="Solar Economic Screening Notice"
+          modelBasis="IRC Section 25D, NREL SAM Framework & CPUC Decision 22-12-056"
+        >
+          This guide provides screening-level financial modeling calculations. Actual solar electricity savings, payback period, and return on investment depend on local solar resource, roof azimuth, shading, specific utility tariff rate structures, future electricity rate inflation, equipment degradation, and individual tax credit eligibility. Consult a qualified CPA or tax professional for tax determinations.
+        </Disclaimer>
 
         <div style={{ display: "flex", flexWrap: "wrap", gap: "1rem", marginTop: "1rem" }}>
           <Link href="/methodology" style={{ fontSize: "0.9rem", fontWeight: 600, color: "var(--accent)" }}>

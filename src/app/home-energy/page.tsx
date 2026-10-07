@@ -10,10 +10,11 @@ import { SystemFlowDiagram } from "@/components/seo/system-flow-diagram";
 
 
 import { buildPageMetadata } from "@/lib/seo/metadata-helper";
+import { Disclaimer } from "@/components/shared/Disclaimer";
 
 export const metadata: Metadata = buildPageMetadata({
   title: "Home Energy Calculators — Power Usage & Bills",
-  description: "Free deterministic home energy calculators to estimate appliance electricity usage, calculate utility power bills, and size whole-home battery backup.",
+  description: "Free physics-based home energy calculators to estimate appliance electricity usage, calculate utility power bills, and size whole-home battery backup.",
   canonicalPath: "/home-energy",
   category: "home-energy",
 });
@@ -250,6 +251,9 @@ export default function HomeEnergyHub() {
       <h2 id="home-energy-method-heading">Transparent household energy accounting</h2>
       <p>Our home energy models separate continuous running load from peak connected load, accounting for duty cycles, standby power, and seasonal heating/cooling variance. Review our <Link href="/standards">engineering standards</Link>, browse the <Link href="/calculators">calculators directory</Link>, inspect our <Link href="/methodology">methodology</Link>, or examine <Link href="/sources">sources</Link>.</p>
     </section>
+
+    {/* Technical Disclaimer Notice */}
+    <Disclaimer variant="standard" />
   </section>;
 }
 

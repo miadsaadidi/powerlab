@@ -6,6 +6,7 @@ import { RESEARCH_PAPERS, BENCHMARK_DATASETS, type ResearchPaper } from "@/data/
 import { AcademicCitationModal } from "@/components/seo/academic-citation-modal";
 import { MathDisplay } from "@/components/common/math-display";
 import { buildPageMetadata } from "@/lib/seo/metadata-helper";
+import { Disclaimer } from "@/components/shared/Disclaimer";
 
 interface PageProps {
   params: Promise<{ slug: string }>;
@@ -470,6 +471,8 @@ export default async function ResearchPaperPage({ params }: PageProps) {
           ))}
         </div>
       </section>
+
+      <Disclaimer variant="standard" />
 
       {/* Section 7: Full Citable Formats */}
       <section style={{ margin: "2rem 0" }}>

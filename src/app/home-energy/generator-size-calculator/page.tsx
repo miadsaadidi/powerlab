@@ -8,6 +8,7 @@ import { FormulaCard } from "@/components/seo/formula-card";
 import { StandardsBadge } from "@/components/seo/standards-badge";
 import { PageJumpNav } from "@/components/seo/page-jump-nav";
 import { DirectAnswerCard } from "@/components/seo/direct-answer-card";
+import { Disclaimer } from "@/components/shared/Disclaimer";
 
 const isPublished = isCalculatorPublished("generator-size");
 
@@ -93,6 +94,8 @@ export default function GeneratorSizePage() {
       <div id="calculator-tool">
         <GeneratorSizeCalculator />
       </div>
+
+      <Disclaimer variant="safety" />
 
       <DirectAnswerCard
         keyword="generator sizing calculation"
