@@ -9,6 +9,7 @@ import { StandardsBadge } from "@/components/seo/standards-badge";
 import { MathDisplay } from "@/components/common/math-display";
 import { AcademicCitationModal } from "@/components/seo/academic-citation-modal";
 import { buildPageMetadata } from "@/lib/seo/metadata-helper";
+import { Disclaimer } from "@/components/shared/Disclaimer";
 
 export const metadata: Metadata = buildPageMetadata({
   title: "Generator Sizing & Motor Inrush Guide",
@@ -507,7 +508,7 @@ export default function EmergencyGeneratorGuidePage() {
       <section style={{ marginTop: "3rem", padding: "1.5rem", border: "1px solid var(--line)", borderRadius: "0.75rem", background: "var(--surface)" }}>
         <h2 style={{ margin: "0 0 0.5rem" }}>Methodology &amp; Technical References</h2>
         <p style={{ margin: "0 0 1rem", fontSize: "0.95rem", color: "var(--ink)" }}>
-          The calculation is a simplified planning model informed by the referenced technical literature and standards (including NFPA 70 / NEC Article 702, IEEE Std 446, and NEMA MG-1). Applicable code requirements and manufacturer instructions take precedence. For technical research on motor inrush envelopes, see our report on <Link href="/research/deterministic-inrush-load-stacking-generator-sizing" style={{ color: "var(--brand-strong)", fontWeight: 700 }}>Deterministic Modeling of Inductive Motor Inrush Currents (PL-TR-2026-GEN02)</Link>. Review our <Link href="/methodology">calculation methodology</Link> and <Link href="/sources">engineering sources</Link>.
+          The calculation is a simplified planning model informed by the referenced technical literature and standards (including NFPA 70 / NEC Article 702, IEEE Std 446, and NEMA MG-1). Manufacturer manuals, approved ratings, and submittals are essential for equipment-specific requirements, while applicable codes, regulations, adopted standards, and professional engineering requirements remain applicable. For technical research on motor inrush envelopes, see our report on <Link href="/research/deterministic-inrush-load-stacking-generator-sizing" style={{ color: "var(--brand-strong)", fontWeight: 700 }}>Deterministic Modeling of Inductive Motor Inrush Currents (PL-TR-2026-GEN02)</Link>. Review our <Link href="/methodology">calculation methodology</Link> and <Link href="/sources">engineering sources</Link>.
         </p>
         <AcademicCitationModal
           title="Emergency Generator Sizing &amp; Motor Inrush Load Guide"
@@ -517,6 +518,8 @@ export default function EmergencyGeneratorGuidePage() {
       </section>
 
       <StandardsBadge category="home-energy" />
+
+      <Disclaimer variant="safety" />
     </article>
   );
 }

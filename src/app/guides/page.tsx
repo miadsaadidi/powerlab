@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { siteConfig } from "@/lib/site-config";
 import { buildCategoryHubStructuredData } from "@/lib/seo/structured-data";
+import { Disclaimer } from "@/components/shared/Disclaimer";
 
 import { buildPageMetadata } from "@/lib/seo/metadata-helper";
 
@@ -572,6 +573,8 @@ export default function GuidesHubPage() {
           </div>
         </div>
       </section>
+
+      <Disclaimer variant="standard" />
     </article>
   );
 }

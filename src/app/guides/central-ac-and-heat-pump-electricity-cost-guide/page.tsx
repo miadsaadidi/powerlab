@@ -9,6 +9,7 @@ import { StandardsBadge } from "@/components/seo/standards-badge";
 import { AcademicCitationModal } from "@/components/seo/academic-citation-modal";
 import { MathDisplay } from "@/components/common/math-display";
 import { buildPageMetadata } from "@/lib/seo/metadata-helper";
+import { Disclaimer } from "@/components/shared/Disclaimer";
 
 export const metadata: Metadata = buildPageMetadata({
   title: "Central AC & Heat Pump Electricity Cost Guide",
@@ -385,6 +386,8 @@ export default function CentralAcAndHeatPumpGuidePage() {
       </section>
 
       <StandardsBadge category="home-energy" />
+
+      <Disclaimer variant="standard" />
     </article>
   );
 }

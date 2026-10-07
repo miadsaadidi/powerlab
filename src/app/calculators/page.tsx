@@ -7,15 +7,17 @@ import { CALCULATOR_CARD_CONTENT } from "@/data/calculator-card-content";
 import { TrustBadges } from "@/components/home/trust-badges";
 import { ConnectedSystemFlow } from "@/components/home/connected-system-flow";
 
+import { Disclaimer } from "@/components/shared/Disclaimer";
+
 export const metadata: Metadata = {
   title: "Clean Energy Calculators Directory",
   description:
-    "Complete directory of deterministic energy calculators. Sizing tools for solar PV, battery runtime, wire voltage drop, and EV charging under NEC codes.",
+    "Complete directory of physics-based energy calculators. Sizing tools for solar PV, battery runtime, wire voltage drop, and EV charging referencing applicable codes.",
   alternates: { canonical: `${siteConfig.url}/calculators` },
   openGraph: {
     title: "Clean Energy Calculators Directory — PowerLab",
     description:
-      "Complete directory of deterministic energy calculators. Sizing tools for solar PV, battery runtime, wire voltage drop, and EV charging under NEC codes.",
+      "Complete directory of physics-based energy calculators. Sizing tools for solar PV, battery runtime, wire voltage drop, and EV charging referencing applicable codes.",
     url: `${siteConfig.url}/calculators`,
     siteName: siteConfig.name,
     locale: "en_US",
@@ -33,7 +35,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Clean Energy Calculators Directory — PowerLab",
     description:
-      "Complete directory of deterministic energy calculators. Sizing tools for solar PV, battery runtime, wire voltage drop, and EV charging under NEC codes.",
+      "Complete directory of physics-based energy calculators. Sizing tools for solar PV, battery runtime, wire voltage drop, and EV charging referencing applicable codes.",
     images: [`${siteConfig.url}/opengraph-image`],
   },
 };
@@ -273,6 +275,9 @@ export default function CalculatorsHubPage() {
           </div>
         </div>
       </section>
+
+      {/* Technical Disclaimer Notice */}
+      <Disclaimer variant="standard" />
 
       {/* Engineering Trust Badges */}
       <TrustBadges />

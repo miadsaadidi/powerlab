@@ -2,6 +2,7 @@
 
 import { useEffect, useState, useId } from "react";
 import { track } from "@/lib/analytics/analytics";
+import { Disclaimer } from "@/components/shared/Disclaimer";
 
 interface PanelPreset {
   label: string;
@@ -851,24 +852,7 @@ export function NecBusbarCalculator() {
       )}
 
       {/* Engineering Disclaimer Footer */}
-      <footer
-        style={{
-          marginTop: "1.25rem",
-          padding: "0.75rem 1rem",
-          borderRadius: "8px",
-          background: "var(--surface)",
-          border: "1px solid var(--border)",
-          fontSize: "0.78rem",
-          color: "var(--muted)",
-          lineHeight: 1.45,
-        }}
-      >
-        <strong>Technical &amp; Jurisdictional Disclaimer:</strong> This calculation tool is provided for educational and
-        preliminary engineering planning. Final system design, conductor sizing, overcurrent protection ratings, and
-        service panel interconnections must be verified against the applicable NEC edition, local electrical amendments,
-        manufacturer listing instructions, dwelling load calculations, utility interconnection requirements, and
-        approval by the Authority Having Jurisdiction (AHJ) and a qualified electrical professional.
-      </footer>
+      <Disclaimer variant="safety" style={{ marginTop: "1.25rem" }} />
     </div>
   );
 }

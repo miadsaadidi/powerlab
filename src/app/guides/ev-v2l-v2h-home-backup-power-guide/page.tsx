@@ -7,6 +7,7 @@ import { PageJumpNav } from "@/components/seo/page-jump-nav";
 import { FormulaCard } from "@/components/seo/formula-card";
 import { StandardsBadge } from "@/components/seo/standards-badge";
 import { buildPageMetadata } from "@/lib/seo/metadata-helper";
+import { Disclaimer } from "@/components/shared/Disclaimer";
 
 export const metadata: Metadata = buildPageMetadata({
   title: "EV V2L & V2H Home Backup Power Guide: Wiring, Inverters & Sizing",
@@ -587,6 +588,8 @@ export default function EvV2lV2hHomeBackupGuidePage() {
           </div>
         </div>
       </section>
+
+      <Disclaimer variant="safety" />
     </article>
   );
 }

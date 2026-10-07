@@ -8,6 +8,7 @@ import { PageJumpNav } from "@/components/seo/page-jump-nav";
 import { SystemFlowDiagram } from "@/components/seo/system-flow-diagram";
 import { DirectAnswerCard } from "@/components/seo/direct-answer-card";
 import { calculateEvChargingTime } from "@/lib/calculators/ev-charging-time/engine";
+import { Disclaimer } from "@/components/shared/Disclaimer";
 
 export const metadata: Metadata = buildPageMetadata({
   title: "EV Charging Time Calculator — AC & DC Speed",
@@ -102,6 +103,8 @@ export default function EvChargingTimePage() {
       <div id="calculator-tool">
         <EvChargingTimeCalculator />
       </div>
+
+      <Disclaimer variant="calculator" />
 
       <DirectAnswerCard
         keyword="ev charging time calculator"

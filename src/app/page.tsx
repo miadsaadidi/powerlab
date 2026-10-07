@@ -7,6 +7,7 @@ import { PopularCalculatorsLauncher } from "@/components/home/popular-calculator
 import { ConnectedSystemFlow } from "@/components/home/connected-system-flow";
 import { HomeSearchFilter } from "@/components/home/home-search-filter";
 import { TrustBadges } from "@/components/home/trust-badges";
+import { Disclaimer } from "@/components/shared/Disclaimer";
 
 const calculatorCardContent: Record<string, { description: string; action: string }> = {
   "battery-runtime": { description: "Estimate how long a battery can power a device or group of appliances.", action: "Calculate Battery Runtime" },
@@ -45,11 +46,11 @@ export const metadata: Metadata = {
   title: {
     absolute: "PowerLab — Energy Calculators for Solar, Battery & EV",
   },
-  description: "Deterministic, open energy planning calculators for solar panel output, battery runtime, wire voltage drop, EV charging speeds, and home electricity usage.",
+  description: "Physics-based, open energy planning calculators for solar panel output, battery runtime, wire voltage drop, EV charging speeds, and home electricity usage.",
   alternates: { canonical: siteConfig.url },
   openGraph: {
     title: "PowerLab — Energy Calculators for Solar, Battery & EV",
-    description: "Deterministic, open energy planning calculators for solar panel output, battery runtime, wire voltage drop, EV charging speeds, and home electricity usage.",
+    description: "Physics-based, open energy planning calculators for solar panel output, battery runtime, wire voltage drop, EV charging speeds, and home electricity usage.",
     url: siteConfig.url,
     siteName: siteConfig.name,
     locale: "en_US",
@@ -59,14 +60,14 @@ export const metadata: Metadata = {
         url: `${siteConfig.url}/opengraph-image`,
         width: 1200,
         height: 630,
-        alt: `${siteConfig.name} — Deterministic Energy Planning`,
+        alt: `${siteConfig.name} — Physics-Based Energy Planning`,
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
     title: "PowerLab — Energy Calculators for Solar, Battery & EV",
-    description: "Deterministic, open energy planning calculators for solar panel output, battery runtime, wire voltage drop, EV charging speeds, and home electricity usage.",
+    description: "Physics-based, open energy planning calculators for solar panel output, battery runtime, wire voltage drop, EV charging speeds, and home electricity usage.",
     images: [`${siteConfig.url}/opengraph-image`],
   },
 };
@@ -129,7 +130,7 @@ export default function HomePage() {
             width: "100%",
           }}
         >
-          Deterministic Energy Calculators for Solar, Storage, Homes &amp; EVs
+          Physics-Based Energy Calculators for Solar, Storage, Homes &amp; EVs
         </h1>
         <p
           style={{
@@ -208,7 +209,7 @@ export default function HomePage() {
               </Link>
             </h3>
             <p style={{ margin: 0, fontSize: "0.88rem", color: "var(--ink)", lineHeight: 1.5, flexGrow: 1 }}>
-              Deterministic service panel backfeed calculations under NFPA 70-2023. Includes 100A–400A busbar derating tables, continuous duty 125% math, and interactive simulator.
+              Service panel backfeed calculations referencing NFPA 70-2023. Includes 100A–400A busbar derating tables, continuous duty 125% math, and interactive simulator.
             </p>
             <Link
               href="/guides/nec-705-12-120-percent-rule-solar-busbar-sizing-guide"
@@ -289,6 +290,9 @@ export default function HomePage() {
 
       {/* Trust & Engineering Transparency */}
       <TrustBadges />
+
+      {/* Technical Disclaimer Notice */}
+      <Disclaimer variant="standard" style={{ margin: "2rem auto", maxWidth: "1100px" }} />
 
       {/* Supporting Links Footer Section */}
       <section className="section trust" style={{ borderTop: "1px solid var(--border-color, #cbd5e1)", paddingTop: "2rem" }}>

@@ -3,6 +3,7 @@ import { ENGINEERING_GLOSSARY_TERMS } from "@/data/engineering-glossary";
 import { buildDefinedTermSetStructuredData } from "@/lib/seo/structured-data";
 import { buildPageMetadata } from "@/lib/seo/metadata-helper";
 import Link from "next/link";
+import { Disclaimer } from "@/components/shared/Disclaimer";
 
 export const metadata: Metadata = buildPageMetadata({
   title: "Clean Energy & Electrical Engineering Glossary",
@@ -158,6 +159,8 @@ export default function GlossaryPage() {
           ))}
         </div>
       </section>
+
+      <Disclaimer variant="compact" />
     </main>
   );
 }

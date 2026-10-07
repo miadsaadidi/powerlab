@@ -8,6 +8,7 @@ import { FormulaCard } from "@/components/seo/formula-card";
 import { StandardsBadge } from "@/components/seo/standards-badge";
 import { PageJumpNav } from "@/components/seo/page-jump-nav";
 import { DirectAnswerCard } from "@/components/seo/direct-answer-card";
+import { Disclaimer } from "@/components/shared/Disclaimer";
 
 const isPublished = isCalculatorPublished("heat-pump-cost");
 
@@ -101,6 +102,8 @@ export default function HeatPumpCostPage() {
       <div id="calculator-tool">
         <HeatPumpCostCalculator />
       </div>
+
+      <Disclaimer variant="calculator" />
 
       <DirectAnswerCard
         keyword="heat pump running cost vs gas comparison"

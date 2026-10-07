@@ -8,6 +8,7 @@ import { buildCalculatorStructuredData } from "@/lib/seo/structured-data";
 import { FormulaCard } from "@/components/seo/formula-card";
 import { PageJumpNav } from "@/components/seo/page-jump-nav";
 import { DirectAnswerCard } from "@/components/seo/direct-answer-card";
+import { Disclaimer } from "@/components/shared/Disclaimer";
 
 const isPublished = isCalculatorPublished("solar-load");
 
@@ -84,6 +85,8 @@ export default function SolarLoadPage() {
       <div id="calculator-tool">
         <SolarLoadCalculator />
       </div>
+
+      <Disclaimer variant="calculator" />
 
       <DirectAnswerCard
         keyword="solar load profile calculation"
@@ -175,7 +178,7 @@ export default function SolarLoadPage() {
       <section id="technical-basis" style={{ marginTop: "2.5rem" }}>
         <h2>Technical References &amp; Model Basis</h2>
         <p>
-          PowerLab implements a deterministic appliance load aggregation model for pre-engineering solar planning. The following technical references provide context for array sizing and electrical load principles:
+          PowerLab implements an appliance load aggregation model based on the stated model and inputs for pre-engineering solar planning. The following technical references provide context for array sizing and electrical load principles:
         </p>
         <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(260px, 1fr))", gap: "1rem", marginTop: "1rem" }}>
           <div style={{ padding: "1rem", borderRadius: "0.5rem", border: "1px solid var(--border-color, #cbd5e1)", background: "var(--surface, #ffffff)" }}>

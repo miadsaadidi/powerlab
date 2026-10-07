@@ -3,6 +3,7 @@ import Link from "next/link";
 import { siteConfig } from "@/lib/site-config";
 import { COMPREHENSIVE_STANDARDS_LIST } from "@/data/standards-registry";
 import { FormulaCopyButton } from "@/components/standards/formula-copy-button";
+import { Disclaimer } from "@/components/shared/Disclaimer";
 
 export const metadata: Metadata = {
   title: "Energy Engineering Standards & Technical References | PowerLab",
@@ -93,7 +94,7 @@ export default function StandardsPage() {
         </h1>
 
         <p style={{ fontSize: "1.05rem", color: "var(--text-muted)", maxWidth: "880px", lineHeight: 1.6, margin: 0 }}>
-          Maps relevant standards, codes, models, and technical references to PowerLab calculation methods and interactive calculators.
+          Maps relevant standards, codes, models, and technical references to PowerLab calculation methods and interactive calculators. Model codes become legally enforceable when adopted or incorporated by the applicable jurisdiction, including applicable local amendments.
         </p>
       </header>
 
@@ -313,8 +314,9 @@ export default function StandardsPage() {
 
       {/* Reciprocal Links & Methodology Footer Section */}
       <footer style={{ marginTop: "3.5rem", paddingTop: "2rem", borderTop: "1px solid var(--border-color, #cbd5e1)" }}>
+        <Disclaimer variant="standard" />
         <p style={{ fontSize: "0.92rem", color: "var(--text-muted)", lineHeight: 1.6 }}>
-          For formal academic preprints and downloadable PDFs, visit our <Link href="/research">Technical Research Hub</Link>. To inspect pure TypeScript loss algorithms and unit invariant verification, explore our <Link href="/methodology">Calculation Methodology</Link> or the <Link href="/sources">Laboratory Sources &amp; Standards Directory</Link>.
+          For formal academic preprints and downloadable PDFs, visit our <Link href="/research">Technical Research Hub</Link>. To inspect calculation models, jurisdictional rules, and technical governance, explore our <Link href="/disclaimer">Technical Disclaimer</Link>, our <Link href="/methodology">Calculation Methodology</Link>, or the <Link href="/sources">Laboratory Sources &amp; Standards Directory</Link>.
         </p>
       </footer>
     </article>

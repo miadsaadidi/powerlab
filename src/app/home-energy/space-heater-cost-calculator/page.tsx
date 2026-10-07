@@ -8,6 +8,7 @@ import { FormulaCard } from "@/components/seo/formula-card";
 import { StandardsBadge } from "@/components/seo/standards-badge";
 import { PageJumpNav } from "@/components/seo/page-jump-nav";
 import { DirectAnswerCard } from "@/components/seo/direct-answer-card";
+import { Disclaimer } from "@/components/shared/Disclaimer";
 
 const isPublished = isCalculatorPublished("space-heater-cost");
 
@@ -88,6 +89,8 @@ export default function SpaceHeaterCostPage() {
       <div id="calculator-tool">
         <SpaceHeaterCostCalculator />
       </div>
+
+      <Disclaimer variant="calculator" />
 
       <DirectAnswerCard
         keyword="space heater electricity cost calculation"

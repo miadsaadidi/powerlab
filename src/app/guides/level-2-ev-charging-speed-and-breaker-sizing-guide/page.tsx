@@ -6,6 +6,7 @@ import { DirectAnswerCard } from "@/components/seo/direct-answer-card";
 import { PageJumpNav } from "@/components/seo/page-jump-nav";
 import { FormulaCard } from "@/components/seo/formula-card";
 import { buildPageMetadata } from "@/lib/seo/metadata-helper";
+import { Disclaimer } from "@/components/shared/Disclaimer";
 
 export const metadata: Metadata = buildPageMetadata({
   title: "Level 2 EV Charging Speed & Breaker Sizing Guide (NEC 2026)",
@@ -395,9 +396,14 @@ export default function EvChargingGuidePage() {
           <li><strong>IEEE 2030.1.1:</strong> Supports consensus guidelines for EV infrastructure interfaces and grid power system integration.</li>
         </ul>
 
-        <div style={{ padding: "1rem", borderRadius: "0.6rem", background: "var(--soft, #f8fafc)", border: "1px solid var(--line)", fontSize: "0.85rem", color: "var(--muted)", margin: "1rem 0" }}>
-          <strong>Technical Disclaimer:</strong> This guide provides educational engineering screening calculations based on the 2026 National Electrical Code (NFPA 70). Local jurisdictions adopt, amend, and enforce electrical codes independently; the applicable local electrical code, Authority Having Jurisdiction (AHJ), EVSE manufacturer installation instructions, and equipment listings govern all physical installations. This page does not provide formal engineering design, architectural drawings, or permit-ready electrical specifications.
-        </div>
+        <Disclaimer
+          variant="safety"
+          title="EVSE Circuit Sizing & Electrical Safety Notice"
+          modelBasis="NFPA 70 (NEC) Article 625, 210, 110.14(C) & UL 2594"
+        >
+          This guide provides educational engineering screening calculations. Model codes become legally enforceable when adopted or incorporated by the applicable jurisdiction, including applicable local amendments.
+          The applicable local electrical code, Authority Having Jurisdiction (AHJ), EVSE manufacturer installation instructions, and equipment listings govern all physical installations. Review by a licensed Professional Engineer or electrician is required.
+        </Disclaimer>
 
         <div style={{ display: "flex", flexWrap: "wrap", gap: "1rem", marginTop: "1rem" }}>
           <Link href="/research/continuous-duty-thermal-sizing-evse-ampacity" style={{ fontSize: "0.9rem", fontWeight: 600, color: "var(--accent)" }}>

@@ -7,6 +7,7 @@ import { buildCalculatorStructuredData } from "@/lib/seo/structured-data";
 import { FormulaCard } from "@/components/seo/formula-card";
 import { PageJumpNav } from "@/components/seo/page-jump-nav";
 import { DirectAnswerCard } from "@/components/seo/direct-answer-card";
+import { Disclaimer } from "@/components/shared/Disclaimer";
 
 const isPublished = isCalculatorPublished("ups-battery-size");
 
@@ -80,6 +81,8 @@ export default function UpsBatterySizePage() {
       <div id="calculator-tool">
         <UpsBatterySizeCalculator />
       </div>
+
+      <Disclaimer variant="calculator" />
 
       <DirectAnswerCard
         keyword="UPS battery sizing calculation"

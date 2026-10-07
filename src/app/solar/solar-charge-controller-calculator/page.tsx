@@ -6,6 +6,7 @@ import { SolarChargeControllerCalculator } from "@/components/calculator/solar-c
 import { FormulaCard } from "@/components/seo/formula-card";
 import { PageJumpNav } from "@/components/seo/page-jump-nav";
 import { DirectAnswerCard } from "@/components/seo/direct-answer-card";
+import { Disclaimer } from "@/components/shared/Disclaimer";
 
 export const metadata: Metadata = buildPageMetadata({
   title: "Solar Charge Controller Calculator — MPPT Sizing & Cold Voc",
@@ -82,6 +83,8 @@ export default function SolarChargeControllerPage() {
       <div id="calculator-tool">
         <SolarChargeControllerCalculator />
       </div>
+
+      <Disclaimer variant="safety" />
 
       <DirectAnswerCard
         keyword="MPPT charge controller sizing & cold Voc calculation"

@@ -7,6 +7,7 @@ import { buildCalculatorStructuredData } from "@/lib/seo/structured-data";
 import { FormulaCard } from "@/components/seo/formula-card";
 import { PageJumpNav } from "@/components/seo/page-jump-nav";
 import { DirectAnswerCard } from "@/components/seo/direct-answer-card";
+import { Disclaimer } from "@/components/shared/Disclaimer";
 
 const isPublished = isCalculatorPublished("portable-power-station");
 
@@ -84,6 +85,8 @@ export default function PortablePowerStationPage() {
       <div id="calculator-tool">
         <PortablePowerStationCalculator />
       </div>
+
+      <Disclaimer variant="calculator" />
 
       <DirectAnswerCard
         keyword="portable power station runtime calculation"

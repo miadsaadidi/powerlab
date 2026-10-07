@@ -8,6 +8,7 @@ import { FormulaCard } from "@/components/seo/formula-card";
 import { StandardsBadge } from "@/components/seo/standards-badge";
 import { AcademicCitationModal } from "@/components/seo/academic-citation-modal";
 import { buildPageMetadata } from "@/lib/seo/metadata-helper";
+import { Disclaimer } from "@/components/shared/Disclaimer";
 
 export const metadata: Metadata = buildPageMetadata({
   title: "Voltage Drop & Wire Size Calculation Guide",
@@ -407,6 +408,14 @@ export default function VoltageDropGuidePage() {
           />
         </div>
       </section>
+
+      <Disclaimer
+        variant="safety"
+        title="Conductor Sizing & Ampacity Safety Notice"
+        modelBasis="NEC Chapter 9 Table 8, NEC 210.19(A) Informational Note No. 2, Table 310.16 & IEEE 141"
+      >
+        Meeting a voltage drop design target (such as 3% on branch circuits) does not guarantee thermal safety or code compliance. Conductor ampacity must be verified separately under applicable temperature ratings, conduit fill adjustments, and terminal temperature limits (NEC 110.14(C)). Always verify wiring designs with a licensed electrical contractor or Professional Engineer.
+      </Disclaimer>
     </article>
   );
 }

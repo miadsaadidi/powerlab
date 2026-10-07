@@ -9,6 +9,7 @@ import { FormulaCard } from "@/components/seo/formula-card";
 import { PageJumpNav } from "@/components/seo/page-jump-nav";
 import { SystemFlowDiagram } from "@/components/seo/system-flow-diagram";
 import { DirectAnswerCard } from "@/components/seo/direct-answer-card";
+import { Disclaimer } from "@/components/shared/Disclaimer";
 
 export const metadata: Metadata = buildPageMetadata({
   title: "Battery Runtime Calculator — Backup Hours",
@@ -83,6 +84,8 @@ export default function BatteryRuntimePage() {
       <div id="calculator-tool">
         <BatteryRuntimeCalculator />
       </div>
+
+      <Disclaimer variant="calculator" />
 
       <DirectAnswerCard
         keyword="battery runtime calculator"

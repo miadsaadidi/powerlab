@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { siteConfig } from "@/lib/site-config";
+import { Disclaimer } from "@/components/shared/Disclaimer";
 
 export const metadata: Metadata = {
   title: "Data Sources & Engineering Technical References",
@@ -86,9 +87,45 @@ export default function SourcesPage() {
       <h1 style={{ fontSize: "clamp(2rem, 3.5vw, 2.5rem)", fontWeight: 800, color: "var(--ink)", letterSpacing: "-0.02em", margin: "0 0 0.75rem" }}>
         Data Sources &amp; Technical References
       </h1>
-      <p className="intro" style={{ fontSize: "1.05rem", color: "var(--text-muted)", lineHeight: 1.6, marginBottom: "2.5rem" }}>
+      <p className="intro" style={{ fontSize: "1.05rem", color: "var(--text-muted)", lineHeight: 1.6, marginBottom: "1.5rem" }}>
         PowerLab calculation methods, empirical baselines, and parameter presets draw from applicable electrical safety codes, government open datasets, manufacturer technical specifications, peer-reviewed academic literature, and PowerLab engineering reports.
       </p>
+
+      {/* Technical Source Hierarchy Callout */}
+      <div
+        style={{
+          background: "var(--surface-subtle, #f8fafc)",
+          border: "1px solid var(--border-color, #cbd5e1)",
+          borderLeft: "4px solid #0284c7",
+          borderRadius: "0.65rem",
+          padding: "1.25rem 1.5rem",
+          marginBottom: "2.5rem",
+        }}
+      >
+        <h2 style={{ fontSize: "1.1rem", fontWeight: 700, margin: "0 0 0.5rem", color: "var(--ink)" }}>
+          Technical Source Hierarchy &amp; Legal Enforceability
+        </h2>
+        <p style={{ fontSize: "0.88rem", lineHeight: 1.6, color: "var(--ink)", margin: "0 0 0.75rem" }}>
+          PowerLab references diverse technical sources, which differ fundamentally in legal authority, jurisdictional enforceability, and application scope:
+        </p>
+        <ul style={{ margin: 0, paddingLeft: "1.25rem", fontSize: "0.85rem", lineHeight: 1.6, color: "var(--text-muted)" }}>
+          <li>
+            <strong style={{ color: "var(--ink)" }}>Jurisdictionally Adopted Codes:</strong> Model codes (such as NFPA 70 / NEC) become legally enforceable when adopted or incorporated by the applicable jurisdiction, including applicable local amendments.
+          </li>
+          <li>
+            <strong style={{ color: "var(--ink)" }}>Consensus Standards:</strong> Voluntary engineering standards (IEEE, UL, IEC, SAE) provide recommended technical practices and equipment safety baselines. They are applicable where adopted or incorporated by the relevant jurisdiction.
+          </li>
+          <li>
+            <strong style={{ color: "var(--ink)" }}>Manufacturer Documentation:</strong> Manufacturer manuals, installation instructions, approved ratings, submittals, and equipment-specific documentation are essential for equipment-specific requirements, while applicable codes, regulations, adopted standards, and professional engineering requirements remain applicable.
+          </li>
+          <li>
+            <strong style={{ color: "var(--ink)" }}>Government Technical Publications:</strong> Datasets from NREL (PVWatts V8, NSRDB) and the U.S. EIA (RECS, Form 861) provide empirical and climatic reference data.
+          </li>
+          <li>
+            <strong style={{ color: "var(--ink)" }}>Academic &amp; Scientific References:</strong> Peer-reviewed research papers and laboratory test reports informing thermodynamic and electrochemical modeling.
+          </li>
+        </ul>
+      </div>
 
       {/* 1. Electrical & Safety Standards & Codes */}
       <section style={{ marginBottom: "3rem" }}>
@@ -407,8 +444,10 @@ export default function SourcesPage() {
           PowerLab actively monitors and verifies data source editions and standards revisions on an individual basis. When electrical code cycles (e.g., three-year NEC revisions), government database updates (e.g., annual EIA electricity statistics, RECS releases), or manufacturer application guides are published, our technical team evaluates and updates the corresponding calculator engines, datasets, and cross-reference matrices.
         </p>
         <p style={{ fontSize: "0.92rem", color: "var(--text-muted)", lineHeight: 1.6 }}>
-          To inspect pure TypeScript algorithms and unit invariant verification, explore our <Link href="/methodology">Calculation Methodology</Link>, view our <Link href="/standards">Standards Cross-Reference Matrix</Link>, or search the <Link href="/glossary">Engineering Glossary</Link>.
+          To inspect pure TypeScript algorithms and unit invariant verification, explore our <Link href="/methodology">Calculation Methodology</Link>, consult our <Link href="/disclaimer">Technical Disclaimer</Link>, view our <Link href="/standards">Standards Cross-Reference Matrix</Link>, or search the <Link href="/glossary">Engineering Glossary</Link>.
         </p>
+
+        <Disclaimer variant="standard" />
       </section>
     </article>
   );

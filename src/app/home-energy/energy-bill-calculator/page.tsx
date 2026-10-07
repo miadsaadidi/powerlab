@@ -8,6 +8,7 @@ import { buildCalculatorStructuredData } from "@/lib/seo/structured-data";
 import { FormulaCard } from "@/components/seo/formula-card";
 import { PageJumpNav } from "@/components/seo/page-jump-nav";
 import { DirectAnswerCard } from "@/components/seo/direct-answer-card";
+import { Disclaimer } from "@/components/shared/Disclaimer";
 
 const isPublished = isCalculatorPublished("energy-bill");
 
@@ -80,6 +81,8 @@ export default function EnergyBillCalculatorPage() {
       <div id="calculator-tool">
         <EnergyBillCalculator />
       </div>
+
+      <Disclaimer variant="calculator" />
 
       <DirectAnswerCard
         keyword="electricity bill calculation"

@@ -893,7 +893,7 @@ main { max-width:1280px; }
   }
 
   .page::after {
-    content: "Generated via PowerLab Verified Energy Planning (https://www.powelab.org) • Verified Deterministic Physics Engine • Open-Access Methodology.";
+    content: "Generated via PowerLab Energy Planning (https://www.powelab.org) • Physics-Based Calculation Models • Technical Reference & Educational Tools (see https://www.powelab.org/disclaimer).";
     display: block;
     font-size: 8.5pt;
     color: #64748b;

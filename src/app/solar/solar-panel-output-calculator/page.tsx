@@ -9,6 +9,7 @@ import { FormulaCard } from "@/components/seo/formula-card";
 import { PageJumpNav } from "@/components/seo/page-jump-nav";
 import { SystemFlowDiagram } from "@/components/seo/system-flow-diagram";
 import { DirectAnswerCard } from "@/components/seo/direct-answer-card";
+import { Disclaimer } from "@/components/shared/Disclaimer";
 
 const isPublished = isCalculatorPublished("solar-panel-output");
 
@@ -88,6 +89,8 @@ export default function SolarOutputPage() {
       <div id="calculator-tool">
         <SolarPanelOutputCalculator />
       </div>
+
+      <Disclaimer variant="calculator" />
 
       <DirectAnswerCard
         keyword="solar panel output calculator"

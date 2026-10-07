@@ -177,7 +177,7 @@ export default function TermsPage() {
       <section>
         <h2>7. Updates, References &amp; Engineering Inquiries</h2>
         <p>
-          We periodically update our mathematical algorithms, reference lookup values, and default assumptions as applicable engineering standards (such as IEEE, NFPA, ASHRAE, and IEC) or source datasets are revised. For detailed mathematical derivations and source documentation, please consult our <Link href="/methodology">Engineering Methodology</Link>, <Link href="/standards">Standards Matrix</Link>, and <Link href="/sources">Authoritative Sources</Link>.
+          We periodically update our mathematical algorithms, reference lookup values, and default assumptions as applicable engineering standards (such as IEEE, NFPA, ASHRAE, and IEC) or source datasets are revised. For detailed mathematical derivations, jurisdictional code enforcement rules, and source documentation, please consult our <Link href="/disclaimer">Technical Disclaimer</Link>, <Link href="/methodology">Engineering Methodology</Link>, <Link href="/standards">Standards Matrix</Link>, and <Link href="/sources">Technical Data Sources</Link>.
         </p>
         <p style={{ color: "var(--text-muted)", fontSize: "0.85rem", marginTop: "1rem" }}>
           Last terms update: <time dateTime="2026-09-30">September 30, 2026</time>.

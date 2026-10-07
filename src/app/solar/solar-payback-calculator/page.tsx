@@ -9,6 +9,7 @@ import { FormulaCard } from "@/components/seo/formula-card";
 import { StandardsBadge } from "@/components/seo/standards-badge";
 import { PageJumpNav } from "@/components/seo/page-jump-nav";
 import { DirectAnswerCard } from "@/components/seo/direct-answer-card";
+import { Disclaimer } from "@/components/shared/Disclaimer";
 
 const isPublished = isCalculatorPublished("solar-payback");
 
@@ -112,6 +113,8 @@ export default function SolarPaybackPage() {
       <div id="calculator-tool">
         <SolarPaybackCalculator />
       </div>
+
+      <Disclaimer variant="calculator" />
 
       <DirectAnswerCard
         keyword="solar payback period and break-even calculation"

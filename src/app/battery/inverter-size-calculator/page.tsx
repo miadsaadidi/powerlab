@@ -7,6 +7,7 @@ import { FormulaCard } from "@/components/seo/formula-card";
 import { StandardsBadge } from "@/components/seo/standards-badge";
 import { PageJumpNav } from "@/components/seo/page-jump-nav";
 import { DirectAnswerCard } from "@/components/seo/direct-answer-card";
+import { Disclaimer } from "@/components/shared/Disclaimer";
 
 export const metadata: Metadata = buildPageMetadata({
   title: "Inverter Size Calculator — Watts & Surge Sizing",
@@ -78,6 +79,8 @@ export default function InverterSizePage() {
       <div id="calculator-tool">
         <InverterSizeCalculator />
       </div>
+
+      <Disclaimer variant="safety" />
 
       <DirectAnswerCard
         keyword="inverter sizing calculation"

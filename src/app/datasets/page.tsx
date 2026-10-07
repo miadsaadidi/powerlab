@@ -3,6 +3,7 @@ import Link from "next/link";
 import { siteConfig } from "@/lib/site-config";
 import { BENCHMARK_DATASETS } from "@/data/research-papers";
 import { buildPageMetadata } from "@/lib/seo/metadata-helper";
+import { Disclaimer } from "@/components/shared/Disclaimer";
 
 export const metadata: Metadata = {
   ...buildPageMetadata({
@@ -246,7 +247,7 @@ export default function DatasetsIndexPage() {
           </Link>
           <Link href="/battery/battery-runtime-calculator" style={{ display: "block", padding: "1.25rem", background: "var(--surface)", border: "1px solid var(--line)", borderRadius: "0.5rem", textDecoration: "none" }}>
             <h3 style={{ fontSize: "1rem", fontWeight: 700, color: "var(--brand-strong)", margin: "0 0 0.35rem" }}>🔋 Battery Runtime Engine</h3>
-            <p style={{ fontSize: "0.82rem", color: "var(--muted)", margin: 0 }}>Interactive calculator executing deterministic Peukert derating and tare losses.</p>
+            <p style={{ fontSize: "0.82rem", color: "var(--muted)", margin: 0 }}>Interactive calculator evaluating Peukert capacity derating and tare losses.</p>
           </Link>
           <Link href="/solar/solar-panel-tilt-calculator" style={{ display: "block", padding: "1.25rem", background: "var(--surface)", border: "1px solid var(--line)", borderRadius: "0.5rem", textDecoration: "none" }}>
             <h3 style={{ fontSize: "1rem", fontWeight: 700, color: "var(--brand-strong)", margin: "0 0 0.35rem" }}>☀️ Solar Tilt Engine</h3>
@@ -254,6 +255,8 @@ export default function DatasetsIndexPage() {
           </Link>
         </div>
       </section>
+
+      <Disclaimer variant="standard" />
     </article>
   );
 }

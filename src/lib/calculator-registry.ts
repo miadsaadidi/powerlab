@@ -323,7 +323,7 @@ export const calculatorRegistry: CalculatorRegistryItem[] = [
     "status": "published",
     "primaryKeyword": "generator size calculator",
     "seoTitle": "Generator Size Calculator — Running & Surge Watts",
-    "metaDescription": "Calculate exact generator size (running and starting watts) needed for home, RV, or jobsite appliances. Find the right portable or standby capacity.",
+    "metaDescription": "Estimate generator size (running and starting watts) needed for home, RV, or jobsite appliances. Find the right portable or standby capacity.",
     "relatedCalculatorIds": [
       "home-battery-size",
       "electricity-usage",
@@ -355,7 +355,7 @@ export const calculatorRegistry: CalculatorRegistryItem[] = [
     "status": "published",
     "primaryKeyword": "air conditioner electricity cost calculator",
     "seoTitle": "AC Electricity Cost Calculator: $/Hour & Month",
-    "metaDescription": "Calculate exact AC electricity costs per hour, day & month. Sizing formulas for Central AC, Mini-Splits & Window units with SEER2 efficiency & duty cycle.",
+    "metaDescription": "Estimate AC electricity costs per hour, day & month. Sizing formulas for Central AC, Mini-Splits & Window units with SEER2 efficiency & duty cycle.",
     "relatedCalculatorIds": [
       "electricity-usage",
       "energy-bill",
@@ -371,7 +371,7 @@ export const calculatorRegistry: CalculatorRegistryItem[] = [
     "status": "published",
     "primaryKeyword": "space heater electricity cost calculator",
     "seoTitle": "Space Heater Electricity Cost Calculator: $/Hr",
-    "metaDescription": "Calculate exact space heater electricity costs per hour, night & month for 500W, 1000W & 1500W heaters. Model thermostat duty cycle vs central heating.",
+    "metaDescription": "Estimate space heater electricity costs per hour, night & month for 500W, 1000W & 1500W heaters. Model thermostat duty cycle vs central heating.",
     "relatedCalculatorIds": [
       "electricity-usage",
       "energy-bill",
@@ -419,7 +419,7 @@ export const calculatorRegistry: CalculatorRegistryItem[] = [
     "status": "published",
     "primaryKeyword": "inverter size calculator",
     "seoTitle": "Inverter Size Calculator — Watts & Surge Sizing",
-    "metaDescription": "Calculate the exact inverter size in continuous and surge watts needed to run your appliances from a battery. Find the right 12V, 24V, or 48V inverter capacity.",
+    "metaDescription": "Estimate inverter size in continuous and surge watts needed to run your appliances from a battery. Find the right 12V, 24V, or 48V inverter capacity.",
     "relatedCalculatorIds": [
       "battery-size",
       "voltage-drop",

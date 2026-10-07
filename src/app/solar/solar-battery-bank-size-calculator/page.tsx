@@ -8,7 +8,7 @@ import { buildCalculatorStructuredData } from "@/lib/seo/structured-data";
 import { FormulaCard } from "@/components/seo/formula-card";
 import { PageJumpNav } from "@/components/seo/page-jump-nav";
 import { DirectAnswerCard } from "@/components/seo/direct-answer-card";
-
+import { Disclaimer } from "@/components/shared/Disclaimer";
 
 const isPublished = isCalculatorPublished("solar-battery-bank-size");
 
@@ -83,6 +83,8 @@ export default function SolarBatteryBankSizePage() {
       <div id="calculator-tool">
         <SolarBatteryBankSizeCalculator />
       </div>
+
+      <Disclaimer variant="calculator" />
 
       <DirectAnswerCard
         keyword="solar battery bank sizing calculation"
@@ -172,7 +174,7 @@ export default function SolarBatteryBankSizePage() {
       <section id="technical-basis" style={{ marginTop: "2.5rem" }}>
         <h2>Technical References &amp; Model Basis</h2>
         <p>
-          PowerLab implements a deterministic, simplified sizing model designed for pre-engineering planning. The following technical references provide context for battery depth of discharge, string configuration, and safety criteria:
+          PowerLab implements a calculation model based on the stated model and inputs designed for pre-engineering planning. The following technical references provide context for battery depth of discharge, string configuration, and safety criteria:
         </p>
         <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(240px, 1fr))", gap: "1rem", marginTop: "1rem" }}>
           <div style={{ padding: "1rem", borderRadius: "0.5rem", border: "1px solid var(--border-color, #cbd5e1)", background: "var(--surface, #ffffff)" }}>

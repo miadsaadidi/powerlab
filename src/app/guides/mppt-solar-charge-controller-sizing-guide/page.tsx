@@ -7,6 +7,7 @@ import { DirectAnswerCard } from "@/components/seo/direct-answer-card";
 import { PageJumpNav } from "@/components/seo/page-jump-nav";
 import { FormulaCard } from "@/components/seo/formula-card";
 import { buildPageMetadata } from "@/lib/seo/metadata-helper";
+import { Disclaimer } from "@/components/shared/Disclaimer";
 
 export const metadata: Metadata = buildPageMetadata({
   title: "MPPT Solar Charge Controller Sizing Guide",
@@ -282,6 +283,8 @@ export default function MpptChargeControllerGuidePage() {
           </Link>
         </div>
       </section>
+
+      <Disclaimer variant="standard" />
     </article>
   );
 }

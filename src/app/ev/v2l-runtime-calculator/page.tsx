@@ -9,6 +9,7 @@ import { FormulaCard } from "@/components/seo/formula-card";
 import { StandardsBadge } from "@/components/seo/standards-badge";
 import { PageJumpNav } from "@/components/seo/page-jump-nav";
 import { DirectAnswerCard } from "@/components/seo/direct-answer-card";
+import { Disclaimer } from "@/components/shared/Disclaimer";
 
 const isPublished = isCalculatorPublished("v2l-runtime");
 
@@ -82,6 +83,8 @@ export default function V2lRuntimePage() {
       <div id="calculator-tool">
         <V2lRuntimeCalculator />
       </div>
+
+      <Disclaimer variant="calculator" />
 
       <DirectAnswerCard
         keyword="Vehicle-to-Load (V2L) backup runtime calculation"

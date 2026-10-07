@@ -7,8 +7,8 @@ interface TrustItem {
 const TRUST_ITEMS: TrustItem[] = [
   {
     icon: "📐",
-    title: "Deterministic Calculation Engines",
-    subtitle: "Pure TypeScript formulas produce reproducible outputs from visible inputs, physical equations, and explicit loss parameters.",
+    title: "Physics-Based Calculation Models",
+    subtitle: "Formulas produce reproducible outputs based on the stated physical models, published equations, and user inputs.",
   },
   {
     icon: "🔒",

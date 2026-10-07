@@ -25,10 +25,11 @@ const batteryToolContent: Record<string, string> = {
 };
 
 import { buildPageMetadata } from "@/lib/seo/metadata-helper";
+import { Disclaimer } from "@/components/shared/Disclaimer";
 
 export const metadata: Metadata = buildPageMetadata({
   title: "Battery Calculators — Runtime, Sizing & Ah to Wh",
-  description: "Free deterministic battery planning tools to calculate runtime, bank sizing, Ah-to-Wh conversions, UPS backup, and charge times.",
+  description: "Free physics-based battery planning tools to calculate runtime, bank sizing, Ah-to-Wh conversions, UPS backup, and charge times.",
   canonicalPath: "/battery",
   category: "battery",
 });
@@ -262,6 +263,9 @@ export default function BatteryHub() {
       <p>Real battery performance depends on depth of discharge, battery chemistry, inverter efficiency, and ambient temperature. Our calculators expose every assumption so you can adjust them to your exact equipment.</p>
       <p><Link href="/methodology">Read the calculation methodology</Link>, cross-reference <Link href="/standards">engineering standards</Link>, embed tools via <Link href="/developers">developer widgets</Link>, or <Link href="/sources">review laboratory sources</Link>.</p>
     </section>
+
+    {/* Technical Disclaimer Notice */}
+    <Disclaimer variant="standard" />
   </section>;
 }
 

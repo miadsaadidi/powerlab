@@ -22,10 +22,11 @@ const solarToolContent: Record<string, string> = {
 };
 
 import { buildPageMetadata } from "@/lib/seo/metadata-helper";
+import { Disclaimer } from "@/components/shared/Disclaimer";
 
 export const metadata: Metadata = buildPageMetadata({
   title: "Solar Calculators — PV Sizing, Tilt & Output",
-  description: "Free deterministic solar planning calculators for tilt angle, monthly PVWatts production yield, array sizing, and off-grid battery banks.",
+  description: "Free physics-based solar planning calculators for tilt angle, monthly PVWatts production yield, array sizing, and off-grid battery banks.",
   canonicalPath: "/solar",
   category: "solar",
 });
@@ -230,10 +231,13 @@ export default function SolarHub() {
       </div>
     </section>
     <section className="hub-support" aria-labelledby="solar-method-heading">
-      <h2 id="solar-method-heading">Deterministic calculations &amp; transparent model references</h2>
+      <h2 id="solar-method-heading">Physics-based calculations &amp; transparent model references</h2>
       <p>Our solar tools pair local geometry heuristics with NREL PVWatts V8 solar irradiance data. Every technical assumption (losses, inverter efficiency, DC-to-AC ratio) is visible and user-editable.</p>
       <p>Consult our <Link href="/solar/regional-climate-data">50-State Regional Climate Data</Link>, review applicable <Link href="/standards">engineering standards</Link>, browse all categories in the <Link href="/calculators">calculators directory</Link>, <Link href="/methodology">inspect our methodology</Link>, or <Link href="/sources">review laboratory sources</Link>.</p>
     </section>
+
+    {/* Technical Disclaimer Notice */}
+    <Disclaimer variant="standard" />
   </section>;
 }
 
