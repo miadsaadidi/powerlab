@@ -13,7 +13,7 @@ import { Disclaimer } from "@/components/shared/Disclaimer";
 
 export const metadata: Metadata = buildPageMetadata({
   title: "Battery Runtime Calculator — Backup Hours",
-  description: "Estimate how long a 12V, 24V, or 48V battery backup will run your appliances. Supports LiFePO4, AGM, and Gel chemistries with DOD reserves, SOH, and inverter losses.",
+  description: "Estimate how long a 12V, 24V, or 48V battery backup runs your appliances. Supports LiFePO4, AGM, and Gel chemistries with DoD reserves and inverter loss.",
   canonicalPath: "/battery/battery-runtime-calculator",
   category: "battery",
 });

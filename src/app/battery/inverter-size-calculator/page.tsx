@@ -12,7 +12,7 @@ import { Disclaimer } from "@/components/shared/Disclaimer";
 export const metadata: Metadata = buildPageMetadata({
   title: "Inverter Size Calculator — Watts & Surge Sizing",
   description:
-    "Calculate inverter size in continuous and surge watts to run appliances from battery storage. Estimate DC current draw and illustrative fuse and cable sizes across 12V, 24V, and 48V systems.",
+    "Calculate inverter size in continuous and surge watts for battery systems. Estimate DC current draw, fuses, and cable sizes across 12V, 24V, and 48V setups.",
   canonicalPath: "/battery/inverter-size-calculator",
   category: "battery",
 });

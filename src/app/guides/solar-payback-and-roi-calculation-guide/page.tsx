@@ -14,7 +14,7 @@ import { Disclaimer } from "@/components/shared/Disclaimer";
 export const metadata: Metadata = buildPageMetadata({
   title: "Solar Payback Period & ROI Calculation Guide",
   description:
-    "Engineering financial calculation guide: calculate solar payback periods, IRC Section 25D clean energy tax credit basis, utility tariff escalation, module degradation, and NEM 3.0 net billing cash flows.",
+    "Calculate solar payback periods, IRC Section 25D tax credits, utility tariff escalation, module degradation, and NEM 3.0 net billing cash flow economics.",
   canonicalPath: "/guides/solar-payback-and-roi-calculation-guide",
   category: "solar",
   isArticle: true,

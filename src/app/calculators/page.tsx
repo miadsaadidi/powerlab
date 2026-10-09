@@ -12,12 +12,12 @@ import { Disclaimer } from "@/components/shared/Disclaimer";
 export const metadata: Metadata = {
   title: "Clean Energy Calculators Directory",
   description:
-    "Complete directory of physics-based energy calculators. Sizing tools for solar PV, battery runtime, wire voltage drop, and EV charging referencing applicable codes.",
+    "Explore transparent energy calculators for solar PV, battery storage runtime, electrical voltage drop, and EV charging referencing engineering guidance.",
   alternates: { canonical: `${siteConfig.url}/calculators` },
   openGraph: {
     title: "Clean Energy Calculators Directory — PowerLab",
     description:
-      "Complete directory of physics-based energy calculators. Sizing tools for solar PV, battery runtime, wire voltage drop, and EV charging referencing applicable codes.",
+      "Explore transparent energy calculators for solar PV, battery storage runtime, electrical voltage drop, and EV charging referencing engineering guidance.",
     url: `${siteConfig.url}/calculators`,
     siteName: siteConfig.name,
     locale: "en_US",

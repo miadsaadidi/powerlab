@@ -8,7 +8,7 @@ import { Disclaimer } from "@/components/shared/Disclaimer";
 export const metadata: Metadata = {
   ...buildPageMetadata({
     title: "Open Benchmark Datasets & Engineering Data Repository",
-    description: "Open access benchmark engineering datasets, performance matrices, and reproducible data packages for solar PV, BESS storage, EVSE infrastructure, and heat pumps.",
+    description: "Open access benchmark engineering datasets, matrices, and reproducible packages for solar PV, battery storage (BESS), EVSE infrastructure, and heat pumps.",
     canonicalPath: "/datasets",
     ogImageUrlOverride: `${siteConfig.url}/clean_energy_educational_model.jpg`,
     ogImageAlt: "PowerLab Open Benchmark Datasets",

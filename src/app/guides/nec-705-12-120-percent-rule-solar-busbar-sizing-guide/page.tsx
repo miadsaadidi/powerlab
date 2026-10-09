@@ -12,7 +12,7 @@ import { Disclaimer } from "@/components/shared/Disclaimer";
 export const metadata: Metadata = buildPageMetadata({
   title: "NEC 705.12 120% Rule: Solar & Battery Busbar Sizing Guide",
   description:
-    "Master the NEC 705.12 120% busbar rule for solar and battery storage backfeed. Includes 100A–400A busbar derating matrix lookup tables, 125% continuous duty calculations, supply-side taps, and EMS power control.",
+    "Understand the NEC 705.12 120% busbar rule for solar and battery backfeed. Includes 100A–400A busbar derating tables, continuous duty, and supply-side taps.",
   canonicalPath: "/guides/nec-705-12-120-percent-rule-solar-busbar-sizing-guide",
   category: "solar",
   isArticle: true,

@@ -15,7 +15,7 @@ const isPublished = isCalculatorPublished("electricity-usage");
 
 export const metadata: Metadata = buildPageMetadata({
   title: "Electricity Usage Calculator — Daily kWh & Cost",
-  description: "Calculate daily, monthly, and annual electricity usage (kWh) and operating cost ($) for any appliance with EIA wattage presets and physics-based energy formulas.",
+  description: "Calculate daily, monthly, and annual electricity usage (kWh) and operating cost ($) for any appliance using EIA wattage presets and transparent formulas.",
   canonicalPath: "/home-energy/electricity-usage-calculator",
   category: "home-energy",
 });

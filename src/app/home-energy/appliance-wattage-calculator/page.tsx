@@ -9,7 +9,7 @@ import { DirectAnswerCard } from "@/components/seo/direct-answer-card";
 
 export const metadata: Metadata = buildPageMetadata({
   title: "Appliance Wattage & Starting Surge Calculator — Watts, LRA & kWh",
-  description: "Calculate appliance running watts, motor starting apparent power (VA) from nameplate Locked Rotor Amps (LRA), and daily electricity costs based on U.S. EIA benchmarks.",
+  description: "Calculate appliance running watts, motor starting apparent power (VA) from nameplate LRA, and daily electricity costs based on U.S. EIA benchmarks.",
   canonicalPath: "/home-energy/appliance-wattage-calculator",
   category: "home-energy",
 });

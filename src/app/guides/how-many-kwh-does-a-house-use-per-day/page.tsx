@@ -11,7 +11,7 @@ import { Disclaimer } from "@/components/shared/Disclaimer";
 
 export const metadata: Metadata = buildPageMetadata({
   title: "How Many kWh Does a House Use Per Day? (2026)",
-  description: "An average US home uses ~29–30 kWh/day (880–900 kWh/mo) based on EIA utility data. Estimate daily power consumption by home size, climate zone, and appliance loads.",
+  description: "An average US home uses ~29–30 kWh/day (880–900 kWh/mo) per EIA data. Estimate daily electricity consumption by home size, climate zone, and appliance loads.",
   canonicalPath: "/guides/how-many-kwh-does-a-house-use-per-day",
   category: "home-energy",
   isArticle: true,

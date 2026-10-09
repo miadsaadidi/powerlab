@@ -12,7 +12,7 @@ import { Disclaimer } from "@/components/shared/Disclaimer";
 
 export const metadata: Metadata = buildPageMetadata({
   title: "Battery Backup Runtime Formula Guide",
-  description: "Learn how to estimate battery backup runtime for LiFePO4, AGM, and Lead-Acid systems. Calculate Ah to Wh, depth of discharge, and inverter conversion efficiency.",
+  description: "Learn how to calculate battery backup runtime for LiFePO4 and lead-acid systems. Account for Ah to Wh, depth of discharge, and inverter efficiency loss.",
   canonicalPath: "/guides/battery-backup-runtime-calculation-guide",
   category: "battery",
   isArticle: true,

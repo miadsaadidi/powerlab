@@ -15,7 +15,7 @@ const isPublished = isCalculatorPublished("voltage-drop");
 
 export const metadata: Metadata = buildPageMetadata({
   title: "Voltage Drop Calculator — Wire Gauge Sizing",
-  description: "Evaluate DC and AC voltage drop percentage, conductor resistance, power loss, and wire size against a selected engineering design target (NEC Chapter 9 Table 8 basis).",
+  description: "Calculate DC and AC voltage drop percentage, conductor power loss, and wire size (AWG) against engineering design targets using NEC Chapter 9 Table 8.",
   canonicalPath: "/battery/voltage-drop-calculator",
   category: "battery",
 });

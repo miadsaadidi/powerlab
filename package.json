@@ -2,7 +2,7 @@
   "name": "energy-planning-tools",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://powelab.org",
+  "homepage": "https://www.powelab.org",
   "repository": {
     "type": "git",
     "url": "https://github.com/miadsaadidi/powerlab.git"
