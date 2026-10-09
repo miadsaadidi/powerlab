@@ -12,7 +12,7 @@ import { Disclaimer } from "@/components/shared/Disclaimer";
 export const metadata: Metadata = buildPageMetadata({
   title: "EV V2L & V2H Home Backup Power Guide: Wiring, Inverters & Sizing",
   description:
-    "Engineering guide to powering home circuits with an EV: Vehicle-to-Load (V2L) vs V2H, 120V/240V transfer switch wiring, neutral-ground bonding under NEC 250, and backup runtime calculations.",
+    "Engineering guide to home backup power with an EV: V2L vs V2H, transfer switch wiring, neutral-ground bonding under NEC 250, and runtime calculations.",
   canonicalPath: "/guides/ev-v2l-v2h-home-backup-power-guide",
   category: "ev",
   isArticle: true,

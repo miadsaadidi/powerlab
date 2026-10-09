@@ -13,7 +13,7 @@ const isPublished = isCalculatorPublished("portable-power-station");
 
 export const metadata: Metadata = buildPageMetadata({
   title: "Portable Power Station Calculator — Runtime & Wh Sizing",
-  description: "Calculate portable power station runtime in hours from rated Wh and appliance watts, or size required Wh battery capacity with inverter loss and depth-of-discharge modeling.",
+  description: "Calculate portable power station runtime in hours from rated Wh and appliance watts, or size required Wh battery capacity with inverter loss and DoD modeling.",
   canonicalPath: "/battery/portable-power-station-calculator",
   category: "battery",
 });

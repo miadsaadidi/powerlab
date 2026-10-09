@@ -11,7 +11,7 @@ import { Disclaimer } from "@/components/shared/Disclaimer";
 
 export const metadata: Metadata = buildPageMetadata({
   title: "Residential Battery Storage Lifespan & Degradation Guide",
-  description: "Calculate home battery lifespan, cycle-life degradation, calendar aging, and thermal derating. Compare LiFePO4 vs NMC capacity retention and multi-year sizing margins.",
+  description: "Calculate home battery lifespan, cycle-life degradation, calendar aging, and thermal derating. Compare LiFePO4 vs NMC retention and sizing margins.",
   canonicalPath: "/guides/residential-battery-storage-lifespan-and-degradation-guide",
   category: "battery",
   isArticle: true,

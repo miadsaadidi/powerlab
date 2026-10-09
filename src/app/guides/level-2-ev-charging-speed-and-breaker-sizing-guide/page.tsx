@@ -10,7 +10,7 @@ import { Disclaimer } from "@/components/shared/Disclaimer";
 
 export const metadata: Metadata = buildPageMetadata({
   title: "Level 2 EV Charging Speed & Breaker Sizing Guide (NEC 2026)",
-  description: "Engineering calculation guide for Level 2 EV charging speeds, continuous-load breaker sizing (125% rule), conductor ampacity factors, and hardwired vs. plug-in requirements under the 2026 NEC.",
+  description: "Calculate Level 2 EV charging speeds, continuous-load breaker sizing (125% rule), conductor ampacity, and hardwired vs plug-in options citing NEC guidance.",
   canonicalPath: "/guides/level-2-ev-charging-speed-and-breaker-sizing-guide",
   category: "ev",
   isArticle: true,

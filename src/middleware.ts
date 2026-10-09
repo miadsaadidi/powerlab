@@ -3,25 +3,27 @@ import type { NextRequest } from "next/server";
 
 export function middleware(request: NextRequest) {
   const host = request.headers.get("host") || "";
-  const url = request.nextUrl.clone();
+  const requestUrl = request.nextUrl;
 
   // Allow IndexNow key verification file to be served directly on apex or www without redirect
-  if (url.pathname.includes("c94b7e8d1a2f43b68019e34a75d28b12")) {
+  if (requestUrl.pathname.includes("c94b7e8d1a2f43b68019e34a75d28b12")) {
     return NextResponse.next();
   }
 
-  // Canonicalize host to www.powelab.org in production
-  // If request arrives at apex powelab.org, issue a permanent 308 redirect to www.powelab.org
-  if (host === "powelab.org") {
-    url.host = "www.powelab.org";
-    url.protocol = "https:";
-    return NextResponse.redirect(url, 308);
-  }
+  const isApex = host === "powelab.org";
+  const hasTrailingSlash = requestUrl.pathname !== "/" && requestUrl.pathname.endsWith("/");
 
-  // Remove trailing slashes (except root "/") for uniform canonical indexing
-  if (url.pathname !== "/" && url.pathname.endsWith("/")) {
-    url.pathname = url.pathname.slice(0, -1);
-    return NextResponse.redirect(url, 308);
+  // Canonicalize host to www.powelab.org and remove trailing slashes in a single 308 redirect
+  if (isApex || hasTrailingSlash) {
+    const redirectUrl = new URL(request.url);
+    if (isApex) {
+      redirectUrl.host = "www.powelab.org";
+      redirectUrl.protocol = "https:";
+    }
+    if (hasTrailingSlash) {
+      redirectUrl.pathname = redirectUrl.pathname.replace(/\/+$/, "");
+    }
+    return NextResponse.redirect(redirectUrl, 308);
   }
 
   return NextResponse.next();

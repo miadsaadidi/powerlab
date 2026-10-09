@@ -14,7 +14,7 @@ const isPublished = isCalculatorPublished("ac-cost");
 
 export const metadata: Metadata = buildPageMetadata({
   title: "AC Cost Calculator — Central AC Electricity Cost & SEER2",
-  description: "Estimate air conditioner electricity costs per hour, day & month. Sizing formulas for Central AC, Mini-Splits & Window units with DOE Appendix M1 SEER2 efficiency.",
+  description: "Estimate AC electricity costs per hour, day, and month. Sizing models for Central AC, Mini-Splits, and Window units with DOE Appendix M1 SEER2 efficiency.",
   canonicalPath: "/home-energy/air-conditioner-cost-calculator",
   category: "home-energy",
 });

@@ -10,7 +10,7 @@ import { Disclaimer } from "@/components/shared/Disclaimer";
 
 export const metadata: Metadata = buildPageMetadata({
   title: "Solar Charge Controller Calculator — MPPT Sizing & Cold Voc",
-  description: "Size MPPT and PWM solar charge controllers for battery storage. Calculate operating charging current, continuous design current, and temperature-corrected open-circuit voltage (Voc_cold).",
+  description: "Size MPPT and PWM solar charge controllers for battery storage. Calculate operating charging current and cold-weather array voltage (Voc) corrections.",
   canonicalPath: "/solar/solar-charge-controller-calculator",
   category: "solar",
 });

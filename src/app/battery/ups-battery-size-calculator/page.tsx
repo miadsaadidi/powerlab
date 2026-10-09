@@ -13,7 +13,7 @@ const isPublished = isCalculatorPublished("ups-battery-size");
 
 export const metadata: Metadata = buildPageMetadata({
   title: "UPS Battery Size Calculator — Wh & Ah Sizing",
-  description: "Calculate required UPS battery capacity in Wh and Ah for a target backup runtime. Sizing model incorporates DC bus voltage, inverter efficiency, usable DoD fraction, and planning margin.",
+  description: "Calculate required UPS battery capacity in Wh and Ah for backup runtime. Sizing incorporates DC bus voltage, inverter efficiency, usable DoD, and margins.",
   canonicalPath: "/battery/ups-battery-size-calculator",
   category: "battery",
 });

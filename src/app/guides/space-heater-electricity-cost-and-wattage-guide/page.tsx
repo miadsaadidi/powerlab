@@ -13,7 +13,7 @@ import { Disclaimer } from "@/components/shared/Disclaimer";
 
 export const metadata: Metadata = buildPageMetadata({
   title: "Space Heater Electricity Cost & Wattage Guide",
-  description: "Calculate space heater electricity costs, 1,500W power draw, thermostat duty cycles, zone heating vs. central heat pump COP efficiency, and electrical circuit safety.",
+  description: "Calculate space heater electricity costs, 1,500W power draw, thermostat duty cycles, zone heating vs heat pump COP efficiency, and branch circuit limits.",
   canonicalPath: "/guides/space-heater-electricity-cost-and-wattage-guide",
   category: "home-energy",
   isArticle: true,

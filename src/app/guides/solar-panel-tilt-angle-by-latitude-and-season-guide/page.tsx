@@ -10,7 +10,7 @@ import { Disclaimer } from "@/components/shared/Disclaimer";
 
 export const metadata: Metadata = buildPageMetadata({
   title: "Solar Panel Tilt Angle by Latitude & Season Guide",
-  description: "Calculate solar panel starting tilt angles by latitude and season. Explore mathematical models for year-round yield, winter steep angles, and summer shallow angles.",
+  description: "Calculate solar panel tilt angles by latitude and season. Compare mathematical models for year-round yield, winter steep angles, and summer shallow angles.",
   canonicalPath: "/guides/solar-panel-tilt-angle-by-latitude-and-season-guide",
   category: "solar",
   isArticle: true,

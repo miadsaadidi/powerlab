@@ -13,7 +13,7 @@ import { Disclaimer } from "@/components/shared/Disclaimer";
 
 export const metadata: Metadata = buildPageMetadata({
   title: "Central AC & Heat Pump Electricity Cost Guide",
-  description: "Estimate central AC and heat pump electricity costs. Understand SEER2 ratings, tonnage electrical demand proxies, compressor duty cycles, and operating cost formulas.",
+  description: "Estimate central AC and heat pump electricity costs. Learn SEER2 efficiency ratings, cooling tonnage power demand, duty cycles, and operating cost formulas.",
   canonicalPath: "/guides/central-ac-and-heat-pump-electricity-cost-guide",
   category: "home-energy",
   isArticle: true,

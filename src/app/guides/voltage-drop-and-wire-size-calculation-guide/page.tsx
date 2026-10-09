@@ -12,7 +12,7 @@ import { Disclaimer } from "@/components/shared/Disclaimer";
 
 export const metadata: Metadata = buildPageMetadata({
   title: "Voltage Drop & Wire Size Calculation Guide",
-  description: "Learn how to calculate voltage drop using resistive approximations and size copper/aluminum wire gauge (AWG). Features single-phase, 3-phase, and DC models with NEC informational design recommendations.",
+  description: "Calculate voltage drop and size copper or aluminum wire (AWG). Covers single-phase, 3-phase, and DC circuits with NEC informational design guidance.",
   canonicalPath: "/guides/voltage-drop-and-wire-size-calculation-guide",
   category: "battery",
   isArticle: true,

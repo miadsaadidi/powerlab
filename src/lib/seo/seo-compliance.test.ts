@@ -117,4 +117,18 @@ describe("Google Search Essentials & Technical SEO Compliance", () => {
       ).toBeLessThanOrEqual(160);
     }
   });
+
+  it("ensures all benchmark dataset metadata fields strictly comply with Google SERP limits", async () => {
+    const { BENCHMARK_DATASETS } = await import("../../data/research-papers");
+    for (const dataset of BENCHMARK_DATASETS) {
+      expect(
+        dataset.metaDescription.length,
+        `Benchmark dataset metaDescription for ${dataset.slug} >= 100 chars`
+      ).toBeGreaterThanOrEqual(100);
+      expect(
+        dataset.metaDescription.length,
+        `Benchmark dataset metaDescription for ${dataset.slug} <= 160 chars`
+      ).toBeLessThanOrEqual(160);
+    }
+  });
 });
