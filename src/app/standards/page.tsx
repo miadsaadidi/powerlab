@@ -6,7 +6,7 @@ import { FormulaCopyButton } from "@/components/standards/formula-copy-button";
 import { Disclaimer } from "@/components/shared/Disclaimer";
 
 export const metadata: Metadata = {
-  title: "Energy Engineering Standards & Technical References | PowerLab",
+  title: "Energy Engineering Standards & References",
   description:
     "Cross-reference index mapping IEEE, NFPA 70 (NEC), NREL PVWatts, SAE, and UL engineering standards and models to PowerLab calculation methods.",
   alternates: { canonical: `${siteConfig.url}/standards` },

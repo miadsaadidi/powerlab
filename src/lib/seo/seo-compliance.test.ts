@@ -131,4 +131,53 @@ describe("Google Search Essentials & Technical SEO Compliance", () => {
       ).toBeLessThanOrEqual(160);
     }
   });
+
+  it("ensures all research companionPaperUrls point to valid, existing research papers", async () => {
+    const { RESEARCH_PAPERS } = await import("../../data/research-papers");
+    const validSlugs = new Set(RESEARCH_PAPERS.map((p) => p.slug));
+    const appDir = path.resolve(process.cwd(), "src/app");
+
+    function findPaperUrls(dir: string): Array<{ file: string; url: string }> {
+      const results: Array<{ file: string; url: string }> = [];
+      for (const item of fs.readdirSync(dir, { withFileTypes: true })) {
+        const full = path.join(dir, item.name);
+        if (item.isDirectory() && item.name !== "node_modules" && item.name !== "api") {
+          results.push(...findPaperUrls(full));
+        } else if (item.name.endsWith(".tsx") || item.name.endsWith(".ts")) {
+          const content = fs.readFileSync(full, "utf8");
+          const matches = content.matchAll(/companionPaperUrl:\s*["'`](https:\/\/[^"'`]+)["'`]/g);
+          for (const m of matches) {
+            results.push({ file: path.relative(appDir, full), url: m[1] });
+          }
+        }
+      }
+      return results;
+    }
+
+    const companions = findPaperUrls(appDir);
+    expect(companions.length).toBeGreaterThan(0);
+    for (const c of companions) {
+      const slugMatch = c.url.match(/\/research\/([a-zA-Z0-9_-]+)/);
+      expect(slugMatch, `companionPaperUrl in ${c.file} must target /research/[slug]`).toBeTruthy();
+      if (slugMatch) {
+        expect(validSlugs.has(slugMatch[1]), `Slug "${slugMatch[1]}" in ${c.file} must exist in RESEARCH_PAPERS`).toBe(true);
+      }
+    }
+  });
+
+  it("ensures static pages do not export titles with redundant siteConfig.name branding", () => {
+    const appDir = path.resolve(process.cwd(), "src/app");
+    const pages = ["about", "disclaimer", "privacy", "standards", "terms"];
+    for (const p of pages) {
+      const full = path.join(appDir, p, "page.tsx");
+      const content = fs.readFileSync(full, "utf8");
+      const titleMatch = content.match(/title:\s*["'`](.*?)["'`]/);
+      expect(titleMatch).toBeTruthy();
+      if (titleMatch) {
+        expect(titleMatch[1].endsWith(`| ${siteConfig.name}`), `${p}/page.tsx title should not end with redundant | ${siteConfig.name}`).toBe(false);
+        expect(titleMatch[1].endsWith(`— ${siteConfig.name}`), `${p}/page.tsx title should not end with redundant — ${siteConfig.name}`).toBe(false);
+      }
+    }
+  });
 });
+

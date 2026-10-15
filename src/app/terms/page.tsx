@@ -3,7 +3,7 @@ import { siteConfig } from "@/lib/site-config";
 import { buildPageMetadata } from "@/lib/seo/metadata-helper";
 
 export const metadata = buildPageMetadata({
-  title: "Terms of Use & Planning Disclaimers — PowerLab",
+  title: "Terms of Use & Planning Disclaimers",
   description: "Review terms of use, calculation disclaimers, licensing terms, and engineering assumptions for PowerLab energy planning tools and models.",
   canonicalPath: "/terms",
 });

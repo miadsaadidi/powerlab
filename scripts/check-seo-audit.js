@@ -96,6 +96,27 @@ function auditPage(filePath) {
     }
   }
 
+  // check companion layout.tsx if page is a client component
+  const layoutPath = path.join(path.dirname(filePath), 'layout.tsx');
+  if (fs.existsSync(layoutPath)) {
+    const layoutContent = fs.readFileSync(layoutPath, 'utf8');
+    const bpmMatchLayout = layoutContent.match(/buildPageMetadata\(\{([\s\S]*?)\}\)/);
+    if (bpmMatchLayout) {
+      const inner = bpmMatchLayout[1];
+      const titleMatch = inner.match(/title:\s*["'`](.*?)["'`]/);
+      const descMatch = inner.match(/description:\s*["'`](.*?)["'`]/);
+      const canonMatch = inner.match(/canonicalPath:\s*["'`](.*?)["'`]/);
+      if (titleMatch && descMatch) {
+        const title = titleMatch[1];
+        const desc = descMatch[1];
+        const canon = canonMatch ? canonMatch[1] : '';
+        pagesAudited.push({ file: relPath, title, desc, canon, type: 'layout:buildPageMetadata' });
+        recordDescription(relPath, desc);
+        return;
+      }
+    }
+  }
+
   warnings.push(`[NO STATIC METADATA] ${relPath}`);
 }
 

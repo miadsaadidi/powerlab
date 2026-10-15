@@ -16,9 +16,9 @@ export function middleware(request: NextRequest) {
   // Canonicalize host to www.powelab.org and remove trailing slashes in a single 308 redirect
   if (isApex || hasTrailingSlash) {
     const redirectUrl = new URL(request.url);
+    redirectUrl.protocol = "https:";
     if (isApex) {
       redirectUrl.host = "www.powelab.org";
-      redirectUrl.protocol = "https:";
     }
     if (hasTrailingSlash) {
       redirectUrl.pathname = redirectUrl.pathname.replace(/\/+$/, "");

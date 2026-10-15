@@ -68,7 +68,7 @@ export default function AcCostPage() {
       "U.S. EIA Electric Power Monthly (June 2026 Residential Average: 18.34¢/kWh)",
     ],
     companionDatasetUrl: "https://doi.org/10.6084/m9.figshare.33821931",
-    companionPaperUrl: "https://www.powelab.org/research/central-ac-heat-pump-seasonal-efficiency-degradation",
+    companionPaperUrl: "https://www.powelab.org/research/heat-pump-cop-degradation-and-auxiliary-heat-kinetics",
     faqs: FAQS,
   });
 
@@ -483,7 +483,7 @@ export default function AcCostPage() {
           📊 Open Empirical Benchmark Data
         </h3>
         <p style={{ margin: "0 0 0.75rem", fontSize: "0.92rem", color: "var(--ink)", lineHeight: 1.6 }}>
-          Need empirical laboratory data on cooling degree days and seasonal efficiency transitions under DOE Appendix M1? Explore our open <Link href="/datasets/central-air-conditioner-seer2-cooling-degree-day-benchmark" style={{ fontWeight: 700, color: "#059669", textDecoration: "underline" }}>Central AC &amp; Heat Pump SEER2 Benchmark Dataset (PL-DS-AC-04)</Link> and thermodynamic study on <Link href="/research/central-ac-heat-pump-seasonal-efficiency-degradation" style={{ fontWeight: 700, color: "#059669", textDecoration: "underline" }}>Central AC &amp; Heat Pump Seasonal Efficiency Degradation</Link>.
+          Need empirical laboratory data on cooling degree days and seasonal efficiency transitions under DOE Appendix M1? Explore our open <Link href="/datasets/central-air-conditioner-seer2-cooling-degree-day-benchmark" style={{ fontWeight: 700, color: "#059669", textDecoration: "underline" }}>Central AC &amp; Heat Pump SEER2 Benchmark Dataset (PL-DS-AC-04)</Link> and thermodynamic study on <Link href="/research/heat-pump-cop-degradation-and-auxiliary-heat-kinetics" style={{ fontWeight: 700, color: "#059669", textDecoration: "underline" }}>Central AC &amp; Heat Pump Seasonal Efficiency Degradation</Link>.
         </p>
       </section>
 
