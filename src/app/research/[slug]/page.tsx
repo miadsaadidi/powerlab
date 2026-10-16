@@ -78,6 +78,8 @@ export default async function ResearchPaperPage({ params }: PageProps) {
         name: paper.title,
         description: paper.abstract,
         url: `${siteConfig.url}/research/${paper.slug}`,
+        mainEntityOfPage: `${siteConfig.url}/research/${paper.slug}`,
+        image: `${siteConfig.url}/clean_energy_educational_model.jpg`,
         datePublished: paper.datePublished,
         dateModified: paper.dateModified,
         inLanguage: "en-US",
@@ -88,7 +90,7 @@ export default async function ResearchPaperPage({ params }: PageProps) {
           paper.ssrnUrl || null,
         ].filter(Boolean),
         author: paper.authors.map((author) => ({
-          "@type": "Organization",
+          "@type": author.includes("Group") || author.includes("Research") || author.includes("Lab") ? "Organization" : "Person",
           name: author,
           url: siteConfig.url,
         })),

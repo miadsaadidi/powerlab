@@ -31,7 +31,6 @@ export interface CalculatorStructuredDataProps {
 }
 
 export const SHARED_AUTHORITY_SAME_AS = [
-  "https://dataverse.harvard.edu/dataverse/powerlab",
   "https://independent.academia.edu/PowerLabEngineering",
 ];
 

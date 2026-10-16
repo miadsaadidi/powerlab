@@ -316,7 +316,7 @@ export default function StandardsPage() {
       <footer style={{ marginTop: "3.5rem", paddingTop: "2rem", borderTop: "1px solid var(--border-color, #cbd5e1)" }}>
         <Disclaimer variant="standard" />
         <p style={{ fontSize: "0.92rem", color: "var(--text-muted)", lineHeight: 1.6 }}>
-          For formal academic preprints and downloadable PDFs, visit our <Link href="/research">Technical Research Hub</Link>. To inspect calculation models, jurisdictional rules, and technical governance, explore our <Link href="/disclaimer">Technical Disclaimer</Link>, our <Link href="/methodology">Calculation Methodology</Link>, or the <Link href="/sources">Laboratory Sources &amp; Standards Directory</Link>.
+          For formal academic preprints and downloadable PDFs, visit our <Link href="/research">Technical Research Hub</Link>. To inspect calculation models, jurisdictional rules, and technical governance, explore our mission and principles on <Link href="/about">About PowerLab</Link>, our <Link href="/disclaimer">Technical Disclaimer</Link>, our <Link href="/methodology">Calculation Methodology</Link>, or the <Link href="/sources">Laboratory Sources &amp; Standards Directory</Link>.
         </p>
       </footer>
     </article>
