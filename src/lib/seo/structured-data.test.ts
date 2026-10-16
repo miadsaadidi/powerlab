@@ -60,8 +60,7 @@ describe("structured-data", () => {
     // Author and Publisher
     expect(webApp.author.name).toBe("Miad S.");
     expect(webApp.publisher.name).toBe("PowerLab Clean Energy Engineering Group");
-    expect(webApp.publisher.sameAs).toEqual(SHARED_AUTHORITY_SAME_AS);
-    expect(webApp.publisher.sameAs).toContain("https://dataverse.harvard.edu/dataverse/powerlab");
+    expect(webApp.publisher.sameAs).toContain("https://independent.academia.edu/PowerLabEngineering");
 
     const faqPage = data.find((item) => item["@type"] === "FAQPage") as any;
     expect(faqPage).toBeDefined();

@@ -10,7 +10,7 @@ import { ConnectedSystemFlow } from "@/components/home/connected-system-flow";
 import { Disclaimer } from "@/components/shared/Disclaimer";
 
 export const metadata: Metadata = {
-  title: "Clean Energy Calculators Directory",
+  title: "Clean Energy Engineering Calculators Directory",
   description:
     "Explore transparent energy calculators for solar PV, battery storage runtime, electrical voltage drop, and EV charging referencing engineering guidance.",
   alternates: { canonical: `${siteConfig.url}/calculators` },

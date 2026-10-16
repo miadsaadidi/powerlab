@@ -4,7 +4,7 @@ import { EnergyLogo } from "@/components/energy-logo";
 import { buildPageMetadata } from "@/lib/seo/metadata-helper";
 
 export const metadata = buildPageMetadata({
-  title: "About PowerLab — Transparent Planning Tools",
+  title: "About Transparent Clean Energy Planning",
   description: "Learn about PowerLab: transparent, deterministic engineering calculation tools for solar PV, battery storage, home energy, and electric vehicles.",
   canonicalPath: "/about",
 });

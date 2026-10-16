@@ -8,6 +8,21 @@ const nextConfig = {
         destination: "/home-energy/home-battery-size-calculator",
         permanent: true,
       },
+      {
+        source: "/research/central-ac-heat-pump-seasonal-efficiency-degradation",
+        destination: "/research/heat-pump-cop-degradation-and-auxiliary-heat-kinetics",
+        permanent: true,
+      },
+      {
+        source: "/research/generator-motor-starting-lra-surge-kinetics",
+        destination: "/research/deterministic-inrush-load-stacking-generator-sizing",
+        permanent: true,
+      },
+      {
+        source: "/research/stationary-bess-peukert-derating-inverter-tare-loss",
+        destination: "/research/electrochemical-peukert-derating-bess",
+        permanent: true,
+      },
     ];
   },
   async headers() {

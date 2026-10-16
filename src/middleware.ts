@@ -11,14 +11,15 @@ export function middleware(request: NextRequest) {
   }
 
   const isApex = host === "powelab.org";
+  const isHttp = request.headers.get("x-forwarded-proto") === "http";
   const hasTrailingSlash = requestUrl.pathname !== "/" && requestUrl.pathname.endsWith("/");
 
-  // Canonicalize host to www.powelab.org and remove trailing slashes in a single 308 redirect
-  if (isApex || hasTrailingSlash) {
+  // Canonicalize host to www.powelab.org, upgrade HTTP to HTTPS, and remove trailing slashes in a single 308 redirect
+  if (isApex || hasTrailingSlash || isHttp) {
     const redirectUrl = new URL(request.url);
+    redirectUrl.protocol = "https:";
     if (isApex) {
       redirectUrl.host = "www.powelab.org";
-      redirectUrl.protocol = "https:";
     }
     if (hasTrailingSlash) {
       redirectUrl.pathname = redirectUrl.pathname.replace(/\/+$/, "");

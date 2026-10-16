@@ -61,7 +61,7 @@ export default function HomeBatterySizePage() {
       "IEC 62619 Secondary Lithium Cells Reference",
     ],
     companionDatasetUrl: "https://doi.org/10.6084/m9.figshare.33821940",
-    companionPaperUrl: "https://www.powelab.org/research/stationary-bess-peukert-derating-inverter-tare-loss",
+    companionPaperUrl: "https://www.powelab.org/research/electrochemical-peukert-derating-bess",
     faqs: FAQS,
   });
 

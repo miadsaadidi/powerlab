@@ -3,7 +3,7 @@ import { siteConfig } from "@/lib/site-config";
 import { buildPageMetadata } from "@/lib/seo/metadata-helper";
 
 export const metadata = buildPageMetadata({
-  title: "Privacy Policy & Data Architecture — PowerLab",
+  title: "Privacy Policy & Local Data Architecture",
   description: "Understand the PowerLab privacy model: browser-local storage for calculation profiles, no user account database, and transparent external requests.",
   canonicalPath: "/privacy",
 });

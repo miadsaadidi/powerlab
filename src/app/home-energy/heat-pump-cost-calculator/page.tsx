@@ -13,7 +13,7 @@ import { Disclaimer } from "@/components/shared/Disclaimer";
 const isPublished = isCalculatorPublished("heat-pump-cost");
 
 export const metadata: Metadata = buildPageMetadata({
-  title: "Heat Pump Cost Calculator — Seasonal Heating Cost vs Gas, Propane & Oil",
+  title: "Heat Pump Cost Calculator — Heating Cost vs Gas & Oil",
   description:
     "Compare heat pump operating costs against natural gas, propane, and fuel oil furnaces using delivered thermal demand, seasonal COP, and local fuel tariffs.",
   canonicalPath: "/home-energy/heat-pump-cost-calculator",

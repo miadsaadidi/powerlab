@@ -6,7 +6,7 @@ import { FormulaCopyButton } from "@/components/standards/formula-copy-button";
 import { Disclaimer } from "@/components/shared/Disclaimer";
 
 export const metadata: Metadata = {
-  title: "Energy Engineering Standards & Technical References | PowerLab",
+  title: "Energy Engineering Standards & References",
   description:
     "Cross-reference index mapping IEEE, NFPA 70 (NEC), NREL PVWatts, SAE, and UL engineering standards and models to PowerLab calculation methods.",
   alternates: { canonical: `${siteConfig.url}/standards` },
@@ -316,7 +316,7 @@ export default function StandardsPage() {
       <footer style={{ marginTop: "3.5rem", paddingTop: "2rem", borderTop: "1px solid var(--border-color, #cbd5e1)" }}>
         <Disclaimer variant="standard" />
         <p style={{ fontSize: "0.92rem", color: "var(--text-muted)", lineHeight: 1.6 }}>
-          For formal academic preprints and downloadable PDFs, visit our <Link href="/research">Technical Research Hub</Link>. To inspect calculation models, jurisdictional rules, and technical governance, explore our <Link href="/disclaimer">Technical Disclaimer</Link>, our <Link href="/methodology">Calculation Methodology</Link>, or the <Link href="/sources">Laboratory Sources &amp; Standards Directory</Link>.
+          For formal academic preprints and downloadable PDFs, visit our <Link href="/research">Technical Research Hub</Link>. To inspect calculation models, jurisdictional rules, and technical governance, explore our mission and principles on <Link href="/about">About PowerLab</Link>, our <Link href="/disclaimer">Technical Disclaimer</Link>, our <Link href="/methodology">Calculation Methodology</Link>, or the <Link href="/sources">Laboratory Sources &amp; Standards Directory</Link>.
         </p>
       </footer>
     </article>

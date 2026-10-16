@@ -802,7 +802,7 @@ export const BENCHMARK_DATASETS: BenchmarkDataset[] = [
     shortTitle: "Generator Motor Inrush & Voltage Sag Benchmark",
     subtitle: "Locked Rotor Amperage (LRA), sub-transient reactance (X''d) voltage dip envelopes, and solid-state soft starter surge reduction factors referencing NEMA MG-1 and ISO 8528-5 standards.",
     description: "Source-informed transient response benchmark modeling motor starting inrush currents (LRA), peak starting apparent power (kVA), sub-transient voltage dips, and solid-state soft-start mitigation across 18 residential motor and compressor load archetypes.",
-    metaDescription: "Benchmark dataset modeling motor locked rotor amperage (LRA), alternator sub-transient voltage sag (X''d), and soft-starter surge drop referencing ISO 8528-5.",
+    metaDescription: "Benchmark dataset modeling motor locked rotor amperage (LRA), alternator voltage sag (X''d), and soft-starter surge drop referencing ISO 8528-5.",
     abstract: "Provides a deterministic engineering benchmark matrix modeling starting surge apparent power, peak instantaneous locked-rotor amperes (LRA), alternator sub-transient voltage dips, and solid-state soft starter surge reductions across residential motor-driven loads (central air conditioners, heat pumps, well pumps, sump pumps) referencing NEMA MG-1 and ISO 8528-5.",
     version: "1.2.0",
     datePublished: "2026-09-05",

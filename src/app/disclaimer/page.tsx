@@ -4,7 +4,7 @@ import { siteConfig } from "@/lib/site-config";
 import { buildPageMetadata } from "@/lib/seo/metadata-helper";
 
 export const metadata: Metadata = buildPageMetadata({
-  title: "Engineering & Technical Planning Disclaimer — PowerLab",
+  title: "Engineering & Technical Planning Disclaimer",
   description:
     "Comprehensive technical disclaimer detailing engineering calculation limitations, jurisdictional code applicability, manufacturer hierarchy, and safety.",
   canonicalPath: "/disclaimer",

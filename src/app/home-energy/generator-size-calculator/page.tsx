@@ -67,7 +67,7 @@ export default function GeneratorSizePage() {
       "NFPA 110 (Emergency and Standby Power Systems)",
     ],
     companionDatasetUrl: "https://doi.org/10.6084/m9.figshare.33821934",
-    companionPaperUrl: "https://www.powelab.org/research/generator-motor-starting-lra-surge-kinetics",
+    companionPaperUrl: "https://www.powelab.org/research/deterministic-inrush-load-stacking-generator-sizing",
     faqs: FAQS,
   });
 
@@ -250,7 +250,7 @@ export default function GeneratorSizePage() {
             <h3 style={{ fontSize: "1rem", marginBottom: "0.25rem" }}>3. PowerLab Research</h3>
             <ul style={{ margin: 0, paddingLeft: "1.2rem", fontSize: "0.9rem" }}>
               <li>
-                <Link href="/research/generator-motor-starting-lra-surge-kinetics">
+                <Link href="/research/deterministic-inrush-load-stacking-generator-sizing">
                   PowerLab Research: Generator Motor Starting Inrush &amp; Surge Kinetics
                 </Link>
               </li>

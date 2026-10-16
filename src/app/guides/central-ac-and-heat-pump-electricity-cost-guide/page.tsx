@@ -367,6 +367,12 @@ export default function CentralAcAndHeatPumpGuidePage() {
             <Link href="/datasets/heat-pump-sub-zero-cop-degradation-benchmark"><strong>Benchmark Dataset: Heat Pump Sub-Zero COP Degradation (PL-DS-HVAC-04)</strong></Link> — Open empirical dataset tabulating sub-zero COP retention, compressor power draw, and electric strip heat staging from 47°F down to -15°F.
           </li>
           <li>
+            <Link href="/datasets/cold-climate-heat-pump-cop-degradation-benchmark"><strong>Benchmark Dataset: Cold-Climate Heat Pump COP Degradation (PL-DS-HVAC-02)</strong></Link> — Laboratory test matrix modeling heating capacity and COP retention down to -20°C across 12 cold-climate inverter heat pump units.
+          </li>
+          <li>
+            <Link href="/datasets/central-air-conditioner-seer2-cooling-degree-day-benchmark"><strong>Benchmark Dataset: Central AC SEER2 Cooling Degree Day Benchmark (PL-DS-AC-04)</strong></Link> — 50-state cooling degree day (CDD) and regional SEER2 operating cost benchmark data referencing DOE Appendix M1.
+          </li>
+          <li>
             <Link href="/research/heat-pump-cop-degradation-and-auxiliary-heat-kinetics"><strong>Research Report: Heat Pump COP Degradation &amp; Strip Heat Dynamics (PL-TR-2026-HVAC01)</strong></Link> — Engineering preprint analyzing sub-zero vapor compression kinetics and auxiliary staging costs.
           </li>
         </ul>
