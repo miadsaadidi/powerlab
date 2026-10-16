@@ -30,6 +30,24 @@ describe("Middleware Canonical Host and Path Redirection", () => {
     expect(res.headers.get("location")).toBe("https://www.powelab.org/guides");
   });
 
+  it("upgrades x-forwarded-proto http to https on preferred hostname with 308", () => {
+    const req = new NextRequest("http://www.powelab.org/calculators", {
+      headers: { host: "www.powelab.org", "x-forwarded-proto": "http" },
+    });
+    const res = middleware(req);
+    expect(res.status).toBe(308);
+    expect(res.headers.get("location")).toBe("https://www.powelab.org/calculators");
+  });
+
+  it("handles HTTP + apex + trailing slash simultaneously in a single 308 hop", () => {
+    const req = new NextRequest("http://powelab.org/battery/", {
+      headers: { host: "powelab.org", "x-forwarded-proto": "http" },
+    });
+    const res = middleware(req);
+    expect(res.status).toBe(308);
+    expect(res.headers.get("location")).toBe("https://www.powelab.org/battery");
+  });
+
   it("preserves query parameters during redirect", () => {
     const req = new NextRequest("http://powelab.org/calculators/?ref=test&param=123", {
       headers: { host: "powelab.org" },
