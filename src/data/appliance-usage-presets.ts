@@ -18,6 +18,8 @@ const schedules: Record<string, ApplianceUsagePreset> = {
   freezer: { hoursPerDay: 24, daysPerWeek: 7, dutyCycle: 0.4 },
   "phone-charger": { hoursPerDay: 2, daysPerWeek: 7, dutyCycle: 1 },
   "game-console": { hoursPerDay: 2, daysPerWeek: 7, dutyCycle: 1 },
+  "nas-server": { hoursPerDay: 24, daysPerWeek: 7, dutyCycle: 1 },
+  "server-rack": { hoursPerDay: 24, daysPerWeek: 7, dutyCycle: 1 },
   microwave: { hoursPerDay: 0.25, daysPerWeek: 7, dutyCycle: 1 },
   "electric-kettle": { hoursPerDay: 0.15, daysPerWeek: 7, dutyCycle: 1 },
   "coffee-maker": { hoursPerDay: 0.25, daysPerWeek: 7, dutyCycle: 1 },

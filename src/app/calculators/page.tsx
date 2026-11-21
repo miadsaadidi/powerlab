@@ -168,6 +168,55 @@ export default function CalculatorsHubPage() {
         </div>
       </section>
 
+      {/* Engineering Standards & Methodology Matrix */}
+      <section aria-labelledby="standards-matrix-heading" style={{ marginBottom: "3rem" }}>
+        <h2 id="standards-matrix-heading" style={{ fontSize: "1.35rem", marginBottom: "0.75rem" }}>
+          Clean Energy Computational Modeling Standards &amp; Formulations
+        </h2>
+        <p style={{ fontSize: "0.9rem", color: "var(--text-muted)", marginBottom: "1.25rem", lineHeight: 1.5 }}>
+          All PowerLab calculators implement deterministic mathematical models adhering strictly to established engineering codes, laboratory research datasets, and physical thermodynamic formulations:
+        </p>
+        <div className="scenario-table" role="region" aria-label="Engineering standards and calculation methods matrix">
+          <table>
+            <caption>Overview of computational models, governing codes &amp; physical formulas</caption>
+            <thead>
+              <tr>
+                <th scope="col">Discipline</th>
+                <th scope="col">Governing Codes &amp; References</th>
+                <th scope="col">Primary Calculation Formulations</th>
+                <th scope="col">Flagship Tools</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Solar Photovoltaics</strong></td>
+                <td>NREL PVWatts V8, NEC 690, IEEE 1547</td>
+                <td>Geometric angle of incidence, solar position algorithm, 14.08% multiplicative DC loss breakdown, and temperature-adjusted Voc.</td>
+                <td><Link href="/solar/solar-panel-output-calculator">Solar Output</Link>, <Link href="/solar/solar-panel-tilt-calculator">Panel Tilt</Link>, <Link href="/solar/solar-charge-controller-calculator">Charge Controller</Link></td>
+              </tr>
+              <tr>
+                <td><strong>Battery Storage &amp; UPS</strong></td>
+                <td>IEEE Std 485, IEC 62619, UL 1973, NEC 706</td>
+                <td>Modified Peukert capacity derating $(I^k \cdot t = C)$, standby inverter tare loss, usable Depth of Discharge reserves, and State of Health (SOH).</td>
+                <td><Link href="/battery/battery-runtime-calculator">Battery Runtime</Link>, <Link href="/battery/battery-size-calculator">Battery Size</Link>, <Link href="/battery/ups-battery-size-calculator">UPS Sizing</Link></td>
+              </tr>
+              <tr>
+                <td><strong>Electric Vehicles (EV)</strong></td>
+                <td>NEC Article 625, SAE J1772, ISO 15118</td>
+                <td>125% continuous-duty branch circuit ampacity, aerodynamic drag kinetics $(F_d = \frac{1}{2}\rho C_d A v^2)$, auxiliary HVAC loads, and V2L discharge autonomy.</td>
+                <td><Link href="/ev/ev-charger-breaker-size-calculator">EV Breaker Sizing</Link>, <Link href="/ev/ev-charging-time-calculator">EV Charge Time</Link>, <Link href="/ev/v2l-runtime-calculator">V2L Runtime</Link></td>
+              </tr>
+              <tr>
+                <td><strong>Home Energy &amp; Thermal</strong></td>
+                <td>DOE 10 CFR 430, ASHRAE 90.2, AHRI 210/240</td>
+                <td>Active duty cycle integration, Gregorian calendar month normalization, SEER2 seasonal cooling COP derating, and locked-rotor amp (LRA) motor inrush.</td>
+                <td><Link href="/home-energy/electricity-usage-calculator">Electricity Usage</Link>, <Link href="/home-energy/energy-bill-calculator">Energy Bill</Link>, <Link href="/home-energy/generator-size-calculator">Generator Size</Link></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
       {/* Featured Specialized Calculation Tools & Sizing Guides */}
       <section aria-labelledby="featured-tools-heading" style={{ marginBottom: "3rem" }}>
         <div style={{ display: "flex", justifyContent: "space-between", alignItems: "baseline", marginBottom: "1rem" }}>

@@ -150,6 +150,64 @@ export default function SolarHub() {
 
     <SystemFlowDiagram category="solar" />
 
+    <section aria-labelledby="solar-pv-benchmark-matrix" style={{ marginTop: "2.5rem", marginBottom: "2.5rem" }}>
+      <h2 id="solar-pv-benchmark-matrix">
+        Solar PV Array Geometry, Climate Insolation &amp; System Derating Benchmarks
+      </h2>
+      <p>
+        Accurate solar PV generation modeling requires combining solar position geometry, local Peak Sun Hours (PSH), NREL multiplicative DC loss factors, and inverter loading ratio (ILR) sizing:
+      </p>
+      <div className="scenario-table" role="region" aria-label="Solar PV system modeling benchmarks">
+        <table>
+          <caption>Regional solar array tilt geometry, specific yield &amp; system loss modeling matrix</caption>
+          <thead>
+            <tr>
+              <th scope="col">Climatic Zone / Latitude</th>
+              <th scope="col">Latitude Band</th>
+              <th scope="col">Optimal Annual Fixed Tilt</th>
+              <th scope="col">Daily Peak Sun Hours (PSH)</th>
+              <th scope="col">Annual Specific Yield (kWh/kWp)</th>
+              <th scope="col">Recommended DC/AC Ratio (ILR)</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Arid Desert (US Southwest / MENA)</strong></td>
+              <td>25°N – 35°N</td>
+              <td>Latitude − 2° (~30°)</td>
+              <td>5.8 – 6.8 PSH/day</td>
+              <td>1,650 – 1,900 kWh/kWp</td>
+              <td>1.15 – 1.22</td>
+            </tr>
+            <tr>
+              <td><strong>Sub-Tropical / Mediterranean</strong></td>
+              <td>30°N – 38°N</td>
+              <td>Latitude × 0.87 (~31°)</td>
+              <td>4.5 – 5.5 PSH/day</td>
+              <td>1,400 – 1,650 kWh/kWp</td>
+              <td>1.20 – 1.28</td>
+            </tr>
+            <tr>
+              <td><strong>Temperate Humid (US Mid-Atlantic / Western Europe)</strong></td>
+              <td>38°N – 48°N</td>
+              <td>Latitude × 0.85 (~35°)</td>
+              <td>3.8 – 4.5 PSH/day</td>
+              <td>1,150 – 1,400 kWh/kWp</td>
+              <td>1.25 – 1.35</td>
+            </tr>
+            <tr>
+              <td><strong>Northern / Cold-Climate (Canada / Northern Europe)</strong></td>
+              <td>48°N – 60°N</td>
+              <td>Latitude × 0.80 + 3° (~45°)</td>
+              <td>3.0 – 3.8 PSH/day</td>
+              <td>950 – 1,150 kWh/kWp</td>
+              <td>1.30 – 1.40</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
     <CategoryWorkflow
       categoryTitle="Solar PV"
       categoryDescription="Follow our 4-step engineering sequence to plan a complete grid-tied or off-grid photovoltaic system from appliance energy demand to storage:"

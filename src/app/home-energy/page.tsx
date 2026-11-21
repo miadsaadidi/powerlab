@@ -165,6 +165,80 @@ export default function HomeEnergyHub() {
 
     <SystemFlowDiagram category="home-energy" />
 
+    <section aria-labelledby="home-energy-benchmark-matrix" style={{ marginTop: "2.5rem", marginBottom: "2.5rem" }}>
+      <h2 id="home-energy-benchmark-matrix">
+        Household &amp; Light Commercial Appliance Electrical Demand Matrix
+      </h2>
+      <p>
+        Planning whole-home battery backup, emergency standby generation, or monthly utility budgets requires distinguishing between continuous running loads, cycling thermostatically controlled compressors, and 24/7 baseload IT equipment:
+      </p>
+      <div className="scenario-table" role="region" aria-label="Household appliance electrical load benchmarks">
+        <table>
+          <caption>Empirical wattage, duty cycles &amp; typical monthly electricity consumption</caption>
+          <thead>
+            <tr>
+              <th scope="col">Appliance Category</th>
+              <th scope="col">Typical Equipment</th>
+              <th scope="col">Running Watts</th>
+              <th scope="col">Duty Cycle</th>
+              <th scope="col">Typical Daily Use</th>
+              <th scope="col">Est. Monthly kWh</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Continuous IT &amp; Networking</strong></td>
+              <td>Home NAS / Rack Server / Wi-Fi</td>
+              <td>45 W – 350 W</td>
+              <td>100% (Continuous)</td>
+              <td>24 hours/day</td>
+              <td>~32.9 – 255.7 kWh</td>
+            </tr>
+            <tr>
+              <td><strong>Refrigeration &amp; Food Storage</strong></td>
+              <td>Standard Refrigerator (22 cu. ft.)</td>
+              <td>150 W (running)</td>
+              <td>33% – 40% (cycling)</td>
+              <td>24 hours/day</td>
+              <td>~36.2 – 43.8 kWh</td>
+            </tr>
+            <tr>
+              <td><strong>Heating &amp; Air Conditioning</strong></td>
+              <td>Central AC (3-Ton, 14 SEER)</td>
+              <td>3,500 W</td>
+              <td>50% – 70% (summer)</td>
+              <td>6 – 8 hours/day</td>
+              <td>~479.4 – 639.2 kWh</td>
+            </tr>
+            <tr>
+              <td><strong>High-Power Domestic Water</strong></td>
+              <td>Electric Water Heater (50-gal)</td>
+              <td>4,500 W</td>
+              <td>Cycling on demand</td>
+              <td>3 hours/day total</td>
+              <td>~410.9 kWh</td>
+            </tr>
+            <tr>
+              <td><strong>Space Heating</strong></td>
+              <td>Electric Space Heater (Radiant/Ceramic)</td>
+              <td>1,500 W</td>
+              <td>70% – 100%</td>
+              <td>8 hours/day</td>
+              <td>~255.7 – 365.3 kWh</td>
+            </tr>
+            <tr>
+              <td><strong>Clean Transportation</strong></td>
+              <td>Level 2 EV Home Charger (32A @ 240V)</td>
+              <td>7,680 W</td>
+              <td>100% (charging)</td>
+              <td>2.5 hours/day</td>
+              <td>~584.4 kWh</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
     <CategoryWorkflow
       categoryTitle="Home Energy"
       categoryDescription="Follow our 4-step workflow to audit household electrical demand, calculate utility costs, and engineer home backup resilience:"

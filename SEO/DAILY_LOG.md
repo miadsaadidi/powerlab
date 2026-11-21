@@ -7,6 +7,35 @@
 
 ## Daily Master Loop Record
 
+### 2026-11-21 (Session 58) — Indexation Remediation: Category Hub Consolidation, Freshness Synchronization & GSC Query Injections
+* **Session Lead:** AI/SEO Agent (User Authorized Execution)
+* **Objective:** Remediate GSC indexation blockage (45 URLs in *Crawled — currently not indexed*, 23 in *Discovered — currently not indexed*, validation failed on 2026-11-07) by synchronizing sitemap freshness, enriching all 4 core category hubs (`/calculators`, `/home-energy`, `/battery`, `/solar`) with comprehensive engineering benchmarks, and capturing high-impression striking queries (`server power consumption`, `data center power`, `peak shaving calculator`).
+* **Target URLs & Code Assets:**
+  * [`src/app/sitemap.ts`](file:///d:/powerlab/src/app/sitemap.ts) — Updated canonical `lastModified` from static September date to live platform date `2026-11-21` across all indexable routes.
+  * [`src/data/appliances.ts`](file:///d:/powerlab/src/data/appliances.ts) & [`src/data/appliance-usage-presets.ts`](file:///d:/powerlab/src/data/appliance-usage-presets.ts) — Added `nas-server` (60W, 24/7) and `server-rack` (350W, 24/7) continuous IT compute presets.
+  * [`src/app/home-energy/electricity-usage-calculator/page.tsx`](file:///d:/powerlab/src/app/home-energy/electricity-usage-calculator/page.tsx) — Added continuous 24/7 Server, Homelab & Data Center PUE power benchmark matrix and FAQ structured data.
+  * [`src/app/battery/battery-size-calculator/page.tsx`](file:///d:/powerlab/src/app/battery/battery-size-calculator/page.tsx) — Added Commercial & Residential Peak Shaving / TOU arbitrage capacity matrix and FAQ schema.
+  * [`src/app/calculators/page.tsx`](file:///d:/powerlab/src/app/calculators/page.tsx) — Added Clean Energy Computational Modeling Standards & Formulations matrix across all 4 disciplines.
+  * [`src/app/home-energy/page.tsx`](file:///d:/powerlab/src/app/home-energy/page.tsx) — Added Household & Light Commercial Appliance Electrical Demand Matrix.
+  * [`src/app/battery/page.tsx`](file:///d:/powerlab/src/app/battery/page.tsx) — Added Battery Storage Chemistry, Usable Capacity & Round-Trip Efficiency (RTE) Matrix.
+  * [`src/app/solar/page.tsx`](file:///d:/powerlab/src/app/solar/page.tsx) — Added Solar PV Array Geometry, Climate Insolation & Multiplicative System Loss Matrix.
+* **Validation:** `npm run typecheck` (0 errors), `npm test` (60/60 test files, 380/380 tests passed), `npm run lint` (0 errors/warnings).
+* **Status:** `EXECUTED & VALIDATED`. Ready for PR merge and deployment.
+
+### 2026-10-28 (Session 57) — GSC Manual Indexation Requests: High-Opportunity Calculators (Days 1 & 2)
+* **Session Lead:** AI/SEO Agent & User Operator
+* **Objective:** Execute live URL Inspection and manual indexing requests for Day 1 and Day 2 high-priority calculator assets per [`SEO/INDEXATION_PLAN.md`](file:///d:/powerlab/SEO/INDEXATION_PLAN.md).
+* **Target URLs (8 Canonical Calculators):**
+  * `https://www.powelab.org/home-energy/air-conditioner-cost-calculator`
+  * `https://www.powelab.org/ev/ev-range-calculator`
+  * `https://www.powelab.org/battery/battery-capacity-calculator`
+  * `https://www.powelab.org/solar/solar-panel-output-calculator`
+  * `https://www.powelab.org/battery/battery-runtime-calculator`
+  * `https://www.powelab.org/home-energy/energy-bill-calculator`
+  * `https://www.powelab.org/home-energy/home-battery-size-calculator`
+  * `https://www.powelab.org/battery/voltage-drop-calculator`
+* **Status:** `SUBMITTED — PENDING CRAWL` (8/63 canonical pages submitted to GSC).
+
 ### 2026-10-09 (Session 56) — Ahrefs Technical SEO Audit Remediation: Meta Description Boundaries & Canonical Host Redirection
 * **Session Lead:** AI/SEO Agent (User Authorized Execution)
 * **Objective:** Remediate 29 Ahrefs-flagged meta descriptions (>160 chars), consolidate apex/trailing-slash redirects to eliminate redirect chains, verify canonical consistency, and audit external backlink classifications without overreacting.
