@@ -20,7 +20,7 @@
   * [`src/app/battery/page.tsx`](file:///d:/powerlab/src/app/battery/page.tsx) — Added Battery Storage Chemistry, Usable Capacity & Round-Trip Efficiency (RTE) Matrix.
   * [`src/app/solar/page.tsx`](file:///d:/powerlab/src/app/solar/page.tsx) — Added Solar PV Array Geometry, Climate Insolation & Multiplicative System Loss Matrix.
 * **Validation:** `npm run typecheck` (0 errors), `npm test` (60/60 test files, 380/380 tests passed), `npm run lint` (0 errors/warnings).
-* **Status:** `EXECUTED & VALIDATED`. Ready for PR merge and deployment.
+* **Status:** `DEPLOYED & GSC VALIDATION RE-REQUESTED` — PR #31 merged into `main`, production deployment live on `https://www.powelab.org/`. The 4 Category Hubs (`/calculators`, `/home-energy`, `/battery`, `/solar`) and 2 enhanced calculators (`/home-energy/electricity-usage-calculator`, `/battery/battery-size-calculator`) were tested live and submitted for indexing in GSC, and the "Explorée, actuellement non indexée" validation was officially re-initiated.
 
 ### 2026-10-28 (Session 57) — GSC Manual Indexation Requests: High-Opportunity Calculators (Days 1 & 2)
 * **Session Lead:** AI/SEO Agent & User Operator
