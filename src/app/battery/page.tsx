@@ -177,6 +177,78 @@ export default function BatteryHub() {
 
     <SystemFlowDiagram category="battery" />
 
+    <section aria-labelledby="battery-chemistry-matrix" style={{ marginTop: "2.5rem", marginBottom: "2.5rem" }}>
+      <h2 id="battery-chemistry-matrix">
+        Battery Storage Chemistry, Usable Capacity &amp; Efficiency Matrix
+      </h2>
+      <p>
+        Accurate runtime and battery capacity sizing require matching electrical loads with electrochemical cell physics, recommended Depth of Discharge (DoD) limits, and Peukert discharge kinetics:
+      </p>
+      <div className="scenario-table" role="region" aria-label="Battery chemistry comparison benchmarks">
+        <table>
+          <caption>Comparison of battery storage chemistries, DoD reserves, round-trip efficiency &amp; cycle lifespan</caption>
+          <thead>
+            <tr>
+              <th scope="col">Chemistry</th>
+              <th scope="col">Nominal Pack Voltage</th>
+              <th scope="col">Recommended Usable DoD</th>
+              <th scope="col">Round-Trip Efficiency (RTE)</th>
+              <th scope="col">Peukert Constant $(k)$</th>
+              <th scope="col">Cycle Life (@ 80% DoD)</th>
+              <th scope="col">Primary Application</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Lithium Iron Phosphate (LiFePO4)</strong></td>
+              <td>12.8V / 25.6V / 51.2V</td>
+              <td>80% – 90%</td>
+              <td>92% – 96%</td>
+              <td>1.02 – 1.05</td>
+              <td>3,500 – 6,000+</td>
+              <td>Home BESS, Solar Storage, RV &amp; Off-Grid</td>
+            </tr>
+            <tr>
+              <td><strong>Lithium Nickel Manganese Cobalt (NMC)</strong></td>
+              <td>11.1V / 22.2V / 48.1V</td>
+              <td>80% – 85%</td>
+              <td>90% – 94%</td>
+              <td>1.03 – 1.06</td>
+              <td>1,500 – 2,500</td>
+              <td>EV Traction Packs, Portable Power Stations</td>
+            </tr>
+            <tr>
+              <td><strong>Absorbent Glass Mat (AGM Lead-Acid)</strong></td>
+              <td>12.0V / 24.0V / 48.0V</td>
+              <td>50%</td>
+              <td>80% – 85%</td>
+              <td>1.12 – 1.25</td>
+              <td>400 – 600</td>
+              <td>Standby UPS, Telecom, Emergency Backup</td>
+            </tr>
+            <tr>
+              <td><strong>Deep-Cycle Gel Lead-Acid</strong></td>
+              <td>12.0V / 24.0V / 48.0V</td>
+              <td>50%</td>
+              <td>80% – 84%</td>
+              <td>1.15 – 1.30</td>
+              <td>500 – 800</td>
+              <td>Marine, Deep Discharge, Remote Solar</td>
+            </tr>
+            <tr>
+              <td><strong>Flooded Lead-Acid (FLA)</strong></td>
+              <td>12.0V / 24.0V / 48.0V</td>
+              <td>50%</td>
+              <td>75% – 80%</td>
+              <td>1.20 – 1.35</td>
+              <td>300 – 500</td>
+              <td>Legacy Solar Banks, Industrial Motive</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
     <CategoryWorkflow
       categoryTitle="Battery & Energy Storage"
       categoryDescription="Follow our 4-step engineering workflow to calculate, size, convert, and verify battery performance for backup outages and off-grid living:"

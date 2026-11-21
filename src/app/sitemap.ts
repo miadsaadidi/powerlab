@@ -62,8 +62,8 @@ export function getPathLastModified(
   const paperDate = researchDateMap.get(path);
   if (paperDate) return paperDate;
 
-  // Recent comprehensive platform upgrade date across all calculators, guides, datasets, and hubs
-  return new Date("2026-09-16T00:00:00Z");
+  // Comprehensive platform upgrade and indexation synchronization date across all calculators, guides, datasets, and hubs
+  return new Date("2026-11-21T00:00:00Z");
 }
 
 export default function sitemap(): MetadataRoute.Sitemap {

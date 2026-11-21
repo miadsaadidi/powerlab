@@ -33,5 +33,7 @@ export const APPLIANCES: AppliancePreset[] = [
   { id: "split-ac", label: "Split AC", watts: 1500, typicalRange: "500–3500 W", category: "Cooling", defaultDutyCycle: 1, loadType: "ac" },
   { id: "phone-charger", label: "Phone Charger", watts: 10, typicalRange: "5–30 W", category: "Common", defaultDutyCycle: 1, loadType: "ac" },
   { id: "game-console", label: "Game Console", watts: 150, typicalRange: "50–250 W", category: "Electronics", defaultDutyCycle: 1, loadType: "ac" },
+  { id: "nas-server", label: "Home Server / NAS", watts: 60, typicalRange: "30–150 W", category: "Electronics", defaultDutyCycle: 1, loadType: "ac" },
+  { id: "server-rack", label: "Rack Server (1U/2U)", watts: 350, typicalRange: "150–800 W", category: "Electronics", defaultDutyCycle: 1, loadType: "ac" },
   { id: "custom", label: "Custom Appliance", watts: 100, typicalRange: "Enter your device rating", category: "Other", defaultDutyCycle: 1, loadType: "ac" },
 ];

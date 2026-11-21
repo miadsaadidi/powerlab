@@ -37,6 +37,14 @@ const FAQS = [
     question: "How many kWh does an average home use per month?",
     answer: "According to U.S. Energy Information Administration (EIA) benchmarks (2022/2023 Form EIA-861/RECS data), the average U.S. residential customer consumes approximately 880 to 900 kWh per month (around 29 to 30 kWh per day, or ~10,500 kWh per year). Actual usage varies widely by home size, climate zone, heating fuel type, and appliance efficiency.",
   },
+  {
+    question: "How do you calculate server power consumption and 24/7 operating cost?",
+    answer: "Continuous 24/7 compute loads draw energy constantly without thermostatic cycling (100% duty cycle). Multiply continuous IT equipment watts by 24 hours and divide by 1,000 to find Daily kWh (Daily kWh = Watts × 24 ÷ 1,000). For enterprise facilities, multiply by Power Usage Effectiveness (PUE, typically 1.2 to 1.5) to account for data center cooling and power conversion losses. Monthly kWh is Daily kWh × 30.4375, and annual kWh is Daily kWh × 365.25. At $0.16/kWh, an illustrative 350W rack server consumes 8.4 kWh/day (~255.7 kWh/month), costing approximately $40.91 per month in electricity.",
+  },
+  {
+    question: "How much electricity does a home lab or NAS server use per year?",
+    answer: "A low-power home NAS or mini PC averaging 40W to 60W continuous draw consumes 0.96 to 1.44 kWh per day, or 350 to 526 kWh per year (~$56 to $84/year at $0.16/kWh). An enterprise 1U or 2U server idling at 150W to 350W consumes 1,315 to 3,068 kWh per year (~$210 to $491/year).",
+  },
 ];
 
 export default function ElectricityUsagePage() {
@@ -213,6 +221,62 @@ export default function ElectricityUsagePage() {
                 <td>6 hours/day</td>
                 <td>~54.79 kWh</td>
                 <td>~$8.77</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h3 style={{ marginTop: "2.5rem", fontSize: "1.2rem" }}>
+          Server, Homelab &amp; Data Center 24/7 Power Consumption Benchmark
+        </h3>
+        <p>
+          Unlike cycling residential equipment, IT servers, NAS units, and data center racks operate continuously 24 hours per day, 365 days per year (100% continuous duty cycle). Total electricity draw is modeled by multiplying baseline IT hardware wattage by operational facility PUE (Power Usage Effectiveness, accounting for HVAC precision cooling and UPS losses):
+        </p>
+        <div className="scenario-table" role="region" aria-label="Server and data center electricity usage benchmarks">
+          <table>
+            <caption>Continuous 24/7 server power consumption, monthly kWh &amp; operating cost</caption>
+            <thead>
+              <tr>
+                <th scope="col">Server &amp; Compute Equipment</th>
+                <th scope="col">Continuous Watts</th>
+                <th scope="col">Facility PUE</th>
+                <th scope="col">Est. Daily kWh</th>
+                <th scope="col">Est. Monthly kWh</th>
+                <th scope="col">Est. Annual Cost (@ $0.16/kWh)</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Home NAS / Mini PC Server</strong></td>
+                <td>45 W</td>
+                <td>1.00 (Native)</td>
+                <td>1.08 kWh</td>
+                <td>~32.87 kWh</td>
+                <td>~$63.12/yr</td>
+              </tr>
+              <tr>
+                <td><strong>Compact 1U Edge Server (Single Xeon/EPYC)</strong></td>
+                <td>150 W</td>
+                <td>1.15 (Lab/Office)</td>
+                <td>4.14 kWh</td>
+                <td>~126.01 kWh</td>
+                <td>~$241.94/yr</td>
+              </tr>
+              <tr>
+                <td><strong>High-Density 2U Enterprise Server (Dual Socket + GPU)</strong></td>
+                <td>450 W</td>
+                <td>1.25 (Enterprise Room)</td>
+                <td>13.50 kWh</td>
+                <td>~410.91 kWh</td>
+                <td>~$788.94/yr</td>
+              </tr>
+              <tr>
+                <td><strong>Data Center Server Rack (42U @ 5 kW IT Load)</strong></td>
+                <td>5,000 W</td>
+                <td>1.35 (Colocation Tier III)</td>
+                <td>162.00 kWh</td>
+                <td>~4,930.88 kWh</td>
+                <td>~$9,467.28/yr</td>
               </tr>
             </tbody>
           </table>

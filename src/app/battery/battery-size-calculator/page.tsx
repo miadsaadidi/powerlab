@@ -38,6 +38,10 @@ const FAQS = [
     question: "How much extra capacity should I add for battery aging?",
     answer: "A planning margin can provide additional nominal capacity headroom, but actual capacity loss over time depends on battery chemistry, operating temperature, cycling frequency, depth of discharge, maintenance, and manufacturer specifications. For general planning, many system designers select a 10% to 20% margin.",
   },
+  {
+    question: "How do you calculate battery size for peak shaving and TOU rate arbitrage?",
+    answer: "In peak shaving and Time-of-Use (TOU) energy arbitrage, battery storage discharges to keep facility grid draw below a peak demand threshold during high-tariff utility windows. Required usable storage equals the shaved demand (Peak kW − Target Limit kW) multiplied by the duration of the peak billing window (hours), divided by inverter conversion efficiency and battery depth of discharge: Battery Capacity (kWh) = [(Peak kW − Target kW) × Peak Hours] ÷ (DoD × Round-Trip Efficiency).",
+  },
 ];
 
 export default function BatterySizePage() {
@@ -159,6 +163,52 @@ export default function BatterySizePage() {
                 <td>~4.04 kWh (337 Ah)</td>
                 <td>~6.06 kWh (505 Ah)</td>
                 <td>~12.12 kWh (1,010 Ah)</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h3 style={{ marginTop: "2.5rem", fontSize: "1.2rem" }}>
+          Peak Shaving &amp; Time-of-Use (TOU) Battery Sizing Matrix
+        </h3>
+        <p>
+          For commercial facilities and residential homes on Time-of-Use demand charges, battery energy storage systems (BESS) are sized to shave utility demand peaks during high-tariff windows (typically 4:00 PM to 9:00 PM, a 4-to-5 hour duration). Battery capacity is determined by the demand reduction target $(\Delta P)$ and window hours:
+        </p>
+        <div className="scenario-table" role="region" aria-label="Peak shaving battery storage capacity benchmarks">
+          <table>
+            <caption>Peak shaving battery capacity requirements across commercial and residential demand targets</caption>
+            <thead>
+              <tr>
+                <th scope="col">Peak Demand Shave Target</th>
+                <th scope="col">Peak Window Duration</th>
+                <th scope="col">Delivered Energy (kWh)</th>
+                <th scope="col">Recommended BESS Size (90% DoD, 88% RTE)</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Residential TOU Shave (2.0 kW)</strong></td>
+                <td>4 hours (e.g. 5–9 PM)</td>
+                <td>8.0 kWh</td>
+                <td>~10.1 kWh LiFePO4</td>
+              </tr>
+              <tr>
+                <td><strong>Small Commercial Office (10.0 kW)</strong></td>
+                <td>4 hours (e.g. 1–5 PM)</td>
+                <td>40.0 kWh</td>
+                <td>~50.5 kWh BESS</td>
+              </tr>
+              <tr>
+                <td><strong>Commercial Facility / EV Depot (25.0 kW)</strong></td>
+                <td>5 hours (e.g. 4–9 PM)</td>
+                <td>125.0 kWh</td>
+                <td>~157.8 kWh BESS</td>
+              </tr>
+              <tr>
+                <td><strong>Industrial / Manufacturing (50.0 kW)</strong></td>
+                <td>4 hours (peak tariff)</td>
+                <td>200.0 kWh</td>
+                <td>~252.5 kWh BESS</td>
               </tr>
             </tbody>
           </table>
